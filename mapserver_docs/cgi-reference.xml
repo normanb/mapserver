@@ -26,7 +26,7 @@
     <abstract>
       <para>        This document is a reference for the mapserv CGI
         version 3.5.        </para>
-      <para>Last Updated:  01-03-2002</para>
+      <para>Last Updated:  01-31-2002</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -46,7 +46,7 @@
         </listitem>
         <listitem>
           <para>In cases where multiple values are associated with a
-            variable (e.g. mapext), the values must be separated by
+            variable (eg. mapext), the values must be seperated by
             spaces (or their escaped  equivalents for GET requests).</para>
         </listitem>
         <listitem>
@@ -57,7 +57,7 @@
             <para>
                 Any CGI Variable not listed below is simply stored and 
                 can be referenced within a 
-	            <ulink url="mapfile-reference.html">template file</ulink>. 
+	            <ulink url="template-reference.html">template file</ulink>. 
             </para>
         </listitem>
       </itemizedlist>
@@ -84,7 +84,7 @@
             <term>ID</term>
 	           <listitem>
                     <para> 
-						By default MapServer generates a unique session
+						By default MapServer generates a uniq session
 						id based on system time and process id.
 						This parameter overwrites the default.
 	                </para>
@@ -170,7 +170,7 @@
           <term>LAYERS [name name ...]</term>
           <listitem>
             <para> The names of the layers to be turned on. Layer names
-              must be separated by spaces.</para>
+              must be seperated by spaces.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -211,7 +211,7 @@
           <listitem>
             <para> 
 				A point, in the same coordinate system as the
-              	shapefiles, to be used in conjunction with a buffer or a
+              	shapefiles, to be used in conjuction with a buffer or a
               	scale to construct a map extent. 
 			</para>
             <para>
@@ -315,7 +315,7 @@
                     using a layer FILTER. Returns all matches. Layer to
                     be searched is defined using slayer parameter. The
                     results of this search are applied to other
-                    searchable layers (which can delimited using the
+                    searchable layers (which can belimited using the
                     QLAYER parameter).</para>
                 </listitem>
               </varlistentry>
@@ -366,7 +366,7 @@
               identifies a query file to load before any regular
               processing. In BROWSE mode this result in a query map
               being produced instead of a regular map. This is useful
-              when you want to highlight a feature while still in a
+              when you want to hilite a feature while still in a
               pan/zoom mode. In NQUERY mode you&apos;d gain access to
               any of the templates used in normally presenting the
               query, so you have access to query maps AND attribute
@@ -428,7 +428,7 @@
           <term>SEARCHMAP</term>
           <listitem>
             <para> It is possible to do pan/zoom interfaces using
-              querymaps. In these cases you will likely want information
+              querymaps. In these cases you will likey want information
               about the contents of the new map rather than the previous
               map which is the normal way queries work. When searchmap
               is specified the new map is created an it&apos;s extent is
@@ -512,33 +512,32 @@
     <sect2 id="mapfile">
       <title>Changing <ulink url="mapfile-reference.html">map
         file</ulink> parameters via a form or a URL</title>
-      <para>Beginning with version 3.3 it is now possible to change
+      <para>Begining with version 3.3 it is now possible to change
         virtually any map file value from a form or a URL. The syntax
         for this is fairly straight forward. Any value can be expressed
-        using the hierarchy used in a map file: a map contains a layer,
+        using the hierarchy used in a map file. A map contains a layer,
         which contains  a class, which contains a label, which has a
-        color. This hierarchy is expressed as a sequence of MapServer
-        keywords separated by underscores. For example, to change the
+        color. This hierarchy is expressed as a  sequence of MapServer
+        keywords seperated by underscores. For example to change the
         color of a layer called &quot;lakes&quot; with only one class
-        defined, you would use a form variable named
+        defined you would use a form variable named
         &quot;map_lakes_class_color&quot; and could assign it a color
         like &quot;0 0 255&quot;. Layers can be referenced by index
         (i.e. map_layer_0...) or by name as shown above. Layer classes
         are referenced by index value (i.e.  map_layer_0_class_2). If
         there is only 1 class for a layer then the index should be
-        omitted. These variables must always begin with the sequence
+        ommited. These variables must always begin with the sequence
         &quot;map_&quot;. Values assigned must conform to the syntax of
         a map file.</para>
       <para>It is also possible to define inline features using this
         mechanism. This is the only case where you can add on to the map
         file.  You can edit/change layer parameters but you cannot
         create a new layer. With inline features you have to first
-        create a feature and then build upon it; however, the layer the
+        create a feature and then build upon it, however, the layer the
         feature belongs to must exist. Here&apos;s a snippet from a GET
         request that adds a feature to a webuser layer:
         <programlisting><![CDATA[
-        ...&map_webuser_feature=new&map_webuser_feature_points=
-           12345.6789+ 12345.6789+map_webuser_feature_text=My+House!&...
+      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789+map_webuser_feature_text=My+House!&...
       ]]></programlisting>
         The &quot;map_webuser_feature=new&quot; creates a new feature
         for the webuser layer. All subsequent calls to the feature
@@ -560,7 +559,7 @@
             	<listitem>
                 	<para>
                     	OV - eGIS - additional token "none" is defined to 
-                    	create somewhat mutual exclusiveness between 
+                    	create somewhat mutual exculsiveness between 
                     	mapserver and eGIS.
      	           </para>
         	        <para>
