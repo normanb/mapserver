@@ -516,7 +516,8 @@
     Feature Count: 777
     Extent: (-70.674324, 41.519817) - (-69.969211, 42.046868)
     Layer SRS WKT: GEOGCS["NAD83",DATUM["North_American_Datum_1983",
-    SPHEROID["GRS 1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]]
+    SPHEROID["GRS 1980",6378137,298.257222101]],PRIMEM["Greenwich",0],
+          UNIT["degree",0.0174532925199433]]
     MODULE: String (8.0)
     FILE: String (5.0)
     STATE: Integer (2.0)
