@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>Mapserver PHP/Mapscript Installation HOWTO - Version 4.0</title>
+		<title>Mapserver PHP/Mapscript Installation HOWTO - Version 4.2</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
@@ -22,14 +22,14 @@
 			<para>
          This document describes the procedures for obtaining, compiling and installing the PHP/Mapscript Module for Mapserver.
       </para>
-			<para>Last Updated: 07/09/2003</para>
+			<para>Last Updated: 04/19/2004</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-			The PHP/MapScript module is a PHP dynamically loadable module that makes <ulink url="http://mapserver.gis.umn.edu/mapscript.html">MapServer's
-               MapScript</ulink> functions and classes available in a PHP4 environment. 		
+			The PHP/MapScript module is a PHP dynamically loadable module that makes MapServer's MapScript functions 
+			and classes available in a PHP4 environment. 		
           </para>
 		<para>
 			The original version of MapScript (in Perl) uses <ulink url="http://www.swig.org/">SWIG</ulink>, but since SWIG does not support the PHP language, the        module has to be maintained separately and may not always be in sync with the Perl version. 
@@ -84,8 +84,8 @@
 				<listitem>
 					<para>
                       More information on the PHP/Mapscript Module can be found at 
-                      <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/index.html">
-                      http://www2.dmsolutions.ca/mapserver/php_mapscript/index.html</ulink>.
+                      <ulink url="http://www.maptools.org/php_mapscript/">
+                      http://www.maptools.org/php_mapscript/</ulink>.
                </para>
 				</listitem>
 				<listitem>
@@ -165,12 +165,6 @@
 								  howto for installing PHP for PWS/IIS 3, PWS 4 or newer, and IIS 4 or newer. 
 								</para>
 							</listitem>
-							<listitem>
-								<para>
-								  A <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_iis4.html">
-								  step by step configuration guide</ulink> for PHP under IIS4.0.
-								</para>
-							</listitem>
 						</itemizedlist>
 					</listitem>
 				</itemizedlist>
@@ -204,7 +198,7 @@
 							<para>
 				          Copy the <filename>php_mapscript.so</filename> library to your PHP extensions directory,
 				            and then use the <function>dl()</function> function to load the module at the beginning of
-				            your PHP scripts.   See also the PHP function <ulink url="http://www.php.net/manual/en/function.extension-		loaded.php">
+				            your PHP scripts.   See also the PHP function <ulink url="http://www.php.net/manual/en/function.extension-loaded.php">
 									<function>extension_loaded()</function>
 								</ulink>to
 				               check whether an extension is already loaded.
@@ -241,7 +235,7 @@
   							binary for your PHP version on the MapServer site at
   							<ulink url="http://mapserver.gis.umn.edu/win32binaries.html">												http://mapserver.gis.umn.edu/win32binaries.html</ulink> 
   							or on DM Solutions' site at
-  							<ulink url="http://www2.dmsolutions.ca/mapserver/dl/">http://www2.dmsolutions.ca/mapserver/dl/								</ulink>
+  							<ulink url="http://www.maptools.org/php_mapscript/">http://www.maptools.org/php_mapscript/</ulink>
 						</para>
 						<para>
 							If for some reason you really need to compile your own Windows binary
@@ -585,7 +579,7 @@
 								<listitem>
 									<para>
                     				     The next example is the <ulink url="http://www2.dmsolutions.ca/gmap/gmap75.phtml">GMap demo</ulink>. You can
-                    		download the whole source and data files from <ulink url="http://www2.dmsolutions.ca/mapserver/dl">							http://www2.dmsolutions.ca/mapserver/dl</ulink>.
+                    		download the whole source and data files from <ulink url="http://www.maptools.org/dl/">							http://www.maptools.org/dl/</ulink>.
 						</para>
 								</listitem>
 							</itemizedlist>

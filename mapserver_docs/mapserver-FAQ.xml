@@ -1,57 +1,50 @@
-<?xml version='1.0' standalone='no'?>
+<?xml version="1.0" standalone="no"?>
 <!DOCTYPE qandaset PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
-
-<qandaset defaultlabel='qanda'>
-<title>MapServer Frequently Asked Questions</title>
-
-<!-- Addin Questions -->
-    <qandaentry>
-      <question>
-        <para>
+<qandaset defaultlabel="qanda">
+	<title>MapServer Frequently Asked Questions</title>
+	<!-- Addin Questions -->
+	<qandaentry>
+		<question>
+			<para>
         How do I add questions and answers to this FAQ?
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
         If you have access to the mapserver_docs CVS, you can add
         them directly to the mapserver-FAQ.xml document.  Otherwise,
         just send the question to the mapserver documentation
         coordinator at <email>mdp@lists.gis.umn.edu</email>.
         </para>
-      </answer>
-    </qandaentry>
-
-
-<!-- demo in 3.5 -->
-    <qandaentry>
-      <question>
-        <para>
+		</answer>
+	</qandaentry>
+	<!-- demo in 3.5 -->
+	<qandaentry>
+		<question>
+			<para>
         How do I get the demo to work in MapServer version 3.5?
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
         There are several changes when moving to version 3.5 of the MapServer
         that make mapfiles from earlier versions incompatible.  The best thing
         to do is to download a new demo that Steve Lime put together.  Its is 
-        available from a <ulink 
-        url='http://cvs.gis.umn.edu/dist/itasca3.5.tar.gz'>
+        available from a <ulink url="http://cvs.gis.umn.edu/dist/itasca3.5.tar.gz">
         Itasca Demo</ulink>.
         </para>
-      </answer>
-    </qandaentry>
-
-
-<!-- Polylines -->
-    <qandaentry>
-      <question>
-        <para>
+		</answer>
+	</qandaentry>
+	<!-- Polylines -->
+	<qandaentry>
+		<question>
+			<para>
         What does Polyline mean in MapServer?
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
           There's confusion over what POLYLINE means in MapServer and via ESRI.
           In MapServer POLYLINE simply means a linear representation of POLYGON data.
           With ESRI polyline means multi-line. Old versions of the Shapefile techical description
@@ -61,40 +54,37 @@
           is so important. I suppose there is a better choice than POLYLINE but I don't know
           what it would be.
         </para>
-        <para>
+			<para>
           Note that the only difference between POLYLINE and LINE layers is how they are
           labeled.
         </para>
-      </answer>
-    </qandaentry>
-
-
-<!-- query in 3.5 -->
-    <qandaentry>
-      <question>
-        <para>
+		</answer>
+	</qandaentry>
+	<!-- query in 3.5 -->
+	<qandaentry>
+		<question>
+			<para>
         How do I convert a version 3.4 mapfile to version 3.5?
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
          Query related information was moved to the CLASS object in 3.5. So every 
          CLASS that has a TEMPLATE parameter is queriable.  To convert a 3.4 mapfile 
          to 3.5, one has to transfer the TEMPLATE parameter from the former QUERY 
          objects to the corresponding CLASS objects.
         </para>
-      </answer>
-    </qandaentry>
-
-<!-- Support for GeoTiff -->
-    <qandaentry>
-      <question>
-        <para>
+		</answer>
+	</qandaentry>
+	<!-- Support for GeoTiff -->
+	<qandaentry>
+		<question>
+			<para>
         Does MapServer support GeoTIFF?
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
         MapServer's existing (pre 3.5) TIFF support will
         read the georeferencing coefficients from the .tif file if available, in which
         case no .tfw is required.  However, it does not read the coordinate system
@@ -104,22 +94,22 @@
         <ulink url="http://www.remotesensing.org/geotiff/geotiff.html">libgeotiff</ulink>
         includes the ability to create a .tfw file from a GeoTIFF file. 
         </para>
-      </answer>
-    </qandaentry>
-
-<!-- Set Line Width -->
-   <qandaentry>
-    <question>
-     <para>
+		</answer>
+	</qandaentry>
+	<!-- Set Line Width -->
+	<qandaentry>
+		<question>
+			<para>
       How do I set line width in my maps?
      </para>
-    </question>
-    <answer>
-     <para> 
+		</question>
+		<answer>
+			<para> 
       You must set the symbol for the LAYER to be 'circle' and then 
       you can set the symbol SIZE to be the width you want. A 'circle' symbol can be defined as:
+                    </para>
      <para>
-      <literallayout>     
+					<literallayout>     
        SYMBOL
          NAME 'circle'
          TYPE ELLIPSE
@@ -127,66 +117,72 @@
          POINTS 1 1 END
        END
        </literallayout>
-      </para>
-     </para>
-    </answer>
-  </qandaentry>
-    
-<!-- symbols file in 3.4 -->
-    <qandaentry>
-      <question>
-        <para>
+				</para>
+		</answer>
+	</qandaentry>
+	<!-- symbols file in 3.4 -->
+	<qandaentry>
+		<question>
+			<para>
         When I try running the demo with 3.4 I get the following error 
         message:  msLoadMap(): Unknown identifier. (SHADESET):(6).
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
         The version 3.4 uses a unified symbol file format which means you can
         store all symbols in one file. This allows for inline definitions (i.e.
         within a mapfile) of symbols and more straight forward mapscript access.
         Anyway here's what's needed to switch:
         </para>
-        <orderedlist>
-          <listitem><para>The lines starting with SHADESET, MARKERSET, AND 
-           LINESET and the last END keyword should be deleted.</para></listitem>
-          <listitem><para>"SYMBOLSET symbols/symbol.sym" should be added
-           </para></listitem>
-          <listitem><para>Make the new symbols.sym file by concatenating the 
+			<orderedlist>
+				<listitem>
+					<para>The lines starting with SHADESET, MARKERSET, AND 
+           LINESET and the last END keyword should be deleted.</para>
+				</listitem>
+				<listitem>
+					<para>"SYMBOLSET symbols/symbol.sym" should be added
+           </para>
+				</listitem>
+				<listitem>
+					<para>Make the new symbols.sym file by concatenating the 
            three symbol files together.
-          The new symbols.sym file is also available online at <ulink 
-          url="http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym">
-          http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym</ulink>
-          </para></listitem>
-          <listitem><para>Get your gifs and pngs sorted out if you've switched over to png.
-          </para></listitem>
-          <listitem><para>Styled is no longer supported, you can delete them.
-          </para></listitem>
-          <listitem><para>Refer to png or gif symbols directly, not via the symbol file.
-          </para></listitem>
-        </orderedlist>
-      </answer>
-    </qandaentry>
-
-    
-<!-- Finding Fonts -->
-    <qandaentry>
-      <question>
-        <para>
+          The new symbols.sym file is also available online at <ulink url="http://www.maptools.org/dl/symbols-for-ms34.sym">
+          http://www.maptools.org/dl/symbols-for-ms34.sym</ulink>
+					</para>
+				</listitem>
+				<listitem>
+					<para>Get your gifs and pngs sorted out if you've switched over to png.
+          </para>
+				</listitem>
+				<listitem>
+					<para>Styled is no longer supported, you can delete them.
+          </para>
+				</listitem>
+				<listitem>
+					<para>Refer to png or gif symbols directly, not via the symbol file.
+          </para>
+				</listitem>
+			</orderedlist>
+		</answer>
+	</qandaentry>
+	<!-- Finding Fonts -->
+	<qandaentry>
+		<question>
+			<para>
          How can I get MapServer to recognize partition letters (C:, D: E:)
          to find my fonts?
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
         1. I put the fonts and the fonts.list in the same directory.  This 
         directory can be anywhere, in any drive (partition), so long as MapServer
         have read access to it.  In my case (and as an example), this directory
         resides in the E drive--E:\Projects\fonts.  I can't quite understand why 
         anyone would put fonts in several different directories and partitions.
         </para>
-
-        <para>
+			<para>
         Here's a tidbit of my fonts.list--notice I don't have the paths included:
         <screen>
         andale-mono                     andalemo.ttf
@@ -200,39 +196,34 @@
         arial_narrow-italic             arialni.ttf
         arial_narrow-bold-italic        arialnbi.ttf
         </screen>
-        </para>
-
-        <para>
+			</para>
+			<para>
         By the way, the projects directory (E:\Projects) is also mapped as a
         virtual directory (an alias) for the web server (/projects).  I don't
         think this matters for the fonts and mapserver...  I could be wrong.
         </para>
-
-         <para>
+			<para>
          2. In my map file, I add the line:
            <literal>FONTSET "E:\Projects\fonts"</literal>
-        </para>
-      </answer>
-    </qandaentry>
-
-<!-- True Type font -->
-    <qandaentry>
-      <question>
-        <para>
+			</para>
+		</answer>
+	</qandaentry>
+	<!-- True Type font -->
+	<qandaentry>
+		<question>
+			<para>
           Does anyone have a bat file or an exe file that I can
           use to delete MapServer temp files on Windows? 
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
          Answer 1:  
           For those of you who use windows, there is an executable on our site that
-          can be used to delete tmp files created by mapserver. <ulink 
-          url="http://www2.dmsolutions.on.ca/webtools/dl/deltmpfiles.zip">
-          http://www2.dmsolutions.on.ca/webtools/dl/deltmpfiles.zip</ulink>
-        </para>
-
-        <para>
+          can be used to delete tmp files created by mapserver. <ulink url="http://www.maptools.org/dl/deltmpfiles.zip">
+          http://www.maptools.org/dl/deltmpfiles.zip</ulink>
+			</para>
+			<para>
           Answer 2:
           On Windows 2000 Server we use a simple .cmd file that has one line:
           del C:/temp/*.gif.  The cmd file is run daily by the Task Scheduler 
@@ -240,28 +231,27 @@
           Task Scheduler is usually found in the Start Menu in 
           Program Files->Accessories->System Tools.
         </para>
-        <para>
+			<para>
           .cmd files are similar to batch files (.bat) so perhaps on Win98 a batch
           file would work when scheduled to run by the Task Scheduler. Since you have
           Win95, perhaps you could run the bat file automatically when the machine
           reboots. Assuming you reboot daily at the most and weekly at the least, this
           could meet your needs if the machine has enough disk space.
         </para>
-      </answer>
-    </qandaentry>
-
-<!-- compiling on windows with SDE support -->
-    <qandaentry>
-      <question>
-        <para>
+		</answer>
+	</qandaentry>
+	<!-- compiling on windows with SDE support -->
+	<qandaentry>
+		<question>
+			<para>
          How do I compile MapServer with SDE support on Windows?
         </para>
-      </question>
-      <answer>
-        <para>
+		</question>
+		<answer>
+			<para>
          THE PROBLEM:
         </para>
-        <para>
+			<para>
             When compiling mapserver with SDE support in win32 the libraries provided by
             ESRI are not compatible with Microsoft Visual C++ as the symbol names in the
             ESRI SDE do not match the symbol names that mapserver needs when linking the
@@ -280,16 +270,16 @@
          mapserver.lib(mapsde.obj) : error LNK2001: unresolved external symbol
          _SE_connection_free
         </screen>
-        </para>
-        <para>
+			</para>
+			<para>
             THE SOLUTION:
         </para>
-        <para>
+			<para>
             There is a solution to this problem and it is to creating a DEF file for the
             SDE library. In the DEF file, include an EXPORTS section that contains the
             names of the functions to be included in the library.
         </para>
-        <para>
+			<para>
           Contents of SDE80.DEF:
 <programlisting><![CDATA[
 EXPORTS
@@ -320,19 +310,19 @@ EXPORTS
   SE_shape_get_type = _SE_shape_get_type
   SE_shape_get_num_parts = _SE_shape_get_num_parts
 ]]></programlisting>
-        </para>
-        <para>
+			</para>
+			<para>
             Place this file in the same directory as the SDE80.LIB file and use the
             Microsoft 32-bit LIB utility with the /MACHINE and /DEF switches (e.g.
             <command>LIB /MACHINE:i386 /DEF:SDE80.DEF</command>).
         </para>
-        <para>
+			<para>
           This will alter the SDE80.LIB library so when linking the library with the
           rest of mapserver the symbol reference are resolved and hence the problem is
           solved. Compile the program as before and all your problems should
           disappear.
         </para>
-        <screen>
+			<screen>
          For more Information see:
            Microsoft Systems Journal
            July 1996
@@ -344,7 +334,6 @@ EXPORTS
            Defence Science and Technology Organisation
            egon.kuster@dsto.defence.gov.au
         </screen>
-      </answer>
-    </qandaentry>
-
+		</answer>
+	</qandaentry>
 </qandaset>

@@ -555,8 +555,8 @@
         If you don't have the "epsg" file then you can get it as part of the
         PROJ4 distribution at <ulink url="http://www.remotesensing.org/proj/">
         http://www.remotesensing.org/proj/</ulink> or you can 
-        download it at <ulink url="http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg.zip">
-        http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg.zip</ulink>.
+        download it at <ulink url="http://www.maptools.org/dl/proj4-epsg.zip">
+        http://www.maptools.org/dl/proj4-epsg.zip</ulink>.
         </para>
       </answer>
     </qandaentry>

@@ -5,7 +5,7 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>Mapserver PHP/MapScript Class Reference - Version 4.1</title>
+    <title>Mapserver PHP/MapScript Class Reference - Version 4.2</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
@@ -23,8 +23,8 @@
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
         module, and is the online version of the PHP/Mapscript README file from the Mapserver source code.  
                </para>
-      <para>README version: 1.4</para>
-      <para>Last Updated: 2004-01-17</para>
+      <para>README version: 1.130</para>
+      <para>Last Updated: 2004-04-19</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -46,7 +46,7 @@
       <itemizedlist>
         <listitem>
           <para>
-              The main resource for help is the PHP/MapScript web                         page at: <ulink url="http://www2.dmsolutions.on.ca/mapserver/php_mapscript/">                       http://www2.dmsolutions.on.ca/mapserver/php_mapscript/</ulink>.
+              The main resource for help is the PHP/MapScript web                         page at: <ulink url="http://www.maptools.org/php_mapscript/">                       http://www.maptools.org/php_mapscript/</ulink>.
           </para>
         </listitem>
         <listitem>
@@ -113,7 +113,7 @@
     Layer types:
         MS_LAYER_POINT, MS_LAYER_LINE, MS_LAYER_POLYGON, 
         MS_LAYER_RASTER, MS_LAYER_ANNOTATION, MS_LAYER_QUERY,
-        MS_LAYER_CIRCLE  MS_LAYER_GRATICULE
+        MS_LAYER_CIRCLE  MS_LAYER_TILEINDEX
 
     Layer/Legend/Scalebar/Class Status:
         MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED, MS_DELETE
@@ -153,6 +153,10 @@
         MS_PARSEERR, MS_SDEERR, MS_OGRERR, MS_QUERYERR, MS_WMSERR, 
         MS_WMSCONNERR, MS_ORACLESPATIALERR, MS_WFSERR, MS_WFSCONNERR, 
         MS_MAPCONTEXTERR, MS_HTTPERR
+
+    Symbol types:
+        MS_SYMBOL_SIMPLE,  MS_SYMBOL_VECTOR, MS_SYMBOL_ELLIPSE,
+        MS_SYMBOL_PIXMAP, MS_SYMBOL_TRUETYPE, MS_SYMBOL_CARTOLINE
       </programlisting>
     </sect2>
     <sect2 id="Functions">
@@ -182,8 +186,8 @@
 
    classObj ms_newClassObj(layerObj layer, classObj class)
 
-   The second argument class is optional. If given, the new class
-   created will be a copy of this class.
+  The second argument class is optional. If given, the new class
+  created will be a copy of this class.
                     </programlisting>
         </sect4>
         <sect4 id="Class_members">
@@ -193,8 +197,8 @@
    string title
    int    type
    int    status      (MS_ON, MS_OFF or MS_DELETE)
-   double    minscale
-   double    maxscale
+   double minscale
+   double maxscale
    string template
    labelObj label
    int    numstyles
@@ -242,6 +246,22 @@
        ex class->movestyledown(0) will have the effect of moving style 0
           up to postion 1, and the style at position 1 will be moved
           to position 0.
+
+   int deletestyle(int index)
+       Delete the style specified by the style index. If there are any
+       style that follow the deleted style, their index will decrease by 1.
+
+       NOTE : if you are using the numstyles parameter while using the deletestyle
+              function on the class object you need to refetch a new class
+              object. Example :
+              
+                 //class has 2 styles
+                $class = $oLayer->getclass(0);
+                $class->deletestyle(1);
+                echo $class->numstyles; : will echo 2
+
+                $class = $oLayer->getclass(0);
+                echo $class->numstyles; : will echo 1 
         </programlisting>
         </sect4>
       </sect3>
@@ -275,7 +295,7 @@
    Instances of errorObj are created internally by MapServer as errors
    happen.  Errors are managed as a chained list with the first item being
    the most recent error.  The head of the list can be fetched using 
-   ms_GetErrorObj(), and the list can be cleared using ms_ResetErrorList().      
+   ms_GetErrorObj(), and the list can be cleared using ms_ResetErrorList()     
       </para>
         <sect4 id="error_functions">
           <title>Functions:</title>
@@ -286,7 +306,7 @@
    void ms_ResetErrorList()
         Clear the current error list.  
         Note that clearing the list invalidates any errorObj handles obtained 
-        via the $error->next() method.       
+        via the $error->next() method.     
         </programlisting>
         </sect4>
         <sect4 id="error_members">
@@ -294,7 +314,7 @@
           <programlisting>
    int      code      /* See error code constants above */
    string   routine
-   string   message   
+   string   message
         </programlisting>
         </sect4>
         <sect4 id="error_methods">
@@ -328,16 +348,16 @@
           <title>Constructor:</title>
           <programlisting>
    The grid is always embedded inside a layer object defined as
-   a grid (layer-&gt;connectiontype = MS_GRATICULE)
-   (for more docs : <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapServerGrid">http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapServerGrid</ulink>)
+   a grid (layer->connectiontype = MS_GRATICULE)
+   (for more docs : http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapServerGrid)
 
    A layer can become a grid layer by adding a grid object to it using :
       ms_newGridObj(layerObj layer)
 
-   Example :   $oLayer = ms_newlayerobj($oMap);
+  Example :   $oLayer = ms_newlayerobj($oMap);
               $oLayer-&gt;set("name", "GRID");
               ms_newgridobj($oLayer);
-              $oLayer-&gt;grid->set("labelformat", "DDMMSS");       
+              $oLayer->grid-&gt;set("labelformat", "DDMMSS");     
         </programlisting>
         </sect4>
         <sect4 id="grid_members">
@@ -349,14 +369,14 @@
    double    maxacrs;
    double    mininterval;
    double    maxinterval;
-   string    labelformat;      
+   string    labelformat;     
         </programlisting>
         </sect4>
         <sect4 id="grid_methods">
           <title>Methods:</title>
           <programlisting>
    int set(string property_name, new_value)
-        Set object property to a new value.      
+        Set object property to a new value.   
         </programlisting>
         </sect4>
       </sect3>
@@ -374,7 +394,7 @@ Instances of ImageObj are always created by the map class methods.
    int    width     (read-only)
    int    height    (read-only)
    string imagepath
-   string imageurl       
+   string imageurl    
         </programlisting>
         </sect4>
         <sect4 id="Img_methods">
@@ -401,7 +421,7 @@ Instances of ImageObj are always created by the map class methods.
        
 
    void pasteImage(imageObj srcImg, int transparentColorHex 
-                   [, int dstX, dstY])
+                   [[, int dstX, int dstY], int angle])
         Copy srcImg on top of the current imageObj.
         transparentColorHex is the color (in 0xrrggbb format) from srcImg 
         that should be considered transparent (i.e. those pixels won't 
@@ -409,7 +429,11 @@ Instances of ImageObj are always created by the map class methods.
         If optional dstx,dsty are provided then it defines the position 
         where the image should be copied (dstx,dsty = top-left corner 
         position).
-        Note: this function works only with 8 bits GD images (PNG or GIF).    
+        The optional angle is a value between 0 and 360 degrees to rotate
+        the source image counterclockwise.  Note that if an angle is specified
+        (even if its value is zero) then the dstx and dsty coordinates 
+        specify the CENTER of the destination area.
+        Note: this function works only with 8 bits GD images (PNG or GIF).  
         </programlisting>
         </sect4>
       </sect3>
@@ -467,14 +491,14 @@ is only used to give the possiblity to free the label cache
    int    autominfeaturesize
    int    mindistance
    int    partials
-   int    force    
+   int    force 
         </programlisting>
         </sect4>
         <sect4 id="Lab_methods">
           <title>Method:</title>
           <programlisting>
    int set(string property_name, new_value)
-        Set object property to a new value. Returns -1 on error.      
+        Set object property to a new value. Returns -1 on error.    
         </programlisting>
         </sect4>
       </sect3>
@@ -681,10 +705,10 @@ is only used to give the possiblity to free the label cache
         Ex : $oLayer->setprocessing("SCALE_1=AUTO");
              $oLayer->setprocessing("SCALE_2=AUTO");       
 
-   aString getProcessing
+   aString getProcessing()
         Returns an array containing the processing strings
 
-   boolean clearProcessing
+   boolean clearProcessing()
         Clears all the processing strings
 
    string   executeWFSGetfeature()
@@ -727,7 +751,7 @@ is only used to give the possiblity to free the label cache
           up to postion 1, and the class at position 1 will be moved
           to position 0.
         </programlisting>
-        </sect4>        
+        </sect4>
       </sect3>
       <sect3 id="legend">
         <title>LegendObj Class</title>
@@ -799,7 +823,7 @@ LineObj ms_newLineObj()
         projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.
 
    void free()
-        Destroys resources used by a line object. 
+        Destroys resources used by a line object.    
         </programlisting>
         </sect4>
       </sect3>
@@ -866,6 +890,10 @@ LineObj ms_newLineObj()
 
    int getsymbolbyname(string symbol_name)  
         Returns the symbol index using the name.
+
+   symbol getsymbolobjectbyid(int symbolid)
+        Returns the symbol object using a symbol id. Refer to
+        the symbol object reference section for more details.
 
    void preparequery()
         Calculate the scale of the map and assign it to the map->scale.
@@ -1198,11 +1226,11 @@ LineObj ms_newLineObj()
    void setformatoption(string property_name, new_value)
         Add or Modify the format option list. return true on success.
 
-        Example : $oMap->outputformat->setformatoption("OUTPUT_TYPE", "RASTER");
+    Example : $oMap->outputformat->setformatoption("OUTPUT_TYPE", "RASTER");
      
    string  getformatoption(string property_name)
         Returns the associated value for the format option property passed
-        as argument. Returns an empty string if property not found.      
+        as argument. Returns an empty string if property not found.   
         </programlisting>
         </sect4>
       </sect3>
@@ -1219,7 +1247,7 @@ PointObj ms_newPointObj()
           <programlisting>
    double x
    double y
-   double m  (used only for measured shape files. set to 0 for other types.) 
+   double m  (used only for measured shape files. set to 0 for other types.)
         </programlisting>
         </sect4>
         <sect4 id="pt_methods">
@@ -1292,7 +1320,7 @@ PointObj ms_newPointObj()
    RectObj are sometimes embedded inside other objects.  New ones can
    also be created with:
 
-   RectObj ms_newRectObj()     
+   RectObj ms_newRectObj()  
         </programlisting>
         </sect4>
         <sect4 id="rect_members">
@@ -1328,7 +1356,7 @@ PointObj ms_newPointObj()
         projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.
 
   void free()
-        Destroys resources used by a rect object.       
+        Destroys resources used by a rect object.        
         </programlisting>
         </sect4>
       </sect3>
@@ -1356,7 +1384,7 @@ PointObj ms_newPointObj()
           <title>Method:</title>
           <programlisting>
    int set(string property_name, new_value)
-        Set object property to a new value. Returns -1 on error.     
+        Set object property to a new value. Returns -1 on error.  
         </programlisting>
         </sect4>
       </sect3>
@@ -1382,7 +1410,7 @@ PointObj ms_newPointObj()
         <title>ScalebarObj Class</title>
         <sect4 id="scale_constructor">
           <title>Constructor:</title>
-        <programlisting>
+          <programlisting>
   Instances of scalebarObj are always are always embedded inside the mapObj.
         </programlisting>
         </sect4>
@@ -1465,7 +1493,7 @@ PointObj ms_newPointObj()
 
    void free()
         Closes a shape file (and commits all changes in write mode) and 
-        releases all resources used by the object.   
+        releases all resources used by the object.  
       </programlisting>
         </sect4>
       </sect3>
@@ -1476,7 +1504,7 @@ PointObj ms_newPointObj()
           <programlisting>
    ShapeObj ms_newShapeObj(int type)
         'type' is one of MS_SHAPE_POINT, MS_SHAPE_LINE, MS_SHAPE_POLYGON or
-        MS_SHAPE_NULL   
+        MS_SHAPE_NULL 
         </programlisting>
         </sect4>
         <sect4 id="shape_members">
@@ -1495,7 +1523,7 @@ PointObj ms_newPointObj()
    The values array is an associative array with the attribute values for
    this shape.  It is set only on shapes obtained from layer->getShape().
    The key to the values in the array is the attribute name, e.g. 
-     $population = $shape->values["Population"];     
+     $population = $shape->values["Population"];  
         </programlisting>
         </sect4>
         <sect4 id="shape_methods">
@@ -1535,7 +1563,7 @@ PointObj ms_newPointObj()
        of this point with the m value set.
 
    void free()
-        Destroys resources used by a shape object. 
+        Destroys resources used by a shape object.  
         </programlisting>
         </sect4>
       </sect3>
@@ -1549,7 +1577,7 @@ PointObj ms_newPointObj()
    styleObj ms_newStyleObj(classObj class, styleobj style)
 
    The second argument 'style' is optional. If given, the new style
-   created will be a copy of the style passed as argument.       
+   created will be a copy of the style passed as argument.      
         </programlisting>
         </sect4>
         <sect4 id="style_members">
@@ -1564,7 +1592,7 @@ PointObj ms_newPointObj()
   int           offsety
   colorObj      color
   colorObj      backgroundcolor
-  colorObj      outlinecolor      
+  colorObj      outlinecolor    
         </programlisting>
         </sect4>
         <sect4 id="style_methods">
@@ -1578,6 +1606,85 @@ PointObj ms_newPointObj()
         </programlisting>
         </sect4>
       </sect3>
+      <sect3 id="symbolobj">
+        <title>symbolObj Class</title>
+        <sect4 id="symb_contructor">
+          <title>Contructor:</title>
+          <programlisting>
+  symboldid = ms_newsymbolobj(mapObj map, string symbbolname);
+        
+  Creates a new symbol with default values in the symbolist. 
+  Returns the Id of the new symbol. If a symbol with the same
+  name exists, It's id will be returned.
+
+  To ge a symbol object, you need to use a function on the mapobject :
+        $oSymbol = $map->getsymbolobjectbyid($nId);
+           </programlisting>
+        </sect4>
+        <sect4 id="symb_members">
+          <title>Members:</title>
+          <programlisting>
+  string name;
+  type name;  //Please refer to symbol type constants
+  int inmapfile; If set to TRUE, the symbol will be saved inside the mapfile.
+  double sizex;
+  double sizey
+  int numpoints
+  int filled;
+  int stylelength;
+           </programlisting>
+        </sect4>
+        <sect4 id="symb_functions">
+          <title>Functions:</title>
+          <programlisting>
+ int set(string property_name, new_value)
+   Set object property to a new value.
+
+ int setpoints(array double)
+    Set the points of the symbol. Note that the values passed if an
+    array containing the x and y values of the points. Example
+    array[0] = 1  : x value of the first point
+    array[1] = 0 : y values of the first point
+    array[2] = 1 : x value of the 2nd point
+    ....
+
+ int setstyle(array int)
+    Set the style of the symbol (used for dash patterns)
+
+ array getpointsarray()
+    Returns an array containing the points of the symbol. Refer
+    to setpoints to see how the array should be interpreted.
+
+ array getstylearray()  
+    Returns an array containing the style.
+           </programlisting>
+        </sect4>
+        <sect4 id="symb_example">
+          <title>Example:</title>
+          <programlisting>
+  // create a symbol to be used as a dashed line   
+           
+  $nId = ms_newsymbolobj($gpoMap, "mydash");
+  $oSymbol = $gpoMap-&gt;getsymbolobjectbyid($nId);
+  $oSymbol-&gt;set("filled", MS_TRUE);
+  $oSymbol-&gt;set("sizex", 1);
+  $oSymbol-&gt;set("sizey", 1);
+  $oSymbol-&gt;set("inmapfile", MS_TRUE);
+    
+  $aPoints[0] = 1;
+  $aPoints[1] = 1;
+  $oSymbol-&gt;setpoints($aPoints);
+    
+  $aStyle[0] = 10;
+  $aStyle[1] = 5;
+  $aStyle[2] = 5;
+  $aStyle[3] = 10;
+  $oSymbol-&gt;setstyle($aStyle);
+
+  $style-&gt;set("symbolname", "mydash");     
+         </programlisting>
+        </sect4>
+      </sect3>
       <sect3 id="webobj">
         <title>WebObj Class</title>
         <sect4 id="web_constructor">
@@ -1589,26 +1696,26 @@ PointObj ms_newPointObj()
         <sect4 id="web_members">
           <title>Members:</title>
           <programlisting>
-   string log;
-   string imagepath
-   string template    
-   string imageurl
-   string header
-   string footer
-   string empty     (read-only)
-   string error     (read-only)
-   string mintemplate
-   string maxtemplate
-   double minscale
-   double maxscale
-   rectObj extent   (read-only)  
+    string log;
+    string imagepath
+    string template   
+    string imageurl
+    string header
+    string footer
+    string empty     (read-only)
+    string error     (read-only)
+    string mintemplate
+    string maxtemplate
+    double minscale
+    double maxscale
+   rectObj extent   (read-only)
         </programlisting>
         </sect4>
         <sect4 id="web_methods">
           <title>Method:</title>
           <programlisting>
       int set(string property_name, new_value)
-        Set object property to a new value. Returns -1 on error.   
+        Set object property to a new value. Returns -1 on error.
         </programlisting>
         </sect4>
       </sect3>

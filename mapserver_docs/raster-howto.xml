@@ -3,34 +3,34 @@
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
-	<articleinfo>
-		<!-- insert title here, include the word HOWTO -->
-		<title>HOWTO for Rasters in MapServer 4.0</title>
-		<author>
-			<firstname>Frank</firstname>
-			<surname>Warmerdam</surname>
-			<affiliation>
-				<orgname>DM Solutions Group Inc.</orgname>
-				<address>
-					<email>warmerdam@pobox.com</email>
-				</address>
-			</affiliation>
-		</author>
-		<date>2003-09-25</date>
-		<abstract>
-			<!-- a short description of the contents of the doc -->
-			<para>
+  <articleinfo>
+    <!-- insert title here, include the word HOWTO -->
+    <title>HOWTO for Rasters in MapServer 4.2</title>
+    <author>
+      <firstname>Frank</firstname>
+      <surname>Warmerdam</surname>
+      <affiliation>
+        <orgname>DM Solutions Group Inc.</orgname>
+        <address>
+          <email>warmerdam@pobox.com</email>
+        </address>
+      </affiliation>
+    </author>
+    <date>2003-09-25</date>
+    <abstract>
+      <!-- a short description of the contents of the doc -->
+      <para>
                  This document describes the procedures for using raster data within MapServer applications.
                </para>
-			<para>Last Updated: $Date$</para>
+      <para>Last Updated: $Date$</para>
             <para><link linkend='rhistory'>Revision History</link></para>
-		</abstract>
-	</articleinfo>
+    </abstract>
+  </articleinfo>
 
 <!-- ********************************************************************** -->
      
 <sect1 id="intro">  <title>Introduction</title>
-		
+    
 <para>
     MapServer supports rendering a variety of raster file formats
     in maps.  The following describes some of the supported formats,
@@ -410,32 +410,32 @@ in MapServer 4.
     <varlistentry>
       <term>DITHER=YES</term>
       <listitem>
-	<para>This turns on error diffusion mode, used to convert 24bit images
+  <para>This turns on error diffusion mode, used to convert 24bit images
 to 8bit with error diffusion to get better color results.</para>
-	<para>Example:
-	    <screen>
+  <para>Example:
+      <screen>
 PROCESSING "DITHER=YES"
-	    </screen>
-	</para>
+      </screen>
+  </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term>BANDS=red_or_grey[,green,blue[,alpha]]</term>
       <listitem>
-	<para>This directive allows a specific band or bands to be selected from a raster file.  If one band is selected, it is treated as greyscale.  If 3 are selected, they are treated as red, green and blue.  If 4 are selected they are treated as red, green, blue and alpha (opacity).</para>
-	<para>Example:
-	    <screen>
+  <para>This directive allows a specific band or bands to be selected from a raster file.  If one band is selected, it is treated as greyscale.  If 3 are selected, they are treated as red, green and blue.  If 4 are selected they are treated as red, green, blue and alpha (opacity).</para>
+  <para>Example:
+      <screen>
 PROCESSING "BANDS=4,2,1"
-	    </screen>
-	</para>
+      </screen>
+  </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term>SCALE[_n]=AUTO or min,max</term>
       <listitem>
-	<para>This directive instructs the GDAL reader to pre-scale the 
+  <para>This directive instructs the GDAL reader to pre-scale the 
 incoming raster data.  It is primarily used to scale 16bit or floating point 
 data to the range 0-255, but can also be used to constrast stretch 8bit data.  
 If an explicit min/max are provided then the input data is stretch (or 
@@ -445,22 +445,22 @@ scaling of individual input bands, use the SCALE_1, SCALE_2 and SCALE_3
 keywords (for red, green and blue) instead of SCALE which applies to all bands.
 </para>
 
-	<para>Example:
-	    <screen>
+  <para>Example:
+      <screen>
 PROCESSING "SCALE=AUTO"
   or
 PROCESSING "SCALE_1=409,1203"
 PROCESSING "SCALE_2=203,296"
 PROCESSING "SCALE_3=339,1004"
-	    </screen>
-	</para>
+      </screen>
+  </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term>COLOR_MATCH_THRESHOLD=n</term>
       <listitem>
-	<para>Alter the precision with which colors need to match an entry in 
+  <para>Alter the precision with which colors need to match an entry in 
 the color table to use it when producing 8bit colormapped output (IMAGEMODE 
 PC256).  Normally colors from a raster colormap (or greyscale values) need
 to match exactly.  This relaxes the requirement to being within the 
@@ -471,11 +471,11 @@ raster layers, which would normally use all 256 color entries if available,
 this can be a good way to avoid "stealing" your whole colormap for a raster
 layer.  Normally values in the range 2-6 will give good results. 
 </para>
-	<para>Example:
-	    <screen>
+  <para>Example:
+      <screen>
 PROCESSING "COLOR_MATCH_THRESHOLD=3"
-	    </screen>
-	</para>
+      </screen>
+  </para>
       </listitem>
     </varlistentry>
 
@@ -590,39 +590,39 @@ for world files.
 
 <!-- ********************************************************************** -->
      
-	<!-- Section1: Document Info -->
-	<sect1 id="docinfo">
-		<title>About This Document</title>
-		<sect2 id="copyright">
-			<title>Copyright Information</title>
-			<para>
+  <!-- Section1: Document Info -->
+  <sect1 id="docinfo">
+    <title>About This Document</title>
+    <sect2 id="copyright">
+      <title>Copyright Information</title>
+      <para>
                 Copyright (c) 2001, Frank Warmerdam, DM Solutions Group Inc.
             </para>
-			<para>
+      <para>
                 This documentation is covered by the same Open Source license as the
                 MapServer software itself.  See MapServer's 
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
                 Credits</ulink> page for the complete text.
             </para>
-		</sect2>
-		<sect2 id="disclaimer">
-			<title>Disclaimer</title>
-			<para>
-     				No liability for the contents of this document can be accepted.
-    				Use the concepts, examples and other content at your own risk.
-    				As this is a new edition of this document, there may be errors
-    				and inaccuracies that may be damaging to your system.
-    				Although this is highly unlikely, the author(s) do not take any 
-    				responsibility for that:  proceed with caution.
-                 	</para>
-		</sect2>
-		<!-- Section2: feedback -->
-		<sect2 id="feedback">
-			<title>Feedback</title>
-			<para>
-    				Send any comments or suggestions to the author.
-   			</para>
-		</sect2>
+    </sect2>
+    <sect2 id="disclaimer">
+      <title>Disclaimer</title>
+      <para>
+            No liability for the contents of this document can be accepted.
+            Use the concepts, examples and other content at your own risk.
+            As this is a new edition of this document, there may be errors
+            and inaccuracies that may be damaging to your system.
+            Although this is highly unlikely, the author(s) do not take any 
+            responsibility for that:  proceed with caution.
+                  </para>
+    </sect2>
+    <!-- Section2: feedback -->
+    <sect2 id="feedback">
+      <title>Feedback</title>
+      <para>
+            Send any comments or suggestions to the author.
+        </para>
+    </sect2>
 
 <!-- ********************************************************************** -->
 
@@ -641,6 +641,6 @@ for world files.
   </para>
   </sect2>
 
-	</sect1>
+  </sect1>
 
 </article>

@@ -187,8 +187,8 @@ IMAGEPATH C:\Inetpub\wwwroot\tmp\
           <listitem><para>Make the new symbols.sym file by concatenating the 
            three symbol files together.
           The new symbols.sym file is also avialable online at <ulink 
-          url="http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym">
-          http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym</ulink>
+          url="http://www.maptools.org/dl/symbols-for-ms34.sym">
+          http://www.maptools.org/dl/symbols-for-ms34.sym</ulink>
           </para></listitem>
           <listitem><para>Get your gifs and pngs sorted out if you've switched over to png.
           </para></listitem>
