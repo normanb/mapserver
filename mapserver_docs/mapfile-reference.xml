@@ -514,6 +514,20 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>PROCESSING "directive"</term>
+					<listitem>
+						<para>Passes a processing directive to be used with this layer.  The supported processing directives vary by layer type, and the underlying driver that processes them.  Currently the SCALE and BANDS directives are supported for raster layers processed via the GDAL driver.  This is further explained in the RasterHOWTO.</para>
+						<para>Example:
+						<screen>
+PROCESSING "SCALE_1=AUTO"
+PROCESSING "SCALE_2=AUTO"
+PROCESSING "SCALE_3=AUTO"
+PROCESSING "BANDS=3,2,1,4"
+						</screen>
+						</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>PROJECTION</term>
 					<listitem>
 						<para>Signals the start of a <link linkend="projection">PROJECTION</link> object.</para>
