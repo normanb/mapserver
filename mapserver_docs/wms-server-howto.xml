@@ -938,7 +938,19 @@
             </listitem>
           </itemizedlist>
         </sect4>
-        <sect4 id="group">
+        <sect4 id="group_abstract">
+          <title>wms_group_abstract</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) A blurb of text providing more information about the group.
+                Only one layer for the group needs to contain <filename>wms_group_abstract</filename>, MapServer will find and use the value.
+                The value found for the first layer in the group is used. So if multiple layers have wms_group_abstract set then only the first value is used.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>        
+        <sect4 id="group_title">
           <title>wms_group_title</title>
           <itemizedlist>
             <listitem>
@@ -948,8 +960,10 @@
             </listitem>
             <listitem>
               <para>
-                <emphasis>Description:</emphasis> (Optional) A human-readable name for the group that this layer belongs                                      to.  Only one layer for the group needs to contain <filename>                                       wms_group_title</filename>, MapServer will find and use the value.
-                        </para>
+                <emphasis>Description:</emphasis> (Optional) A human-readable name for the group that this layer belongs to.  
+                Only one layer for the group needs to contain <filename>wms_group_title</filename>, MapServer will find and use the value.
+                The value found for the first layer in the group is used. So if multiple layers have wms_group_title set then only the first value is used.
+              </para>
             </listitem>
           </itemizedlist>
         </sect4>
