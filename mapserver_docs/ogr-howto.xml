@@ -385,7 +385,7 @@
 			</sect3>
 		</sect2>
 		<sect2 id="queries">
-			<title>Queries through OGR format</title>
+			<title>Queries Through OGR Format</title>
 			<para>
 				OGR layers can be queried the same way as regular shapefiles in MapServer.
 			</para>
@@ -399,9 +399,9 @@
 	</sect1>
 	<!-- Section1: FAQ -->
 	<sect1 id="FAQ">
-		<title>FAQ / Common problems</title>
+		<title>FAQ / Common Problems</title>
           <sect2>
-              <title>What does OGR stand for?</title>
+              <title>What Does OGR Stand For?</title>
               <para>
                    Basically, OGR does not stand for anything.  For a detailed explanation of how OGR was named, see Frank
                    Warmerdam's OGR site at <ulink url="http://gdal.velocet.ca/projects/opengis"> 					              http://gdal.velocet.ca/projects/opengis</ulink> in the section 'OGR and OpenGIS'.
