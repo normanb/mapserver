@@ -20,7 +20,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 3.7.
    			</para>
-			<para>Last Updated:  06-13-2002</para>
+			<para>Last Updated:  06-21-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -1200,7 +1200,7 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>IMAGEMODE [PC256/RGB/RGBA]</term>
+					<term>IMAGEMODE [PC256/RGB/RGBA/INT16/FLOAT32]</term>
 					<listitem>
 						<para>Selects the imaging mode in which the output is generated.  Does matter for non-raster formats like Flash.   Not all formats support all combinations.  For instance GD/GIF supports only PC256. (optional)</para>
 						<itemizedlist>
@@ -1212,6 +1212,12 @@ END
 							</listitem>
 							<listitem>
 								<para>RGBA: Render in 32bit Red/Green/Blue/Alpha mode.  Supports all colors, and alpha based transparency.</para>
+							</listitem>
+							<listitem>
+								<para>INT16: Render one band of data in 16 bit integer depth.  Only works for RASTER layers (through GDAL) and WMS layers currently.</para>
+							</listitem>
+							<listitem>
+								<para>FLOAT32: Render one band of data in 32bit floating point depth.  Only works for RASTER layers (through GDAL) and WMS layers currently.</para>
 							</listitem>
 						</itemizedlist>
 					</listitem>
