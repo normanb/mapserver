@@ -11,18 +11,18 @@
 			<affiliation>
 				<orgname>DM Solutions Group Inc.</orgname>
 				<address>
-					<email>mckenna@dmsolutions.ca</email>
+					<email>jmckenna@dmsolutions.ca</email>
 				</address>
 			</affiliation>
 		</author>
-		<date>2004-02-03</date>
+		<date>2004-02-18</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-			<para>Last Updated: 2004-02-03</para>
+			<para>Last Updated: 2004-02-18</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -333,8 +333,8 @@
 					<para>
             WMS servers have to advertise the projection in which they are able to
               serve data using EPSG projection codes (see 
-              <ulink url="http://inovagis.dcea.fct.unl.pt/giserver/epsg.asp">
-            http://inovagis.dcea.fct.unl.pt/giserver/epsg.asp</ulink> for a list of EPSG codes).
+              <ulink url="http://www.inovagis.org/giserver/tutorial/epsg.htm">
+            http://www.inovagis.org/giserver/tutorial/epsg.htm</ulink> for a list of EPSG codes).
               Recent versions of the PROJ4 library come with a table of EPSG 
               initialization codes and allow users to define a projection like this:                    </para>
 					<programlisting>
@@ -959,7 +959,7 @@
                     "minx miny maxx maxy" separated by spaces, with the values in the 
                     layer's projection units.  If <filename>wms_extent</filename> is provided then it has 
                     priority and MapServer will NOT try to read the source file's extents.</para>
-			<para>
+							<para>
              			For Rasters served through WMS, MapServer can now use the <filename>wms_extent</filename> metadata parameter to register the image.
 				If a <filename>.wld</filename> file cannot be found, MapServer will then look for the <filename>wms_extent</filename>
 				metadata parameter and use the extents of the image and the size of the image for georegistration.
@@ -1126,7 +1126,7 @@
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
       </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
