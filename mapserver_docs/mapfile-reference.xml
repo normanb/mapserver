@@ -20,7 +20,7 @@
 			<para>
     This document is a reference to the MapFile syntax for MapServer version 3.5.
     </para>
-			<para>Last Updated:  6/18/2001</para>
+			<para>Last Updated:  6/19/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -576,9 +576,6 @@ END
 				</listitem>
 				<listitem>
 					<para>OVERLAYSYMBOL</para>
-				</listitem>
-				<listitem>
-					<para>OVERLAYSYMBOLNAME</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
