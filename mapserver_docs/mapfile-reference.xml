@@ -18,9 +18,9 @@
 		</author>
 		<abstract>
 			<para>
-    This document is a reference to the MapFile syntax for MapServer version 3.5.
-    </para>
-			<para>Last Updated:  10-30-2001</para>
+    			This document is a reference to the MapFile syntax for MapServer version 3.5.
+   			</para>
+			<para>Last Updated:  11-01-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -205,7 +205,7 @@
 			<para>This object is used to define a label, which is in turn usually used to annotate a feature with a piece of text.  Labels can however also be used as symbols through the use of various TrueType fonts.</para>
 			<variablelist>
 				<varlistentry>
-					<term>ANGLE [int]</term>
+					<term>ANGLE [double]</term>
 					<listitem>
 						<para>Angle, given in degrees, to draw the label or AUTO to allow the software to compute the angle, AUTO is valid for LINE layers only.</para>
 					</listitem>
@@ -582,7 +582,9 @@ END
 				<varlistentry>
 					<term>TYPE [point|line|polygon|circle|annotation|raster|queryonly]</term>
 					<listitem>
-						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, but a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line. Query only means the layer can be queried but not drawn. In order to differentiate between POLYGONs and POLYLINEs (which do not exist as a type), simply respectively use or ommit the COLOR keyword when classifying.  If you use it, it's a polygon with a fill color, otherwise it's a polyline with only an OUTLINECOLOR.</para>
+						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, but a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line. Query only means the layer can be queried but not drawn.</para>
+						<para>In order to differentiate between POLYGONs and POLYLINEs (which do not exist as a type), simply respectively use or ommit the COLOR keyword when classifying.  If you use it, it's a polygon with a fill color, otherwise it's a polyline with only an OUTLINECOLOR.</para>
+						<para>A circle must be defined by a a minimum bounding rectangle. That is, 2 points that define the smallest square that can contain it. These 2 points are the two opposite corners of said box.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
