@@ -387,7 +387,7 @@
 				<varlistentry id="filter">
 					<term>FILTER [string]</term>
 					<listitem>
-						<para>This parameter allows for data specific attribute filtering that is done at the same time spatial filtering is done, but before any CLASS expressions are evaluated.  For OGR and shapefiles the string is simply a mapserver regular expression.  For SDE and PostGIS the string is a SQL WHERE clause that is valid with respect to the underlying database (e.g. Oracle/PostgreSQL)</para>
+						<para>This parameter allows for data specific attribute filtering that is done at the same time spatial filtering is done, but before any CLASS expressions are evaluated.  For OGR and shapefiles the string is simply a mapserver regular expression.  For spatial databases the string is a SQL WHERE clause that is valid with respect to the underlying database.</para>
 						<para>For example: FILTER "type='road' and size &lt;2"</para>
 					</listitem>
 				</varlistentry>
