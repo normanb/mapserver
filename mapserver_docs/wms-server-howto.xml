@@ -19,8 +19,8 @@
     <abstract>
       <!-- a short description of the contents of the doc -->
       <para>
-                 This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through          the use of MapServer v3.5.  
-               </para>
+                 This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through          the use of MapServer v3.5 (and later).  
+      </para>
       <para>Last Updated: 03/01/2002</para>
     </abstract>
   </articleinfo>
@@ -562,6 +562,7 @@
               </para>
               <programlisting>
    SetEnvIf Request_URI "/cgi-bin/mywms" MS_MAPFILE=/path/to/mymap.map
+<<<<<<< wms-server-howto.xml
               </programlisting>
             </listitem>
           </itemizedlist>
@@ -992,7 +993,7 @@
       <title>Copyright Information</title>
       <para>
                 Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
-            </para>
+      </para>
       <para>
                 This documentation is covered by the same Open Source license as the
                 MapServer software itself.  See MapServer's 
