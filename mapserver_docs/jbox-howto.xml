@@ -25,9 +25,7 @@
       This document describes the procedures for obtaining,
       installing, and incorporating the <application>jBox</application> Java applet into
       MapServer web pages. 
-    <application>jBox</application> is an updated version of mapplet in which method naming
-	 conventions have been modified to coordinate with corresponding DHTML libraries.
-	 <application>jBox</application> also includes some functional enhancements over the older mapplet version. 
+    (<application>jBox</application> was formerly called &quot;<application>Mapplet</application>&quot;.) 
 	 <application>jBox</application> is compatible with Mapserver versions 3.x and 4.0.
   </para>
 
@@ -35,16 +33,14 @@
 		This HOWTO is based on the previous version written by Ken Boss <email>kenboss@dilbert.dnr.state.mn.us</email>
   </para>
   
-	<para>Last Updated:  October 7, 2003</para>
+	<para>Last Updated:  January 29, 2004</para>
   </abstract>
 
 
 </articleinfo>
 
-
 <sect1 id="intro">
   <title>Introduction</title>
-
 
   <para>
     The <application>jBox</application> Java applet provides
@@ -66,62 +62,10 @@
     that the sixlegs class tree be installed (see "Installing the Software", below).
     
   </para>
-
-
-  <para>
-    This document assumes no previous knowledge or experience with
-    Java programming or applet installation.  It does, however, assume
-    the following:
-  </para>
-
-
-  <itemizedlist>
-    <listitem>
-      <para>
-        Familiarity with fundamental aspects of managing the
-        MapServer software and the web server.
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        Basic familiarity with the JavaScript browser scripting language.  
-        If this is a limitation, JavaScript reference materials can be found on the web
-        (the <ulink url="http://devedge.netscape.com/docs/manuals/index.html?content=javascript.html">
-        Netscape JavaScript documentation pages</ulink> are a good place to start).
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        The ability to download and unpack (unzip) archive files
-        (e.g., .tar or .zip files) from the Internet.
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        The MapServer software is installed and functioning on a web server.
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        The MapServer demo application is running on your server (see
-        both the download and documentation sections of the <ulink url="http://MapServer.gis.umn.edu">MapServer web-site</ulink>).
-        If you don't have the demo running, but you do have your own
-        MapServer application in place, you probably won't have any
-        difficulty adapting the instructions given here to your
-        application.
-      </para>
-    </listitem>
-
-
-  </itemizedlist>
-
-
 </sect1>
-
 
 <sect1 id="features">
   <title><application>jBox</application> Features</title>
-
 
   <para>
     The <application>jBox</application> applet adds the following functionality to
@@ -134,6 +78,11 @@
       <listitem>
         <para>Users can "drag a box" over a map using their mouse and
         then zoom in to the extent defined by the box.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry><term>Panning</term>
+      <listitem>
+        <para>Users can dynamically pan the map image using their mouse.</para>
       </listitem>
     </varlistentry>
     <varlistentry><term>Box querying</term>
@@ -162,20 +111,68 @@
         <para>The coordinates of the cursor location can be displayed.
 
               (see <ulink url="http://www.kralidis.ca/gis/mapserv/mapplet/howto.htm">
-                   http://www.kralidis.ca/gis/mapserv/mapplet/howto.htm for details</ulink>)
+                   http://www.kralidis.ca/gis/mapserv/mapplet/howto.htm </ulink> for details)
 
         </para>
       </listitem>
     </varlistentry>
   </variablelist>
-
-
 </sect1>
 
 
-<sect1 id="obtain">
-  <title>Obtaining the Software</title>
+<sect1 id="require">
+  <title>Requirements</title>
 
+  <para>
+    This document assumes no previous knowledge or experience with
+    Java programming or applet installation.  It does, however, assume
+    the following:
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>
+        Familiarity with fundamental aspects of managing the
+        MapServer software and the web server.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Basic familiarity with the JavaScript browser scripting language.  
+        If this is a limitation, JavaScript reference materials can be found on the web
+        (the <ulink url="http://devedge.netscape.com/docs/manuals/index.html?content=javascript.html">
+        Netscape JavaScript documentation pages</ulink> are a good place to start).
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The ability to download and unzip files from the Internet.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The MapServer software is installed and functioning on a web server.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The MapServer demo application is running on your server (see
+        both the download and documentation sections of the <ulink url="http://MapServer.gis.umn.edu">MapServer web-site</ulink>).
+        If you don't have the demo running, but you do have your own
+        MapServer application in place, you probably won't have any
+        difficulty adapting the instructions given here to your
+        application.
+      </para>
+    </listitem>
+  </itemizedlist>
+
+</sect1>
+
+<sect1 id="install">
+  <title>Installing the Software</title>
+
+  <sect2 id="unpack">
+    <title>Obtaining jBox</title>
 
   <para>
      <application>jBox</application> can be obtained at 
@@ -183,39 +180,42 @@
     http://MapServer.gis.umn.edu/contributed.html</ulink>.
     Click on the <application>jBox</application> link and save the zip file to a local disk.
   </para>
-</sect1>
-
-
-<sect1 id="install">
-  <title>Installing the Software</title>
-
-  <sect2 id="unpack">
-    <title>Unpacking the Archive</title>
 
     <para>
-      The first step toward installation involves unpacking the
-      archive file you just downloaded.  How you go about this will
-      depend on your operating system.  If you run into problems
-      unpacking the archive, contact your system administrator for
-      help.
+      Unpack the archive file into a new temporary directory.  How you go about this will
+      depend on your operating system.
     </para>
   </sect2>
 
   <sect2 id="position">
-    <title>Positioning the Class File</title>
+    <title>Positioning the Files</title>
 
     <para>
       Refer to the README file for file descriptions. The 
-      <filename>.class</filename> files constitute the Java byte code
-      that you need in order to incorporate the applet into your
+      <filename>.class</filename> files are the Java byte code
+      that is required in order to incorporate the applet into your
       pages. The <filename>com/sixlegs/image/png/*.class</filename> files are required 
     	by the PNG version of <filename>jBox.java</filename> (<filename>jBoxPNG.java</filename>). 
     </para>
 
     <para>
-     	The <filename>.java</filename> files are the Java
-		source code for the applet.  Compiling the source also requires the LiveConnect
-		classes included in the <filename>netscape.zip</filename> file. These files do
+		Alternatively, the <filename>.jar</filename> file(s) can be used rather than the 
+		<filename>.class</filename> files. Jars
+		are Java ARchives (similar to <filename>.tar</filename> or <filename>.zip</filename> files) 
+		that contain multiple <filename>.class</filename> files in a compressed format. Jars have 
+		the potential to improve performance by reducing the number of requests that the browser
+		makes for individual <filename>.class</filename> files. Each <filename>.class</filename>
+		file requires seperate request, but a <filename>.jar</filename> file can provide multiple classes in 
+		response to a single request. Additionally, a <filename>.jar</filename> file may be smaller than 
+		<filename>.class</filename> files due to compression. However in some cases (e.g. 
+		<filename>png.jar</filename>) the <filename>.jar</filename> may supply many more classes than
+		the applet actually requires. 
+    </para>
+
+    <para>
+     	The <filename>.java</filename> files are the Java source code for the applet. Compiling 
+     	the source also requires the LiveConnect classes. <!-- included in the <filename>netscape.zip</filename> file. -->
+     	These files are not required to run <application>jBox</application> or <filename>jBoxPNG.java</filename> and do 
 		not need to be in your web document directory tree.
     </para>
     
@@ -224,46 +224,36 @@
       place the class files somewhere in your web document tree.  For
       example, if your document tree is rooted at
     </para>
-
-
-    <para>
-      <filename class="directory">/usr/local/htdocs</filename>,
-    </para>
-
-
+    <programlisting>
+    /usr/local/htdocs
+        or
+    /Inetpub/wwwroot/
+    </programlisting>
     <para>
       then you might make add a couple of subdirectories under htdocs
-      so that you get a path like:
+      or wwwroot so that you get a path like:
     </para>
-
-
+    <programlisting>
+    /usr/local/htdocs/java/jBox
+        or
+    /Inetpub/wwwroot/java/jBox
+    </programlisting>
     <para>
-      <filename class="directory">/usr/local/htdocs/java/jBox.</filename>
-    </para>
-
-
-    <para>
-      Then place the class files in the jBox subdirectory.
-      For JPEG and GIF files, only <filename>jBox.java</filename> and <filename>evalThread.class</filename>
-      are required. PNG images require <filename>jBoxPNG.java</filename> and <filename>evalThread.class</filename>,
-      and also the sixlegs class tree. For example: 
-   </para>
-
-   <para>
-      <filename>/usr/local/htdocs/java/jBox/com/sixlegs/image/png/*.class</filename>.
+      Then place the jar files in the jBox subdirectory.
+      For JPEG and GIF files, only <filename>jBox.jar</filename> is required. 
+      PNG images require <filename>jBoxPNG.jar</filename> 
+      and also the sixlegs class support <filename>png.jar</filename>.
    </para>
 
     <para>
-      Note that the class files themselves and the directory in which
+      Note that the jar files themselves and the directory in which
       you place them all need to be accessible and readable by the user
       that your web server runs as (often user "nobody").  Make sure
       that the file and directory permissions are properly set, and
       that the web server is properly configured for this.
     </para>
 
-
   </sect2>
-
 
 </sect1>
 
@@ -271,16 +261,14 @@
 <sect1 id="integrate">
   <title>Integrating the <application>jBox</application> applet with an existing MapServer application</title>
 
-
   <para>
-    Now that the class files are in a web-accessible space, they can
+    Now that the class jar  are in a web-accessible space, they can
     easily be integrated into a MapServer application.  We'll use the 
-    MapServer 3.5 demo as an example. This example outlines only the minimal 
+    MapServer demo as an example. This example outlines only the minimal 
     steps required to integrate <application>jBox</application> into a 
     MapServer page. More sophisticated applications of <application>jBox</application>
     are discussed later in this document.
   </para>
-
 
   <para>
     The only changes will be to the html template
@@ -288,7 +276,6 @@
     MapServer demo, this is the file <filename>demo.html</filename>.
     There are essentially four steps:
   </para>
-
 
   <itemizedlist>
     <listitem>
@@ -339,51 +326,6 @@
 
   <sect2 id="addvars">
     <title>Add a hidden variable to the form</title>
- <!--
-    <para>
-      Next, we need to add two html form variables with default values.
-      Before the form is submitted to MapServer these valuse will be replaced
-      based on the user's mouse actions. Add the following lines just after 
-      the form definition that we modified in the previous step:
-    </para>
-
-
-    <programlisting>
-      &lt;input type="hidden" name="imgxy" value="299.5 299.5"&gt;
-      &lt;input type="hidden" name="imgbox" value="-1 -1 -1 -1"&gt;
-    </programlisting>
-
-
-    <para>
-      Note that the name attributes for these variables must be typed
-      exactly as shown.  The <varname>imgxy</varname> variable is used to
-      communicate the screen coordinates of a user's mouse click.  The
-      <varname>imgbox</varname> variable is used to communicate a pair of screen
-      coordinates that define the bounds of a box the user drags with their mouse. 
-      The values for both variables are given in terms of image pixel coordinates.  
-      These default values will be replaced with the coordinates of the user's mouse
-      actions.
-    </para>
-
-
-    <para>
-      In this step we have initialized the two variables
-      and assigned default values to them. The default value for 
-      <varname>imgxy</varname> is the center of the map image, which is set in 
-      <filename>demo.map</filename> to 600x600 pixels. Screen pixels
-      use a zero based numbering system with the upper left pixel being 0,0 and the 
-      lower right pixel being 599,599 for a 600x600 pixel map. Alternately, you can use 
-      MapServer's template substitution to assign the default value to imgxy using "[center]".
-      For example:
-    <programlisting>
-      &lt;input type="hidden" name="imgxy" value="[center]"&gt;
-    </programlisting>      
-      The <varname>imgbox</varname> pixel coordinates are set to -1 all around, which
-      translates essentially to "no box". 
-    </para>
-  </sect2>
--->
-
  
     <para>
       Next, we need to add an html form variable and initialize it with default values.
@@ -429,6 +371,9 @@
 	function setbox_handler(name, minx, miny, maxx, maxy, redraw) {
 		document.mapserv.imgbox.value = minx + " " + miny + " " + maxx + " " + maxy;
 		document.mapserv.imgxy.value = minx + " " + miny;
+		  // Additional code can go here prior to the form submit, below.
+		  // For example, form validation code.
+		document.mapserv.submit();
 	}
 
 	function seterror_handler(message) { 
@@ -495,8 +440,14 @@
       <programlisting>
         &lt;tr&gt;
           &lt;td colspan="2"&gt;
-            &lt;applet codebase="/java/jBox" code="jBox.class" width="600"
-               height="600" name="jBox" MAYSCRIPT&gt;
+            &lt;applet 
+                  codebase="/java/jBox"
+                  archive="jBox.jar"
+                  code="jBox.class"
+                  width="600"
+                  height="600" 
+                  name="jBox" 
+                  MAYSCRIPT&gt;
               &lt;param name="image" value="http://[host][img]"&gt;
             &lt;/applet&gt;
           &lt;/td&gt;
@@ -507,6 +458,7 @@
       	Note: For PNG image support, use 
       	     <programlisting>
       	     	code="jBoxPNG.class"
+      	     	archive="jBoxPNG.jar,png.jar"
       	     </programlisting>
       	above.
       </para>
@@ -633,41 +585,11 @@
 
   <para>
     However, if you turn on the <guilabel>Query feature</guilabel>
-    button and try to get information on some feature, you'll probably
-    notice a couple of things:
+    button and try to get information on some feature, you may get
+    the error message:
+    <errorname>mapserv(): Web application error. Query mode needs a point, imgxy and mapxy are not set.</errorname>
+    This is discussed in more detail, below.
   </para>
-
-
-  <itemizedlist>
-    <listitem>
-      <para>
-        You don't get "instant results" when you click on a feature in
-        the map like you used to.  A small crosshair appears at the
-        point of your mouse click, but that's about it.  You have to
-        make the effort of going over and clicking on the
-        <guilabel>Refresh/Query</guilabel> button before you actually
-        get results back.
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        If you try dragging a box and then hit the
-        <guilabel>Refresh/Query</guilabel> button, you get a different
-        error message:
-
-
-        <errorname>mapserv(): Web application error. Query mode needs a point, imgxy and mapxy are not set.</errorname>
-      </para>
-    </listitem>
-  </itemizedlist>
-
-
-  <para>
-    Is this the experience you want for your users?  Likely not.  The
-    next section will explain how to circumvent these problems with a
-    bit of JavaScript code.
-  </para>
-
 
 </sect1>
 
@@ -676,33 +598,8 @@
 <title>Fine-tuning with JavaScript</title>
 
 
-  <sect2 id="auto_submit">
-  <title>Automating Form Submission</title>
-
-
-    <para>
-      Rather than requiring the user to hit the Refresh/Query button,
-      you can add a couple of lines to the end of the setbox_handler()
-      function to submit the form. For example:
-    </para>
-  
-    <programlisting>
-      if (redraw) {
-        document.mapserv.submit();
-      }
-    </programlisting>
-
-
-    <para>
-      This checks the redraw flag which was passed to setbox_handler()
-      and submits the form named "mapserv" if the redraw flag is set. 
-    </para>
-  </sect2>
-
-
   <sect2 id="box_on_off">
   <title>Turning Box Dragging On and Off</title>
-
 
     <para>
       It is logical to drag a box across a part of the map to zoom in,
@@ -713,7 +610,6 @@
       a box in either of these situations would cause a zoom-in
       regardless  of the zoomdir setting.
     </para>
-
 
     <para>
       Rather than expecting the user to choose between dragging or
@@ -759,7 +655,6 @@
 
 <sect1 id="parameters">
 <title>Optional <application>jBox</application> Parameters</title>
-
 
   <para>
     So far we have passed one parameter to the
@@ -1055,12 +950,12 @@ function seterror_handler(message) {
   	 	
       <programlisting>	 
 	var url;
-	url = &quot;http://www.somedomain.com/cgi-bin/mapserv&quot;+
-		&quot;?mode=map&quot; +
-		&quot;&amp;map=&quot; + mapfile +
-		&quot;&amp;mapext=&quot; + extent.join(&quot;+&quot;) +
-		&quot;&amp;mapsize=&quot; + width + &quot;+&quot; + height +
-		&quot;&amp;layers=&quot; + layerlist;
+	url = &quot;;http://www.somedomain.com/cgi-bin/mapserv&quot;;+
+		&quot;;?mode=map&quot;; +
+		&quot;;&amp;map=&quot;; + mapfile +
+		&quot;;&amp;mapext=&quot;; + extent.join(&quot;;+&quot;;) +
+		&quot;;&amp;mapsize=&quot;; + width + &quot;;+&quot;; + height +
+		&quot;;&amp;layers=&quot;; + layerlist;
 	document.jBox.setimage(url);
 		</programlisting>	 
 
@@ -1092,23 +987,24 @@ function seterror_handler(message) {
   <sect2>
     <title>Distance Measuring</title>
     	<para>
-    	  The distance measuring functionality is designed to mimic the "Measure" and "Ruler" tools 
-    	  found in ArcView and MapInfo, respectively. Distance measuring mode is initiated with a call 
-    	  to <function>lineon()</function> and terminated with a call to <function>lineoff()</function> 
-    	  or <function>boxoff()</function> or <function>boxon()</function>. In distance 
-    	  measuring mode jBox draws a polyline connecting the user's mouse clicks and returns a segment 
-    	  distance and total distance to a JavaScript function named "<function>measure_handler()</function>".
-    	  Double-clicking resets the tool.
+    	  The distance measuring functionality is designed to mimic the &quot;Measure&quot; and &quot;Ruler&quot; tools 
+    	  found in ArcView and MapInfo, respectively. As of jBox version 1.1, the distance tool also
+    	  provides area calculation after the user has clicked the three or more points. Distance measuring 
+    	  mode is initiated with a call to <function>lineon()</function> and terminated with a call
+    	  to <function>lineoff()</function> or <function>boxoff()</function> or <function>boxon()</function>.
+    	  In distance  measuring mode jBox draws a polyline connecting the user's mouse clicks and returns a segment 
+    	  distance, total distance, and calculated area to a JavaScript function named 
+    	  &quot;<function>measure_handler()</function>&quot;. Double-clicking resets the tool.
 	 	</para>
 	 	<para>
 		  The JavaScript <function>measure_handler()</function> function must be declared before entering distance measuring mode. 
 		  The function needs to convert the pixel distance values returned by jBox into real-world values 
-		  and display them somewhere in the browser. A simple <function>measure_handler()</function> example is show below. 
+		  and display them somewhere in the browser. A simple <function>measure_handler()</function> example is shown below. 
 		  See <ulink url="http://www2.tetonwyo.org/mapserver">http://www2.tetonwyo.org/mapserver</ulink> 
 		  for a slightly more sophisticated example.
 	 	</para>
 		<programlisting>
-	function measure_handler(name, s, t, n) {
+	function measure_handler(name, s, t, n, a) {
 		// c = 1 / 72dpi / 12inches_per_foot * 1.0003state_plane_scale_factor
 		var c = 0.0011577546296296;	// constant
 		var f = [scale] * c;		// scale factor
