@@ -1,0 +1,225 @@
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V4.1//EN">
+
+<article>
+
+<articleinfo>
+  <title>MapServer UNIX Compilation & Installation HOWTO</title>
+
+  <author>
+     <firstname>Jean-Francois</firstname>
+     <surname>Doyon</surname>
+     <affiliation>
+        <orgname>Natural Resources Canada</orgname>
+         <orgdiv>GeoAccess Division</orgdiv>
+        <address>
+            <email>jdoyon@nrcan.gc.ca</email>
+        </address>
+     </affiliation>
+  </author>
+
+  <abstract>
+    <para>
+    This document will assist new users in obtaining, compiling and installing MapServer on UNIX-type platforms.
+    </para>
+  </abstract>
+
+</articleinfo>
+
+<sect1 id="intro">
+  <title>Introduction</title>
+
+  <para>
+  The University of Minnesota's MapServer is an open-source and freely available map rendering engine for the web.  Due to it's
+  open-source nature, it can be compiled on a wide variety of platforms and operating systems.  We will focus on how to obtain, compile
+  and install MapServer on UNIX-like platforms. Throughout this document we will use the popular Linux and Apache combination for the
+  examples, as well as the MapServer demo package.  
+  </para>
+
+  <para>
+  This document assumes you are allready familiar with basic aspects of your operating system and web server:
+  </para>
+
+  <itemizedlist>
+   <listitem>
+     <para>Shell environment</para>
+   </listitem>
+   <listitem>
+     <para>File system layout and permissions</para>
+   </listitem>
+   <listitem>
+     <para>Build environment, notably <application>autoconf</application> and <application>make</application></para>
+   </listitem>
+   <listitem>
+     <para>Basic web server configuration, CGI environment</para>
+   </listitem>
+  </itemizedlist>
+
+</sect1>
+
+<sect1 id="obtain">
+  <title>Obtaining the necessary software</title>
+
+  <para>
+  You can obtain the source code as well as the demo package from the MapServer site, located at <ulink url="http://mapserver.gis.umn.edu">  http://mapserver.gis.umn.edu</ulink>
+  </para>
+
+  <para>
+  MapServer also makes use of a variety of external librairies to enhance it's functionality.  Here is a short descriptive list of which
+  ones they are an what purpose they serve:
+  </para>
+
+  <itemizedlist>
+   <listitem>
+    <para>GD: The graphics rendering library, used to output GIF's or PNG's</para>
+   </listitem>
+   <listitem>
+    <para>FreeType: For TrueType Font rendering</para>
+   </listitem>
+   <listitem>
+    <para>Proj.4: For projection conversion</para>
+   </listitem>
+   <listitem>
+    <para>LibTIFF: For TIFF/GeoTIFF support</para>
+   </listitem>
+   <listitem>
+    <para>LibJPEG: For JPEG Support</para>
+   </listitem>
+   <listitem>
+    <para>OGR: For input abstraction</para>
+   </listitem>
+  </itemizedlist>
+
+</sect1>
+
+<sect1 id="compiling">
+  <title>Compiling</title>
+
+  <para>The first thing you should do is unpack the source code tar-ball:
+
+  <screen>
+  [user@host user]$ tar -zxvf ms_3.3.011.tar.gz
+  </screen>
+
+  This will unpack the file into a directory called "mapserver".
+
+  </para>
+
+  <sect2 id="quickcompile">
+   <title>The quick and dirty way</title>
+
+   <para>If you're in a hurry, try this:
+   <screen>
+   [user@host user]$ cd mapserver
+   [user@host mapserver]$ ./configure
+   [user@host mapserver]$ make
+   </screen>
+
+   That's it ! Unless you got errors, MapServer is now compiled and ready to go.  You can now skip to the <link linkend="installation">
+   installation</link> section.
+
+   </para>
+  </sect2>
+
+  <sect2 id="compileproper">
+   <title>The RIGHT way</title>
+  <para>Here we will review in detail how to properly compile Mapserver, using the proper librairies and so on.</para>
+
+  <para>The best way to find out the options available at compile time is to run <application>configure</application> with the help
+  parameter:</para>
+
+  <screen>
+  [user@host mapserver]$ ./configure --help
+  </screen>
+
+  <para>You will note the ability to specify which library to use, and from which location.  Under normal circumstances the configuration
+  script will automatically find all the librairies on your system and use them, but there are some circumstances where this process fails
+  , and you need to do it by hand.</para>
+
+  <para>The best and most common example would be making sure Mapserver links and uses the correct version of GD. By default Mapserver will
+  use the system librairies, including GD.  The problem is that nowadays most Linux distribution come with recent versions (>1.3) of GD
+  that no longer supports GIF's, but PNG's instead.
+  </para>
+
+  <para>Thankfully, Mapserver is ditributed with it's own older version of GD, which is GIF capable. In order to force it's use you would
+  take the following steps:</para>
+  
+  <screen>
+  [user@host mapserver]$ cd gd-1.2
+  [user@host gd-1.2]$ make
+  [user@host gd-1.2]$ cd .. 
+  [user@host mapserver]$ ./configure --with-gd=gd-1.2/
+  </screen>
+
+  <para>This procedure will most likely also be necessary in order to have Mapserver detect and use non standard librairies such as PROJ.4
+  or the SDE Client Librairies.</para>
+
+  </sect2>
+ </sect1>
+
+<sect1 id="installation">
+  <title>Installation</title>
+
+  <sect2>
+   <title>MapServer binary</title>
+   
+   <para>The MapServer program itself consists of only one file, the "mapserv" binary executable.  This is a CGI executable, meant to be
+   called and run by your webserver.</para>
+
+  </sect2>
+
+  <sect2>
+   <title>MapServer Demo</title>
+
+   <para>In order to complete a usable installation of MapServer, you will need some sample data and interfaces.</para>
+
+  </sect2>
+ </sect1>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
