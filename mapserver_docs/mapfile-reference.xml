@@ -747,7 +747,7 @@ PROCESSING "BANDS=3,2,1,4"
                 <varlistentry>
                     <term>MAXSCALE [double]</term>
                     <listitem>
-                        <para>Maximum scale at which this class is drawn.</para>
+                        <para>Maximum scale at which this CLASS is drawn.</para>
                     </listitem>
                 </varlistentry>                
                 <varlistentry>
@@ -759,7 +759,7 @@ PROCESSING "BANDS=3,2,1,4"
                 <varlistentry>
                     <term>MINSCALE [double]</term>
                     <listitem>
-                        <para>Minimum scale at which this class is drawn.</para>
+                        <para>Minimum scale at which this CLASS is drawn.</para>
                     </listitem>
                 </varlistentry>                
                 <varlistentry>
@@ -1790,7 +1790,7 @@ END
                 <revhistory>
                     <revision>
                         <revnumber>Number: 1.40</revnumber>
-                        <date>Date: 2004-10-19</date>
+                        <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
                         <revremark>Added MINSCALE MAXSCALE for class object
                                    </revremark>
