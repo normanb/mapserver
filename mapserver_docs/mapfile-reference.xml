@@ -916,6 +916,13 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
             </variablelist>
+            <note>
+               <para>
+                   Inline features should be defined as their own layers in the mapfile.
+                   If another CONNECTIONTYPE is specified in the same layer, MapServer will always use
+                   the inline features to draw the layer and ignore the other CONNECTIONTYPEs. 
+               </para>
+            </note>
         </sect2>
         <sect2 id="legend">
             <title>Legend Object</title>
@@ -1792,7 +1799,7 @@ END
                         <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added MINSCALE MAXSCALE for class object
+                        <revremark>Added MINSCALE MAXSCALE for class object, added note on inline features
                                    </revremark>
                     </revision>
                 </revhistory>
