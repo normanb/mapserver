@@ -22,7 +22,7 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2005-01-10</para>
+      <para>Last Updated: 2005-02-24</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -410,7 +410,12 @@
    ...
           </programlisting>
           <para>
-          In addition to EPSG:xxxx projections, a WMS server can advertize projections in the AUTO:xxxx namespace.  AUTO projections 42001 to 42005 are internally supported by MapServer.  However, AUTO projections are useful only with smart WMS clients, since the client needs to define the projection parameters in the WMS requests to the server.  For more information see Annex E of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">WMS 1.1.1 specification</ulink> and section 6.5.5.2 of the same document.  See also the <link linkend="FAQ">FAQ</link> on AUTO projections at the end of this document. 
+          In addition to EPSG:xxxx projections, a WMS server can advertize projections in the AUTO:xxxx namespace.  
+          AUTO projections 42001 to 42005 are internally supported by MapServer.  However, AUTO projections are useful 
+          only with smart WMS clients, since the client needs to define the projection parameters in the WMS requests 
+          to the server.  For more information see Annex E of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+          WMS 1.1.1 specification</ulink> and section 6.5.5.2 of the same document.  See also the <link linkend="FAQ">FAQ</link> 
+          on AUTO projections at the end of this document. 
             </para>
         </listitem>
         <listitem>
@@ -731,17 +736,33 @@
           <para>
             On IIS servers (Windows), you can use the following ASP script:
           </para>
+          <note>
+            <para>
+              The script below, while functional, is intended only as an example of using ASP 
+              to filter Mapserver requests.  Using ASP in a production WMS server will likely 
+              require additional ASP especially in the area of error handling and setting 
+              timeouts.
+            </para>
+          </note>
           <programlisting>
   &lt;%
     Server.ScriptTimeout = 360
-    strRequest = Request.ServerVariables("QUERY_STRING")
-    strURL = "http://myserver/cgi-bin/mapserv.exe?map=C:\Inetpub\wwwroot\WMS\mymap.map&amp;" &amp; strRequest
+        
+    Select Case Request.ServerVariables("REQUEST_METHOD")
+      Case "GET"  strRequest = Request.QueryString
+      Case "POST" strRequest = Request.Form
+    End Select
+    
+    strURL = "http://myserver/cgi-bin/mapserv.exe?map=C:\Inetpub\wwwroot\workshop\itasca.map&amp;" &amp; strRequest
+    
     Dim objHTTP
     Set objHTTP = Server.CreateObject("MSXML2.ServerXMLHTTP")
     objHTTP.open "GET", strURL, false
     objHTTP.send ""
+    
     Response.ContentType = objHTTP.getResponseHeader("content-type")
     Response.BinaryWrite objHTTP.responseBody
+    
     Set objHTTP = Nothing
   %&gt;
           </programlisting>
@@ -1409,8 +1430,9 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>Description:</emphasis> (Mandatory for Time Support) This is used in the capabilities to return the valid time values for the layer. The value defined here should be a valid time range.
-                Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.</para>
+                <emphasis>Description:</emphasis> (Mandatory for Time Support) This is used in the capabilities to return the valid time values for the layer. 
+                The value defined here should be a valid time range.  Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">
+                WMS Time Support howto</ulink> for more information.</para>
             </listitem>
           </itemizedlist>
         </sect4> 
@@ -1623,8 +1645,14 @@ END # Map File
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.48</revnumber>
+                        <date>Date: 2005-05-24</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Updated ASP wrapper script</revremark>
+                    </revision>                 
+                    <revision>
                         <revnumber>Number: 1.38</revnumber>
-                        <date>Date: 2004-01-10</date>
+                        <date>Date: 2005-01-10</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
                         <revremark>Added layer name warning, feature_info_mime_type note, onlineresource...
                                    </revremark>
