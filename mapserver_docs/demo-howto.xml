@@ -167,17 +167,6 @@ IMAGEPATH C:\Inetpub\wwwroot\tmp\
     I will leave the IMAGEURL line as it is. IMAGEURL tells mapserver where 
     the mapserver-generated images are located, relative to the web root directory.</para>
 
-    <para>If you are using a MapServer Version 3.4 or later, you will need 
-    to make one additional change. Newer versions use a unified symbol file format, 
-    which means you must store all symbols in one file.  To do the switch:</para>
-    <orderedlist>
-      <listitem><para>The lines starting with SHADESET, MARKERSET, AND LINESET 
-             and the last END keyword should be deleted.</para></listitem>
-      <listitem><para>"SYMBOLSET symbol/symbol.sym" should be added</para></listitem>
-      <listitem><para>Make the new symbols.sym file by concatenating the three symbol
-      files together.</para></listitem>
-    </orderedlist>
-
     <para>These should be the only things you need to change in <filename>demo.map</filename>.</para>
   </sect2>
 
