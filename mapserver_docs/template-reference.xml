@@ -26,7 +26,9 @@
             <para>
                 Last Updated:  2004-11-30
             </para>
+
       		<para><link linkend='rhistory'>Revision History</link></para>
+
         </abstract>
     </articleinfo>
 
@@ -1034,12 +1036,17 @@
 <sect1 id='docinfo'> 
   <title>About This Document</title>
 
-  <sect2 id='rhistory'><title>Revision History</title>
   <para> 
-  </para>  
+  
   The document revision history starts with UMN MapServer 4.2 altough the
   document is older. The numbering is in parallel with the revision control
   system.
+  
+  </para>
+
+  <sect2 id='rhistory'><title>Revision History</title>
+
+
   <para>
     <revhistory>
       <revision>
@@ -1049,6 +1056,7 @@
 		<revremark>Added section with template example.
 		</revremark>
       </revision>
+      <revision>
         <revnumber>Number: 1.11</revnumber>
         <date>Date: 2004-11-11</date>
         <authorinitials>Author: Daniel Morissette</authorinitials>
