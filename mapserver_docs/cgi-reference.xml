@@ -537,7 +537,8 @@
         feature belongs to must exist. Here&apos;s a snippet from a GET
         request that adds a feature to a webuser layer:
         <programlisting><![CDATA[
-      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789+map_webuser_feature_text=My+House!&...
+      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789
+         +map_webuser_feature_text=My+House!&...
       ]]></programlisting>
         The &quot;map_webuser_feature=new&quot; creates a new feature
         for the webuser layer. All subsequent calls to the feature
