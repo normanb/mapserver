@@ -46,6 +46,15 @@
       Sun JDK 1.2 & 1.3 work ok, but
       1.4 compiled classes won't run under MS VM (IE 5.5)?
       MS J++ won't compile due to un-caught exceptions?
+
+	Sixlegs PNG support:
+		1. Change public class jBox name to jBoxPNG
+		2. Uncomment // import com.sixlegs.image.png.*;
+		3. Uncomment // PngImage pngimg;
+		4. In get_image()
+			a. comment return(getImage(url));
+			b. uncomment "begin sixlegs support" section
+		5. Save as jBoxPNG
 */
 
 import java.applet.Applet;
