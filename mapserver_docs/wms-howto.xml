@@ -555,18 +555,138 @@
 			</para>
 			<sect3 id="web">
 				<title>Web Object</title>
-				<sect4 id="title">
-					<title>wms_title</title>
+				<sect4 id="abstract">
+					<title>wms_abstract</title>
 					<itemizedlist>
 						<listitem>
 							<para>
-								<emphasis>WMS TAG Name:</emphasis> Title (WMS1.1.0, sect. 7.1.5.1)
+								<emphasis>WMS TAG Name:</emphasis> Abstract (WMS1.1.0, sect. 7.1.5.2)
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> (Optional) A blurb of text providing more information about
+      							the WMS server.
+							</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="accesscontraints">
+					<title>wms_accesscontraints</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> AccessConstraints (WMS1.1.0, sect. 7.1.5.2)
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis>(Optional) Access constraints information.  Use the 
+      							reserved word "none" if there are no access constraints.
+							</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="contactaddress">
+					<title>wms_addresstype, wms_address, wms_city, wms_stateorprovince, wms_postcode, wms_country						</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> ContactAddress and family
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> Optional contact address information.  If provided then 
+      							all six  metadata items are required.																</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="contactelectronicmailaddress">
+					<title>wms_contactelectronicmailaddress</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> ContactElectronicMailAddress
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> Optional contact Email address.											</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="contactfacsimiletelephone">
+					<title>wms_contactfacsimiletelephone</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> ContactFacsimileTelephone
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> Optional contact facsimile telephone number.									</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="contactinformation">
+					<title>wms_contactperson, wms_contactorganization, wms_contactposition</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> ContactInformation, ContactPerson, 										ContactOrganization, ContactPosition (WMS1.1.0, sect. 7.1.5.2)
 							</para>
 						</listitem>
 						<listitem>
 							<para>
-								<emphasis>Description:</emphasis> (Required) A human-readable name for this Layer.
+								<emphasis>Description:</emphasis> Optional contact information.  If provided then all three
+      							metadata items are required.																		</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="contactvoicetelephone">
+					<title>wms_contactvoicetelephone</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> ContactVoiceTelephone
 								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> Optional contact voice telephone number.										</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="fees">
+					<title>wms_fees</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> Fees (WMS1.1.0, sect. 7.1.5.2)
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> (Optional) Fees information.  Use the reserved word "none"
+      							if there are no fees.																					</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="keywordlist">
+					<title>wms_keywordlist</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> KeywordList (WMS1.1.0, sect. 7.1.5.2)
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> (Optional) A comma-separated list of keywords or keyword
+      							phrases to help catalog searching.  As of WMS 1.1.0 no controlled
+      							vocabulary has been defined.																		</para>
 						</listitem>
 					</itemizedlist>
 				</sect4>
@@ -589,6 +709,23 @@
 								<emphasis>See Also:</emphasis> Sections <link linkend="wms_onlineresource">
 								"Setup a Mapfile / wms_onlineresource metadata"</link> and 
 								<link linkend="onlineresourceurl">More About the Online Resource URL</link> above.									</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="resxy">
+					<title>wms_resx, wms_resy</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> (Optional) Used in the BoundingBox tag to provide info 
+      							about spatial resolution of the data, values are in map projection 
+      							units.													
+							</para>
 						</listitem>
 					</itemizedlist>
 				</sect4>
@@ -615,197 +752,30 @@
 						</listitem>
 					</itemizedlist>
 				</sect4>
-				<sect4 id="abstract">
-					<title>wms_abstract</title>
+				<sect4 id="title">
+					<title>wms_title</title>
 					<itemizedlist>
 						<listitem>
 							<para>
-								<emphasis>WMS TAG Name:</emphasis> Abstract (WMS1.1.0, sect. 7.1.5.2)
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) A blurb of text providing more information about
-      							the WMS server.
-							</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="keywordlist">
-					<title>wms_keywordlist</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> KeywordList (WMS1.1.0, sect. 7.1.5.2)
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) A comma-separated list of keywords or keyword
-      							phrases to help catalog searching.  As of WMS 1.1.0 no controlled
-      							vocabulary has been defined.																		</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactinformation">
-					<title>wms_contactperson, wms_contactorganization, wms_contactposition</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactInformation, ContactPerson, 										ContactOrganization, ContactPosition (WMS1.1.0, sect. 7.1.5.2)
+								<emphasis>WMS TAG Name:</emphasis> Title (WMS1.1.0, sect. 7.1.5.1)
 							</para>
 						</listitem>
 						<listitem>
 							<para>
-								<emphasis>Description:</emphasis> Optional contact information.  If provided then all three
-      							metadata items are required.																		</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactaddress">
-					<title>wms_addresstype, wms_address, wms_city, wms_stateorprovince, wms_postcode, wms_country						</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactAddress and family
+								<emphasis>Description:</emphasis> (Required) A human-readable name for this Layer.
 								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact address information.  If provided then 
-      							all six  metadata items are required.																</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactvoicetelephone">
-					<title>wms_contactvoicetelephone</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactVoiceTelephone
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact voice telephone number.										</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactfacsimiletelephone">
-					<title>wms_contactfacsimiletelephone</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactFacsimileTelephone
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact facsimile telephone number.									</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactelectronicmailaddress">
-					<title>wms_contactelectronicmailaddress</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactElectronicMailAddress
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact Email address.											</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="accesscontraints">
-					<title>wms_accesscontraints</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> AccessConstraints (WMS1.1.0, sect. 7.1.5.2)
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis>(Optional) Access constraints information.  Use the 
-      							reserved word "none" if there are no access constraints.
-							</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="fees">
-					<title>wms_fees</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Fees (WMS1.1.0, sect. 7.1.5.2)
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) Fees information.  Use the reserved word "none"
-      							if there are no fees.																					</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="resxy">
-					<title>wms_resx, wms_resy</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
-								</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) Used in the BoundingBox tag to provide info 
-      							about spatial resolution of the data, values are in map projection 
-      							units.													
-							</para>
 						</listitem>
 					</itemizedlist>
 				</sect4>
 			</sect3>
 			<sect3 id="layer">
 				<title>Layer Object</title>
-				<sect4 id="lay_title">
-					<title>wms_title</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								Same as <link linkend="title">wms_title</link> in the Web Object .
-							</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="lay_srs">
-					<title>wms_srs</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								Same as <link linkend="srs">wms_srs</link> in the Web Object .
-							</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
 				<sect4 id="lay_abstract">
 					<title>wms_abstract</title>
 					<itemizedlist>
 						<listitem>
 							<para>
 								Same as <link linkend="abstract">wms_abstract</link> in the Web Object .
-							</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="lay_keywordlist">
-					<title>wms_keywordlist</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								Same as <link linkend="keywordlist">wms_keywordlist</link> in the Web Object .
 							</para>
 						</listitem>
 					</itemizedlist>
@@ -832,6 +802,54 @@
 								<emphasis>Note:</emphasis>
 								<filename>wms_extent</filename> MUST be provided for raster 									layers in the current version since MapServer probing rasters for their extents is on the 
       							TODO list!
+							</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="lay_keywordlist">
+					<title>wms_keywordlist</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								Same as <link linkend="keywordlist">wms_keywordlist</link> in the Web Object .
+							</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="lay_opaque">
+				        <title>wms_opaque</title>
+				        <itemizedlist>
+				                <listitem>
+				                        <para>
+				                                <emphasis>WMS TAG Name:</emphasis> Layer (WMS1.1.0, sect. 7.1.5.5.3)
+				                        </para>
+				                </listitem>
+				                <listitem>
+				                        <para>
+				                                <emphasis>Description:</emphasis> (Optional) Set this metadata to "1" to indicate that the
+               							layer represents an area-filling coverage of space (e.g. a bathymetry and elevation layer). 
+               							This should be taken by the client as a hint that this layer should be
+               							placed at the bottom of the stack of layers.
+               						</para>
+               					</listitem>
+               				</itemizedlist>
+               			</sect4>
+				<sect4 id="lay_srs">
+					<title>wms_srs</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								Same as <link linkend="srs">wms_srs</link> in the Web Object .
+							</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="lay_title">
+					<title>wms_title</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								Same as <link linkend="title">wms_title</link> in the Web Object .
 							</para>
 						</listitem>
 					</itemizedlist>
