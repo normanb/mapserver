@@ -184,6 +184,13 @@
         <revremark>This is a test for the update script.</revremark>
       </revision>
 
+      <revision>
+        <revnumber>: 4</revnumber>
+        <date>Date: 01/06/2005 </date>
+        <authorinitials>Author: Kari Guerts</authorinitials>
+        <revremark>Another test for the update script.</revremark>
+      </revision>
+
      </revhistory>
   </para>
   </sect2>
