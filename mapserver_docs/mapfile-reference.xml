@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="C:\Program Files\Altova\XML Spy Suite\docbook\doc\book.xsl"?>
 <article>
 	<articleinfo>
-		<title>MapFile Reference - MapServer 4.0</title>
+		<title>MapFile Reference - MapServer 4.2</title>
 		<author>
 			<firstname>Jean-Fran&ccedil;ois</firstname>
 			<surname>Doyon</surname>
@@ -21,7 +21,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 4.0.
    			</para>
-			<para>Last Updated:  07-02-2003</para>
+			<para>Last Updated:  04-28-2004</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -438,6 +438,12 @@
 						<para>Template to use <emphasis>after</emphasis> a layer's set of results have been sent. Multiresult query modes only.</para>
 					</listitem>
 				</varlistentry>
+				<varlistentry>
+					<term>GRID</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="grid">GRID</link> object. </para>
+					</listitem>
+				</varlistentry>				
 				<varlistentry id="group">
 					<term>GROUP [name]</term>
 					<listitem>
@@ -1410,6 +1416,90 @@ END
 					</listitem>
 				</varlistentry>
 			</variablelist>
+		</sect2>
+		<sect2 id="grid">
+		  <title>Grid Object</title>
+		<para>The GRID object defines a map graticule as a LAYER.  Starts with the keyword <emphasis>GRID</emphasis> and terminates with the keyword <emphasis>END</emphasis>.  </para>
+			<variablelist>
+				<varlistentry>
+					<term>LABELFORMAT [DDMM|DDMMSS]</term>
+					<listitem>
+						<para>Format of the label.  "DDMM" for degrees minutes, and "DDMMSS" for degrees, minutes, seconds.  The default is decimal 
+						display of whatever SRS you're rendering the GRID with. </para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MINARCS [double]</term>
+					<listitem>
+						<para>The minimum number of arcs to draw. </para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MAXARCS [double]</term>
+					<listitem>
+						<para>The maximum number of arcs to draw. </para>
+					</listitem>
+				</varlistentry>	
+				<varlistentry>
+					<term>MININTERVAL [double]</term>
+					<listitem>
+						<para>The minimum number of intervals to try to use. </para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MAXINTERVAL [double]</term>
+					<listitem>
+						<para>The maximum number of intervals to try to use. </para>
+					</listitem>
+				</varlistentry>	
+				<varlistentry>
+					<term>MINSUBDIVIDE [double]</term>
+					<listitem>
+						<para>The minimum number of segments to use when rendering an arc. </para>
+					</listitem>
+				</varlistentry>	
+				<varlistentry>
+					<term>MAXSUBDIVIDE [double]</term>
+					<listitem>
+						<para>The maximum number of segments to use when rendering an arc. </para>
+					</listitem>
+				</varlistentry>	
+			</variablelist>																								             <para>
+               The following is an example of a GRID object in use:
+             </para>
+             <screen>
+   LAYER
+     NAME "grid"
+     METADATA
+       "DESCRIPTION" "Grid"
+     END
+     TYPE LINE
+     STATUS ON
+     CLASS
+       NAME "Graticule"
+       COLOR 0 0 0
+       LABEL
+         COLOR  255 0 0
+         FONT fritqat
+         TYPE truetype
+         SIZE 8
+         POSITION AUTO			
+         PARTIALS FALSE
+         BUFFER 5
+         OUTLINECOLOR 255 255 255			
+       END 
+    END
+    PROJECTION
+        "init=epsg:4326"
+    END
+    GRID
+      LABELFORMAT DDMM
+      MAXARCS 10
+      MAXINTERVAL 10
+      MAXSUBDIVIDE 2
+    END
+  END # Layer
+             </screen>				
 		</sect2>
 		<sect2 id="variablesubstitution">
 			<title>Variable Substitution</title>
