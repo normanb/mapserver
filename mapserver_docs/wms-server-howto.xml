@@ -344,10 +344,11 @@
           <para>
             WMS servers have to advertise the projection in which they are able to
               serve data using EPSG projection codes (see 
-              <ulink url="http://www.inovagis.org/giserver/tutorial/epsg.htm">
-            http://www.inovagis.org/giserver/tutorial/epsg.htm</ulink> for a list of EPSG codes).
+              <ulink url="http://www.epsg.org/">
+              http://www.epsg.org/</ulink> for more background on EPSG codes).
               Recent versions of the PROJ4 library come with a table of EPSG 
-              initialization codes and allow users to define a projection like this:                    </para>
+              initialization codes and allow users to define a projection like this:                    
+          </para>
           <programlisting>
    PROJECTION
       "init=epsg:4269"
