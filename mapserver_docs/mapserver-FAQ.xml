@@ -2,7 +2,7 @@
 <!DOCTYPE qandaset PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 
-<qandaset defaultlabel="qanda">
+<qandaset>
 <title>MapServer Frequently Asked Questions</title>
 
 <!-- symbols file in 3.4+ -->
