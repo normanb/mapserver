@@ -650,9 +650,10 @@ PROCESSING "BANDS=3,2,1,4"
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>TRANSPARENCY [integer]</term>
+					<term>TRANSPARENCY [integer|alpha]</term>
 					<listitem>
-						<para>Sets the transparency level of all classed pixels for a given layer.  The value is a percentage (0-100) where 100 is opaque and 0 is fully transparent.</para>
+						<para>Sets the transparency level of all classed pixels for a given layer.  The value can either be an integer in the range (0-100) or the named symbol "ALPHA".  Although this parameter is named "transparency", the integer values actually parameterize layer <emphasis>opacity</emphasis>.  A value of 100 is opaque and 0 is fully transparent.</para>
+                        <para>The "ALPHA" symbol directs the mapserver rendering code to honor the indexed or alpha transparency of pixmap symbols used to style a layer.  This is only needed in the case of RGB output formats, and should be used only when necessary as it is expensive to render transparent pixmap symbols onto an RGB map image.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
