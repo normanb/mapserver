@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
@@ -33,29 +33,29 @@
 				<orgname>Club des Utilisateurs de Linux et des logiciels libres de Toulouse et des environs</orgname>
 				<orgdiv>CULTe</orgdiv>
 				<address>
-					<email>nath31@ifrance.com</email>
+					<email>nath@favdb.net</email>
 				</address>
 			</affiliation>
 		</othercredit>
 		<abstract>
-			<para>Dans ce document j'essayerai, étape par étape, d'expliquer des objets PHP Mapscript 3.5 et leurs méthodes. (Ndt: le therme anglo-saxon method, dans ce contexte serait mieux traduit par "procédure", mais pour éviter toute confusion dans le cas où vous souhaitez obtenir des compléments d'information sur ce document, j'ai préféré conserver le mot strictement équivalent en français). <emphasis>Il sera considéré ici que vous avez des connaissances de base sur <ulink url="mapfile-reference_fr.html">les mapfiles</ulink>et que vous êtes familier avec les scripts<ulink url="http://www.php.net">PHP</ulink> et avec le langage HTML.</emphasis>
+			<para>Dans ce document j'essayerai, Ã©tape par Ã©tape, d'expliquer des objets PHP Mapscript 3.5 et leurs mÃ©thodes. (Ndt: le therme anglo-saxon method, dans ce contexte serait mieux traduit par "procÃ©dure", mais pour Ã©viter toute confusion dans le cas oÃ¹ vous souhaitez obtenir des complÃ©ments d'information sur ce document, j'ai prÃ©fÃ©rÃ© conserver le mot strictement Ã©quivalent en franÃ§ais). <emphasis>Il sera considÃ©rÃ© ici que vous avez des connaissances de base sur <ulink url="mapfile-reference_fr.html">les mapfiles</ulink>et que vous Ãªtes familier avec les scripts<ulink url="http://www.php.net">PHP</ulink> et avec le langage HTML.</emphasis>
 			</para>
-			<para>Les informations ci-après concernent PHP MapScript version 3.5.</para>
-			<para>Dernière mise à jour: 24-01-2002</para>
+			<para>Les informations ci-aprÃ¨s concernent PHP MapScript version 3.5.</para>
+			<para>DerniÃ¨re mise Ã  jour: 24-01-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
-		<para>L'objet de ce document est que chacun puisse se familiariser avec PHP MapScript (à partir de maintenant je me limiterai simplement à MapScript), en montrant étape par étape les explications d'exemples réels. Après avoir lu ce document, vous devriez être capable de construire une application MapScript basique sans problème (principalement parce que vous pouvez vous approprier ces codes ;-).</para>
-		<para>La liste suivante énumère les connaissances nécessaires ainsi que les logiciels nécessaires.  Note:  L'installation elle-même n'est pas décrite ici; voyez le document <ulink url="phpmapscript-install-howto_fr.html">HOWTO Installation de PHP MapScript</ulink> pour plus d'informations.</para>
+		<para>L'objet de ce document est que chacun puisse se familiariser avec PHP MapScript (Ã  partir de maintenant je me limiterai simplement Ã  MapScript), en montrant Ã©tape par Ã©tape les explications d'exemples rÃ©els. AprÃ¨s avoir lu ce document, vous devriez Ãªtre capable de construire une application MapScript basique sans problÃ¨me (principalement parce que vous pouvez vous approprier ces codes ;-).</para>
+		<para>La liste suivante Ã©numÃ¨re les connaissances nÃ©cessaires ainsi que les logiciels nÃ©cessaires.  Note:  L'installation elle-mÃªme n'est pas dÃ©crite ici; voyez le document <ulink url="phpmapscript-install-howto_fr.html">HOWTO Installation de PHP MapScript</ulink> pour plus d'informations.</para>
 		<sect2 id="instsw">
-			<title>Logiciels installés</title>
+			<title>Logiciels installÃ©s</title>
 			<itemizedlist>
 				<listitem>
-					<para>Le logiciel MapScript, version 3.5, est installé et fonctionne sur un serveur HTTP.</para>
+					<para>Le logiciel MapScript, version 3.5, est installÃ© et fonctionne sur un serveur HTTP.</para>
 				</listitem>
 				<listitem>
-					<para>Le langage PHP est installé et fonctionne dans le même serveur HTTP.</para>
+					<para>Le langage PHP est installÃ© et fonctionne dans le mÃªme serveur HTTP.</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -77,11 +77,11 @@
 			</itemizedlist>
 		</sect2>
 		<para>Vous devriez aussi disposer de la documentation MapScript de <ulink url="http://www2.dmsolutions.ca/webtools/php_mapscript/php_mapscript_docs35.html">DM Solutions</ulink>
-ou du fichier README situé dans le répertoire mapscript/php3 de la distribution MapServer. Le <ulink url="phpmapscript-class-guide_fr.html">PHP MapScript Class Guide</ulink> peut aussi vous être nécessaire comme référence.</para>
+ou du fichier README situÃ© dans le rÃ©pertoire mapscript/php3 de la distribution MapServer. Le <ulink url="phpmapscript-class-guide_fr.html">PHP MapScript Class Guide</ulink> peut aussi vous Ãªtre nÃ©cessaire comme rÃ©fÃ©rence.</para>
 	</sect1>
 	<sect1 id="begin">
-		<title>Notre première application</title>
-		<para>Dans ce premier exemple, j'afficherai simplement un fichier shape sur une page en utilisant un mapfile.  Pour suivre cet exemple, téléchargez les fichiers suivants:</para>
+		<title>Notre premiÃ¨re application</title>
+		<para>Dans ce premier exemple, j'afficherai simplement un fichier shape sur une page en utilisant un mapfile.  Pour suivre cet exemple, tÃ©lÃ©chargez les fichiers suivants:</para>
 		<itemizedlist>
 			<listitem>
 				<para>
@@ -105,7 +105,7 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="example2.php">Deuxième fichier exemple php</ulink>
+					<ulink url="example2.php">DeuxiÃ¨me fichier exemple php</ulink>
 				</para>
 			</listitem>
 		</itemizedlist>
@@ -139,11 +139,11 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 		
 		END
 		</programlisting>
-			<para>Ici nous avons une carte avec une simple couche, avec le fichier shape appelé <filename>europe</filename> situé dans le répertoire <filename>data</filename>. Les symboles sont situés dans le sous-répertoire <filename>symbols</filename>. Toutes les localisations sont relatives au fichier mapfile. La partie WEB est seulement utilisée pour définir où les images générées sont sauvegardées et à quelle URL elles seront disponibles.</para>
+			<para>Ici nous avons une carte avec une simple couche, avec le fichier shape appelÃ© <filename>europe</filename> situÃ© dans le rÃ©pertoire <filename>data</filename>. Les symboles sont situÃ©s dans le sous-rÃ©pertoire <filename>symbols</filename>. Toutes les localisations sont relatives au fichier mapfile. La partie WEB est seulement utilisÃ©e pour dÃ©finir oÃ¹ les images gÃ©nÃ©rÃ©es sont sauvegardÃ©es et Ã  quelle URL elles seront disponibles.</para>
 		</sect2>
 		<sect2 id="begphp">
 			<title>Affichage de la carte avec MapScript</title>
-			<para>Pour afficher la carte les objets MapScript et les méthodes suivantes seront utilisés:</para>
+			<para>Pour afficher la carte les objets MapScript et les mÃ©thodes suivantes seront utilisÃ©s:</para>
 			<itemizedlist>
 				<listitem>
 					<para>Objet MapObj</para>
@@ -152,22 +152,22 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 					<para>Objet imageObj</para>
 				</listitem>
 			</itemizedlist>
-			<para>Méthodes MapObj:</para>
+			<para>MÃ©thodes MapObj:</para>
 			<itemizedlist>
 				<listitem>
-					<para>La méthode de construction: MapObj ms_newMapObj(string map_file_name)</para>
+					<para>La mÃ©thode de construction: MapObj ms_newMapObj(string map_file_name)</para>
 				</listitem>
 				<listitem>
-					<para>La méthode de tracé: imageObj draw()</para>
+					<para>La mÃ©thode de tracÃ©: imageObj draw()</para>
 				</listitem>
 			</itemizedlist>
-			<para>Méthodes imageObj:</para>
+			<para>MÃ©thodes imageObj:</para>
 			<itemizedlist>
 				<listitem>
-					<para>La méthode saveWebImage: string saveWebImage(int type, int transparent, int interlace, int quality)</para>
+					<para>La mÃ©thode saveWebImage: string saveWebImage(int type, int transparent, int interlace, int quality)</para>
 				</listitem>
 			</itemizedlist>
-			<para>Le code ressemble à ceci: </para>
+			<para>Le code ressemble Ã  ceci: </para>
 			<programlisting>
 		1 &lt;?php
 		
@@ -190,35 +190,35 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 		14 	&lt;/BODY&gt;
 		15 &lt;/HTML&gt;
 		</programlisting>
-			<para>Le code qui suivra dans ce document respecte les règles suivantes:</para>
+			<para>Le code qui suivra dans ce document respecte les rÃ¨gles suivantes:</para>
 			<itemizedlist>
 				<listitem>
-					<para>Toute ligne non vide est numérotée</para>
+					<para>Toute ligne non vide est numÃ©rotÃ©e</para>
 				</listitem>
 			</itemizedlist>
 			<para>Ce code restituera une image correspondante au fichier shape <filename>europe</filename> et s'affichera sur une page HTML. Voici les explications.</para>
 			<itemizedlist>
 				<listitem>
-					<para>Ligne 2: nous chargeons l'extension MapScript (vous n'en avez pas besoin si votre fichier php.ini est configuré pour son chargement automatiquement).</para>
+					<para>Ligne 2: nous chargeons l'extension MapScript (vous n'en avez pas besoin si votre fichier php.ini est configurÃ© pour son chargement automatiquement).</para>
 				</listitem>
 				<listitem>
-					<para>Ligne 3: déclare une variable qui gèrera le chemin absolu du fichier mapfile (simplement pour être certain que nous ouvrirons le bon mapfile).</para>
+					<para>Ligne 3: dÃ©clare une variable qui gÃ¨rera le chemin absolu du fichier mapfile (simplement pour Ãªtre certain que nous ouvrirons le bon mapfile).</para>
 				</listitem>
 				<listitem>
-					<para>Ligne 4: nous créons une instance de l'objet MapObj en utilisant le constructeur. Comme vous pouvez le voir, le constructeur reçoit la localisation du fichier mapfile comme seul paramètre (nous avons appelé le mapfile <filename>example1.map</filename>).</para>
+					<para>Ligne 4: nous crÃ©ons une instance de l'objet MapObj en utilisant le constructeur. Comme vous pouvez le voir, le constructeur reÃ§oit la localisation du fichier mapfile comme seul paramÃ¨tre (nous avons appelÃ© le mapfile <filename>example1.map</filename>).</para>
 				</listitem>
 				<listitem>
-					<para>Ensuite nous appelons la méthode de traçage de l'objet map pour restituer l'image définie par le mapfile (ligne 5). Le résultat (un imageObj) est sauvegardé dans la variable $image.</para>
+					<para>Ensuite nous appelons la mÃ©thode de traÃ§age de l'objet map pour restituer l'image dÃ©finie par le mapfile (ligne 5). Le rÃ©sultat (un imageObj) est sauvegardÃ© dans la variable $image.</para>
 				</listitem>
 				<listitem>
-					<para>Ligne 6: nous appelons la méthode saveWebImage pour générer le fichier d'image; elle retourne une chaîne de caractères représentant l'URL telle que définie dans le mapfile (dans ce cas /tmp/filename.png). Le premier paramètre de saveWebImage détermine le type d'image générée (dans ce cas PNG), le second définit si l'image sera transparente (1 indique oui), le troisième détermine si le fichier d'image sera entrelacé (1 indique oui) et le quatrième est ignoré sauf quand le type d'image est MS_JPEG. L'URL est stockée dans la variable $image_url</para>
+					<para>Ligne 6: nous appelons la mÃ©thode saveWebImage pour gÃ©nÃ©rer le fichier d'image; elle retourne une chaÃ®ne de caractÃ¨res reprÃ©sentant l'URL telle que dÃ©finie dans le mapfile (dans ce cas /tmp/filename.png). Le premier paramÃ¨tre de saveWebImage dÃ©termine le type d'image gÃ©nÃ©rÃ©e (dans ce cas PNG), le second dÃ©finit si l'image sera transparente (1 indique oui), le troisiÃ¨me dÃ©termine si le fichier d'image sera entrelacÃ© (1 indique oui) et le quatriÃ¨me est ignorÃ© sauf quand le type d'image est MS_JPEG. L'URL est stockÃ©e dans la variable $image_url</para>
 				</listitem>
 				<listitem>
-					<para>Le reste des lignes est du pur HTML, sauf la ligne 13 qui détermine l'URL source de l'image qui sera la valeur stockée dans $image_url.</para>
+					<para>Le reste des lignes est du pur HTML, sauf la ligne 13 qui dÃ©termine l'URL source de l'image qui sera la valeur stockÃ©e dans $image_url.</para>
 				</listitem>
 			</itemizedlist>
-			<para>Vous devriez tester cet exemple sur votre système pour vérifier que ça fonctionne vraiment et résoudre les éventuels problèmes liés à votre configuration avant d'attaquer des exemples plus complexes.</para>
-			<para>La sortie (en utilisant le fichier shape <filename>europe</filename>) devrait ressembler à ceci:</para>
+			<para>Vous devriez tester cet exemple sur votre systÃ¨me pour vÃ©rifier que Ã§a fonctionne vraiment et rÃ©soudre les Ã©ventuels problÃ¨mes liÃ©s Ã  votre configuration avant d'attaquer des exemples plus complexes.</para>
+			<para>La sortie (en utilisant le fichier shape <filename>europe</filename>) devrait ressembler Ã  ceci:</para>
 			<figure>
 				<title>Sortie de l'exemple 1</title>
 				<graphic fileref="http://ims.cprsig.cl/1011908782176461.png"/>
@@ -227,8 +227,8 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 	</sect1>
 	<sect1 id="letszoom">
 		<title>Voyons le zoom!</title>
-		<para>Maintenant nous allons ajouter à ce code les capacités de zoom et de déplacement d'image. </para>
-		<para> Voici la liste des <emphasis>nouvelles</emphasis> méthodes et objets appelés.</para>
+		<para>Maintenant nous allons ajouter Ã  ce code les capacitÃ©s de zoom et de dÃ©placement d'image. </para>
+		<para> Voici la liste des <emphasis>nouvelles</emphasis> mÃ©thodes et objets appelÃ©s.</para>
 		<para> Nouveaux objets: </para>
 		<itemizedlist>
 			<listitem>
@@ -238,13 +238,13 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 				<para> rectObj </para>
 			</listitem>
 		</itemizedlist>
-		<para> Nouvelles méthodes et membres appelés: </para>
+		<para> Nouvelles mÃ©thodes et membres appelÃ©s: </para>
 		<itemizedlist>
 			<listitem>
-				<para> La méthode zoompoint de l'objet map: void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, int nImageHeight, rectObj oGeorefExt).</para>
+				<para> La mÃ©thode zoompoint de l'objet map: void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, int nImageHeight, rectObj oGeorefExt).</para>
 			</listitem>
 			<listitem>
-				<para> La méthode setextent de l'objet map: $map->setextent(double minx, double miny, double maxx, double maxy);.</para>
+				<para> La mÃ©thode setextent de l'objet map: $map->setextent(double minx, double miny, double maxx, double maxy);.</para>
 			</listitem>
 			<listitem>
 				<para> Les membres zone (extent), largeur (width) et hauteur (height) de l'objet map.</para>
@@ -253,13 +253,13 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 				<para> Les constructeurs de RectObj et PointObj: $point = ms_newPointObj(); $rect = ms_newRectObj();</para>
 			</listitem>
 			<listitem>
-				<para> La méthode setXY de l'objet point: $point->setXY(double x_coord, double y_coord);</para>
+				<para> La mÃ©thode setXY de l'objet point: $point->setXY(double x_coord, double y_coord);</para>
 			</listitem>
 			<listitem>
-				<para> La méthode setextent de l'objet rectangle: $rect->setextent(double minx, double miny, double maxx, double maxy);</para>
+				<para> La mÃ©thode setextent de l'objet rectangle: $rect->setextent(double minx, double miny, double maxx, double maxy);</para>
 			</listitem>
 		</itemizedlist>
-		<para>Le mapfile reste le même que celui de l'exemple précédent.</para>
+		<para>Le mapfile reste le mÃªme que celui de l'exemple prÃ©cÃ©dent.</para>
 		<para>Voici le nouveau code (les explications suivent).</para>
 		<programlisting>
 		1 &lt;?php
@@ -384,47 +384,47 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distribution 
 		101 &lt;/BODY&gt;
 		102 &lt;/HMTL&gt;
 		</programlisting>
-		<para>Ce code permettra les différents zoom (agrandissement, réduction), le déplacement et la restauration de la vue initiale de l' image affichée dans l'exemple précédent.</para>
-		<para>C'est moins compliqué qu'il n'y paraît, beaucoup de ces lignes sont du code HTML, et plusieurs d'entre elles sont liées au code PHP de gestion de formulaire.</para>
-		<para>Vous devriez l'essayer pour voir ce que ça donne, vous pouvez faire ça <ulink url="http://ims.cprsig.cl/guide/example2.php" target="_NEW">ici</ulink>, ou vous pouvez aussi l'essayer sur votre propre serveur en copiant ce code.</para>
-		<para>Manipulez un peu cet exemple et observez comment le source est modifié dans votre navigateur.</para>
-		<para>C'est bon?, maintenant commençons les explications par la partie HTML.</para>
-		<para>Dans la ligne 49 nous déclarons un formulaire, et dans la ligne 53 nous déclarons l'image générée par MapScript comme faisant partie de ce formulaire, donc quand vous cliquez sur elle, les coordonnées X et Y du clique (en pixels) sont envoyées avec les autres données du code PHP pour être analysées.</para>
-		<para>Si vous connaissez le HTML et le PHP, le reste du code HTML ne devrait pas être difficile à comprendre à l'exception de la ligne 98, qui mérite d'être expliqué en son temps.</para>
-		<para>Maintenant regardons le code PHP, c'est le même code que celui utilisé dans l'exemple 1, avec les lignes 9 et 37 en supplément. Que font donc ces deux lignes?</para>
-		<para>Dans la ligne 9 nous vérifions que les variables du formulaire sont bien renseignées. 'mapa_x' et 'mapa_y' représentent les coordonnées X et Y du clique de souris sur l'image, et 'full' représente le clique sur le bouton 'Full Extent'.</para>
-		<para>La première fois que la page est affichée la condition 'if' n'est pas exécutée, mais le reste du code l'est. En ligne 40 et 41 nous renseignons la variable '$extent_to_html' avec les valeurs de la zone (extent) définie dans le mapfile, séparées par des espaces; cette valeur sera mise dans la variable HTML 'extent' en ligne 98.</para>
-		<para>Maintenant voyons les lignes 11 et 12. Nous sommes dans la condition 'if', ça veut dire que le formulaire a été soumis au moins une fois. Nous extrayons la zone stockée lors de la précédente exécution (la variable HTML 'extent') du code et renseignons la zone de la carte pour devenir cette dernière zone. Ceci permet de zoomer ou déplacer d'après la zone précédente, et non la zone qui est définie dans le mapfile.</para>
-		<para>D'après ce dernier paragraphe vous pouvez déduire que toutes les valeurs par défaut sont renseignées dans le mapfile, que tout changement se fait à travers MapScript et devrait être présent dans votre code, étant stocké quelque part. Dans ce cas nous faisons ça avec des variables cachées du formulaire. Pour une application plus aboutie nous utiliserions des variables de session ou une base de données.</para>
-		<para>Maintenant vous devriez être capable de comprendre pourquoi le bouton 'Full Extent' fonctionne. Si vous regardez la ligne 10, elle indique que si vous pressez le bouton, la condition 'if' est sautée, ainsi la zone est réinitialisée à la valeur définie dans le mapfile. Vous devriez aussi voir qu'il ne s'agit pas obligatoirement de la zone complète (dans le cas où le mapfile n'est pas une zone complète).</para>
-		<para>En ligne 14 et 15 nous déclarons un nouvel objet point et initialisons celui-ci avec les valeurs du clique de l'utilisateur. N'oubliez pas que ces valeurs sont en pixels, et non dans des coordonnées géographiques.</para>
-		<para>En lignes 16 à 18 nous créons un nouvel objet rectangle et le renseignons avec la zone de la précédente image, exactement comme nous l'avions fait en ligne 12. En fait, nous aurions pu écrire $my_extent = $map->extent;.</para>
-		<para>Pour effectuer le zoom ou le déplacement, nous appelons la fonction zoompoint en ligne 35, mais d'abord nous devons préparer les arguments qu'elle reçoit. Nous avions le point cliqué par l'utilisateur, et la zone de l'image (respectivement $my_point et $my_extent), maintenant nous avons besoin de déterminer le facteur de zoom. C'est ce qui est fait aux lignes 19 à 33. Si vous vous inquiétiez de savoir pourquoi les valeurs des boutons radio étaient 0, -1, et 1 pour le déplacement, l'agrandissement et la réduction, maintenant vous en connaissez la raison.</para>
-		<para>Un facteur de zoom de 1 indique à zoompoint que nous déplaçons l'image, une valeur négative indique que nous avons une réduction et une valeur positive indique que nous avons un agrandissement. Ainsi nous multiplions la valeur reçue pour les boutons radio (variable HTML 'zoom') par la taille du zoom que l'utilisateur a donné. Si cette valeur est zéro, ça veut dire que nous voulons déplacer l'image, ainsi nous renseignons '$zoom_factor' à 1, sinon le résultat de la multiplication est le facteur de zoom que zoompoint a besoin de recevoir. Les autres lignes empêchent l'utilisateur de cliquer sur le bouton la prochaine fois. La ligne 34 essaye de préserver la valeur de la taille du zoom que l'utilisateur a donné (ça ne marche pas à tous les coups, quand et pourquoi? A vous de trouver).</para>
-		<para>Et finalement, en ligne 34, nous appelons la méthode zoompoint avec le facteur de zoom obtenu, le point construit à partir des coordonnées en pixels (j'insiste là-dessus parce que zoompoint est la seule méthode qui reçoit des coordonnées en pixels, pour les autres méthodes vous devrez vous-même convertir les pixels en coordonnées géographiques), la hauteur (height) et largeur (width) de l'image, et la zone (extent).</para>
-		<para>Après avoir appelé zoompoint, la zone de l'image est changée de manière à correspondre à l'opération effectuée (ou, encore mieux, au facteur de zoom). Puis nous traçons l'image et sauvegardons la zone actuelle (après le zoom) pour être utilisée dans l'itération suivante.</para>
+		<para>Ce code permettra les diffÃ©rents zoom (agrandissement, rÃ©duction), le dÃ©placement et la restauration de la vue initiale de l' image affichÃ©e dans l'exemple prÃ©cÃ©dent.</para>
+		<para>C'est moins compliquÃ© qu'il n'y paraÃ®t, beaucoup de ces lignes sont du code HTML, et plusieurs d'entre elles sont liÃ©es au code PHP de gestion de formulaire.</para>
+		<para>Vous devriez l'essayer pour voir ce que Ã§a donne, vous pouvez faire Ã§a <ulink url="http://ims.cprsig.cl/guide/example2.php" target="_NEW">ici</ulink>, ou vous pouvez aussi l'essayer sur votre propre serveur en copiant ce code.</para>
+		<para>Manipulez un peu cet exemple et observez comment le source est modifiÃ© dans votre navigateur.</para>
+		<para>C'est bon?, maintenant commenÃ§ons les explications par la partie HTML.</para>
+		<para>Dans la ligne 49 nous dÃ©clarons un formulaire, et dans la ligne 53 nous dÃ©clarons l'image gÃ©nÃ©rÃ©e par MapScript comme faisant partie de ce formulaire, donc quand vous cliquez sur elle, les coordonnÃ©es X et Y du clique (en pixels) sont envoyÃ©es avec les autres donnÃ©es du code PHP pour Ãªtre analysÃ©es.</para>
+		<para>Si vous connaissez le HTML et le PHP, le reste du code HTML ne devrait pas Ãªtre difficile Ã  comprendre Ã  l'exception de la ligne 98, qui mÃ©rite d'Ãªtre expliquÃ© en son temps.</para>
+		<para>Maintenant regardons le code PHP, c'est le mÃªme code que celui utilisÃ© dans l'exemple 1, avec les lignes 9 et 37 en supplÃ©ment. Que font donc ces deux lignes?</para>
+		<para>Dans la ligne 9 nous vÃ©rifions que les variables du formulaire sont bien renseignÃ©es. 'mapa_x' et 'mapa_y' reprÃ©sentent les coordonnÃ©es X et Y du clique de souris sur l'image, et 'full' reprÃ©sente le clique sur le bouton 'Full Extent'.</para>
+		<para>La premiÃ¨re fois que la page est affichÃ©e la condition 'if' n'est pas exÃ©cutÃ©e, mais le reste du code l'est. En ligne 40 et 41 nous renseignons la variable '$extent_to_html' avec les valeurs de la zone (extent) dÃ©finie dans le mapfile, sÃ©parÃ©es par des espaces; cette valeur sera mise dans la variable HTML 'extent' en ligne 98.</para>
+		<para>Maintenant voyons les lignes 11 et 12. Nous sommes dans la condition 'if', Ã§a veut dire que le formulaire a Ã©tÃ© soumis au moins une fois. Nous extrayons la zone stockÃ©e lors de la prÃ©cÃ©dente exÃ©cution (la variable HTML 'extent') du code et renseignons la zone de la carte pour devenir cette derniÃ¨re zone. Ceci permet de zoomer ou dÃ©placer d'aprÃ¨s la zone prÃ©cÃ©dente, et non la zone qui est dÃ©finie dans le mapfile.</para>
+		<para>D'aprÃ¨s ce dernier paragraphe vous pouvez dÃ©duire que toutes les valeurs par dÃ©faut sont renseignÃ©es dans le mapfile, que tout changement se fait Ã  travers MapScript et devrait Ãªtre prÃ©sent dans votre code, Ã©tant stockÃ© quelque part. Dans ce cas nous faisons Ã§a avec des variables cachÃ©es du formulaire. Pour une application plus aboutie nous utiliserions des variables de session ou une base de donnÃ©es.</para>
+		<para>Maintenant vous devriez Ãªtre capable de comprendre pourquoi le bouton 'Full Extent' fonctionne. Si vous regardez la ligne 10, elle indique que si vous pressez le bouton, la condition 'if' est sautÃ©e, ainsi la zone est rÃ©initialisÃ©e Ã  la valeur dÃ©finie dans le mapfile. Vous devriez aussi voir qu'il ne s'agit pas obligatoirement de la zone complÃ¨te (dans le cas oÃ¹ le mapfile n'est pas une zone complÃ¨te).</para>
+		<para>En ligne 14 et 15 nous dÃ©clarons un nouvel objet point et initialisons celui-ci avec les valeurs du clique de l'utilisateur. N'oubliez pas que ces valeurs sont en pixels, et non dans des coordonnÃ©es gÃ©ographiques.</para>
+		<para>En lignes 16 Ã  18 nous crÃ©ons un nouvel objet rectangle et le renseignons avec la zone de la prÃ©cÃ©dente image, exactement comme nous l'avions fait en ligne 12. En fait, nous aurions pu Ã©crire $my_extent = $map->extent;.</para>
+		<para>Pour effectuer le zoom ou le dÃ©placement, nous appelons la fonction zoompoint en ligne 35, mais d'abord nous devons prÃ©parer les arguments qu'elle reÃ§oit. Nous avions le point cliquÃ© par l'utilisateur, et la zone de l'image (respectivement $my_point et $my_extent), maintenant nous avons besoin de dÃ©terminer le facteur de zoom. C'est ce qui est fait aux lignes 19 Ã  33. Si vous vous inquiÃ©tiez de savoir pourquoi les valeurs des boutons radio Ã©taient 0, -1, et 1 pour le dÃ©placement, l'agrandissement et la rÃ©duction, maintenant vous en connaissez la raison.</para>
+		<para>Un facteur de zoom de 1 indique Ã  zoompoint que nous dÃ©plaÃ§ons l'image, une valeur nÃ©gative indique que nous avons une rÃ©duction et une valeur positive indique que nous avons un agrandissement. Ainsi nous multiplions la valeur reÃ§ue pour les boutons radio (variable HTML 'zoom') par la taille du zoom que l'utilisateur a donnÃ©. Si cette valeur est zÃ©ro, Ã§a veut dire que nous voulons dÃ©placer l'image, ainsi nous renseignons '$zoom_factor' Ã  1, sinon le rÃ©sultat de la multiplication est le facteur de zoom que zoompoint a besoin de recevoir. Les autres lignes empÃªchent l'utilisateur de cliquer sur le bouton la prochaine fois. La ligne 34 essaye de prÃ©server la valeur de la taille du zoom que l'utilisateur a donnÃ© (Ã§a ne marche pas Ã  tous les coups, quand et pourquoi? A vous de trouver).</para>
+		<para>Et finalement, en ligne 34, nous appelons la mÃ©thode zoompoint avec le facteur de zoom obtenu, le point construit Ã  partir des coordonnÃ©es en pixels (j'insiste lÃ -dessus parce que zoompoint est la seule mÃ©thode qui reÃ§oit des coordonnÃ©es en pixels, pour les autres mÃ©thodes vous devrez vous-mÃªme convertir les pixels en coordonnÃ©es gÃ©ographiques), la hauteur (height) et largeur (width) de l'image, et la zone (extent).</para>
+		<para>AprÃ¨s avoir appelÃ© zoompoint, la zone de l'image est changÃ©e de maniÃ¨re Ã  correspondre Ã  l'opÃ©ration effectuÃ©e (ou, encore mieux, au facteur de zoom). Puis nous traÃ§ons l'image et sauvegardons la zone actuelle (aprÃ¨s le zoom) pour Ãªtre utilisÃ©e dans l'itÃ©ration suivante.</para>
 	</sect1>
 	<sect1 id="docinfo">
 		<title>A propos de ce document</title>
 		<sect2 id="copyright">
 			<title>Information de Copyright</title>
 			<para>Copyright (c) 2001,2002 Vinko Vrsalovic.</para>
-			<para>Ce document est protégé par la même licence Open Source que le logiciel MapServer lui-même.  Voyez la page <ulink url="license_fr.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
+			<para>Ce document est protÃ©gÃ© par la mÃªme licence Open Source que le logiciel MapServer lui-mÃªme.  Voyez la page <ulink url="license_fr.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
 			</para>
 		</sect2>
 		<sect2 id="disclaimer">
 			<title>Avertissement</title>
-			<para>Aucune responsabilité pour le contenu de ce document ne peut être acceptée. Utilisez les concepts, exemples et autres éléments à vos risques et périls. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre système. Aussi il est expressément conseillé, l'auteur et le traducteur n'assurant aucune responsabilité, de procéder avec précaution.
+			<para>Aucune responsabilitÃ© pour le contenu de ce document ne peut Ãªtre acceptÃ©e. Utilisez les concepts, exemples et autres Ã©lÃ©ments Ã  vos risques et pÃ©rils. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre systÃ¨me. Aussi il est expressÃ©ment conseillÃ©, l'auteur et le traducteur n'assurant aucune responsabilitÃ©, de procÃ©der avec prÃ©caution.
 			</para>
 		</sect2>
 		<sect2 id="acknowledgements">
 			<title>Remerciements</title>
-			<para>Ce document est dédié aux personnes qui ont fait de MapServer et MapScript une réalité. Cette dédicace s'adresse aussi aux membres de la <ulink url="support_fr.html">liste de diffusion des utilisateurs de MapServer</ulink>, qui m'ont aidé à me lancer dans l'utilisation de MapServer/MapScript.</para>
+			<para>Ce document est dÃ©diÃ© aux personnes qui ont fait de MapServer et MapScript une rÃ©alitÃ©. Cette dÃ©dicace s'adresse aussi aux membres de la <ulink url="support_fr.html">liste de diffusion des utilisateurs de MapServer</ulink>, qui m'ont aidÃ© Ã  me lancer dans l'utilisation de MapServer/MapScript.</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">
 			<title>Feedback</title>
-			<para>Envoyez toutes vos suggestions et commentaires, qui sont véritablement les bienvenus, à l'auteur, ou au traducteur.
+			<para>Envoyez toutes vos suggestions et commentaires, qui sont vÃ©ritablement les bienvenus, Ã  l'auteur, ou au traducteur.
          .</para>
 		</sect2>
 	</sect1>

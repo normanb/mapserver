@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
 		<title>MapServer WFS Server HOWTO</title>
 		<author>
-			<firstname>Jean-François</firstname>
+			<firstname>Jean-FranÃ§ois</firstname>
 			<surname>Doyon</surname>
 			<affiliation>
 				<orgname>Natural Resources Canada</orgname>
@@ -48,45 +48,45 @@
 			</affiliation>
 		</othercredit>
 		<abstract>
-			<para>Ce document explique comment configurer MapServer en tant que serveur de données à travers l'interface OGC WFS.</para>
-			<para>Dernière mise à jour:  06-01-2003</para>
+			<para>Ce document explique comment configurer MapServer en tant que serveur de donnÃ©es Ã  travers l'interface OGC WFS.</para>
+			<para>DerniÃ¨re mise Ã  jour:  06-01-2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
-		<para>Un WFS ( Web Feature Service ) publie des données géospaciales sur le oueb au niveau fonctionnel.  Ceci veut dire qu'il est possible d'utiliser ces données comme une source pour restituer une carte.  En effet, ce n'est pas tout à fait pareil que l'accessibilité d'un fichier de forme (shapefile) sur le oueb, ce n'est pas un fichier de forme, c'est un fichier de données géospaciales encodé XML (GML pour être exact), comprenant l'information de géométrie ET d'attribut.</para>
+		<para>Un WFS ( Web Feature Service ) publie des donnÃ©es gÃ©ospaciales sur le oueb au niveau fonctionnel.  Ceci veut dire qu'il est possible d'utiliser ces donnÃ©es comme une source pour restituer une carte.  En effet, ce n'est pas tout Ã  fait pareil que l'accessibilitÃ© d'un fichier de forme (shapefile) sur le oueb, ce n'est pas un fichier de forme, c'est un fichier de donnÃ©es gÃ©ospaciales encodÃ© XML (GML pour Ãªtre exact), comprenant l'information de gÃ©omÃ©trie ET d'attribut.</para>
 		<sect2 id="related">
-			<title>Information relative à WFS</title>
-			<para>En tout état de cause une connaissance approfondie de WFS et GML n'est pas vraiment nécessaire pour implémenter une application MapServer qui lit des données WFS à distance, il est recommandé toutefois d'acquérir quelques notions sur les concepts et fonctionalités de base de l'ensemble.  Voici les références officielles:</para>
+			<title>Information relative Ã  WFS</title>
+			<para>En tout Ã©tat de cause une connaissance approfondie de WFS et GML n'est pas vraiment nÃ©cessaire pour implÃ©menter une application MapServer qui lit des donnÃ©es WFS Ã  distance, il est recommandÃ© toutefois d'acquÃ©rir quelques notions sur les concepts et fonctionalitÃ©s de base de l'ensemble.  Voici les rÃ©fÃ©rences officielles:</para>
 			<itemizedlist>
 				<listitem>
-					<para>Les <ulink url="http://www.opengis.org/techno/specs/02-058.pdf">spécifications d'implémentation des fonctions oueb de l'OpenGIS</ulink>.</para>
+					<para>Les <ulink url="http://www.opengis.org/techno/specs/02-058.pdf">spÃ©cifications d'implÃ©mentation des fonctions oueb de l'OpenGIS</ulink>.</para>
 				</listitem>
 				<listitem>
-					<para>Les <ulink url="http://www.opengis.net/gml/02-069/GML2-12.html">spécifications de l'implémentation Geography Markup Language</ulink>.</para>
+					<para>Les <ulink url="http://www.opengis.net/gml/02-069/GML2-12.html">spÃ©cifications de l'implÃ©mentation Geography Markup Language</ulink>.</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 		<sect2 id="software">
 			<title>Logiciel requis</title>
-			<para>Pour que MapServer puisse agir en tant que WFS, il DOIT être compilé avec certaines bibliothèques:</para>
+			<para>Pour que MapServer puisse agir en tant que WFS, il DOIT Ãªtre compilÃ© avec certaines bibliothÃ¨ques:</para>
 			<itemizedlist>
 				<listitem>
-					<para>PROJ.4: La bibliothèque de projection. La version 4.4.3 ou supérieure est nécessaire.</para>
+					<para>PROJ.4: La bibliothÃ¨que de projection. La version 4.4.3 ou supÃ©rieure est nÃ©cessaire.</para>
 				</listitem>
 				<listitem>
-					<para>GDAL/OGR: Bibliothèque de support pour les entrées/sorties. La version 1.1.8 ou supérieure est nécessaire.</para>
+					<para>GDAL/OGR: BibliothÃ¨que de support pour les entrÃ©es/sorties. La version 1.1.8 ou supÃ©rieure est nÃ©cessaire.</para>
 				</listitem>
 				<listitem>
-					<para>LibCURL: Utilisé pour aider MapServer à se comporter comme un client HTTP. La version 7.10 ou supérieure est nécessaire.</para>
+					<para>LibCURL: UtilisÃ© pour aider MapServer Ã  se comporter comme un client HTTP. La version 7.10 ou supÃ©rieure est nÃ©cessaire.</para>
 				</listitem>
 			</itemizedlist>
-			<para>Voyez le HOWTO sur la compilation et l'installation de MapServer sous UNIX pour des instructions détaillées concernant la compilation de mapserver avec le support de ces bibliothèques et fonctions.  Pour les utilisateurs Windows, cherchez sur le site MapServer s'il existe une version binaire disponible qui correspond à ces pré-requis.</para>
+			<para>Voyez le HOWTO sur la compilation et l'installation de MapServer sous UNIX pour des instructions dÃ©taillÃ©es concernant la compilation de mapserver avec le support de ces bibliothÃ¨ques et fonctions.  Pour les utilisateurs Windows, cherchez sur le site MapServer s'il existe une version binaire disponible qui correspond Ã  ces prÃ©-requis.</para>
 		</sect2>
 	</sect1>
 	<sect1>
-		<title>Paramétrage d'une couche WFS dans votre mapfile</title>
-		<para>Une couche WFS est une couche normale dans le mapfile, qui peut utiliser des objets CLASS, avec des expressions, etc.  Au lieu d'un paramètre DATA, vous utilisez les paramètres CONNECTIONTYPE et CONNECTION pour définir la source de données:</para>
+		<title>ParamÃ©trage d'une couche WFS dans votre mapfile</title>
+		<para>Une couche WFS est une couche normale dans le mapfile, qui peut utiliser des objets CLASS, avec des expressions, etc.  Au lieu d'un paramÃ¨tre DATA, vous utilisez les paramÃ¨tres CONNECTIONTYPE et CONNECTION pour dÃ©finir la source de donnÃ©es:</para>
 		<screen>
  LAYER
     NAME "mylayer"

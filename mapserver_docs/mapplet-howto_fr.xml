@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Franz (VDB) -->
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
@@ -36,21 +36,21 @@
 				<orgname>Club des Utilisateurs de Linux et des logiciels libres de Toulouse et des environs</orgname>
 				<orgdiv>CULTe</orgdiv>
 				<address>
-					<email>nath31@ifrance.com</email>
+					<email>nath@favdb.net</email>
 				</address>
 			</affiliation>
 		</othercredit>
 		<abstract>
-			<para>Ce document décrit les procédures pour obtenir, installer et incorporer l'applet Java <application>mapplet</application> dans les pages oueb MapServer.
+			<para>Ce document dÃ©crit les procÃ©dures pour obtenir, installer et incorporer l'applet Java <application>mapplet</application> dans les pages oueb MapServer.
     </para>
-			<para>Dernière mise à jour:  19-09-2001</para>
+			<para>DerniÃ¨re mise Ã  jour:  19-09-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
-		<para>L'applet Java <application>mapplet</application> fournit une interface étendue aux pages oueb gérées aussi bien par le programme CGI MapServer que par tout autre utilitaire MapScript.  Ce document décrit comment ajouter le <application>mapplet</application> à des pages MapServer existantes.
+		<para>L'applet Java <application>mapplet</application> fournit une interface Ã©tendue aux pages oueb gÃ©rÃ©es aussi bien par le programme CGI MapServer que par tout autre utilitaire MapScript.  Ce document dÃ©crit comment ajouter le <application>mapplet</application> Ã  des pages MapServer existantes.
   </para>
-		<para>Ce document considère que vous avez quelques connaissances particulières de la programmation Java ou de l'installation d'applet.  De toute façon, vous devez connaître un minimum de choses sur:
+		<para>Ce document considÃ¨re que vous avez quelques connaissances particuliÃ¨res de la programmation Java ou de l'installation d'applet.  De toute faÃ§on, vous devez connaÃ®tre un minimum de choses sur:
   </para>
 		<itemizedlist>
 			<listitem>
@@ -58,19 +58,19 @@
       </para>
 			</listitem>
 			<listitem>
-				<para>Une connaissance de base sur le navigateur et langage de script JavaScript. Dans le cas contraire, le matériel de référence du JavaScript peut être trouvé sur Internet (le document <ulink url="http://devedge.netscape.com/docs/manuals/index.html?content=javascript.html">Netscape JavaScript documentation pages</ulink> est un bon point de départ).
+				<para>Une connaissance de base sur le navigateur et langage de script JavaScript. Dans le cas contraire, le matÃ©riel de rÃ©fÃ©rence du JavaScript peut Ãªtre trouvÃ© sur Internet (le document <ulink url="http://devedge.netscape.com/docs/manuals/index.html?content=javascript.html">Netscape JavaScript documentation pages</ulink> est un bon point de dÃ©part).
       </para>
 			</listitem>
 			<listitem>
-				<para>La possibilité de télécharger et décompresser (unzip) des fichiers d'archive (fichiers .tar ou .zip) depuis Internet.
+				<para>La possibilitÃ© de tÃ©lÃ©charger et dÃ©compresser (unzip) des fichiers d'archive (fichiers .tar ou .zip) depuis Internet.
       </para>
 			</listitem>
 			<listitem>
-				<para>Le logiciel MapServer/MapScript est installé et fonctionne sur un serveur oueb.
+				<para>Le logiciel MapServer/MapScript est installÃ© et fonctionne sur un serveur oueb.
       </para>
 			</listitem>
 			<listitem>
-				<para>L'application de démonstration MapServer fonctionne sur votre serveur (voyez les parties téléchargement et documentation dans le document <ulink url="http://MapServer.gis.umn.edu">MapServer</ulink>). Si vous n'avez pas l'application de démonstration mais que vous avez votre propre application MapServer en place, vous n'aurez probablement pas de difficulté à adapter les instructions ci-après à votre application.
+				<para>L'application de dÃ©monstration MapServer fonctionne sur votre serveur (voyez les parties tÃ©lÃ©chargement et documentation dans le document <ulink url="http://MapServer.gis.umn.edu">MapServer</ulink>). Si vous n'avez pas l'application de dÃ©monstration mais que vous avez votre propre application MapServer en place, vous n'aurez probablement pas de difficultÃ© Ã  adapter les instructions ci-aprÃ¨s Ã  votre application.
       </para>
 			</listitem>
 		</itemizedlist>
@@ -78,34 +78,34 @@
 	<sect1 id="features">
 		<title>Fonctions <application>Mapplet</application>
 		</title>
-		<para>Le <application>mapplet</application> ajoute les fonctionnalités suivantes aux pages MapServer/MapScript:
+		<para>Le <application>mapplet</application> ajoute les fonctionnalitÃ©s suivantes aux pages MapServer/MapScript:
   </para>
 		<variablelist>
 			<title>Fonctions</title>
 			<varlistentry>
 				<term>Box zooming</term>
 				<listitem>
-					<para>Les utilisateurs peuvent "dessiner un cadre" sur la carte en utilisant la souris et zoomer dans le cadre ainsi défini.</para>
+					<para>Les utilisateurs peuvent "dessiner un cadre" sur la carte en utilisant la souris et zoomer dans le cadre ainsi dÃ©fini.</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>Box querying</term>
 				<listitem>
-					<para>Les utilisateurs peuvent "dessiner un cadre" sur la carte en utilisant la souris et exécuter des requêtes d'attribut pour toutes les fonctions (couches) qui sont concernées par ce cadre.</para>
+					<para>Les utilisateurs peuvent "dessiner un cadre" sur la carte en utilisant la souris et exÃ©cuter des requÃªtes d'attribut pour toutes les fonctions (couches) qui sont concernÃ©es par ce cadre.</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>Map image rollover</term>
 				<listitem>
-					<para>Demande que les nouvelles cartes soient rechargées dans la page actuelle sans que le rest de la page ne soit rechargé.</para>
+					<para>Demande que les nouvelles cartes soient rechargÃ©es dans la page actuelle sans que le rest de la page ne soit rechargÃ©.</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Affichage des coordonnées du curseur</term>
+				<term>Affichage des coordonnÃ©es du curseur</term>
 				<listitem>
-					<para>Les coordonnées du curseur peuvent être affichées dans la barre d'état du navigateur.
+					<para>Les coordonnÃ©es du curseur peuvent Ãªtre affichÃ©es dans la barre d'Ã©tat du navigateur.
               (voyez <ulink url="http://www.kralidis.ca/gis/mapserv/mapplet/howto.htm">
-                   http://www.kralidis.ca/gis/mapserv/mapplet/howto.htm</ulink> pour plus de détails)</para>
+                   http://www.kralidis.ca/gis/mapserv/mapplet/howto.htm</ulink> pour plus de dÃ©tails)</para>
 				</listitem>
 			</varlistentry>
 		</variablelist>
@@ -120,93 +120,93 @@
 	<sect1 id="install">
 		<title>Installation du logiciel</title>
 		<sect2 id="unpack">
-			<title>Décompression de l'archive</title>
-			<para>La première étape du processus d'installation consiste à décompresser le fichier archive que vous venez de récupérer.  La manière de procéder dépend de votre système d'exploitation.  Si vous rencontrez un problème durant cette étape contactez votre administrateur système.
+			<title>DÃ©compression de l'archive</title>
+			<para>La premiÃ¨re Ã©tape du processus d'installation consiste Ã  dÃ©compresser le fichier archive que vous venez de rÃ©cupÃ©rer.  La maniÃ¨re de procÃ©der dÃ©pend de votre systÃ¨me d'exploitation.  Si vous rencontrez un problÃ¨me durant cette Ã©tape contactez votre administrateur systÃ¨me.
     </para>
 		</sect2>
 		<sect2 id="position">
 			<title>Positionnement du fichier de classe</title>
-			<para>Une fois la décompression effectuée, vous trouverez trois nouveaux fichiers: <filename>mapplet.class</filename>,
+			<para>Une fois la dÃ©compression effectuÃ©e, vous trouverez trois nouveaux fichiers: <filename>mapplet.class</filename>,
       <filename>mapplet.java</filename>, et
-      <filename>evalThread.class</filename>.  Les deux fichiers <filename>.class</filename> constituent le code binaire Java dont vous avez besoin pour incorporer l'applet dans vos pages.  Le fichier <filename>mapplet.java</filename> est le code source Java pour l'applet.  Ce fichier est inclus pour les curieux ou pour ceux qui souhaiteraient modifier l'applet, mais il n'est pas nécessaire pour atteindre notre but.  Notez que si vous modifiez ce code vous êtes invité à faire connaître ces modifications auprès de <email>MapServer-info@lists.gis.umn.edu</email>.
+      <filename>evalThread.class</filename>.  Les deux fichiers <filename>.class</filename> constituent le code binaire Java dont vous avez besoin pour incorporer l'applet dans vos pages.  Le fichier <filename>mapplet.java</filename> est le code source Java pour l'applet.  Ce fichier est inclus pour les curieux ou pour ceux qui souhaiteraient modifier l'applet, mais il n'est pas nÃ©cessaire pour atteindre notre but.  Notez que si vous modifiez ce code vous Ãªtes invitÃ© Ã  faire connaÃ®tre ces modifications auprÃ¨s de <email>MapServer-info@lists.gis.umn.edu</email>.
     </para>
 			<para>Pour rendre l'applet disponible sur votre serveur, vous devez simplement placer les fichiers de classe quelque part dans l'arborescence des documents oueb.  Par exemple, si la racine de l'arborescence est:
     </para>
 			<para>
 				<filename class="directory">/usr/local/htdocs</filename>,
     </para>
-			<para>vous devez ajouter deux éléments sous htdocs pour obtenir le chemin:
+			<para>vous devez ajouter deux Ã©lÃ©ments sous htdocs pour obtenir le chemin:
     </para>
 			<para>
 				<filename class="directory">/usr/local/htdocs/java/mapplet.</filename>
 			</para>
 			<para>
-      Ensuite placez les fichiers de classe dans le sous répertoire <application>mapplet</application>.
+      Ensuite placez les fichiers de classe dans le sous rÃ©pertoire <application>mapplet</application>.
     </para>
 			<tip>
 				<para>
-        Bien que ce ne soit pas indispensable, il est d'usage de stocker les fichiers de classe des différentes applets dans des sous répertoires séparés.
+        Bien que ce ne soit pas indispensable, il est d'usage de stocker les fichiers de classe des diffÃ©rentes applets dans des sous rÃ©pertoires sÃ©parÃ©s.
       </para>
 			</tip>
 			<para>
-      Notez que les fichiers de classes eux-mêmes et le répertoire dans lequel ils sont placés doivent être accessibles en lecture par l'utilisateur pour le compte duquel fonctionne le serveur oueb (souvent "nobody").  Vérifiez que les droits fichier et répertoire sont correctement positionnés et que le serveur oueb est configuré pour celà.
+      Notez que les fichiers de classes eux-mÃªmes et le rÃ©pertoire dans lequel ils sont placÃ©s doivent Ãªtre accessibles en lecture par l'utilisateur pour le compte duquel fonctionne le serveur oueb (souvent "nobody").  VÃ©rifiez que les droits fichier et rÃ©pertoire sont correctement positionnÃ©s et que le serveur oueb est configurÃ© pour celÃ .
     </para>
 		</sect2>
 	</sect1>
 	<sect1 id="integrate">
 		<title>Integration de <application>mapplet</application> dans une application MapServer existante</title>
 		<para>
-    Maintenant que les fichiers de classe sont accessibles, ils peuvent facilement être intégrés dans une application MapServer.  Nous utiliserons le démonstrateur MapServer comme exemple.
+    Maintenant que les fichiers de classe sont accessibles, ils peuvent facilement Ãªtre intÃ©grÃ©s dans une application MapServer.  Nous utiliserons le dÃ©monstrateur MapServer comme exemple.
   </para>
-		<para>Le seul changement portera sur le fichier HTML de mise en forme qui définit comment votre page sera affichée.  Pour le démonstrateur MapServer, voyez le document <filename>demo.html</filename>.
-    Il y a quatre étapes essentielles:
+		<para>Le seul changement portera sur le fichier HTML de mise en forme qui dÃ©finit comment votre page sera affichÃ©e.  Pour le dÃ©monstrateur MapServer, voyez le document <filename>demo.html</filename>.
+    Il y a quatre Ã©tapes essentielles:
   </para>
 		<itemizedlist>
 			<listitem>
-				<para>ajouter un nom attribut au formulaire qui contrôle l'interface,</para>
+				<para>ajouter un nom attribut au formulaire qui contrÃ´le l'interface,</para>
 			</listitem>
 			<listitem>
-				<para>ajouter un couple de variables cachées au formulaire,</para>
+				<para>ajouter un couple de variables cachÃ©es au formulaire,</para>
 			</listitem>
 			<listitem>
-				<para>ajouter un couple de petites fonctions JavaScript à la section &lt;head&gt; ,</para>
+				<para>ajouter un couple de petites fonctions JavaScript Ã  la section &lt;head&gt; ,</para>
 			</listitem>
 			<listitem>
-				<para>remplacer la définition de l'image  de la carte par la définition de l'applet.</para>
+				<para>remplacer la dÃ©finition de l'image  de la carte par la dÃ©finition de l'applet.</para>
 			</listitem>
 		</itemizedlist>
-		<para>Chacune de ces étapes est décrite séparément.
+		<para>Chacune de ces Ã©tapes est dÃ©crite sÃ©parÃ©ment.
   </para>
 		<sect2 id="nameform">
 			<title>Ajouter un nom attribut au formulaire HTML</title>
-			<para>Le formulaire HTML qui contrôle l'interface dans <filename>demo.html</filename> est défini par la ligne:
+			<para>Le formulaire HTML qui contrÃ´le l'interface dans <filename>demo.html</filename> est dÃ©fini par la ligne:
     </para>
 			<programlisting>
       &lt;form method=GET action="/cgi-bin/mapserv3.3"&gt;
     </programlisting>
 			<para>
-      L'ajout du nom d'attribut nous permet de référencer le formulaire dans les fonctions JavaScript.  Aussi changez la ligne comme suit:
+      L'ajout du nom d'attribut nous permet de rÃ©fÃ©rencer le formulaire dans les fonctions JavaScript.  Aussi changez la ligne comme suit:
     </para>
 			<programlisting>
       &lt;form name="mapserv" method=GET action="/cgi-bin/mapserv3.3"&gt;
     </programlisting>
 		</sect2>
 		<sect2 id="addvars">
-			<title>Ajouter des variables cachées au formulaire</title>
-			<para>Ensuite, vous devez établir deux variables du formulaire HTML qui seront passées entre l'applet et les fonctions JavaScript.  Ajoutez les lignes suivantes juste après la définition du formulaire évoquée précédemment:
+			<title>Ajouter des variables cachÃ©es au formulaire</title>
+			<para>Ensuite, vous devez Ã©tablir deux variables du formulaire HTML qui seront passÃ©es entre l'applet et les fonctions JavaScript.  Ajoutez les lignes suivantes juste aprÃ¨s la dÃ©finition du formulaire Ã©voquÃ©e prÃ©cÃ©demment:
     </para>
 			<programlisting>
       &lt;input type="hidden" name="imgxy" value="299.5 299.5"&gt;
       &lt;input type="hidden" name="imgbox" value="-1 -1 -1 -1"&gt;
     </programlisting>
-			<para>Notez que les noms des attributs pour ces variables doivent exactement avoir le type indiqué.  La variable <varname>imgxy</varname> est utilisée pour communiquer la position du clique de souris de l'utilisateur.  La variable <varname>imgbox</varname> est utilisée pour communiquer les éléments du cadre tracé par l'utilisateur avec la souris.  Les valeurs de ces variables sont données en coordonnées d'image.
+			<para>Notez que les noms des attributs pour ces variables doivent exactement avoir le type indiquÃ©.  La variable <varname>imgxy</varname> est utilisÃ©e pour communiquer la position du clique de souris de l'utilisateur.  La variable <varname>imgbox</varname> est utilisÃ©e pour communiquer les Ã©lÃ©ments du cadre tracÃ© par l'utilisateur avec la souris.  Les valeurs de ces variables sont donnÃ©es en coordonnÃ©es d'image.
     </para>
-			<para>Dans cette étape nous avons initialisé les deux variables et leur avons assigné des valeurs par défaut.  Les valeurs par défaut raisonnables sont déterminées en fonction de la taille de l'image de carte produite, définie dans <filename>demo.map</filename> à 600x600 pixels.  La paire de coordonnées <varname>imgxy</varname> est positionnée pour centrer l'image de carte, moins un demi pixel, dans chacune des directions x et y. Les coordonnées <varname>imgbox</varname> sont données à -1 tout autour, qui se traduit effectivement par "no box" (sans encadrement).  En général, ces valeurs par défaut seront remplacées pour correspondre à l'action de l'utilisateur sur la souris et avant d'être passées à l'applet.
+			<para>Dans cette Ã©tape nous avons initialisÃ© les deux variables et leur avons assignÃ© des valeurs par dÃ©faut.  Les valeurs par dÃ©faut raisonnables sont dÃ©terminÃ©es en fonction de la taille de l'image de carte produite, dÃ©finie dans <filename>demo.map</filename> Ã  600x600 pixels.  La paire de coordonnÃ©es <varname>imgxy</varname> est positionnÃ©e pour centrer l'image de carte, moins un demi pixel, dans chacune des directions x et y. Les coordonnÃ©es <varname>imgbox</varname> sont donnÃ©es Ã  -1 tout autour, qui se traduit effectivement par "no box" (sans encadrement).  En gÃ©nÃ©ral, ces valeurs par dÃ©faut seront remplacÃ©es pour correspondre Ã  l'action de l'utilisateur sur la souris et avant d'Ãªtre passÃ©es Ã  l'applet.
     </para>
 		</sect2>
 		<sect2 id="addjs">
 			<title>Ajouter des fonctions JavaScript</title>
-			<para>Maintenant nous avons besoin d'ajouter deux fonctions JavaScript pour permettre la communication avec l'applet.  Mettez-les dans la partie &lt;head&gt; du <filename>demo.html</filename>, de manière a remplacer quelque chose comme:
+			<para>Maintenant nous avons besoin d'ajouter deux fonctions JavaScript pour permettre la communication avec l'applet.  Mettez-les dans la partie &lt;head&gt; du <filename>demo.html</filename>, de maniÃ¨re a remplacer quelque chose comme:
     </para>
 			<programlisting>&lt;head&gt;&lt;title&gt;MapServer Demo Interface&lt;/title&gt;&lt;/head&gt;</programlisting>
 			<para>par quelque chose comme:
@@ -229,18 +229,18 @@
 
       &lt;/head&gt;
     </programlisting>
-			<para>Notez l'utilisation de "mapserv" à gauche des assignations de valeur dans la fonction <function>mapplet_apply</function>:
+			<para>Notez l'utilisation de "mapserv" Ã  gauche des assignations de valeur dans la fonction <function>mapplet_apply</function>:
     </para>
 			<programlisting>
       document.mapserv.imgbox.value = ...
       document.mapserv.imgxy.value = ...
     </programlisting>
-			<para>C'est le nom d'attribut que nous donnons au formulaire précédent. La fonction <function>mapplet_apply</function> donne les valeurs aux variables cachées définies plus tôt, et la fonction  <function>mapplet_error</function> donne un moyen pour que l'applet passe les messages d'erreur à l'utilisateur.   De toute façon, vous n'avez pas réellement besoin de comprendre les fonctions puisque vous ne les appelerez jamais vous même - c'est la raison d'être de l'applet.  
+			<para>C'est le nom d'attribut que nous donnons au formulaire prÃ©cÃ©dent. La fonction <function>mapplet_apply</function> donne les valeurs aux variables cachÃ©es dÃ©finies plus tÃ´t, et la fonction  <function>mapplet_error</function> donne un moyen pour que l'applet passe les messages d'erreur Ã  l'utilisateur.   De toute faÃ§on, vous n'avez pas rÃ©ellement besoin de comprendre les fonctions puisque vous ne les appelerez jamais vous mÃªme - c'est la raison d'Ãªtre de l'applet.  
     </para>
 		</sect2>
 		<sect2 id="replacedef">
-			<title>Remplacer la définition de l'image générée</title>
-			<para>Enfin, nous devons remplacer la définition de l'image générée par la définition de l'applet.  Cherchez le morceau de code HTML suivant dans le fichier<filename>demo.html</filename> (il est possible qu'il soit sur une seule ligne):
+			<title>Remplacer la dÃ©finition de l'image gÃ©nÃ©rÃ©e</title>
+			<para>Enfin, nous devons remplacer la dÃ©finition de l'image gÃ©nÃ©rÃ©e par la dÃ©finition de l'applet.  Cherchez le morceau de code HTML suivant dans le fichier<filename>demo.html</filename> (il est possible qu'il soit sur une seule ligne):
       </para>
 			<programlisting>
         &lt;tr&gt;
@@ -249,7 +249,7 @@
           &lt;/td&gt;
         &lt;/tr&gt;
       </programlisting>
-			<para>C'est la définition d'une cellule d'une table HTML contenant l'image de la carte générée par MapServer.  Nous devons remplacer ceci par la définition de l'applet.  Changez le bloc précédent par:
+			<para>C'est la dÃ©finition d'une cellule d'une table HTML contenant l'image de la carte gÃ©nÃ©rÃ©e par MapServer.  Nous devons remplacer ceci par la dÃ©finition de l'applet.  Changez le bloc prÃ©cÃ©dent par:
       </para>
 			<programlisting>
         &lt;tr&gt;
@@ -261,7 +261,7 @@
           &lt;/td&gt;
         &lt;/tr&gt;
       </programlisting>
-			<para>Examinons cette définition d'applet.
+			<para>Examinons cette dÃ©finition d'applet.
       </para>
 			<sect3>
 				<title>Voyons voir</title>
@@ -270,10 +270,10 @@
 					<varlistentry>
 						<term>codebase</term>
 						<listitem>
-							<para>Indique le chemin, relatif à la racine des documents HTML, vers le répertoire contenant le(s) fichier(s) de classe nécessaire. Si vous mettez vos fichiers de classe dans une structure arborescente autre que <filename class="directory">/java/mapplet</filename>, vous devrez changer l'attribut codebase en conséquence.
+							<para>Indique le chemin, relatif Ã  la racine des documents HTML, vers le rÃ©pertoire contenant le(s) fichier(s) de classe nÃ©cessaire. Si vous mettez vos fichiers de classe dans une structure arborescente autre que <filename class="directory">/java/mapplet</filename>, vous devrez changer l'attribut codebase en consÃ©quence.
                   <note>
 									<para>
-                    Vous pouvez aussi utiliser une URL pour l'attribut codebase, ainsi les fichiers de classe peuvent-ils se trouver n'importe où sur l'internet.
+                    Vous pouvez aussi utiliser une URL pour l'attribut codebase, ainsi les fichiers de classe peuvent-ils se trouver n'importe oÃ¹ sur l'internet.
                   </para>
 								</note>
 							</para>
@@ -282,7 +282,7 @@
 					<varlistentry>
 						<term>code</term>
 						<listitem>
-							<para>Spécifie le nom du fichier de classe qui doit être exécuté.
+							<para>SpÃ©cifie le nom du fichier de classe qui doit Ãªtre exÃ©cutÃ©.
               </para>
 						</listitem>
 					</varlistentry>
@@ -290,7 +290,7 @@
 						<term>width</term>
 						<listitem>
 							<para>
-                Définit la largeur (en pixels) de l'espace à allouer pour l'applet sur la page HTML. Cette valeur devrait être la même que la largeur de votre image générée, qui est définie à 600 dans <filename>demo.map</filename>.
+                DÃ©finit la largeur (en pixels) de l'espace Ã  allouer pour l'applet sur la page HTML. Cette valeur devrait Ãªtre la mÃªme que la largeur de votre image gÃ©nÃ©rÃ©e, qui est dÃ©finie Ã  600 dans <filename>demo.map</filename>.
               </para>
 						</listitem>
 					</varlistentry>
@@ -298,7 +298,7 @@
 						<term>height</term>
 						<listitem>
 							<para>
-                Définit la hauteur (en pixels)de l'espace à allouer pour l'applet sur la page HTML. Cette valeur devrait être la même que la largeur de votre image générée.
+                DÃ©finit la hauteur (en pixels)de l'espace Ã  allouer pour l'applet sur la page HTML. Cette valeur devrait Ãªtre la mÃªme que la largeur de votre image gÃ©nÃ©rÃ©e.
               </para>
 						</listitem>
 					</varlistentry>
@@ -306,7 +306,7 @@
 						<term>name</term>
 						<listitem>
 							<para>
-                Donne un nom à l'applet pour être utilisée dans la page HTML.  C'est une facilité pour l'utiliser en référence à l'applet dans le code JavaScript.
+                Donne un nom Ã  l'applet pour Ãªtre utilisÃ©e dans la page HTML.  C'est une facilitÃ© pour l'utiliser en rÃ©fÃ©rence Ã  l'applet dans le code JavaScript.
               </para>
 						</listitem>
 					</varlistentry>
@@ -314,21 +314,21 @@
 						<term>MAYSCRIPT</term>
 						<listitem>
 							<para>
-                Permet à l'applet Java d'accéder aux fonctions JavaScript (nécessaire pour <application>mapplet</application>).  L'accès JavaScript quand l'attribut MAYSCRIPT n'est pas spécifié entraîne une exception.
+                Permet Ã  l'applet Java d'accÃ©der aux fonctions JavaScript (nÃ©cessaire pour <application>mapplet</application>).  L'accÃ¨s JavaScript quand l'attribut MAYSCRIPT n'est pas spÃ©cifiÃ© entraÃ®ne une exception.
               </para>
 						</listitem>
 					</varlistentry>
 				</variablelist>
 				<para>
-          Les paramètres à passer à l'applet sont spécifiés dans l'indicateur &lt;param&gt;  inclus dans l'élément &lt;applet&gt;.  Ici nous n'en avons défini qu'un seul:
+          Les paramÃ¨tres Ã  passer Ã  l'applet sont spÃ©cifiÃ©s dans l'indicateur &lt;param&gt;  inclus dans l'Ã©lÃ©ment &lt;applet&gt;.  Ici nous n'en avons dÃ©fini qu'un seul:
         </para>
 				<variablelist>
-					<title>Paramètres Applet</title>
+					<title>ParamÃ¨tres Applet</title>
 					<varlistentry>
 						<term>image</term>
 						<listitem>
 							<para>
-                Specifie l'image de la carte à charger dans l'applet.  Doit être une URL complète.  Les éléments "[host]" et "[img]" utilisés ici sont standard pour les substitutions de la mise en forme MapServer, et seront modifiés par les valeurs appropriées quand MapServer parcourt <filename>demo.html</filename>.
+                Specifie l'image de la carte Ã  charger dans l'applet.  Doit Ãªtre une URL complÃ¨te.  Les Ã©lÃ©ments "[host]" et "[img]" utilisÃ©s ici sont standard pour les substitutions de la mise en forme MapServer, et seront modifiÃ©s par les valeurs appropriÃ©es quand MapServer parcourt <filename>demo.html</filename>.
               </para>
 						</listitem>
 					</varlistentry>
@@ -338,7 +338,7 @@
 	</sect1>
 	<sect1 id="firstrun">
 		<title>A First Run</title>
-		<para>Quand vous aurez effectué les modifications au <filename>demo.html</filename> detaillées ci-dessus, vous pourrez charger la version modifiée dans votre navigateur.  Chargez la page d'initialisation et cliquez sur le bouton <guilabel>Initialize</guilabel>.  Vous pouvez maintenant spécifier une zone de zoom en dessinant un cadre sur la carte.  Vous aurez besoin d'activer le bouton <guilabel>Browse map</guilabel>, et de cliquer le bouton  <guilabel>Refresh/Query</guilabel> de manière à ce que le cadre de zoom fasse effet.
+		<para>Quand vous aurez effectuÃ© les modifications au <filename>demo.html</filename> detaillÃ©es ci-dessus, vous pourrez charger la version modifiÃ©e dans votre navigateur.  Chargez la page d'initialisation et cliquez sur le bouton <guilabel>Initialize</guilabel>.  Vous pouvez maintenant spÃ©cifier une zone de zoom en dessinant un cadre sur la carte.  Vous aurez besoin d'activer le bouton <guilabel>Browse map</guilabel>, et de cliquer le bouton  <guilabel>Refresh/Query</guilabel> de maniÃ¨re Ã  ce que le cadre de zoom fasse effet.
   </para>
 		<para>
     Que dire de plus, si vous activez le bouton <guilabel>Query multiple features</guilabel>, dessinez un cadre, et cliquez le bouton <guilabel>Query/Refresh</guilabel>, vous obtiendrez les informations sur toutes les fonctions (couches) qui intersectent le contour de votre cadre.
@@ -349,26 +349,26 @@
 		<itemizedlist>
 			<listitem>
 				<para>
-        Vous n'obtenez pas des résultats "instantanés" lorsque vous cliquez sur une fonction dans la carte que vous utilisez.  Une petite croix apparaît à l'emplacement où vous avez cliqué.  Vous devez ensuite cliquer sur le bouton <guilabel>Refresh/Query</guilabel> avant d'avoir les résultats.
+        Vous n'obtenez pas des rÃ©sultats "instantanÃ©s" lorsque vous cliquez sur une fonction dans la carte que vous utilisez.  Une petite croix apparaÃ®t Ã  l'emplacement oÃ¹ vous avez cliquÃ©.  Vous devez ensuite cliquer sur le bouton <guilabel>Refresh/Query</guilabel> avant d'avoir les rÃ©sultats.
       </para>
 			</listitem>
 			<listitem>
 				<para>
-        Si vous dessinez un cadre puis cliquez sur le bouton <guilabel>Refresh/Query</guilabel>, vous obtenez un message d'erreur différent:
+        Si vous dessinez un cadre puis cliquez sur le bouton <guilabel>Refresh/Query</guilabel>, vous obtenez un message d'erreur diffÃ©rent:
 
         <errorname>mapserv(): Web application error. Query mode needs a point, imgxy and mapxy are not set.</errorname>
 				</para>
 			</listitem>
 		</itemizedlist>
 		<para>
-    Est-ce vraiment ce que vous voulez pour vos utilisateurs?  Certainement pas.  La section suivante expliquera comment éviter ces problèmes avec un morceau de code JavaScript.
+    Est-ce vraiment ce que vous voulez pour vos utilisateurs?  Certainement pas.  La section suivante expliquera comment Ã©viter ces problÃ¨mes avec un morceau de code JavaScript.
   </para>
 	</sect1>
 	<sect1 id="finetune">
 		<title>Affiner avec JavaScript</title>
 		<sect2 id="auto_submit">
 			<title>Automatisation de la demande</title>
-			<para>Au lieu de demander que l'utilisateur clique sur le bouton <guilabel>Refresh/Query</guilabel>, vous pouvez ajouter quelques lignes à la fin de la fonction mapplet_apply() pour soumettre le formulaire. Par exemple:
+			<para>Au lieu de demander que l'utilisateur clique sur le bouton <guilabel>Refresh/Query</guilabel>, vous pouvez ajouter quelques lignes Ã  la fin de la fonction mapplet_apply() pour soumettre le formulaire. Par exemple:
     </para>
 			<programlisting>
       if (redraw) {
@@ -376,24 +376,24 @@
       }
     </programlisting>
 			<para>
-      Ceci vérifie l'indicateur de rafraîchissement qui est passé à mapplet_apply() et soumet le formulaire si l'indicateur est positionné.
+      Ceci vÃ©rifie l'indicateur de rafraÃ®chissement qui est passÃ© Ã  mapplet_apply() et soumet le formulaire si l'indicateur est positionnÃ©.
     </para>
 		</sect2>
 		<sect2 id="box_on_off">
 			<title>Basculer le dessin du cadre (On/Off)</title>
 			<para>
 
-      Il est logique de dessiner un cadre sur une partie de la carte pour matérialiser la zone à zoomer, ou de sélectionner les objets à interroger. Mais qu'en est-il du zoom arrière (mode=browse, zoomdir=-1), ou du recentrage de la carte (mode=browse, zoomdir=0)?  Pour ces opérations l'utilisation d'un cadre n'est pas très indiquée. Pire, dessiner un cadre dans l'une de ces situations entraînera un agrandissement sans se soucier de la direction du zoom.
+      Il est logique de dessiner un cadre sur une partie de la carte pour matÃ©rialiser la zone Ã  zoomer, ou de sÃ©lectionner les objets Ã  interroger. Mais qu'en est-il du zoom arriÃ¨re (mode=browse, zoomdir=-1), ou du recentrage de la carte (mode=browse, zoomdir=0)?  Pour ces opÃ©rations l'utilisation d'un cadre n'est pas trÃ¨s indiquÃ©e. Pire, dessiner un cadre dans l'une de ces situations entraÃ®nera un agrandissement sans se soucier de la direction du zoom.
 
     </para>
 			<para>
-      Au lieu d'attendre que l'utilisateur choisisse entre dessiner un cadre ou cliquer selon le contexte, vous souhaiteriez utiliser les procédures mapplet boxon() et boxoff() pour contrôler quand le cadre est autorisé ou pas. La syntaxe de base en JavaScript pour appeler ces procédures est:
+      Au lieu d'attendre que l'utilisateur choisisse entre dessiner un cadre ou cliquer selon le contexte, vous souhaiteriez utiliser les procÃ©dures mapplet boxon() et boxoff() pour contrÃ´ler quand le cadre est autorisÃ© ou pas. La syntaxe de base en JavaScript pour appeler ces procÃ©dures est:
     </para>
 			<programlisting>
       document.mapplet.boxoff();
     </programlisting>
 			<para>
-      Dans la démonstration MapServer, vous devez placer le code dans un gestionnaire d'événement d'un formulaire de contrôle.  Par exemple:
+      Dans la dÃ©monstration MapServer, vous devez placer le code dans un gestionnaire d'Ã©vÃ©nement d'un formulaire de contrÃ´le.  Par exemple:
     </para>
 			<programlisting>
       &lt;input type=radio
@@ -403,72 +403,72 @@
                 [zoomdir_0_check] &gt;
     </programlisting>
 			<para>
-      Dans cet exemple, lorsque l'utilisateur alterne avec le mode panneau (zoomdir=0), le dessin d'un cadre est interdit. Evidemment vous devrez ajouter des appels supplémentaires pour d'autres contrôles pour revalider la possibilité du cadre selon l'opération souhaitée.
+      Dans cet exemple, lorsque l'utilisateur alterne avec le mode panneau (zoomdir=0), le dessin d'un cadre est interdit. Evidemment vous devrez ajouter des appels supplÃ©mentaires pour d'autres contrÃ´les pour revalider la possibilitÃ© du cadre selon l'opÃ©ration souhaitÃ©e.
     </para>
 		</sect2>
 	</sect1>
 	<sect1 id="parameters">
-		<title>Paramètres <application>Mapplet</application> facultatifs</title>
-		<para>Précédemment nous avons passé un paramètre à <application>mapplet</application>, comme dans la ligne suivante dans <filename>demo.html</filename>:
+		<title>ParamÃ¨tres <application>Mapplet</application> facultatifs</title>
+		<para>PrÃ©cÃ©demment nous avons passÃ© un paramÃ¨tre Ã  <application>mapplet</application>, comme dans la ligne suivante dans <filename>demo.html</filename>:
   </para>
 		<programlisting>
     &lt;param name="image" value="http://[host][img]"&gt;
   </programlisting>
-		<para>Le paramètre "image" doit être indiqué dans l'ordre pour <application>mapplet</application> vers la fonction.  Il y a plusieurs paramètres facultatifs qui peuvent être passés pour personnaliser l'apparence de votre <application>mapplet</application> et ses fonctionnalités.  La syntaxe de ces paramètres dans <filename>demo.html</filename> est la même que ce qui suit. Un indicateur avec la forme générale
+		<para>Le paramÃ¨tre "image" doit Ãªtre indiquÃ© dans l'ordre pour <application>mapplet</application> vers la fonction.  Il y a plusieurs paramÃ¨tres facultatifs qui peuvent Ãªtre passÃ©s pour personnaliser l'apparence de votre <application>mapplet</application> et ses fonctionnalitÃ©s.  La syntaxe de ces paramÃ¨tres dans <filename>demo.html</filename> est la mÃªme que ce qui suit. Un indicateur avec la forme gÃ©nÃ©rale
   </para>
 		<programlisting>
     &lt;param name="somename" value="somevalue"&gt;
   </programlisting>
-		<para>doit apparaître entre les indicateurs d'applet. Une liste de paramètres Mapplet facultatifs, leurs propos et les valeurs autorisées est donnée ici.
+		<para>doit apparaÃ®tre entre les indicateurs d'applet. Une liste de paramÃ¨tres Mapplet facultatifs, leurs propos et les valeurs autorisÃ©es est donnÃ©e ici.
   </para>
 		<variablelist>
-			<title>Paramètres facultatifs</title>
+			<title>ParamÃ¨tres facultatifs</title>
 			<varlistentry>
 				<term>jitter</term>
 				<listitem>
-					<para>Indique de combien de pixels un utilisateur doit dessiner un cadre avant que <application>mapplet</application> détermine que c'est effectivement un cadre de sélection.  Ceci permet d'éviter que les légers déplacements accidentels lors d'un simple clique ne soient interprétés comme un cadre.  Les valeurs doivent être des entiers.  Cinq par défaut.
+					<para>Indique de combien de pixels un utilisateur doit dessiner un cadre avant que <application>mapplet</application> dÃ©termine que c'est effectivement un cadre de sÃ©lection.  Ceci permet d'Ã©viter que les lÃ©gers dÃ©placements accidentels lors d'un simple clique ne soient interprÃ©tÃ©s comme un cadre.  Les valeurs doivent Ãªtre des entiers.  Cinq par dÃ©faut.
        </para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>color</term>
 				<listitem>
-					<para>Indique la couleur à utiliser quand un cadre est tracé à la souris ou qu'une croix matérialise l'emplacement d'un simple clique.  Les valeurs de couleur doivent être indiquées soit sous forme du triplet RGB habituel (par exemple, value="255,255,255" pour un cadre blanc), ou par le nom anglais de l'une des treize couleurs prédéfinies (black=noir, blue=bleu, cyan=cyan, darkGray=gris foncé, gray=gris, green=vert, lightGray=gris clair, magenta=magenta, orange=orange, pink=rose, red=rouge, white=blanc ou yellow=jaune).  Rouge (red) par défaut.
+					<para>Indique la couleur Ã  utiliser quand un cadre est tracÃ© Ã  la souris ou qu'une croix matÃ©rialise l'emplacement d'un simple clique.  Les valeurs de couleur doivent Ãªtre indiquÃ©es soit sous forme du triplet RGB habituel (par exemple, value="255,255,255" pour un cadre blanc), ou par le nom anglais de l'une des treize couleurs prÃ©dÃ©finies (black=noir, blue=bleu, cyan=cyan, darkGray=gris foncÃ©, gray=gris, green=vert, lightGray=gris clair, magenta=magenta, orange=orange, pink=rose, red=rouge, white=blanc ou yellow=jaune).  Rouge (red) par dÃ©faut.
         </para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>thickness</term>
 				<listitem>
-					<para>Indique l'épaisseur de la ligne à utiliser pour dessiner le cadre (ne concerne pas la croix du curseur). Les valeurs sont des entiers. Un par défaut.
+					<para>Indique l'Ã©paisseur de la ligne Ã  utiliser pour dessiner le cadre (ne concerne pas la croix du curseur). Les valeurs sont des entiers. Un par dÃ©faut.
         </para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>cursorsize</term>
 				<listitem>
-					<para>Indique le rayon en pixels de la croix du curseur. Les valeurs sont des entiers. Quatre par défaut.
+					<para>Indique le rayon en pixels de la croix du curseur. Les valeurs sont des entiers. Quatre par dÃ©faut.
         </para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>verbose</term>
 				<listitem>
-					<para>Autorise/interdit à la ligne d'état du navigateur de montrer les coordonnées de la position du curseur de la souris. Les valeurs autorisées sont "on" (oui) et "off" (non). "off" par défaut.  Notez que des fonctions JavaScript supplémentaires  sont nécessaires pour que çà fonctionne.
+					<para>Autorise/interdit Ã  la ligne d'Ã©tat du navigateur de montrer les coordonnÃ©es de la position du curseur de la souris. Les valeurs autorisÃ©es sont "on" (oui) et "off" (non). "off" par dÃ©faut.  Notez que des fonctions JavaScript supplÃ©mentaires  sont nÃ©cessaires pour que Ã§Ã  fonctionne.
         </para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>box</term>
 				<listitem>
-					<para>Autorise/interdit le dessin du cadre.  Les valeurs autorisées sont "on" (oui) et "off" (non).  "on" par défaut.  Dans le cas du "off", toute action de cliquer dans l'interface <application>mapplet</application> sera représentée par une croix de positionnement du curseur.
+					<para>Autorise/interdit le dessin du cadre.  Les valeurs autorisÃ©es sont "on" (oui) et "off" (non).  "on" par dÃ©faut.  Dans le cas du "off", toute action de cliquer dans l'interface <application>mapplet</application> sera reprÃ©sentÃ©e par une croix de positionnement du curseur.
         </para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>busyimage</term>
 				<listitem>
-					<para>Indique une image à afficher quand <application>mapplet</application> travaille.  La valeur donnée doit être une URL complète.  En général c'est seulement utile quand la procédure d'applet <ulink url="#swap">swap</ulink> est utilisée.
+					<para>Indique une image Ã  afficher quand <application>mapplet</application> travaille.  La valeur donnÃ©e doit Ãªtre une URL complÃ¨te.  En gÃ©nÃ©ral c'est seulement utile quand la procÃ©dure d'applet <ulink url="#swap">swap</ulink> est utilisÃ©e.
         </para>
 				</listitem>
 			</varlistentry>

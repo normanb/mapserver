@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
@@ -43,9 +43,9 @@
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
-                 Ce document décrit les procédures pour l'utilisation des données raster dans les applications MapServer.
+                 Ce document dÃ©crit les procÃ©dures pour l'utilisation des donnÃ©es raster dans les applications MapServer.
                </para>
-			<para>Dernière mise à jour: 27-06-2001</para>
+			<para>DerniÃ¨re mise Ã  jour: 27-06-2001</para>
 		</abstract>
 	</articleinfo>
 	<!-- ********************************************************************** -->
@@ -53,23 +53,23 @@
 		<title>Introduction</title>
 		<para>
     MapServer peut restituer plusieurs types de fichiers raster
-    dans les cartes.  Ce qui suit décrit quelques uns des formats supportés,
-    et les fonctionnalités supportées pour ces formats.
+    dans les cartes.  Ce qui suit dÃ©crit quelques uns des formats supportÃ©s,
+    et les fonctionnalitÃ©s supportÃ©es pour ces formats.
 </para>
-		<para>Note du traducteur: les images raster (pour plus de commodité, dénommées simplement rasters dans ce qui suit)
-sont des images sous forme de fichiers représentant une cartographie.
+		<para>Note du traducteur: les images raster (pour plus de commoditÃ©, dÃ©nommÃ©es simplement rasters dans ce qui suit)
+sont des images sous forme de fichiers reprÃ©sentant une cartographie.
 </para>
 		<para>
-Ce document considère que vous êtes déjà familiarisé avec le paramétrage des fichiers mapfile de MapServer,
-et s'attachera à expliquer les spécificités des aspects liés aux rasters dans les mapfiles. 
+Ce document considÃ¨re que vous Ãªtes dÃ©jÃ  familiarisÃ© avec le paramÃ©trage des fichiers mapfile de MapServer,
+et s'attachera Ã  expliquer les spÃ©cificitÃ©s des aspects liÃ©s aux rasters dans les mapfiles. 
 </para>
 	</sect1>
 	<!-- ====================================================================== -->
 	<sect1 id="definition">
-		<title>Comment sont ajoutés les rasters au Mapfile?</title>
+		<title>Comment sont ajoutÃ©s les rasters au Mapfile?</title>
 		<para>
-Une simple déclaration de couche raster ressemble à çà.  Le fichier DATA est
-interprété en fonction du SHAPEPATH, comme pour les fichiers de forme (shapefiles).  
+Une simple dÃ©claration de couche raster ressemble Ã  Ã§Ã .  Le fichier DATA est
+interprÃ©tÃ© en fonction du SHAPEPATH, comme pour les fichiers de forme (shapefiles).  
 </para>
 		<para>
 			<programlisting>
@@ -82,8 +82,8 @@ END
 </programlisting>
 		</para>
 		<para>
-Bien que ce ne soit montré ici les rasters peuvent avoir aussi des informations PROJECTION, METADATA, MINSCALE, 
-et MAXSCALE. Ils ne peuvent avoir des étiquettes, des requêtes et des informations CONNECTION, 
+Bien que ce ne soit montrÃ© ici les rasters peuvent avoir aussi des informations PROJECTION, METADATA, MINSCALE, 
+et MAXSCALE. Ils ne peuvent avoir des Ã©tiquettes, des requÃªtes et des informations CONNECTION, 
 CONNECTIONTYPE, ou FEATURE.  
 </para>
 	</sect1>
@@ -91,11 +91,11 @@ CONNECTIONTYPE, ou FEATURE.
 	<sect1 id="classify">
 		<title>Classification des rasters</title>
 		<para>
-Les rasters peuvent être classifiés de la même manière que les vecteurs, avec quelques 
-exceptions.  Le CLASSITEM est toujours la valeur du pixel, qui est indiquée par la 
-chaîne de caractères spéciale "[pixel]" (doit être en minuscule, elle était "[value]" dans
-les versions antérieures à 3.5).  L'exemple suivant montre une couche raster avec
-un schéma de classification simple qui lui est appliqué. 
+Les rasters peuvent Ãªtre classifiÃ©s de la mÃªme maniÃ¨re que les vecteurs, avec quelques 
+exceptions.  Le CLASSITEM est toujours la valeur du pixel, qui est indiquÃ©e par la 
+chaÃ®ne de caractÃ¨res spÃ©ciale "[pixel]" (doit Ãªtre en minuscule, elle Ã©tait "[value]" dans
+les versions antÃ©rieures Ã  3.5).  L'exemple suivant montre une couche raster avec
+un schÃ©ma de classification simple qui lui est appliquÃ©. 
 </para>
 		<programlisting>
 LAYER
@@ -124,41 +124,41 @@ END
 </programlisting>
 		<para>
 Quelques pilotes de format (GDAL par exemple)
-transforment les valeurs de pixel dans la tranche 0 à 255 <emphasis>avant</emphasis>
-de leur appliquer le schéma de classification, rendant plus délicat à utiliser ce
-mécanisme de classification pour classifier les nombres en flottant, ou d'autres données non 
-exprimées comme un octet non signé (0-255).  C'est un bug et çà devrait être corrigé
+transforment les valeurs de pixel dans la tranche 0 Ã  255 <emphasis>avant</emphasis>
+de leur appliquer le schÃ©ma de classification, rendant plus dÃ©licat Ã  utiliser ce
+mÃ©canisme de classification pour classifier les nombres en flottant, ou d'autres donnÃ©es non 
+exprimÃ©es comme un octet non signÃ© (0-255).  C'est un bug et Ã§Ã  devrait Ãªtre corrigÃ©
 dans le future.  
 </para>
 		<para>
-Notez que seuls les paramètres COLOR, EXPRESSION et NAME sont utilisés pour
-les classifications raster.  Les autres informations de rendu sont ignorées. 
+Notez que seuls les paramÃ¨tres COLOR, EXPRESSION et NAME sont utilisÃ©s pour
+les classifications raster.  Les autres informations de rendu sont ignorÃ©es. 
 </para>
 	</sect1>
 	<!-- ====================================================================== -->
 	<sect1 id="formats">
-		<title>Formats supportés</title>
+		<title>Formats supportÃ©s</title>
 		<para>
-Ce que MapServer supporte comme formats raster est largement contrôlé par
-les options de configuration.  Quelques formats sont considérés <emphasis>
-intégrés</emphasis> en fonction de l'utilisation facultative de la bibliothèque raster
+Ce que MapServer supporte comme formats raster est largement contrÃ´lÃ© par
+les options de configuration.  Quelques formats sont considÃ©rÃ©s <emphasis>
+intÃ©grÃ©s</emphasis> en fonction de l'utilisation facultative de la bibliothÃ¨que raster
 GDAL.  
 </para>
 		<para>
-Plus d'informations sur GDAL peuvent être trouvées sur <ulink url="http://www.remotesensing.org/gdal/">http://www.remotesensing.org/gdal
-</ulink>, y compris la <ulink url="http://www.remotesensing.org/gdal/formats_list.html">liste des formats supportés</ulink>.  Quelques fonctions raster avancées de MapServer,
-comme le ré-échantillonnage, la génération de couleurs RGB et la capture automatique de
-projection ne fonctionnent qu'avec les formats raster utilisés à travers GDAL.  GDAL 
-est normalement construit indépendamment de MapServer, et donc doit être disponible
+Plus d'informations sur GDAL peuvent Ãªtre trouvÃ©es sur <ulink url="http://www.remotesensing.org/gdal/">http://www.remotesensing.org/gdal
+</ulink>, y compris la <ulink url="http://www.remotesensing.org/gdal/formats_list.html">liste des formats supportÃ©s</ulink>.  Quelques fonctions raster avancÃ©es de MapServer,
+comme le rÃ©-Ã©chantillonnage, la gÃ©nÃ©ration de couleurs RGB et la capture automatique de
+projection ne fonctionnent qu'avec les formats raster utilisÃ©s Ã  travers GDAL.  GDAL 
+est normalement construit indÃ©pendamment de MapServer, et donc doit Ãªtre disponible
 durant la construction de MapServer en utilisant l'option de configuration <emphasis>--with-gdal</emphasis>.
-Les formats GDAL non listés ci-après comprennent
+Les formats GDAL non listÃ©s ci-aprÃ¨s comprennent
 CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI et Erdas Imagine
 (.hfa).
 </para>
 		<para>
-Pour savoir ce qui est construit dans un exécutable MapServer particulier, utilisez le drapeau
--v pour découvrir quelles options de construction sont disponibles.  Pour savoir quels sont les formats
-GDAL construits, la commande gdal-config peut être utilisée.  Par exemple:
+Pour savoir ce qui est construit dans un exÃ©cutable MapServer particulier, utilisez le drapeau
+-v pour dÃ©couvrir quelles options de construction sont disponibles.  Pour savoir quels sont les formats
+GDAL construits, la commande gdal-config peut Ãªtre utilisÃ©e.  Par exemple:
 </para>
 		<programlisting>
 warmerda@gdal[103]% ./mapserv -v
@@ -169,76 +169,76 @@ gxf gtiff hfa aigrid aaigrid ceos ceos2 iso8211 sdts raw dted mem jdem
 envisat elas ogdi gif jpeg png fits grass
 </programlisting>
 		<para>
-Les formats suivants sont potentiellement intégrés.
+Les formats suivants sont potentiellement intÃ©grÃ©s.
 </para>
 		<itemizedlist>
 			<listitem>
 				<para><emphasis>TIFF/GeoTIFF</emphasis>: 
-      S'il est construit avec <emphasis>INPUT=TIFF</emphasis> MapServer aura le support intégré
-      pour la lecture des fichiers TIFF ou GeoTIFF.  Le support intégré
-      TIFF a quelques limitations par rapport à l'organisation des 
-      fichiers qui peuvent être lus (sans carroyage, 16 bits, RGB, ou modèles de couleur odd). 
+      S'il est construit avec <emphasis>INPUT=TIFF</emphasis> MapServer aura le support intÃ©grÃ©
+      pour la lecture des fichiers TIFF ou GeoTIFF.  Le support intÃ©grÃ©
+      TIFF a quelques limitations par rapport Ã  l'organisation des 
+      fichiers qui peuvent Ãªtre lus (sans carroyage, 16 bits, RGB, ou modÃ¨les de couleur odd). 
       Ce pilote dispose des fichiers monde (<ulink url="#world_files">world files</ulink>), 
-      ou des coordonnées intégrées GeoTIFF pour
-      le géoréférencement.  La déclaration de projection AUTO n'est pas supportée.
+      ou des coordonnÃ©es intÃ©grÃ©es GeoTIFF pour
+      le gÃ©orÃ©fÃ©rencement.  La dÃ©claration de projection AUTO n'est pas supportÃ©e.
     </para>
 				<para>
-      Le support de la fonctionnalité complète TIFF/GeoTIFF est disponible à travers GDAL.  Notez
+      Le support de la fonctionnalitÃ© complÃ¨te TIFF/GeoTIFF est disponible Ã  travers GDAL.  Notez
       que seul GDAL supporte les fichiers de carroyage TIFF et les fichiers TIFF avec overviews.
-NdT : j'ai beaucoup de mal à trouver un terme français correspondant à çà, aussi voici l'explication qui m'a été donnée par Richard Greenwood :
-"Les overviews sont des images en basse résolution stockées au sein d'un fichier TIFF. Par 
-exemple, vous pourriez avoir une image dans laquelle chaque pixel représente 1 mètre carré.
- Vous ajouteriez des overviews pour le TIFF à  résolution métrique de 2, 4, 8, 16. 
- Lorsque mapserver lit le fichier, il détermine la résolution la plus petite qu'il peut utiliser
+NdT : j'ai beaucoup de mal Ã  trouver un terme franÃ§ais correspondant Ã  Ã§Ã , aussi voici l'explication qui m'a Ã©tÃ© donnÃ©e par Richard Greenwood :
+"Les overviews sont des images en basse rÃ©solution stockÃ©es au sein d'un fichier TIFF. Par 
+exemple, vous pourriez avoir une image dans laquelle chaque pixel reprÃ©sente 1 mÃ¨tre carrÃ©.
+ Vous ajouteriez des overviews pour le TIFF Ã   rÃ©solution mÃ©trique de 2, 4, 8, 16. 
+ Lorsque mapserver lit le fichier, il dÃ©termine la rÃ©solution la plus petite qu'il peut utiliser
 en fonction du niveau du zoom et utilise cet overview. 
-Ceci réduit la totalité des données que MapServer a à lire, et réduit en conséquence
-le travail à faire pour ajuster l'image."
-      Les fichiers de carroyage TIFF avec overviews préfabriqués sont l'une des manières
+Ceci rÃ©duit la totalitÃ© des donnÃ©es que MapServer a Ã  lire, et rÃ©duit en consÃ©quence
+le travail Ã  faire pour ajuster l'image."
+      Les fichiers de carroyage TIFF avec overviews prÃ©fabriquÃ©s sont l'une des maniÃ¨res
       les plus performantes de traiter les grandes images raster.
     </para>
 			</listitem>
 			<listitem>
 				<para><emphasis>GIF</emphasis>: 
-      Si GD est configuré avec le support GIF (<emphasis>OUTPUT=GIF</emphasis>), 
+      Si GD est configurÃ© avec le support GIF (<emphasis>OUTPUT=GIF</emphasis>), 
       alors MapServer sera aussi capable
-      de lire des fichiers GIF pour les couches raster.  La seule manière de géoréférencer des fichiers GIF
+      de lire des fichiers GIF pour les couches raster.  La seule maniÃ¨re de gÃ©orÃ©fÃ©rencer des fichiers GIF
       est d'utiliser un fichier "monde".
     </para>
 				<para>
-      Si GD n'est pas configuré pour le support GIF, il peut être disponible avec
-      GDAL, lequel ne supporte pas le géoréférencement via les fichiers "monde" (world files).  
+      Si GD n'est pas configurÃ© pour le support GIF, il peut Ãªtre disponible avec
+      GDAL, lequel ne supporte pas le gÃ©orÃ©fÃ©rencement via les fichiers "monde" (world files).  
     </para>
 			</listitem>
 			<listitem>
 				<para><emphasis>PNG</emphasis>: 
-      Si GD est configuré pour le support PNG (<emphasis>OUTPUT=PNG</emphasis>), 
+      Si GD est configurÃ© pour le support PNG (<emphasis>OUTPUT=PNG</emphasis>), 
       MapServer sera capable de lire
-      des fichiers PNG pour les couches raster.  La seule manière de géoréférencer des fichiers PNG
+      des fichiers PNG pour les couches raster.  La seule maniÃ¨re de gÃ©orÃ©fÃ©rencer des fichiers PNG
       est d'utiliser un fichier "monde".
     </para>
 				<para>
-      Si GD n'est pas configuré pour le support PNG, il peut être disponible avec 
-      GDAL, lequel supporte aussi le géoréférencement via les fichiers "monde" (world files). 
+      Si GD n'est pas configurÃ© pour le support PNG, il peut Ãªtre disponible avec 
+      GDAL, lequel supporte aussi le gÃ©orÃ©fÃ©rencement via les fichiers "monde" (world files). 
     </para>
 			</listitem>
 			<listitem>
 				<para><emphasis>JPEG</emphasis>: 
       Si MapServer est construit avec le support JPEG (<emphasis>INPUT=JPEG</emphasis>) 
-      les fichiers JPEG en niveaux de gris sont restitués dans des couches raster.  Les fichiers RGB (les plus communs)
-      ne pourront pas être affichés.  Le géoréférencement se fait via des fichiers "monde".
+      les fichiers JPEG en niveaux de gris sont restituÃ©s dans des couches raster.  Les fichiers RGB (les plus communs)
+      ne pourront pas Ãªtre affichÃ©s.  Le gÃ©orÃ©fÃ©rencement se fait via des fichiers "monde".
     </para>
 				<para>
-      Si MapServer n'est pas construit avec le support natif JPEG, GDAL peut à la place 
-      supporter le format.  Dans ce cas les fichiers RGB sont aussi supportés (via
-      le mécanisme RGB).  Le géoréférencement est aussi assuré via le fichier "monde" (world file).
+      Si MapServer n'est pas construit avec le support natif JPEG, GDAL peut Ã  la place 
+      supporter le format.  Dans ce cas les fichiers RGB sont aussi supportÃ©s (via
+      le mÃ©canisme RGB).  Le gÃ©orÃ©fÃ©rencement est aussi assurÃ© via le fichier "monde" (world file).
     </para>
 			</listitem>
 			<listitem>
 				<para><emphasis>Erdas .LAN/.GIS</emphasis>: 
-      S'il est configuré avec <emphasis>INPUT=EPPL7</emphasis> (par défaut) 
+      S'il est configurÃ© avec <emphasis>INPUT=EPPL7</emphasis> (par dÃ©faut) 
       MapServer supportera les fichiers huit bit Erdas LAN/GIS.  Les fichiers 
-      .trl sont lus pour la palette de couleurs, et si elle n'est pas trouvée la couche est traitée
-      en niveau de gris.  Le géoréférencement est lu dans le fichier. 
+      .trl sont lus pour la palette de couleurs, et si elle n'est pas trouvÃ©e la couche est traitÃ©e
+      en niveau de gris.  Le gÃ©orÃ©fÃ©rencement est lu dans le fichier. 
     </para>
 			</listitem>
 		</itemizedlist>
@@ -247,26 +247,26 @@ le travail à faire pour ajuster l'image."
 	<sect1 id="">
 		<title>Rasters et indexation de carroyage</title>
 		<para>
-Pour la gestion de très grandes couches raster il est plus pratique, et beaucoup plus
+Pour la gestion de trÃ¨s grandes couches raster il est plus pratique, et beaucoup plus
 performant de diviser l'image raster en plusieurs images plus petites.  Chaque
-fichier est un carreau de la mosaïque de l'image raster à afficher.  La liste
-des fichiers formant une couche peut être stockée dans un fichier de forme avec des polygones 
-représentant l'emplacement de chaque fichier, et le nom des fichiers.  Ceci est 
-appelé un TILEINDEX et fonctionne de manière identique à des couches vectorisées. 
-Le résultat peut en être présenté dans la carte comme une couche unique, mais MapServer 
-examinera en premier le fichier index, et vérifiera que seuls les fichiers raster correspondants à l'affichage
+fichier est un carreau de la mosaÃ¯que de l'image raster Ã  afficher.  La liste
+des fichiers formant une couche peut Ãªtre stockÃ©e dans un fichier de forme avec des polygones 
+reprÃ©sentant l'emplacement de chaque fichier, et le nom des fichiers.  Ceci est 
+appelÃ© un TILEINDEX et fonctionne de maniÃ¨re identique Ã  des couches vectorisÃ©es. 
+Le rÃ©sultat peut en Ãªtre prÃ©sentÃ© dans la carte comme une couche unique, mais MapServer 
+examinera en premier le fichier index, et vÃ©rifiera que seuls les fichiers raster correspondants Ã  l'affichage
 seront ouverts.
 </para>
 		<para>
-L'exemple suivant est simple.  Aucun élément DATA n'est nécessaire
-puisque MapServer recherchera le nom des fichiers raster à partir de l'attribut
-Location du fichier hp2.dbf pour les enregistrements associés aux 
-polygones dans hp2.shp qui sont en intersection avec la région affichée.  Les polygones
-dans hp2.shp seront des rectangles représentant l'emplacement du fichier correspondant.
-Notez que les fichiers n'ont pas à avoir la même taille, les formats
-peuvent varier et ils peuvent même se recouvrir
-(les derniers fichiers seront dessinés par dessus les précédents); par contre ils doivent tous
-être dans le même système de coordonnées (projection) que celui de la couche.
+L'exemple suivant est simple.  Aucun Ã©lÃ©ment DATA n'est nÃ©cessaire
+puisque MapServer recherchera le nom des fichiers raster Ã  partir de l'attribut
+Location du fichier hp2.dbf pour les enregistrements associÃ©s aux 
+polygones dans hp2.shp qui sont en intersection avec la rÃ©gion affichÃ©e.  Les polygones
+dans hp2.shp seront des rectangles reprÃ©sentant l'emplacement du fichier correspondant.
+Notez que les fichiers n'ont pas Ã  avoir la mÃªme taille, les formats
+peuvent varier et ils peuvent mÃªme se recouvrir
+(les derniers fichiers seront dessinÃ©s par dessus les prÃ©cÃ©dents); par contre ils doivent tous
+Ãªtre dans le mÃªme systÃ¨me de coordonnÃ©es (projection) que celui de la couche.
 </para>
 		<programlisting>
   LAYER
@@ -278,11 +278,11 @@ peuvent varier et ils peuvent même se recouvrir
   END
 </programlisting>
 		<para>
-Il existe plusieurs manières de produire des fichiers de forme TILEINDEX utilisables avec cette
+Il existe plusieurs maniÃ¨res de produire des fichiers de forme TILEINDEX utilisables avec cette
 commande, une des options est le programme <emphasis>gdaltindex</emphasis>, qui fait parti
-des utilitaires GDAL.  Le programme gdaltindex génèrera automatiquement
-un fichier de forme pour l'index de carroyage à partir d'une liste de fichiers raster supportés par GDAL et
-passée sur la ligne de commande.
+des utilitaires GDAL.  Le programme gdaltindex gÃ©nÃ¨rera automatiquement
+un fichier de forme pour l'index de carroyage Ã  partir d'une liste de fichiers raster supportÃ©s par GDAL et
+passÃ©e sur la ligne de commande.
 </para>
 		<programlisting>
 Usage: gdaltindex [-tileindex field_name] index_file [gdal_file]*
@@ -291,148 +291,148 @@ exemple:
   % gdaltindex doq_index.shp doq/*.tif
 
 NOTES:
-  o Le fichier de forme (index_file) sera créé s'il n'existe pas déjà.
-  o Le champs d'indexation par défaut dans l'index de carroyage est 'location'.
+  o Le fichier de forme (index_file) sera crÃ©Ã© s'il n'existe pas dÃ©jÃ .
+  o Le champs d'indexation par dÃ©faut dans l'index de carroyage est 'location'.
   o Les noms de fichiers raster seront mis dans le fichier exactement comme 
-    ils sont spécifiés sur la ligne de commande.
-  o Des polygones rectangles simples sont générés dans le même
-    système de coordonnées que les rasters.
+    ils sont spÃ©cifiÃ©s sur la ligne de commande.
+  o Des polygones rectangles simples sont gÃ©nÃ©rÃ©s dans le mÃªme
+    systÃ¨me de coordonnÃ©es que les rasters.
 </programlisting>
 		<para>
-Le programme gdaltindex peut être construit comme partie de GDAL (il ne l'est pas par
-défaut), ou une copie Windows préconstruite peut être téléchargée sur
+Le programme gdaltindex peut Ãªtre construit comme partie de GDAL (il ne l'est pas par
+dÃ©faut), ou une copie Windows prÃ©construite peut Ãªtre tÃ©lÃ©chargÃ©e sur
 <ulink url="ftp//gdal.velocet.ca/pub/outgoing/gdaltindex.zip">
 ftp//gdal.velocet.ca/pub/outgoing/gdaltindex.zip</ulink>.  Vous aurez aussi besoin des
-bibliothèques <ulink url="ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip">
+bibliothÃ¨ques <ulink url="ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip">
 ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip</ulink>.
 </para>
 	</sect1>
 	<!-- ====================================================================== -->
 	<sect1 id="warping">
-		<title>Déformation raster</title>
+		<title>DÃ©formation raster</title>
 		<para>
-Une nouvelle fonction dans MapServer 3.5 permet de re-échantillonner les rasters "à la volée" 
-dans de nouvelles projections.  Les précédentes versions ne permettaient que le déplacement vers
-le haut ou le bas sans rotation ni déformation.  La déformation de raster n'est 
-actuellement supportée que pour les images accessibles via GDAL, et non pour les autres
-formats intégrés.
+Une nouvelle fonction dans MapServer 3.5 permet de re-Ã©chantillonner les rasters "Ã  la volÃ©e" 
+dans de nouvelles projections.  Les prÃ©cÃ©dentes versions ne permettaient que le dÃ©placement vers
+le haut ou le bas sans rotation ni dÃ©formation.  La dÃ©formation de raster n'est 
+actuellement supportÃ©e que pour les images accessibles via GDAL, et non pour les autres
+formats intÃ©grÃ©s.
 </para>
 		<para>
-La déformation raster est forcée si la projection apparaît différente pour une couche
-raster par rapport à la carte à générer.  Les couches rasters déformées sont significativement
-plus lourdes à traiter que les couches raster normales avec un temps de
-restitution pouvant être multiplié par 2 à 4.  La projection et la transformation de la
-donnée repère est calculée seulement aux points sélectionnés,
-et en général la linéarité est interpolée le lond des scanlines (tant que 
-l'erreur apparente est inférieure à 0.333 pixels). 
+La dÃ©formation raster est forcÃ©e si la projection apparaÃ®t diffÃ©rente pour une couche
+raster par rapport Ã  la carte Ã  gÃ©nÃ©rer.  Les couches rasters dÃ©formÃ©es sont significativement
+plus lourdes Ã  traiter que les couches raster normales avec un temps de
+restitution pouvant Ãªtre multipliÃ© par 2 Ã  4.  La projection et la transformation de la
+donnÃ©e repÃ¨re est calculÃ©e seulement aux points sÃ©lectionnÃ©s,
+et en gÃ©nÃ©ral la linÃ©aritÃ© est interpolÃ©e le lond des scanlines (tant que 
+l'erreur apparente est infÃ©rieure Ã  0.333 pixels). 
 </para>
 		<para>
-En plus de la projection des rasters, la possibilité de déformation raster peut aussi
-s'appliquer à la rotation des rasters GDAL avec des coefficients de rotation dans leurs 
-informations de géoréférencement.   Actuellement les coefficients de rotation ne devraient pas 
-déclencher la déformation raster sauf si la carte et la couche ont (bien que la correspondance
-soit bonne) des définitions de projection. 
+En plus de la projection des rasters, la possibilitÃ© de dÃ©formation raster peut aussi
+s'appliquer Ã  la rotation des rasters GDAL avec des coefficients de rotation dans leurs 
+informations de gÃ©orÃ©fÃ©rencement.   Actuellement les coefficients de rotation ne devraient pas 
+dÃ©clencher la dÃ©formation raster sauf si la carte et la couche ont (bien que la correspondance
+soit bonne) des dÃ©finitions de projection. 
 </para>
 	</sect1>
 	<!-- ====================================================================== -->
 	<sect1 id="rgb_color_cube">
 		<title>Restitution 24bit RGB</title>
 		<para>
-Une nouvelle fonction de MapServer 3.5 est la conversion à la volée des images raster 24bit RGB
-en format 8bit avec palette.  Ceci n'est supporté que pour les images lues
-à travers la passerelle GDAL.
+Une nouvelle fonction de MapServer 3.5 est la conversion Ã  la volÃ©e des images raster 24bit RGB
+en format 8bit avec palette.  Ceci n'est supportÃ© que pour les images lues
+Ã  travers la passerelle GDAL.
 </para>
 		<para>
-Ceci est effectué en convertissant à la volée dans la couleur la plus proche dans un
-cube de couleurs.  Le cube de couleur par défaut est 5x7x5 (cinq niveaux de rouge, sept
-niveaux de vert et cinq niveaux de bleu).  Ceci dégrade substentiellement la
-qualité de couleur et consomme 175 couleurs dans la table de couleurs de la carte en sortie.
+Ceci est effectuÃ© en convertissant Ã  la volÃ©e dans la couleur la plus proche dans un
+cube de couleurs.  Le cube de couleur par dÃ©faut est 5x7x5 (cinq niveaux de rouge, sept
+niveaux de vert et cinq niveaux de bleu).  Ceci dÃ©grade substentiellement la
+qualitÃ© de couleur et consomme 175 couleurs dans la table de couleurs de la carte en sortie.
 </para>
 		<para>
-La fonction de conversion RGB sera utilisée à chaque fois qu'un fichier GDAL est utilisé
+La fonction de conversion RGB sera utilisÃ©e Ã  chaque fois qu'un fichier GDAL est utilisÃ©
 et qu'il a trois bandes, sans information de classification fournies dans le
-mapfile et si la première bande dans le fichier n'a pas de palette de couleur. 
+mapfile et si la premiÃ¨re bande dans le fichier n'a pas de palette de couleur. 
 </para>
 		<para>
-A cause de la piètre qualité relative, et de l'augmentation IO et CPU nécessaire
-pour la conversion à la volée dans un cube couleur, les utilisateurs sont incités à 
-prétraiter les images en huit bits en utilisant une palette de couleurs optimisée.
-Ceci est abordé plus loin dans la partie traitant du prétraitement des rasters.
+A cause de la piÃ¨tre qualitÃ© relative, et de l'augmentation IO et CPU nÃ©cessaire
+pour la conversion Ã  la volÃ©e dans un cube couleur, les utilisateurs sont incitÃ©s Ã  
+prÃ©traiter les images en huit bits en utilisant une palette de couleurs optimisÃ©e.
+Ceci est abordÃ© plus loin dans la partie traitant du prÃ©traitement des rasters.
 </para>
 	</sect1>
 	<!-- ====================================================================== -->
 	<sect1 id="preprocessing">
-		<title>Prétraitement des rasters</title>
+		<title>PrÃ©traitement des rasters</title>
 	</sect1>
 	<para>
-		<emphasis>Eventuellement j'ajouterai quelques informations générales sur la manière de
-prétraiter les données raster pour les utiliser de manière optimale dans MapServer, et je donnerai des
-informations spécifiques sur la manière d'employer les utilitaires GDAL rgb2pct.py, gdaladdo et gdal_translate pour 
+		<emphasis>Eventuellement j'ajouterai quelques informations gÃ©nÃ©rales sur la maniÃ¨re de
+prÃ©traiter les donnÃ©es raster pour les utiliser de maniÃ¨re optimale dans MapServer, et je donnerai des
+informations spÃ©cifiques sur la maniÃ¨re d'employer les utilitaires GDAL rgb2pct.py, gdaladdo et gdal_translate pour 
 la conversion en pseudocouleur des fichiers GeoTIFF avec overviews.
 </emphasis>
 	</para>
 	<!-- ====================================================================== -->
 	<sect1 id="performance">
-		<title>Trucs pour améliorer les performances d'affichage de raster</title>
+		<title>Trucs pour amÃ©liorer les performances d'affichage de raster</title>
 		<itemizedlist>
 			<listitem>
 				<para>
-Construisez différents niveaux d'overview pour les grands rasters pour s'assurer que seul l'ensemble raisonnable de
-données nécessaire sera utilisé pour l'affichage.  Les overviews
-peuvent être implémentés comme un groupe de couches à différentes résolutions, utilisant 
-MINSCALE, et MAXSCALE pour contrôler quelles couches sont affichées à différentes
-résolutions.  Un autre moyen, peut-être plus simple, est de construire les overviews pour 
-les formats supportés par GDAL en utilisant l'utilitaire gdaladdo.
+Construisez diffÃ©rents niveaux d'overview pour les grands rasters pour s'assurer que seul l'ensemble raisonnable de
+donnÃ©es nÃ©cessaire sera utilisÃ© pour l'affichage.  Les overviews
+peuvent Ãªtre implÃ©mentÃ©s comme un groupe de couches Ã  diffÃ©rentes rÃ©solutions, utilisant 
+MINSCALE, et MAXSCALE pour contrÃ´ler quelles couches sont affichÃ©es Ã  diffÃ©rentes
+rÃ©solutions.  Un autre moyen, peut-Ãªtre plus simple, est de construire les overviews pour 
+les formats supportÃ©s par GDAL en utilisant l'utilitaire gdaladdo.
 </para>
 			</listitem>
 			<listitem>
 				<para>
-Prétraiter les images RGB en 8bit avec une palette pour réduire l'ensemble de données
-qui doit être lu, et l'ensemble des calculs à faire à la volée.
+PrÃ©traiter les images RGB en 8bit avec une palette pour rÃ©duire l'ensemble de donnÃ©es
+qui doit Ãªtre lu, et l'ensemble des calculs Ã  faire Ã  la volÃ©e.
 </para>
 			</listitem>
 			<listitem>
 				<para>
-Pour les grandes images utilisez le carroyage pour réduire les "dépenses" nécessaires pour le chargement d'une vue
-sur une petite zone.  Vous pouvez réaliser celà en utilisant le mécanisme TILEINDEX du fichier
-mapfile, ou en créant un fichier de carroyage (en TIFF avec GDAL par exemple). 
+Pour les grandes images utilisez le carroyage pour rÃ©duire les "dÃ©penses" nÃ©cessaires pour le chargement d'une vue
+sur une petite zone.  Vous pouvez rÃ©aliser celÃ  en utilisant le mÃ©canisme TILEINDEX du fichier
+mapfile, ou en crÃ©ant un fichier de carroyage (en TIFF avec GDAL par exemple). 
 </para>
 			</listitem>
 			<listitem>
 				<para>
-Vérifiez que l'image est enregistrée sur disque dans la projection la plus souvent sollicitée
-pour diminuer la déformation à la volée qui demeure très gourmande en ressource. 
+VÃ©rifiez que l'image est enregistrÃ©e sur disque dans la projection la plus souvent sollicitÃ©e
+pour diminuer la dÃ©formation Ã  la volÃ©e qui demeure trÃ¨s gourmande en ressource. 
 </para>
 			</listitem>
 			<listitem>
 				<para>
 Si vous utilisez la sortie de mise au point (debug) de MapServer dans le fichier de trace de votre serveur oueb,
-contrôlez si vous voyez le message <emphasis>msResampleGDALToMap in effect</emphasis>
-qui doit apparaître.  Si c'est le cas, la couche raster est ré-échantillonnée.  Si vous pensez que le ré-échantillonnage
-n'aurait pas du être fait vérifiez soigneusement votre mapfile pour vous assurer que la projection de la couche
-correspond <emphasis>exactement</emphasis> à la projection de carte ou que la couche 
-n'a aucune définition de projection.
+contrÃ´lez si vous voyez le message <emphasis>msResampleGDALToMap in effect</emphasis>
+qui doit apparaÃ®tre.  Si c'est le cas, la couche raster est rÃ©-Ã©chantillonnÃ©e.  Si vous pensez que le rÃ©-Ã©chantillonnage
+n'aurait pas du Ãªtre fait vÃ©rifiez soigneusement votre mapfile pour vous assurer que la projection de la couche
+correspond <emphasis>exactement</emphasis> Ã  la projection de carte ou que la couche 
+n'a aucune dÃ©finition de projection.
 </para>
 			</listitem>
 		</itemizedlist>
 	</sect1>
 	<!-- ====================================================================== -->
 	<sect1 id="world_files">
-		<title>Géoréférencement avec les fichiers "monde" (World Files)</title>
+		<title>GÃ©orÃ©fÃ©rencement avec les fichiers "monde" (World Files)</title>
 		<para>
-Les fichiers "monde" (World files) sont de simples mécanismes pour l'association des informations 
-de géoréférencement (coordonnées du monde) avec des fichiers raster.  ESRI a été la première compagnie
-à introduire l'utilisation des fichiers "monde" et qu'ils utilisaient aussi avec le TIFF au lieu 
-d'informations de géoréférencement intégrées dans le fichier lui-même.  
+Les fichiers "monde" (World files) sont de simples mÃ©canismes pour l'association des informations 
+de gÃ©orÃ©fÃ©rencement (coordonnÃ©es du monde) avec des fichiers raster.  ESRI a Ã©tÃ© la premiÃ¨re compagnie
+Ã  introduire l'utilisation des fichiers "monde" et qu'ils utilisaient aussi avec le TIFF au lieu 
+d'informations de gÃ©orÃ©fÃ©rencement intÃ©grÃ©es dans le fichier lui-mÃªme.  
 </para>
 		<para>
-Le contenu du fichier "monde" ressemble à ce qui suit.  Le premier coefficient est
-la taille pixel de X.  Les second et troisième sont les coefficients de rotational/cisaillement
-(et devraient être normalement 0.0).  Le quatrième est la taille pixel Y, en principe 
-un élément négatif indique que Y décroit en se déplaçant vers le bas depuis l'origine en haut à gauche.
- Les deux valeurs finales sont la localisation X et Y du centre du pixel en haut à gauche. 
-Cet exemple correspond à une image de 2m x 2m de taille en pixel, et 
-dont l'origine est à (356800E, 5767999N). 
+Le contenu du fichier "monde" ressemble Ã  ce qui suit.  Le premier coefficient est
+la taille pixel de X.  Les second et troisiÃ¨me sont les coefficients de rotational/cisaillement
+(et devraient Ãªtre normalement 0.0).  Le quatriÃ¨me est la taille pixel Y, en principe 
+un Ã©lÃ©ment nÃ©gatif indique que Y dÃ©croit en se dÃ©plaÃ§ant vers le bas depuis l'origine en haut Ã  gauche.
+ Les deux valeurs finales sont la localisation X et Y du centre du pixel en haut Ã  gauche. 
+Cet exemple correspond Ã  une image de 2m x 2m de taille en pixel, et 
+dont l'origine est Ã  (356800E, 5767999N). 
 </para>
 		<programlisting>
 2
@@ -443,8 +443,8 @@ dont l'origine est à (356800E, 5767999N).
 5767999.00
 </programlisting>
 		<para>
-Le nom du fichier "monde" est basé sur le fichier auquel il correspond.  Par exemple,
-le fichier "monde pour aerial.tif doit être aerial.tfw.  Les conventions varient pour
+Le nom du fichier "monde" est basÃ© sur le fichier auquel il correspond.  Par exemple,
+le fichier "monde pour aerial.tif doit Ãªtre aerial.tfw.  Les conventions varient pour
 la terminaison, mais avec MapServer l'extension .wld est toujours correcte
 pour les fichiers "monde". 
 </para>
@@ -459,21 +459,21 @@ pour les fichiers "monde".
                 Copyright (c) 2001, Frank Warmerdam, DM Solutions Group Inc.
             </para>
 			<para>
-                Cette documentation est protégée par la même licence Open Source que celle du logiciel
-                MapServer lui-même.  Voyez la page MapServer
+                Cette documentation est protÃ©gÃ©e par la mÃªme licence Open Source que celle du logiciel
+                MapServer lui-mÃªme.  Voyez la page MapServer
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
                 Credits</ulink> pour le texte complet.
             </para>
 		</sect2>
 		<sect2 id="disclaimer">
 			<title>Avertissement</title>
-			<para>Aucune responsabilité pour le contenu de ce document ne peut être acceptée. Utilisez les concepts, exemples et autres éléments à vos risques et périls. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre système. Aussi il est expressément conseillé, l'auteur et le traducteur n'assurant aucune responsabilité, de procéder avec précaution.
+			<para>Aucune responsabilitÃ© pour le contenu de ce document ne peut Ãªtre acceptÃ©e. Utilisez les concepts, exemples et autres Ã©lÃ©ments Ã  vos risques et pÃ©rils. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre systÃ¨me. Aussi il est expressÃ©ment conseillÃ©, l'auteur et le traducteur n'assurant aucune responsabilitÃ©, de procÃ©der avec prÃ©caution.
                  	</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">
 			<title>Feedback</title>
-			<para>Envoyez toutes vos suggestions et commentaires à l'auteur, ou au traducteur.
+			<para>Envoyez toutes vos suggestions et commentaires Ã  l'auteur, ou au traducteur.
    			</para>
 		</sect2>
 	</sect1>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+﻿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
@@ -80,7 +80,7 @@
 				<orgname>Club des Utilisateurs de Linux et des logiciels libres de Toulouse et des environs</orgname>
 				<orgdiv>(CULTe)</orgdiv>
 				<address>
-					<email>nath31@ifrance.com</email>
+					<email>nath@favdb.net</email>
 				</address>
 			</affiliation>
 		</othercredit>

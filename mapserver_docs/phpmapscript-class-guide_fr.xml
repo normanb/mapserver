@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
@@ -42,33 +42,33 @@
 		<date>2002-06-21</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
-			<para>Ce document décrit toutes les classes, propriétés et méthodes associées avec au module PHP/Mapscript.  (NdT: le terme anglosaxon method, dans ce contexte serait mieux traduit par "procédure", mais pour éviter toute confusion dans le cas où vous souhaitez obtenir des compléments d'information sur ce document, j'ai préféré conserver le mot strictement équivalent en français).
+			<para>Ce document dÃ©crit toutes les classes, propriÃ©tÃ©s et mÃ©thodes associÃ©es avec au module PHP/Mapscript.  (NdT: le terme anglosaxon method, dans ce contexte serait mieux traduit par "procÃ©dure", mais pour Ã©viter toute confusion dans le cas oÃ¹ vous souhaitez obtenir des complÃ©ments d'information sur ce document, j'ai prÃ©fÃ©rÃ© conserver le mot strictement Ã©quivalent en franÃ§ais).
                </para>
-			<para>Dernière mise à jour: 21/06/2002</para>
+			<para>DerniÃ¨re mise Ã  jour: 21/06/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
-		<para>PHP MapScript a été développé à l'origine pour PHP-3.0.14 et fonctionne avec les versions plus récentes de PHP3. Il a aussi été porté sous PHP4; le script de configuration de MapServer détectera automatiquement avec quelle version de PHP vous tentez de construire le module et prendra toutes les dispositions nécessaires.
+		<para>PHP MapScript a Ã©tÃ© dÃ©veloppÃ© Ã  l'origine pour PHP-3.0.14 et fonctionne avec les versions plus rÃ©centes de PHP3. Il a aussi Ã©tÃ© portÃ© sous PHP4; le script de configuration de MapServer dÃ©tectera automatiquement avec quelle version de PHP vous tentez de construire le module et prendra toutes les dispositions nÃ©cessaires.
           </para>
-		<para>Le module a été testé et utilisé avec Linux, Solaris, *BSD, et WinNT.
+		<para>Le module a Ã©tÃ© testÃ© et utilisÃ© avec Linux, Solaris, *BSD, et WinNT.
 		</para>
-		<para>Ce module est en contant développement.
+		<para>Ce module est en contant dÃ©veloppement.
 		</para>
 		<!-- Section2: More information on the PHP/Mapscript Module -->
 		<sect2 id="information">
 			<title>Comment obtenir plus d'informations sur PHP/Mapscript</title>
 			<itemizedlist>
 				<listitem>
-					<para>La source principale d'aide est la page oueb de PHP/MapScript à: <ulink url="http://www2.dmsolutions.on.ca/mapserver/php_mapscript/">http://www2.dmsolutions.on.ca/mapserver/php_mapscript/</ulink>.
+					<para>La source principale d'aide est la page oueb de PHP/MapScript Ã : <ulink url="http://www2.dmsolutions.on.ca/mapserver/php_mapscript/">http://www2.dmsolutions.on.ca/mapserver/php_mapscript/</ulink>.
 					</para>
 				</listitem>
 				<listitem>
-					<para>Pour les questions relatives à l'installation du module PHP/Mapscript, voyez le document <ulink url="phpmapscript-install-howto_fr.html">PHP/Mapscript Installation HOWTO</ulink>.
+					<para>Pour les questions relatives Ã  l'installation du module PHP/Mapscript, voyez le document <ulink url="phpmapscript-install-howto_fr.html">PHP/Mapscript Installation HOWTO</ulink>.
 					</para>
 				</listitem>
 				<listitem>
-					<para>De même, voyez la documentation Mapserver MapScript sur:
+					<para>De mÃªme, voyez la documentation Mapserver MapScript sur:
         		   <ulink url="mapscript_fr.html">http://mapserver.gis.umn.edu/mapscript.html</ulink>
                   			et la documentation du fichier MapFile de MapServer sur:
                   <ulink url="mapfile_fr.html">http://mapserver.gis.umn.edu/mapfile.html</ulink>.  
@@ -87,11 +87,11 @@
 		<important>
 			<itemizedlist>
 				<listitem>
-					<para>Les noms de constante et de variable des membre de classe sont sensibles à la casse en PHP.
+					<para>Les noms de constante et de variable des membre de classe sont sensibles Ã  la casse en PHP.
 					</para>
 				</listitem>
 				<listitem>
-					<para>Plusieurs fonctions MapScript (toutes celles qui accèdent aux fichiers en arrière plan comme ms_newMapObj(), drawMap(), etc.) affecteront la valeur du répertoire courrant (CWD) dans l'environnement PHP. Ceci sera résolu, éventuellement, plus tard mais en attendant vous dervez veiller à ces effets.
+					<para>Plusieurs fonctions MapScript (toutes celles qui accÃ¨dent aux fichiers en arriÃ¨re plan comme ms_newMapObj(), drawMap(), etc.) affecteront la valeur du rÃ©pertoire courrant (CWD) dans l'environnement PHP. Ceci sera rÃ©solu, Ã©ventuellement, plus tard mais en attendant vous dervez veiller Ã  ces effets.
 					</para>
 				</listitem>
 			</itemizedlist>
@@ -101,10 +101,10 @@
 			<para>Les constantes Mapserver suivantes sont disponibles:
 			</para>
 			<programlisting>
-    Valeurs booléennes:
+    Valeurs boolÃ©ennes:
         MS_TRUE, MS_FALSE, MS_ON, MS_OFF, MS_YES, MS_NO
 
-    Unités cartographiques:
+    UnitÃ©s cartographiques:
         MS_INCHES, MS_FEET, MS_MILES, MS_METERS, MS_KILOMETERS, MS_DD,
         MS_PIXELS
 
@@ -115,10 +115,10 @@
     Etats de Layer/Legend/Scalebar/Class:
         MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED, MS_DELETE
 
-    Types de police de caractères:
+    Types de police de caractÃ¨res:
         MS_TRUETYPE, MS_BITMAP
 
-    Positions d'étiquette:
+    Positions d'Ã©tiquette:
         MS_UL, MS_LR, MS_UR, MS_LL, MS_CR, MS_CL, MS_UC, MS_LC,
         MS_CC, MS_AUTO, MS_XY
 
@@ -131,10 +131,10 @@
     Types des fichiers Shape:
         MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON, MS_SHP_MULTIPOINT
 
-    Types requête/jointure:
+    Types requÃªte/jointure:
         MS_SINGLE, MS_MULTIPLE
 
-    Types carte de requête:
+    Types carte de requÃªte:
         MS_NORMAL, MS_HILITE, MS_SELECTED
 
     Types de connexion:
@@ -149,7 +149,7 @@
 			<title>Functions</title>
 			<programlisting>
     string ms_GetVersion()
-        Retourne la version MapServer et les options en une chaîne de caractères.  Cette chaîne peut être parcourue pour trouver quels modules sont compilés, etc.
+        Retourne la version MapServer et les options en une chaÃ®ne de caractÃ¨res.  Cette chaÃ®ne peut Ãªtre parcourue pour trouver quels modules sont compilÃ©s, etc.
 			</programlisting>
 		</sect2>
 		<sect2 id="MapObj">
@@ -191,19 +191,19 @@
 				</programlisting>
 			</sect3>
 			<sect3 id="Methods">
-				<title>Méthodes:</title>
+				<title>MÃ©thodes:</title>
 				<programlisting>
     int set(string property_name, new_value)
-         Renseigne les propriétés de l'objet map à une nouvelle valeur. Reteurne -1 en cas d'erreur.
+         Renseigne les propriÃ©tÃ©s de l'objet map Ã  une nouvelle valeur. Reteurne -1 en cas d'erreur.
 
     int addColor(int r, int g, int b)  
-         Ajoute une couleur à la palette de la carte.  Retourne l'index de couleur.
+         Ajoute une couleur Ã  la palette de la carte.  Retourne l'index de couleur.
 
     int getsymbolbyname(string symbol_name)  
          Retourne l'index de symbole en utilisant le nom (name).
 
     void preparequery()
-         Calcule l'échelle de la carte et l'assigne à map-&gt;scale.
+         Calcule l'Ã©chelle de la carte et l'assigne Ã  map-&gt;scale.
              
     imageObj prepareImage()
          Retourne une instance (handle) sur un objet image vide.
@@ -212,81 +212,81 @@
          Restitue une carte et retourne une instance sur l'objet image.
 
     imageObj drawQuery()
-         Restitue une carte interrogée et retourne une instance sur l'objet image.
+         Restitue une carte interrogÃ©e et retourne une instance sur l'objet image.
 
     imageObj drawLegend()
-         Restitue une légende et retourne une instance sur l'objet image.
+         Restitue une lÃ©gende et retourne une instance sur l'objet image.
 
     imageObj drawReferenceMap()
-         Restitue une carte référence et retourne une instance sur l'objet image.
+         Restitue une carte rÃ©fÃ©rence et retourne une instance sur l'objet image.
 
     imageObj drawScaleBar()
-         Restitue une barre d'échelle et retourne une instance sur l'objet image.
+         Restitue une barre d'Ã©chelle et retourne une instance sur l'objet image.
 
     int embedlegend(imageObj image) 
-         insert une légende. Actuellement la légende est simplement ajoutée au cache d'étiquette aussi vous devez invoquer drawLabelCache() pour faire la restitution actuelle (sauf si postlabelcache est positionné auquel cas elle sera dessinée immédiatement).
+         insert une lÃ©gende. Actuellement la lÃ©gende est simplement ajoutÃ©e au cache d'Ã©tiquette aussi vous devez invoquer drawLabelCache() pour faire la restitution actuelle (sauf si postlabelcache est positionnÃ© auquel cas elle sera dessinÃ©e immÃ©diatement).
 
     int embedScalebar(imageObj image) 
-         insert une barre d'échelle. Actuellement la barre d'échelle est juste ajoutée au cache d'étiquette aussi vous devez invoquer drawLabelCache() pour faire la restitution actuelle (sauf si postlabelcache est positionné auquel cas elle sera dessinée immédiatement).
+         insert une barre d'Ã©chelle. Actuellement la barre d'Ã©chelle est juste ajoutÃ©e au cache d'Ã©tiquette aussi vous devez invoquer drawLabelCache() pour faire la restitution actuelle (sauf si postlabelcache est positionnÃ© auquel cas elle sera dessinÃ©e immÃ©diatement).
 
     int drawLabelCache(imageObj image)
-         Restitue les étiquette pour une carte. Retourne -1 en cas d'erreur.
+         Restitue les Ã©tiquette pour une carte. Retourne -1 en cas d'erreur.
 
     layerObj getLayer(int index)
-         Retourne un layerObj depuis la carte donnée par la valeur index (0=première couche)
+         Retourne un layerObj depuis la carte donnÃ©e par la valeur index (0=premiÃ¨re couche)
 
     layerObj getLayerByName(string layer_name)
-         Retourne un layerObj depuis la carte donnée par layer_name.
+         Retourne un layerObj depuis la carte donnÃ©e par layer_name.
 
     colorObj getcolorbyindex(int iCloIndex)
-         Retourne un colorObj correspondant à l'index de couleur  dans la palette
+         Retourne un colorObj correspondant Ã  l'index de couleur  dans la palette
 
     void setextent(double minx, double miny, double maxx, double maxy)
-         Détermine la zone (extent) en utilisant les éléments géographiques donnés en argument.
+         DÃ©termine la zone (extent) en utilisant les Ã©lÃ©ments gÃ©ographiques donnÃ©s en argument.
 
     void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, 
                   int nImageHeight, rectObj oGeorefExt)
 
-        Zoom à une position XY donnée;
+        Zoom Ã  une position XY donnÃ©e;
 
-        Les paramètres sont :                                                 
-       - nZoomFactor : valeurs positives pour un agrandissement, valeurs négatives pour une réduction. Le facteur de 1 recentrera.           
-       - oPixelPos (pointObj) : coordonnées x et y du clique,avec (0,0) pour en haut à gauche.
+        Les paramÃ¨tres sont :                                                 
+       - nZoomFactor : valeurs positives pour un agrandissement, valeurs nÃ©gatives pour une rÃ©duction. Le facteur de 1 recentrera.           
+       - oPixelPos (pointObj) : coordonnÃ©es x et y du clique,avec (0,0) pour en haut Ã  gauche.
        - nImageWidth : largeur en pixel de l'image actuelle.                 
        - nImageHeight : hauteur en pixel de l'image actuelle.               
-       - oGeorefExt (rectObj) : étendue géographique actuelle.            
-       - MaxGeoref extent (rectObj) : (facultatif) étendues géographiques maximum.
-         Si indiquée alors il sera impossible de zoomer/déplacer hors de cette étendue.
+       - oGeorefExt (rectObj) : Ã©tendue gÃ©ographique actuelle.            
+       - MaxGeoref extent (rectObj) : (facultatif) Ã©tendues gÃ©ographiques maximum.
+         Si indiquÃ©e alors il sera impossible de zoomer/dÃ©placer hors de cette Ã©tendue.
 
     void zoomrectange(rectObj oPixelExt, int nImageWidth, int nImageHeight,
                      rectObj oGeorefExt)
-        Définit l'étendue de la carte par l'étendue donnée.
+        DÃ©finit l'Ã©tendue de la carte par l'Ã©tendue donnÃ©e.
         
-        Les paramètres sont :
-        - oPixelExt, avec (0,0) pour en haut à gauche
+        Les paramÃ¨tres sont :
+        - oPixelExt, avec (0,0) pour en haut Ã  gauche
         - nImageWidth : largeur en pixel de l'image actuelle.
         - nImageHeight : hauteur en pixel de l'image actuelle. 
-        - oGeorefExt (rectObj) : étendue géographique actuelle.
+        - oGeorefExt (rectObj) : Ã©tendue gÃ©ographique actuelle.
 
     void zoomscale(int nScale, pointObj oPixelPos, int nImageWidth, 
                   int nImageHeight, rectObj oGeorefExt)
 
-        Agrandissement ou réduction à la position XY actuelle à laquelle la carte est affichée à l'échelle indiquée.
+        Agrandissement ou rÃ©duction Ã  la position XY actuelle Ã  laquelle la carte est affichÃ©e Ã  l'Ã©chelle indiquÃ©e.
 
         Les parametres sont :                                                 
-       - nScale : échelle à laquelle la carte devrait être affichée.
-       - oPixelPos (pointObj) : coordonnées x, y du clique, avec (0,0) pour en haut à gauche
+       - nScale : Ã©chelle Ã  laquelle la carte devrait Ãªtre affichÃ©e.
+       - oPixelPos (pointObj) : coordonnÃ©es x, y du clique, avec (0,0) pour en haut Ã  gauche
        - nImageWidth : largeur en pixel de l'image actuelle.                 
        - nImageHeight : hauteur en pixel de l'image actuelle.               
-       - oGeorefExt (rectObj) : étendue géographique actuelle.            
-       - MaxGeoref extent (rectObj) : (facultatif) étendues géographiques maximum.
-         Si indiquée alors il sera impossible de zoomer/déplacer hors de cette étendue.
+       - oGeorefExt (rectObj) : Ã©tendue gÃ©ographique actuelle.            
+       - MaxGeoref extent (rectObj) : (facultatif) Ã©tendues gÃ©ographiques maximum.
+         Si indiquÃ©e alors il sera impossible de zoomer/dÃ©placer hors de cette Ã©tendue.
 
     int queryByPoint(pointObj point, int mode, double buffer)
-        Requiert toutes la couches sélectionnées dans la carte au point spécifié dans coordonnées géographiques de la carte (et non en pixels).  La requête est exécuter pour tous les éléments (shape) qui font parties d'une CLASS qui contient une valeur TEMPLATE ou qui correspond une classe quelconque d'une valeur LAYER TEMPLATE.
-        Le mode est MS_SINGLE ou MS_MULTIPLE d'après le nombre de résultats souhaités. 
-        En passant un buffer &lt;=0 par défaut pour la tolérance positionnée dans la mapfile (en pixels) mais au lieu de ça vous pouvez utiliser un buffer constant (spécifié en unités terrestres). NdT : je n'ai pas traduit le terme 'buffer' intentionellement, dans ce cas d'utilisation le 'tampon' en question constitue un élément pour déterminer une zone 'd'approximation', en fait il s'agit de la zone 'd'erreur' entre le point cliqué par l'utilisateur et le point réel (j'espère avoir été assez clair).
-        Retourne MS_SUCCESS si les éléments ont été trouvés ou MS_FAILURE si rien n'a été trouvé ou si une erreur quelconque s'est produite (notez que le message d'erreur dans le cas où rien n'a été trouvé peut être évité sous PHP en utilisant l'opérateur de contrôle '@').
+        Requiert toutes la couches sÃ©lectionnÃ©es dans la carte au point spÃ©cifiÃ© dans coordonnÃ©es gÃ©ographiques de la carte (et non en pixels).  La requÃªte est exÃ©cuter pour tous les Ã©lÃ©ments (shape) qui font parties d'une CLASS qui contient une valeur TEMPLATE ou qui correspond une classe quelconque d'une valeur LAYER TEMPLATE.
+        Le mode est MS_SINGLE ou MS_MULTIPLE d'aprÃ¨s le nombre de rÃ©sultats souhaitÃ©s. 
+        En passant un buffer &lt;=0 par dÃ©faut pour la tolÃ©rance positionnÃ©e dans la mapfile (en pixels) mais au lieu de Ã§a vous pouvez utiliser un buffer constant (spÃ©cifiÃ© en unitÃ©s terrestres). NdT : je n'ai pas traduit le terme 'buffer' intentionellement, dans ce cas d'utilisation le 'tampon' en question constitue un Ã©lÃ©ment pour dÃ©terminer une zone 'd'approximation', en fait il s'agit de la zone 'd'erreur' entre le point cliquÃ© par l'utilisateur et le point rÃ©el (j'espÃ¨re avoir Ã©tÃ© assez clair).
+        Retourne MS_SUCCESS si les Ã©lÃ©ments ont Ã©tÃ© trouvÃ©s ou MS_FAILURE si rien n'a Ã©tÃ© trouvÃ© ou si une erreur quelconque s'est produite (notez que le message d'erreur dans le cas oÃ¹ rien n'a Ã©tÃ© trouvÃ© peut Ãªtre Ã©vitÃ© sous PHP en utilisant l'opÃ©rateur de contrÃ´le '@').
 
     int queryByRect(rectObj rect)
         Query all selected layers in map using a rectangle specified in 

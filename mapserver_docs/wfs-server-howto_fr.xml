@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
 		<title>MapServer WFS Server HOWTO</title>
 		<author>
-			<firstname>Jean-François</firstname>
+			<firstname>Jean-FranÃ§ois</firstname>
 			<surname>Doyon</surname>
 			<affiliation>
 				<orgname>Natural Resources Canada</orgname>
@@ -48,7 +48,7 @@
 			</affiliation>
 		</othercredit>
 		<abstract>
-			<para>Ce document explique comment configurer MapServer pour agir en tant que serveir à travers l'interface OGC WFS.</para>
+			<para>Ce document explique comment configurer MapServer pour agir en tant que serveir Ã  travers l'interface OGC WFS.</para>
 			<para>Last Updated:  01-06-2003</para>
 		</abstract>
 	</articleinfo>

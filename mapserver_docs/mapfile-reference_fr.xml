@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
@@ -36,153 +36,153 @@
 				<orgname>Club des Utilisateurs de Linux et des logiciels libres de Toulouse et des environs</orgname>
 				<orgdiv>(CULTe)</orgdiv>
 				<address>
-					<email>nath31@ifrance.com</email>
+					<email>nath@favdb.net</email>
 				</address>
 			</affiliation>
 		</othercredit>
 		<abstract>
-			<para>Ce document est une référence pour la syntaxe du fichier Mapfile pour la version 3.7 de MapServer.
+			<para>Ce document est une rÃ©fÃ©rence pour la syntaxe du fichier Mapfile pour la version 3.7 de MapServer.
    			</para>
-			<para>Dernière modification: 19- 12-2002</para>
+			<para>DerniÃ¨re modification: 19- 12-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
-		<title>Référence MapFile</title>
-		<para>Les MapFiles constituent le mécanisme de base pour configurer Mapserver.  Tout élément associé avec une application particulière est défini ici, même si quelques options peuvent être modifiées via un formulaire oueb (variables CGI).</para>
+		<title>RÃ©fÃ©rence MapFile</title>
+		<para>Les MapFiles constituent le mÃ©canisme de base pour configurer Mapserver.  Tout Ã©lÃ©ment associÃ© avec une application particuliÃ¨re est dÃ©fini ici, mÃªme si quelques options peuvent Ãªtre modifiÃ©es via un formulaire oueb (variables CGI).</para>
 		<sect2>
 			<title>Notes</title>
 			<itemizedlist>
 				<listitem>
-					<para>Le Mapfile N'EST PAS  sensible à la casse.</para>
+					<para>Le Mapfile N'EST PAS  sensible Ã  la casse.</para>
 				</listitem>
 				<listitem>
-					<para>Les chaînes de caractères contenant des caractères non alphanumériques ou un mot clé de MapServer <emphasis>DOIVENT</emphasis> être placées entre guillemet. Il est recommandé de placer TOUTES les chaînes de caractères entre double apostrophe (double-quotes).</para>
+					<para>Les chaÃ®nes de caractÃ¨res contenant des caractÃ¨res non alphanumÃ©riques ou un mot clÃ© de MapServer <emphasis>DOIVENT</emphasis> Ãªtre placÃ©es entre guillemet. Il est recommandÃ© de placer TOUTES les chaÃ®nes de caractÃ¨res entre double apostrophe (double-quotes).</para>
 				</listitem>
 				<listitem>
-					<para>Le nombre maximum de couches d'un mapfile est limité à 50.  Ceci peut être changé en modifiant la valeur de MS_MAXLAYERS du fichier map.h pour spécifier le nombre souhaité et en recompilant.</para>
+					<para>Le nombre maximum de couches d'un mapfile est limitÃ© Ã  50.  Ceci peut Ãªtre changÃ© en modifiant la valeur de MS_MAXLAYERS du fichier map.h pour spÃ©cifier le nombre souhaitÃ© et en recompilant.</para>
 				</listitem>
 				<listitem>
-					<para>Les chemins de fichier peuvent être donnés en valeur absolue, ou en valeur relative à la localisation du mapfile.  De plus, les fichiers de données doivent être spécifiés relativement au <link linkend="shapepath">SHAPEPATH</link>
+					<para>Les chemins de fichier peuvent Ãªtre donnÃ©s en valeur absolue, ou en valeur relative Ã  la localisation du mapfile.  De plus, les fichiers de donnÃ©es doivent Ãªtre spÃ©cifiÃ©s relativement au <link linkend="shapepath">SHAPEPATH</link>
 					</para>
 				</listitem>
 				<listitem>
-					<para>Le mapfile a une structure hiérarchisée, avec l'objet Map constituant la racine de l'arborescence ("root"). Tous les autres objets sont donc rattachés à celui-ci.</para>
+					<para>Le mapfile a une structure hiÃ©rarchisÃ©e, avec l'objet Map constituant la racine de l'arborescence ("root"). Tous les autres objets sont donc rattachÃ©s Ã  celui-ci.</para>
 				</listitem>
 				<listitem>
-					<para>Les commentaires sont indiqués par le caractère #.</para>
+					<para>Les commentaires sont indiquÃ©s par le caractÃ¨re #.</para>
 				</listitem>
 				<listitem>
-					<para>Les attributs sont désignés en utilisant la syntaxe suivante: [ATTRIBUTENAME] ... Notez que le nom de l'attribut contenu entre les crochets EST sensible à la casse.  Généralement les fichiers shape ESRI disposent de leurs propres attributs (nom de colonne .dbf) en majuscules, et pour PostGIS, TOUJOURS en minuscules.</para>
+					<para>Les attributs sont dÃ©signÃ©s en utilisant la syntaxe suivante: [ATTRIBUTENAME] ... Notez que le nom de l'attribut contenu entre les crochets EST sensible Ã  la casse.  GÃ©nÃ©ralement les fichiers shape ESRI disposent de leurs propres attributs (nom de colonne .dbf) en majuscules, et pour PostGIS, TOUJOURS en minuscules.</para>
 				</listitem>
 				<listitem>
-					<para>Les expressions régulières sous MapServer sont utilisées à travers la bibliothèque C de votre système d'exploitation.  Pour plus d'informations sur les expressions régulières sur votre système vous devriez lire la documentation disponible avec la bibliothèque C.  Sur Linux il s'agit de la glibC et vous pouvez lire la page  "man 7 regex" ... Cette man page est aussi disponible sous différents UNIX.  Comme ces RegEx sont conformes à POSIX, elles devraient être identiques sous Windows, aussi les utilisateurs Windows peuvent essayer de rechercher sur INTERNET  "man 7 regex" puisque plusieurs man pages y sont disponibles. </para>
+					<para>Les expressions rÃ©guliÃ¨res sous MapServer sont utilisÃ©es Ã  travers la bibliothÃ¨que C de votre systÃ¨me d'exploitation.  Pour plus d'informations sur les expressions rÃ©guliÃ¨res sur votre systÃ¨me vous devriez lire la documentation disponible avec la bibliothÃ¨que C.  Sur Linux il s'agit de la glibC et vous pouvez lire la page  "man 7 regex" ... Cette man page est aussi disponible sous diffÃ©rents UNIX.  Comme ces RegEx sont conformes Ã  POSIX, elles devraient Ãªtre identiques sous Windows, aussi les utilisateurs Windows peuvent essayer de rechercher sur INTERNET  "man 7 regex" puisque plusieurs man pages y sont disponibles. </para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 		<sect2 id="map">
 			<title>Objet Map</title>
-			<para>Définit l'objet maître du fichier MapFile, ainsi cet objet racine détient tous les autres objets.  Il définit les paramètres généraux de l'application/la carte.</para>
+			<para>DÃ©finit l'objet maÃ®tre du fichier MapFile, ainsi cet objet racine dÃ©tient tous les autres objets.  Il dÃ©finit les paramÃ¨tres gÃ©nÃ©raux de l'application/la carte.</para>
 			<variablelist>
 				<varlistentry>
 					<term>DEBUG</term>
 					<listitem>
-						<para>Permet la mise au point de l'objet map.  Les sorties sont dirigées vers la sortie standard d'erreur (STDERR) ou vers le fichier de trace de MapServer s'il est indiqué dans le paramètre LOG de l'objet <link linkend="web">WEB</link>.</para>
+						<para>Permet la mise au point de l'objet map.  Les sorties sont dirigÃ©es vers la sortie standard d'erreur (STDERR) ou vers le fichier de trace de MapServer s'il est indiquÃ© dans le paramÃ¨tre LOG de l'objet <link linkend="web">WEB</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>EXTENT [minx] [miny] [maxx] [maxy]</term>
 					<listitem>
-						<para>L'étendue géographique de la carte à créer.  Le plus souvent vous voudrez la spécifier, mais MapServer pourra l'extrapoler si vous ne la spécifiez pas.</para>
+						<para>L'Ã©tendue gÃ©ographique de la carte Ã  crÃ©er.  Le plus souvent vous voudrez la spÃ©cifier, mais MapServer pourra l'extrapoler si vous ne la spÃ©cifiez pas.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="fontset">
 					<term>FONTSET [filename]</term>
 					<listitem>
-						<para>Nom complet du fichier de police de caractères à utiliser.</para>
+						<para>Nom complet du fichier de police de caractÃ¨res Ã  utiliser.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGECOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur dans laquelle la carte doit être initialisée (la couleur d'arrière plan).</para>
+						<para>Couleur dans laquelle la carte doit Ãªtre initialisÃ©e (la couleur d'arriÃ¨re plan).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGEQUALITY [int]</term>
 					<listitem>
-						<para>Qualité de compression pour les sorties JPEG.  Ce mot clé est maintenant délaissé au profit de l'option FORMATOPTION "QUALITY=n" dans la déclaration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
+						<para>QualitÃ© de compression pour les sorties JPEG.  Ce mot clÃ© est maintenant dÃ©laissÃ© au profit de l'option FORMATOPTION "QUALITY=n" dans la dÃ©claration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGETYPE [gif|png|jpeg|wbmp|gtiff|swf|userdefined]</term>
 					<listitem>
-						<para>Format de sortie à générer.  Voir les détails de la partie <link linkend="outputformat">OUTPUTFORMAT</link> en particulier pour les formats disponibles.  Le nom indiqué ici doit correspondre au nom ('NAME') de la définition utilisateur ou  interne générée dans la partie <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
+						<para>Format de sortie Ã  gÃ©nÃ©rer.  Voir les dÃ©tails de la partie <link linkend="outputformat">OUTPUTFORMAT</link> en particulier pour les formats disponibles.  Le nom indiquÃ© ici doit correspondre au nom ('NAME') de la dÃ©finition utilisateur ou  interne gÃ©nÃ©rÃ©e dans la partie <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>INTERLACE [on|off]</term>
 					<listitem>
-						<para>Les images doivent-elles être entrelacées?  Valeur par défaut "oui" [on].  Ce mot clé est maintenant délaissé au profit de l'option FORMATOPTION "INTERLACE=ON" de la déclaration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
+						<para>Les images doivent-elles Ãªtre entrelacÃ©es?  Valeur par dÃ©faut "oui" [on].  Ce mot clÃ© est maintenant dÃ©laissÃ© au profit de l'option FORMATOPTION "INTERLACE=ON" de la dÃ©claration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LAYER</term>
 					<listitem>
-						<para>Signale le début d'un objet <link linkend="layer">LAYER</link>. NdT : LAYER veut dire littéralement couche, il s'agit d'une technique de tracé de dessin dans laquelle chaque objet graphique est regroupé avec des objets similaires et de même type. Par exemple, pour une carte routière, on regroupera les autoroutes, qui sont du même type (ligne), selon leur appartenance à une catégorie (autoroute, route nationale, route départementale, etc.).</para>
+						<para>Signale le dÃ©but d'un objet <link linkend="layer">LAYER</link>. NdT : LAYER veut dire littÃ©ralement couche, il s'agit d'une technique de tracÃ© de dessin dans laquelle chaque objet graphique est regroupÃ© avec des objets similaires et de mÃªme type. Par exemple, pour une carte routiÃ¨re, on regroupera les autoroutes, qui sont du mÃªme type (ligne), selon leur appartenance Ã  une catÃ©gorie (autoroute, route nationale, route dÃ©partementale, etc.).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LEGEND</term>
 					<listitem>
-						<para>Signale le début d'un objet de légende (<link linkend="legend">LEGEND</link>).</para>
+						<para>Signale le dÃ©but d'un objet de lÃ©gende (<link linkend="legend">LEGEND</link>).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>NAME [name]</term>
 					<listitem>
-						<para>Préfixe lié à la carte, les noms des fichier GIF d'échelle et de légende créés en utilisant ce MapFile. Devrait être le plus court possible.</para>
+						<para>PrÃ©fixe liÃ© Ã  la carte, les noms des fichier GIF d'Ã©chelle et de lÃ©gende crÃ©Ã©s en utilisant ce MapFile. Devrait Ãªtre le plus court possible.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>PROJECTION</term>
 					<listitem>
-						<para>Signale le début d'un objet <link linkend="projection">PROJECTION</link>.</para>
+						<para>Signale le dÃ©but d'un objet <link linkend="projection">PROJECTION</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>QUERYMAP</term>
 					<listitem>
-						<para>Signale le début d'un objet de requête (<link linkend="querymap">QUERYMAP</link>).</para>
+						<para>Signale le dÃ©but d'un objet de requÃªte (<link linkend="querymap">QUERYMAP</link>).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>REFERENCE</term>
 					<listitem>
-						<para>Signale le début d'un objet carte de référence (<link linkend="referencemap">REFERENCE MAP</link>). Il s'agit d'une image réduite de la carte.</para>
+						<para>Signale le dÃ©but d'un objet carte de rÃ©fÃ©rence (<link linkend="referencemap">REFERENCE MAP</link>). Il s'agit d'une image rÃ©duite de la carte.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>RESOLUTION [int]</term>
 					<listitem>
-						<para>Détermine le nombre de pixels par pouce pour les sorties, concerne seulement les calculs d'échelle et rien d'autre, par défaut 72.</para>
+						<para>DÃ©termine le nombre de pixels par pouce pour les sorties, concerne seulement les calculs d'Ã©chelle et rien d'autre, par dÃ©faut 72.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SCALE [double]</term>
 					<listitem>
-						<para>Echelle calculée pour la carte. Souvent calculée par l'application.</para>
+						<para>Echelle calculÃ©e pour la carte. Souvent calculÃ©e par l'application.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SCALEBAR</term>
 					<listitem>
-						<para>Signale le début d'un objet de barre d'échelle (<link linkend="scalebar">SCALEBAR</link>).</para>
+						<para>Signale le dÃ©but d'un objet de barre d'Ã©chelle (<link linkend="scalebar">SCALEBAR</link>).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="shapepath">
 					<term>SHAPEPATH [filename]</term>
 					<listitem>
-						<para>Chemin du répertoire dans lequel se trouvent les fichier shape.  SHAPEPATH peut contenir des sous-répertoires.</para>
+						<para>Chemin du rÃ©pertoire dans lequel se trouvent les fichier shape.  SHAPEPATH peut contenir des sous-rÃ©pertoires.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -194,145 +194,145 @@
 				<varlistentry>
 					<term>STATUS [on|off]</term>
 					<listitem>
-						<para>La carte est-elle active? Quelque fois vous pourriez souhaiter que non pour utiliser seulement la carte référence ou la barre d'échelle.</para>
+						<para>La carte est-elle active? Quelque fois vous pourriez souhaiter que non pour utiliser seulement la carte rÃ©fÃ©rence ou la barre d'Ã©chelle.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="symbolset">
 					<term>SYMBOLSET [filename]</term>
 					<listitem>
-						<para>Nom complet du fichier de symboles à utiliser.</para>
+						<para>Nom complet du fichier de symboles Ã  utiliser.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SYMBOL</term>
 					<listitem>
-						<para>Signale le début d'un objet de symboles (<link linkend="symbology">SYMBOL</link>).</para>
+						<para>Signale le dÃ©but d'un objet de symboles (<link linkend="symbology">SYMBOL</link>).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
-						<para>La couleur d'arrière plan doit-elle être transparente pour les cartes.  Cet indicateur est maintenant délaissé au profit de la déclaration de transparence dans <link linkend="outputformat">OUTPUTFORMAT</link>.  Par défaut non (off).</para>
+						<para>La couleur d'arriÃ¨re plan doit-elle Ãªtre transparente pour les cartes.  Cet indicateur est maintenant dÃ©laissÃ© au profit de la dÃ©claration de transparence dans <link linkend="outputformat">OUTPUTFORMAT</link>.  Par dÃ©faut non (off).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>UNITS [feet|inches|kilometers|meters|miles|dd]</term>
 					<listitem>
-						<para>Unités des coordonnées de la carte.  Utilisé pour la barre d'échelle (scalebar) et les calculs d'échelle.</para>
+						<para>UnitÃ©s des coordonnÃ©es de la carte.  UtilisÃ© pour la barre d'Ã©chelle (scalebar) et les calculs d'Ã©chelle.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>WEB</term>
 					<listitem>
-						<para>Signale le début d'un objet <link linkend="web">WEB</link>.</para>
+						<para>Signale le dÃ©but d'un objet <link linkend="web">WEB</link>.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="label">
 			<title>Objet Label</title>
-			<para>Cet objet est utilisé pour définir une étiquette, qui est habituellement utilisée pour annoter un élément par du texte.  Les étiquettes peuvent aussi être utilisées comme symboles en employant les différentes polices de caractères TrueType.</para>
+			<para>Cet objet est utilisÃ© pour dÃ©finir une Ã©tiquette, qui est habituellement utilisÃ©e pour annoter un Ã©lÃ©ment par du texte.  Les Ã©tiquettes peuvent aussi Ãªtre utilisÃ©es comme symboles en employant les diffÃ©rentes polices de caractÃ¨res TrueType.</para>
 			<variablelist>
 				<varlistentry>
 					<term>ANGLE [double]</term>
 					<listitem>
-						<para>Angle, donné en degrés, pour dessiner l'étiquette ou AUTO pour permettre au logiciel de calculer l'angle , AUTO est valide seulement pour les couches de type ligne (LINE).</para>
+						<para>Angle, donnÃ© en degrÃ©s, pour dessiner l'Ã©tiquette ou AUTO pour permettre au logiciel de calculer l'angle , AUTO est valide seulement pour les couches de type ligne (LINE).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>ANTIALIAS [true|false]</term>
 					<listitem>
-						<para>Le texte doit-il être antialiasé? Notez que ceci nécessite un plus grand nombre de couleurs et entraîne de plus "grosses" images.</para>
+						<para>Le texte doit-il Ãªtre antialiasÃ©? Notez que ceci nÃ©cessite un plus grand nombre de couleurs et entraÃ®ne de plus "grosses" images.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>BACKGROUNDCOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour l'arrière plan du rectangle (panneau d'étiquette). Sans couleur par défaut (off).</para>
+						<para>Couleur Ã  utiliser pour l'arriÃ¨re plan du rectangle (panneau d'Ã©tiquette). Sans couleur par dÃ©faut (off).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>BACKGROUNDSHADOWCOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur de l'ombrage d'un rectangle (panneau d'étiquette). Sans par défaut (off).</para>
+						<para>Couleur de l'ombrage d'un rectangle (panneau d'Ã©tiquette). Sans par dÃ©faut (off).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>BACKGROUNDSHADOWSIZE [x][y]</term>
 					<listitem>
-						<para>De combien le décalage d'arrière plan d'un rectangle doit-il être? 1 par défaut.</para>
+						<para>De combien le dÃ©calage d'arriÃ¨re plan d'un rectangle doit-il Ãªtre? 1 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>BUFFER [integer]</term>
 					<listitem>
-						<para>Remplissage, en pixels, autour des étiquettes. Utile pour maintenir un espace autour du texte pour en améliorer sa lecture. Disponible seulement pour les étiquettes "cachables". Par défaut 0.</para>
+						<para>Remplissage, en pixels, autour des Ã©tiquettes. Utile pour maintenir un espace autour du texte pour en amÃ©liorer sa lecture. Disponible seulement pour les Ã©tiquettes "cachables". Par dÃ©faut 0.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>COLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour dessiner le texte.</para>
+						<para>Couleur Ã  utiliser pour dessiner le texte.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="font">
 					<term>FONT [name]</term>
 					<listitem>
-						<para>Nom de la police de caractères (comme définie dans le <link linkend="fontset">FONTSET</link>) à utiliser pour les étiquettes.</para>
+						<para>Nom de la police de caractÃ¨res (comme dÃ©finie dans le <link linkend="fontset">FONTSET</link>) Ã  utiliser pour les Ã©tiquettes.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="force">
 					<term>FORCE [true|false]</term>
 					<listitem>
-						<para>Force les étiquettes d'une classe particulière, en fonction des collisions. Disponible seulement pour les étiquettes "cachables". Faux par défaut.</para>
+						<para>Force les Ã©tiquettes d'une classe particuliÃ¨re, en fonction des collisions. Disponible seulement pour les Ã©tiquettes "cachables". Faux par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="maxsize">
 					<term>MAXSIZE [integer]</term>
 					<listitem>
-						<para>Taille maximale de la police de caractères à utiliser pour l'échantillonnage du texte (pixels). 256 par défaut.</para>
+						<para>Taille maximale de la police de caractÃ¨res Ã  utiliser pour l'Ã©chantillonnage du texte (pixels). 256 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MINDISTANCE [integer]</term>
 					<listitem>
-						<para>Distance minimale entre des étiquettes en double.  Donnée en pixels.</para>
+						<para>Distance minimale entre des Ã©tiquettes en double.  DonnÃ©e en pixels.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MINFEATURESIZE [integer|auto]</term>
 					<listitem>
-						<para>Taille minimale d'un élément devant être étiqueté. Donnée en pixels. Pour une donnée de type ligne la longueur totale de la ligne affichée est utilisée, pour les polygones la plus petite dimension de la figure est prise en compte.  Le mot clé "Auto" indique à MapServer que seuls les éléments étiquetés qui sont plus grands que leur étiquette sont concernés. Disponible seulement pour les étiquettes "cachables".</para>
+						<para>Taille minimale d'un Ã©lÃ©ment devant Ãªtre Ã©tiquetÃ©. DonnÃ©e en pixels. Pour une donnÃ©e de type ligne la longueur totale de la ligne affichÃ©e est utilisÃ©e, pour les polygones la plus petite dimension de la figure est prise en compte.  Le mot clÃ© "Auto" indique Ã  MapServer que seuls les Ã©lÃ©ments Ã©tiquetÃ©s qui sont plus grands que leur Ã©tiquette sont concernÃ©s. Disponible seulement pour les Ã©tiquettes "cachables".</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="minsize">
 					<term>MINSIZE [integer]</term>
 					<listitem>
-						<para>Taille minimale de la police de caractères pour l'échantillonnage du texte (pixels). 4 par défaut.</para>
+						<para>Taille minimale de la police de caractÃ¨res pour l'Ã©chantillonnage du texte (pixels). 4 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>OFFSET [x][y]</term>
 					<listitem>
-						<para>Valeurs de déplacement pour les étiquettes, relatif au coin inférieur gauche de l'étiquette ou du point d'étiquette. Donné en pixels. Dans le cas où la rotation du texte est spécifiée les valeurs sont identiques pour toutes les étiquettes horizontales et toute rotation sera compensée.</para>
+						<para>Valeurs de dÃ©placement pour les Ã©tiquettes, relatif au coin infÃ©rieur gauche de l'Ã©tiquette ou du point d'Ã©tiquette. DonnÃ© en pixels. Dans le cas oÃ¹ la rotation du texte est spÃ©cifiÃ©e les valeurs sont identiques pour toutes les Ã©tiquettes horizontales et toute rotation sera compensÃ©e.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à dessiner d'un pixel autour du texte.</para>
+						<para>Couleur Ã  dessiner d'un pixel autour du texte.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>PARTIALS [true|false]</term>
 					<listitem>
-						<para>Le texte doit-il être caché s'il n'est qu'en partie dans la carte? Vrai (true) par défaut.</para>
+						<para>Le texte doit-il Ãªtre cachÃ© s'il n'est qu'en partie dans la carte? Vrai (true) par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POSITION [ul|uc|ur|cl|cc|cr|ll|lc|lr|auto]</term>
 					<listitem>
-						<para>Position de l'étiquette relative au point d'étiquetage (couches seulement).  La première lettre est la position "Y", la seconde lettre est la position "X". "Auto" indique à MapServer de calculer une position d'étiquette qui n'interfèrera pas avec d'autres étiquettes.  Avec des points et des polygones, MapServer sélectionne l'une des 8 positions (par exemple en excluant cc). Avec des lignes, il n'utilise que lc ou uc, jusqu'à trouver une position qui n'entraîne aucune collision avec des étiquettes déjà dessinées. Si toutes les positions entraînent un conflit l'étiquette n'est pas dessinée (sauf si le paramètre d'étiquette <link linkend="force">FORCE</link> est vrai ("true")). "Auto" est seulement disponible avec les étiquettes "cachables".</para>
+						<para>Position de l'Ã©tiquette relative au point d'Ã©tiquetage (couches seulement).  La premiÃ¨re lettre est la position "Y", la seconde lettre est la position "X". "Auto" indique Ã  MapServer de calculer une position d'Ã©tiquette qui n'interfÃ¨rera pas avec d'autres Ã©tiquettes.  Avec des points et des polygones, MapServer sÃ©lectionne l'une des 8 positions (par exemple en excluant cc). Avec des lignes, il n'utilise que lc ou uc, jusqu'Ã  trouver une position qui n'entraÃ®ne aucune collision avec des Ã©tiquettes dÃ©jÃ  dessinÃ©es. Si toutes les positions entraÃ®nent un conflit l'Ã©tiquette n'est pas dessinÃ©e (sauf si le paramÃ¨tre d'Ã©tiquette <link linkend="force">FORCE</link> est vrai ("true")). "Auto" est seulement disponible avec les Ã©tiquettes "cachables".</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -344,178 +344,178 @@
 				<varlistentry>
 					<term>SHADOWSIZE [x][y]</term>
 					<listitem>
-						<para>Décalage de l'ombrage en pixels.</para>
+						<para>DÃ©calage de l'ombrage en pixels.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SIZE [integer]|[tiny|small|medium|large|giant]</term>
 					<listitem>
-						<para>Taille du texte. "integer" pour donner la taille en pixels de votre police TrueType, ou tout autre des 5 mots clés listés pour les polices bitmap.</para>
+						<para>Taille du texte. "integer" pour donner la taille en pixels de votre police TrueType, ou tout autre des 5 mots clÃ©s listÃ©s pour les polices bitmap.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TYPE [bitmap|truetype]</term>
 					<listitem>
-						<para>Type de police de caractères à utiliser. Généralement les polices bitmap sont plus rapides à dessiner que les polices TrueType. Malgré tout, les polices TrueType sont ré-échantillonnables et disponibles en grande variété de présentation.  Assurez-vous que vous avez bien sélectionné TrueType pour le paramètre <link linkend="font">FONT</link>.</para>
+						<para>Type de police de caractÃ¨res Ã  utiliser. GÃ©nÃ©ralement les polices bitmap sont plus rapides Ã  dessiner que les polices TrueType. MalgrÃ© tout, les polices TrueType sont rÃ©-Ã©chantillonnables et disponibles en grande variÃ©tÃ© de prÃ©sentation.  Assurez-vous que vous avez bien sÃ©lectionnÃ© TrueType pour le paramÃ¨tre <link linkend="font">FONT</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>WRAP [character]</term>
 					<listitem>
-						<para>Caractère qui représente une rupture de ligne, produit une étiquette multi-ligne.</para>
+						<para>CaractÃ¨re qui reprÃ©sente une rupture de ligne, produit une Ã©tiquette multi-ligne.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="layer">
 			<title>Objet Layer</title>
-			<para>L'objet le plus utilisé dans un MapFile, celui-ci décrit les couches utilisées pour fabriquer une carte.  Les couches sont dessinées dans leur ordre d'apparition dans le MapFile (la première couche dessous, la dernière sur le dessus).</para>
+			<para>L'objet le plus utilisÃ© dans un MapFile, celui-ci dÃ©crit les couches utilisÃ©es pour fabriquer une carte.  Les couches sont dessinÃ©es dans leur ordre d'apparition dans le MapFile (la premiÃ¨re couche dessous, la derniÃ¨re sur le dessus).</para>
 			<variablelist>
 				<varlistentry>
 					<term>CLASS</term>
 					<listitem>
-						<para>Signale le début d'un objet de classe (<link linkend="class">CLASS</link>).</para>
+						<para>Signale le dÃ©but d'un objet de classe (<link linkend="class">CLASS</link>).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>CLASSITEM [attribute]</term>
 					<listitem>
-						<para>Nom d'élément dans la table attribut pour utiliser dans les recherches de classe.</para>
+						<para>Nom d'Ã©lÃ©ment dans la table attribut pour utiliser dans les recherches de classe.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>CONNECTION [string]</term>
 					<listitem>
-						<para>Chaîne de caractères pour la connexion à une base de données distante.</para>
-						<para>Une chaîne de caractères pour une connexion SDE est composée d'un nom de serveur, un nom d'instance, un nom de base de données, un nom d'utilisateur et son mot de passe séparés par une virgule.</para>
-						<para>Une chaîne de caractères pour la connexion PostGIS est fondamentalement identique à une connexion normale PostgreSQL, elle prend la forme suivante "user=nobody password=****** dbname=dbname host=localhost port=5432"</para>
-						<para>Une chaîne de caractères pour la connexion Oracle: user/pass[@db]</para>
+						<para>ChaÃ®ne de caractÃ¨res pour la connexion Ã  une base de donnÃ©es distante.</para>
+						<para>Une chaÃ®ne de caractÃ¨res pour une connexion SDE est composÃ©e d'un nom de serveur, un nom d'instance, un nom de base de donnÃ©es, un nom d'utilisateur et son mot de passe sÃ©parÃ©s par une virgule.</para>
+						<para>Une chaÃ®ne de caractÃ¨res pour la connexion PostGIS est fondamentalement identique Ã  une connexion normale PostgreSQL, elle prend la forme suivante "user=nobody password=****** dbname=dbname host=localhost port=5432"</para>
+						<para>Une chaÃ®ne de caractÃ¨res pour la connexion Oracle: user/pass[@db]</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>CONNECTIONTYPE [local|sde|ogr|postgis|oraclespatial|wms]</term>
 					<listitem>
-						<para>Type de connexion. Par défaut local. Voir la documentation additionnelle pour les autres types.</para>
+						<para>Type de connexion. Par dÃ©faut local. Voir la documentation additionnelle pour les autres types.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>DATA [filename]|[sde parameters][postgis table/column][oracle table/column]</term>
 					<listitem>
-						<para>Nom complet du fichier de données spatiales à traiter. Aucune extension n'est nécessaire pour les fichiers shape. Peut être spécifié relatif à l'option <link linkend="shapepath">SHAPEPATH</link> de l'objet Map.</para>
-						<para>S'il s'agit d'une couche SDE, le paramètre devrait inclure le nom des couches comme de la colonne de géométrie, comme "mylayer,shape".</para>
-						<para>S'il s'agit d'une couche PostGIS, le paramètre devrait être de la forme "&lt;columnname&gt; from &lt;tablename&gt;", où "columnname" est le nom de la colonne contenant les objets géométriques et "tablename" est le nom de la table depuis laquelle les données géométriques seront lues.</para>
-						<para>Pour Oracle, utilisez "shape FROM table" ou "shape FROM (SELECT statement)" ou n'importe quelle autre requête complexe conforme à Oracle! Notez que l'impact sur les performances est toujours important lors de l'utilisation de sous-requêtes. Essayez d'utiliser le <link linkend="filter">FILTER</link> de MapServer aussi souvent que possible. Vous pouvez aussi voir les requêtes SQL soumises en forçant une erreur, par exemple en soumettant un paramètre DATA incohérant, en utilisant par exemple un mauvais nom de colonne.</para>
+						<para>Nom complet du fichier de donnÃ©es spatiales Ã  traiter. Aucune extension n'est nÃ©cessaire pour les fichiers shape. Peut Ãªtre spÃ©cifiÃ© relatif Ã  l'option <link linkend="shapepath">SHAPEPATH</link> de l'objet Map.</para>
+						<para>S'il s'agit d'une couche SDE, le paramÃ¨tre devrait inclure le nom des couches comme de la colonne de gÃ©omÃ©trie, comme "mylayer,shape".</para>
+						<para>S'il s'agit d'une couche PostGIS, le paramÃ¨tre devrait Ãªtre de la forme "&lt;columnname&gt; from &lt;tablename&gt;", oÃ¹ "columnname" est le nom de la colonne contenant les objets gÃ©omÃ©triques et "tablename" est le nom de la table depuis laquelle les donnÃ©es gÃ©omÃ©triques seront lues.</para>
+						<para>Pour Oracle, utilisez "shape FROM table" ou "shape FROM (SELECT statement)" ou n'importe quelle autre requÃªte complexe conforme Ã  Oracle! Notez que l'impact sur les performances est toujours important lors de l'utilisation de sous-requÃªtes. Essayez d'utiliser le <link linkend="filter">FILTER</link> de MapServer aussi souvent que possible. Vous pouvez aussi voir les requÃªtes SQL soumises en forÃ§ant une erreur, par exemple en soumettant un paramÃ¨tre DATA incohÃ©rant, en utilisant par exemple un mauvais nom de colonne.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>DEBUG</term>
 					<listitem>
-						<para>Permet la mise au point de l'objet de couche.  Les sorties sont générées et envoyées vers la sortie standard d'erreur (STDERR) ou dans le fichier de trace de MapServer si le paramètre  LOG de l'objet <link linkend="web">WEB</link> est renseigné.</para>
+						<para>Permet la mise au point de l'objet de couche.  Les sorties sont gÃ©nÃ©rÃ©es et envoyÃ©es vers la sortie standard d'erreur (STDERR) ou dans le fichier de trace de MapServer si le paramÃ¨tre  LOG de l'objet <link linkend="web">WEB</link> est renseignÃ©.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>DUMP [true|false]</term>
 					<listitem>
-						<para>Commutateur pour permettre de retourner la donnée au format GML. Très utile quand vous utilisez les opérations GetFeatureInfo de WMS. "false" est la valeur par défaut.</para>
+						<para>Commutateur pour permettre de retourner la donnÃ©e au format GML. TrÃ¨s utile quand vous utilisez les opÃ©rations GetFeatureInfo de WMS. "false" est la valeur par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>FEATURE</term>
 					<listitem>
-						<para>Signale le début d'un objet de fonction (<link linkend="feature">FEATURE</link>).</para>
+						<para>Signale le dÃ©but d'un objet de fonction (<link linkend="feature">FEATURE</link>).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="filter">
 					<term>FILTER [string]</term>
 					<listitem>
-						<para>Ce paramètre permet un filtrage spécifique d'attribut de données en même temps que le filtrage spatial est effectué, mais avant que toute expression CLASS soit évaluée.  Pour OGR et les fichiers shape la chaîne de caractères est simplement une expression régulière MapServer.  Pour les bases de données spatiales la chaîne de caractères est une requêtes SQL WHERE qui est valide en respectant la base de données considérée.</para>
+						<para>Ce paramÃ¨tre permet un filtrage spÃ©cifique d'attribut de donnÃ©es en mÃªme temps que le filtrage spatial est effectuÃ©, mais avant que toute expression CLASS soit Ã©valuÃ©e.  Pour OGR et les fichiers shape la chaÃ®ne de caractÃ¨res est simplement une expression rÃ©guliÃ¨re MapServer.  Pour les bases de donnÃ©es spatiales la chaÃ®ne de caractÃ¨res est une requÃªtes SQL WHERE qui est valide en respectant la base de donnÃ©es considÃ©rÃ©e.</para>
 						<para>Par exemple: FILTER "type='road' and size &lt;2"</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>FILTERITEM [attribute]</term>
 					<listitem>
-						<para>Elément à utiliser avec des expressions simples <link linkend="filter">FILTER</link>. OGR et fichiers shape seulement. </para>
+						<para>ElÃ©ment Ã  utiliser avec des expressions simples <link linkend="filter">FILTER</link>. OGR et fichiers shape seulement. </para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>FOOTER [filename]</term>
 					<listitem>
-						<para>Mise en forme à utiliser <emphasis>après</emphasis> qu'une couche produise ses résultats. Mode de requête multirésultat seulement.</para>
+						<para>Mise en forme Ã  utiliser <emphasis>aprÃ¨s</emphasis> qu'une couche produise ses rÃ©sultats. Mode de requÃªte multirÃ©sultat seulement.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="group">
 					<term>GROUP [name]</term>
 					<listitem>
-						<para>Nom d'un groupe auquel la couche appartient.  Le nom de groupe peut être référencé ensuite comme un nom normal de couche dans les fichiers de mise en forme, permettant de faire certaines opérations comme afficher ou cacher un groupe de plusieurs couches en une seule opération.</para>
+						<para>Nom d'un groupe auquel la couche appartient.  Le nom de groupe peut Ãªtre rÃ©fÃ©rencÃ© ensuite comme un nom normal de couche dans les fichiers de mise en forme, permettant de faire certaines opÃ©rations comme afficher ou cacher un groupe de plusieurs couches en une seule opÃ©ration.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>HEADER [filename]</term>
 					<listitem>
-						<para>Mise en forme à utiliser <emphasis>avant</emphasis> qu'une couche produise ses résultats. Mode de requête multirésultat seulement.</para>
+						<para>Mise en forme Ã  utiliser <emphasis>avant</emphasis> qu'une couche produise ses rÃ©sultats. Mode de requÃªte multirÃ©sultat seulement.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABELANGLEITEM [attribute]</term>
 					<listitem>
-						<para>Nom d'élément dans la table d'attribut à utiliser pour la classe d'annotation des angles. Les valeurs sont exprimées en degrés.</para>
+						<para>Nom d'Ã©lÃ©ment dans la table d'attribut Ã  utiliser pour la classe d'annotation des angles. Les valeurs sont exprimÃ©es en degrÃ©s.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABELCACHE [on|off]</term>
 					<listitem>
-						<para>Specifie quand les étiquettes devraient être tracées comme une fonction pour cette couche, ou quand elles doivent être dissimulées et dessinées après que toutes les couches aient été dessinées. Par défaut on. Le recouvrement d'étiquetage, placement automatique etc... ne sont disponibles que lorsque le cache d'étiquette est actif.</para>
+						<para>Specifie quand les Ã©tiquettes devraient Ãªtre tracÃ©es comme une fonction pour cette couche, ou quand elles doivent Ãªtre dissimulÃ©es et dessinÃ©es aprÃ¨s que toutes les couches aient Ã©tÃ© dessinÃ©es. Par dÃ©faut on. Le recouvrement d'Ã©tiquetage, placement automatique etc... ne sont disponibles que lorsque le cache d'Ã©tiquette est actif.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABELITEM [attribute]</term>
 					<listitem>
-						<para>Nom de l'élément dans la table attribut à utiliser comme source de l'étiquetage.</para>
+						<para>Nom de l'Ã©lÃ©ment dans la table attribut Ã  utiliser comme source de l'Ã©tiquetage.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABELMAXSCALE [double]</term>
 					<listitem>
-						<para>Echelle maximale à laquelle la couche est étiquetée.</para>
+						<para>Echelle maximale Ã  laquelle la couche est Ã©tiquetÃ©e.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABELMINSCALE [double]</term>
 					<listitem>
-						<para>Echelle minimale à laquelle la couche est étiquetée.</para>
+						<para>Echelle minimale Ã  laquelle la couche est Ã©tiquetÃ©e.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="labelrequires">
 					<term>LABELREQUIRES [expression]</term>
 					<listitem>
-						<para>Paramètre le contexte pour l'étiquetage de cette couche, par exemple:</para>
+						<para>ParamÃ¨tre le contexte pour l'Ã©tiquetage de cette couche, par exemple:</para>
 						<programlisting>LABELREQUIRES ([orthoquads] != 1)</programlisting>
-						<para>veut dire que cette couche ne sera pas étiquetée si la couche nommée "orthoquads" est visible (on). L'expression consiste en une expression booléenne basée sur l'état des autres couches, chaque sous-chaîne [layer name] est remplacée par un 0 ou un 1 selon les états (STATUS) de couche et ensuite évalué normalement. Les opérateurs logiques AND et OR peuvent être utilisés.</para>
+						<para>veut dire que cette couche ne sera pas Ã©tiquetÃ©e si la couche nommÃ©e "orthoquads" est visible (on). L'expression consiste en une expression boolÃ©enne basÃ©e sur l'Ã©tat des autres couches, chaque sous-chaÃ®ne [layer name] est remplacÃ©e par un 0 ou un 1 selon les Ã©tats (STATUS) de couche et ensuite Ã©valuÃ© normalement. Les opÃ©rateurs logiques AND et OR peuvent Ãªtre utilisÃ©s.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABELSIZEITEM [attribute]</term>
 					<listitem>
-						<para>Nom de l'élément de la table attribut à utiliser comme classe des tailles d'étiquette. Les valeurs sont en pixels.</para>
+						<para>Nom de l'Ã©lÃ©ment de la table attribut Ã  utiliser comme classe des tailles d'Ã©tiquette. Les valeurs sont en pixels.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MAXFEATURES [integer]</term>
 					<listitem>
-						<para>Specifie le nombre de fonctions qui seront dessinées pour cette couche dans la fenêtre courante.  Intéressant avec les étiquettes et avec les données triées (comme les lacs par zone).</para>
+						<para>Specifie le nombre de fonctions qui seront dessinÃ©es pour cette couche dans la fenÃªtre courante.  IntÃ©ressant avec les Ã©tiquettes et avec les donnÃ©es triÃ©es (comme les lacs par zone).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MAXSCALE [double]</term>
 					<listitem>
-						<para>Echelle maximale à laquelle cette couche est dessinée.</para>
+						<para>Echelle maximale Ã  laquelle cette couche est dessinÃ©e.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>METADATA</term>
 					<listitem>
-						<para>Ce mot clé permet d'enregistrer des données comme un couple de valeurs.  Ceci est utilisé avec OGC WMS pour définir des éléments comme le titre de la couche.  Il peut aussi permettre plus de souplesse en créant des mises en forme, puisque tout ce que vous mettrez ici sera accessible via les indicateurs de mise en forme.</para>
+						<para>Ce mot clÃ© permet d'enregistrer des donnÃ©es comme un couple de valeurs.  Ceci est utilisÃ© avec OGC WMS pour dÃ©finir des Ã©lÃ©ments comme le titre de la couche.  Il peut aussi permettre plus de souplesse en crÃ©ant des mises en forme, puisque tout ce que vous mettrez ici sera accessible via les indicateurs de mise en forme.</para>
 						<para>Exemple:
 						<screen>
 METADATA
@@ -529,31 +529,31 @@ END
 				<varlistentry>
 					<term>MINSCALE [double]</term>
 					<listitem>
-						<para>Echelle minimale à laquelle cette couche est dessinée.</para>
+						<para>Echelle minimale Ã  laquelle cette couche est dessinÃ©e.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>NAME [string]</term>
 					<listitem>
-						<para>Nom court de cette couche. La limite est de 20 caractères. Ce nom est le lien entre le mapfile et les interfaces oueb qui se réfèrent à ce nom. Ils doivent être identiques. Le nom devra être unique, sinon une couche en remplacera une autre à différentes échelles. Utilisez l'option <link linkend="group">GROUP</link> pour associer les couches entre elles.</para>
+						<para>Nom court de cette couche. La limite est de 20 caractÃ¨res. Ce nom est le lien entre le mapfile et les interfaces oueb qui se rÃ©fÃ¨rent Ã  ce nom. Ils doivent Ãªtre identiques. Le nom devra Ãªtre unique, sinon une couche en remplacera une autre Ã  diffÃ©rentes Ã©chelles. Utilisez l'option <link linkend="group">GROUP</link> pour associer les couches entre elles.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>OFFSITE [r] [g] [b]</term>
 					<listitem>
-						<para>Sélectionne l'index de couleur pour la transparence des couches raster.</para>
+						<para>SÃ©lectionne l'index de couleur pour la transparence des couches raster.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POSTLABELCACHE [true|false]</term>
 					<listitem>
-						<para>Indique à MapServer de restituer cette couche après que toutes les étiquettes en cache auront été dessinées. Très utile pour ajouter une touche finale et autres éléments similaires. Faux par défaut (false).</para>
+						<para>Indique Ã  MapServer de restituer cette couche aprÃ¨s que toutes les Ã©tiquettes en cache auront Ã©tÃ© dessinÃ©es. TrÃ¨s utile pour ajouter une touche finale et autres Ã©lÃ©ments similaires. Faux par dÃ©faut (false).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>PROCESSING [string]</term>
 					<listitem>
-						<para>Passe une directive de procédure à utiliser avec cette couche.  Les directives de procédure reconnues varient en fonction du type de couche et du pilote sous-jacent qui les traitera.  Actuellement les directives SCALE, BANDS et DITHER sont reconnues pour les couches raster traitées via le pilote GDAL.  Ceci est expliqué dans le document Raster HOWTO.</para>
+						<para>Passe une directive de procÃ©dure Ã  utiliser avec cette couche.  Les directives de procÃ©dure reconnues varient en fonction du type de couche et du pilote sous-jacent qui les traitera.  Actuellement les directives SCALE, BANDS et DITHER sont reconnues pour les couches raster traitÃ©es via le pilote GDAL.  Ceci est expliquÃ© dans le document Raster HOWTO.</para>
 						<para>Exemple:
 						<screen>
 PROCESSING "SCALE_1=AUTO"
@@ -567,196 +567,196 @@ PROCESSING "BANDS=3,2,1,4"
 				<varlistentry>
 					<term>PROJECTION</term>
 					<listitem>
-						<para>Signale le début d'un objet de <link linkend="projection">PROJECTION</link>.</para>
+						<para>Signale le dÃ©but d'un objet de <link linkend="projection">PROJECTION</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>REQUIRES [expression]</term>
 					<listitem>
-						<para>Sélectionne le contexte pour l'affichage de cette couche (voir <link linkend="labelrequires">LABELREQUIRES</link>).</para>
+						<para>SÃ©lectionne le contexte pour l'affichage de cette couche (voir <link linkend="labelrequires">LABELREQUIRES</link>).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SIZEUNITS [pixels|feet|inches|kilometers|meters|miles|</term>
 					<listitem>
-						<para>Sélectionne l'unité de l'objet <link linkend="class">CLASS</link> pour la valeur de taille (<link linkend="size">SIZE</link>), pixels par défaut.</para>
+						<para>SÃ©lectionne l'unitÃ© de l'objet <link linkend="class">CLASS</link> pour la valeur de taille (<link linkend="size">SIZE</link>), pixels par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STATUS [on|off|default]</term>
 					<listitem>
-						<para>Sélectionne l'état actuel de la couche. Fréquemment modifié par MapServer lui-même.  La couche est 'on' en permanence par défaut, donc visible et dessinée.</para>
+						<para>SÃ©lectionne l'Ã©tat actuel de la couche. FrÃ©quemment modifiÃ© par MapServer lui-mÃªme.  La couche est 'on' en permanence par dÃ©faut, donc visible et dessinÃ©e.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STYLEITEM [attribute]</term>
 					<listitem>
-						<para>Elément à utiliser pour le design des fonctions spécifiques.  Ceci est *très* expérimental et seulement OGR pour l'instant.</para>
+						<para>ElÃ©ment Ã  utiliser pour le design des fonctions spÃ©cifiques.  Ceci est *trÃ¨s* expÃ©rimental et seulement OGR pour l'instant.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SYMBOLSCALE [double]</term>
 					<listitem>
-						<para>Echelle à laquelle les symboles et/ou les textes apparaissent en pleine taille. Ceci permet l'échelle dynamique des objets basés sur l'échelle de la carte. Si non utilisé, alors cette couche apparaitra toujours à la même taille. L'échelle doit être comprise dans les limites de <link linkend="minsize">MINSIZE</link> et <link linkend="maxsize">MAXSIZE</link> comme décrit ci-avant.</para>
+						<para>Echelle Ã  laquelle les symboles et/ou les textes apparaissent en pleine taille. Ceci permet l'Ã©chelle dynamique des objets basÃ©s sur l'Ã©chelle de la carte. Si non utilisÃ©, alors cette couche apparaitra toujours Ã  la mÃªme taille. L'Ã©chelle doit Ãªtre comprise dans les limites de <link linkend="minsize">MINSIZE</link> et <link linkend="maxsize">MAXSIZE</link> comme dÃ©crit ci-avant.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TEMPLATE [file|url]</term>
 					<listitem>
-						<para>Utilisé comme une alternative à <link linkend="class">CLASS</link>&nbsp;<link linkend="template">TEMPLATE</link>
+						<para>UtilisÃ© comme une alternative Ã  <link linkend="class">CLASS</link>&nbsp;<link linkend="template">TEMPLATE</link>
 						</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TILEINDEX [filename]</term>
 					<listitem>
-						<para>Nom complet du fichier pour l'index ou la définition d'assemblage pour cette couche. Similaire à une bibliothèque d'index ArcInfo, ce fichier shape contient des polygones pour chaque carreau à assembler. L'élément contient la localisation du carreau indiquée par le paramètre <emphasis>TILEITEM</emphasis>. Si le paramètre <emphasis>DATA</emphasis> contient une valeur alors il est ajouté à la fin de la localisation. Si <emphasis>DATA</emphasis> est vide alors la localisation devrait contenir le nom de fichier entier.</para>
+						<para>Nom complet du fichier pour l'index ou la dÃ©finition d'assemblage pour cette couche. Similaire Ã  une bibliothÃ¨que d'index ArcInfo, ce fichier shape contient des polygones pour chaque carreau Ã  assembler. L'Ã©lÃ©ment contient la localisation du carreau indiquÃ©e par le paramÃ¨tre <emphasis>TILEITEM</emphasis>. Si le paramÃ¨tre <emphasis>DATA</emphasis> contient une valeur alors il est ajoutÃ© Ã  la fin de la localisation. Si <emphasis>DATA</emphasis> est vide alors la localisation devrait contenir le nom de fichier entier.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TILEITEM [attribute]</term>
 					<listitem>
-						<para>Elément contenant la localisation d'un carreau individuel d'assemblage, par défaut "location".</para>
+						<para>ElÃ©ment contenant la localisation d'un carreau individuel d'assemblage, par dÃ©faut "location".</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="tolerance">
 					<term>TOLERANCE [double]</term>
 					<listitem>
-						<para>Sensibilité pour les requêtes basées sur les points (par exemple via la souris et/ou les coordonnées de la carte). Donnée en <link linkend="toleranceunits">TOLERANCEUNITS</link> avec 3 pixels par défaut. Pour restreindre les recherches par polygone, le point doit être inclus <emphasis>dans</emphasis> le polygone sélectionné avec une tolérance de zéro.</para>
+						<para>SensibilitÃ© pour les requÃªtes basÃ©es sur les points (par exemple via la souris et/ou les coordonnÃ©es de la carte). DonnÃ©e en <link linkend="toleranceunits">TOLERANCEUNITS</link> avec 3 pixels par dÃ©faut. Pour restreindre les recherches par polygone, le point doit Ãªtre inclus <emphasis>dans</emphasis> le polygone sÃ©lectionnÃ© avec une tolÃ©rance de zÃ©ro.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="toleranceunits">
 					<term>TOLERANCEUNITS [pixels|feet|inches|kilometers|meters|miles|dd]</term>
 					<listitem>
-						<para>Unité de la valeur <link linkend="tolerance">TOLERANCE</link>. pixels par défaut.</para>
+						<para>UnitÃ© de la valeur <link linkend="tolerance">TOLERANCE</link>. pixels par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TRANSPARENCY [integer]</term>
 					<listitem>
-						<para>Sélectionne le niveau de transparence de tous les pixels d'une couche donnée.  La valeur est en pourcentage (0-100) où 100 est opaque et 0 est complètement transparent.</para>
+						<para>SÃ©lectionne le niveau de transparence de tous les pixels d'une couche donnÃ©e.  La valeur est en pourcentage (0-100) oÃ¹ 100 est opaque et 0 est complÃ¨tement transparent.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TRANSFORM [true|false]</term>
 					<listitem>
-						<para>Indique à MapServer si une couche particulière a besoin d'être transformée d'un système de coordonnées vers les coordonnées d'image. Vrai (true) par défaut. Ceci permet de créer des fichiers shape dans les coordonnées image/graphiques et ensuite de disposer de la possibilité d'être affiché au même endroit sur toute carte. Idéal pour placer des logos ou du texte dans les cartes. Rappelez vous que le système de coordonnées graphiques a comme origine le coin supérieur gauche de l'image, contrairement à la plupart des systèmes de coordonnées cartographique.</para>
+						<para>Indique Ã  MapServer si une couche particuliÃ¨re a besoin d'Ãªtre transformÃ©e d'un systÃ¨me de coordonnÃ©es vers les coordonnÃ©es d'image. Vrai (true) par dÃ©faut. Ceci permet de crÃ©er des fichiers shape dans les coordonnÃ©es image/graphiques et ensuite de disposer de la possibilitÃ© d'Ãªtre affichÃ© au mÃªme endroit sur toute carte. IdÃ©al pour placer des logos ou du texte dans les cartes. Rappelez vous que le systÃ¨me de coordonnÃ©es graphiques a comme origine le coin supÃ©rieur gauche de l'image, contrairement Ã  la plupart des systÃ¨mes de coordonnÃ©es cartographique.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TYPE [point|line|polygon|circle|annotation|raster|query]</term>
 					<listitem>
-						<para>Spécifie comment les données doivent être tracées. N'a pas besoin d'être identique au type du fichier shape. Par exemple, un fichier shape polygone peut être dessiné comme une couche point, mais un fichier shape point ne peut pas être dessiné comme une couche polygone. C'est assez normal. Annotation signifie que l'étiquette de point sera calculée pour les fonctions, mais la fonction elle même ne sera pas dessinée quoique un symbole de marquage puisse être dessiné. Facultativement, ceci permet un étiquetage avancé comme l'étiquetage des symboles d'autoroute (aux US représenté par un écusson). Les points sont étiquetés à ce point. Les polygones sont étiquetés au premier centroïde, et si ça ne tombe pas dans le polygone une ligne de lien est utilisée pour garantir que l'étiquette est bien rattachée à cet élément. Les lignes sont étiquetées au milieu de la section visible la plus longue de la ligne. Query indique seulement que cette couche peut être interrogée mais non dessinée.</para>
-						<para>De manière à faire la différence entre les POLYGONs et les POLYLINEs (qui n'est pas un type existant), il faut simplement veiller à utiliser ou non le mot clé COLOR dans la classification.  Si vous l'utilisez, il s'agira d'un polygone avec une couleur de remplissage, sinon c'est une polyligne avec seulement une OUTLINECOLOR.</para>
-						<para>Un cercle peut être défini par un rectangle inscrit. Ainsi 2 points définissent le carré minimum qui le contient. Ces 2 points sont deux coins opposés d'une telle figure.</para>
+						<para>SpÃ©cifie comment les donnÃ©es doivent Ãªtre tracÃ©es. N'a pas besoin d'Ãªtre identique au type du fichier shape. Par exemple, un fichier shape polygone peut Ãªtre dessinÃ© comme une couche point, mais un fichier shape point ne peut pas Ãªtre dessinÃ© comme une couche polygone. C'est assez normal. Annotation signifie que l'Ã©tiquette de point sera calculÃ©e pour les fonctions, mais la fonction elle mÃªme ne sera pas dessinÃ©e quoique un symbole de marquage puisse Ãªtre dessinÃ©. Facultativement, ceci permet un Ã©tiquetage avancÃ© comme l'Ã©tiquetage des symboles d'autoroute (aux US reprÃ©sentÃ© par un Ã©cusson). Les points sont Ã©tiquetÃ©s Ã  ce point. Les polygones sont Ã©tiquetÃ©s au premier centroÃ¯de, et si Ã§a ne tombe pas dans le polygone une ligne de lien est utilisÃ©e pour garantir que l'Ã©tiquette est bien rattachÃ©e Ã  cet Ã©lÃ©ment. Les lignes sont Ã©tiquetÃ©es au milieu de la section visible la plus longue de la ligne. Query indique seulement que cette couche peut Ãªtre interrogÃ©e mais non dessinÃ©e.</para>
+						<para>De maniÃ¨re Ã  faire la diffÃ©rence entre les POLYGONs et les POLYLINEs (qui n'est pas un type existant), il faut simplement veiller Ã  utiliser ou non le mot clÃ© COLOR dans la classification.  Si vous l'utilisez, il s'agira d'un polygone avec une couleur de remplissage, sinon c'est une polyligne avec seulement une OUTLINECOLOR.</para>
+						<para>Un cercle peut Ãªtre dÃ©fini par un rectangle inscrit. Ainsi 2 points dÃ©finissent le carrÃ© minimum qui le contient. Ces 2 points sont deux coins opposÃ©s d'une telle figure.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="class">
 			<title>Objet Class</title>
-			<para>Définit les classes thématiques pour une couche donnée et toute couche doit avoir au moins une classe. Pour les cas où il y a plusieurs classes, l'appartenance est déterminée en utilisant les valeurs d'attribut et les expressions. Commence avec le mot clé <emphasis>CLASS</emphasis> et se termine avec le mot clé <emphasis>END</emphasis>.
+			<para>DÃ©finit les classes thÃ©matiques pour une couche donnÃ©e et toute couche doit avoir au moins une classe. Pour les cas oÃ¹ il y a plusieurs classes, l'appartenance est dÃ©terminÃ©e en utilisant les valeurs d'attribut et les expressions. Commence avec le mot clÃ© <emphasis>CLASS</emphasis> et se termine avec le mot clÃ© <emphasis>END</emphasis>.
 			</para>
 			<variablelist>
 				<varlistentry>
 					<term>BACKGROUNDCOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour les symboles non transparents.</para>
+						<para>Couleur Ã  utiliser pour les symboles non transparents.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>COLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour dessiner les fonctions.</para>
+						<para>Couleur Ã  utiliser pour dessiner les fonctions.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>DEBUG</term>
 					<listitem>
-						<para>Permet la mise au point de l'objet de classe.  Les sorties sont générées et envoyées vers la sortie d'erreur standard (STDERR) ou vers le fichier trace de  MapServer si le paramètre LOG est renseigné dans l'objet <link linkend="web">WEB</link>.</para>
+						<para>Permet la mise au point de l'objet de classe.  Les sorties sont gÃ©nÃ©rÃ©es et envoyÃ©es vers la sortie d'erreur standard (STDERR) ou vers le fichier trace de  MapServer si le paramÃ¨tre LOG est renseignÃ© dans l'objet <link linkend="web">WEB</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>EXPRESSION [string]</term>
 					<listitem>
-						<para>Trois types d'expressions sont maintenant supportés pour définir le lien de classe. Les comparaisons chaîne de caractères,  les expressions régulières et les expressions logiques simples. Si aucune expression n'est donnée, alors toutes les fonctions sont réputées appartenir à cette classe.</para>
+						<para>Trois types d'expressions sont maintenant supportÃ©s pour dÃ©finir le lien de classe. Les comparaisons chaÃ®ne de caractÃ¨res,  les expressions rÃ©guliÃ¨res et les expressions logiques simples. Si aucune expression n'est donnÃ©e, alors toutes les fonctions sont rÃ©putÃ©es appartenir Ã  cette classe.</para>
 						<itemizedlist>
 							<listitem>
-								<para>Les comparaisons chaîne de caractères ne sont pas sensibles à la casse et sont les plus rapides à être évaluées. Aucun délimiteur particulier n'est nécessaire bien que la chaîne de caractères soit à mettre entre guillemets si elle contient des caractères spéciaux. (En guise de bonne habitude, il est recommandé de toujours utiliser les guillemets).</para>
+								<para>Les comparaisons chaÃ®ne de caractÃ¨res ne sont pas sensibles Ã  la casse et sont les plus rapides Ã  Ãªtre Ã©valuÃ©es. Aucun dÃ©limiteur particulier n'est nÃ©cessaire bien que la chaÃ®ne de caractÃ¨res soit Ã  mettre entre guillemets si elle contient des caractÃ¨res spÃ©ciaux. (En guise de bonne habitude, il est recommandÃ© de toujours utiliser les guillemets).</para>
 							</listitem>
 							<listitem>
-								<para>Les expressions régulières fonctionnent exactement comme dans les versions précédentes de MapServer. Toutefois, vous devez maintenant délimiter une expression régulière en utilisant /regex/. Aucun guillemet ne doit être utilisé.</para>
+								<para>Les expressions rÃ©guliÃ¨res fonctionnent exactement comme dans les versions prÃ©cÃ©dentes de MapServer. Toutefois, vous devez maintenant dÃ©limiter une expression rÃ©guliÃ¨re en utilisant /regex/. Aucun guillemet ne doit Ãªtre utilisÃ©.</para>
 							</listitem>
 							<listitem>
-								<para>Les expressions logiques vous permettent de construire des tests franchement complexes basés sur un ou plusieurs attributs et seulement avec les fichiers shape. Les expressions logiques sont délimitées par des parenthèses "(expression)".  Les noms d'attribut sont délimités par des crochets "[ATTRIBUTE]". Ces noms sont sensibles à la casse et doivent correspondre aux éléments du fichier shape. Par exemple: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... Les opérateurs logiques connus sont : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq. Comme vous pouvez vous en douter ce niveau de complexité est relativement lent à évaluer.</para>
+								<para>Les expressions logiques vous permettent de construire des tests franchement complexes basÃ©s sur un ou plusieurs attributs et seulement avec les fichiers shape. Les expressions logiques sont dÃ©limitÃ©es par des parenthÃ¨ses "(expression)".  Les noms d'attribut sont dÃ©limitÃ©s par des crochets "[ATTRIBUTE]". Ces noms sont sensibles Ã  la casse et doivent correspondre aux Ã©lÃ©ments du fichier shape. Par exemple: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... Les opÃ©rateurs logiques connus sont : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq. Comme vous pouvez vous en douter ce niveau de complexitÃ© est relativement lent Ã  Ã©valuer.</para>
 							</listitem>
 						</itemizedlist>
-						<para>Les comparaisons chaîne de caractères et les expressions régulières fonctionnent depuis le CLASSITEM défini au niveau de la couche. Vous pouvez mélanger les types d'expression au sein de différentes classes d'une couche.</para>
+						<para>Les comparaisons chaÃ®ne de caractÃ¨res et les expressions rÃ©guliÃ¨res fonctionnent depuis le CLASSITEM dÃ©fini au niveau de la couche. Vous pouvez mÃ©langer les types d'expression au sein de diffÃ©rentes classes d'une couche.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>JOIN</term>
 					<listitem>
-						<para>Signale le début d'un objet <link linkend="join">JOIN</link>.</para>
+						<para>Signale le dÃ©but d'un objet <link linkend="join">JOIN</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABEL</term>
 					<listitem>
-						<para>Signale le début d'un objet <link linkend="label">LABEL</link>.</para>
+						<para>Signale le dÃ©but d'un objet <link linkend="label">LABEL</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MAXSIZE [integer]</term>
 					<listitem>
-						<para>Taille maximale en pixels pour dessiner un symbole. 50 par défaut.</para>
+						<para>Taille maximale en pixels pour dessiner un symbole. 50 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MINSIZE [integer]</term>
 					<listitem>
-						<para>Taille minimale en pixels pour dessiner un symbole. 0 par défaut.</para>
+						<para>Taille minimale en pixels pour dessiner un symbole. 0 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>NAME [string]</term>
 					<listitem>
-						<para>Nom à utiliser dans les légendes pour cette classe. Si non indiqué, ne sera pas montré dans la légende.</para>
+						<para>Nom Ã  utiliser dans les lÃ©gendes pour cette classe. Si non indiquÃ©, ne sera pas montrÃ© dans la lÃ©gende.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="outlinecolor">
 					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour dessiner les polygones et certains symboles de marquage. Les symboles de ligne ne sont pas concernés par cet élément.</para>
+						<para>Couleur Ã  utiliser pour dessiner les polygones et certains symboles de marquage. Les symboles de ligne ne sont pas concernÃ©s par cet Ã©lÃ©ment.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="size">
 					<term>SIZE [integer]</term>
 					<listitem>
-						<para>Hauteur, en pixels, du symbole/motif à utiliser. Très utile seulement avec les symboles rééchantillonnables. 1 par défaut.</para>
+						<para>Hauteur, en pixels, du symbole/motif Ã  utiliser. TrÃ¨s utile seulement avec les symboles rÃ©Ã©chantillonnables. 1 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SYMBOL [integer|string]</term>
 					<listitem>
-						<para>Le nom du symbole ou le numéro à utiliser pour toutes les fonctions si les tables d'attribut ne sont pas utilisées.  Le numéro est l'index du symbole dans le fichier de symboles, commence à 1, le 5ième symbole dans le fichier est donc le symbole numéro 5.  Vous pouvez aussi donner les noms des symboles en utilisant le mot clé <emphasis>NAME</emphasis> dans le fichier de définition des symboles.  0 par défaut, qui produit un simple pixel, une ligne fine ou un polygone plein selon le type de la couche.</para>
+						<para>Le nom du symbole ou le numÃ©ro Ã  utiliser pour toutes les fonctions si les tables d'attribut ne sont pas utilisÃ©es.  Le numÃ©ro est l'index du symbole dans le fichier de symboles, commence Ã  1, le 5iÃ¨me symbole dans le fichier est donc le symbole numÃ©ro 5.  Vous pouvez aussi donner les noms des symboles en utilisant le mot clÃ© <emphasis>NAME</emphasis> dans le fichier de dÃ©finition des symboles.  0 par dÃ©faut, qui produit un simple pixel, une ligne fine ou un polygone plein selon le type de la couche.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="template">
 					<term>TEMPLATE [filename]</term>
 					<listitem>
-						<para>Fichier de mise en forme ou URL à utiliser pour présenter le résultat de requête à l'utilisateur.</para>
+						<para>Fichier de mise en forme ou URL Ã  utiliser pour prÃ©senter le rÃ©sultat de requÃªte Ã  l'utilisateur.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TEXT [string]</term>
 					<listitem>
-						<para>Texte fixe pour étiqueter les éléments de cette classe. Ceci remplace les valeurs obtenues par <emphasis>LABELITEM</emphasis>. La chaîne de caractères peut être donnée comme une expression délimitée en utilisant des parenthèses. Ceci vous permet d'assembler plusieurs attributs en une seule étiquette. Par exemple: ([FIRSTNAME],[LASTNAME]).</para>
+						<para>Texte fixe pour Ã©tiqueter les Ã©lÃ©ments de cette classe. Ceci remplace les valeurs obtenues par <emphasis>LABELITEM</emphasis>. La chaÃ®ne de caractÃ¨res peut Ãªtre donnÃ©e comme une expression dÃ©limitÃ©e en utilisant des parenthÃ¨ses. Ceci vous permet d'assembler plusieurs attributs en une seule Ã©tiquette. Par exemple: ([FIRSTNAME],[LASTNAME]).</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
-			<para>Vous pouvez aussi "mélanger" 2 symboles pour obtenir des effets particuliers.  Vous définissez le second symbole, qui est effectivement plaqué par dessus le symbole normalement défini précédemment.</para>
-			<para>Les paramètres suivants vous permettent de définir le symbole et ils sont équivalents à leurs contreparties non recouvrable:</para>
+			<para>Vous pouvez aussi "mÃ©langer" 2 symboles pour obtenir des effets particuliers.  Vous dÃ©finissez le second symbole, qui est effectivement plaquÃ© par dessus le symbole normalement dÃ©fini prÃ©cÃ©demment.</para>
+			<para>Les paramÃ¨tres suivants vous permettent de dÃ©finir le symbole et ils sont Ã©quivalents Ã  leurs contreparties non recouvrable:</para>
 			<itemizedlist>
 				<listitem>
 					<para>OVERLAYBACKGROUNDCOLOR</para>
@@ -783,44 +783,44 @@ PROCESSING "BANDS=3,2,1,4"
 		</sect2>
 		<sect2 id="feature">
 			<title>Objet de fonction (Feature)</title>
-			<para>Définit les fonctions en ligne. Vous pouvez utiliser les fonctions en ligne quand il n'est pas possible (ou trop de difficultés) pour créer un fichier shape. Les fonctions en ligne peuvent aussi être construites via des URL ou des formulaires. Commence par le mot clé <emphasis>FEATURE</emphasis> et se termine avec le mot clé <emphasis>END</emphasis>.</para>
+			<para>DÃ©finit les fonctions en ligne. Vous pouvez utiliser les fonctions en ligne quand il n'est pas possible (ou trop de difficultÃ©s) pour crÃ©er un fichier shape. Les fonctions en ligne peuvent aussi Ãªtre construites via des URL ou des formulaires. Commence par le mot clÃ© <emphasis>FEATURE</emphasis> et se termine avec le mot clÃ© <emphasis>END</emphasis>.</para>
 			<variablelist>
 				<varlistentry>
 					<term>POINTS</term>
 					<listitem>
-						<para>Un ensemble de couples xy terminé avec END, par exemple:</para>
+						<para>Un ensemble de couples xy terminÃ© avec END, par exemple:</para>
 						<programlisting>POINTS 1 1 50 50 1 50 1 1 END</programlisting>
-						<para>Notez qu'avec les couches POLYGON/POLYLINE les POINTS doivent commencer et se terminer au même point (pour fermer la fonction).</para>
+						<para>Notez qu'avec les couches POLYGON/POLYLINE les POINTS doivent commencer et se terminer au mÃªme point (pour fermer la fonction).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TEXT [string]</term>
 					<listitem>
-						<para>Chaîne de caractères à utiliser pour étiqueter cette fonction.</para>
+						<para>ChaÃ®ne de caractÃ¨res Ã  utiliser pour Ã©tiqueter cette fonction.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="legend">
-			<title>Objet de légende (Legend)</title>
-			<para>Définit comment une légende doit être construite. Les composants de la légende sont construits automatiquement à partir des objets de classe pour chaque couche.  Commence avec le mot clé <emphasis>LEGEND</emphasis> et se termine avec le mot clé <emphasis>END</emphasis>. La taille de l'image de légende <emphasis>N'EST PAS</emphasis> connue à priori pour la création aussi soyez prudent avec les éléments largeur et hauteur de l'indicateur &lt;IMG> du fichier de mise en forme.</para>
+			<title>Objet de lÃ©gende (Legend)</title>
+			<para>DÃ©finit comment une lÃ©gende doit Ãªtre construite. Les composants de la lÃ©gende sont construits automatiquement Ã  partir des objets de classe pour chaque couche.  Commence avec le mot clÃ© <emphasis>LEGEND</emphasis> et se termine avec le mot clÃ© <emphasis>END</emphasis>. La taille de l'image de lÃ©gende <emphasis>N'EST PAS</emphasis> connue Ã  priori pour la crÃ©ation aussi soyez prudent avec les Ã©lÃ©ments largeur et hauteur de l'indicateur &lt;IMG> du fichier de mise en forme.</para>
 			<variablelist>
 				<varlistentry>
 					<term>IMAGECOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur dans laquelle la légende est initialisée (l'arrière plan).</para>
+						<para>Couleur dans laquelle la lÃ©gende est initialisÃ©e (l'arriÃ¨re plan).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>INTERLACE [on|off]</term>
 					<listitem>
-						<para>L'image devra-t-elle être entrelacée?  Oui par défaut [on].  Ce mot clé est maintenant délaissé au profit de l'option FORMATOPTION "INTERLACE=ON" dans la déclaration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
+						<para>L'image devra-t-elle Ãªtre entrelacÃ©e?  Oui par dÃ©faut [on].  Ce mot clÃ© est maintenant dÃ©laissÃ© au profit de l'option FORMATOPTION "INTERLACE=ON" dans la dÃ©claration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABEL</term>
 					<listitem>
-						<para>Signale le début de l'objet <link linkend="label">LABEL</link>
+						<para>Signale le dÃ©but de l'objet <link linkend="label">LABEL</link>
 						</para>
 					</listitem>
 				</varlistentry>
@@ -833,76 +833,76 @@ PROCESSING "BANDS=3,2,1,4"
 				<varlistentry>
 					<term>POSITION [ul|uc|ur|ll|lc|lr]</term>
 					<listitem>
-						<para>Où doit être placée la légende sur la carte. lr par défaut.</para>
+						<para>OÃ¹ doit Ãªtre placÃ©e la lÃ©gende sur la carte. lr par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>KEYSIZE [x][y]</term>
 					<listitem>
-						<para>Taille de la case de symboles en pixels. 20 par 10 par défaut.</para>
+						<para>Taille de la case de symboles en pixels. 20 par 10 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>KEYSPACING [x][y]</term>
 					<listitem>
-						<para>Espacement entre les symboles ([y]) et les étiquettes ([x]) en pixels. 5 par 5 par défaut.</para>
+						<para>Espacement entre les symboles ([y]) et les Ã©tiquettes ([x]) en pixels. 5 par 5 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POSTLABELCACHE [true|false]</term>
 					<listitem>
-						<para>Indique à MapServer de restituer cette légende après que toutes les étiquettes du cache aient été dessinées. Très utile pour ajouter une touche finale ou quelqu'autres  éléments similaires. Faux (false) par défaut.</para>
+						<para>Indique Ã  MapServer de restituer cette lÃ©gende aprÃ¨s que toutes les Ã©tiquettes du cache aient Ã©tÃ© dessinÃ©es. TrÃ¨s utile pour ajouter une touche finale ou quelqu'autres  Ã©lÃ©ments similaires. Faux (false) par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STATUS [on|off|embed]</term>
 					<listitem>
-						<para>L'image légende doit-elle être créée?</para>
+						<para>L'image lÃ©gende doit-elle Ãªtre crÃ©Ã©e?</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
-						<para>La couleur d'arrière plan pour la légende est-elle transparente?  Cet indicateur est maintenant délaissé au profit de la déclaration de transparence dans <link linkend="outputformat">OUTPUTFORMAT</link>. Non par défaut (off).</para>
+						<para>La couleur d'arriÃ¨re plan pour la lÃ©gende est-elle transparente?  Cet indicateur est maintenant dÃ©laissÃ© au profit de la dÃ©claration de transparence dans <link linkend="outputformat">OUTPUTFORMAT</link>. Non par dÃ©faut (off).</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="querymap">
 			<title>QueryMap Object</title>
-			<para>Définit un mécanisme pour appliquer les résultats d'une requête sur la carte. Commence avec le mot clé <emphasis>QUERYMAP</emphasis> et se termine avec le mot clé <emphasis>END</emphasis>.</para>
+			<para>DÃ©finit un mÃ©canisme pour appliquer les rÃ©sultats d'une requÃªte sur la carte. Commence avec le mot clÃ© <emphasis>QUERYMAP</emphasis> et se termine avec le mot clÃ© <emphasis>END</emphasis>.</para>
 			<variablelist>
 				<varlistentry id="color">
 					<term>COLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur avec laquelle la "surbrillance" est effectuée. Jaune par défaut.</para>
+						<para>Couleur avec laquelle la "surbrillance" est effectuÃ©e. Jaune par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SIZE [x][y]</term>
 					<listitem>
-						<para>Taille de la carte en pixels. Par défaut taille définie dans l'objet Map.</para>
+						<para>Taille de la carte en pixels. Par dÃ©faut taille dÃ©finie dans l'objet Map.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STATUS [on|off]</term>
 					<listitem>
-						<para>La requête doit-elle être dessinée?</para>
+						<para>La requÃªte doit-elle Ãªtre dessinÃ©e?</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STYLE [normal|hilite|selected]</term>
 					<listitem>
-						<para>Paramètre comment les fonctions sélectionnées sont gérées. Les couches non interrogées sont dessinées normalement.</para>
+						<para>ParamÃ¨tre comment les fonctions sÃ©lectionnÃ©es sont gÃ©rÃ©es. Les couches non interrogÃ©es sont dessinÃ©es normalement.</para>
 						<itemizedlist>
 							<listitem>
-								<para>Normal: dessine toutes les fonctions selon les paramétrages de cette couche.</para>
+								<para>Normal: dessine toutes les fonctions selon les paramÃ©trages de cette couche.</para>
 							</listitem>
 							<listitem>
-								<para>Hilite: dessine les fonctions sélectionnées en utilisant <link linkend="color">COLOR</link>. Les fonctions non sélectionnées sont dessinées normalement.</para>
+								<para>Hilite: dessine les fonctions sÃ©lectionnÃ©es en utilisant <link linkend="color">COLOR</link>. Les fonctions non sÃ©lectionnÃ©es sont dessinÃ©es normalement.</para>
 							</listitem>
 							<listitem>
-								<para>Selected: dessine seulement les fonctions sélectionnées normalement.</para>
+								<para>Selected: dessine seulement les fonctions sÃ©lectionnÃ©es normalement.</para>
 							</listitem>
 						</itemizedlist>
 					</listitem>
@@ -911,12 +911,12 @@ PROCESSING "BANDS=3,2,1,4"
 		</sect2>
 		<sect2 id="join">
 			<title>Objet de jointure (Join)</title>
-			<para>Définit comment une jointure particulière est gérée. Commence avec le mot clé <emphasis>JOIN</emphasis> et se termine avec le mot clé <emphasis>END</emphasis>. Les jointures sont définies dans un objet de requête (query).</para>
+			<para>DÃ©finit comment une jointure particuliÃ¨re est gÃ©rÃ©e. Commence avec le mot clÃ© <emphasis>JOIN</emphasis> et se termine avec le mot clÃ© <emphasis>END</emphasis>. Les jointures sont dÃ©finies dans un objet de requÃªte (query).</para>
 			<variablelist>
 				<varlistentry>
 					<term>FROM [item]</term>
 					<listitem>
-						<para>Elément de jointure dans le fichier shape.</para>
+						<para>ElÃ©ment de jointure dans le fichier shape.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -928,49 +928,49 @@ PROCESSING "BANDS=3,2,1,4"
 				<varlistentry>
 					<term>TABLE [file]</term>
 					<listitem>
-						<para>Nom du fichier XBase (DBF, doit être un chemin complet) pour la jointure cible (TO).</para>
+						<para>Nom du fichier XBase (DBF, doit Ãªtre un chemin complet) pour la jointure cible (TO).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TEMPLATE [filename]</term>
 					<listitem>
-						<para>Mise en forme à utiliser avec une jointure un-vers-plusieurs. La mise en forme est effectuée une fois pour chacun des enregistrement et peut seulement contenir des substitutions pour les éléments de la table des jointures.</para>
+						<para>Mise en forme Ã  utiliser avec une jointure un-vers-plusieurs. La mise en forme est effectuÃ©e une fois pour chacun des enregistrement et peut seulement contenir des substitutions pour les Ã©lÃ©ments de la table des jointures.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TO [item]</term>
 					<listitem>
-						<para>Elément jointure dans la table des jointures.</para>
+						<para>ElÃ©ment jointure dans la table des jointures.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TYPE [multiple|single]</term>
 					<listitem>
-						<para>Le type de jointure. Simple (single) par défaut (un-vers-un).</para>
+						<para>Le type de jointure. Simple (single) par dÃ©faut (un-vers-un).</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="referencemap">
-			<title>Objet de carte de référence</title>
-			<para>Définit comment les cartes référence doivent être créées. Commence avec le mot clé <emphasis>REFERENCE</emphasis> et se termine avec le mot clé <emphasis>END</emphasis>. Trois types de cartes de référence sont reconnus. La plus commune est celle qui montre en une seule image interactive la carte. Il est aussi possible d'interroger les cartes référence comme un élément d'une requête. Les requêtes point génèreront une image avec un marquage (voir plus loin) placé au point interrogé. La region basée sur les requêtes décrira l'étendue de la zone d'intérêt. Finalement, la fonction basée sur les requêtes affichera les fonctions sélectionnées utilisées.</para>
+			<title>Objet de carte de rÃ©fÃ©rence</title>
+			<para>DÃ©finit comment les cartes rÃ©fÃ©rence doivent Ãªtre crÃ©Ã©es. Commence avec le mot clÃ© <emphasis>REFERENCE</emphasis> et se termine avec le mot clÃ© <emphasis>END</emphasis>. Trois types de cartes de rÃ©fÃ©rence sont reconnus. La plus commune est celle qui montre en une seule image interactive la carte. Il est aussi possible d'interroger les cartes rÃ©fÃ©rence comme un Ã©lÃ©ment d'une requÃªte. Les requÃªtes point gÃ©nÃ¨reront une image avec un marquage (voir plus loin) placÃ© au point interrogÃ©. La region basÃ©e sur les requÃªtes dÃ©crira l'Ã©tendue de la zone d'intÃ©rÃªt. Finalement, la fonction basÃ©e sur les requÃªtes affichera les fonctions sÃ©lectionnÃ©es utilisÃ©es.</para>
 			<variablelist>
 				<varlistentry>
 					<term>COLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur dans laquelle le cadre de référence est dessiné. Chaque composant à -1 pour un rendu vide. Rouge par défaut.</para>
+						<para>Couleur dans laquelle le cadre de rÃ©fÃ©rence est dessinÃ©. Chaque composant Ã  -1 pour un rendu vide. Rouge par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>EXTENT [minx][miny][maxx][maxy]</term>
 					<listitem>
-						<para>L'étendue spatiale de base de l'image référence.</para>
+						<para>L'Ã©tendue spatiale de base de l'image rÃ©fÃ©rence.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGE [filename]</term>
 					<listitem>
-						<para>Nom complet du fichier contenant l'image de référence. Doit être au format GIF.</para>
+						<para>Nom complet du fichier contenant l'image de rÃ©fÃ©rence. Doit Ãªtre au format GIF.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
@@ -978,177 +978,177 @@ PROCESSING "BANDS=3,2,1,4"
 				<varlistentry>
 					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour encadrer la référence. Tous les composants à -1 pour ne pas encadrer.</para>
+						<para>Couleur Ã  utiliser pour encadrer la rÃ©fÃ©rence. Tous les composants Ã  -1 pour ne pas encadrer.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SIZE [x][y]</term>
 					<listitem>
-						<para>Taille, en pixels, de l'image référence.</para>
+						<para>Taille, en pixels, de l'image rÃ©fÃ©rence.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STATUS [on|off]</term>
 					<listitem>
-						<para>La carte référence doit-elle être créée? Non par défaut (off).</para>
+						<para>La carte rÃ©fÃ©rence doit-elle Ãªtre crÃ©Ã©e? Non par dÃ©faut (off).</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="scalebar">
-			<title>Objet barre d'échelle (Scalebar)</title>
-			<para>Définit comment une barre d'échelle devra être construite. Commence avec le mot clé <emphasis>SCALEBAR</emphasis> et se termine avec le mot clé <emphasis>END</emphasis>. Les barres d'échelle n'utilisent pas les polices TrueType. La taille de l'image de la barre d'échelle <emphasis>N'EST PAS</emphasis> connue à priori, aussi soyez prudent lors de l'utilisation de la hauteur et de la largeur dans l'indicateur  &lt;IMG> du fichier de mise en forme.  Les versions ultérieures rendront possible la définition de la taille de l'image.</para>
+			<title>Objet barre d'Ã©chelle (Scalebar)</title>
+			<para>DÃ©finit comment une barre d'Ã©chelle devra Ãªtre construite. Commence avec le mot clÃ© <emphasis>SCALEBAR</emphasis> et se termine avec le mot clÃ© <emphasis>END</emphasis>. Les barres d'Ã©chelle n'utilisent pas les polices TrueType. La taille de l'image de la barre d'Ã©chelle <emphasis>N'EST PAS</emphasis> connue Ã  priori, aussi soyez prudent lors de l'utilisation de la hauteur et de la largeur dans l'indicateur  &lt;IMG> du fichier de mise en forme.  Les versions ultÃ©rieures rendront possible la dÃ©finition de la taille de l'image.</para>
 			<variablelist>
 				<varlistentry>
 					<term>BACKGROUNDCOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour l'arrière plan de la barre d'échelle, et non pas de l'arrière plan de l'image.</para>
+						<para>Couleur Ã  utiliser pour l'arriÃ¨re plan de la barre d'Ã©chelle, et non pas de l'arriÃ¨re plan de l'image.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>COLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour dessiner toutes les fonctions si les tables d'attribut ne sont pas utilisées.</para>
+						<para>Couleur Ã  utiliser pour dessiner toutes les fonctions si les tables d'attribut ne sont pas utilisÃ©es.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGECOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur avec laquelle la barre d'échelle est à initialiser (arrière plan).</para>
+						<para>Couleur avec laquelle la barre d'Ã©chelle est Ã  initialiser (arriÃ¨re plan).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>INTERLACE [true|false]</term>
 					<listitem>
-						<para>Les images doivent-elles être entrelacées?  Oui par défaut [on]. Ce mot clé est maintenant délaissé au profit de l'option FORMATOPTION "INTERLACE=ON" dans la déclaration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
+						<para>Les images doivent-elles Ãªtre entrelacÃ©es?  Oui par dÃ©faut [on]. Ce mot clÃ© est maintenant dÃ©laissÃ© au profit de l'option FORMATOPTION "INTERLACE=ON" dans la dÃ©claration <link linkend="outputformat">OUTPUTFORMAT</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>INTERVALS [integer]</term>
 					<listitem>
-						<para>Nombre d'intervals de séparation dans la barre d'échelle.  4 par défaut.</para>
+						<para>Nombre d'intervals de sÃ©paration dans la barre d'Ã©chelle.  4 par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABEL</term>
 					<listitem>
-						<para>Signale le début d'un objet <link linkend="label">LABEL</link>
+						<para>Signale le dÃ©but d'un objet <link linkend="label">LABEL</link>
 						</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
-						<para>Couleur à utiliser pour tracer les intervals.  Tous composants à -1 pour ne rien tracer, ce qui est la valeur par défaut.</para>
+						<para>Couleur Ã  utiliser pour tracer les intervals.  Tous composants Ã  -1 pour ne rien tracer, ce qui est la valeur par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POSITION [ul|uc|ur|ll|lc|lr]</term>
 					<listitem>
-						<para>Où placer la barre d'échelle dans l'image. lr par défaut.</para>
+						<para>OÃ¹ placer la barre d'Ã©chelle dans l'image. lr par dÃ©faut.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POSTLABELCACHE [true|false]</term>
 					<listitem>
-						<para>Pour utiliser avec les barres d'échelle incrustées.  Indique à MapServer d'étendre la barre d'échelle après que toutes les étiquettes en cache aient été dessinées. Non par défaut (false).</para>
+						<para>Pour utiliser avec les barres d'Ã©chelle incrustÃ©es.  Indique Ã  MapServer d'Ã©tendre la barre d'Ã©chelle aprÃ¨s que toutes les Ã©tiquettes en cache aient Ã©tÃ© dessinÃ©es. Non par dÃ©faut (false).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SIZE [x][y]</term>
 					<listitem>
-						<para>Taille en pixels de la barre d'échelle. L'étiquetage n'est pas pris en compte.</para>
+						<para>Taille en pixels de la barre d'Ã©chelle. L'Ã©tiquetage n'est pas pris en compte.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STATUS [on|off|embed]</term>
 					<listitem>
-						<para>La barre d'échelle doit-elle être créée, et doit-elle être incrustée dans l'image? Non par défaut (off). <emphasis>(Notez que la barre d'échelle incrustée nécessite de définir un ensemble de marqueurs. En fait la barre d'échelle devient un marqueur personnalisé qui est géré exactement comme n'importe quelle annotation.)</emphasis>
+						<para>La barre d'Ã©chelle doit-elle Ãªtre crÃ©Ã©e, et doit-elle Ãªtre incrustÃ©e dans l'image? Non par dÃ©faut (off). <emphasis>(Notez que la barre d'Ã©chelle incrustÃ©e nÃ©cessite de dÃ©finir un ensemble de marqueurs. En fait la barre d'Ã©chelle devient un marqueur personnalisÃ© qui est gÃ©rÃ© exactement comme n'importe quelle annotation.)</emphasis>
 						</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STYLE [integer]</term>
 					<listitem>
-						<para>Choisit le style de la barre d'échelle. Les styles valides sont 0 et 1.</para>
+						<para>Choisit le style de la barre d'Ã©chelle. Les styles valides sont 0 et 1.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
-						<para>La couleur d'arrière plan de la barre d'échelle doit-elle être transparente? Cet indicateur est maintenant délaissé au profit de la déclaration de transparence dans <link linkend="outputformat">OUTPUTFORMAT</link>. Non par défaut (off).</para>
+						<para>La couleur d'arriÃ¨re plan de la barre d'Ã©chelle doit-elle Ãªtre transparente? Cet indicateur est maintenant dÃ©laissÃ© au profit de la dÃ©claration de transparence dans <link linkend="outputformat">OUTPUTFORMAT</link>. Non par dÃ©faut (off).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>UNITS [feet|inches|kilometers|meters|miles]</term>
 					<listitem>
-						<para>Unité de la barre d'échelle, miles par défaut. Utilisé en combinaison avec les unités de la carte pour développer le graphique actuel. Notez que les degrés décimaux ne sont pas valides comme unités de la barre d'échelle.</para>
+						<para>UnitÃ© de la barre d'Ã©chelle, miles par dÃ©faut. UtilisÃ© en combinaison avec les unitÃ©s de la carte pour dÃ©velopper le graphique actuel. Notez que les degrÃ©s dÃ©cimaux ne sont pas valides comme unitÃ©s de la barre d'Ã©chelle.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="web">
 			<title>Objet Web</title>
-			<para>Définit comment l'interface oueb opèrera.  Commence avec le mot clé <emphasis>WEB</emphasis>et se termine avec le mot clé <emphasis>END</emphasis>.</para>
+			<para>DÃ©finit comment l'interface oueb opÃ¨rera.  Commence avec le mot clÃ© <emphasis>WEB</emphasis>et se termine avec le mot clÃ© <emphasis>END</emphasis>.</para>
 			<variablelist>
 				<varlistentry>
 					<term>EMPTY [url]</term>
 					<listitem>
-						<para>URL où renvoyer les utilisateurs si une requête n'aboutit pas. Si rien n'est défini la valeur de ERROR est utilisée.</para>
+						<para>URL oÃ¹ renvoyer les utilisateurs si une requÃªte n'aboutit pas. Si rien n'est dÃ©fini la valeur de ERROR est utilisÃ©e.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>ERROR [url]</term>
 					<listitem>
-						<para>URL où renvoyer les utilisateurs si une erreur survient. De très vieux et très vilains messages d'erreur apparaitront si rien n'est défini ici.</para>
+						<para>URL oÃ¹ renvoyer les utilisateurs si une erreur survient. De trÃ¨s vieux et trÃ¨s vilains messages d'erreur apparaitront si rien n'est dÃ©fini ici.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>FOOTER [filename]</term>
 					<listitem>
-						<para>Mise en forme à utiliser APRES que tout ait été envoyé.  Pour les résultats multiples de requête seulement.</para>
+						<para>Mise en forme Ã  utiliser APRES que tout ait Ã©tÃ© envoyÃ©.  Pour les rÃ©sultats multiples de requÃªte seulement.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>HEADER [filename]</term>
 					<listitem>
-						<para>Mise en forme à utiliser AVANT que quoique ce soit d'autre ait été envoyé. Pour les résultats multiples de requête seulement.</para>
+						<para>Mise en forme Ã  utiliser AVANT que quoique ce soit d'autre ait Ã©tÃ© envoyÃ©. Pour les rÃ©sultats multiples de requÃªte seulement.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGEPATH [path]</term>
 					<listitem>
-						<para>Chemin vers le répertoire temporaire pour l'écriture temporaire de fichiers et d'images. Doit être accessible en écriture par l'utilisateur pour le compte duquel fonctionne le serveur HTTP. Doit se terminer par un / ou \ selon votre système d'exploitation.</para>
+						<para>Chemin vers le rÃ©pertoire temporaire pour l'Ã©criture temporaire de fichiers et d'images. Doit Ãªtre accessible en Ã©criture par l'utilisateur pour le compte duquel fonctionne le serveur HTTP. Doit se terminer par un / ou \ selon votre systÃ¨me d'exploitation.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGEURL [path]</term>
 					<listitem>
-						<para>URL base pour IMAGEPATH.  Ceci est l'URL qui sera employée par le navigateur oueb vers IMAGEPATH pour obtenir les images.</para>
+						<para>URL base pour IMAGEPATH.  Ceci est l'URL qui sera employÃ©e par le navigateur oueb vers IMAGEPATH pour obtenir les images.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LOG [filename]</term>
 					<listitem>
-						<para>Fichier de trace de l'activité de MapServer. Doit être accessible en écriture par l'utilisateur pour le compte duquel fonctionne le serveur HTTP.</para>
+						<para>Fichier de trace de l'activitÃ© de MapServer. Doit Ãªtre accessible en Ã©criture par l'utilisateur pour le compte duquel fonctionne le serveur HTTP.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MAXSCALE [double]</term>
 					<listitem>
-						<para>Echelle maximale pour laquelle cette interface est valide. Quand un utilisateur demande une carte à une échelle plus grande MapServer retourne automatiquement la carte à cette échelle.  Ceci empêche l'utilisateur d'effectuer un zoom trop grand.</para>
+						<para>Echelle maximale pour laquelle cette interface est valide. Quand un utilisateur demande une carte Ã  une Ã©chelle plus grande MapServer retourne automatiquement la carte Ã  cette Ã©chelle.  Ceci empÃªche l'utilisateur d'effectuer un zoom trop grand.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MAXTEMPLATE [file|url]</term>
 					<listitem>
-						<para>Mise en forme à utiliser pour l'échelle maximale définie, utile pour enchaîner des applications.</para>
+						<para>Mise en forme Ã  utiliser pour l'Ã©chelle maximale dÃ©finie, utile pour enchaÃ®ner des applications.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>METADATA</term>
 					<listitem>
-						<para>Ce mot clé permet de stocker des données sous la forme de couples de valeurs.  Ceci est utilisé avec OGC WMS pour définir des choses telles qu'un titre de couche.  Il peut aussi permettre une plus grande souplesse pour la création de mises en forme, puisque tout ce que vous mettrez ici sera accessible via des indicateurs de mise en forme.</para>
+						<para>Ce mot clÃ© permet de stocker des donnÃ©es sous la forme de couples de valeurs.  Ceci est utilisÃ© avec OGC WMS pour dÃ©finir des choses telles qu'un titre de couche.  Il peut aussi permettre une plus grande souplesse pour la crÃ©ation de mises en forme, puisque tout ce que vous mettrez ici sera accessible via des indicateurs de mise en forme.</para>
 						<para>Exemple:
 						<screen>
 METADATA
@@ -1162,26 +1162,26 @@ END
 				<varlistentry>
 					<term>MINSCALE [double]</term>
 					<listitem>
-						<para>Echelle minimale pour laquelle cette interface est valide. Quand un utilisateur demande une carte à une échelle plus petite MapServer retourne automatiquement la carte à cette échelle.  Ceci empêche effectivement l'utilisateur de dépasser ce seuil de zoom.</para>
+						<para>Echelle minimale pour laquelle cette interface est valide. Quand un utilisateur demande une carte Ã  une Ã©chelle plus petite MapServer retourne automatiquement la carte Ã  cette Ã©chelle.  Ceci empÃªche effectivement l'utilisateur de dÃ©passer ce seuil de zoom.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>MINTEMPLATE</term>
 					<listitem>
-						<para>Mise en forme à utiliser dans le cas ou l'échelle minimale est dépassée, utile pour enchaîner des applications.</para>
+						<para>Mise en forme Ã  utiliser dans le cas ou l'Ã©chelle minimale est dÃ©passÃ©e, utile pour enchaÃ®ner des applications.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TEMPLATE [filename|url]</term>
 					<listitem>
-						<para>Mise en forme ou URL à utiliser pour la présentation des résultats à l'utilisateur dans un mode interactif.</para>
+						<para>Mise en forme ou URL Ã  utiliser pour la prÃ©sentation des rÃ©sultats Ã  l'utilisateur dans un mode interactif.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="projection">
 			<title>Objet Projection</title>
-			<para>Pour déterminer les projections vous devez définir deux objets de projection: l'un pour l'image à produire (dans l'objet <link linkend="map">MAP</link>) et l'autre pour chaque couche  (dans les objets <link linkend="layer">LAYER</link>) à projeter. Les objets de projection consistent en une simple série de mot clé PROJ.4. Voici un exemple définissant la projection UTM zone 15, NAD83:</para>
+			<para>Pour dÃ©terminer les projections vous devez dÃ©finir deux objets de projection: l'un pour l'image Ã  produire (dans l'objet <link linkend="map">MAP</link>) et l'autre pour chaque couche  (dans les objets <link linkend="layer">LAYER</link>) Ã  projeter. Les objets de projection consistent en une simple sÃ©rie de mot clÃ© PROJ.4. Voici un exemple dÃ©finissant la projection UTM zone 15, NAD83:</para>
 			<programlisting>
 PROJECTION
   "proj=utm"
@@ -1191,20 +1191,20 @@ PROJECTION
   "no_defs"
 END
 			</programlisting>
-			<para>Les coordonnées géographiques sont définies ainsi:</para>
+			<para>Les coordonnÃ©es gÃ©ographiques sont dÃ©finies ainsi:</para>
 			<programlisting>
 PROJECTION
   "proj=latlong"
 END
 			</programlisting>
-			<para>Voir le guide utilisateur de <ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink> pour une description complète des projections supportées et des systèmes de coordonnées. </para>
+			<para>Voir le guide utilisateur de <ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink> pour une description complÃ¨te des projections supportÃ©es et des systÃ¨mes de coordonnÃ©es. </para>
 		</sect2>
 		<!-- =================== OUTPUTFORMAT ===================================== -->
 		<sect2 id="outputformat">
 			<title>Objet OutputFormat</title>
-			<para>Cette partie expose comment les formats de sortie sont définis et sélectionnés.</para>
-			<para>Une carte peut avoir zéro, une ou plusieurs déclarations d'objet OUTPUTFORMAT, définissant les formats de sortie supportés incluant des formats comme PNG, GIF, JPEG, GeoTIFF et Flash (SWF).</para>
-			<para>Si les déclarations OUTPUTFORMAT ne sont pas trouvées dans le mapfile, la déclaration implicite sera appliquée.  Seuls les formats qui ont été inclus à la compilation sont disponibles.  Le GeoTIFF dépend de la construction du support GDAL, et le Flash (SWF) dépend de la compilation avec la bibliothèque MING.</para>
+			<para>Cette partie expose comment les formats de sortie sont dÃ©finis et sÃ©lectionnÃ©s.</para>
+			<para>Une carte peut avoir zÃ©ro, une ou plusieurs dÃ©clarations d'objet OUTPUTFORMAT, dÃ©finissant les formats de sortie supportÃ©s incluant des formats comme PNG, GIF, JPEG, GeoTIFF et Flash (SWF).</para>
+			<para>Si les dÃ©clarations OUTPUTFORMAT ne sont pas trouvÃ©es dans le mapfile, la dÃ©claration implicite sera appliquÃ©e.  Seuls les formats qui ont Ã©tÃ© inclus Ã  la compilation sont disponibles.  Le GeoTIFF dÃ©pend de la construction du support GDAL, et le Flash (SWF) dÃ©pend de la compilation avec la bibliothÃ¨que MING.</para>
 			<para>
 				<screen>
 OUTPUTFORMAT
@@ -1255,34 +1255,34 @@ END
 				<varlistentry>
 					<term>NAME [name]</term>
 					<listitem>
-						<para>Le nom à utiliser dans le mot clé IMAGETYPE du mapfile pour sélectionner ce format de sortie.(optionnel)</para>
+						<para>Le nom Ã  utiliser dans le mot clÃ© IMAGETYPE du mapfile pour sÃ©lectionner ce format de sortie.(optionnel)</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>DRIVER [name]</term>
 					<listitem>
-						<para>Le nom du pilote à utiliser pour générer ce format de sortie.  Certains noms de pilote intègrent la définition du format si le pilote dispose de plusieurs formats.  Pour GD les noms possibles du pilote sont "GD/Gif", "GD/PNG", "GD/WBMP" et "GD/JPEG".  Pour le pilote flash il se nomme simplement "SWF".  Pour les sorties à travers GDAL le nom court GDAL pour le format est ajouté, comme "GDAL/GTiff".  Notez que la sortie PNG, JPEG ou GIF peut être générée avec GDAL ou GD (GD est généralement plus efficace).(obligatoire)</para>
+						<para>Le nom du pilote Ã  utiliser pour gÃ©nÃ©rer ce format de sortie.  Certains noms de pilote intÃ¨grent la dÃ©finition du format si le pilote dispose de plusieurs formats.  Pour GD les noms possibles du pilote sont "GD/Gif", "GD/PNG", "GD/WBMP" et "GD/JPEG".  Pour le pilote flash il se nomme simplement "SWF".  Pour les sorties Ã  travers GDAL le nom court GDAL pour le format est ajoutÃ©, comme "GDAL/GTiff".  Notez que la sortie PNG, JPEG ou GIF peut Ãªtre gÃ©nÃ©rÃ©e avec GDAL ou GD (GD est gÃ©nÃ©ralement plus efficace).(obligatoire)</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGEMODE [PC256/RGB/RGBA/INT16/FLOAT32]</term>
 					<listitem>
-						<para>Sélectionne le mode d'image dans lequel la sortie est générée.  Important pour les formats non raster comme Flash.   Tous les formats ne supportent pas toutes les combinaisons.  Par exemple GD/GIF ne supporte que PC256. (optionnel)</para>
+						<para>SÃ©lectionne le mode d'image dans lequel la sortie est gÃ©nÃ©rÃ©e.  Important pour les formats non raster comme Flash.   Tous les formats ne supportent pas toutes les combinaisons.  Par exemple GD/GIF ne supporte que PC256. (optionnel)</para>
 						<itemizedlist>
 							<listitem>
-								<para>PC256: Produit un résultat en pseudo couleur avec une palette de 256 couleurs (mode traditionnel de MapServer)</para>
+								<para>PC256: Produit un rÃ©sultat en pseudo couleur avec une palette de 256 couleurs (mode traditionnel de MapServer)</para>
 							</listitem>
 							<listitem>
 								<para>RGB: Restitue un mode 24 bits RGB.  Supporte toutes les couleurs mais ne supporte pas la transparence.</para>
 							</listitem>
 							<listitem>
-								<para>RGBA: Restitue un mode 32 bits RGB/Alpha.  Supporte toutes les couleurs, et la transparence basée alpha.</para>
+								<para>RGBA: Restitue un mode 32 bits RGB/Alpha.  Supporte toutes les couleurs, et la transparence basÃ©e alpha.</para>
 							</listitem>
 							<listitem>
-								<para>INT16: Restitue une bande de données avec une profondeur de 16 bits.  Ne fonctionne que pour les couches RASTER (à travers GDAL) et les couches WMS.</para>
+								<para>INT16: Restitue une bande de donnÃ©es avec une profondeur de 16 bits.  Ne fonctionne que pour les couches RASTER (Ã  travers GDAL) et les couches WMS.</para>
 							</listitem>
 							<listitem>
-								<para>FLOAT32: Restitue une bande de données avec une profondeur de 32 bits.  Ne fonctionne que pour les couches RASTER (à travers GDAL) et les couches WMS.</para>
+								<para>FLOAT32: Restitue une bande de donnÃ©es avec une profondeur de 32 bits.  Ne fonctionne que pour les couches RASTER (Ã  travers GDAL) et les couches WMS.</para>
 							</listitem>
 						</itemizedlist>
 					</listitem>
@@ -1290,40 +1290,40 @@ END
 				<varlistentry>
 					<term>MIMETYPE [type]</term>
 					<listitem>
-						<para>Fournit le type mime à utiliser quand les résultats sont envoyés sur le oueb. (optionnel)</para>
+						<para>Fournit le type mime Ã  utiliser quand les rÃ©sultats sont envoyÃ©s sur le oueb. (optionnel)</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>EXTENSION [type]</term>
 					<listitem>
-						<para>Fournit l'extension à utiliser pour la création des fichiers de ce type. (optionnel)</para>
+						<para>Fournit l'extension Ã  utiliser pour la crÃ©ation des fichiers de ce type. (optionnel)</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TRANSPARENT [ON/OFF]</term>
 					<listitem>
-						<para>Indique quand la transparence pourra être disponible pour ce format.  Notez que cette transparence ne fonctionne pas avec le format de sortie IMAGEMODE RGB.  Tous les formats ne supportent pas la transparence.(optionnel)</para>
+						<para>Indique quand la transparence pourra Ãªtre disponible pour ce format.  Notez que cette transparence ne fonctionne pas avec le format de sortie IMAGEMODE RGB.  Tous les formats ne supportent pas la transparence.(optionnel)</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>FORMATOPTION [option]</term>
 					<listitem>
-						<para>Fournit une option spécifique du format au pilote.  Zéro ou plusieurs éléments FORMATOPTION peuvent être présents dans la déclaration OUTPUTFORMAT. (optionnel)</para>
+						<para>Fournit une option spÃ©cifique du format au pilote.  ZÃ©ro ou plusieurs Ã©lÃ©ments FORMATOPTION peuvent Ãªtre prÃ©sents dans la dÃ©claration OUTPUTFORMAT. (optionnel)</para>
 						<itemizedlist>
 							<listitem>
-								<para>GD/JPEG: L'option "QUALITY=n" peut être utilisée pour déterminer la qualité du JPEG produit (valeur de 0 à 100). </para>
+								<para>GD/JPEG: L'option "QUALITY=n" peut Ãªtre utilisÃ©e pour dÃ©terminer la qualitÃ© du JPEG produit (valeur de 0 Ã  100). </para>
 							</listitem>
 							<listitem>
-								<para>GD/PNG: L'option "INTERLACE=[ON/OFF]" peut être utilisée pour activer (on) ou désactiver (off) l'entrelacement. </para>
+								<para>GD/PNG: L'option "INTERLACE=[ON/OFF]" peut Ãªtre utilisÃ©e pour activer (on) ou dÃ©sactiver (off) l'entrelacement. </para>
 							</listitem>
 							<listitem>
-								<para>GD/GIF: L'option "INTERLACE=[ON/OFF]" peut être utilisée  pour activer (on) ou désactiver (off) l'entrelacement.</para>
+								<para>GD/GIF: L'option "INTERLACE=[ON/OFF]" peut Ãªtre utilisÃ©e  pour activer (on) ou dÃ©sactiver (off) l'entrelacement.</para>
 							</listitem>
 							<listitem>
-								<para>GDAL/GTiff: Supporte les carroyages, les options spécifique de format sont TILED=YES, BLOCKXSIZE=n, BLOCKYSIZE=n, INTERLEAVE=[PIXEL/BAND] et COMPRESS=[NONE,PACKBITS,JPEG,LZW,DEFLATE].</para>
+								<para>GDAL/GTiff: Supporte les carroyages, les options spÃ©cifique de format sont TILED=YES, BLOCKXSIZE=n, BLOCKYSIZE=n, INTERLEAVE=[PIXEL/BAND] et COMPRESS=[NONE,PACKBITS,JPEG,LZW,DEFLATE].</para>
 							</listitem>
 							<listitem>
-								<para>GDAL/*: Tous les FORMATOPTION sont passés à la fonction de création de GDAL.  Les options disponibles dans GDAL sont décrites dans la documentation détaillée de chacun des formats GDAL. </para>
+								<para>GDAL/*: Tous les FORMATOPTION sont passÃ©s Ã  la fonction de crÃ©ation de GDAL.  Les options disponibles dans GDAL sont dÃ©crites dans la documentation dÃ©taillÃ©e de chacun des formats GDAL. </para>
 							</listitem>
 						</itemizedlist>
 					</listitem>
@@ -1333,25 +1333,25 @@ END
 	</sect1>
 	<!-- ===================================================================== -->
 	<sect1 id="symbology">
-		<title>Référence de la symbologie</title>
-		<para>Cette partie explique comment travailler avec les symboles et comment les définir dans MapServer.</para>
+		<title>RÃ©fÃ©rence de la symbologie</title>
+		<para>Cette partie explique comment travailler avec les symboles et comment les dÃ©finir dans MapServer.</para>
 		<sect2>
 			<title>Notes</title>
 			<itemizedlist>
 				<listitem>
-					<para>Les définitions de symbole peuvent être incluses dans le MapFile principal ou, plus communément, dans un fichier séparé.  Les définitions de symbole dans un fichier séparé sont désignées en utilisant le mot clé <link linkend="symbolset">SYMBOLSET</link>, comme une partie de l'objet <link linkend="map">Map</link>. Ce paramétrage recommandé est idéal pour une réutilisation des symboles dans plusieurs applications MapServer.</para>
+					<para>Les dÃ©finitions de symbole peuvent Ãªtre incluses dans le MapFile principal ou, plus communÃ©ment, dans un fichier sÃ©parÃ©.  Les dÃ©finitions de symbole dans un fichier sÃ©parÃ© sont dÃ©signÃ©es en utilisant le mot clÃ© <link linkend="symbolset">SYMBOLSET</link>, comme une partie de l'objet <link linkend="map">Map</link>. Ce paramÃ©trage recommandÃ© est idÃ©al pour une rÃ©utilisation des symboles dans plusieurs applications MapServer.</para>
 				</listitem>
 				<listitem>
 					<para>Il y a 3 types principaux de symboles dans MapServer: Markers, Shadesets, et Lines.</para>
 				</listitem>
 				<listitem>
-					<para>Le symbole 0 est toujours un "dégénéré" d'une classe particulière de symbole.  Pour les points, le symbole 0  est un seul pixel, pour les ombrages (comme le remplissage des polygones) le symbole 0 est un remplissage de type plein, et pour les lignes, le symbole 0 est un seul pixel pour une ligne fine.</para>
+					<para>Le symbole 0 est toujours un "dÃ©gÃ©nÃ©rÃ©" d'une classe particuliÃ¨re de symbole.  Pour les points, le symbole 0  est un seul pixel, pour les ombrages (comme le remplissage des polygones) le symbole 0 est un remplissage de type plein, et pour les lignes, le symbole 0 est un seul pixel pour une ligne fine.</para>
 				</listitem>
 				<listitem>
-					<para>Les définitions de symboles ne contiennent <emphasis>aucune</emphasis> information de couleur, les couleurs sont positionnées dans les objets <link linkend="class">CLASS</link>.</para>
+					<para>Les dÃ©finitions de symboles ne contiennent <emphasis>aucune</emphasis> information de couleur, les couleurs sont positionnÃ©es dans les objets <link linkend="class">CLASS</link>.</para>
 				</listitem>
 				<listitem>
-					<para>Un fichier peut contenir un maximum de 64 symboles.  Ceci peut être changé en modifiant la valeur de MS_MAXSYMBOLS dans mapsymbol.h au début du fichier.</para>
+					<para>Un fichier peut contenir un maximum de 64 symboles.  Ceci peut Ãªtre changÃ© en modifiant la valeur de MS_MAXSYMBOLS dans mapsymbol.h au dÃ©but du fichier.</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1361,61 +1361,61 @@ END
 				<varlistentry>
 					<term>ANTIALIAS [true|false]</term>
 					<listitem>
-						<para>Les polices TrueType devraient pouvoir être "antialiasées".</para>
+						<para>Les polices TrueType devraient pouvoir Ãªtre "antialiasÃ©es".</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>CHARACTER [char]</term>
 					<listitem>
-						<para>Caractère utilisé pour référencer une police de caractères TrueType particulière.  Vous devrez imaginer une translation entre le clavier et le caractère correspondant.</para>
+						<para>CaractÃ¨re utilisÃ© pour rÃ©fÃ©rencer une police de caractÃ¨res TrueType particuliÃ¨re.  Vous devrez imaginer une translation entre le clavier et le caractÃ¨re correspondant.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>FILLED [true|false]</term>
 					<listitem>
-						<para>Indique que le symbole est à remplir avec la couleur définie (voir l'objet <link linkend="class">CLASS</link>).  Pour les symboles de marquage, si <link linkend="outlinecolor">OUTLINECOLOR</link> a été indiqué le symbole est tracé dans cette couleur.</para>
+						<para>Indique que le symbole est Ã  remplir avec la couleur dÃ©finie (voir l'objet <link linkend="class">CLASS</link>).  Pour les symboles de marquage, si <link linkend="outlinecolor">OUTLINECOLOR</link> a Ã©tÃ© indiquÃ© le symbole est tracÃ© dans cette couleur.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>FONT [string]</term>
 					<listitem>
-						<para>Nom de la police TrueType à utiliser comme indiqué dans <link linkend="fontset">FONTSET</link>.</para>
+						<para>Nom de la police TrueType Ã  utiliser comme indiquÃ© dans <link linkend="fontset">FONTSET</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>GAP [int]</term>
 					<listitem>
-						<para>Donné en pixels.  Détermine une distance entre les symboles pour les lignes TrueType.</para>
+						<para>DonnÃ© en pixels.  DÃ©termine une distance entre les symboles pour les lignes TrueType.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGE [string]</term>
 					<listitem>
-						<para>Image (GIF ou PNG) à utiliser comme marqueur ou pinceau pour les symboles de type PIXMAP.</para>
+						<para>Image (GIF ou PNG) Ã  utiliser comme marqueur ou pinceau pour les symboles de type PIXMAP.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>NAME [string]</term>
 					<listitem>
-						<para>Alias pour cette police à utiliser dans les objets CLASS.</para>
+						<para>Alias pour cette police Ã  utiliser dans les objets CLASS.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POINTS [x y] [x y] ... END</term>
 					<listitem>
-						<para>Signifie le début de la définition de points qui constituent un symbole vectoriel ou qui déterminent les x et y du rayon d'un symbole ellipse.  La fin de cette section est indiquée avec le mot clé END. Les coordonnées sont données en pixels et définissent la taille par défaut du symbole avant toute application d'échelle.  Vous pouvez créer des éléments non contiguës en insérant des coordonnées négatives à la place appropriée. Pour les symboles ellipse vous indiquez un simple point qui détermine les x et y du rayon d'une ellipse.  Les cercles sont créés quand le x et le y sont égaux.</para>
+						<para>Signifie le dÃ©but de la dÃ©finition de points qui constituent un symbole vectoriel ou qui dÃ©terminent les x et y du rayon d'un symbole ellipse.  La fin de cette section est indiquÃ©e avec le mot clÃ© END. Les coordonnÃ©es sont donnÃ©es en pixels et dÃ©finissent la taille par dÃ©faut du symbole avant toute application d'Ã©chelle.  Vous pouvez crÃ©er des Ã©lÃ©ments non contiguÃ«s en insÃ©rant des coordonnÃ©es nÃ©gatives Ã  la place appropriÃ©e. Pour les symboles ellipse vous indiquez un simple point qui dÃ©termine les x et y du rayon d'une ellipse.  Les cercles sont crÃ©Ã©s quand le x et le y sont Ã©gaux.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STYLE [num on] [num off] [num on] ... END</term>
 					<listitem>
-						<para>Définit un style de tache ou un motif.</para>
+						<para>DÃ©finit un style de tache ou un motif.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TRANSPARENT [color index]</term>
 					<listitem>
-						<para>Indique une couleur de transparence pour l'image GIF source pour les symboles pixmap, ou détermine quand tous les symboles ombrés peuvent avoir une couleur d'arrière plan transparente. Pour les symboles ombrés il peut être souhaitable d'avoir une fonction d'arrière plan "vue à travers" un motif de remplissage transparent, en créant une carte plus complexe.  Par défaut, l'arrière plan du symbole est le même que l'image parente (couleur 0).  Ceci est configurable par l'utilisateur.</para>
+						<para>Indique une couleur de transparence pour l'image GIF source pour les symboles pixmap, ou dÃ©termine quand tous les symboles ombrÃ©s peuvent avoir une couleur d'arriÃ¨re plan transparente. Pour les symboles ombrÃ©s il peut Ãªtre souhaitable d'avoir une fonction d'arriÃ¨re plan "vue Ã  travers" un motif de remplissage transparent, en crÃ©ant une carte plus complexe.  Par dÃ©faut, l'arriÃ¨re plan du symbole est le mÃªme que l'image parente (couleur 0).  Ceci est configurable par l'utilisateur.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -1424,16 +1424,16 @@ END
 						<para>
 							<itemizedlist>
 								<listitem>
-									<para>vector: un simple tracé pour définir le contour du symbole.</para>
+									<para>vector: un simple tracÃ© pour dÃ©finir le contour du symbole.</para>
 								</listitem>
 								<listitem>
-									<para>ellipse: valeurs de rayon dans les directions x et y définissant une ellipse.</para>
+									<para>ellipse: valeurs de rayon dans les directions x et y dÃ©finissant une ellipse.</para>
 								</listitem>
 								<listitem>
-									<para>pixmap: une image GIF de l'utilisateur qui sera utilisée comme symbole.</para>
+									<para>pixmap: une image GIF de l'utilisateur qui sera utilisÃ©e comme symbole.</para>
 								</listitem>
 								<listitem>
-									<para>truetype: police TrueType à utiliser comme indiqué dans <link linkend="fontset">FONTSET</link>.</para>
+									<para>truetype: police TrueType Ã  utiliser comme indiquÃ© dans <link linkend="fontset">FONTSET</link>.</para>
 								</listitem>
 							</itemizedlist>
 						</para>
@@ -1443,9 +1443,9 @@ END
 		</sect2>
 		<sect2 id="examples">
 			<title>Exemples</title>
-			<para>Voici quelques exemples illustrant les différentes manières de créer les symboles dans MapServer:</para>
+			<para>Voici quelques exemples illustrant les diffÃ©rentes maniÃ¨res de crÃ©er les symboles dans MapServer:</para>
 			<example>
-				<title>Ligne pointillée</title>
+				<title>Ligne pointillÃ©e</title>
 				<programlisting>
 SYMBOL
   NAME 'dashed1'
@@ -1455,7 +1455,7 @@ SYMBOL
   STYLE 10 5 5 10 END
 END
 </programlisting>
-				<para>Ceci crée une ligne pointillée de 10 pixels, puis 5 pixels vides, 5 pixels, 10 pixels vides ...</para>
+				<para>Ceci crÃ©e une ligne pointillÃ©e de 10 pixels, puis 5 pixels vides, 5 pixels, 10 pixels vides ...</para>
 			</example>
 			<example>
 				<title>Symbole marqueur police TrueType</title>
@@ -1469,7 +1469,7 @@ SYMBOL
   CHARACTER "&#38;#114;"
 END
 					</programlisting>
-				<para>Ce symbole est une étoile, utilisé pour représenter la capitale nationale, comme l'indique son nom (en anglais national capital, en français on aurrait pu mettre capnat).  Le nom de la  police est déterminé dans le fichier <link linkend="fontset">FONTSET</link>.  Le code numérique "114" varie, vous pouvez utiliser la table des caractères MS Windows.</para>
+				<para>Ce symbole est une Ã©toile, utilisÃ© pour reprÃ©senter la capitale nationale, comme l'indique son nom (en anglais national capital, en franÃ§ais on aurrait pu mettre capnat).  Le nom de la  police est dÃ©terminÃ© dans le fichier <link linkend="fontset">FONTSET</link>.  Le code numÃ©rique "114" varie, vous pouvez utiliser la table des caractÃ¨res MS Windows.</para>
 			</example>
 			<example>
 				<title>Symbole marqueur triangle vecteur</title>
@@ -1485,10 +1485,10 @@ SYMBOL
   END
 END
 				</programlisting>
-				<para>Notez que pour avoir 3 côtés vous devez avoir 4 points, bien que les premier et dernier points soient identiques.</para>
+				<para>Notez que pour avoir 3 cÃ´tÃ©s vous devez avoir 4 points, bien que les premier et dernier points soient identiques.</para>
 			</example>
 			<example>
-				<title>Symbole marqueur vecteur non contiguës (Croix)</title>
+				<title>Symbole marqueur vecteur non contiguÃ«s (Croix)</title>
 				<programlisting>
 SYMBOL
   NAME "cross"
@@ -1502,7 +1502,7 @@ SYMBOL
   END 
 END
 				</programlisting>
-				<para>Cet exemple dessine une croix, ce sont 2 lignes (vecteurs) qui ne sont pas connectées à la suite (comme le triangle dans l'exemple précédent).  Les valeurs négatives séparent les deux.</para>
+				<para>Cet exemple dessine une croix, ce sont 2 lignes (vecteurs) qui ne sont pas connectÃ©es Ã  la suite (comme le triangle dans l'exemple prÃ©cÃ©dent).  Les valeurs nÃ©gatives sÃ©parent les deux.</para>
 			</example>
 			<example>
 				<title>Symbole vecteur cercle</title>
@@ -1516,7 +1516,7 @@ SYMBOL
   END
 END
 				</programlisting>
-				<para>Un simple cercle plein. L'utilisation de valeurs non égales pour le point donnera une ellipse.</para>
+				<para>Un simple cercle plein. L'utilisation de valeurs non Ã©gales pour le point donnera une ellipse.</para>
 			</example>
 			<example>
 				<title>Diagonale descendante de remplissage</title>

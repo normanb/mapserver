@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ï»¿<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
@@ -43,34 +43,34 @@
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
-                 Ce document décrit les procédures pour l'utilisation de sources de données vectorisées OGR dans des applications MapServer.
+                 Ce document dÃ©crit les procÃ©dures pour l'utilisation de sources de donnÃ©es vectorisÃ©es OGR dans des applications MapServer.
                </para>
-			<para>Dernière mise à jour: 05/03/2003</para>
+			<para>DerniÃ¨re mise Ã  jour: 05/03/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-             Depuis la version 3.5, MapServer dispose de la possibilIté d'accéder à des ensembles de données vectorisées, 
-            d'autres format Shapefile (fichier de forme) que celui d'origine en utilisant la bibliothèque OGR.  
-             Le document suivant décrit la procédure pour implémenter le support OGR dans des applications MapServer.
+             Depuis la version 3.5, MapServer dispose de la possibilItÃ© d'accÃ©der Ã  des ensembles de donnÃ©es vectorisÃ©es, 
+            d'autres format Shapefile (fichier de forme) que celui d'origine en utilisant la bibliothÃ¨que OGR.  
+             Le document suivant dÃ©crit la procÃ©dure pour implÃ©menter le support OGR dans des applications MapServer.
           </para>
 		<para>
-			<emphasis>Notez qu'une version expérimentale du support OGR avait été inclus dans la version 3.4 de MapServer
-            mais cette implémentation initiale avait quelques limitations et n'est pas illustrée dans ce document.</emphasis>
+			<emphasis>Notez qu'une version expÃ©rimentale du support OGR avait Ã©tÃ© inclus dans la version 3.4 de MapServer
+            mais cette implÃ©mentation initiale avait quelques limitations et n'est pas illustrÃ©e dans ce document.</emphasis>
 		</para>
 		<para>
-             Il est considéré dans ce document que vous connaissez déjà certains aspects de MapServer:
+             Il est considÃ©rÃ© dans ce document que vous connaissez dÃ©jÃ  certains aspects de MapServer:
           </para>
 		<itemizedlist>
 			<listitem>
 				<para>
-                    Développement d'applications MapServer et en particulier le paramétrage des fichiers .map.
+                    DÃ©veloppement d'applications MapServer et en particulier le paramÃ©trage des fichiers .map.
                 </para>
 			</listitem>
 			<listitem>
 				<para>
-					Une certaine dextérité pour la compilation si vous avez déjà accès à une installation précompilée
+					Une certaine dextÃ©ritÃ© pour la compilation si vous avez dÃ©jÃ  accÃ¨s Ã  une installation prÃ©compilÃ©e
                     et que vous avez besoin de compiler votre propre copie de MapServer avec le support OGR.
 				</para>
 			</listitem>
@@ -79,27 +79,27 @@
 		<sect2 id="definition">
 			<title>What is OGR?</title>
 			<para>
-                      La bibliothèque de fonctions OGR simples est une bibliothèque C++ en open source (et les outils en ligne de commande) 
-                      fournissant l'accès en lecture (et parfois en écriture) à différents formats de vecteurs 
+                      La bibliothÃ¨que de fonctions OGR simples est une bibliothÃ¨que C++ en open source (et les outils en ligne de commande) 
+                      fournissant l'accÃ¨s en lecture (et parfois en Ã©criture) Ã  diffÃ©rents formats de vecteurs 
                       comprenant les ESRI Shapefiles, et les formats MapInfo mid/mif et TAB.  
                     </para>
 		</sect2>
 		<!-- Section2: What does it add to MapServer? -->
 		<sect2 id="addtition">
-			<title>Qu'apporte OGR à MapServer?</title>
+			<title>Qu'apporte OGR Ã  MapServer?</title>
 			<para>
-                      La bibliothèque des fonctions OGR Simples permet aux utilisateurs MapServer d'afficher plusieurs types de fichiers de données vectorisées depuis leur format natif.
-                      Par exemple, les données MapInfo Mid/Mif et TAB n'ont pas besoin d'être converties en fichiers ESRI Shapefiles 
-                      quand le support OGR est utilisé avec MapServer.
+                      La bibliothÃ¨que des fonctions OGR Simples permet aux utilisateurs MapServer d'afficher plusieurs types de fichiers de donnÃ©es vectorisÃ©es depuis leur format natif.
+                      Par exemple, les donnÃ©es MapInfo Mid/Mif et TAB n'ont pas besoin d'Ãªtre converties en fichiers ESRI Shapefiles 
+                      quand le support OGR est utilisÃ© avec MapServer.
                </para>
 		</sect2>
 		<!-- Section2: What formats are supported? -->
 		<sect2 id="supported">
-			<title>Quels sont les formats supportés?</title>
+			<title>Quels sont les formats supportÃ©s?</title>
 			<para>
                 Voyez <ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html">http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html</ulink> pour 
-                la liste à jour des formats supportés.
-                A la date d'écriture de ce document, les formats suivants sont reconnus:
+                la liste Ã  jour des formats supportÃ©s.
+                A la date d'Ã©criture de ce document, les formats suivants sont reconnus:
                </para>
 			<itemizedlist>
 				<listitem>
@@ -114,7 +114,7 @@
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">ensembles de données IHO S-57 datasets</ulink>,
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">ensembles de donnÃ©es IHO S-57 datasets</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
@@ -155,16 +155,16 @@
 				</listitem>
 			</itemizedlist>
 			<para>
-				<emphasis>Note1: Quelques uns des formats ci-dessus (OGDI par exemple) ont des dépendances externes
-                    et ne sont pas toujours inclus dans les distributions binaires précompilées de MapServer avec le support OGR.
+				<emphasis>Note1: Quelques uns des formats ci-dessus (OGDI par exemple) ont des dÃ©pendances externes
+                    et ne sont pas toujours inclus dans les distributions binaires prÃ©compilÃ©es de MapServer avec le support OGR.
                     </emphasis>
 			</para>
 			<para>
-				<emphasis>Note2: Quelques uns des formats ci-dessus ne sont pas bien adaptés à l'accès aléatoire par nature,
+				<emphasis>Note2: Quelques uns des formats ci-dessus ne sont pas bien adaptÃ©s Ã  l'accÃ¨s alÃ©atoire par nature,
                     c'est le cas des fichiers MapInfo MIF/MID qui sont au format TEXTE
-                    et donneront de piètres performances pour une apllication oueb.  
-                    D'un autre côté, quelques formats binaires comme le TAB sont bien plus adaptés à l'accès
-                    aléatoire et donneront des performances comparables à l'accès natif des fichiers de forme dans Mapserver.
+                    et donneront de piÃ¨tres performances pour une apllication oueb.  
+                    D'un autre cÃ´tÃ©, quelques formats binaires comme le TAB sont bien plus adaptÃ©s Ã  l'accÃ¨s
+                    alÃ©atoire et donneront des performances comparables Ã  l'accÃ¨s natif des fichiers de forme dans Mapserver.
                     </emphasis>
 			</para>
 		</sect2>
@@ -172,18 +172,18 @@
 		<sect2 id="information">
 			<title>Comment avoir plus d'informations sur le projet OGR</title>
 			<para>
-                      Plus d'informations sur le projet OGR peuvent être trouvées sur  
+                      Plus d'informations sur le projet OGR peuvent Ãªtre trouvÃ©es sur  
                       <ulink url="http://gdal.velocet.ca/projects/opengis/">
                       http://gdal.velocet.ca/projects/opengis/</ulink>.
                </para>
 			<para>
-		            Le développeur principal de la bibliothèque OGR est Frank Warmerdam.
+		            Le dÃ©veloppeur principal de la bibliothÃ¨que OGR est Frank Warmerdam.
 		        <address>
 					<email>warmerdam@pobox.com</email>
 				</address>
 			</para>
 			<para>
-                      L'intégration de OGR dans MapServer a été réalisée par Daniel Morissette.
+                      L'intÃ©gration de OGR dans MapServer a Ã©tÃ© rÃ©alisÃ©e par Daniel Morissette.
                   <address>
 					<email>morissette@dmsolutions.ca</email>
 				</address>
@@ -198,23 +198,23 @@
 			<itemizedlist>
 				<listitem>
 					<para>
-						Suivez les instructions de la page OGR pour compiler/installer OGR (actuellement GDAL depuis que OGR est un composant de la bibliothèque GDAL):
+						Suivez les instructions de la page OGR pour compiler/installer OGR (actuellement GDAL depuis que OGR est un composant de la bibliothÃ¨que GDAL):
                         <ulink url="http://gdal.velocet.ca/projects/opengis/">http://gdal.velocet.ca/projects/opengis/</ulink>.
                     </para>
 				</listitem>
 				<listitem>
 					<para>
-						Récupérez les source MapServer sur: <ulink url="http://mapserver.gis.umn.edu/dload.html">http://mapserver.gis.umn.edu/dload.html</ulink>.
+						RÃ©cupÃ©rez les source MapServer sur: <ulink url="http://mapserver.gis.umn.edu/dload.html">http://mapserver.gis.umn.edu/dload.html</ulink>.
                     </para>
 				</listitem>
 			</itemizedlist>
 		</para>
 		<para>
 			 Pour les utilisateurs UNIX, voyez le fichier <emphasis>README.CONFIGURE</emphasis> dans les sources MapServer, ou voyez
-			le UNIX/MapServer HOWTO sur <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">					http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  Si GDAL/OGR est normalement installé il devrait être suffisant d'ajouter --with-ogr à la ligne de configure avant de (re)construire MapServer.
+			le UNIX/MapServer HOWTO sur <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">					http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  Si GDAL/OGR est normalement installÃ© il devrait Ãªtre suffisant d'ajouter --with-ogr Ã  la ligne de configure avant de (re)construire MapServer.
 	     </para>
 		<para>
-		     Pour les utilisateurs Windows, il est recommandé de rechercher un binaire précompilé sur le site MapServer
+		     Pour les utilisateurs Windows, il est recommandÃ© de rechercher un binaire prÃ©compilÃ© sur le site MapServer
              sur <ulink url="http://mapserver.gis.umn.edu/win32binaries.html">http://mapserver.gis.umn.edu/win32binaries.html</ulink>.
              Si vous voulez compiler votre propre binaire voyez le fichier <emphasis>README.WIN32</emphasis> dans les sources MapServer.
 	     </para>
@@ -223,34 +223,34 @@
 	<sect1 id="integrate">
 		<title>Integration du support OGR avec les applications MapServer</title>
 		<para>
-                Le seul changement qui est nécessaire pour intégrer le support OGR à une application MapServer
-                est à faire dans le fichier .map.  Le paramètre LAYER DATA est élargi à trois paramètres (CONNECTIONTYPE OGR, CONNECTION et DATA). 
+                Le seul changement qui est nÃ©cessaire pour intÃ©grer le support OGR Ã  une application MapServer
+                est Ã  faire dans le fichier .map.  Le paramÃ¨tre LAYER DATA est Ã©largi Ã  trois paramÃ¨tres (CONNECTIONTYPE OGR, CONNECTION et DATA). 
        	</para>
 		<para>
-			La syntaxe diffère selon le type de données à utiliser. Pour OGR, une source de données peut être autant un ensemble de fichiers qui partagent un nom de base commun (tel que .shp/.shx/.dbf pour les fichiers ArcView Shapefiles, ou
-		     .tab/.map/.dat/.ind/.id pour les fichiers MapInfo TAB) ou un répertoire complet de fichiers (tel que TIGER).
+			La syntaxe diffÃ¨re selon le type de donnÃ©es Ã  utiliser. Pour OGR, une source de donnÃ©es peut Ãªtre autant un ensemble de fichiers qui partagent un nom de base commun (tel que .shp/.shx/.dbf pour les fichiers ArcView Shapefiles, ou
+		     .tab/.map/.dat/.ind/.id pour les fichiers MapInfo TAB) ou un rÃ©pertoire complet de fichiers (tel que TIGER).
 		</para>
 		<para>
-			Voyons les "sources base-fichier" puis les "sources base-répertoire". Lors de l'accès aux sources de données base-fichier
+			Voyons les "sources base-fichier" puis les "sources base-rÃ©pertoire". Lors de l'accÃ¨s aux sources de donnÃ©es base-fichier
 			vous <emphasis>indiquez le nom de fichier</emphasis> ou un des fichiers de l'ensemble (par exemple roads.shp
-			ou roads.tab) et lors de l'accès à une source de données base-répertoire vous
-			<emphasis>indiquez le nom du répertoire</emphasis> et OGR lit tous les fichiers du répertoire
-			comme une unique source de données contenant éventuellement plusieurs couches (comme les fichiers TIGER).
+			ou roads.tab) et lors de l'accÃ¨s Ã  une source de donnÃ©es base-rÃ©pertoire vous
+			<emphasis>indiquez le nom du rÃ©pertoire</emphasis> et OGR lit tous les fichiers du rÃ©pertoire
+			comme une unique source de donnÃ©es contenant Ã©ventuellement plusieurs couches (comme les fichiers TIGER).
 		</para>
 		<para>
 			Plusieurs pilotes OGR (comme SHP, TAB) peuvent avoir un double comportement, si ils sont 
-			pointés sur un unique fichier alors ils opérent comme source de données base-fichier
-			et s'ils pointent sur un répertoire alors ils opérent comme une source de données base-répertoire
-			et donc chaque fichier du répertoire devient une nouvelle couche dans la source de données.
+			pointÃ©s sur un unique fichier alors ils opÃ©rent comme source de donnÃ©es base-fichier
+			et s'ils pointent sur un rÃ©pertoire alors ils opÃ©rent comme une source de donnÃ©es base-rÃ©pertoire
+			et donc chaque fichier du rÃ©pertoire devient une nouvelle couche dans la source de donnÃ©es.
 		</para>
 		<para>
-			Voyez la documentation OGR pour plus d'informations sur le format spécifique de fichier que vous utilisez: 
+			Voyez la documentation OGR pour plus d'informations sur le format spÃ©cifique de fichier que vous utilisez: 
 			<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html">								http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html</ulink>.
 		</para>
 		<sect2 id="binary">
-			<title>Utilisation des sources de données OGR dans le MapFile</title>
+			<title>Utilisation des sources de donnÃ©es OGR dans le MapFile</title>
 			<para>
-				La définition LAYER du fichier .map pour les sources base-fichier se présente comme suit:
+				La dÃ©finition LAYER du fichier .map pour les sources base-fichier se prÃ©sente comme suit:
 			</para>
 			<programlisting>
 	LAYER
@@ -262,60 +262,60 @@
 	END
               </programlisting>
 			<para>
-				<emphasis>&lt;datasource_name&gt;</emphasis> est le nom de la source de données à lire et est déclaré par le mot clé CONNECTION.  L'organisation exacte dépend du pilote de format utilisé.
-              Le pilote de format à utiliser est automatiquement sélectionné par OGR d'après la
-              nature de la chaîne de caratères passée comme source de données, et/ou le format du fichier référencé.
+				<emphasis>&lt;datasource_name&gt;</emphasis> est le nom de la source de donnÃ©es Ã  lire et est dÃ©clarÃ© par le mot clÃ© CONNECTION.  L'organisation exacte dÃ©pend du pilote de format utilisÃ©.
+              Le pilote de format Ã  utiliser est automatiquement sÃ©lectionnÃ© par OGR d'aprÃ¨s la
+              nature de la chaÃ®ne de caratÃ¨res passÃ©e comme source de donnÃ©es, et/ou le format du fichier rÃ©fÃ©rencÃ©.
       </para>
 			<para>
 				<itemizedlist>
 					<listitem>
 						<para>Pour les sources <emphasis>base-fichier</emphasis> c'est le nom du fichier, y compris l'extension, en utilisant
-                  un chemin absolu, ou un chemin relatif. Les chemins relatifs sont interprétés par rapport au fichier .map.
-                  Le SHAPEPATH est ignoré pour les sources de données OGR.</para>
+                  un chemin absolu, ou un chemin relatif. Les chemins relatifs sont interprÃ©tÃ©s par rapport au fichier .map.
+                  Le SHAPEPATH est ignorÃ© pour les sources de donnÃ©es OGR.</para>
 					</listitem>
 					<listitem>
-						<para>Pour les sources de données <emphasis>base-répertoire</emphasis>, comme TIGER/Line, ou Arc/Info Binary Coverages c'est le
-                  nom du répertoire contenant les fichiers.  Si le chemin est relatif il est interprété
+						<para>Pour les sources de donnÃ©es <emphasis>base-rÃ©pertoire</emphasis>, comme TIGER/Line, ou Arc/Info Binary Coverages c'est le
+                  nom du rÃ©pertoire contenant les fichiers.  Si le chemin est relatif il est interprÃ©tÃ©
                   par rapport au fichier .map.</para>
 					</listitem>
 					<listitem>
-						<para>Pour les sources de données <emphasis>virtuelles</emphasis> comme les systèmes de base de données, et OGDI c'est la 
-                  chaîne de caractères de connexion au service et généralement sans relation avec le système de fichiers. Par exemple, pour Oracle 
-                  Spatial ce devrait être quelque chose comme "OCI:warmerda/Password@gdal800.velocet.ca".</para>
+						<para>Pour les sources de donnÃ©es <emphasis>virtuelles</emphasis> comme les systÃ¨mes de base de donnÃ©es, et OGDI c'est la 
+                  chaÃ®ne de caractÃ¨res de connexion au service et gÃ©nÃ©ralement sans relation avec le systÃ¨me de fichiers. Par exemple, pour Oracle 
+                  Spatial ce devrait Ãªtre quelque chose comme "OCI:warmerda/Password@gdal800.velocet.ca".</para>
 					</listitem>
 				</itemizedlist>
 			</para>
 			<para>
-				<emphasis>&lt;layer_definition&gt;</emphasis> est le nom, le numéro ou la définition SQL de la couche à utiliser depuis 
-          la source de données.  Il est indiqué via le mot clé DATA dans le fichier .map.
+				<emphasis>&lt;layer_definition&gt;</emphasis> est le nom, le numÃ©ro ou la dÃ©finition SQL de la couche Ã  utiliser depuis 
+          la source de donnÃ©es.  Il est indiquÃ© via le mot clÃ© DATA dans le fichier .map.
       </para>
 			<para>
 				<itemizedlist>
 					<listitem>
-						<para><emphasis>Nom de couche</emphasis>: Le nom (insensible à la casse) de la couche peut être utilisé pour sélectionner la couche.</para>
+						<para><emphasis>Nom de couche</emphasis>: Le nom (insensible Ã  la casse) de la couche peut Ãªtre utilisÃ© pour sÃ©lectionner la couche.</para>
 					</listitem>
 					<listitem>
-						<para><emphasis>Numéro de couche</emphasis>: Le numéro de la couche (commençant à 0 pour la première couche) peut être utilisé
-                  pour sélectionner la couche.  En générale le nom de la couche est privilégié puisqu'il est plus significatif.</para>
+						<para><emphasis>NumÃ©ro de couche</emphasis>: Le numÃ©ro de la couche (commenÃ§ant Ã  0 pour la premiÃ¨re couche) peut Ãªtre utilisÃ©
+                  pour sÃ©lectionner la couche.  En gÃ©nÃ©rale le nom de la couche est privilÃ©giÃ© puisqu'il est plus significatif.</para>
 					</listitem>
 					<listitem>
-						<para><emphasis>Sans rien</emphasis>: Si aucun mot clé DATA n'est donné, ceci équivaut à la sélection de la couche 0.</para>
+						<para><emphasis>Sans rien</emphasis>: Si aucun mot clÃ© DATA n'est donnÃ©, ceci Ã©quivaut Ã  la sÃ©lection de la couche 0.</para>
 					</listitem>
 					<listitem>
-						<para><emphasis>SQL SELECT</emphasis>: Si l'instruction SQL SELECT est utilisée, ceci est interprété dans un pilote 
-                  de manière spécifique pour essayer de générer une pseudo couche temporaire.  Pour plusieurs formats ce sous ensemble 
-                  restreint de SQL est interprété dans OGR.  Pour les pilotes basés sur RDBMS (tel que PostGIS
-                  et Oracle) ceci est passé à la base de données sous jacente. </para>
+						<para><emphasis>SQL SELECT</emphasis>: Si l'instruction SQL SELECT est utilisÃ©e, ceci est interprÃ©tÃ© dans un pilote 
+                  de maniÃ¨re spÃ©cifique pour essayer de gÃ©nÃ©rer une pseudo couche temporaire.  Pour plusieurs formats ce sous ensemble 
+                  restreint de SQL est interprÃ©tÃ© dans OGR.  Pour les pilotes basÃ©s sur RDBMS (tel que PostGIS
+                  et Oracle) ceci est passÃ© Ã  la base de donnÃ©es sous jacente. </para>
 					</listitem>
 				</itemizedlist>
 			</para>
 			<para>
-          Le programme <link linkend="ogrinfo">OGRINFO</link> peut être utilisé pour chercher la liste des couches et leurs noms dans la source de données.
+          Le programme <link linkend="ogrinfo">OGRINFO</link> peut Ãªtre utilisÃ© pour chercher la liste des couches et leurs noms dans la source de donnÃ©es.
       </para>
 		</sect2>
 		<!-- Section2: Examples of Layer Definitions Using OGR -->
 		<sect2 id="examples">
-			<title>Exemples de définitions de couches utilisant OGR</title>
+			<title>Exemples de dÃ©finitions de couches utilisant OGR</title>
 			<example>
 				<title>
 				Fichier MapInfo TAB
@@ -339,7 +339,7 @@
 				Fichier Microstation DGN utilisant &lt;layer_index&gt;
 			</title>
 				<para>
-					La totalité du fichier DGN est représentée dans OGR comme une couche unique (voir 
+					La totalitÃ© du fichier DGN est reprÃ©sentÃ©e dans OGR comme une couche unique (voir 
 					<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">						                    http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html</ulink> pour plus d'informations):
 				</para>
 				<programlisting>
@@ -377,7 +377,7 @@
 			</example>
 			<example>
 				<title>
-Répertoire de fichiers de forme utilisant SQL JOIN
+RÃ©pertoire de fichiers de forme utilisant SQL JOIN
                     </title>
 				<programlisting>
 	LAYER
@@ -408,8 +408,8 @@ Répertoire de fichiers de forme utilisant SQL JOIN
 		<sect2 id="ogrinfo">
 			<title>Comment utiliser "OGRINFO"</title>
 			<para>
-				OGRINFO est un composant de la distribution GDAL/OGR.  C'est un exécutable qui peut être utilisé 
-                pour obtenir des informations de couche pour les fichiers supportés par OGR.  Les paramètres sont:
+				OGRINFO est un composant de la distribution GDAL/OGR.  C'est un exÃ©cutable qui peut Ãªtre utilisÃ© 
+                pour obtenir des informations de couche pour les fichiers supportÃ©s par OGR.  Les paramÃ¨tres sont:
 			</para>
 			<programlisting>
 	ogrinfo [-ro] [-q] datasource_name [layer [layer...]]
@@ -422,13 +422,13 @@ Répertoire de fichiers de forme utilisant SQL JOIN
 				</listitem>
 				<listitem>
 					<para>
-			     -q exécution en mode silencieux, seul l'index de couche sera retourné (facultatif)
+			     -q exÃ©cution en mode silencieux, seul l'index de couche sera retournÃ© (facultatif)
 			  </para>
 				</listitem>
 				<listitem>
 					<para>
 			     datasource_name est le nom de fichier y compris l'extension (tel que roads.tab); pour les fichiers TIGER/Line, datasource_name
-				est le répertoire contenant les fichiers TIGER (tel que ogrinfo TGR25001)
+				est le rÃ©pertoire contenant les fichiers TIGER (tel que ogrinfo TGR25001)
 			  </para>
 				</listitem>
 			</itemizedlist>
@@ -452,7 +452,7 @@ Répertoire de fichiers de forme utilisant SQL JOIN
 				</example>
 				<example>
 					<title>
-                        Pour avoir un dump (vidage) d'une couche spécifique, y compris des noms des champs, la projection, etc:
+                        Pour avoir un dump (vidage) d'une couche spÃ©cifique, y compris des noms des champs, la projection, etc:
                    </title>
 					<programlisting>
     $ ogrinfo popplace.tab popplace
@@ -490,7 +490,7 @@ Répertoire de fichiers de forme utilisant SQL JOIN
                 </programlisting>
 				</example>
 				<example>
-					<title>Pour avoir une liste des couches dans un répertoire TIGER/Line:</title>
+					<title>Pour avoir une liste des couches dans un rÃ©pertoire TIGER/Line:</title>
 					<programlisting>
     $ ogrinfo TGR25001
 	
@@ -513,11 +513,11 @@ Répertoire de fichiers de forme utilisant SQL JOIN
     14: ZipPlus4 (None)				
 					</programlisting>
 					<para>
-						<literallayout>   L'exemple précédent montre qu'il y a 14 couches dans le répertoire TGR25001.</literallayout>
+						<literallayout>   L'exemple prÃ©cÃ©dent montre qu'il y a 14 couches dans le rÃ©pertoire TGR25001.</literallayout>
 					</para>
 				</example>
 				<example>
-					<title>Pour avoir un dump d'une couche TIGER spécifique, y compris les noms des champs, la projection, la zone d'étendue, etc:</title>
+					<title>Pour avoir un dump d'une couche TIGER spÃ©cifique, y compris les noms des champs, la projection, la zone d'Ã©tendue, etc:</title>
 					<programlisting>
     $ ogrinfo TGR25001 Landmarks
 
@@ -556,30 +556,30 @@ Répertoire de fichiers de forme utilisant SQL JOIN
 			</sect3>
 		</sect2>
 		<sect2 id="queries">
-			<title>Interoogation à travers le format OGR</title>
+			<title>Interoogation Ã  travers le format OGR</title>
 			<para>
-				Les couches OGR peuvent être interrogées de la même manière que les fichiers de forme normaux dans MapServer.
+				Les couches OGR peuvent Ãªtre interrogÃ©es de la mÃªme maniÃ¨re que les fichiers de forme normaux dans MapServer.
 			</para>
 		</sect2>
 		<sect2 id="tileindex">
 			<title>TILEINDEX avec OGR</title>
 			<para>
-Les couches OGR peuvent utiliser les index de carroyage de manière similaire aux couches basées sur les fichiers de forme.  Le mot clé TILEINDEX contiendra la chaîne de connexion pour le
-fichier d'index de carroyagee.  Le fichier index peut être de n'importe lequel des formats OGR, 
+Les couches OGR peuvent utiliser les index de carroyage de maniÃ¨re similaire aux couches basÃ©es sur les fichiers de forme.  Le mot clÃ© TILEINDEX contiendra la chaÃ®ne de connexion pour le
+fichier d'index de carroyagee.  Le fichier index peut Ãªtre de n'importe lequel des formats OGR, 
 y compris les fichiers de forme.
 </para>
 			<para>
-Le mot clé TILEITEM dans la définition LAYER indique 
-quel attribut du fichier index de carroyage sera utilisé comme source de données
-de localisation.  S'il est omis, la valeur par défaut de TILEITEM est "location".  La valeur dans
-le champs location sera la chaîne de connexion identique à celle que vous aurez dans le 
-champs CONNECTION pour les couches OGR.  Le mot clé CONNECTION n'est
-pas nécessaire (et sera ignoré) pour les couches untilisant un type de connexion OGR
-et ayant le mot clé TILEINDEX. 
+Le mot clÃ© TILEITEM dans la dÃ©finition LAYER indique 
+quel attribut du fichier index de carroyage sera utilisÃ© comme source de donnÃ©es
+de localisation.  S'il est omis, la valeur par dÃ©faut de TILEITEM est "location".  La valeur dans
+le champs location sera la chaÃ®ne de connexion identique Ã  celle que vous aurez dans le 
+champs CONNECTION pour les couches OGR.  Le mot clÃ© CONNECTION n'est
+pas nÃ©cessaire (et sera ignorÃ©) pour les couches untilisant un type de connexion OGR
+et ayant le mot clÃ© TILEINDEX. 
 </para>
 			<para>
-Les fichiers Tileindex peuvent être préparés par un SIG externe, ou en utilisant l'utilitaire
-ogrtindex.  Des détails peuvent être trouvés sur la page des utilitaires OGR sur
+Les fichiers Tileindex peuvent Ãªtre prÃ©parÃ©s par un SIG externe, ou en utilisant l'utilitaire
+ogrtindex.  Des dÃ©tails peuvent Ãªtre trouvÃ©s sur la page des utilitaires OGR sur
 <ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html">http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html</ulink>.
 </para>
 			<para>
@@ -600,18 +600,18 @@ LAYER
 END
 </programlisting>
 			<para>
-Les couches de carroyage OGR supportent toutes les requêtes et les mécanismes de correspondance d'attributs,
-y compris à partir de MapScript; de toute manière, ceci n'a pas été testé intensivement 
-comme en Avril/2002.  N'hésitez pas à faire remonter vos problèmes via le Bugzilla MapServer.  Si
-le support de projection automatique est utilisé pour les couches d'index de carroyage OGR, le tileindex est
-lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou pas)
-être rencontrés si les carreaux ont différents schémas (différents ensembles d'attributs).
+Les couches de carroyage OGR supportent toutes les requÃªtes et les mÃ©canismes de correspondance d'attributs,
+y compris Ã  partir de MapScript; de toute maniÃ¨re, ceci n'a pas Ã©tÃ© testÃ© intensivement 
+comme en Avril/2002.  N'hÃ©sitez pas Ã  faire remonter vos problÃ¨mes via le Bugzilla MapServer.  Si
+le support de projection automatique est utilisÃ© pour les couches d'index de carroyage OGR, le tileindex est
+lu pour la projection (pas les carreaux eux-mÃªmes).   Des problÃ¨mes peuvent (ou pas)
+Ãªtre rencontrÃ©s si les carreaux ont diffÃ©rents schÃ©mas (diffÃ©rents ensembles d'attributs).
 </para>
 		</sect2>
 		<sect2 id="formatinfo">
-			<title>Informations spécifiques sur les formats</title>
+			<title>Informations spÃ©cifiques sur les formats</title>
 			<para>
-                   Cette partie contient les informations spécifiques qui sont découvertes au fur et à mesure.
+                   Cette partie contient les informations spÃ©cifiques qui sont dÃ©couvertes au fur et Ã  mesure.
               </para>
 		</sect2>
 	</sect1>
@@ -619,40 +619,40 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 		<title>STYLEITEM "AUTO" - restitution des couches en utilisant une information de style depuis le fichier OGR</title>
 		<para>
 			<emphasis>NOTE: cette fonction est seulement disponible pour les fichiers MapInfo TAB et Microstation DGN pour l'instant,
-		  mais éventuellement d'autres formats qui intègrent des couleurs et styles au niveau forme peuvent aussi être supportés à travers 
+		  mais Ã©ventuellement d'autres formats qui intÃ¨grent des couleurs et styles au niveau forme peuvent aussi Ãªtre supportÃ©s Ã  travers 
 		  OGR.</emphasis>
 		</para>
 		<para>
-	       Dans MapServer, ArcView, et d'autres applications basées sur des fichiers de forme, couleurs et
-		  styles sont habituellement définis au niveau de la couche.  Ceci signifie que les formes
-		  dans une couche donnée sont habituellement restituées en utilisant les mêmes couleurs et les mêmes styles.
+	       Dans MapServer, ArcView, et d'autres applications basÃ©es sur des fichiers de forme, couleurs et
+		  styles sont habituellement dÃ©finis au niveau de la couche.  Ceci signifie que les formes
+		  dans une couche donnÃ©e sont habituellement restituÃ©es en utilisant les mÃªmes couleurs et les mÃªmes styles.
 	     </para>
 		<para>
-		  D'un autre côté, quelques formats supportés par OGR, comme MapInfo TAB, ont 
-		  une information couleur et style attachée à chaque élément.  OGR ajoute le support
-		  pour le paramètre de couche 'STYLEITEM "AUTO"' qui vous permet de demander que
-		  les éléments d'une couche  soient restitués en utilisant les couleurs et styles issus
-	         de la source de données au lieu d'être déterminés par CLASS comme c'est traditionnellement
+		  D'un autre cÃ´tÃ©, quelques formats supportÃ©s par OGR, comme MapInfo TAB, ont 
+		  une information couleur et style attachÃ©e Ã  chaque Ã©lÃ©ment.  OGR ajoute le support
+		  pour le paramÃ¨tre de couche 'STYLEITEM "AUTO"' qui vous permet de demander que
+		  les Ã©lÃ©ments d'une couche  soient restituÃ©s en utilisant les couleurs et styles issus
+	         de la source de donnÃ©es au lieu d'Ãªtre dÃ©terminÃ©s par CLASS comme c'est traditionnellement
  		  le cas avec MapServer.
 		</para>
 		<sect2>
-			<title>Comment implémenter</title>
+			<title>Comment implÃ©menter</title>
 			<para>
-              Pour avoir une restitution de couche en utilisant les couleurs et styles issus de la source de données OGR, vous devez faire
+              Pour avoir une restitution de couche en utilisant les couleurs et styles issus de la source de donnÃ©es OGR, vous devez faire
               ce qui suit:
             </para>
 			<itemizedlist>
 				<listitem>
 					<para>
-			  Votre définition de couche doit contenir le paramètre <function>STYLEITEM "AUTO"</function>.	
+			  Votre dÃ©finition de couche doit contenir le paramÃ¨tre <function>STYLEITEM "AUTO"</function>.	
 			</para>
 				</listitem>
 				<listitem>
 					<para>
-			  Votre définition de couche a besoin de contenir au moins un élément <function>CLASS</function> (qui peut être vide) et facultativement
+			  Votre dÃ©finition de couche a besoin de contenir au moins un Ã©lÃ©ment <function>CLASS</function> (qui peut Ãªtre vide) et facultativement
 			<function>CLASSITEM</function> pour correspondre aux expressions si votre <function>CLASS</function> contient une expression.
-  			  Le <function>CLASS</function> vide dans la couche sera mis à jour 
-			  dynamiquement à l'exécution pour contenir les couleurs et styles issus de la source de données pour chaque forme.
+  			  Le <function>CLASS</function> vide dans la couche sera mis Ã  jour 
+			  dynamiquement Ã  l'exÃ©cution pour contenir les couleurs et styles issus de la source de donnÃ©es pour chaque forme.
 			</para>
 				</listitem>
 			</itemizedlist>
@@ -660,7 +660,7 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 		<sect2>
 			<title>Exemples</title>
 			<example>
-				<title>Définition de couche utilisant STYLEITEM "AUTO" sans un CLASSITEM</title>
+				<title>DÃ©finition de couche utilisant STYLEITEM "AUTO" sans un CLASSITEM</title>
 				<programlisting>
     LAYER
        NAME "test_dgn"
@@ -680,7 +680,7 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
                     </programlisting>
 			</example>
 			<example>
-				<title>Définition de couche utilisant STYLEITEM "AUTO" avec un CLASSITEM</title>
+				<title>DÃ©finition de couche utilisant STYLEITEM "AUTO" avec un CLASSITEM</title>
 				<programlisting>
     LAYER
        NAME "Builtup_Areas_tab"
@@ -705,28 +705,28 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 				<title>Note:</title>
 				<para>
 	    Les CLASS EXPRESSION sont actives, donc il est possible d'interroger et classifier les couches qui utilisent STYLEITEM "AUTO".  
-		La seule différence est qu'au lieu d'utiliser des définitions statiques de classe, les couleurs et styles seront lus dans le fichier de données.
+		La seule diffÃ©rence est qu'au lieu d'utiliser des dÃ©finitions statiques de classe, les couleurs et styles seront lus dans le fichier de donnÃ©es.
 	    </para>
 			</note>
 		</sect2>
 		<sect2>
 			<title>Important Notes</title>
 			<para>
-				NOTE 1: Bien que MapInfo et d'autres sources de données OGR puissent supporter des couches mélangeant différents
-		types de géométrie(des points, lignes et polygones dans le même fichier) MapServer
-		ne le supporte pas pour l'instant.  Aussi vous devez définir un 'TYPE'  de couche
-		et vous assurer que les formes de source de données OGR sont compatibles avec
-		ce type de couche, sinon MapServer peut produire une erreur au sujet de l'incompatibilité
-		des types de géométrie à l'exécution.
+				NOTE 1: Bien que MapInfo et d'autres sources de donnÃ©es OGR puissent supporter des couches mÃ©langeant diffÃ©rents
+		types de gÃ©omÃ©trie(des points, lignes et polygones dans le mÃªme fichier) MapServer
+		ne le supporte pas pour l'instant.  Aussi vous devez dÃ©finir un 'TYPE'  de couche
+		et vous assurer que les formes de source de donnÃ©es OGR sont compatibles avec
+		ce type de couche, sinon MapServer peut produire une erreur au sujet de l'incompatibilitÃ©
+		des types de gÃ©omÃ©trie Ã  l'exÃ©cution.
 			</para>
 			<para>
-				NOTE 2: Du fait de la nature dynamique de cette fonctionnalité, elle n'est pas compatible avec le
-		cache d'étiquette, aussi le cache d'étiquette est automatiquement désactivé pour les couches qui
+				NOTE 2: Du fait de la nature dynamique de cette fonctionnalitÃ©, elle n'est pas compatible avec le
+		cache d'Ã©tiquette, aussi le cache d'Ã©tiquette est automatiquement dÃ©sactivÃ© pour les couches qui
 		utilisent 'STYLEITEM "AUTO"'.
 			</para>
 			<para>
 				NOTE 3: Quand vous employez STYLEITEM AUTO, MapServer tente de faire correspondre les noms de symbole
-				retournés par OGR avec ceux du fichier de symboles.  Pour une solution rapide, essayez
+				retournÃ©s par OGR avec ceux du fichier de symboles.  Pour une solution rapide, essayez
 				en utilisant le fichier symbole suivant:
 			</para>
 			<para>
@@ -734,14 +734,14 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 				http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym</ulink>
 			</para>
 			<para>
-				Le nom des symboles retourné par OGR à MapServer depend du format du fichier.
+				Le nom des symboles retournÃ© par OGR Ã  MapServer depend du format du fichier.
 				Dans le cas de fichiers MapInfo, il sera:
 			</para>
 			<itemizedlist>
 				<listitem>
 					<para>
-						Pour les symboles "old-style" (par défaut les symboles MapInfo 3.0 sont numérotés de 32 à
-  						67) le nom de symbole sera 'mapinfo-sym-##' où '##' est le numéro de symbole,
+						Pour les symboles "old-style" (par dÃ©faut les symboles MapInfo 3.0 sont numÃ©rotÃ©s de 32 Ã 
+  						67) le nom de symbole sera 'mapinfo-sym-##' oÃ¹ '##' est le numÃ©ro de symbole,
   						comme 'mapinfo-sym-32'.
 					</para>
 				</listitem>
@@ -749,9 +749,9 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 			<itemizedlist>
 				<listitem>
 					<para>
-						Pour "Font Symbols", le nom de symbole est aussi 'mapinfo-sym-##' où
-  						'##' est le numéro de symbole dans la police de caractères.  Dans ce cas, le nom de la police
-  						elle-même est ignoré par MapServer.
+						Pour "Font Symbols", le nom de symbole est aussi 'mapinfo-sym-##' oÃ¹
+  						'##' est le numÃ©ro de symbole dans la police de caractÃ¨res.  Dans ce cas, le nom de la police
+  						elle-mÃªme est ignorÃ© par MapServer.
 					</para>
 				</listitem>
 			</itemizedlist>
@@ -759,22 +759,22 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 				<listitem>
 					<para>
 						MapInfo supporte aussi "custom symbols" (symboles bitmap)... Je ne suis pas certain
-  						que vous obtiendrez quelque chose d'OGR pour çà, mais je suis presque sûr que
+  						que vous obtiendrez quelque chose d'OGR pour Ã§Ã , mais je suis presque sÃ»r que
   						MapServer n'en fera rien de vraiment utile.
 					</para>
 				</listitem>
 			</itemizedlist>
 			<para>
-				L'utilitaire <link linkend="ogrinfo">OGRINFO</link> peut être utilisé pour chercher quels noms de symbole
-				OGR retournera à MapServer.  Cherchez "Style"
+				L'utilitaire <link linkend="ogrinfo">OGRINFO</link> peut Ãªtre utilisÃ© pour chercher quels noms de symbole
+				OGR retournera Ã  MapServer.  Cherchez "Style"
 				dans la sortie produite par ogrinfo pour chaque forme lue.
 			</para>
 		</sect2>
 		<sect2>
 			<title>Traitement de l'information style d'OGR avec les membres CLASS de Mapserver</title>
 			<para>
-		  Voici la liste des paramètres de style qui sont actuellement supportés depuis les sources de données OGR 
-		  et comment ils sont traités dans MapServer:
+		  Voici la liste des paramÃ¨tres de style qui sont actuellement supportÃ©s depuis les sources de donnÃ©es OGR 
+		  et comment ils sont traitÃ©s dans MapServer:
 		</para>
 			<variablelist>
 				<varlistentry>
@@ -789,16 +789,16 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 					<term>Ligne fine</term>
 					<listitem>
 						<para>
-			Par défaut la ligne sera 1 pixel (comme c'est toujours le cas avec MapServer).
-  			Dans MapServer, pour obtenir des lignes plus épaisses qu'1 pixel, une des méthodes est d'avoir
-  			défini un symbole circulaire qui sera utilisé pour restituer la ligne (en appliquant
+			Par dÃ©faut la ligne sera 1 pixel (comme c'est toujours le cas avec MapServer).
+  			Dans MapServer, pour obtenir des lignes plus Ã©paisses qu'1 pixel, une des mÃ©thodes est d'avoir
+  			dÃ©fini un symbole circulaire qui sera utilisÃ© pour restituer la ligne (en appliquant
   			une taille a ce symbole circulaire).
 			</para>
 						<para>
-			Donc si votre source de données contient des lignes plus épaisses qu'1 pixel vous avez
+			Donc si votre source de donnÃ©es contient des lignes plus Ã©paisses qu'1 pixel vous avez
   			besoin de fournir un symbole circulaire dans votre ensemble de symboles et vous devez le nommer
-  			"default-circle".  Si ce symbole est présent alors les lignes seront
-  			dessinées en utilisant leur épaisseur réelle, sinon toutes les lignes n'auront qu'1 pixel.
+  			"default-circle".  Si ce symbole est prÃ©sent alors les lignes seront
+  			dessinÃ©es en utilisant leur Ã©paisseur rÃ©elle, sinon toutes les lignes n'auront qu'1 pixel.
 			</para>
 					</listitem>
 				</varlistentry>
@@ -816,8 +816,8 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 					<term>Contour de polygone</term>
 					<listitem>
 						<para>
-			Si un polygone a une couleur de contour et une épaisseur de ligne dans la source de données
-  			la même règle que celle de la couleur de ligne et l'épaisseur décrite ci-dessus, sera appliquée,
+			Si un polygone a une couleur de contour et une Ã©paisseur de ligne dans la source de donnÃ©es
+  			la mÃªme rÃ¨gle que celle de la couleur de ligne et l'Ã©paisseur dÃ©crite ci-dessus, sera appliquÃ©e,
  			sauf que la couleur de contour sera mise en correspondance par CLASS.OUTLINECOLOR
 			</para>
 					</listitem>
@@ -829,20 +829,20 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 							<literallayout>La couleur de symbole poit est directement mise en correspondance par CLASS.COLOR.
 			La taille de symbole point est mise en correspondance par CLASS.SIZE
                </literallayout>
-  			Si votre ensemble de symboles contient un symbole appelé "default-marker" alors ce
-  			symbole sera utilisé, sinon par défaut CLASS.SYMBOL=0 sera utilisé 
+  			Si votre ensemble de symboles contient un symbole appelÃ© "default-marker" alors ce
+  			symbole sera utilisÃ©, sinon par dÃ©faut CLASS.SYMBOL=0 sera utilisÃ© 
   			(tel qu'un point de 1 pixel)
 			</para>
 						<para>
-			Il est aussi possible (avec un peu de travail) de contrôler quel symbole
-  			est employé pour la restitution des symboles point.  OGR fournit à MapServer les noms
-  			de symbole, et si le nom de symbole retourné par OGR à MapServer correspond au nom
-  			de l'un des symboles de votre ensemble de symboles alors ce symbole sera utilisé.
+			Il est aussi possible (avec un peu de travail) de contrÃ´ler quel symbole
+  			est employÃ© pour la restitution des symboles point.  OGR fournit Ã  MapServer les noms
+  			de symbole, et si le nom de symbole retournÃ© par OGR Ã  MapServer correspond au nom
+  			de l'un des symboles de votre ensemble de symboles alors ce symbole sera utilisÃ©.
 			</para>
 						<para>
-			Pour les symboles point de MapInfo (numéroté de 32 à 67 dans le MapInfo MIF), 
-  			le nom retourné par OGR est "mapinfo-sym-X" où X devrait être remplacé
-  			par le numéro de symbole MapInfo (par exemple "mapinfo-sym-35" est le symbole étoile).
+			Pour les symboles point de MapInfo (numÃ©rotÃ© de 32 Ã  67 dans le MapInfo MIF), 
+  			le nom retournÃ© par OGR est "mapinfo-sym-X" oÃ¹ X devrait Ãªtre remplacÃ©
+  			par le numÃ©ro de symbole MapInfo (par exemple "mapinfo-sym-35" est le symbole Ã©toile).
 			</para>
 					</listitem>
 				</varlistentry>
@@ -852,38 +852,38 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 						<para>
 							<literallayout>Le texte est mis en correspondance par CLASS.TEXT
 			La couleur de texte est mise en correspondance par CLASS.LABEL.COLOR
-			La couleur d'arrière-plan du texte est mise en correspondance par CLASS.LABEL.BACKGROUNDCOLOR
+			La couleur d'arriÃ¨re-plan du texte est mise en correspondance par CLASS.LABEL.BACKGROUNDCOLOR
 			La hauteur du texte est mise en correspondance par CLASS.LABEL.SIZE
 			L'angle du texte est mis en correspondance par CLASS.LABEL.ANGLE
 			</literallayout>
 						</para>
 						<para>
-			La police de caractères du texte est mise en correspondance selon les règles suivantes:
+			La police de caractÃ¨res du texte est mise en correspondance selon les rÃ¨gles suivantes:
 			</para>
 						<orderedlist numeration="arabic">
 							<listitem>
 								<para>
-			   Si les polices TTF sont supportées:
+			   Si les polices TTF sont supportÃ©es:
 			   </para>
 								<orderedlist numeration="loweralpha" inheritnum="inherit">
 									<listitem>
 										<para>
-				  Si le nom natif de police (par exemple "Arial") est trouvé dans votre ensemble de polices
-         			  alors cette police sera utilisée.
+				  Si le nom natif de police (par exemple "Arial") est trouvÃ© dans votre ensemble de polices
+         			  alors cette police sera utilisÃ©e.
 				</para>
 									</listitem>
 									<listitem>
 										<para>
-				Si 1a. échoue et qu'une police nommée "default" est présente dans votre ensemble de polices
-         		     alors cette police "default" sera utilisée.
+				Si 1a. Ã©choue et qu'une police nommÃ©e "default" est prÃ©sente dans votre ensemble de polices
+         		     alors cette police "default" sera utilisÃ©e.
 				</para>
 									</listitem>
 								</orderedlist>
 							</listitem>
 							<listitem>
 								<para>
-			   Si les polices TTF ne sont pas supportées ou si tous les cas précédents ont échoué, alors la police BITMAP MEDIUM
-     	        sera utilisée.
+			   Si les polices TTF ne sont pas supportÃ©es ou si tous les cas prÃ©cÃ©dents ont Ã©chouÃ©, alors la police BITMAP MEDIUM
+     	        sera utilisÃ©e.
 			  </para>
 							</listitem>
 						</orderedlist>
@@ -934,7 +934,7 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 	</sect1>
 	<!-- Section1: FAQ -->
 	<sect1 id="FAQ">
-		<title>FAQ / Problèmes habituels</title>
+		<title>FAQ / ProblÃ¨mes habituels</title>
 		<sect2>
 			<title/>
 			<qandaset defaultlabel="qanda">
@@ -946,7 +946,7 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 					</question>
 					<answer>
 						<para>
-                       Basiquement, OGR ne veut rien dire de particulier.  Pour une explication détaillée sur la manière dont OGR a été nommé, voyez le site OGR de Frank
+                       Basiquement, OGR ne veut rien dire de particulier.  Pour une explication dÃ©taillÃ©e sur la maniÃ¨re dont OGR a Ã©tÃ© nommÃ©, voyez le site OGR de Frank
                        Warmerdam sur <ulink url="http://gdal.velocet.ca/projects/opengis">http://gdal.velocet.ca/projects/opengis</ulink> dans la partie 'OGR and OpenGIS'.
                     </para>
 					</answer>
@@ -960,7 +960,7 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 					<answer>
 						<para>
 				Quand vous utilisez STYLEITEM AUTO, MapServer tente de faire correspondre les noms de symbole
-				retournés par OGR pour nommer votre fichier symbole.  Pour une solution rapide, essayez en
+				retournÃ©s par OGR pour nommer votre fichier symbole.  Pour une solution rapide, essayez en
 				utilisant le fichier symbole suivant:
 			</para>
 						<para>
@@ -968,14 +968,14 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 				http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym</ulink>
 						</para>
 						<para>
-				Le nom des symboles retourné par OGR à MapServer depend du format du fichier.
+				Le nom des symboles retournÃ© par OGR Ã  MapServer depend du format du fichier.
 				Dans le cas des fichiers MapInfo, il sera:
 			</para>
 						<itemizedlist>
 							<listitem>
 								<para>
-						Pour les symboles "old-style" (par défaut les symboels MapInfo 3.0 sont numérotés de 32 à
-  						67) le nom de symbole sera 'mapinfo-sym-##' où '##' est le numéro de symbole,
+						Pour les symboles "old-style" (par dÃ©faut les symboels MapInfo 3.0 sont numÃ©rotÃ©s de 32 Ã 
+  						67) le nom de symbole sera 'mapinfo-sym-##' oÃ¹ '##' est le numÃ©ro de symbole,
   						comme 'mapinfo-sym-32'.
 					</para>
 							</listitem>
@@ -983,9 +983,9 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 						<itemizedlist>
 							<listitem>
 								<para>
-						Pour "Font Symbols", le nom de symbole est aussi 'mapinfo-sym-##' où
-  						'##' est le numéro de symbole dans la police.  Dans ce cas, le nom de la 
-  						police elle-même est ignoré par MapServer.
+						Pour "Font Symbols", le nom de symbole est aussi 'mapinfo-sym-##' oÃ¹
+  						'##' est le numÃ©ro de symbole dans la police.  Dans ce cas, le nom de la 
+  						police elle-mÃªme est ignorÃ© par MapServer.
 					</para>
 							</listitem>
 						</itemizedlist>
@@ -993,14 +993,14 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
 							<listitem>
 								<para>
 						MapInfo supporte aussi les "custom symbols" (symboles image bitmap)... Je ne suis pas certain
-  						que vous obtiendrez quelque chose d'OGR avec çà, mais je suis presque sûr que 
+  						que vous obtiendrez quelque chose d'OGR avec Ã§Ã , mais je suis presque sÃ»r que 
   						MapServer n'en fera pas grand chose.
 					</para>
 							</listitem>
 						</itemizedlist>
 						<para>
-				L'utilitaire <link linkend="ogrinfo">OGRINFO</link> peut être utilisé pour chercher quel nom exact de symbole
-				OGR retournera à MapServer.  Cherchez "Style"
+				L'utilitaire <link linkend="ogrinfo">OGRINFO</link> peut Ãªtre utilisÃ© pour chercher quel nom exact de symbole
+				OGR retournera Ã  MapServer.  Cherchez "Style"
 				dans la sortie de ogrinfo pour chaque forme lue.
 			</para>
 					</answer>
@@ -1017,21 +1017,21 @@ lu pour la projection (pas les carreaux eux-mêmes).   Des problèmes peuvent (ou 
                 Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
-                Cette documentation est protégée par la même licence Open Source que celle du logiciel
-                MapServer lui-même.  Voyez la page MapServer
+                Cette documentation est protÃ©gÃ©e par la mÃªme licence Open Source que celle du logiciel
+                MapServer lui-mÃªme.  Voyez la page MapServer
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
                 Credits</ulink> pour le texte complet.
             </para>
 		</sect2>
 		<sect2 id="disclaimer">
 			<title>Avertissement</title>
-			<para>Aucune responsabilité pour le contenu de ce document ne peut être acceptée. Utilisez les concepts, exemples et autres éléments à vos risques et périls. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre système. Aussi il est expressément conseillé, l'auteur et le traducteur n'assurant aucune responsabilité, de procéder avec précaution.
+			<para>Aucune responsabilitÃ© pour le contenu de ce document ne peut Ãªtre acceptÃ©e. Utilisez les concepts, exemples et autres Ã©lÃ©ments Ã  vos risques et pÃ©rils. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre systÃ¨me. Aussi il est expressÃ©ment conseillÃ©, l'auteur et le traducteur n'assurant aucune responsabilitÃ©, de procÃ©der avec prÃ©caution.
                  	</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">
 			<title>Feedback</title>
-			<para>Envoyez toutes vos suggestions et commentaires à l'auteur, ou au traducteur.
+			<para>Envoyez toutes vos suggestions et commentaires Ã  l'auteur, ou au traducteur.
    			</para>
 		</sect2>
 	</sect1>
