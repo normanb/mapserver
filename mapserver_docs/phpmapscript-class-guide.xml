@@ -167,7 +167,7 @@
     int          height
     int          transparent
     int          interlace
-    rectObj      extent; 
+    rectObj      extent
     double       cellsize
     int          units (map units type)
     double       scale
@@ -178,7 +178,9 @@
     int          keyspacingy
     webObj       web
     referenceMapObj reference
-    colorObj     imagecolor      
+    colorObj     imagecolor
+    scalebarObj scalebar
+    legendObj legend
 				</programlisting>
 			</sect3>
 			<sect3 id="Methods">
@@ -329,9 +331,12 @@
     int save(string filename)
          Save current map object state to a file. Returns -1 on error.
 
-    int setProjection(string proj_params)
+    int setProjection(string proj_params, boolean bSetUnitsAndExtents)
          Set map projection and coordinate system.  Parameters are given as 
          a single string of comma-delimited PROJ.4 parameters.
+         The argument bSetUnitsAndExtents is used to automatically update
+         the map units and extents based on the new projection. Possible 
+         values are MS_TRUE and MS_FALSE. By default it is set to MS_FALSE.
 
     int getMetaData(string name)
          Fetch metadata entry by name (stored in the WEB object in the map
@@ -348,7 +353,10 @@
 
     array getAllGroupNames()
          Return an array containing all the group names used in the
-         layers.          
+         layers.  
+
+    array getAllLayerNames()
+         Return an array containing all the layer names.        
 			    </programlisting>
 			</sect3>
 		</sect2>
@@ -663,7 +671,7 @@
 			<sect3 id="web_members">
 				<title>Members:</title>
 				<programlisting>
-    string log;
+    string log
     string imagepath
     string template              
     string imageurl
@@ -812,7 +820,7 @@
          during the life of the lineObj that contains the point.
 
     projectionObj project(projectionObj in, projectionObj out)
-         Project the point from "in" projection (1st argument) to "out" projection (2nd argument).
+         Project the line from "in" projection (1st argument) to "out" projection (2nd argument).
 
     void free()
          Destroys resources used by a line object.     
@@ -832,11 +840,12 @@
 			<sect3 id="shape_members">
 				<title>Members:</title>
 				<programlisting>
+    string  text
+    int     classindex
     int     type      (read-only)
     int     numlines  (read-only)
     int     index     (read-only)
     int     tileindex (read-only)
-    int     classindex (read-only)
     rectObj bounds    (read-only)
     int     numvalues (read-only)
     array   values    (read-only)
@@ -850,6 +859,9 @@
 			<sect3 id="shape_methods">
 				<title>Methods:</title>
 				<programlisting>
+    int set(string property_name, new_value)
+         Set object property to a new value. Returns -1 on error.
+				
     int add(lineObj line)
          Add a line (i.e. a part) to the shape.
 
@@ -871,7 +883,7 @@
          Returns MS_TRUE if the two shapes intersect, MS_FALSE otherwise.
    
     projectionObj project(projectionObj in, projectionObj out)
-         Project the point from "in" projection (1st argument) to "out" projection (2nd argument).
+         Project the shape from "in" projection (1st argument) to "out" projection (2nd argument).
 
     void free()
          Destroys resources used by a shape object.  
@@ -918,7 +930,7 @@
          Adjust extents of the rectangle to fit the width/height specified.
 
    projectionObj project(projectionObj in, projectionObj out)
-         Project the point from "in" projection (1st argument) to "out" projection (2nd argument).
+         Project the rectangle from "in" projection (1st argument) to "out" projection (2nd argument).
 
    void free()
          Destroys resources used by a rect object.  				
@@ -1010,7 +1022,7 @@
         				geographic projection class.
 				</para>
 				<para>
-   					Eg of usage : the following example will convert a la/long point to an LCC projection :  
+   					Eg of usage : the following example will convert a lat/long point to an LCC projection :  
 				</para>
 				<programlisting>
     $projInObj = ms_newprojectionobj("proj=latlong");
@@ -1018,6 +1030,77 @@
     $poPoint = ms_newpointobj();
     $poPoint->setXY(-92.0, 62.0);         
     $poPoint = $poPoint->project($projInObj, $projOutObj);				
+				</programlisting>
+			</sect3>
+		</sect2>
+		<sect2 id="scale">
+			<title>ScalebarObj Class</title>
+			<sect3 id="scale_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+    Instances of scalebarObj are always embedded inside the mapObj.
+				</programlisting>
+			</sect3>
+			<sect3 id="scale_members">
+				<title>Members:</title>
+				<programlisting>
+    int height
+    int width
+    int style      
+    int intervals
+    int color
+    int backgroundcolor            
+    int outlinecolor
+    int units
+    int status //MS_ON, MS_OFF, MS_EMBED
+    int position //for embeded scalebars, MS_UL, MS_UC, ...
+    int transparent
+    int interlace
+    int postlabelcache
+    labelObj label
+    colorObj inagecolor
+				</programlisting>
+			</sect3>
+			<sect3 id="scale_methods">
+				<title>Methods:</title>
+				<programlisting>
+    int set(string property_name, new_value)
+         Set object property to a new value. Returns -1 on error.
+				</programlisting>
+			</sect3>
+		</sect2>
+		<sect2 id="legend">
+			<title>LegendObj Class</title>
+			<sect3 id="leg_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+    Instances of legendObj are always are always embedded inside the mapObj.
+				</programlisting>
+			</sect3>
+			<sect3 id="leg_members">
+				<title>Members:</title>
+				<programlisting>
+    int height
+    int width
+    int keysizex      
+    int keysizey
+    int keyspacingx
+    int keyspacingy
+    int outlinecolor //Colour of outline of box, -1 for no outline
+    int status //MS_ON, MS_OFF, MS_EMBED
+    int position //for embeded legends, MS_UL, MS_UC, ...
+    int transparent
+    int interlace
+    int postlabelcache //MS_TRUE, MS_FALSE
+    labelObj label
+    colorObj inagecolor
+				</programlisting>
+			</sect3>
+			<sect3 id="leg_methods">
+				<title>Methods:</title>
+				<programlisting>
+    int set(string property_name, new_value)
+         Set object property to a new value. Returns -1 on error.
 				</programlisting>
 			</sect3>
 		</sect2>
