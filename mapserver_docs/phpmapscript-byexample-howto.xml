@@ -1,0 +1,490 @@
+<?xml version='1.0' standalone='no'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<article>
+   <articleinfo>
+      <title>PHP Mapscript 3.5 By Example HOWTO</title>
+      <author>
+         <firstname>Vinko</firstname>
+         <surname>Vrsalovic</surname>
+         <affiliation>
+            <address>
+               <email>v@w.cl</email>
+            </address>
+         </affiliation>
+      </author>
+
+      <abstract>
+         <para>In this document I'll try to do a step by step explanation of the PHP Mapscript 3.5 objects and their methods.
+         <emphasis>It is assumed a basic knowledge of <ulink url="http://mapserver.gis.umn.edu/mapfile.html">map files</ulink>
+          and familiarity with the <ulink url="http://www.php.net">PHP</ulink> (scripting) and HTML (markup) languages .</emphasis></para>
+         <para>Information given here refers to PHP MapScript version 3.5.</para>
+         <para>Last Updated: 01-24-2002</para>
+      </abstract>
+   </articleinfo>
+
+   <sect1 id='intro'>
+      <title>Introduction</title>
+
+      <para>The objective of this document is to make people familiar with PHP MapScript (from this point on, just MapScript), 
+      by showing step by step explanations of 'real life' examples. After reading this document, you will be able to build a 
+      basic MapScript application in no time (mainly because you can copy this code to yours ;-).</para>
+      
+      <para>The following is the list of required knowledge and installed software.  Note:  Installation issues are not covered here; see the <ulink url="phpmapscript-install-howto.html">PHP MapScript Installation HOWTO</ulink> for help.</para>
+
+	  <sect2 id='instsw'>
+	  	<title>Installed Software</title>
+
+      <itemizedlist>
+         <listitem>
+            <para>The MapScript software, version 3.5, is installed and functioning on a web server.</para>
+         </listitem>
+         <listitem>
+            <para>The PHP language (hopefully the latest version) is installed and functioning on the same web server.</para>
+         </listitem>
+      </itemizedlist>
+      </sect2>
+
+      <sect2 id='reqkno'>
+	  	<title>Required Knowledge</title>
+
+      <itemizedlist>
+         <listitem>
+            <para>Familiarity with PHP.</para>
+         </listitem>
+         <listitem>
+            <para>Familiarity with HTML: forms, tables and the like.</para>
+         </listitem>
+         <listitem>
+            <para>Familiarity with MapServer <ulink url="http://mapserver.gis.umn.edu/mapfile.html">map files</ulink>.</para>
+         </listitem>
+		 <listitem>
+            <para>Familiarity with ESRI shapefiles.</para>
+         </listitem>
+      </itemizedlist>
+
+      </sect2>
+      <para>You should also refer to the MapScript documentation at <ulink url="http://www2.dmsolutions.ca/webtools/php_mapscript/php_mapscript_docs35.html">DM Solutions</ulink>
+      or in the README file in the mapscript/php3 directory of the MapServer distribution. A <ulink url="phpmapscript-class-guide.html">PHP MapScript Class Guide</ulink> is also available for reference.</para> </sect1>
+
+	<sect1 id="begin">
+		<title>Our first application</title>
+		
+		<para>In this first example, I'll just display a shapefile on a web page using a map file.</para>
+		<sect2 id="begmap">
+
+		<title>The Map File</title>
+
+		<para> Here's the map file: </para>
+
+		<programlisting>
+		NAME FIRSTMAP
+		SIZE 400 400
+		STATUS ON
+		SYMBOLSET ./symbols/symbols.sym
+		EXTENT -5696501 1923039 5696501 11022882
+		UNITS METERS
+		SHAPEPATH "data"
+			
+		WEB
+			IMAGEPATH "/var/www/html/maps/tmp/"
+			IMAGEURL "/tmp/"
+		END
+		
+		LAYER
+			NAME Europe
+			TYPE POLYGON
+			STATUS ON
+			DATA europe
+			CLASS
+				COLOR 110 50 100
+				OUTLINECOLOR 200 200 200
+			END
+		END
+		
+		END
+		</programlisting>
+
+		<para> Here we have a map with a single layer, with the shapefile called <filename>europe</filename> located in the subdirectory
+		called <filename>data</filename>. The symbols are located in the <filename>symbols</filename> subdirectory. All locations are 
+		relative to the location of the map file. The web section is only used to define where the images be saved and in what URL will	
+		they be available.</para>
+		</sect2>
+
+		<sect2 id="begphp">
+		<title>Displaying the map with MapScript</title>		
+		<para> To display a map the following MapScript objects and methods will be used:</para>
+		<itemizedlist>
+			<listitem>
+				<para>MapObj object</para>
+			</listitem>
+			<listitem>
+				<para>imageObj object</para>
+			</listitem>
+		</itemizedlist>
+
+		<para>MapObj methods:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>The constructor method: MapObj ms_newMapObj(string map_file_name)</para>
+			</listitem>
+			<listitem>
+				<para>The draw method: imageObj draw()</para>
+			</listitem>
+		</itemizedlist>
+
+		<para>imageObj methods:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>The saveWebImage method: string saveWebImage(int type, int transparent, int interlace, int quality)</para>
+			</listitem>
+		</itemizedlist>
+
+		<para> The code looks like this: </para>
+		<programlisting>
+		1 &lt;?php
+		
+		2 dl('php_mapscript.so'); 
+		
+		3 $map_path="/var/www/html/ms/map_files/";
+				
+		4 $map = ms_newMapObj($map_path."europe.map");
+		5 $image=$map->draw();
+		6 $image_url=$image->saveWebImage(MS_PNG,1,1,0);
+		
+		7 ?&gt;
+		
+		8  &lt;HTML&gt;
+		9  	&lt;HEAD&gt;
+		10 		&lt;TITLE&gt;Example 1: Displaying a map&lt;/TITLE&gt;
+		11 	&lt;/HEAD&gt;
+		12 	&lt;BODY&gt;
+		13 		&lt;IMG SRC=&lt;?php echo $image_url; ?&gt; &gt;
+		14 	&lt;/BODY&gt;
+		15 &lt;/HTML&gt;
+		</programlisting>
+
+		<para>The code through the rest of this document will follow this rule:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>Every non empty line is numbered</para>
+			</listitem>
+		</itemizedlist>
+
+		<para> This code will render an image corresponding to the shapefile <filename>europe</filename> and display it on a HTML page. Here is the explanation.</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>In line 2 we load the MapScript extension (you may not need it if your php.ini file is configured to automatically load it).</para>
+			</listitem>
+			<listitem>
+				<para>Line 3 declares a variable that holds the absolute path for the mapfile (just to be sure that we'll open the right map file).</para>
+			</listitem>
+			<listitem>
+				<para>In line 4 we create an instance of the MapObj object using the constructor. As you can see, the constructor receives the location of the map file as its only parameter (we called the map file <filename>example1.map</filename>).</para>
+			</listitem>
+			<listitem>
+				<para>Afterwards we call the draw method of the map object to render the image defined by the map file (line 5). The result (an imageObj) is saved in the $image variable.</para>
+			</listitem>
+			<listitem>
+				<para>In line 6 we call the saveWebImage method to generate the image file; it returns a string which represents the URL as defined in the mapfile (in this case, /tmp/filename.png).
+				The first parameter of saveWebImage defines the type of image generated (in this case PNG), the second determines if the image will be transparent (1 means yes), 
+				the third determines if the image file will be interlaced (1 means yes, too) and the fourth is ignored except when the image type is MS_JPEG. The URL is stored in the
+				$image_url variable</para>
+			</listitem>
+			<listitem>
+				<para>The rest of the lines are pure HTML, except line 13 which defines the source URL of the image that will be the value stored in $image_url.</para>
+			</listitem>
+		</itemizedlist>
+
+		<para>You should test the application on your system to check that it really works and to solve the problems that may arise on your
+		particular configuration before moving on to the more complex examples.</para>
+		
+		<para>The output (using the <filename>europe</filename> shapefile) should look like this:</para>
+		<figure>
+			<title>Example 1 Output</title>
+			<graphic fileref="http://ims.cprsig.cl/1011908782176461.png"></graphic>
+		</figure>
+
+		</sect2>
+	</sect1>
+
+	<sect1 id='letszoom'>
+		<title>Let's Zoom and Pan!</title>
+		<para> Now we'll add zoom and pan capabilities to the code. </para>
+		<para> Here goes the list of <emphasis>new</emphasis> methods and objects called.</para>
+		<para> New Objects: </para>
+
+		<itemizedlist>
+			<listitem>
+				<para> pointObj </para>
+			</listitem>
+			<listitem>
+				<para> rectObj </para>
+			</listitem>
+		</itemizedlist>
+
+		<para> New Methods and Members called: </para>
+
+		<itemizedlist>
+			<listitem>
+				<para> The zoompoint method of the map object: void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, int nImageHeight, rectObj oGeorefExt).</para>
+			</listitem>
+			<listitem>
+				<para> The setextent method of the map object: $map->setextent(double minx, double miny, double maxx, double maxy);.</para>
+			</listitem>
+			<listitem>
+				<para> The extent, width and height members of the map object.</para>
+			</listitem>
+			<listitem> 
+				<para> The constructors of RectObj and PointObj: $point = ms_newPointObj(); $rect = ms_newRectObj();</para>
+			</listitem>
+			<listitem>
+				<para> The setXY method of the point object: $point->setXY(double x_coord, double y_coord);</para>
+			</listitem>
+			<listitem>
+				<para> The setextent method of the rectangle object: $rect->setextent(double minx, double miny, double maxx, double maxy);</para>
+			</listitem>
+		</itemizedlist>
+
+		<para>The map file remains the same as the one presented in the previous example.</para>
+		<para>Here's the new code (explanation goes afterwards).</para>
+
+		<programlisting>
+		1 &lt;?php
+		
+		2 dl('php_mapscript.so');
+		
+		3 // Default values and configuration
+		
+		4 $val_zsize=3;
+		5 $check_pan="CHECKED";
+		6 $map_path="/var/www/html/ms/map_files/";
+		7 $map_file="europe.map";
+		
+		8 $map = ms_newMapObj($map_path.$map_file);
+		
+		
+		9 if ( isset($HTTP_POST_VARS["mapa_x"]) &amp;&amp; isset($HTTP_POST_VARS["mapa_y"])
+		10      &amp;&amp; !isset($HTTP_POST_VARS["full"]) ) {
+		
+		11      $extent_to_set = explode(" ",$HTTP_POST_VARS["extent"]); 
+		
+		12      $map-&gt;setextent($extent_to_set[0],$extent_to_set[1],
+		13                      $extent_to_set[2],$extent_to_set[3]);
+		
+		14      $my_point = ms_newpointObj();
+		15      $my_point-&gt;setXY($HTTP_POST_VARS["mapa_x"],$HTTP_POST_VARS["mapa_y"]);
+		
+		16      $my_extent = ms_newrectObj();
+		
+		17      $my_extent-&gt;setextent($extent_to_set[0],$extent_to_set[1],
+		18                              $extent_to_set[2],$extent_to_set[3]);
+		
+		19      $zoom_factor = $HTTP_POST_VARS["zoom"]*$HTTP_POST_VARS["zsize"];
+		20      if ($zoom_factor == 0) {
+		21              $zoom_factor = 1;
+		22              $check_pan = "CHECKED";
+		23              $check_zout = "";
+		24              $check_zin = "";
+		25      } else if ($zoom_factor &lt; 0) {
+		26              $check_pan = "";
+		27              $check_zout = "CHECKED";
+		28              $check_zin = "";
+		29      } else {
+		30              $check_pan = "";
+		31              $check_zout = "";
+		32              $check_zin = "CHECKED";
+		33      }
+		
+		34      $val_zsize = abs($zoom_factor);
+		
+		35      $map-&gt;zoompoint($zoom_factor,$my_point,$map-&gt;width,$map-&gt;height,
+		36                      $my_extent);
+		
+		37 }
+		
+		
+		38 $image=$map-&gt;draw();
+		39 $image_url=$image-&gt;saveWebImage(MS_PNG,1,1,0);
+		
+		40 $extent_to_html = $map-&gt;extent-&gt;minx." ".$map-&gt;extent-&gt;miny." "
+		41              .$map-&gt;extent-&gt;maxx." ".$map-&gt;extent-&gt;maxy;
+		
+		42 ?&gt;
+		43 &lt;HTML&gt;
+		44 &lt;HEAD&gt;
+		45 &lt;TITLE&gt;Map 2&lt;/TITLE&gt;
+		46 &lt;/HEAD&gt;
+		47 &lt;BODY&gt;
+		48 &lt;CENTER&gt;
+		49 &lt;FORM METHOD=POST ACTION=&lt;?php echo $PHP_SELF?&gt;&gt;
+		50 &lt;TABLE&gt;
+		51 &lt;TR&gt;
+		52      &lt;TD&gt;
+		53              &lt;INPUT TYPE=IMAGE NAME="mapa" SRC="&lt;?php echo $image_url?&gt;"&gt;
+		54      &lt;/TD&gt;
+		55 &lt;/TR&gt;
+		56 &lt;TR&gt;
+		57      &lt;TD&gt;
+		58              Pan
+		59      &lt;/TD&gt;
+		60      &lt;TD&gt;
+		61              &lt;INPUT TYPE=RADIO NAME="zoom" VALUE=0 &lt;?php echo $check_pan?&gt;&gt;
+		62      &lt;/TD&gt;
+		63 &lt;/TR&gt;
+		64 &lt;TR&gt;
+		65      &lt;TD&gt;
+		66              Zoom In
+		67      &lt;/TD&gt;
+		68      &lt;TD&gt;
+		69              &lt;INPUT TYPE=RADIO NAME="zoom" VALUE=1 &lt;?php echo $check_zin?&gt;&gt;
+		70      &lt;/TD&gt;
+		71 &lt;/TR&gt;
+		72 &lt;TR&gt;
+		73      &lt;TD&gt;
+		74              Zoom Out
+		75      &lt;/TD&gt;
+		76      &lt;TD&gt;
+		77              &lt;INPUT TYPE=RADIO NAME="zoom" VALUE=-1 &lt;?php echo $check_zout?&gt;&gt;
+		78      &lt;/TD&gt;
+		79 &lt;/TR&gt;
+		80 &lt;TR&gt;
+		81      &lt;TD&gt;
+		82              Zoom Size
+		83      &lt;/TD&gt;
+		84      &lt;TD&gt;
+		85              &lt;INPUT TYPE=TEXT NAME="zsize" VALUE="&lt;?php echo $val_zsize?&gt;" 
+		86              SIZE=2&gt;
+		87      &lt;/TD&gt;
+		88 &lt;/TR&gt;
+		89 &lt;TR&gt;
+		90      &lt;TD&gt;
+		91              Full Extent
+		92      &lt;/TD&gt;
+		93      &lt;TD&gt;
+		94              &lt;INPUT TYPE=SUBMIT NAME="full" VALUE="Go" 
+		95              SIZE=2&gt;
+		96      &lt;/TD&gt;
+		97 &lt;/TABLE&gt;
+		98 &lt;INPUT TYPE=HIDDEN NAME="extent" VALUE="&lt;?php echo $extent_to_html?&gt;"&gt;
+		99 &lt;/FORM&gt;
+		100 &lt;/CENTER&gt;
+		101 &lt;/BODY&gt;
+		102 &lt;/HMTL&gt;
+		</programlisting>
+
+		<para>This code will zoom out, zoom in, pan, and restore to full extent the image displayed in the previous example.</para>
+		<para>It looks much more complicated than it really is, much of the lines are the HTML code, and much of the remaining
+		PHP code is just to deal with the forms and such.</para>
+		
+		<para>You should try it and look at how it works first, you can do that <ulink url="http://ims.cprsig.cl/guide/example2.php" target="_NEW">here</ulink>
+		, or you can try it in your own server by copying and pasting the code.</para>
+		
+		<para>Play with it a little and look at the source in your browser to check how it changes.</para>
+
+		<para>Done?, now let's start the explanation with the HTML part.</para>
+		
+		<para>In line 49 we declare a form, and in line 53 we declare the image generated by MapScript to be part of that form, so when you click on it, the
+		X and Y coordinates of the click (in pixels) will be sent along with the other data for the PHP code to process.</para>
+		
+		<para>If you are familiar with HTML and PHP, the rest of the HTML code should be straightforward for you to understand with
+		the exception of line 98, that will be explained in due time.</para>
+		
+		<para>Now look at the PHP code, it's almost the same code used in example 1, with the addition of lines 9 to 37. What 
+		do these lines do?</para>
+		
+		<para>In line 9 we check is the relevant variables from the form have been set. 'mapa_x' and 'mapa_y' represent 
+		the X and Y coordinates of the click over the image, and 'full' represents the click on the 'Full Extent' button.</para>
+								
+		<para>The first time the page is displayed the code between the if statement doesn't get executed, but the rest
+		of the code does. In line 40 and 41 we set the '$extent_to_html' variable with the values of the extent defined in
+		the map file separated by spaces; that value will be put in the HTML variable 'extent' in line 98.</para>
+
+		<para>Now look at line 11 and 12. We are inside the if statement, that means the form has been submitted at least
+		once. We grab the extent stored in the previous execution (the 'extent' HTML variable) of the code and set the 
+		extent of the map to be that last extent. This allows to zoom or pan with respect of the previous extent, not the 
+		extent that is set in the map file.</para>
+		
+		<para>From that last paragraph you can deduce that all the default values are set in the map file, and anything
+		that you change through MapScript and would like to remain in your code, must be stored somehow. In this case
+		we do it through hidden variables in a form. For more advanced applications you could use session variables or a
+		database.</para>
+		
+		<para>Now you should be able to see why the 'Full Extent' button works. If you check line 10, it says that 
+		if you haven't pressed the button, skip the code in the if statement, so the extent is reset to the value
+		that the map file has. You should also see that it isn't necessarily a full extent (in case the extent in the map
+		file is not full extent).</para>
+		
+		<para>In line 14 and 15 we declare a new point object and initialize it with the values the user clicked on. You
+		should not forget that those values are in pixels, not in georeferenced coordinates.</para>
+		
+		<para>In lines 16 through 18 we create a new rectangle object and set it with the extent of the previous image, 
+		just like we do in line 12. In fact, we could have written $my_extent = $map->extent;.</para>
+		
+		<para>To do all the zooming and panning, we call the zoompoint function in line 35, but first we must prepare
+		the arguments it receives. We have the point the user clicked on, and the extent of the image ($my_point and
+		$my_extent, respectively), now we need to determine the zoom factor. That's what lines 19 to 33 do. If you wondered
+		why the values of the radio buttons where 0, -1, and 1 for pan, zoom in and zoom out, now you'll know the reason.</para>
+		
+		<para>A zoom factor of 1 tells zoompoint that we're panning the image, a negative value indicates we are zooming out
+		and a positive value indicates we're zooming in. So we multiply the value received for the radio buttons
+		(HTML variable 'zoom') by the size of the zoom the user entered. If that value is 0, that means we want to
+		pan the image, so we set '$zoom_factor' to 1, otherwise the result of the multiplication is the zoom factor zoompoint need to
+		receive. The other lines are to preserve the button the user clicked on the next time. Line 34 tries to
+		preserve the value of the zoom size the user entered (It doesn't do that all the time, when and why that
+		line fails? That's for you to find out).</para>
+		
+		<para>And finally, in line 34, we call the zoompoint method with the zoom factor obtained, the point built 
+		from the pixel coordinates (I insist on that issue because zoompoint is almost the only method that receives 
+		the coordinates in pixels, for the other methods you must convert pixels to georeferenced coordinates on 
+		your own), the height and width of the image, and the extent.</para>
+		
+		<para>After calling zoompoint, the extent of the image is changed accordingly to the operation performed (or,
+		better put, the zoom factor). So then we draw the image and save the current extent (after the zooming) for
+		use in the next iteration.</para>
+		
+	</sect1>
+
+	   <sect1 id='docinfo'>
+      <title>About This Document</title>
+
+      <sect2 id='copyright'>
+         <title>Copyright Information</title>
+
+         <para>Copyright (c) 2001,2002 Vinko Vrsalovic.</para>
+
+         <para>This documentation is covered by the same Open Source license as the MapServer software. See MapServer's 
+         <ulink url='http://mapserver.gis.umn.edu/license.html'>License and Credits</ulink>
+
+         page for the complete text.</para>
+      </sect2>
+
+      <sect2 id='disclaimer'>
+         <title>Disclaimer</title>
+
+         <para>No liability for the contents of this document can be accepted. Use the concepts, examples and other content at your own risk. As this is a new edition of this document, there may be errors and inaccuracies that may be damaging to your system. Although this is highly unlikely, the author(s) do not take any responsibility for that: proceed with caution.</para>
+      </sect2>
+
+      <sect2 id='acknowledgmements'>
+         <title>Acknowledgments</title>
+
+         <para>This document is dedicated to the people who made MapServer and MapScript a reality. The dedication also goes to
+         the members of the <ulink url='http://mapserver.gis.umn.edu/support.html'>mapserver-users mailing list</ulink>, that helped me getting started with MapServer/MapScript.</para>
+      </sect2>
+
+<!-- Section2: feedback -->
+      <sect2 id='feedback'>
+         <title>Feedback</title>
+
+         <para>Input is really appreciated. Send any comments or suggestions to the maintainer at 
+         <email>v@w.cl</email>
+
+         .</para>
+      </sect2>
+   </sect1>
+</article>
+
