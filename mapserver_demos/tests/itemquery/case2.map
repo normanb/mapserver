@@ -1,0 +1,20 @@
+NAME test
+SHAPEPATH ../data
+
+WEB
+  HEADER case2_header.html
+  FOOTER case2_footer.html
+END
+
+LAYER
+  NAME county
+  DATA county
+  STATUS DEFAULT
+  TYPE POLYGON  	
+  
+  QUERY
+    TEMPLATE case2_template.html
+  END
+END
+
+END 

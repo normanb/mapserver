@@ -1,0 +1,60 @@
+<html>
+<head>
+  <title>MapServer Test Suite - Raster Classes</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<font size="+2" face="arial,helvetica"><b>MapServer <a href="../index.html">Test Suite</a> - Raster Classes</b></font>
+
+<p>
+These examples show how you might re-classify a thematic raster images. You can
+also use raster classes to add to normal legends. A couple of things to note:
+<ul>
+1) Each raster class <b>must</b> contain a name and a valid color to be used in a legend.<br>
+2) A class with no color defaults to the actual image color for that pixel value(s) in the image.<br>
+3) A pixel value that doesn't belong to any class is handled like an offsite pixel and is not drawn.<br>
+</ul>
+This example uses a greyscale JPEG DOQ and a 1:24,000 scale DRG. Ain't that great looking
+but you get the idea.
+
+<p>
+<a href="/ms_test/raster_classes/test.map"><i>map file</i></a>
+<p>
+
+<table cellpadding="5" width="500">
+<tr><td>
+<img src="/cgi-bin/mapserv?map=ms_test/raster_classes/test.map&layer=test1&mode=map">
+</td><td valign="top">
+<br><br>
+<font size="+1" face="arial,helvetica">Unmodified images.</font><br>
+</td></tr>
+</table>
+
+<p>
+
+<table cellpadding="5">
+<tr><td>
+<font size="+1" face="arial,helvetica">Just the forest class drawn with normal color...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/raster_classes/test.map&layer=test2&mode=map">
+
+<p>
+
+<font size="+1" face="arial,helvetica">Just the forest class drawn in yellow...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/raster_classes/test.map&layer=test3&mode=map">
+
+</td><td>
+
+<font size="+1" face="arial,helvetica">No forest, all others normally...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/raster_classes/test.map&layer=test4&mode=map">
+
+<p>
+
+<font size="+1" face="arial,helvetica">Turn building and other annotation white...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/raster_classes/test.map&layer=test5&mode=map">
+
+</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>MapServer Test Suite - Dynamic Expressions</title>
+  </head>
+  
+  <body bgcolor="#ffffff">
+    
+    <font size="+2" face="arial,helvetica"><b>MapServer <a href="/ms_test">Test Suite</a> - Dynamic Expressions</b></font>
+    <p>
+      
+      This is simple example of creating an expression on-the-fly. Choose
+      a county in Minnesota and we'll create a map of all counties with strictly
+      larger area.
+
+    <p>
+      <a href="/ms_test/expressions/test.map"><i>map file</i></a><br>
+      <a href="/ms_test/expressions/larger.html"><i>query template file</i></a>
+    <p>
+
+    <form name="test" action="/cgi-bin/mapserv">
+      
+      <input type="hidden" name="map" value="[map]">
+      <input type="hidden" name="imgext" value="[mapext]">
+      <input type="hidden" name="mode" value="query">
+      
+      Pick a county:<br>
+      <input border="0" type="image" name="img" src="/cgi-bin/mapserv?map=[map]&mode=map">
+      
+    </form>
+    
+  </body>
+</html>
+

@@ -1,0 +1,73 @@
+<html>
+<head><title>MapServer Demo Interface</title></head>
+<body bgcolor=#FFFFFF>
+
+<center><h1>MapServer Demo Interface</h1></center>
+<hr>
+<form method=GET action="/cgi-bin/mapserv">
+
+<center>
+<table border=0 cellspacing=0 cellpadding=4 bgcolor="#000000">
+<tr>
+<td valign="top" align=center>
+  <table cellpadding="0" cellspacing="0" border="0">
+    <tr><td colspan="2"><INPUT NAME="img" TYPE="image" SRC="[img]" width=600 height=600 border=0></td></tr>
+    <tr>
+      <td>&nbsp;<font size=-1 face="arial,helvetica" color="#FFFFFF"><b>Powered by MapServer</b></font></td>
+      <td align="right"><img src="[scalebar]"></td>
+    </tr>
+  </table>
+</td>
+<td valign="top" bgcolor=#ffffff>
+  <table cellpadding="5" cellspacing="0" border="0" bgcolor="#ffffff">
+    <tr><td>
+      <center><input type="submit" value="Refresh/Query"></center>
+      <p>
+
+      <input type="radio" name="mode" value="browse" checked> <b>Browse map</b><br>
+      <input type="radio" name="mode" value="query"> <b>Query feature</b><br>
+      <input type="radio" name="mode" value="nquery"> <b>Query multiple features</b>
+
+      <hr>
+
+      <p>
+      <b>Select Layers to Display: </b><br>
+      <select multiple name="layer" size=3>
+        <option value="cities" [cities_select]> Cities
+        <option value="lakes" [lakes_select]> Lakes & Rivers
+        <option value="streams" [streams_select]> Streams
+        <option value="roads" [roads_select]> Roads
+        <option value="townships" [townships_select]> Townships
+      </select>
+
+      <p>
+      Zoom In <input type=radio name=zoomdir value=1 [zoomdir_1_check]> 
+      Pan <input type=radio name=zoomdir value=0 [zoomdir_0_check]>
+      Zoom Out <input type=radio name=zoomdir value=-1 [zoomdir_-1_check]>
+      <p>
+      Zoom Size <input type=text name=zoomsize size=4 value=[zoomsize]>
+      <p>
+
+      <font size=+1><b>Legend</b></font><br><hr>
+      <img src="[legend]"><hr>
+
+      <p>
+      <center><INPUT NAME="ref" TYPE="image" SRC="[ref]" border="0"></center>
+    </td></tr></table>
+
+  </td></tr>
+</table>
+</center>
+
+<input type="hidden" name="imgxy" value="299.5 299.5">
+<input type="hidden" name="imgext" value="[mapext]">
+<input type="hidden" name="map" value="[map]">
+<input type="hidden" name="savequery" value="true">
+<input type="hidden" name="mapext" value="shapes">
+
+</form>
+
+<p><hr><p>
+
+</body></html>
+

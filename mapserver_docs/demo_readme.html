@@ -1,0 +1,337 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>MapServer Demonstration Installation Instructions</title>
+<script language="javascript" src="javascript/include.js"></script>
+</head>
+
+<body bgcolor="#ffffff" marginheight=0 marginwidth=0 style="margin:0px">
+<script language="javascript">header("doc");</script>
+<table width="600" align="left">
+<tr>
+<td>
+<h1>MapServer Demo Application<br>
+Installation Instructions</h1>
+
+<p>
+Pericles S. Nacionales<br>
+<a href="mailto:pnaciona@gis.umn.edu">pnaciona@gis.umn.edu<br>
+</a>22 October, 2000</p>
+
+<p>
+This document provides basic instructions on setting up the MapServer Demo
+Application.&nbsp; It assumes that the MapServer CGI program (e.g., mapserv or
+mapserv.exe) has been installed on the web server's cgi-bin directory.</p>
+<p>_______________________________________________________________________________</p>
+<h2>Table of Contents</h2>
+<h3><a href="#intro">1. Introduction</a></h3>
+<h3><a href="#install">2. Installation</a></h3>
+<ul>
+  <li><a href="#init">2.1 The demo_init.html file</a></li>
+  <li><a href="#map">2.2 The map file</a></li>
+  <li><a href="#template">2.3 The HTML template file</a></li>
+  <li><a href="#error">2.4 Common Error Messages</a></li>
+  <li><a href="#debug">2.5 Debugging Error Messages&nbsp;</a></li>
+</ul>
+<h3><a href="#info">3. Further Information</a></h3>
+<h3><a href="#ack">4. Acknowledgements</a></h3>
+<p>&nbsp;</p>
+
+<p>_______________________________________________________________________________</p>
+<h3><a name="intro">1. Introduction</a></h3>
+<p> This document describes how to set the map and template file
+parameters so that it works with the installed mapserver CGI software and the
+demo dataset.&nbsp;It is assumed that the MapServer CGI program (mapserv or
+mapserv.exe) has been compiled and installed in the web server's cgi-bin
+directory, and that the web server is running. Although this document might seem targeted for the Unix users,
+special instructions for Windows users are provided.</p>
+<p><b>Note on WINDOWS, UNIX, and URL paths usage:<br>
+</b>
+When specifying paths or subdirectories, WINDOWS uses the
+backslash (\) while UNIX uses the forward slash (/). When writing a path as URL,
+always use the forward slash.</p>
+<p>&nbsp;</p>
+<h3><a name="install">2. Installation</a></h3>
+<p>If you have not already done so, decompress and untar the
+ms_demo package into a web accessible directory (e.g. &quot;/home/httpd/htdocs&quot;
+or &quot;C:\Inetpub\wwwroot&quot;).</p>
+<p>One of the two example commands below can do the trick for
+you.</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; gunzip -c ms_demo.tar.gz | tar xvf -</font></p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; tar xzvf ms_demo.tar.gz</font></p>
+<p>(If you have Windows, WinZip or similar utilities can
+decompress this package for you.)</p>
+<p>As an example, I will extract my files in &quot;/home/httpd/htdocs&quot;
+which is also my web root directory. If I use Windows NT and IIS 4.0, I would
+have extracted the files in &quot;C:\Inetpub\wwwroot&quot;. This should
+decompress several files in a directory tree as below:<br>
+/home/httpd/htdocs/ms_demo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/graphics<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/perl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/symbols</p>
+<p>Or in Windows NT:<br>
+C:\Inetpub\wwwroot\ms_demo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\graphics<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\perl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\symbols</p>
+<p>To make this demo application work with your MapServer, you will need to edit
+three files--the application initialization html file, the map file, and the
+main html template file.</p>
+
+<h4>&nbsp;</h4>
+
+<h4><a name="init">2.1 The demo_init.html file</a></h4>
+<p>One of the three files, in this demo, that the user has to
+edit is the &quot;demo_init.html&quot; file. This is an html form that
+submits the initial parameters to the MapServer CGI. You need to make sure that the correct
+MapServer CGI program is being called. In UNIX, the program is typically
+called &quot;mapserv&quot; and is invoked from the cgi-bin directory as &quot;/cgi-bin/mapserv&quot;.
+In Windows NT, it's typically called &quot;mapserv.exe&quot; and invoked as
+&quot;/cgi-bin/mapserv.exe&quot;. Look for the line:</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;form method=GET action=&quot;/cgi-bin/mapserv&quot;&gt;</font></p>
+<p>and change as appropriate. Unix users typically don't have to
+change this and Windows users will have to add the &quot;.exe&quot; extension.&nbsp;
+Now, look for the line:</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;input type=&quot;hidden&quot; name=&quot;map&quot;
+value=&quot;ms_demo\demo.map&quot;&gt;</font></p>
+<p>and change it with the new path of your demo.map. In my
+example, this should now look like:</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;input type=&quot;hidden&quot; name=&quot;map&quot;
+value=&quot;/home/httpd/htdocs/ms_demo/demo.map&quot;&gt;</font></p>
+<p>or in Windows NT,</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;input type=&quot;hidden&quot; name=&quot;map&quot;
+value=&quot;c:\Inetpub\wwwroot\ms_demo\demo.map&quot;&gt;</font></p>
+<p>That is all that needs to be done with this file.</p>
+
+<p>&nbsp;</p>
+
+<h4><a name="map">2.2 The Map File</a></h4>
+<p>The map file is the MapServer application's configuration
+file. This is where you specify paths to the template files and datasets. The
+demonstration map file, demo.map, contains such paths which must be edited before the
+application actually works.</p>
+<p>Open demo.map in your favorite text editor. If you are using
+Windows, this is where the slashes becomes problematic. Most of the paths
+specified in the map file refers to the local subdirectories and not the URL paths.
+There is, however, an instance where you need to specify a URL path and that is
+with the keyword IMAGEURL.&nbsp; Look at the lines:</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IMAGEPATH &quot;/usr/local/apache/htdocs/tmp/&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IMAGEURL &quot;/tmp/&quot;</font></p>
+<p>In my example, I will have to replace the IMAGEPATH line with:</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IMAGEPATH &quot;/home/httpd/htdocs/tmp/&quot;</font></p>
+<p>If I don't have a &quot;tmp&quot; subdirectory in &quot;/home/httpd/htdocs&quot;,
+I will have to create it and make sure that web users have write permission to it.
+Make sure to have the extra slash at the end of the path.</p>
+<p>In Windows NT, I will have to change the IMAGEPATH line to:</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IMAGEPATH &quot;C:\Inetpub\wwwroot\tmp\&quot;</font></p>
+<p>If this &quot;tmp&quot; subdirectory doesn't exist in my web
+server, I would have to create it and give web users permissions to write to it.&nbsp;
+I will leave the IMAGEURL line as it is. IMAGEURL tells
+mapserver where the mapserver-generated images are located, relative to the web
+root directory.</p>
+<p>These should be the only things you need to change in &quot;demo.map&quot;.</p>
+
+<h4>&nbsp;</h4>
+
+<h4><a name="template">2.3 The HTML Template File</a></h4>
+
+<p>The demo.html template file is used by MapServer to provide an interface and as a
+mechanism for delivering the generated graphics and other data.&nbsp; For the
+purpose of this demo application, you only need to make sure that the line</p>
+
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;form
+method=GET action=&quot;/cgi-bin/mapserv&quot;&gt;</font></p>
+
+<p>points to the proper CGI program.&nbsp; This is probably correct for UNIX but
+will need to be modified to</p>
+
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;form
+method=GET action=&quot;/cgi-bin/mapserv.exe&quot;&gt;</font></p>
+
+<p>for Windows.&nbsp;&nbsp;</p>
+
+<p><b>Note:</b>&nbsp; You can not load the demo.html directly since it is a
+template file.&nbsp; Although it looks like a normal HTML file, the demo.html
+cannot be loaded directly on a browser as it needs parameters from the MapServer
+CGI.</p>
+
+<p>&nbsp;</p>
+
+<p>After completing all the changes to the three files above, you should now
+have a working demo application.&nbsp; To test your application, open a web
+browser and enter the URL to the &quot;demo_init.html&quot;.&nbsp; This should
+be something like:</p>
+
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp; </font><a href="http://your.host.name/ms_demo/demo_init.html"><font face="Courier">http://your.host.name/ms_demo/demo_init.html</font></a></p>
+
+<p>where &quot;your.host.name&quot; should be replaced by your web server's
+address.&nbsp; In the event that your demo installation does not work, check for
+misspellings and/or look at some of the common error messages below.&nbsp; Also,
+check the subsection on debugging error messages to get some basic understanding
+on how to debug your MapServer applications.</p>
+
+<p>&nbsp;</p>
+
+<h4><a name="error">2.4 Common Error Messages</a></h4>
+
+<p>Pointing a browser at <a href="http://host/ms_demo/demo_init.html">http://host/ms_demo/demo_init.html</a>
+and slapping the 'initialize' button yields:</p>
+<ul>
+  <li><font face="Courier">msLoadMap(): Unable to access file. (/ms_demo/demo.map)</font></li>
+</ul>
+
+<p>You probably forgot to specify the complete path to the map file in
+demo_init.html. For example, change:</p>
+
+<blockquote>
+
+<p><font face="Courier">&lt;input type=&quot;hidden&quot; name=&quot;map&quot;
+value=&quot;ms_demo/demo.map&quot;&gt;</font></p>
+
+</blockquote>
+
+<p>to:</p>
+
+<blockquote>
+
+<p><font face="Courier">&lt;input type=&quot;hidden&quot; name=&quot;map&quot;
+value=&quot;/var/www/htdocs/ms_demo/demo.map&quot;&gt;</font></p>
+
+</blockquote>
+<p>&nbsp;</p>
+
+<ul>
+  <li><font face="Courier">loadSymbol(): GD library error</font></li>
+</ul>
+<p>This can occur if you have a new version (&gt;1.6(?)) of the GD library
+installed which doesn't support GIF images, And, you have a symbol file which
+contains a gif image. A workaround is to comment out all sections of the .map
+file which refer to the gif-containing symbol file, and the layers which refer
+to those symbols. For example:</p>
+
+<blockquote>
+
+<p><font face="Courier">#MARKERSET symbols/marker.sym<br>
+...<br>
+#LAYER<br>
+#&nbsp; NAME roads<br>
+#&nbsp; MAXSCALE 300000<br>
+#&nbsp; STATUS ON<br>
+#&nbsp; DATA ctyrdln3<br>
+#&nbsp; TYPE ANNOTATION<br>
+#&nbsp; LABELITEM &quot;road_name&quot;<br>
+#&nbsp; CLASS<br>
+#&nbsp;&nbsp;&nbsp; COLOR 255 255 255<br>
+#&nbsp;&nbsp;&nbsp; SYMBOL 'county_highway_shield' # &lt;= the 'bad' line<br>
+#&nbsp;&nbsp;&nbsp; LABEL<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MINFEATURESIZE 40<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MINDISTANCE 150<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; POSITION CC<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIZE TINY<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; COLOR 0 0 0<br>
+#&nbsp;&nbsp;&nbsp; END<br>
+#&nbsp; END<br>
+#END # county road annotation</font></p>
+
+</blockquote>
+<p>Alternatively just comment out the CLASS section rather than<br>
+the whole layer.</p>
+
+<p>&nbsp;</p>
+
+<ul>
+  <li><font face="Courier">msDrawReferenceMap(): GD library error.&nbsp; Unable
+    to initialize image.</font></li>
+</ul>
+<p>This is probably the same problem as the previous one: no GIF support. Check
+and see if the REFERENCE image is a .GIF. If it is comment out the REF code
+block. (This is a workaround, not a fix)</p>
+
+<p>&nbsp;</p>
+
+<ul>
+  <li><font face="Courier">msLoadMap(): Premature End-of-File. Undefined symbol.</font></li>
+</ul>
+
+<p>You have an unclosed object or class construct and the End Of File was
+encountered before mapserve found and END statement. Usually means an END
+statement was forgotten or inadvertantly commented out. (All object
+constructions must have an END.&nbsp; Study the LAYER construct in the previous
+section for an example).</p>
+
+<p>&nbsp;</p>
+
+<h4><a name="debug">2.5 Debugging Error Messages</a></h4>
+
+<p>How to interpret the error messages you may see. For an example we'll use:<br>
+<br>
+<font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loadString(): Incorrect data
+type. (105):(3)<br>
+</font><br>
+The function &quot;loadString&quot; failed because it was fed an incorrect data
+type; It was expecting a string and recieved a number. The error occured in
+line# 3 of the .map file (the line count starts at 0).<br>
+<br>
+The last set of brackets contain the line number:</p>
+
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3) # line 3</font></p>
+
+<p>the previous brackets contain the value mapserv choked on:</p>
+
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (105)&nbsp;&nbsp;&nbsp; #
+the line in the mapfile was: NAME&nbsp; 105d11</font></p>
+
+<p>So mapserver parsed &quot;NAME 105d11&quot; as an integer when a<br>
+string was expected. In this example the solution is to make<br>
+sure you quote values when you need them interpreted as<br>
+characters rather than numbers:</p>
+
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NAME &quot;105d11&quot;</font></p>
+
+<p>&nbsp;</p>
+
+<h3><a name="info">3. Further Information</a></h3>
+
+<p>The instructions provided here is meant to get your demo application
+working.&nbsp; By changing the template and map files, you should be able to get
+a good idea of the basic capabilities of MapServer.&nbsp; If you need further
+examples beyond what this demo gives, there is a MapServer tutorial available at
+<a href="http://terrasip.gis.umn.edu/projects/tutorial">http://terrasip.gis.umn.edu/projects/tutorial</a>.&nbsp;
+For the Windows NT version of this tutorial, please visit <a href="http://128.101.73.80/projects/tutorial">http://128.101.73.80/projects/tutorial</a>.&nbsp;
+Of course, documentation and other forms of support, including the mapserver-users
+listserv archives can be found at http://mapserver.gis.umn.edu.</p>
+
+<p>&nbsp;</p>
+
+<h3><a name="ack">4. Acknowledgements</a></h3>
+<p>This demonstration application was created, and is being provided, by Steve
+Lime, e-mail: <a href="mailto:steve.lime@dnr.state.mn.us">steve.lime@dnr.state.mn.us</a>.<br>
+The sections Common Error Messages and Debugging Error Messages were kindly
+provided by Matt Wilkie, e-mail: <a href="mailto:Matt.Wilkie@gov.yk.ca">Matt.Wilkie@gov.yk.ca</a>.</p>
+<p><i><font size="2">Last updated: </font></i><!--webbot bot="Timestamp"
+startspan S-Type="EDITED" S-Format="%m/%d/%Y %H:%M:%S %Z" -->10/23/2000 14:12:01 -0500<!--webbot
+bot="Timestamp" i-CheckSum="37731" endspan -->
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<script language="javascript">footer();</script>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

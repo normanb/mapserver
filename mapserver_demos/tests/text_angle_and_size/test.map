@@ -1,0 +1,39 @@
+NAME test
+SIZE 400 400
+EXTENT 0 0 449 49 # dummy extent, not used at all
+STATUS ON
+SHAPEPATH ../data
+FONTSET ../fonts/fonts.list
+MARKERSET ../symbols/marker.sym
+
+IMAGECOLOR 181 181 181
+
+LAYER
+  NAME test
+  TYPE ANNOTATION
+  DATA "text"
+  TRANSFORM FALSE
+  STATUS DEFAULT
+  CLASS
+    COLOR 255 0 0
+    SYMBOL "circle"
+    SIZE 15
+    LABEL
+      SIZE 16
+      TYPE TRUETYPE
+      COLOR 0 0 0
+      SHADOWCOLOR 255 255 230
+      SHADOWSIZE 0 2
+      FONT arial-bold
+      ANTIALIAS
+      ANGLE 45
+      POSITION CC
+      buffer 10
+    END
+  END
+  LABELITEM "string"
+  LABELSIZEITEM "size"
+  LABELANGLEITEM "angle"
+END
+
+END

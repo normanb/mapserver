@@ -1,0 +1,63 @@
+MAP
+  STATUS ON
+  EXTENT -180 -90 180 90
+  SIZE 561 281
+  UNITS DD
+  FONTSET /export/stlime/mapserv/ms_symbols/fonts/fonts.list
+  MARKERSET /export/stlime/mapserv/ms_symbols/symbols/marker.sym
+
+  LAYER
+    NAME relief
+    TYPE RASTER
+    DATA relief.tif
+    STATUS DEFAULT
+  END
+
+  LAYER
+    NAME quakes
+    TYPE POINT
+    STATUS OFF
+    SYMBOLSCALE	50000000
+    CLASS
+      NAME "Recent earth quakes."
+      SYMBOL 6
+      SIZE 15
+      OUTLINECOLOR 0 0 0	
+      COLOR 255 0 0
+      LABEL
+        TYPE truetype
+	ANTIALIAS
+        BACKGROUNDCOLOR 0 0 0
+        COLOR 255 255 255
+	FONT arial-bold
+        SIZE 12
+	MINSIZE 8
+	MAXSIZE 16
+	POSITION AUTO
+	PARTIALS FALSE
+      END
+    END
+  END
+
+  LAYER
+    NAME timestamp
+    TYPE ANNOTATION
+    STATUS off
+    TRANSFORM FALSE
+    CLASS
+      TEXT 'This is where the timestamp goes.'
+      LABEL
+        COLOR 0 0 0
+        OUTLINECOLOR 225 225 225
+        ANTIALIAS
+        TYPE TRUETYPE
+        FONT arial-bold-italic
+        SIZE 8
+        POSITION CR
+	FORCE ON
+      END     
+    END
+    FEATURE POINTS 5 270 END END
+  END
+END
+  

@@ -1,0 +1,70 @@
+MAP
+  NAME TEST
+  EXTENT 490000 4981800 491200 4983000
+  SIZE 320 250
+  STATUS ON
+  IMAGECOLOR 255 255 255
+  SHAPEPATH "../data"
+
+  # the DOQ image
+  LAYER
+   DATA o4409308nw.jpg 
+   STATUS DEFAULT
+   TYPE RASTER
+  END
+
+  LAYER
+    NAME test1
+    STATUS OFF
+    DATA drgncimq3634.tif
+    TYPE RASTER    
+  END
+
+  LAYER
+    NAME test2 # show just the forest
+    STATUS OFF
+    DATA drgncimq3634.tif
+    TYPE RASTER
+    CLASS
+      EXPRESSION /27|24/
+    END
+  END
+
+   LAYER
+    NAME test3 # just the forest, now turned yellow
+    STATUS OFF
+    DATA drgncimq3634.tif
+    TYPE RASTER    
+    TRANSFORM OFF
+    CLASS
+      EXPRESSION /27|24/
+      COLOR 255 255 0
+    END
+  END
+
+  LAYER
+    NAME test4 # everything but the forest, normal colors
+    STATUS OFF
+    DATA drgncimq3634.tif
+    TYPE RASTER        
+    CLASS
+      EXPRESSION /27|24/
+      COLOR -255 -255 -255 # matching pixels are transparent
+    END
+    CLASS
+      EXPRESSION /./ # everything else normal
+    END
+  END
+
+  LAYER
+    NAME test5 # black as is, everything else grey
+    STATUS OFF
+    DATA drgncimq3634.tif
+    TYPE RASTER    
+    CLASS
+      EXPRESSION /^0$|^1$/
+      COLOR 255 255 255	
+    END
+  END
+
+END

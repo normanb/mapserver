@@ -1,0 +1,38 @@
+<html>
+<head>
+  <title>MapServer Test Suite - Text Angle and Size</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<font size="+2" face="arial,helvetica"><b>MapServer <a href="../index.html">Test Suite</a> - Text Angle and Size</b></font>
+
+<p>
+Note that this test also demonstates controlling map file parameters via a URL. No
+need to re-write a file for a simple change. View the source and check out the last
+3 image URLs.
+
+<p>
+<a href="/ms_test/text_angle_and_size/test.map"><i>map file</i></a>
+<p>
+
+<font size="+1" face="arial,helvetica">Item based size and rotation...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/text_angle_and_size/test.map&mode=map">
+
+<p>
+
+<font size="+1" face="arial,helvetica">Item based size and constant angle...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/text_angle_and_size/test.map&mode=map&map_test_labelangleitem=null">
+
+<p>
+
+<font size="+1" face="arial,helvetica">Item based angle and constant size...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/text_angle_and_size/test.map&mode=map&map_test_labelsizeitem=null">
+
+<p>
+
+<font size="+1" face="arial,helvetica">Constant angle and size...</font><br>
+<img src="/cgi-bin/mapserv?map=ms_test/text_angle_and_size/test.map&mode=map&map_test_labelsizeitem=null&map_test_labelangleitem=null">
+
+</body>
+</html>

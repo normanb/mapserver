@@ -1,0 +1,48 @@
+MAP
+  NAME EX2
+  EXTENT 74000 4775000 798000 5500000
+  SIZE 300 300
+  SHAPEPATH "data"
+
+  LAYER
+    NAME "minnesota"
+    DATA minnesota
+    STATUS DEFAULT
+    TYPE POLYGON
+    CLASS
+      COLOR 212 212 212      
+    END
+  END
+
+  LAYER
+    NAME "state_parks"
+    DATA stprkpy3
+    STATUS DEFAULT
+    TYPE POLYGON
+    CLASS
+      COLOR 250 175 25
+    END
+  END
+
+  LAYER
+    NAME "lakes"
+    DATA lakes_low_sort
+    STATUS DEFAULT
+    TYPE POLYGON
+    MAXFEATURES 75
+    CLASS
+      COLOR 128 128 255
+    END
+  END
+
+  LAYER
+    NAME "counties"
+    DATA ctybdln2
+    STATUS DEFAULT
+    TYPE LINE
+    CLASS
+      COLOR 128 128 128
+    END
+  END
+
+END

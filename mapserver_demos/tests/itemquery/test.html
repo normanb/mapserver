@@ -1,0 +1,463 @@
+<html>
+<head>
+  <title>MapServer Test Suite - ItemQuery</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<font size="+2" face="arial,helvetica"><b>MapServer <a href="/ms_test">Test Suite</a> - ItemQuery</b></font>
+
+<p>
+
+<font size="+1" face="arial,helvetica"><b>Case 1: Simple ItemQuery</b></font>
+
+<p>
+<a href="/ms_test/itemquery/case1.map"><i>map file</i></a><br>
+<a href="/ms_test/itemquery/case1_template.html"><i>query template file</i></a>
+<p>
+
+<form method="get" action="/cgi-bin/mapserv">
+
+<input type="hidden" name="map" value="ms_test/itemquery/case1.map">
+<input type="hidden" name="mode" value="itemquery">
+<input type="hidden" name="item" value="cty_name">
+
+Pick one:
+
+<select name="value" size="1">
+<option>  Aitkin
+<option>  Anoka
+<option>  Becker
+<option>  Beltrami
+<option>  Benton
+<option>  Big Stone
+<option>  Blue Earth
+<option>  Brown
+<option>  Carlton
+<option>  Carver
+<option>  Cass
+<option>  Chippewa
+<option>  Chisago
+<option>  Clay
+<option>  Clearwater
+<option>  Cook
+<option>  Cottonwood
+<option>  Crow.Wing
+<option>  Dakota
+<option>  Dodge
+<option>  Douglas
+<option>  Faribault
+<option>  Fillmore
+<option>  Freeborn
+<option>  Goodhue
+<option>  Grant
+<option>  Hennepin
+<option>  Houston
+<option>  Hubbard
+<option>  Isanti
+<option>  Itasca
+<option>  Jackson
+<option>  Kanabec
+<option>  Kandiyohi
+<option>  Kittson
+<option>  Koochiching
+<option>  Lac Qui Parle
+<option>  Lake
+<option>  Lake of the Woods
+<option>  Le Sueur
+<option>  Lincoln
+<option>  Lyon
+<option>  Mahnomen
+<option>  Marshall
+<option>  Martin
+<option>  McLeod
+<option>  Meeker
+<option>  Mille Lacs
+<option>  Morrison
+<option>  Mower
+<option>  Murray
+<option>  Nicollet
+<option>  Nobles
+<option>  Norman
+<option>  Olmsted
+<option>  Otter Tail
+<option>  Pennington
+<option>  Pine
+<option>  Pipestone
+<option>  Polk
+<option>  Pope
+<option>  Ramsey
+<option>  Red Lake
+<option>  Redwood
+<option>  Renville
+<option>  Rice
+<option>  Rock
+<option>  Roseau
+<option>  Scott
+<option>  Sherburne
+<option>  Sibley
+<option>  St. Louis
+<option>  Stearns
+<option>  Steele
+<option>  Stevens
+<option>  Swift
+<option>  Todd
+<option>  Traverse
+<option>  Wabasha
+<option>  Wadena
+<option>  Waseca
+<option>  Washington
+<option>  Watonwan
+<option>  Wilkin
+<option>  Winona
+<option>  Wright
+<option>  Yellow Medicine
+</select>
+
+<input type="submit" value="Go!">
+
+</form>
+
+<p><hr noshade><p>
+
+<font size="+1" face="arial,helvetica"><b>Case 2: Simple ItemNQuery</b></font>
+
+<p>
+<a href="/ms_test/itemquery/case2.map"><i>map file</i></a><br>
+<a href="/ms_test/itemquery/case2_header.html"><i>query header file</i></a>&nbsp;&nbsp;
+<a href="/ms_test/itemquery/case2_template.html"><i>query template file</i></a>&nbsp;&nbsp;
+<a href="/ms_test/itemquery/case2_footer.html"><i>query footer file</i></a>
+<p>
+
+<form method="get" action="/cgi-bin/mapserv">
+
+<input type="hidden" name="map" value="ms_test/itemquery/case2.map">
+<input type="hidden" name="mode" value="itemnquery">
+<input type="hidden" name="item" value="cty_name">
+
+Select one or more: <br>
+
+<select name="value" size="5" MULTIPLE>
+<option>  Aitkin
+<option>  Anoka
+<option>  Becker
+<option>  Beltrami
+<option>  Benton
+<option>  Big Stone
+<option>  Blue Earth
+<option>  Brown
+<option>  Carlton
+<option>  Carver
+<option>  Cass
+<option>  Chippewa
+<option>  Chisago
+<option>  Clay
+<option>  Clearwater
+<option>  Cook
+<option>  Cottonwood
+<option>  Crow Wing
+<option>  Dakota
+<option>  Dodge
+<option>  Douglas
+<option>  Faribault
+<option>  Fillmore
+<option>  Freeborn
+<option>  Goodhue
+<option>  Grant
+<option>  Hennepin
+<option>  Houston
+<option>  Hubbard
+<option>  Isanti
+<option>  Itasca
+<option>  Jackson
+<option>  Kanabec
+<option>  Kandiyohi
+<option>  Kittson
+<option>  Koochiching
+<option>  Lac Qui Parle
+<option>  Lake
+<option>  Lake of the Woods
+<option>  Le Sueur
+<option>  Lincoln
+<option>  Lyon
+<option>  Mahnomen
+<option>  Marshall
+<option>  Martin
+<option>  McLeod
+<option>  Meeker
+<option>  Mille Lacs
+<option>  Morrison
+<option>  Mower
+<option>  Murray
+<option>  Nicollet
+<option>  Nobles
+<option>  Norman
+<option>  Olmsted
+<option>  Otter Tail
+<option>  Pennington
+<option>  Pine
+<option>  Pipestone
+<option>  Polk
+<option>  Pope
+<option>  Ramsey
+<option>  Red Lake
+<option>  Redwood
+<option>  Renville
+<option>  Rice
+<option>  Rock
+<option>  Roseau
+<option>  Scott
+<option>  Sherburne
+<option>  Sibley
+<option>  St. Louis
+<option>  Stearns
+<option>  Steele
+<option>  Stevens
+<option>  Swift
+<option>  Todd
+<option>  Traverse
+<option>  Wabasha
+<option>  Wadena
+<option>  Waseca
+<option>  Washington
+<option>  Watonwan
+<option>  Wilkin
+<option>  Winona
+<option>  Wright
+<option>  Yellow Medicine
+</select>
+
+<p>
+
+<input type="submit" value="Go!">
+
+</form>
+
+<p><hr noshade><p>
+
+<font size="+1" face="arial,helvetica"><b>Case 3: Simple ItemQuery With QueryMap</b></font>
+
+<p>
+<a href="/ms_test/itemquery/case3.map"><i>map file</i></a><br>
+<a href="/ms_test/itemquery/case3_template.html"><i>query template file</i></a>
+<p>
+
+<form method="get" action="/cgi-bin/mapserv">
+
+<input type="hidden" name="map" value="ms_test/itemquery/case3.map">
+<input type="hidden" name="mode" value="itemquery">
+<input type="hidden" name="item" value="cty_name">
+
+Pick one:
+
+<select name="value" size="1">
+<option>  Aitkin
+<option>  Anoka
+<option>  Becker
+<option>  Beltrami
+<option>  Benton
+<option value="Big.Stone">  Big Stone
+<option value="Blue.Earth">  Blue Earth
+<option>  Brown
+<option>  Carlton
+<option>  Carver
+<option>  Cass
+<option>  Chippewa
+<option>  Chisago
+<option>  Clay
+<option>  Clearwater
+<option>  Cook
+<option>  Cottonwood
+<option value="Crow.Wing">  Crow Wing
+<option>  Dakota
+<option>  Dodge
+<option>  Douglas
+<option>  Faribault
+<option>  Fillmore
+<option>  Freeborn
+<option>  Goodhue
+<option>  Grant
+<option>  Hennepin
+<option>  Houston
+<option>  Hubbard
+<option>  Isanti
+<option>  Itasca
+<option>  Jackson
+<option>  Kanabec
+<option>  Kandiyohi
+<option>  Kittson
+<option>  Koochiching
+<option value="Lac.Qui.Parle">  Lac Qui Parle
+<option>  Lake
+<option value="Lake.of.the.Woods">  Lake of the Woods
+<option value="Le Sueur">  Le Sueur
+<option>  Lincoln
+<option>  Lyon
+<option>  Mahnomen
+<option>  Marshall
+<option>  Martin
+<option>  McLeod
+<option>  Meeker
+<option value="Mille Lacs">  Mille Lacs
+<option>  Morrison
+<option>  Mower
+<option>  Murray
+<option>  Nicollet
+<option>  Nobles
+<option>  Norman
+<option>  Olmsted
+<option value="Otter.Tail"">  Otter Tail
+<option>  Pennington
+<option>  Pine
+<option>  Pipestone
+<option>  Polk
+<option>  Pope
+<option>  Ramsey
+<option value="Red.Lake">  Red Lake
+<option>  Redwood
+<option>  Renville
+<option>  Rice
+<option>  Rock
+<option>  Roseau
+<option>  Scott
+<option>  Sherburne
+<option>  Sibley
+<option value="St..Louis">  St. Louis
+<option>  Stearns
+<option>  Steele
+<option>  Stevens
+<option>  Swift
+<option>  Todd
+<option>  Traverse
+<option>  Wabasha
+<option>  Wadena
+<option>  Waseca
+<option>  Washington
+<option>  Watonwan
+<option>  Wilkin
+<option>  Winona
+<option>  Wright
+<option value="Yellow.Medicine">  Yellow Medicine
+</select>
+
+<input type="submit" value="Go!">
+
+</form>
+
+<p><hr noshade><p>
+
+<font size="+1" face="arial,helvetica"><b>Case 4: Simple ItemNQuery With QueryMap</b></font>
+
+<p>
+<a href="/ms_test/itemquery/case4.map"><i>map file</i></a><br>
+<a href="/ms_test/itemquery/case4_header.html"><i>query header file</i></a>&nbsp;&nbsp;
+<a href="/ms_test/itemquery/case4_template.html"><i>query template file</i></a>&nbsp;&nbsp;
+<a href="/ms_test/itemquery/case4_footer.html"><i>query footer file</i></a>
+<p>
+
+<form method="get" action="/cgi-bin/mapserv">
+
+<input type="hidden" name="map" value="ms_test/itemquery/case4.map">
+<input type="hidden" name="mode" value="itemnquery">
+<input type="hidden" name="item" value="cty_name">
+
+Select one or more: <br>
+
+<select name="value" size="5" MULTIPLE>
+<option>  Aitkin
+<option>  Anoka
+<option>  Becker
+<option>  Beltrami
+<option>  Benton
+<option>  Big Stone
+<option>  Blue Earth
+<option>  Brown
+<option>  Carlton
+<option>  Carver
+<option>  Cass
+<option>  Chippewa
+<option>  Chisago
+<option>  Clay
+<option>  Clearwater
+<option>  Cook
+<option>  Cottonwood
+<option>  Crow Wing
+<option>  Dakota
+<option>  Dodge
+<option>  Douglas
+<option>  Faribault
+<option>  Fillmore
+<option>  Freeborn
+<option>  Goodhue
+<option>  Grant
+<option>  Hennepin
+<option>  Houston
+<option>  Hubbard
+<option>  Isanti
+<option>  Itasca
+<option>  Jackson
+<option>  Kanabec
+<option>  Kandiyohi
+<option>  Kittson
+<option>  Koochiching
+<option>  Lac Qui Parle
+<option>  Lake
+<option>  Lake of the Woods
+<option>  Le Sueur
+<option>  Lincoln
+<option>  Lyon
+<option>  Mahnomen
+<option>  Marshall
+<option>  Martin
+<option>  McLeod
+<option>  Meeker
+<option>  Mille Lacs
+<option>  Morrison
+<option>  Mower
+<option>  Murray
+<option>  Nicollet
+<option>  Nobles
+<option>  Norman
+<option>  Olmsted
+<option>  Otter Tail
+<option>  Pennington
+<option>  Pine
+<option>  Pipestone
+<option>  Polk
+<option>  Pope
+<option>  Ramsey
+<option>  Red Lake
+<option>  Redwood
+<option>  Renville
+<option>  Rice
+<option>  Rock
+<option>  Roseau
+<option>  Scott
+<option>  Sherburne
+<option>  Sibley
+<option>  St. Louis
+<option>  Stearns
+<option>  Steele
+<option>  Stevens
+<option>  Swift
+<option>  Todd
+<option>  Traverse
+<option>  Wabasha
+<option>  Wadena
+<option>  Waseca
+<option>  Washington
+<option>  Watonwan
+<option>  Wilkin
+<option>  Winona
+<option>  Wright
+<option>  Yellow Medicine
+</select>
+
+<p>
+
+<input type="submit" value="Go!">
+
+</form>
+
+</body>
+</html>

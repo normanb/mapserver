@@ -1,0 +1,138 @@
+[gldfs.cr.usgs.gov]
+
+USGS Central Region Geologic Hazards Team Finger Server.
+
+----
+Login name: qk_info   			In real life: see Ray Buland
+Never logged in.
+Mail last read Wed Jan  6 12:20:01 1999
+Plan:
+                                  Finger Quake
+                               General Information
+
+   The list of recent earthquakes available through "finger quake@gldfs..." is 
+a service provided by the National Earthquake Information Service (NEIS) of the 
+U. S. Geological Survey.  The NEIS is located at the National Earthquake 
+Information Center (NEIC) in Golden, Colorado, USA which also serves as World 
+Data Center A for Seismology.  The NEIS is a member of the Council of the 
+National Seismic System (CNSS) which coordinates activities among the national 
+and regional seismograph networks, including "finger quake" services.  The NEIS 
+is also closely associated with the U. S. National Seismograph Network (USNSN) 
+and cooperates with national and international seismological organizations 
+around the world.  Unlike other members of the CNSS, the NEIS is responsible 
+for reporting on moderate to large earthquakes throughout the U. S. and large 
+earthquakes worldwide.
+
+                             Earthquake Parameters
+
+   DATE-TIME is in Coordinated Universal Time (UTC).  This is approximately the 
+same as Greenwich Mean Time (GMT) which is 5 hours later than Eastern Standard 
+Time (EST) and 8 hour later than Pacific Standard Time (PST).  Geographic 
+latitude (LAT) and longitude (LON) are given in decimal degrees corresponding 
+to the usual map coordinates.  Depth (DEP) is given in kilometers below sea 
+level.  Six different magnitude types (MAG) may be quoted:  Ml (local, the 
+original Richter magnitude), Lg (mblg), Md (duration), Mb (body wave), Ms 
+(surface wave), and Mw (moment).  Since all magnitude types have been 
+calibrated with respect to one another, the differences are generally of 
+interest only to seismologists.  Given the size, location, and available 
+information, the most meaningful magnitude will be quoted for each event.  
+Location qualities (Q) are A (good), B (fair), C (poor), and D (bad).  The 
+quality refers to the precision with which the earthquake location has been 
+computed.  A and B qualities mean that the location is quite reliable while 
+a C quality can be pretty uncertain.  Bad locations will generally not be 
+reported.  No quality implies a location held to the coordinates of another 
+organization (e.g., a regional network with better coverage of an event).  The 
+comment is an automatically generated region name and can be misleading for 
+earthquakes near region boundaries.
+   Note that all earthquakes on the "quake" list have been reviewed by a 
+seismic analyst.  However, in the interest of timeliness, locations and 
+magnitudes are entered once and not updated on the list.  Differences between 
+parameters quoted here and in the media do not necessarily imply that the 
+"quake" list is in error.  Small differences in locations and magnitudes 
+determined by different organizations are to be expected due to differences in 
+the information available.  Also, in rare instances, substantial differences in 
+magnitudes can be due to real differences in interpretation, procedures, and 
+conventions.
+
+                             Additional Information
+
+   Recent earthquake lists for specific regions of the U. S. are available from 
+other CNSS members using "finger quake" at:  scec.gps.caltech.edu (Southern 
+California), andreas.wr.usgs.gov and quake.geo.berkeley.edu (Northern 
+California), geophys.washington.edu (Pacific Northwest), giseis.alaska.edu 
+(Alaska), seismo.unr.edu (Nevada), eqinfo.seis.utah.edu (Utah), 
+sisyphus.idbsu.edu (Idaho), info.seismo.usbr.gov (Wyoming & Western Colorado), 
+mbmgsun.mtech.edu (Montana), quake.eas.slu.edu (Central U. S.), 
+vtso.geol.vt.edu (Southeast), ldeo.columbia.edu (Northeast), and 
+tako.wr.usgs.gov (Hawaii).  A recent Canadian earthquake list is available at:  
+quake@seismo.emr.ca (in English) and seisme@seismo.emr.ca (in French).  Note 
+that some of the newer finger servers are temporarily redirected to our finger 
+list.
+   After earthquakes have scrolled off of the "quake" list, they will be 
+available in updated form from the Quick Epicenter Determinations (QED) 
+bulletin board.  To access the QED, use "telnet neis.cr.usgs.gov", login as 
+qed (no password required), and follow the on-line directions.  Note that 
+telnet is not like finger.  In particular, you will need to interact with the 
+QED to obtain what you want.  The QED includes earthquakes from about the last 
+six weeks and may be selectively searched.  After six weeks, the earthquakes 
+are revised with more data and the Preliminary Determination of Epicenters 
+(PDE) bulletin is published (on paper).  After about four months, the 
+earthquakes are revised again with even more data and republished as the PDE 
+Monthly Listing.  For information on subscribing to the PDE or obtaining PDE 
+information electronically, call (303) 273-8500 during normal business hours 
+(Mountain Time Zone).  Selective searches of our historical hypocenter database 
+are also available.  For information on this service, send E-mail to Glen 
+Reagor at hdf@neis.cr.usgs.gov.
+   Much more extensive information derived from the USNSN is also available 
+automatically through our AutoDRM (Automatic Data Request Manager).  Although 
+this service is intended to provide USNSN waveform data and instrument 
+responses for professional seismologists, it can also be used to obtain 
+information about earthquakes, activity at individual stations, the network 
+configuration, etc.  To get started on the AutoDRM, send E-mail to:  
+autodrm@gldfs.cr.usgs.gov with the message text:  PLEASE HELP all on one line.  
+Note that using the AutoDRM AMI command provides the same information as the 
+"quake" list, but for a longer time period.
+   Many other products and services are available from the U. G. Geological 
+Survey.  For information on other earthquake related products such as maps and 
+CD-ROMs, try accessing the NEIC home page on the World Wide Web at 
+http://wwwneic.cr.usgs.gov.
+
+                              Publication Criteria
+
+   The list available through "finger quake@gldfs..." has become the de facto 
+near-real-time bulletin of the NEIS.  In order to make the "quake" list more 
+internally consistent and better integrated with other NEIC products, 
+particularly the Quick Epicenter Determinations (QED) bulletin board, it has 
+been desirable to define formal publication criteria for the "quake" list.  
+These criteria fall into two response time categories:  immediate (e.g., within 
+two hours) and 24 hour response (normal working days only).  Note that the 
+"quake" list may not be complete at the indicated thresholds if insufficient 
+information is available to either locate the event adequately or to determine 
+that it meets the publication criteria.
+   On an immediate basis, all Earthquake Early Alerting Service alarm events 
+will be made available to the "quake" list.  At a minimum, this will includes 
+most earthquakes in the contiguous United States, Hawaii, and the more 
+populated areas of Alaska of magnitude 4.5 or greater, most other earthquakes 
+in the United States of magnitude 5.5 or greater, and most foreign earthquakes 
+of magnitude 6.5 or greater.  In practice, many foreign earthquakes smaller 
+than a magnitude of 6.5 will also be provided on an immediate basis.  
+Typically, this would include earthquakes in Mexico of magnitude 4.8 or larger, 
+earthquakes in northern South America of magnitude 5.0 or larger, earthquakes 
+in central and southern South America and in the Kuril Islands of magnitude 5.5 
+or larger, and most other foreign earthquakes of magnitude 6.0 or larger.
+   Within 24 hours, most earthquakes in the contiguous United States of 
+magnitude 3.5 or larger, most earthquakes in Alaska of magnitude 4.0 or larger, 
+most earthquakes in Hawaii of magnitude 4.5 or larger, most earthquakes in the 
+Aleutian Islands of magnitude 5.0 or larger, and most foreign earthquakes of 
+magnitude 5.5 or larger will be provided to the "quake" list.  Most earthquakes 
+in the United States which are felt will be provided to the "quake" list on a 
+24 hour basis even if they are smaller than a magnitude of 4.5.  Events in 
+aftershock sequences which meet the 24 hour criteria, but not the immediate 
+criteria will be included on the "quake" list at the discretion of the seismic 
+analyst.  Note that on weekends and holidays, meeting the 24 hour criteria will 
+be on a best effort basis.
+
+                                     Note
+
+   For your convenience, you can receive a copy of this information by E-mail 
+by sending any E-mail message to:  qk_info@gldfs.cr.usgs.gov.

@@ -1,0 +1,48 @@
+NAME test
+SHAPEPATH ../data
+SIZE 300 300
+EXTENT 74000 4775000 798000 5499000
+UNITS meters
+
+WEB
+  IMAGEPATH "/usr/local/www/docs_arachnid/tmp/"
+  IMAGEURL "/tmp/"
+  HEADER case4_header.html
+  FOOTER case4_footer.html
+END
+
+QUERYMAP
+  STATUS ON
+  STYLE HILITE
+  COLOR 255 255 0
+END
+
+SCALEBAR
+  STATUS ON
+  INTERVALS 3
+  STYLE 1
+  SIZE 150 4
+  COLOR 212 212 212
+  LABEL
+    SIZE TINY
+    COLOR 0 0 0
+  END
+END
+
+LAYER
+  NAME county
+  DATA county
+  STATUS DEFAULT
+  TYPE POLYGON
+
+  CLASS
+    COLOR 212 212 212
+    OUTLINECOLOR 0 0 0
+  END
+  
+  QUERY
+    TEMPLATE case4_template.html
+  END
+END
+
+END 

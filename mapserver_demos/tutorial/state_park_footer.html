@@ -1,0 +1,25 @@
+// objects loaded
+
+var url;
+
+if(num_parks == 1) { // cool, redirect to park page
+  url = "http://www.dnr.state.mn.us/parks_and_recreation/state_parks/" + parks[0].dir;
+  window.location.replace(url);      
+} else { // make a list of links
+
+  document.write("<font size=+2 face=arial,helvetica>Search Results</font><p>\n");
+  document.write("The search found " + num_parks + " State Parks. Choose one from the list below to continue.<p>\n");
+
+  document.write("<ul>\n");
+  for(var i=0; i<num_parks; i++) {
+    url = "http://www.dnr.state.mn.us/parks_and_recreation/state_parks/" + parks[i].dir;
+    document.write("<li> <a href=\"" + url + "\">" + parks[i].name + "</a>\n");
+  }    
+  document.write("</ul>\n");
+  document.write("or click <a href=\"javascript:history.back()\">here</a> to return to the map.\n");
+}
+
+</script>
+
+  </body>
+</html>

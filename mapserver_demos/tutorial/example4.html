@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Example 4: Advanced Interactive Interface</title>
+  </head>
+
+  <body>
+    <br>
+    <font size=+2 face=arial,helvetica>Example 4: Advanced Interactive Interface</font>
+    <p>
+
+    <form method="GET" action="/cgi-bin/mapserv">
+
+    <input type="hidden" name="map" value="[map]">
+    <input type="hidden" name="imgext" value="[mapext]">
+    <input type="hidden" name="tutorial_home" value="[tutorial_home]">
+    <input type="hidden" name="tutorial_url" value="[tutorial_url]">
+
+    <table border=1 cellpadding=3>
+    <tr>
+    <td align=center>
+      <input type="image" name="img" src="[img]" border="0">
+      <br>
+      <!-- [scale] --><img src="[scalebar]">
+    </td>
+    <td valign=top>
+      <font size=+1 face=arial,helvetica>Map Controls</font>
+      <p>
+      Choose your layers:<br>
+      <input type="checkbox" name="layer" value="state_parks" [state_parks_check]> State Parks<br>
+      <input type="checkbox" name="layer" value="lakes" [lakes_check]> Lakes & Rivers<br>
+      <input type="checkbox" name="layer" value="counties" [counties_check]> County Boundaries
+      <p>
+      Set your zoom option:<br>
+      <select name="zoom" size="1">
+      <option value="10" [zoom_10_select]> Zoom in 10 times
+      <option value="8" [zoom_8_select]> Zoom in 8 times
+      <option value="4" [zoom_4_select]> Zoom in 4 times
+      <option value="3" [zoom_3_select]> Zoom in 3 times
+      <option value="2" [zoom_2_select]> Zoom in 2 times
+      <option value="1"  [zoom_1_select]> Recenter Map
+      <option value="-2" [zoom_-2_select]> Zoom out 2 times
+      <option value="-3" [zoom_-3_select]> Zoom out 3 times
+      <option value="-4" [zoom_-4_select]> Zoom out 4 times
+      <option value="-8" [zoom_-8_select]> Zoom out 8 times
+      <option value="-10" [zoom_-10_select]> Zoom out 10 times
+      </select>
+      <p>
+      <font face=arial,helvetica><b>Legend</b></font><br>
+      <img src="[legend]"><p>
+      <input type="image" name="ref" src="[ref]" border="0">
+    </td>
+    </tr></table>
+    <p>
+    <a href="/cgi-bin/mapserv?map=[tutorial_home]/example5.map[get_layers]&tutorial_url=[tutorial_url]&tutorial_home=[tutorial_home]">next step</a>
+
+    </form>
+
+  </body>
+</html>

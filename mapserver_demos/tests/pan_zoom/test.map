@@ -1,0 +1,134 @@
+MAP
+  NAME pz
+  EXTENT 74000 4775000 798000 5500000
+  SIZE 300 400
+  SHAPEPATH "../data"
+  UNITS meters
+
+  FONTSET ../fonts/fonts.list
+
+  WEB
+    IMAGEPATH "/usr/local/www/docs_arachnid/tmp/"
+    IMAGEURL "/tmp/"
+    TEMPLATE test.html
+    MAXSCALE 8000000
+    MINSCALE  100000
+  END
+
+  LEGEND
+    STATUS ON
+    LABEL
+      TYPE TRUETYPE
+      FONT arial-bold
+      COLOR 0 0 0
+      SIZE 10
+      ANTIALIAS
+    END
+  END
+
+  SCALEBAR
+    STATUS ON
+    STYLE 1
+    INTERVALS 4
+    SIZE 200 2
+    COLOR 0 0 0
+    OUTLINECOLOR 0 0 0
+    UNITS miles
+    LABEL
+      COLOR 0 0 0
+      SIZE small
+    END
+  END
+
+  REFERENCE
+    STATUS ON
+    IMAGE reference.gif
+    SIZE 150 150
+    EXTENT  125105.727952 4785412.819496 788393.592828 5488749.153129
+    COLOR -1 -1 -1
+    OUTLINECOLOR 255 0 0
+  END
+
+  LAYER
+    NAME counties
+    DATA county
+    STATUS DEFAULT
+    TYPE POLYGON
+    CLASS
+      COLOR 212 212 212
+      OUTLINECOLOR 0 0 0
+    END
+  END
+
+  LAYER
+    NAME usgs250k
+    DATA usgs250k
+    STATUS default
+    TYPE POLYLINE
+    SYMBOLSCALE 2000000
+    MINSCALE 1500000
+    LABELITEM "tile_name"
+    CLASS
+      NAME "USGS 1:250,000 Quadrangles"
+      COLOR 255 0 0
+      LABEL
+        TYPE truetype
+        FONT arial
+        SIZE 14
+        ANTIALIAS
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+	PARTIALS false	
+      END
+    END
+  END
+
+  LAYER
+    NAME usgs100k
+    DATA usgs100k
+    STATUS default
+    TYPE POLYLINE
+    SYMBOLSCALE 1000000
+    MAXSCALE 1500000
+    MINSCALE 700000
+    LABELITEM "tile_name"
+    CLASS
+      NAME "USGS 1:100,000 Quadrangles"
+      COLOR 0 255 0
+      LABEL
+        TYPE truetype
+        FONT arial
+        SIZE 14
+        ANTIALIAS
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+	PARTIALS false	
+      END
+    END
+  END
+
+  LAYER
+    NAME usgs24k
+    DATA usgs24k
+    STATUS default
+    TYPE POLYLINE
+    SYMBOLSCALE 200000
+    MAXSCALE 700000
+    LABELITEM "tile_name"
+    CLASS
+      NAME "USGS 1:24,000 Quadrangles"
+      COLOR 0 0 255
+      LABEL
+        TYPE truetype
+        FONT arial
+        SIZE 14
+        ANTIALIAS
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+	ANGLE 60
+	PARTIALS false
+      END
+    END
+  END
+
+END

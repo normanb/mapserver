@@ -1,0 +1,34 @@
+MAP
+  FONTSET ../fonts/fonts.list
+  NAME SIMPLE
+  STATUS OFF
+  EXTENT 0 0 299 399 # dummy
+  SIZE 300 300	
+
+  LAYER
+    NAME test
+    TYPE LINE
+    STATUS DEFAULT
+    DATA "../data/lines"
+    LABELITEM "anno"    
+    TRANSFORM OFF
+    CLASS
+      COLOR 255 0 0
+      LABEL
+        TYPE TRUETYPE
+        ANTIALIAS
+	FONT arial
+        COLOR 0 0 0
+	OUTLINECOLOR 220 220 220
+	SIZE 11
+	#SIZE MEDIUM
+	ANGLE AUTO
+	POSITION UC
+	OFFSET 0 2
+        WRAP ' '
+	buffer 2
+      END	
+    END
+  END
+
+END

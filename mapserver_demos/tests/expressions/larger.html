@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>MapServer Test Suite - Dynamic Expressions</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<font size="+2" face="arial,helvetica"><b>MapServer <a href="/ms_test">Test Suite</a> - Dynamic Expressions</b></font>
+
+<p>
+
+You choose [CTY_NAME] County, counties with larger area are shown below:<br>
+
+<img src="/cgi-bin/mapserv?map=[map]&map_counties_class_expression=(%5bAREA%5d%20%3e%20[AREA])&layer=title&map_title_class_text=Counties+Larger+Than+[CTY_NAME]+County&mode=map">
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+MAP
+  NAME lcc
+  #EXTENT -2340603.75 -724161.5625 3009430.5 3836605.25
+  EXTENT -1684929.273265 -1347123.445410 4008019.774667 3213643.367090
+  SIZE 500 400
+  UNITS meters
+  STATUS OFF
+
+  WEB
+    IMAGEPATH "/usr/local/www/docs_arachnid/tmp/"
+    IMAGEURL "/tmp/"
+    TEMPLATE test.html    
+  END
+
+  PROJECTION
+    "proj=lcc"
+    "lat_0=49n"
+    "lon_0=95w"
+    "lat_1=49n"
+    "lat_2=77n"
+    "elps=clrk86"
+  END
+
+  LAYER
+    NAME base
+    STATUS OFF
+    TYPE POLYLINE
+    DATA "prov_p"
+    CLASS
+      COLOR 218 218 218
+    END
+  END
+
+  LAYER
+    NAME bad_points
+    STATUS DEFAULT
+    TYPE POINT
+    DATA "debug"
+    PROJECTION geographic END
+    LABELITEM "results"
+    CLASS
+      COLOR 255 0 0
+      LABEL
+        SIZE medium
+        COLOR 255 0 0
+        POSITION UR
+      END
+    END
+  END
+END

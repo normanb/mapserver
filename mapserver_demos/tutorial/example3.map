@@ -1,0 +1,89 @@
+MAP
+  NAME EX3
+  EXTENT 74000 4775000 798000 5500000
+  SIZE 300 400
+  SHAPEPATH "data"
+  UNITS meters
+
+  WEB
+    IMAGEPATH "/pkg/mapserver_web_root/htdocs/tmp/"
+    IMAGEURL "/tmp/"
+    TEMPLATE example3.html
+  END
+
+  LEGEND
+    STATUS ON
+    LABEL
+      COLOR 0 0 0
+      SIZE SMALL
+    END
+  END
+
+  SCALEBAR
+    STATUS ON
+    INTERVALS 4
+    SIZE 200 2
+    COLOR 0 0 0
+    BACKGROUNDCOLOR 255 255 255
+    OUTLINECOLOR 0 0 0
+    UNITS miles
+    LABEL
+      COLOR 0 0 0
+      SIZE small
+    END
+  END
+
+  REFERENCE
+    STATUS ON
+    IMAGE graphics/reference_150.gif
+    SIZE 150 150
+    EXTENT  125105.727952 4785412.819496 788393.592828 5488749.153129
+    COLOR -1 -1 -1
+    OUTLINECOLOR 255 0 0
+  END
+
+  LAYER
+    NAME "minnesota"
+    DATA minnesota
+    STATUS DEFAULT
+    TYPE POLYGON
+    CLASS
+      COLOR 212 212 212      
+    END
+  END
+
+  LAYER
+    NAME "state_parks"
+    DATA stprkpy3
+    STATUS DEFAULT
+    TYPE POLYGON
+    CLASS
+      NAME "State Parks"
+      COLOR 250 175 25
+    END
+  END
+
+  LAYER
+    NAME "lakes"
+    DATA lakes_low_sort
+    STATUS DEFAULT
+    TYPE POLYGON
+    MAXFEATURES 75
+    CLASS
+      NAME "Lakes & Rivers"
+      COLOR 128 128 255
+    END
+  END
+
+  LAYER
+    NAME "counties"
+    DATA ctybdln2
+    STATUS DEFAULT
+    TYPE LINE
+    CLASS
+      NAME "County Boundaries"
+      COLOR 128 128 128
+    END
+  END
+
+END

@@ -1,0 +1,52 @@
+MAP
+  NAME exp
+  EXTENT 74000 4775000 798000 5500000
+  SIZE 300 400
+  SHAPEPATH "../data"
+  UNITS meters
+  STATUS OFF
+
+  WEB
+    TEMPLATE test.html
+  END
+
+  LAYER
+    NAME counties
+    DATA county
+    STATUS DEFAULT
+    TYPE POLYGON
+    CLASS
+      COLOR 212 212 212      
+    END
+    QUERY
+      TEMPLATE "larger.html"
+    END
+  END
+
+  LAYER
+    NAME county_outline
+    DATA county
+    STATUS DEFAULT
+    TYPE POLYLINE
+    CLASS
+      COLOR 0 0 0
+    END
+  END
+
+  LAYER
+    NAME title
+    STATUS OFF
+    TYPE ANNOTATION
+    TRANSFORM FALSE
+    FEATURE
+      POINTS 10 20 END
+    END
+    CLASS  
+      LABEL
+        COLOR 0 0 0
+        SIZE TINY
+	POSITION CR
+      END
+    END
+  END
+END

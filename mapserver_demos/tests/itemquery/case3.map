@@ -1,0 +1,33 @@
+NAME test
+SHAPEPATH ../data
+SIZE 300 300
+EXTENT 74000 4775000 798000 5499000
+
+WEB
+  IMAGEPATH "/usr/local/www/docs_arachnid/tmp/"
+  IMAGEURL "/tmp/"
+END
+
+QUERYMAP
+  STATUS ON
+  STYLE HILITE
+  COLOR 255 255 0
+END
+
+LAYER
+  NAME county
+  DATA county
+  STATUS DEFAULT
+  TYPE POLYGON
+
+  CLASS
+    COLOR 212 212 212
+    OUTLINECOLOR 0 0 0
+  END	
+  
+  QUERY
+    TEMPLATE case3_template.html
+  END
+END
+
+END 
