@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" standalone="no"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
@@ -24,6 +24,8 @@
 					<email>franz@favdb.net</email>
 				</address>
 			</affiliation>
+		</othercredit>
+		<othercredit>
 			<contrib>Relecture</contrib>
 			<firstname>Nathalie</firstname>
 			<surname>Vielmas</surname>
@@ -36,7 +38,7 @@
 			</affiliation>
 		</othercredit>
 		<abstract>
-			<para>Dans ce document j'essayerai, étape par étape, d'expliquer des objets PHP Mapscript 3.5 et leurs méthodes. (Ndt: le therme anglo-saxon method, dans ce contexte serait mieux traduit par "procédure", mais pour éviter toute confusion dans le cas où vous souhaitez obtenir des compléments d'information sur ce document, j'ai préféré conserver le mot strictement équivalent en français). <emphasis>Il sera considéré ici que vous avez des connaissances de base sur <ulink url="mapfile-reference.html">les mapfiles</ulink>et que vous êtes familier avec les scripts<ulink url="http://www.php.net">PHP</ulink> et avec le langage HTML.</emphasis>
+			<para>Dans ce document j'essayerai, étape par étape, d'expliquer des objets PHP Mapscript 3.5 et leurs méthodes. (Ndt: le therme anglo-saxon method, dans ce contexte serait mieux traduit par "procédure", mais pour éviter toute confusion dans le cas où vous souhaitez obtenir des compléments d'information sur ce document, j'ai préféré conserver le mot strictement équivalent en français). <emphasis>Il sera considéré ici que vous avez des connaissances de base sur <ulink url="mapfile-reference_fr.html">les mapfiles</ulink>et que vous êtes familier avec les scripts<ulink url="http://www.php.net">PHP</ulink> et avec le langage HTML.</emphasis>
 			</para>
 			<para>Les informations ci-après concernent PHP MapScript version 3.5.</para>
 			<para>Dernière mise à jour: 24-01-2002</para>
@@ -67,7 +69,7 @@
 					<para>Connaissance de HTML: formulaires, tableaux et autres.</para>
 				</listitem>
 				<listitem>
-					<para>Connaissance des fichiers <ulink url="http://mapserver.gis.umn.edu/mapfile.html">mapfile</ulink> de  MapServer.</para>
+					<para>Connaissance des fichiers <ulink url="mapfile_fr.html">mapfile</ulink> de  MapServer.</para>
 				</listitem>
 				<listitem>
 					<para>Connaissance des fichiers shape ESRI.</para>
@@ -75,7 +77,7 @@
 			</itemizedlist>
 		</sect2>
 		<para>Vous devriez aussi disposer de la documentation MapScript de <ulink url="http://www2.dmsolutions.ca/webtools/php_mapscript/php_mapscript_docs35.html">DM Solutions</ulink>
-ou du fichier README situé dans le répertoire mapscript/php3 de la distribution MapServer. Le <ulink url="phpmapscript-class-guide.html">PHP MapScript Class Guide</ulink> peut aussi vous être nécessaire comme référence.</para>
+ou du fichier README situé dans le répertoire mapscript/php3 de la distribution MapServer. Le <ulink url="phpmapscript-class-guide_fr.html">PHP MapScript Class Guide</ulink> peut aussi vous être nécessaire comme référence.</para>
 	</sect1>
 	<sect1 id="begin">
 		<title>Notre première application</title>
@@ -407,7 +409,7 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distributio
 		<sect2 id="copyright">
 			<title>Information de Copyright</title>
 			<para>Copyright (c) 2001,2002 Vinko Vrsalovic.</para>
-			<para>Ce document est protégé par la même licence Open Source que le logiciel MapServer lui-même.  Voyez la page <ulink url="http://mapserver.gis.umn.edu/license.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
+			<para>Ce document est protégé par la même licence Open Source que le logiciel MapServer lui-même.  Voyez la page <ulink url="license_fr.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
 			</para>
 		</sect2>
 		<sect2 id="disclaimer">
@@ -417,7 +419,7 @@ ou du fichier README situé dans le répertoire mapscript/php3 de la distributio
 		</sect2>
 		<sect2 id="acknowledgements">
 			<title>Remerciements</title>
-			<para>Ce document est dédié aux personnes qui ont fait de MapServer et MapScript une réalité. Cette dédicace s'adresse aussi aux membres de la <ulink url="http://mapserver.gis.umn.edu/support.html">liste de diffusion des utilisateurs de MapServer</ulink>, qui m'ont aidé à me lancer dans l'utilisation de MapServer/MapScript.</para>
+			<para>Ce document est dédié aux personnes qui ont fait de MapServer et MapScript une réalité. Cette dédicace s'adresse aussi aux membres de la <ulink url="support_fr.html">liste de diffusion des utilisateurs de MapServer</ulink>, qui m'ont aidé à me lancer dans l'utilisation de MapServer/MapScript.</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">

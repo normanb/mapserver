@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" standalone="no"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
@@ -27,6 +27,8 @@
 					<email>franz@favdb.net</email>
 				</address>
 			</affiliation>
+		</othercredit>
+		<othercredit>
 			<contrib>Relecture</contrib>
 			<firstname>Nathalie</firstname>
 			<surname>Vielmas</surname>
@@ -50,7 +52,7 @@
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-			Le module PHP/MapScript est un module PHP chargeable dynamiquement qui rend disponible l'accès aux fonctions et classes de <ulink url="http://mapserver.gis.umn.edu/mapscript.html">MapScript de MapServer</ulink> dans un environnement PHP3/PHP4. 		
+			Le module PHP/MapScript est un module PHP chargeable dynamiquement qui rend disponible l'accès aux fonctions et classes de <ulink url="mapscript_fr.html">MapScript de MapServer</ulink> dans un environnement PHP3/PHP4. 		
           </para>
 		<para>
 			La version d'origine de MapScript (en Perl) utilise <ulink url="http://www.swig.org/">SWIG</ulink>, mais puisque SWIG ne reconnaît pas le langage PHP, le module a été maintenu séparément et n'est pas synchrone avec la version Perl. 
@@ -109,7 +111,7 @@
 				</listitem>
 				<listitem>
 					<para>
-		            Les questions concernant le module peuvent être adressées à la <ulink url="http://mapserver.gis.umn.edu/support.html">liste de diffusion Mapserver</ulink>. NdT : ATTENTION cette liste de diffusion est anglophone, avec un peu de chance si vous posez votre question en français un francophone pourra vous répondre, le plus souvent ce ne sera pas le cas; aussi je vous recommande de vous exprimer en anglais sur cette liste, même si c'est un anglais approximatif, vous ne serez jamais ridicule.
+		            Les questions concernant le module peuvent être adressées à la <ulink url="support_fr.html">liste de diffusion Mapserver</ulink>. NdT : ATTENTION cette liste de diffusion est anglophone, avec un peu de chance si vous posez votre question en français un francophone pourra vous répondre, le plus souvent ce ne sera pas le cas; aussi je vous recommande de vous exprimer en anglais sur cette liste, même si c'est un anglais approximatif, vous ne serez jamais ridicule.
 			</para>
 				</listitem>
 			</itemizedlist>
@@ -175,7 +177,7 @@
 							</listitem>
 							<listitem>
 								<para>
-								  <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_iis4.html">
+									<ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_iis4.html">
 								  step by step configuration guide</ulink> un document pour PHP sous IIS4.0.
 								</para>
 							</listitem>
@@ -193,7 +195,7 @@
 			<sect3 id="build_lunix">
 				<title>Construction pour une Linux Box</title>
 				<para>
-					<emphasis>NOTE:</emphasis> Pour les utilisateurs UNIX, voyez le fichier <emphasis>README.CONFIGURE</emphasis> dans les sources de MapServer, ou voyez le HOWTO UNIX/MapServer sur <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  
+					<emphasis>NOTE:</emphasis> Pour les utilisateurs UNIX, voyez le fichier <emphasis>README.CONFIGURE</emphasis> dans les sources de MapServer, ou voyez le HOWTO UNIX/MapServer sur <ulink url="unix-install-howto_fr.html">http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  
 			       </para>
 				<para>
 					<itemizedlist>
@@ -202,7 +204,9 @@
 				                    </para>
 						</listitem>
 						<listitem>
-							<para>Copiez la bibliothèque <filename>php_mapscript.so</filename> dans votre répertoire d'extensions PHP, et ensuite utilisez la fonction <function>dl()</function> pour charger le module au début de vos scripts PHP.  Voyez aussi la fonction PHP <ulink url="http://www.php.net/manual/en/function.extension-loaded.php"><function>extension_loaded()</function></ulink> pour  vérifier que l'extension est correctement chargée.
+							<para>Copiez la bibliothèque <filename>php_mapscript.so</filename> dans votre répertoire d'extensions PHP, et ensuite utilisez la fonction <function>dl()</function> pour charger le module au début de vos scripts PHP.  Voyez aussi la fonction PHP <ulink url="http://www.php.net/manual/en/function.extension-loaded.php">
+									<function>extension_loaded()</function>
+								</ulink> pour  vérifier que l'extension est correctement chargée.
 				        </para>
 						</listitem>
 						<listitem>
@@ -294,7 +298,8 @@
 					</listitem>
 					<listitem>
 						<para>Créez un répertoire temporaire pour stocker les images GIF créées par MapServer.
-							<emphasis>NOTE: Ce répertoire est spécifié dans le paramètre IMAGEPATH de l'objet WEB dans le fichier <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html">MapFile</ulink></emphasis>. Pour cet exemple nous appellerons ce répertoire “ms_tmp” (par exemple E:/tmp/ms_tmp).
+							<emphasis>NOTE: Ce répertoire est spécifié dans le paramètre IMAGEPATH de l'objet WEB dans le fichier <ulink url="mapfile-reference_fr.html">MapFile</ulink>
+							</emphasis>. Pour cet exemple nous appellerons ce répertoire “ms_tmp” (par exemple E:/tmp/ms_tmp).
 						</para>
 					</listitem>
 					<listitem>
@@ -363,7 +368,7 @@
 					</listitem>
 					<listitem>
 						<para>Créez un répertoire temporaire pour stocker les images GIF créées par MapServer.
-									<emphasis>NOTE: Ce répertoire est spécifié dans le paramètre IMAGEPATH de l'objet WEB dans le <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html">MapFile</ulink>
+									<emphasis>NOTE: Ce répertoire est spécifié dans le paramètre IMAGEPATH de l'objet WEB dans le <ulink url="mapfile-reference_fr.html">MapFile</ulink>
 							</emphasis>. Pour cet exemple nous appellerons ce répertoire temporaire  “ms_tmp” (par exemple E:/tmp/ms_tmp).
 								</para>
 					</listitem>
@@ -408,7 +413,9 @@
 			</sect3>
 			<sect3 id="iis">
 				<title>Installation pour Microsoft's IIS</title>
-				<para><emphasis>Non traduite</emphasis></para>
+				<para>
+					<emphasis>Non traduite</emphasis>
+				</para>
 				<orderedlist numeration="lowerroman">
 					<listitem>
 						<para>
@@ -463,7 +470,7 @@
 					<listitem>
 						<para>
 								     Create a temp directory in Explorer to store MapServer created GIFs.
-									<emphasis>NOTE: This directory is specified in the IMAGEPATH parameter of the WEB Object in the <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html">MapFile</ulink>
+									<emphasis>NOTE: This directory is specified in the IMAGEPATH parameter of the WEB Object in the <ulink url="mapfile-reference_fr.html">MapFile</ulink>
 							</emphasis>. For this 										example we will call the temp directory “ms_tmp” (eg. C:\tmp\ms_tmp).
 								</para>
 					</listitem>
@@ -495,9 +502,9 @@
 						</para>
 						</question>
 						<answer>
-							<para>La documentation principale de référence <ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html">PHP/Mapscript Class Reference Guide</ulink>, qui décrit toutes les classes, propriétés et méthodes associées au module PHP/Mapscript. 
+							<para>La documentation principale de référence <ulink url="phpmapscript-class-guide_fr.html">PHP/Mapscript Class Reference Guide</ulink>, qui décrit toutes les classes, propriétés et méthodes associées au module PHP/Mapscript. 
 							</para>
-							<para>Pour avoir une description complète de chaque classe et des variables associées, voyez la documentation MapServer MapScript à: <ulink url="http://mapserver.gis.umn.edu/mapscript.html">http://mapserver.gis.umn.edu/mapscript.html</ulink> et la documentation MapFile à: <ulink url="http://mapserver.gis.umn.edu/mapfile.html">http://mapserver.gis.umn.edu/mapfile.html</ulink>.                   
+							<para>Pour avoir une description complète de chaque classe et des variables associées, voyez la documentation MapServer MapScript à: <ulink url="mapscript_fr.html">http://mapserver.gis.umn.edu/mapscript.html</ulink> et la documentation MapFile à: <ulink url="mapfile_fr.html">http://mapserver.gis.umn.edu/mapfile.html</ulink>.                   
 							</para>
 						</answer>
 					</qandaentry>
@@ -683,7 +690,7 @@
 			<para>
                 Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
             </para>
-			<para>Ce document est protégé par la même licence Open Source que le logiciel MapServer lui-même.  Voyez la page <ulink url="http://mapserver.gis.umn.edu/license.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
+			<para>Ce document est protégé par la même licence Open Source que le logiciel MapServer lui-même.  Voyez la page <ulink url="license_fr.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
             </para>
 		</sect2>
 		<sect2 id="disclaimer">
