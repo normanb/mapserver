@@ -1,6 +1,6 @@
 <?xml version='1.0' standalone='no'?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-     "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" >
+          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 
 <articleinfo>
@@ -18,13 +18,11 @@
      </affiliation>
   </author>
 
-
-  <date>2001-03-07</date>
-
   <abstract>
     <para>
     This document describes how to get started writing documents for the MapServer Documentation Project (MDP).
     </para>
+    <para>Last Updated:  05-11-2001</para>
   </abstract>
 
 </articleinfo>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
 		<title>MapServer UNIX Compilation and Installation HOWTO</title>
@@ -18,8 +19,9 @@
 		</author>
 		<abstract>
 			<para>
-    This document describes the procedures for obtaining, compiling and installing MapServer on UNIX-type platforms.
-    </para>
+    			This document describes the procedures for obtaining, compiling and installing MapServer on UNIX-type platforms.
+    			</para>   
+    			<para>Last Updated:  05-11-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
