@@ -32,13 +32,18 @@
     <sect1 id="intro">
         <title>MapServer - Documentation: Template File Reference</title>
         <para>
-            Templates are used to define the look of an interface and to guide
-            the presentation of results, either a query or a map, to the user. 
-            A template can be either a URL 
-            (e.g.. http://www.somewhere.com/[ATTRIBUTE]/info.html) 
-            or HTML file(s). Simple pan/zoom interfaces use a single template 
+            Templates are used 1) to define the look of a MapServer CGI
+            application interface and 2) to present the results of a query. 
+            They guide the presentation of results, either a query or a map, 
+            to the user. 
+            Templates are almost always HTML files although they can also be
+            a URL (e.g.. http://www.somewhere.com/[ATTRIBUTE]/info.html).
+            URL templates can only be used with simple QUERY or ITEMQUERY
+            results so many substitutions defined below are not available for
+            them.  
+            Simple pan/zoom interfaces use a single template 
             file while complicated queries often require many templates.  
-            URL templates can only be used with simple QUERY or ITEMQUERY                   results so many substitutions defined below are not available.  
+            Templates often use JavaScript to enhance the basic interface.
         </para>
     </sect1>
   
@@ -67,8 +72,32 @@
             </listitem>
             <listitem>    
                 <para>
-					Some substitutions are also available in escaped form
-					(i.e. url encoded).
+		    Some substitutions are also available in escaped form
+  		    (url encoded).
+                    These are generally used to create a URL inside a template: 
+                    e.g. a link to a special print version of a map with no 
+                    navigation elements. To do this I have to pass the current 
+                    map extent to the new
+	mapserver cgi call. [mapext] is subsituted by a space delimeted set 
+	of lower left and upper right corner coordinates. This would break the
+	URL (MS IE fixes such errors, but other browsers don't). Solution is
+	either to concatenate the set from the [minx]+[miny]+[maxx]+[maxy] or to
+	use [mapext_esc]:
+<programlisting><![CDATA[
+ <a href="/cgi-bin/mapserv-3.5?map=[map]&map_web_template=fnp-print.html
+ [get_layers]&mapsize=[mapwidth]+[mapheight]&mapext=[minx]+[miny]+[maxx]+
+ [maxy]&mode=browse">Print View</a>
+]]>
+</programlisting>
+
+or 
+<programlisting><![CDATA[
+ <a href="/cgi-bin/mapserv-3.5?map=[map]&map_web_template=fnp-print.html
+ [get_layers]&mapsize=[mapwidth]+[mapheight]&mapext=[mapext_esc]&mode=browse">
+ Print View</a>
+]]>
+</programlisting>
+
                 </para>
             </listitem>
         </itemizedlist>
