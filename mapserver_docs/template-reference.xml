@@ -35,9 +35,9 @@
             Templates are used to define the look of an interface and to guide
             the presentation of results, either a query or a map, to the user. 
             A template can be either a URL 
-            (eg. http://www.somewhere.com/[ATTRIBUTE]/info.html) 
+            (e.g.. http://www.somewhere.com/[ATTRIBUTE]/info.html) 
             or HTML file(s). Simple pan/zoom interfaces use a single template 
-            file while compilicated queries often require many templates.  
+            file while complicated queries often require many templates.  
             URL templates can only be used with simple QUERY or ITEMQUERY                   results so many substitutions defined below are not available.  
         </para>
     </sect1>
@@ -271,7 +271,7 @@
                 <term>[mapsize], [mapsize_esc]</term>
                 <listitem>
                     <para> 
-                        Current image size in cols and rows (seperated
+                        Current image size in cols and rows (separated
                         by spaces).
                     </para>
 					<para>
@@ -284,7 +284,7 @@
                 <term>[mapwidth], [mapheigth]</term>
                 <listitem>
                     <para> 
-                        Current image width or heigth.
+                        Current image width or height.
                     </para>
                 </listitem>
             </varlistentry>
@@ -321,7 +321,7 @@
                 <term>[mapext], [mapext_esc]</term>
                 <listitem>
                     <para> 
-                        Full mapextent (seperated by spaces).
+                        Full mapextent (separated by spaces).
                     </para>
 					<para>
                         Also available as escaped version.
@@ -343,7 +343,7 @@
                 <listitem>
                     <para> 
                         Raw mapextent, that is the extent before
-                        fitting to a window size (seperated by spaces).
+                        fitting to a window size (separated by spaces).
                         In cases where input came from imgbox (via Java
                         or whatever) rawext refers to imgbox
                         coordinates transformed to map units.
@@ -387,7 +387,7 @@
                 <term>[mapext_latlon], [mapext_latlon_esc]</term>
                 <listitem>
                     <para> 
-                        Full mapextent (seperated by spaces).
+                        Full mapextent (separated by spaces).
                         Available only when projection enabled.
                     </para>
 					<para>
@@ -442,7 +442,7 @@
                 </term>
                 <listitem>
                     <para> 
-                        Used for making layers persistant across a map
+                        Used for making layers persistent across a map
                         creation session. String is replaced with the
                         keyword "checked", "selected" or "" if
                         <emphasis>layername</emphasis> is on. Layername
@@ -477,7 +477,7 @@
                 </term>
                 <listitem>
                     <para> 
-                        Used for making the zoom factor persistant.
+                        Used for making the zoom factor persistent.
                         Zoom values can range from -25 to 25 by
                         default. The string is replaced with the HTML
                         keyword "checked", "selected" or "" depending
@@ -492,7 +492,7 @@
                 </term>
                 <listitem>
                     <para> 
-                        Used for making the zoom direction persistant.
+                        Used for making the zoom direction persistent.
                         Use check with a radio control or select with a
                         selection list. See the demo for an example.
                         The string is replaced with the HTML keyword
