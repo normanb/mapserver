@@ -22,7 +22,7 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2004-11-02</para>
+      <para>Last Updated: 2004-11-28</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -1077,6 +1077,46 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="lay_group">
+          <title>wms_layer_group</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Can be used to assign a layer to a number of hierarchically nested groups.  
+                This grouped hierarchy will be expressed in the capabilities.</para>
+              <para>
+                WMS_LAYER_GROUP is different from the GROUP keyword in that it does not publish the name of the group in the capabilities, 
+                only the title. As a consequence the groups set with WMS_LAYER_GROUP can not be requested with a GetMap or GetFeatureInfo 
+                request (see section 7.1.4.5.2 of the WMS implementation specification version 1.1.1. (OGC 01-068r2)). Another difference 
+                is that GROUP does not support nested groups. The purpose of this metadata setting is to enable making a WMS client aware 
+                of layer grouping.
+              </para>
+              <para>
+                All group names should be preceded by a forward slash (/). It is not allowed to use both the WMS_LAYER_GROUP setting and 
+                the GROUP keyword for a single layer.              
+              </para>
+              <example>
+                <title>
+                </title>
+                <programlisting>
+     LAYER
+       NAME "mylayer"
+       DATA "mylayer"
+       TYPE LINE
+       CLASS
+         STYLE
+           COLOR 100 100 255
+         END
+       END
+       METADATA
+        WMS_LAYER_GROUP "/rootgroup/subgroup"
+       END
+     END                
+                </programlisting>
+              </example>
+            </listitem>
+          </itemizedlist>
+        </sect4>        
         <sect4 id="lay_opaque">
           <title>wms_opaque</title>
           <itemizedlist>
@@ -1252,6 +1292,13 @@
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.35</revnumber>
+                        <date>Date: 2004-11-28</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added wms_layer_group metadata in reference section.
+                                   </revremark>
+                    </revision>                
                     <revision>
                         <revnumber>Number: 1.32</revnumber>
                         <date>Date: 2004-11-02</date>
