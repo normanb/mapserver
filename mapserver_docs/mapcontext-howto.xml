@@ -4,30 +4,30 @@
 <!-- $Id$ -->
 <article>
 	<articleinfo>
-		<title>Mapserver Map Context HOWTO - Version 4.0</title>
+		<title>Mapserver Map Context HOWTO - Version 4.1</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
 			<affiliation>
 				<orgname>DM Solutions Group Inc.</orgname>
 				<address>
-					<email>mckenna@dmsolutions.ca</email>
+					<email>jmckenna@dmsolutions.ca</email>
 				</address>
 			</affiliation>
 		</author>
-		<date>2003-07-21</date>
+		<date>2004-02-18</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for the creation of a map context document with MapServer.  
       </para>
-			<para>Last Updated: 07/21/2003</para>
+			<para>Last Updated: 02/18/2004</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-		The term 'map context' comes from the Open GIS Constortium's (OGC) <ulink url="http://www.opengis.org/techno/specs/03-036r2.pdf">Web Map Context 			Specification v1.0.0</ulink>, which coincides with the OGC <ulink url="http://www.opengis.org/techno/specs/01-068r3.pdf">Web Map Server
+		The term 'map context' comes from the Open GIS Constortium's (OGC) <ulink url="http://www.opengis.org/docs/03-036r2.pdf">Web Map Context 			Specification v1.0.0</ulink>, which coincides with the OGC <ulink url="http://www.opengis.org/docs/01-068r3.pdf">Web Map Server
 		Interfaces Implementation Specification (WMS) v1.1.1</ulink>.  A map context is a XML document that describes the appearance of layers from one or more WMS 		servers, and can be transferred 	between clients while maintaining startup views, the state of the view (and its layers), and storing additional layer information.
     		</para>
 		<para>
@@ -77,14 +77,14 @@
 				<listitem>
 					<para>
             WMS 1.1.1 specification:
-              <ulink url="http://www.opengis.org/techno/specs/01-068r3.pdf">
+              <ulink url="http://www.opengis.org/docs/01-068r3.pdf">
             http://www.opengis.org/techno/specs/01-068r3.pdf</ulink>
 					</para>
 				</listitem>
 				<listitem>
 					<para>
             Map Context 1.0.0 specification:
-              <ulink url="http://www.opengis.org/techno/specs/03-036r2.pdf">
+              <ulink url="http://www.opengis.org/docs/03-036r2.pdf">
             http://www.opengis.org/techno/specs/03-036r2.pdf</ulink>
 					</para>
 				</listitem>
@@ -144,6 +144,11 @@
 				<para>
 						The following mapfile metadata are used by MapServer to handle map context information:
       					</para>
+				<note>
+					<para>Some parameters have <varname>width</varname>, <varname>height</varname>, <varname>format</varname>, and <varname>href</varname>, and some only have <varname>format</varname> and <varname>href</varname>.  This is because <varname>width							</varname> and <varname>height</varname> are only used for images and parameters that do not have them are text or html.   For 
+						consistency with the spec MapServer supports <varname>height</varname> and <varname>width</varname> for all parameters, but they should only be used for images.
+					 </para>
+				</note>
 				<sect4 id="web">
 					<title>Web Object Metadata</title>
 					<itemizedlist>
@@ -230,13 +235,19 @@
 								<emphasis>wms_country</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
 								wms_stateorprovince, wms_postcode, and wms_addresstype)															</para>
 						</listitem>
-					</itemizedlist>
+					</itemizedlist>				
 					<itemizedlist>
 						<listitem>
 							<para>
-								<emphasis>wms_dataurl</emphasis> : The URL to the data server.														</para>
+								<emphasis>wms_descriptionurl_format</emphasis> : Format of the webpage which contains relevant information to the view.</para>
 						</listitem>
-					</itemizedlist>
+					</itemizedlist>	
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_descriptionurl_href</emphasis> : Reference to a webpage which contains relevant information to the view.</para>
+						</listitem>
+					</itemizedlist>										
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -246,9 +257,27 @@
 					<itemizedlist>
 						<listitem>
 							<para>
-								<emphasis>wms_logourl</emphasis> : Four space-separated elements: image width, height, format, and the URL.											</para>
+								<emphasis>wms_logourl_width</emphasis> : Width of the context logo.</para>
 						</listitem>
 					</itemizedlist>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_logourl_height</emphasis> : Height of the context logo.</para>
+						</listitem>
+					</itemizedlist>	
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_logourl_format</emphasis> : Format of the context logo.</para>
+						</listitem>
+					</itemizedlist>	
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_logourl_href</emphasis> : Location of the context logo.</para>
+						</listitem>
+					</itemizedlist>													
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -283,6 +312,18 @@
 					<itemizedlist>
 						<listitem>
 							<para>
+								<emphasis>wms_dataurl_href</emphasis> : Link to an online resource where data corresponding to the layer can be found.</para>
+						</listitem>
+					</itemizedlist>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_dataurl_format</emphasis> : Format of the online resource where data corresponding to the layer can be found.</para>
+						</listitem>
+					</itemizedlist>						
+					<itemizedlist>
+						<listitem>
+							<para>
 								<emphasis>wms_format</emphasis> : Current format used.															</para>
 						</listitem>
 					</itemizedlist>
@@ -292,6 +333,18 @@
 								<emphasis>wms_formatlist</emphasis> : List of available formats for this layer.													</para>
 						</listitem>
 					</itemizedlist>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_metadataurl_href</emphasis> : Link to an online resource where descriptive metadata of the corresponding layer can be found.</para>
+						</listitem>
+					</itemizedlist>	
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_metadataurl_format</emphasis> : Format of the online resource where descriptive metadata of the corresponding layer can be found.</para>
+						</listitem>
+					</itemizedlist>											
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -319,10 +372,27 @@
 					<itemizedlist>
 						<listitem>
 							<para>
-								<emphasis>wms_style_%s_legendurl</emphasis> : Location of an image describing the style.  This metadata contains
-								4 elements separated by spaces: width of the image, height, format, and the url.  %s = the name of the style.										</para>
+								<emphasis>wms_style_%s_legendurl_width</emphasis> : Width of an image describing the style.</para>
 						</listitem>
 					</itemizedlist>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_style_%s_legendurl_height</emphasis> : Height of an image describing the style.</para>
+						</listitem>
+					</itemizedlist>	
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_style_%s_legendurl_format</emphasis> : Format of an image describing the style.</para>
+						</listitem>
+					</itemizedlist>	
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>wms_style_%s_legendurl_href</emphasis> : Location of an image describing the style.</para>
+						</listitem>
+					</itemizedlist>													
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -446,8 +516,6 @@
 	</sect1>
 	<sect1 id="todo">
 		<title>TODO</title>
-		<sect2 id="before">
-			<title>Before 4.0 Release</title>
 			<itemizedlist>
 				<listitem>
 					<para>
@@ -455,23 +523,13 @@
 						</para>
 				</listitem>
 			</itemizedlist>
-		</sect2>
-		<sect2 id="longterm">
-			<title>Long term</title>
 			<itemizedlist>
 				<listitem>
 					<para>
 						Possibly add a configure option (--with-context).
 					</para>
 				</listitem>
-				<listitem>
-					<para>
-						Implement new metadata to separate all elements from the wms_style_%s_legendurl, because they are space separated and the legendurl format
-						can contain spaces, and the legendurl url can contain commas.
-					</para>
-				</listitem>
 			</itemizedlist>
-		</sect2>
 	</sect1>
 	<sect1 id="FAQ">
 		<title>FAQ / Common Problems</title>
@@ -483,7 +541,7 @@
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
       </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
