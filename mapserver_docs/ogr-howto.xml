@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-03-04</date>
+		<date>2002-03-11</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 03/04/2002</para>
+			<para>Last Updated: 03/11/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -82,9 +82,19 @@
 			<itemizedlist>
 				<listitem>
 					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_avc.html">ArcInfo Coverages</ulink>,
+				    </para>
+				</listitem>			
+				<listitem>
+					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
                         </para>
 				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>,
+				    </para>
+				</listitem>				
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_mitab.html">MapInfo TAB and  
@@ -93,37 +103,32 @@
 				</listitem>
 				<listitem>
 					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">Microstation DGN files</ulink>,
+				    </para>
+				</listitem>				
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
+				    </para>
+				</listitem>	
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>,
+				    </para>
+				</listitem>				
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
+				    </para>
+				</listitem>							
+				<listitem>
+					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
-				    </para>
-				</listitem>
-				<listitem>
-					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>,
-				    </para>
-				</listitem>
-				<listitem>
-					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format),
-				    </para>
-				</listitem>
-				<listitem>
-					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
-				    </para>
-				</listitem>
-				<listitem>
-					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>,
-				    </para>
-				</listitem>
-				<listitem>
-					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">Microstation DGN files</ulink>.
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format).
 				    </para>
 				</listitem>				
 			</itemizedlist>
@@ -293,7 +298,7 @@
 			</para>
 		</sect2>
 		<sect2 id="ascii">
-			<title>Using Directory-Based Data Sources (e.g. TIGER/Line files)</title>
+			<title>Using Directory-Based Data Sources (e.g. TIGER/Line files, ArcInfo Coverages)</title>
 			<important>
 				<para>
 					<emphasis>TIGER/Line files are ASCII based files, and therefore are not well suited for viewing on the web.  					Be aware that there is a significant loss of efficiency in OGR/Mapserver when displaying this type of data 						(ie. it will be a lot slower!).</emphasis>
@@ -388,7 +393,7 @@
 	   NAME "Water_dgn"
 	   TYPE POLYGON
 	   CONNECTIONTYPE OGR
-	   CONNECTION "data/wat.dgn, 0"
+	   CONNECTION "data/dgn/wat.dgn, 0"
 	   STATUS ON
 	   CLASS
 	     ...
@@ -396,7 +401,7 @@
 	...
 	END
                </programlisting>
-			</example>			
+			</example>
 			<example>
 				<title>
                     TIGER/Line file
@@ -406,7 +411,7 @@
 	   NAME "Roads_tig"
 	   TYPE LINE
 	   CONNECTIONTYPE OGR
-	   CONNECTION "data/tgr_roads, 5"
+	   CONNECTION "data/tiger/roads, 5"
 	   STATUS ON
 	   CLASS
 	     ...
@@ -415,6 +420,24 @@
 	END
                </programlisting>
 			</example>
+			<example>
+				<title>
+                       ArcInfo Coverage
+                    </title>
+				<programlisting>
+	LAYER
+	   NAME "Parks_cov"
+	   TYPE POLYGON
+	   CONNECTIONTYPE OGR
+	   CONNECTION "data/coverages/parks, 3"
+	   STATUS ON
+	   CLASS
+	     ...
+	   END
+	...
+	END
+               </programlisting>
+			</example>			
 		</sect2>
 		<!-- Section2: How to Use OGRINFO -->
 		<sect2 id="ogrinfo">
