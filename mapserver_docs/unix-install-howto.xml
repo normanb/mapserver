@@ -114,7 +114,8 @@
 			<para>Starting with version 3.5 of MapServer, the old GD 1.2 is no longer included with the code. If you wish to use GIF output with the more recent versions of GD, and are properly licensed to do so, you can obtain patched versions of the library in Australia, at the following address: <ulink url="http://www.rhyme.com.au/gd/">http://www.rhyme.com.au/gd/</ulink>.</para>
 			<para>Not sure whether your GD supports GIFs? Here's how you can tell:</para>
 			<para>When you run your "configure" script, look for the following output:</para>
-			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
+			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP
+         -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
 			<para>If your GD is built with GD support, you will see the "-DUSE_GD_GIF" part.  If it's missing, you will need to either use PNG images or obtain the patched GD mentionned above (After paying for the rights, of course).</para>
 		</sect2>
 		<sect2>
@@ -122,7 +123,8 @@
 			<para>Also, starting with version 3.5 of MapServer, the GD you compile MapServer against MUST be compiled against the FreeType library in order to use TrueType fonts.  MapServer no longer uses it's own interface to FreeType, using it through GD instead.</para>
 			<para>Not sure whether your GD qualifies? Here's how you can tell:</para>
 			<para>When you run your "configure" script, look for the following output:</para>
-			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
+			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP
+          -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
 			<para>If your GD is built against FreeType, you will see either "-DUSE_GD_TTF" (Or "-DUSE_GD_FT" for Freetype 2.x) part.  If it's missing, you will need to recompile your GD to make sure you include FreeType support. Please see the <ulink url="http://www.boutell.com/gd/">GD</ulink> documentation for help with that.</para>
 			<para>Also note that the configure script looks for the Freetype library seperatly as well, generating output looking somewhat like this:</para>
 			<screen>
