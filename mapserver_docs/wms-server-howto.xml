@@ -22,7 +22,7 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2004-04-08</para>
+      <para>Last Updated: 2004-05-04</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -30,12 +30,12 @@
     <para>
             A WMS (or Web Map Server) allows for use of data from several different servers, and enables for the creation of a
         network of Map Servers from which clients can build customized maps.  
-      The following documentation is based on the <ulink url="http://www.opengis.org/docs/01-047r2.pdf">
-                Open GIS Consortium's (OGC) Web Map Server Interfaces Implementation Specification v1.1.0</ulink>. 
+      The following documentation is based on the <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
+                Open GIS Consortium's (OGC) Web Map Server Interfaces Implementation Specification v1.1.1</ulink>. 
     </para>
     <para>
       MapServer v3.5 or more recent is required to implement WMS features.  At the time this document was written, Mapserver
-         supports the following WMS versions: 1.0.0, 1.0.7, and 1.1.0 (a.k.a. 1.0.8).
+         supports the following WMS versions: 1.0.0, 1.0.7, 1.1.0 (a.k.a. 1.0.8), and 1.1.1.
     </para>
     <para>
              This document assumes that you are already familiar with certain aspects of MapServer:
@@ -205,18 +205,20 @@
         <title>On Unix:</title>
         <programlisting>
    $ ./mapserv -v
-   MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
-   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER INPUT=EPPL7 INPUT=JPEG INPUT=OGR 
-   INPUT=GDAL INPUT=SHAPEFILE       
+   MapServer version 4.2-beta1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
+   OUTPUT=PDF OUTPUT=SWF SUPPORTS=PROJ SUPPORTS=FREETYPE SUPPORTS=WMS_SERVER 
+   SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT INPUT=POSTGIS 
+   INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE 
         </programlisting>
       </example>
       <example>
         <title>On Windows:</title>
         <programlisting>
    C:\apache\cgi-bin> mapserv -v
-   MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
-   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER INPUT=EPPL7 INPUT=JPEG INPUT=OGR
-   INPUT=GDAL INPUT=SHAPEFILE
+   MapServer version 4.2-beta1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
+   OUTPUT=PDF OUTPUT=SWF SUPPORTS=PROJ SUPPORTS=FREETYPE SUPPORTS=WMS_SERVER 
+   SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT INPUT=POSTGIS 
+   INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE
         </programlisting>
       </example>
     </sect2>
@@ -433,8 +435,8 @@
               recommended that you provide the wms_onlineresource metadata.
           </para>
           <para>
-            See section 6.2.1 of the <ulink url="http://www.opengis.org/docs/01-047r2.pdf">
-            WMS 1.1.0 specification</ulink> for the whole story about
+            See section 6.2.2 of the <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
+            WMS 1.1.1 specification</ulink> for the whole story about
               the online resource URL.  Basically, what you need is a complete HTTP URL
               including the <filename>http://</filename> prefix, hostname, script name, potentially a "map="
               parameter, and and terminated by "?" or "&amp;".
@@ -498,22 +500,86 @@
         <title>Test With a GetMap Request</title>
         <para>
           OK, now that we know that our server can produce a valid XML GetCapabilities
-          response we should test the GetMap request. 
-        </para>
-        <para>
-          Simply adding <filename>"VERSION=1.1.0&amp;REQUEST=GetMap"</filename> to your server's URL should 
+          response we should test the GetMap request.  MapServer only checks for a few of the required GetMap parameters, 
+          so both of the minimum MapServer parameters and a valid GetMap request will be explained below.
+                          </para>
+        <sect4 id="min_ms">
+          <title>Option A: Use Only Parameters Required by MapServer</title>
+          <para>
+          Simply adding <filename>"VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=yourlayername1,yourlayername2"</filename> to your server's URL should 
           generate a map with the default map size and all the layers with STATUS ON or
           DEFAULT displayed, e.g.
         </para>
-        <programlisting>
-   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;VERSION=1.1.0&amp;REQUEST=GetMap
+          <programlisting>
+   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=parks,province
         </programlisting>
-        <para>
-          (Note that this works with MapServer's WMS interface even if it would be an
+          <para>
+          (Note that this works with MapServer's WMS interface even though it is an
           incomplete GetMap request according to the WMS spec.  It lacks several 
-          mandatory parameters such as SRS, BBOX, etc.  But for testing at this point 
-          it is good enough.)
+          mandatory parameters such as SRS, BBOX, etc.  The next section explains how to create a valid GetMap request.)
         </para>
+        </sect4>
+        <sect4 id="valid_request">
+          <title>Option B: Use a Valid GetMap Request According to the WMS Spec</title>
+          <para>The following is a list of the required GetMap parameters according to the WMS spec:</para>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>VERSION=version</emphasis> : Request version
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>REQUEST=GetMap</emphasis> : Request name
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>LAYERS=layer_list</emphasis> : Comma-separated list of one or more map layers.
+            Optional if SLD parameter is present.
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>STYLES=style_list</emphasis> : Comma-separated list of one rendering style per
+            requested layer. Optional if SLD parameter is present.  NOTE that MapServer does not support
+            named styles, so most times you would specify "STYLES=" with an empty value.  MapServer does support STYLES
+            when used with an SLD.
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>SRS=namespace:identifier</emphasis> : Spatial Reference System.
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>BBOX=minx,miny,maxx,maxy</emphasis> : Bounding box corners (lower left, upper right) in
+            SRS units.
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>WIDTH=output_width</emphasis> : Width in pixels of map picture.
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>HEIGHT=output_height</emphasis> : Height in pixels of map picture.
+            </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>FORMAT=output_format</emphasis> : Output format of map.
+            </para>
+            </listitem>
+          </itemizedlist>
+          <para>An valid example would therefore be:</para>
+          <programlisting>
+   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=prov_bound&amp;STYLES=&amp;SRS=EPSG:4326&amp;BBOX=
+   -173.537,35.8775,-11.9603,83.8009&amp;WIDTH=400&amp;HEIGHT=300&amp;FORMAT=image/png          
+          </programlisting>
+        </sect4>
       </sect3>
       <sect3 id="val_client">
         <title>Test with a Real Client</title>
@@ -563,7 +629,7 @@
       <para>
         As mentioned in the section <link linkend="wms_onlineresource">
         "Setup a Mapfile / wms_onlineresource metadata"</link> above, the following Online Resource URL is
-          perfectly valid for a MapServer WMS according to section 6.2.1 or the WMS 1.1.0 specification:
+          perfectly valid for a MapServer WMS according to section 6.2.2 or the WMS 1.1.1 specification:
       </para>
       <programlisting>
    http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;
@@ -574,8 +640,8 @@
         to point that "map=..." is not considered a vendor-specific parameter in this
         case since it is part of the Online Resource URL which is defined as an 
         opaque string terminated by "?" or "&amp;" 
-        (See <ulink url="http://www.opengis.org/docs/01-047r2.pdf">
-        WMS 1.1.0 section 6.2.1</ulink>).
+        (See <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
+        WMS 1.1.1 section 6.2.2</ulink>).
       </para>
       <para>
         But anyway, even if it's valid, the above URL is still ugly.  And you might 
@@ -660,7 +726,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> Abstract (WMS1.1.0, sect. 7.1.5.2)
+                <emphasis>WMS TAG Name:</emphasis> Abstract (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -676,7 +742,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> AccessConstraints (WMS1.1.0, sect. 7.1.5.2)
+                <emphasis>WMS TAG Name:</emphasis> AccessConstraints (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -692,7 +758,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> ContactAddress and family
+                <emphasis>WMS TAG Name:</emphasis> ContactAddress and family (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -707,7 +773,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> ContactElectronicMailAddress
+                <emphasis>WMS TAG Name:</emphasis> ContactElectronicMailAddress (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -721,7 +787,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> ContactFacsimileTelephone
+                <emphasis>WMS TAG Name:</emphasis> ContactFacsimileTelephone (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -735,7 +801,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> ContactInformation, ContactPerson,                     ContactOrganization, ContactPosition (WMS1.1.0, sect. 7.1.5.2)
+                <emphasis>WMS TAG Name:</emphasis> ContactInformation, ContactPerson,                     ContactOrganization, ContactPosition (WMS1.1.1, sect. 7.1.4.2)
               </para>
             </listitem>
             <listitem>
@@ -750,7 +816,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> ContactVoiceTelephone
+                <emphasis>WMS TAG Name:</emphasis> ContactVoiceTelephone (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -816,7 +882,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> Fees (WMS1.1.0, sect. 7.1.5.2)
+                <emphasis>WMS TAG Name:</emphasis> Fees (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -831,7 +897,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> Group_title (WMS1.1.0, sect. 7.1.5.1)
+                <emphasis>WMS TAG Name:</emphasis> Group_title (WMS1.1.1, sect. 7.1.4.1)
                         </para>
             </listitem>
             <listitem>
@@ -846,7 +912,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> KeywordList (WMS1.1.0, sect. 7.1.5.2)
+                <emphasis>WMS TAG Name:</emphasis> KeywordList (WMS1.1.1, sect. 7.1.4.2)
                 </para>
             </listitem>
             <listitem>
@@ -862,7 +928,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> OnlineResource (WMS1.1.0, sect. 6.2.1)
+                <emphasis>WMS TAG Name:</emphasis> OnlineResource (WMS1.1.1, sect. 6.2.2)
                 </para>
             </listitem>
             <listitem>
@@ -884,7 +950,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
+                <emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.1, sect. 6.5.6)
                 </para>
             </listitem>
             <listitem>
@@ -901,7 +967,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> SRS (WMS1.1.0, sect. 6.5.5)
+                <emphasis>WMS TAG Name:</emphasis> SRS (WMS1.1.1, sect. 6.5.5)
                 </para>
             </listitem>
             <listitem>
@@ -924,7 +990,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> Title (WMS1.1.0, sect. 7.1.5.1)
+                <emphasis>WMS TAG Name:</emphasis> Title (WMS1.1.1, sect. 7.1.4.1)
               </para>
             </listitem>
             <listitem>
@@ -952,7 +1018,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
+                <emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.1, sect. 6.5.6)
                 </para>
             </listitem>
             <listitem>
@@ -986,7 +1052,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> Layer (WMS1.1.0, sect. 7.1.5.5.3)
+                <emphasis>WMS TAG Name:</emphasis> Layer (WMS1.1.1, sect. 7.1.4.6.3)
                                 </para>
             </listitem>
             <listitem>
