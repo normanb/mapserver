@@ -21,7 +21,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 4.0.
    			</para>
-			<para>Last Updated:  04-28-2004</para>
+			<para>Last Updated:  05-03-2004</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -68,16 +68,16 @@
 					<term>CONFIG [key] [value]</term>
 					<listitem>
 						<para>This can be used to define the location of your EPSG files for the PROJ.4 library.  Setting the [key] to PROJ_LIB and the [value] to the location of your EPSG files will force PROJ.4 to use this value.   Using CONFIG allows you to avoid setting environment variables to point to your PROJ_LIB directory. An example follows:</para>
-					<screen>
+						<screen>
        CONFIG PROJ_LIB /tmp/proj/				
 					</screen>
-					<para>
+						<para>
 Any other value will be passed on to CPLSetConfigOption().  This provides
 customized control of some GDAL and OGR driver behaviours.   Details on
 such options would be found in specific GDAL driver documentation.					
 					</para>
 					</listitem>
-				</varlistentry>			
+				</varlistentry>
 				<varlistentry id="datapattern">
 					<term>DATAPATTERN [regular expression]</term>
 					<listitem>
@@ -625,6 +625,10 @@ PROCESSING "BANDS=3,2,1,4"
 					<term>TILEINDEX [filename]</term>
 					<listitem>
 						<para>Full filename for the index or tile definition for this layer. Similar to an ArcInfo library index, this shapefile contains polygon features for each tile. The item that contains the location of the tiled data is given using the <emphasis>TILEITEM</emphasis> parameter. If the <emphasis>DATA</emphasis> parameter contains a value then it is added to the end of the location. If <emphasis>DATA</emphasis> is empty then the location should contain the entire filename.</para>
+                                        <para>
+						<emphasis>NOTE:</emphasis> The DBFs of all of the shapefiles being included into a tileindex must have the exact same set of fields and 
+						the fields must be in the same order for MapServer to properly index the files.
+                                        </para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -709,7 +713,7 @@ PROCESSING "BANDS=3,2,1,4"
 								<screen>
         EXPRESSION (length('[NAME_E]') &lt; 8)						
 								</screen>
-							</listitem>							
+							</listitem>
 						</itemizedlist>
 						<para>String comparisons and regular expressions work from the classitem defined at the layer level. You may mix expression types within the different classes of a layer.</para>
 					</listitem>
