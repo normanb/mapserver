@@ -322,7 +322,7 @@
 				</listitem>
 			</itemizedlist>
 			<sect3 id="example">
-				<title>Examples of OGR in use:</title>
+				<title>Examples of "OGRINFO" in use:</title>
 				<example>
 					<title>
                          To get the list of layers in a file:
@@ -614,27 +614,27 @@
 		</para>
 		<itemizedlist>
 			<listitem>
-		        <para>
-		           <ulink url="http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html</ulink>
-		        </para>
+				<para>
+					<ulink url="http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html</ulink>
+				</para>
 			</listitem>
 			<listitem>
-		        <para>
-		           <ulink url="http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html</ulink>
-		        </para>
+				<para>
+					<ulink url="http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html</ulink>
+				</para>
 			</listitem>
 		</itemizedlist>
-	     <para>
+		<para>
 	         The following site uses OGR, as well as MapInfo's 'Seamless Map Layers' feature:
 	    </para>
-	    <itemizedlist>
+		<itemizedlist>
 			<listitem>
-		        <para>
-		           <ulink url="http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html</ulink>
-		        </para>
+				<para>
+					<ulink url="http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html</ulink>
+				</para>
 			</listitem>
-	    </itemizedlist>
-     </sect1>
+		</itemizedlist>
+	</sect1>
 	<!-- Section1: FAQ -->
 	<sect1 id="FAQ">
 		<title>FAQ / Common Problems</title>
