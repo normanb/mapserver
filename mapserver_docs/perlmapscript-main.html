@@ -1259,6 +1259,9 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
+      new mapscript::colorObj
+    </td>
+    <td align="left">
       $legend->{imagecolor}
     </td>
     <td>
@@ -1293,7 +1296,14 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>green - integer - rw..</li>
+      <li>green - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>pen - integer - rw.</li>
     </td>
   </tr>
   <tr>
@@ -1301,6 +1311,71 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       <li>red - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="fontsetobj"></a><br>
+<b><u><font size="5">fontSetObj:</font></u></b><br>
+<br>
+<table border="1">
+  <tr>
+    <td>
+      <b>Constructors:</b><br>
+    </td>
+    <td align="left">
+      new mapscript::fontSetObj
+	</td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>filename - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numfonts - integer - rw.</li>
     </td>
   </tr>
 </table>
@@ -3722,6 +3797,228 @@ Each class is described in detail later in this document.<br>
   </tr>
 </table>
 <br>
+<a name="mstiledshplayerinfo"></a><br>
+<b><u><font size="5">msTiledSHPLayerInfo:</font></u></b><br>
+<br>
+<table border="1">
+  <tr>
+    <td>
+      <b>Constructors:</b><br>
+    </td>
+    <td align="left">
+      new mapscript::msTiledSHPLayerInfo
+	</td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>shpfile - shapefileObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tileshpfile - shapefileObj - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="outputformatobj"></a><br>
+<b><u><font size="5">outputFormatObj:</font></u></b><br>
+<br>
+<table border="1">
+  <tr>
+    <td>
+      <b>Constructors:</b><br>
+    </td>
+    <td align="left">
+      new mapscript::outputFormatObj
+	</td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>driver - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>extension - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>formatoptions - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagemode - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>inmapfile - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>mimetype - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>name - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numformatoptions - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>refcount - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>rendered - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transparent - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setExtension(extension)
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setMimetype(mimetype)
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setOption(key, value)
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
 <a name="pointobj"></a><br>
 <b><u><font size="5">pointObj:</font></u></b><br>
 <br>
@@ -4605,56 +4902,63 @@ Each class is described in detail later in this document.<br>
       <b>Members:</b>
     </td>
     <td>
-      <li>bounds - rectObj - ro - The shapefiles bounding box.</li>
+      <li>bounds - rectObj - rw - The shapefiles bounding box.</li>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>lastshape - integer - ro.</li> 
+      <li>indexes - integer - rw.</li> 
    </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>numshapes - integer - ro - number of shapes in the shapefile.</li>
+      <li>lastshape - integer - rw.</li> 
+   </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numindexes - integer - rw.</li>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>shapepath - character - ro.</li>
+      <li>numshapes - integer - rw - number of shapes in the shapefile.</li>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>source - character - ro - full path to shapefile.</li>
+      <li>source - character - rw - full path to shapefile.</li>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>status - character - ro.</li>
+      <li>status - character - rw.</li>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>statusbounds - rectObj - roi - holds extent associated with the status vector.</li>
+      <li>statusbounds - rectObj - rw - holds extent associated with the status vector.</li>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>type - integer - ro - type of shapefile.</li>
+      <li>type - integer - rw - type of shapefile.</li>
     </td>
   </tr>
 </table>
@@ -4684,7 +4988,7 @@ Each class is described in detail later in this document.<br>
       add(shapeObj)
     </td>
     <td>
-      Appends a shape to an open file.
+      Appends shapeObj to an open shapefile.
     </td>
     <td>
       integer
@@ -4699,6 +5003,7 @@ Each class is described in detail later in this document.<br>
       addPoint(pointObj)
     </td>
     <td>
+	  Adds pointObj to an open shapefile.
     </td>
     <td>
      integer
@@ -4713,7 +5018,7 @@ Each class is described in detail later in this document.<br>
       get(integer index,shapeObj)
     </td>
     <td>
-      Retrieves a shape by index.
+      Retrieves a shape by index into shapeObj.
     </td>
     <td>
       integer, -1 if index is < 0 or >= number of shapes
@@ -4728,7 +5033,7 @@ Each class is described in detail later in this document.<br>
       getExtent(integer index,rectObj)
     </td>
     <td>
-      Retrieves a shape bounding box by index.
+      Retrieves a shape bounding box by index into rectObj.
     </td>
     <td>
       void
@@ -4743,9 +5048,10 @@ Each class is described in detail later in this document.<br>
       getPoint(integer index,pointObj)
     </td>
     <td>
+	  Retrieves a point by index into pointObj.
     </td>
     <td>
-      integer, -1 if index is < 0 or >= number of shapes
+      integer
     </td>
     <td>
     </td>
@@ -5463,6 +5769,72 @@ Current error handling supports returned codes (where applicable).
     </td>
     <td>
       Please see the <a href="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PerlMapScriptDebugging">wiki</a>.
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="objecthere-up1-y65"></a><br>
+<b><u><font size="5">object here:</font></u></b><br>
+<br>
+<table border="1">
+  <tr>
+    <td>
+      <b>Constructors:</b><br>
+    </td>
+    <td align="left">
+      new mapscript::objecthere
+	</td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>member here - return here - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>member here - return here - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      method here
+    </td>
+    <td>
+    </td>
+    <td>
+      return here
     </td>
     <td>
     </td>
