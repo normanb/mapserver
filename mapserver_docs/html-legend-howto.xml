@@ -370,12 +370,12 @@
 						[if] tags can be used in any of the [leg_*_html] tags above to place conditional text. The syntax is: 
 					</para>
 					<programlisting>
-   [if name=&lt;field_to_check&gt; oper=&lt;eq|neq&gt; value=&lt;to_compare_with_field&gt;] ... [/if]					
+   [if name=&lt;field_to_check&gt; oper=&lt;eq|neq|isset|isnull&gt; value=&lt;to_compare_with_field&gt;] ... [/if]					
 					</programlisting>
 					<note>
 						<para>
 							<emphasis>Nested IF's are supported. Parameter "<filename>oper</filename>" can be 
-							"<filename>eq</filename>" for equal or "<filename>neq</filename>" for not equal. The default 									value is equal.</emphasis>
+							"<filename>eq</filename>" for equal, "<filename>neq</filename>" for not equal, "<filename>isset</filename>"                             							(self-explanatory), or "<filename>isnull</filename>" (self-explanatory). The default 											value is equal.</emphasis>
 						</para>
 					</note>
 					<example>
