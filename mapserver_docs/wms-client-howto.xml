@@ -15,14 +15,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-06-21</date>
+		<date>2003-11-08</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using MapServer's WMS connection type to include layers from          
                  remote WMS servers in MapServer applications.
       </para>
-			<para>Last Updated: 2003/04/23</para>
+			<para>Last Updated: 2003/11/08</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -56,10 +56,16 @@
 				</listitem>
 				<listitem>
 					<para>
-            WMS 1.1.0 specification at <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
-            http://www.opengis.org/techno/specs/01-047r2.pdf</ulink>.
+            WMS 1.1.0 specification at <ulink url="http://www.opengis.org/docs/01-047r2.pdf">
+            http://www.opengis.org/docs/01-047r2.pdf</ulink>.
           </para>
 				</listitem>
+				<listitem>
+					<para>
+            WMS 1.1.1 specification at <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
+           http://www.opengis.org/docs/01-068r2.pdf</ulink>.
+          </para>
+				</listitem>				
 			</itemizedlist>
 		</sect2>
 	</sect1>
@@ -399,6 +405,22 @@ ESRI codes and we do not want to promote their use too much.
      END
     END
     </programlisting>
+		</sect2>
+		<sect2 id="temp">
+			<title>Temporary Image Files</title>
+			<para>
+			      When a WMS layer is requested, MapServer locally creates a temporary image returned by the server until the map is drawn. This temporary file is 					created in the IMAGEPATH directory of the client machine. This file is then autmatically deleted.
+			</para>
+			<para>
+   				If you want to keep this temporary file for debugging puposes, you should add the following statement to the LAYER object of your mapfile:
+			</para>
+			<programlisting>
+    LAYER
+      ....
+      DEBUG ON
+      ... 
+    END
+			</programlisting>
 		</sect2>
 	</sect1>
 	<sect1 id="limitations">
