@@ -20,6 +20,7 @@
 //		dragon, dragoff - turns image dragging on/off
 //    setimage(string) - displays the image loaded from the passed url.
 //    setcursor(string) - sets the cursor to one of crosshair, hand or default
+//		version - returns jBox_version string
 
 // javascript functions eval'd:
 //		setbox_handler
@@ -28,14 +29,17 @@
 // 	mouseenter_handler
 // 	mouseexit_handler
 // 	mousemove_handler
-//		measure_handler(name, seg, tot, num)
+//		measure_handler(name, seg, tot, num, area)
 //			seg = current segment length
 //			tot = running total length
 //			num = number of vertices
 /*
 	Rich Greenwood, rich@greenwoodmap.com
 		November 2002:	added line functionality to mimic MapInfo/ArcView ruler tool
-		October 2003: added drag functionality for panning
+		October 2003: 	added drag functionality for panning
+		November 2003:	added areac calculation
+		January 2004: 	moved evalThread out so that it can be shared by both jBox & jBoxPNG
+							added version()
 
 	Compiler issues:
 		Sun JDK 1.2 & 1.3 work ok, but
@@ -51,11 +55,13 @@ import java.util.*;
 import netscape.javascript.*;
 import com.sixlegs.image.png.*;
 
+
 public class jBoxPNG extends Applet implements MouseListener, MouseMotionListener {
+	String 	jBox_version = "1.1";
 	boolean	busy=false, box=true, line=false, drag=false, init=true, verbose=false;
     Image img, busyimg=null;
     PngImage pngimg;
-    double x1=-1, y1=-1, x2=-1, y2=-1, seg=0, tot=0;
+    double x1=-1, y1=-1, x2=-1, y2=-1, seg=0, tot=0, area=0;
     int	jitter=5, cursorsize=4, thickness=1, ix=0, iy=0;
     Color color=Color.red;
     JSObject window;
@@ -209,7 +215,11 @@ public class jBoxPNG extends Applet implements MouseListener, MouseMotionListene
 			 this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));
 	 }
 
-    public void boxon () {
+	public String version () {
+		return jBox_version;
+	}
+
+   public void boxon () {
 		box = true;
 		line = drag = false;
 		x1 = y1 = x2 = y2 = 0; // RWG - added this & following line to clean up lines if going from lineon -> boxon
@@ -371,6 +381,9 @@ public class jBoxPNG extends Applet implements MouseListener, MouseMotionListene
 			x2 = x1;
 			y2 = y1;
 			 }
+			if (line) {
+				area=calcArea();
+			}
 		} else if (drag) {
 				x1 = x2 = ((screenSize.width-1)/2.0)-(x2-x1);
 				y1 = y2 = ((screenSize.height-1)/2.0)-(y2-y1);
@@ -413,7 +426,7 @@ public class jBoxPNG extends Applet implements MouseListener, MouseMotionListene
 				offScreenGraphics.drawPolyline(pl.xpoints, pl.ypoints, pl.npoints);
 				offScreenGraphics.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
 				seg = Math.sqrt(Math.pow(y2 - pl.ypoints[pl.npoints-1],2) + Math.pow(x2 - pl.xpoints[pl.npoints-1],2));
-				window.eval("measure_handler('" + name + "'," + seg + "," + tot +"," + pl.npoints + ");");
+				window.eval("measure_handler('" + name + "'," + seg + "," + tot +"," + pl.npoints + "," + area + ");");
 			}
 
 		} else if (box) {
@@ -445,4 +458,19 @@ public class jBoxPNG extends Applet implements MouseListener, MouseMotionListene
     public void update (Graphics g) {
 		paint(g);
     }
+
+	public double calcArea() {
+		double a=0;
+		int i, n=pl.npoints-1;	// n=number_of_point adjusted to a zero based array
+
+		if (n >=2) {	// there are 3 or more points
+			a=pl.xpoints[0] * (pl.ypoints[1] - pl.ypoints[n]);	// calc first point
+			for (i=1; i<n; i++) {
+				a+=pl.xpoints[i] * (pl.ypoints[i+1] - pl.ypoints[i-1]);
+			}
+			a+=pl.xpoints[n] * (pl.ypoints[0] - pl.ypoints[n-1]);	// calc last point
+		}
+		return(Math.abs(a/2));
+	}
+
 }
