@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="C:\Program Files\Altova\XML Spy Suite\docbook\doc\book.xsl"?>
 <article>
     <articleinfo>
-        <title>MapFile Reference - MapServer 4.2</title>
+        <title>MapFile Reference - MapServer 4.4</title>
         <author>
             <firstname>Jean-Fran&ccedil;ois</firstname>
             <surname>Doyon</surname>
@@ -26,15 +26,15 @@
                     <email>jmckenna@dmsolutions.ca</email>
                 </address>
             </affiliation>
-        </author>        
+        </author>
         <abstract>
             <para>
-                This document is a reference to the MapFile syntax for MapServer version 4.2.
+                This document is a reference to the MapFile syntax for MapServer version 4.4.
             </para>
-            <para>Last Updated:  05-03-2004</para>
+            <para>Last Updated:  10-21-2004</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
-            </para>            
+            </para>
         </abstract>
     </articleinfo>
     <sect1>
@@ -745,11 +745,23 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
                 <varlistentry>
+                    <term>MAXSCALE [double]</term>
+                    <listitem>
+                        <para>Maximum scale at which this class is drawn.</para>
+                    </listitem>
+                </varlistentry>                
+                <varlistentry>
                     <term>MAXSIZE [integer]</term>
                     <listitem>
                         <para>Maximum size in pixels to draw a symbol. Default is 50.</para>
                     </listitem>
                 </varlistentry>
+                <varlistentry>
+                    <term>MINSCALE [double]</term>
+                    <listitem>
+                        <para>Minimum scale at which this class is drawn.</para>
+                    </listitem>
+                </varlistentry>                
                 <varlistentry>
                     <term>MINSIZE [integer]</term>
                     <listitem>
@@ -1770,34 +1782,18 @@ END
         <sect2 id="rhistory">
             <title>Revision History</title>
             <para>  
-  The document revision history starts with UMN MapServer 4.2 altough the
+  The document revision history starts with MapServer v4.3 although the
   document is older. The numbering is in parallel with the revision control
   system. Missing numbers indicate minor maintenance revision updates.
 </para>
             <para>
                 <revhistory>
                     <revision>
-                        <revnumber>Number: 1.11</revnumber>
+                        <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-19</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added map context support section
+                        <revremark>Added MINSCALE MAXSCALE for class object
                                    </revremark>
-                    </revision>
-                    <revision>
-                        <revnumber>Number: 1.10</revnumber>
-                        <date>Date: 2004-10-14</date>
-                        <authorinitials>Author: Daniel Morissette</authorinitials>
-                        <revremark>Added LAYERS=all as a new option to the LAYERS
-            parameter.
-        </revremark>
-                    </revision>
-                    <revision>
-                        <revnumber>Number: 1.9</revnumber>
-                        <date>Date: 2004-06-04</date>
-                        <authorinitials>Author: Frank Koormann</authorinitials>
-                        <revremark>Update to MapServer version 4.2:
-        Document info section added 
-        and TEMPLATE parameter info removed.</revremark>
                     </revision>
                 </revhistory>
             </para>
@@ -1832,5 +1828,5 @@ END
     Send any comments or suggestions to the author(s).
    </para>
         </sect2>
-    </sect1>    
+    </sect1>
 </article>
