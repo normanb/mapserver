@@ -16,20 +16,20 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-07-30</date>
+		<date>2003-03-05</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 07/30/2002</para>
+			<para>Last Updated: 03/05/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
              Starting with version 3.5, MapServer included the ability to access 
-             vector data sets in their native format using the OGR library.  
+             vector data sets in formats other than Shapefile in their native format using the OGR library.  
              The following document describes the process for implementing OGR support within MapServer applications.
           </para>
 		<para>
@@ -190,12 +190,11 @@
 		</para>
 		<para>
 			 For UNIX users, see the <emphasis>README.CONFIGURE</emphasis> file in the MapServer source, or see
-			the UNIX/MapServer HOWTO at <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">					http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  
+			the UNIX/MapServer HOWTO at <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">					http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  If GDAL/OGR is normally installed it should be sufficient to add --with-ogr to the configure line before (re)building MapServer.
 	     </para>
 		<para>
 		     For Windows users, it is recommended to look for a precompiled binary on the MapServer
-             site at <ulink url="http://mapserver.gis.umn.edu/win32binaries.html">http://mapserver.gis.umn.edu/win32binaries.html</ulink>  
-             (<emphasis>Unfortunately there is no 3.5 executable with OGR support on this site yet.</emphasis>).
+             site at <ulink url="http://mapserver.gis.umn.edu/win32binaries.html">http://mapserver.gis.umn.edu/win32binaries.html</ulink>.
              If you want to compile your own then see the <emphasis>README.WIN32</emphasis> file in the MapServer source.
 	     </para>
 	</sect1>
@@ -204,8 +203,8 @@
 		<title>Integrating OGR Support with MapServer Applications</title>
 		<para>
                 The only change that is needed to integrate OGR support with a MapServer
-                application is with the .map file.  The LAYER's DATA parameter is replaced by
-                two parameters (CONNECTIONTYPE OGR, and CONNECTION).
+                application is with the .map file.  The LAYER's DATA parameter is expanded to three
+                parameters (CONNECTIONTYPE OGR, CONNECTION and DATA). 
        	</para>
 		<para>
 			The syntax for this differs depending on the type of data being used. In OGR, a data source can be either a set of 				files that share a common basename (e.g. .shp/.shx/.dbf for ArcView Shapefiles, or
@@ -233,7 +232,7 @@
 			<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html">								http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html</ulink>.
 		</para>
 		<sect2 id="binary">
-			<title>Using File-Based Data Sources (e.g. SHP, TAB, DGN)</title>
+			<title>Using OGR Data Sources in the Map File</title>
 			<para>
 				The .map file LAYER definition for file-based sources is as follows:
 			</para>
@@ -241,158 +240,71 @@
 	LAYER
 	   ...
 	   CONNECTIONTYPE OGR
-	   CONNECTION "ogr_connection_string"
+	   CONNECTION "&lt;datasource_name&gt;"
+           DATA "&lt;layer_definition&gt;"
 	   ...
 	END
               </programlisting>
-			<para>
-                 -where the "ogr_connection_string" is:  &lt;dataset_filename&gt;[,&lt;layer_index&gt;|&lt;layer_name&gt;].
-          </para>
-			<para>
-                &lt;dataset_filename&gt;  is:
-          </para>
-			<para>
-				<itemizedlist>
-					<listitem>
-						<para>
-	                     the filename of the data set (including the extension);
-	                	</para>
-					</listitem>
-					<listitem>
-						<para>
-	                     this is the location of the file relative to the location of the .map file.
-	               </para>
-					</listitem>
-				</itemizedlist>
-			</para>
-			<para>
-				<emphasis>NOTE:</emphasis> SHAPEPATH parameter is ignored when accessing OGR data sources.
-	     </para>
-			<para>
-                &lt;layer_index&gt; is:
-                     </para>
-			<para>
-				<itemizedlist>
-					<listitem>
-						<para>
-	                     optional,
-	                </para>
-					</listitem>
-					<listitem>
-						<para>
-	                     the OGR layer index number,
-	                </para>
-					</listitem>
-					<listitem>
-						<para>
-	                     0 by default (the first layer). 
-	                </para>
-					</listitem>
-				</itemizedlist>
-			</para>
-			<para>
-				&lt;layer_name&gt; is: 
-			</para>
-			<para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							optional,
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							the layer name
-						</para>
-					</listitem>
-				</itemizedlist>
-			</para>
-			<para>
-	            The <link linkend="ogrinfo">OGRINFO</link> program can be used to find out the list of layers and
-			  their indices in a data source.  <emphasis>Note</emphasis> that the OGRINFO layer index
-  			  numbers begin at '1', while Mapserver OGR index numbers begin at 
-  			  '0' - therefore &lt;layer_index&gt; is actually <parameter>ogrinfo_layer_num - 1</parameter>.	     
-			</para>
-		</sect2>
-		<sect2 id="ascii">
-			<title>Using Directory-Based Data Sources (e.g. TIGER/Line files, ArcInfo Coverages)</title>
-			<important>
-				<para>
-					<emphasis>TIGER/Line files are ASCII based files, and therefore are not well suited for viewing on the web.  					Be aware that there is a significant loss of efficiency in OGR/Mapserver when displaying this type of data 						(ie. it will be a lot slower!).</emphasis>
-				</para>
-			</important>
-			<para>
-				The .map file LAYER definition for directory-based sources is as follows:
-			</para>
-			<programlisting>
-	LAYER
-	   ...
-	   CONNECTIONTYPE OGR
-	   CONNECTION "ogr_connection_string"
-	   ...
-	END
-              </programlisting>
-			<para>
-                 -where the "ogr_connection_string" is:  &lt;dataset_directory&gt;[,&lt;layer_index&gt;|&lt;layer_name&gt;].
-          </para>
-			<para>
-                &lt;dataset_directory&gt;  is:
-          </para>
-			<para>
-				<itemizedlist>
-					<listitem>
-						<para>
-	                     the name of the directory where the data resides,
-	                	</para>
-					</listitem>
-					<listitem>
-						<para>
-	                     relative to the location of the .map file.
-	               </para>
-					</listitem>
-				</itemizedlist>
-			</para>
-			<para>
-                &lt;layer_index&gt; is:
-               </para>
-			<para>
-				<itemizedlist>
-					<listitem>
-						<para>
-	                     optional,
-	                </para>
-					</listitem>
-					<listitem>
-						<para>
-	                     the OGR layer index number (which can be obtained through the use of <link linkend="ogrinfo">OGRINFO						</link>). <emphasis>Note</emphasis> that the OGRINFO layer index numbers begin at '1', while 						Mapserver OGR index numbers begin at '0' - therefore &lt;layer_index&gt; is actually 
-					<parameter>ogrinfo_layer_num - 1</parameter>.
-	                </para>
-					</listitem>
-					<listitem>
-						<para>
-	                     0 by default (the first layer). 
-	                </para>
-					</listitem>
-				</itemizedlist>
-			</para>
-			<para>
-				&lt;layer_name&gt; is: 
-			</para>
-			<para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							optional,
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							the layer name
-						</para>
-					</listitem>
-				</itemizedlist>
-			</para>
-		</sect2>
+      <para>
+              <emphasis>&lt;datasource_name&gt;</emphasis> is the name of the datasource to read from and is prefixed by the 
+              CONNECTION keyword.  The exact organization depends
+              on the format driver in use.  The format driver to use is automatically selected by OGR based on
+              the nature of the string passed as the datasource, and/or the format of the file referenced by it.
+      </para>
+      <para>
+          <itemizedlist>
+	      <listitem>
+	          <para>For <emphasis>file based</emphasis> datasources this is the name of the file, including the extension, using
+                  an absolute path, or a relative path. Relative paths are interpreted relative to the .map file.
+                  The SHAPEPATH is ignored for OGR datasources.</para>
+              </listitem>
+              <listitem>
+                  <para>For <emphasis>directory based</emphasis> datasources, such as TIGER/Line, or Arc/Info Binary Coverages this
+                  is the name of the directory containing the files.  If the path is relative it is interpreted
+                  relative to the .map file.</para>
+              </listitem>
+              <listitem>
+                  <para>For <emphasis>virtual</emphasis> datasources such as database systems, and OGDI this is the service 
+                  connection string and is generally not related to the filesystem.  For instance, for Oracle 
+                  Spatial this might be "OCI:warmerda/Password@gdal800.velocet.ca".</para>
+              </listitem>
+          </itemizedlist>  
+      </para>
+      <para>
+          <emphasis>&lt;layer_definition&gt;</emphasis> is the name, number or SQL definition of the layer to use from the 
+          datasource.  It is indicated via the DATA keyword in the map file.
+      </para>
+      <para>
+          <itemizedlist>
+	      <listitem>
+	          <para><emphasis>Layer Name</emphasis>: The (case insenstive) layer name may be used to select a layer.</para>
+	      </listitem>
+	      <listitem>
+	          <para><emphasis>Layer Number</emphasis>: The layer number (starting from 0 for the first layer) may be used to
+                  select a layer.  Generally the layer name is preferred to this since it is more self 
+                  describing.</para>
+	      </listitem>
+	      <listitem>
+	          <para><emphasis>Omitted</emphasis>: If no DATA keyword is provided, this is equivelent to selecting layer 0.</para>
+	      </listitem>
+	      <listitem>
+	          <para><emphasis>SQL SELECT</emphasis>: If an SQL SELECT statement is used, it is interpreted in a driver 
+                  specific manner to try and generate a temporary pseudo-layer.  For some formats this a
+                  restricted subset of SQL is interpreted within OGR.  For RDBMS based drivers (such as PostGIS
+                  and Oracle) this is passed through to the underlying database. </para>
+	      </listitem>
+	  </itemizedlist>
+      </para>
+
+      <para>
+          The <link linkend="ogrinfo">OGRINFO</link> program can be used to find out the list of layers and
+	  their names in a data source.
+      </para>
+      </sect2>
+
+
+
+
 		<!-- Section2: Examples of Layer Definitions Using OGR -->
 		<sect2 id="examples">
 			<title>Examples of Layer Definitions Using OGR</title>
@@ -416,7 +328,7 @@
 			</example>
 			<example>
 				<title>
-				Microstation DGN file
+				Microstation DGN file using &lt;layer_index&gt;
 			</title>
 				<para>
 					The entire DGN file is represented in OGR as one layer (see 
@@ -427,25 +339,8 @@
 	   NAME "Water_dgn"
 	   TYPE POLYGON
 	   CONNECTIONTYPE OGR
-	   CONNECTION "data/dgn/wat.dgn, 0"
-	   STATUS ON
-	   CLASS
-	     ...
-	   END
-	...
-	END
-               </programlisting>
-			</example>
-			<example>
-				<title>
-                    TIGER/Line file using &lt;layer_index&gt;
-               </title>
-				<programlisting>
-	LAYER
-           NAME "Roads_tig"
-	   TYPE LINE
-	   CONNECTIONTYPE OGR
-	   CONNECTION "data/tiger/roads, 5"
+	   CONNECTION "data/dgn/wat.dgn"
+           DATA "0"
 	   STATUS ON
 	   CLASS
 	     ...
@@ -463,7 +358,8 @@
            NAME "Roads_tig"
            TYPE line
            CONNECTIONTYPE OGR
-           CONNECTION "../data/TGR01001, CompleteChain"
+           CONNECTION "../data/tiger_michigan"
+           DATA "CompleteChain"
            STATUS ON
            CLASS
              ...
@@ -473,18 +369,28 @@
 			</example>
 			<example>
 				<title>
-                       ArcInfo Coverage
+Directory of Shapefiles using SQL JOIN
                     </title>
 				<programlisting>
 	LAYER
 	   NAME "Parks_cov"
 	   TYPE POLYGON
-	   CONNECTIONTYPE OGR
-	   CONNECTION "data/coverages/parks, 3"
+           CONNECTIONTYPE OGR
+           CONNECTION "data/shppoly"
+           DATA "SELECT eas_id, idlink.Name FROM poly LEFT JOIN idlink ON poly.eas_id = idlink.eas_id"
 	   STATUS ON
-	   CLASS
-	     ...
-	   END
+           CLASSITEM "idlink.Name"
+           CLASS
+             NAME "At Risk"
+             COLOR 0 0 255
+             OUTLINECOLOR 255 0 0
+             EXPRESSION "_158_"
+           END
+           CLASS
+             NAME "Normal"
+             COLOR 0 255 0
+             OUTLINECOLOR 255 0 0
+           END
 	...
 	END
                </programlisting>
