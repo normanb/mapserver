@@ -478,13 +478,13 @@
             </listitem>
           </varlistentry>
         </variablelist>
+        <para>
+          Parameters to be passed to the applet are specified in
+          &lt;param&gt; tags embedded between the opening and
+          closing &lt;applet&gt; tags.  Here we have defined only one:
+        </para>
 
         <variablelist><title>Applet parameters</title>
-          <para>
-            Parameters to be passed to the applet are specified in
-            &lt;param&gt; tags embedded between the opening and
-            closing &lt;applet&gt; tags.  Here we have defined only one:
-          </para>
           <varlistentry><term>image</term>
             <listitem>
               <para>
