@@ -418,16 +418,10 @@
             Layer PROJECTION and wms_srs metadata:
           </para>
           <para>
-            By default in the WMS context, layers inherit the SRS or their parent layer
-              (the map's projection in the MapServer case).  For this reason it is not
+            By default layers inherit the SRS of their parent layer
+              (the map's PROJECTION in the MapServer case).  For this reason it is not
               necessary (but still strongly recommended) to provide PROJECTION and wms_srs
-              for every layer.
-          </para>
-          <para>
-            However, if your server wants to advertise multiple projections, then at least
-              a PROJECTION object is required in every layer, otherwise the layers won't
-              be reprojected.  This is just the way on-the-fly reprojection works in 
-              MapServer.
+              for every layer.  If a layer PROJECTION is not provided then the top-level map projecion will be assumed
           </para>
           <para>
             Layer PROJECTION and wms_srs metadata are defined exactly the same way as
