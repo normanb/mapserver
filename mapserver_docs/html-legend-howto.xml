@@ -20,7 +20,7 @@
 			<para>
                  This document describes the procedures for implementing an HTML legend in MapServer applications.
                </para>
-			<para>Last Updated: 03/09/2004</para>
+			<para>Last Updated: 04/02/2004</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -587,15 +587,6 @@
 						</programlisting>
 					</listitem>
 				</itemizedlist>
-			</listitem>
-			<listitem>
-				<para>
-					<ulink url="http://www2.dmsolutions.ca/msapps/html_test/gmap_excal/demo_init.html">
-				    http://www2.dmsolutions.ca/msapps/html_test/gmap_excal/demo_init.html</ulink>
-				</para>
-				<para>
-				This demo is based on the DM Solutions' GMAP application, and displays an HTML Legend in use.
-			</para>
 			</listitem>
 		</orderedlist>
 	</sect1>
