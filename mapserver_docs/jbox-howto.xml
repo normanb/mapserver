@@ -4,7 +4,7 @@
 <article>
 
 <articleinfo>
-  <title>jBox HOWTO</title>
+  <title>jBox HOWTO 4.4</title>
   
   <author>
      <firstname>Richard</firstname>
@@ -18,7 +18,8 @@
   </author>
 
   <abstract>
-    <para>
+
+  <para>
       This document describes the procedures for obtaining,
       installing, and incorporating the <application>jBox</application> Java applet into
       MapServer web pages. 
@@ -30,7 +31,10 @@
 		This HOWTO is based on the previous version written by Ken Boss <email>kenboss@dilbert.dnr.state.mn.us</email>
   </para>
   
-	<para>Last Updated:  June 15, 2004</para>
+	<para>Last Updated:  December 7, 2004</para>
+
+        <para><link linkend='rhistory'>Revision History</link></para>
+
   </abstract>
 </articleinfo>
 
@@ -1074,6 +1078,21 @@ function seterror_handler(message) {
 	If there are other contributors that I have not acknowledged here, please 
 	contact me at <email>rich@greenwoodmap.com</email>.
 </para>
+
+  <sect2 id='rhistory'><title>Document Changes</title>
+
+  <para>
+     <revhistory>
+      <revision>
+        <revnumber>: 1</revnumber>
+        <date>Date: 06/21/2004</date>
+        <authorinitials>Author: Kari Geurts</authorinitials>
+        <revremark>I added the Revision History section to this document.</revremark>
+      </revision>
+     </revhistory>
+  </para>
+  </sect2>
+
 
 </sect1>
 
