@@ -26,8 +26,8 @@
   </author>
     <abstract>
       <para>        This document is a reference for the mapserv CGI
-        development version 4.2 . </para>
-      <para>Last Updated:  2004-06-04</para>
+        development version 4.3 . </para>
+      <para>Last Updated:  2004-10-14</para>
       <para><link linkend='rhistory'>Revision History</link></para>
     </abstract>
   </articleinfo>
@@ -217,6 +217,8 @@
           <listitem>
             <para> The names of the layers to be turned on. Layer names
               must be seperated by spaces.</para>
+            <para> Version 4.4 and above: passing 'LAYERS=all' will 
+              automatically turn on all layers.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
