@@ -20,11 +20,12 @@
 			<para>
     This document is a reference to the MapFile syntax for MapServer version 3.4.
     </para>
+			<para>Last Updated:  5/15/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
 		<title>MapFile Reference</title>
-		<para>Map files are the basic configuration mechanism for the Mapserver.  Anything associated with a particular application
+		<para>Mapfiles are the basic configuration mechanism for the Mapserver.  Anything associated with a particular application
           is defined here, although most options can be changed via a web form (CGI Variables).</para>
 		<sect2>
 			<title>Notes</title>
@@ -36,7 +37,7 @@
 					<para>Strings containing non-alphanumeric characters or a MapServer keyword <emphasis>MUST</emphasis> be quoted. It is recommended to put ALL strings in double-quotes.</para>
 				</listitem>
 				<listitem>
-					<para>There is a maximum of 50 layers per mapfile.  This can be changed by editing the map.h file and changing the
+					<para>There is a maximum of 50 layers per mapfile.  This can be changed by editing the map.h file to change the
                 value of MS_MAXLAYERS to the desired number and recompiling.</para>
 				</listitem>
 				<listitem>
@@ -47,12 +48,13 @@
 					<para>The mapfile has a hierarchical structure, with the Map object being the "root". All other objects fall under this one.</para>
 				</listitem>
 				<listitem>
-					<para>Comments are delinated with #'s.</para>
+					<para>Comments are designated with a #.</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 		<sect2>
 			<title>Map Object</title>
+                        <para>Defines...</para>
 			<variablelist>
 				<varlistentry>
 					<term>EXTENT [minx] [miny] [maxx] [maxy]</term>
@@ -76,13 +78,13 @@
 				<varlistentry>
 					<term>INTERLACE [on|off]</term>
 					<listitem>
-						<para>Should output images be interlaced.  Default is [on].</para>
+						<para>Should output images be interlaced?  Default is [on].</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>NAME [name]</term>
 					<listitem>
-						<para>Prefix attached to map, scalebar and legend GIF filenames created using this MapFile.  Should be kept short.</para>
+						<para>Prefix attached to map, scalebar and legend GIF filenames created using this MapFile.  It should be kept short.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -155,11 +157,12 @@
 		</sect2>
 		<sect2 id="label">
 			<title>Label Object</title>
+			<para>Defines...</para>
 			<variablelist>
 				<varlistentry>
 					<term>ANTIALIAS</term>
 					<listitem>
-						<para>Should text be antialiased. Note that this requires more available colors and results in slightly larger output images.</para>
+						<para>Should text be antialiased? Note that this requires more available colors and results in slightly larger output images.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -171,19 +174,19 @@
 				<varlistentry>
 					<term>BACKGROUNDCOLOR [r][g][b]</term>
 					<listitem>
-						<para>Color to draw a background rectangle (i.e. billboard) with. Off by default.</para>
+						<para>Color to draw a background rectangle (i.e. billboard). Off by default.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>BACKGROUNDSHADOWCOLOR [r][g][b]</term>
 					<listitem>
-						<para>Color to draw a background rectangle (i.e. billboard) shadow with. Off by default.</para>
+						<para>Color to draw a background rectangle (i.e. billboard) shadow. Off by default.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>BACKGROUNDSHADOWSIZE [x][y]</term>
 					<listitem>
-						<para>How far should the background rectangle be offset. Default is 1.</para>
+						<para>How far should the background rectangle be offset? Default is 1.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -237,7 +240,7 @@
 				<varlistentry>
 					<term>OUTLINECOLOR [r][g][b]</term>
 					<listitem>
-						<para>Color to draw a one pixel outline around the text with.</para>
+						<para>Color to draw a one pixel outline around the text.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -249,7 +252,7 @@
 				<varlistentry>
 					<term>POSITION [ul|uc|ur|cl|cc|cr|ll|lc|lr|auto]</term>
 					<listitem>
-						<para>Position of the label relative to the labeling point (layers only).  First letter is "Y" position, second letter is "X" position. "Auto" tells MapServer to calculate a label position that will not interfere with other labels.  With points and polygons, MapServer selects from the 8 outer positions (i.e. excluding cc). With lines, it only uses lc or uc, until it finds a position that doesn't collide with labels that have already been drawn. If all positions cause a conflict, then the label is not drawn (Unless the label's <link linkend="force">FORCE</link> aparameter is set to "true"). "Auto" placement is only available with cached labels.</para>
+						<para>Position of the label relative to the labeling point (layers only).  First letter is "Y" position, second letter is "X" position. "Auto" tells MapServer to calculate a label position that will not interfere with other labels.  With points and polygons, MapServer selects from the 8 outer positions (i.e. excluding cc). With lines, it only uses lc or uc, until it finds a position that doesn't collide with labels that have already been drawn. If all positions cause a conflict, then the label is not drawn (Unless the label's <link linkend="force">FORCE</link> a parameter is set to "true"). "Auto" placement is only available with cached labels.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -274,6 +277,7 @@
 		</sect2>
 		<sect2>
 			<title>Layer Object</title>
+			<para>Defines...</para>
 			<variablelist>
 				<varlistentry>
 					<term>CLASSITEM [attribute]</term>
@@ -284,7 +288,7 @@
 				<varlistentry>
 					<term>CONNECTION [string]</term>
 					<listitem>
-						<para>Database connection string to retreive remote data. At present only ESRI SDE is supported.  An SDE connection string consists of a hostname, instance name, database name, username and password seperated by commas.</para>
+						<para>Database connection string to retrieve remote data. At present only ESRI SDE is supported.  An SDE connection string consists of a hostname, instance name, database name, username and password separated by commas.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -386,7 +390,7 @@
 				<varlistentry>
 					<term>NAME [string]</term>
 					<listitem>
-						<para>Short name for this layer. Limit is 20 characters. This name is the link between the mapfile and web interfaces that refer to this name. They must be identical. The name should be unique. Use the <link linkend="group">GROUP</link> option to associate layers with each other.</para>
+						<para>Short name for this layer. Limit is 20 characters. This name is the link between the mapfile and web interfaces that refer to this name. They must be identical. The name should be unique, unless one layer replaces another at different scales. Use the <link linkend="group">GROUP</link> option to associate layers with each other.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -410,19 +414,19 @@
 				<varlistentry>
 					<term>SYMBOLSCALE [double]</term>
 					<listitem>
-						<para>The scale at which symbols and/or text appear full size. This allows for dynamic scaling of objects based on the scale of the map. If not set then this layer will allways appear at the same size. Scaling only takes place within the limits of <link linkend="minsize">MINSIZE</link> and <link linkend="maxsize">MAXSIZE</link> as described above.</para>
+						<para>The scale at which symbols and/or text appear full size. This allows for dynamic scaling of objects based on the scale of the map. If not set then this layer will always appear at the same size. Scaling only takes place within the limits of <link linkend="minsize">MINSIZE</link> and <link linkend="maxsize">MAXSIZE</link> as described above.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>STATUS [on|off|default|queryonly]</term>
 					<listitem>
-						<para>Sets the current status of the layer. Often modified by MapServer itself.  Default turns the layer on permanently. Queryonly means the layer can be queried but not drawn.</para>
+						<para>Sets the current status of the layer. Often modified by MapServer itself.  Default turns the layer on permanently. Query only means the layer can be queried but not drawn.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TILEINDEX [filename]</term>
 					<listitem>
-						<para>Full filename for the index or tile definition for this layer. Similar to an ArcInfo library index, this shapefile contains polygon features for each tile. The item that contains the location of the tiled data is given using the <emphasis>TILEITEM</emphasis> paramater. If the <emphasis>DATA</emphasis> parameter contains a value then it is added to the end of the location. If <emphasis>DATA</emphasis> is empty then the location should contain the entire filename.</para>
+						<para>Full filename for the index or tile definition for this layer. Similar to an ArcInfo library index, this shapefile contains polygon features for each tile. The item that contains the location of the tiled data is given using the <emphasis>TILEITEM</emphasis> parameter. If the <emphasis>DATA</emphasis> parameter contains a value then it is added to the end of the location. If <emphasis>DATA</emphasis> is empty then the location should contain the entire filename.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="tolerance">
@@ -440,20 +444,20 @@
 				<varlistentry>
 					<term>TRANSFORM [true|false]</term>
 					<listitem>
-						<para>Tells MapServer whether or not a particular layer needs to be transformed from some coordinate system to image coordinates. Default is true. This allows you to create shapefiles in image/graphics coordinates and therefore have features that will allways be displayed in the same location on every map. Ideal for placing logos or text in maps. Remember that the graphics coordinate system has an origin in the upper lefthand corner of the image, contrary to most map coordinate systems.</para>
+						<para>Tells MapServer whether or not a particular layer needs to be transformed from some coordinate system to image coordinates. Default is true. This allows you to create shapefiles in image/graphics coordinates and therefore have features that will always be displayed in the same location on every map. Ideal for placing logos or text in maps. Remember that the graphics coordinate system has an origin in the upper left hand corner of the image, contrary to most map coordinate systems.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>TYPE [point|line|polyline|polygon|annotation|raster]</term>
 					<listitem>
-						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, bu a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line.</para>
+						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, but a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="class">
 			<title>Class Object</title>
-			<para>Used to define thematic classes for a given layer and each layer must have at least one class. In cases with more than one class, membership is determined using attribute values and expressions. Starts with the keyword <emphasis>CLASS</emphasis> and terminates with the keyword <emphasis>END</emphasis>
+			<para>Defines thematic classes for a given layer and each layer must have at least one class. In cases with more than one class, membership is determined using attribute values and expressions. Starts with the keyword <emphasis>CLASS</emphasis> and terminates with the keyword <emphasis>END</emphasis>.
 			</para>
 			<variablelist>
 				<varlistentry>
@@ -474,13 +478,13 @@
 						<para>Three types of expressions are now supported to define class membership. String comparisons, regular expressions, and simple logical expressions. If no expression is given, then all features are said to belong to this class.</para>
 						<itemizedlist>
 							<listitem>
-								<para>String comparisons are case sensitive and are the fastest to evaluate. No special delimiters are necessary although string must be quoted if they contain special characters (as a matter of good habbit, it is recommended you quote all strings).</para>
+								<para>String comparisons are case sensitive and are the fastest to evaluate. No special delimiters are necessary although string must be quoted if they contain special characters. (As a matter of good habit, it is recommended you quote all strings).</para>
 							</listitem>
 							<listitem>
 								<para>Regular expressions function just like previous versions of MapServer. However, you must now delimit a regular expression using /regex/. No quotes should be used.</para>
 							</listitem>
 							<listitem>
-								<para>Logical expressions allow you to build fairly complex tests based on one or more attributes and therefore are only available with shapefiles. Logical expressions are delimited by parenthese "(expression)".  Attribute name sare delimited by square brackets "[ATTRIBUTE]". These names are case sensitive and must match the items in the shapefile. For example: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... The following logical operators are supported : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq. As you might expect this level of complexity is slower to process.</para>
+								<para>Logical expressions allow you to build fairly complex tests based on one or more attributes and therefore are only available with shapefiles. Logical expressions are delimited by parentheses "(expression)".  Attribute names are delimited by square brackets "[ATTRIBUTE]". These names are case sensitive and must match the items in the shapefile. For example: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... The following logical operators are supported : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq. As you might expect this level of complexity is slower to process.</para>
 							</listitem>
 						</itemizedlist>
 						<para>String comparisons and regular expressions work from the classitem defined at the layer level. You may mix expression types within the different classes of a layer.</para>
@@ -525,7 +529,7 @@
 				<varlistentry>
 					<term>SYMBOL [integer|string]</term>
 					<listitem>
-						<para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, whcih results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
+						<para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -538,7 +542,7 @@
 		</sect2>
 		<sect2 id="feature">
 			<title>Feature Object</title>
-			<para>Used to define inline features. You can use inline features when it's not possible (or too much trouble) to create a shapefile. Inline features can also be built via urls or forms. Starts with the keyword <emphasis>FEATURE</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
+			<para>Defines inline features. You can use inline features when it's not possible (or too much trouble) to create a shapefile. Inline features can also be built via urls or forms. Starts with the keyword <emphasis>FEATURE</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
 			<variablelist>
 				<varlistentry>
 					<term>POINTS</term>
@@ -549,7 +553,7 @@
 				<varlistentry>
 					<term>CLASS [string]</term>
 					<listitem>
-						<para>String to use to classify this feature. In cases where a layer has multiple classes defined the class string is evaluated against the class expressions. This is effectively the same as pulling data from an attribute in a shapefile (see classitem in the layer object).</para>
+						<para>String that classifies this feature. In cases where a layer has multiple classes defined the class string is evaluated against the class expressions. This is effectively the same as pulling data from an attribute in a shapefile (see classitem in the layer object).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -562,12 +566,12 @@
 		</sect2>
 		<sect2>
 			<title>Legend Object</title>
-			<para>Defines how a legend is to be built. Legend components are built automatically from class objects from individual layers.  Starts with the keyword <emphasis>LEGEND</emphasis> and terminates with the keyword <emphasis>END</emphasis>. The size of the legend image is <emphasis>NOT</emphasis> known prior to creation so be carefull not to hardcode width and height in the &lt;IMG> tag in the template file.</para>
+			<para>Defines how a legend is to be built. Legend components are built automatically from class objects from individual layers.  Starts with the keyword <emphasis>LEGEND</emphasis> and terminates with the keyword <emphasis>END</emphasis>. The size of the legend image is <emphasis>NOT</emphasis> known prior to creation so be careful not to hard-code width and height in the &lt;IMG> tag in the template file.</para>
 			<variablelist>
 				<varlistentry>
 					<term>EMBED [true|false]</term>
 					<listitem>
-						<para>Should the legend image be embeded into the map? Default is false.</para>
+						<para>Should the legend image be embedded into the map? Default is false.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -591,7 +595,7 @@
 				<varlistentry>
 					<term>POSITION [ul|uc|ur|ll|lc|lr]</term>
 					<listitem>
-						<para>Where to place an embeded legend in the map. Default is lr.</para>
+						<para>Where to place an embedded legend in the map. Default is lr.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -624,13 +628,13 @@
 						<para>Three types of expressions are now supported to define class membership. String comparisons, regular expressions, and simple logical expressions. If no expression is given, then all features are said to belong to this class.</para>
 						<itemizedlist>
 							<listitem>
-								<para>String comparisons are case sensitive and are the fastest to evaluate. No special delimiters are necessary although string must be quoted if they contain special characters (as a matter of good habbit, it is recommended you quote all strings).</para>
+								<para>String comparisons are case sensitive and are the fastest to evaluate. No special delimiters are necessary although string must be quoted if they contain special characters.  (As a matter of good habit, it is recommended you quote all strings).</para>
 							</listitem>
 							<listitem>
 								<para>Regular expressions function just like previous versions of MapServer. However, you must now delimit a regular expressions using /regex/. No quotes should be used.</para>
 							</listitem>
 							<listitem>
-								<para>Logical expressions allow you to build fairly complex tests based on one or more attributes and therfore are only available with shapefiles. Logical expressions are delimited by parenthese "(expression)".  Attribute name sare delimited by square brackets "[ATTRIBUTE]". These names are case sensitive and must match the items in the shapefile. For example: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... The following logical operators are supported : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq. As you might expect this level of complexity is slower to process.</para>
+								<para>Logical expressions allow you to build fairly complex tests based on one or more attributes and therefore are only available with shapefiles. Logical expressions are delimited by parentheses "(expression)".  Attribute names are delimited by square brackets "[ATTRIBUTE]". These names are case sensitive and must match the items in the shapefile. For example: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... The following logical operators are supported : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq. As you might expect this level of complexity is slower to process.</para>
 							</listitem>
 						</itemizedlist>
 						<para>String comparisons and regular expressions work from the classitem defined at the layer level. You may mix expression types within the different classes of a layer.</para>
@@ -652,18 +656,18 @@
 		</sect2>
 		<sect2 id="querymap">
 			<title>QueryMap Object</title>
-			<para>Defines a mechanism to map the results of a query. Start with the keyword <emphasis>QUERYMAP</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
+			<para>Defines a mechanism to map the results of a query. Starts with the keyword <emphasis>QUERYMAP</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
 			<variablelist>
 				<varlistentry id="color">
 					<term>COLOR [r][g][b]</term>
 					<listitem>
-						<para>Color that features are highlighted in. Default is yellow.</para>
+						<para>Color in which features are highlighted. Default is yellow.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>SIZE [x][y]</term>
 					<listitem>
-						<para>Size, in pixels, of the map. Defaults to the size defined in the map object.</para>
+						<para>Size of the map in pixels. Defaults to the size defined in the map object.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -710,7 +714,7 @@
 				<varlistentry>
 					<term>TEMPLATE [filename]</term>
 					<listitem>
-						<para>Template ot use with one-to-many joins. The template is processed once for each record and can only contain substitutions for items in the joined table.</para>
+						<para>Template to use with one-to-many joins. The template is processed once for each record and can only contain substitutions for items in the joined table.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -729,12 +733,12 @@
 		</sect2>
 		<sect2 id="referencemap">
 			<title>Reference Map Object</title>
-			<para>Defines how reference maps are to be created. Starts with the keyword <emphasis>REFERENCE</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Three types of reference maps are supported. The most common would be one showing the extent of a map in an interactive interface. It is also possible to request reference maps as part of a query. Point queries will generate an image with a marker (see below) placed at the query point. Region based queries will depict the extent of the area of interest. Finally feature based queries will display the selection feature(s) used.</para>
+			<para>Defines how reference maps are to be created. Starts with the keyword <emphasis>REFERENCE</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Three types of reference maps are supported. The most common would be one showing the extent of a map in an interactive interface. It is also possible to request reference maps as part of a query. Point queries will generate an image with a marker (see below) placed at the query point. Region based queries will depict the extent of the area of interest. Finally, feature based queries will display the selection feature(s) used.</para>
 			<variablelist>
 				<varlistentry>
 					<term>COLOR [r][g][b]</term>
 					<listitem>
-						<para>Color that the reference box is drawn in. Set any components to -1 for no fill. Default is red.</para>
+						<para>Color in which the reference box is drawn. Set any component to -1 for no fill. Default is red.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -773,7 +777,7 @@
 		</sect2>
 		<sect2 id="scalebar">
 			<title>Scalebar Object</title>
-			<para>Defines how a scalebar should be built. Starts with the keyword <emphasis>SCALEBAR</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Scalebars currently do not make use of TrueType fonts. The size of the scalebar image is <emphasis>NOT</emphasis> known prior to rendering, so be carefull not to hardcode width and height in the &lt;IMG> tag in the template file. Future versions will make the image size available.</para>
+			<para>Defines how a scalebar should be built. Starts with the keyword <emphasis>SCALEBAR</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Scalebars currently do not make use of TrueType fonts. The size of the scalebar image is <emphasis>NOT</emphasis> known prior to rendering, so be careful not to hard-code width and height in the &lt;IMG> tag in the template file. Future versions will make the image size available.</para>
 			<variablelist>
 				<varlistentry>
 					<term>BACKGROUNDCOLOR [r][g][b]</term>
@@ -808,19 +812,19 @@
 				<varlistentry>
 					<term>OUTLINECOLOR [r][g][b]</term>
 					<listitem>
-						<para>Color to use for outlining individual intervals.  Set any component to -1 for non which is the default.</para>
+						<para>Color to use for outlining individual intervals.  Set any component to -1 for no outline which is the default.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POSITION [ul|uc|ur|ll|lc|lr]</term>
 					<listitem>
-						<para>Where to place an embeded scalebar in the image. Default is lr.</para>
+						<para>Where to place an embedded scalebar in the image. Default is lr.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>POSTLABELCACHE [true|false]</term>
 					<listitem>
-						<para>For use with embeded scalebars only.  Tells the MapServer to embed the scalebar after all labels in the cache have been drawn. Default is false.</para>
+						<para>For use with embedded scalebars only.  Tells the MapServer to embed the scalebar after all labels in the cache have been drawn. Default is false.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -832,7 +836,7 @@
 				<varlistentry>
 					<term>STATUS [on|off|embed]</term>
 					<listitem>
-						<para>Is the scalebar image to be created, and if so should it be embedded into the image? Default is off. <emphasis>(Please note that embeding scalebars require that you define a markerset. In essence the scalebar becomes a custom marker that is handled just like any other annotation.)</emphasis>
+						<para>Is the scalebar image to be created, and if so should it be embedded into the image? Default is off. <emphasis>(Please note that embedding scalebars require that you define a markerset. In essence the scalebar becomes a custom marker that is handled just like any other annotation.)</emphasis>
 						</para>
 					</listitem>
 				</varlistentry>
@@ -858,16 +862,17 @@
 			<title>Notes</title>
 			<itemizedlist>
 				<listitem>
-					<para>Symbol definitions can be included within the main MapFile, or be part of a separate file, referred to by using the <link linkend="symbolset">SYMBOLSET</link> keyword, part of the Map Object. This recommended setup is ideal for re-using symbol definitions accross multiple MapServer applications.</para>
+					<para>Symbol definitions can be included within the main MapFile or, more commonly, in a separate 
+file.  Symbol definitions in a separate file are designated using the <link linkend="symbolset">SYMBOLSET</link> keyword, as part of the Map Object. This recommended setup is ideal for re-using symbol definitions across multiple MapServer applications.</para>
 				</listitem>
 				<listitem>
 					<para>There are 3 main types of symbols in MapServer: Markers, Shadesets, and Lines.</para>
 				</listitem>
 				<listitem>
-					<para>Symbol 0 is allways the degenerate case for a particular class of symbol.  For points, symbol 0  is a single pixel, for shading (i.e. filled polygons) symbol 0 is a solid fill, and for lines, symbol 0 is a single pixel wide line.</para>
+					<para>Symbol 0 is always the degenerate case for a particular class of symbol.  For points, symbol 0  is a single pixel, for shading (i.e. filled polygons) symbol 0 is a solid fill, and for lines, symbol 0 is a single pixel wide line.</para>
 				</listitem>
 				<listitem>
-					<para>Symbol definitions contain NO color information, colors are set within <link linkend="class">CLASS</link> objects.</para>
+					<para>Symbol definitions contain <emphasis>no</emphasis> color information, colors are set within <link linkend="class">CLASS</link> objects.</para>
 				</listitem>
 				<listitem>
 					<para>There is a maximum of 64 symbols per file.  This can be changed by editing mapsymbol.h and changing the value of MS_MAXSYMBOLS at the top of the file.</para>
@@ -901,7 +906,7 @@
 				<varlistentry>
 					<term>POINTS</term>
 					<listitem>
-						<para>Signifies the start of the definition of points that make up a vector symbol or that define the x and y radius of an ellipse symbol.  The end of this section is signified with the keyword END. Coordinates are given in pixels and define the default size of the symbol before any scaling.  you can create non-contiguous paths by inserting negative coordinates at the appropriate place. For ellipse symbols you provide a single point that defines the x and y radius of an ellipse.  Circles are created when x and y are equal.</para>
+						<para>Signifies the start of the definition of points that make up a vector symbol or that define the x and y radius of an ellipse symbol.  The end of this section is signified with the keyword END. Coordinates are given in pixels and define the default size of the symbol before any scaling.  You can create non-contiguous paths by inserting negative coordinates at the appropriate place. For ellipse symbols you provide a single point that defines the x and y radius of an ellipse.  Circles are created when x and y are equal.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -913,13 +918,13 @@
 				<varlistentry>
 					<term>TRANSPARENT [color index]</term>
 					<listitem>
-						<para>Sets a transparent color for the input GIF image for pixmap symbols, or determines whether all shade symbols should have a transparent background. For shade symbols it may be desireable to have background features "show through" a transparent hatching pattern, creating a more complex map.  By default a symbol's background is the same as the parent image (i.e. color 0).  This is user configurable.</para>
+						<para>Sets a transparent color for the input GIF image for pixmap symbols, or determines whether all shade symbols should have a transparent background. For shade symbols it may be desirable to have background features "show through" a transparent hatching pattern, creating a more complex map.  By default a symbol's background is the same as the parent image (i.e. color 0).  This is user configurable.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>IMAGE [filename]</term>
 					<listitem>
-						<para>Pathname of GIF file to use for a marker or shade fill.  Pixmap symbols cannot be scaled. The main image colormap is loaded prior to the use of any pixmap symbols. If there is not enough room for the additional colors in the GIF file then the closes color(s) from the main image will be used.  In cases with many colors this can result in some strange looking images. Transparency is honored.</para>
+						<para>Pathname of GIF file to use for a marker or shade fill.  Pixmap symbols cannot be scaled. The main image colormap is loaded prior to the use of any pixmap symbols. If there is not enough room for the additional colors in the GIF file the closest color(s) from the main image will be used.  In cases with many colors this can result in some strange looking images. Transparency is honored.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -990,7 +995,7 @@ SYMBOL
   END 
 END
 				</programlisting>
-				<para>This example draws a cross, that is 2 lines (vectors) that are not connected end-to-end (Like the triangle in the previous example).  The negative values seperate the two.</para>
+				<para>This example draws a cross, that is 2 lines (vectors) that are not connected end-to-end (Like the triangle in the previous example).  The negative values separate the two.</para>
 			</example>
 			<example>
 				<title>Circle vector symbol</title>
