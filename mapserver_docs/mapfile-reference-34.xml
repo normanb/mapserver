@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-     "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <article>
 	<articleinfo>
 		<title>MapFile Reference</title>
 		<author>
-			<firstname>Jean-Francois</firstname>
+			<firstname>Jean-Fran&ccedil;ois</firstname>
 			<surname>Doyon</surname>
 			<affiliation>
 				<orgname>Natural Resources Canada</orgname>
@@ -154,7 +153,7 @@
 				</varlistentry>
 			</variablelist>
 		</sect2>
-		<sect2>
+		<sect2 id="label">
 			<title>Label Object</title>
 			<variablelist>
 				<varlistentry>
@@ -399,7 +398,7 @@
 				<varlistentry>
 					<term>QUERY</term>
 					<listitem>
-						<para>Signals the start of a QUERY object.</para>
+						<para>Signals the start of a <link linkend="query">QUERY</link> object.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -490,7 +489,7 @@
 				<varlistentry>
 					<term>LABEL</term>
 					<listitem>
-						<para>Signals the start of a <emphasis>LABEL</emphasis> object.</para>
+						<para>Signals the start of a <link linkend="label">LABEL</link> object.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -580,7 +579,7 @@
 				<varlistentry>
 					<term>LABEL</term>
 					<listitem>
-						<para>Signals the start of a label object</para>
+						<para>Signals the start of a <link linkend="label">LABEL</link> object</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -615,7 +614,7 @@
 				</varlistentry>
 			</variablelist>
 		</sect2>
-		<sect2>
+		<sect2 id="query">
 			<title>Query Object</title>
 			<para>Defines how a specific query is handled. Starts with the keyword <emphasis>QUERY</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
 			<variablelist>
@@ -640,7 +639,7 @@
 				<varlistentry>
 					<term>JOIN</term>
 					<listitem>
-						<para>Signals the start of a <emphasis>JOIN</emphasis> object.</para>
+						<para>Signals the start of a <link linkend="join">JOIN</link> object.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -655,7 +654,7 @@
 			<title>QueryMap Object</title>
 			<para>Defines a mechanism to map the results of a query. Start with the keyword <emphasis>QUERYMAP</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
 			<variablelist>
-				<varlistentry>
+				<varlistentry id="color">
 					<term>COLOR [r][g][b]</term>
 					<listitem>
 						<para>Color that features are highlighted in. Default is yellow.</para>
@@ -676,7 +675,7 @@
 								<para>Normal: Draws all features according to the settings for that layer.</para>
 							</listitem>
 							<listitem>
-								<para>Hilite: Draws selected features using <emphasis>COLOR</emphasis>. Non-selected features are drawn normally.</para>
+								<para>Hilite: Draws selected features using <link linkend="color">COLOR</link>. Non-selected features are drawn normally.</para>
 							</listitem>
 							<listitem>
 								<para>Selected: draws only the selected features normally.</para>
@@ -686,7 +685,7 @@
 				</varlistentry>
 			</variablelist>
 		</sect2>
-		<sect2>
+		<sect2 id="join">
 			<title>Join Object</title>
 			<para>Defines how a specific join is handled. Starts with the keyword <emphasis>JOIN</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Joins are defined within a query object.</para>
 			<variablelist>
@@ -774,7 +773,7 @@
 		</sect2>
 		<sect2 id="scalebar">
 			<title>Scalebar Object</title>
-			<para>Defines how a scalebar should be built. Starts with the keyword <emphasis>SCALEBAR</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Scalebars currently do not make use of TrueType fonts. The size of the scalebar image is <emphasis>NOT</emphasis> known prior to rendering, so be carefull not to hardcode width and height in the img tag in the template file. Future versions will make the image size available.</para>
+			<para>Defines how a scalebar should be built. Starts with the keyword <emphasis>SCALEBAR</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Scalebars currently do not make use of TrueType fonts. The size of the scalebar image is <emphasis>NOT</emphasis> known prior to rendering, so be carefull not to hardcode width and height in the &lt;IMG> tag in the template file. Future versions will make the image size available.</para>
 			<variablelist>
 				<varlistentry>
 					<term>BACKGROUNDCOLOR [r][g][b]</term>
@@ -797,13 +796,13 @@
 				<varlistentry>
 					<term>INTERVALS [integer]</term>
 					<listitem>
-						<para>Number of interals to break the scalebar into.  Default is 4.</para>
+						<para>Number of intervals to break the scalebar into.  Default is 4.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>LABEL</term>
 					<listitem>
-						<para>Signals the start of a label object</para>
+						<para>Signals the start of a <link linkend="label">LABEL</link> object</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
