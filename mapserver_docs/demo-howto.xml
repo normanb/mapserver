@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-          "file:/c:/jade/docbkx412/docbookx.dtd">
+          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 
 <article>
 
@@ -18,13 +18,13 @@
      </affiliation>
   </author>
 
-  <date>2001-04-18</date>
-
   <abstract>
     <para>
       This document provides basic instructions on setting up the MapServer Demo
       Application. It assumes that the MapServer CGI program (e.g. mapserv or
       mapserv.exe) has been installed on the web server's cgi-bin directory.</para>
+
+    <para>Last Updated:  05-11-2001</para>
   </abstract>
 
 </articleinfo>
