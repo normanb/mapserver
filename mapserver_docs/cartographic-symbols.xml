@@ -143,7 +143,7 @@
         which are also used in UMN MapServer.      
       </para>
         <figure><title>Structure of cartographic elements (modified after Bollmann, Muller, Tainz (2002))</title>
-           <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m429f0e81.jpg"></graphic>
+           <graphic srccredit="PF" fileref="./mapfile-reference_html_m429f0e81.jpg"></graphic>
         </figure> 
       <para>
         In a MapServer application symbol parameters are taken from the MAP and symbol
@@ -191,7 +191,7 @@
         rendering cartographic symbols in the map.      
       </para>
         <figure><title>Schema showing interaction of MAP and SYMBOL file</title>
-           <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m4a95c599.png"></graphic>
+           <graphic srccredit="PF" fileref="./mapfile-reference_html_m4a95c599.png"></graphic>
         </figure>      
     </sect2>
   </sect1>
@@ -288,7 +288,7 @@
         even and odd numbered SIZE parameters seem to have larger irregularities.      
       </para>
         <figure><title>Construction of Point Symbols</title>
-           <graphic srccredit="PF" fileref="./images/mapfile-reference_html_61fc2207.png"></graphic>
+           <graphic srccredit="PF" fileref="./mapfile-reference_html_61fc2207.png"></graphic>
         </figure>       
   </sect2>
   <sect2 id="line">
@@ -305,7 +305,7 @@
         (anybody need this?)    
     </para>
         <figure><title>Construction of Line Symbols</title>
-           <graphic srccredit="PF" fileref="./images/mapfile-reference_html_3854adfd.png"></graphic>
+           <graphic srccredit="PF" fileref="./mapfile-reference_html_3854adfd.png"></graphic>
         </figure> 
     <para>
      When using the point character for rendering all line features with have rounded
@@ -372,7 +372,7 @@ END
         </row>  
         <row>
           <entry spanname='hspan'>
-             <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m2deec323.gif"></graphic>
+             <graphic srccredit="PF" fileref="./mapfile-reference_html_m2deec323.gif"></graphic>
           </entry>
         </row>
         </tbody>
@@ -487,10 +487,10 @@ END
                 </row>
                 <row>
                     <entry spanname='hspan1'>
-                      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m2bea55b0.png"></graphic>
+                      <graphic srccredit="PF" fileref="./mapfile-reference_html_m2bea55b0.png"></graphic>
                     </entry>                    
                     <entry spanname='hspan2'>
-                      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_13f3b5ab.jpg"></graphic>                                        
+                      <graphic srccredit="PF" fileref="./mapfile-reference_html_13f3b5ab.jpg"></graphic>                                        
                     </entry>                    
                 </row>
                 </tbody>
@@ -573,7 +573,7 @@ END
                 </row>  
                 <row>
                   <entry spanname='hspan'>
-                     <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m44e5f62e.png"></graphic>
+                     <graphic srccredit="PF" fileref="./mapfile-reference_html_m44e5f62e.png"></graphic>
                   </entry>
                 </row>
                 </tbody>
@@ -614,10 +614,10 @@ END
         shown in fig. 1.    
     </para>
         <figure><title>Raster image for a regular polygon symbol fill</title>
-           <graphic srccredit="PF" fileref="./images/mapfile-reference_html_26de88e4.png"></graphic>
+           <graphic srccredit="PF" fileref="./mapfile-reference_html_26de88e4.png"></graphic>
         </figure> 
         <figure><title>Raster image for a hatched fill</title>
-           <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m39b50d33.png"></graphic>
+           <graphic srccredit="PF" fileref="./mapfile-reference_html_m39b50d33.png"></graphic>
         </figure>
      <para>
       Instead of using circles you can use different characters. B defines the width
@@ -678,12 +678,12 @@ SYMBOL
     TRANSPARENT 8
 END
              </programlisting>
-<graphic srccredit="PF" fileref="./images/mapfile-reference_html_md1ebee3.png"></graphic>             
+<graphic srccredit="PF" fileref="./mapfile-reference_html_md1ebee3.png"></graphic>             
                          </entry>
                      </row>  
                      <row>
                        <entry spanname='hspan'>
-                          <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m1b1ef2be.png"></graphic>
+                          <graphic srccredit="PF" fileref="./mapfile-reference_html_m1b1ef2be.png"></graphic>
                        </entry>
                      </row>
                      </tbody>
@@ -721,12 +721,12 @@ SYMBOL
     TRANSPARENT 13
 END
              </programlisting>
-<graphic srccredit="PF" fileref="./images/mapfile-reference_html_4e653bb6.png"></graphic>             
+<graphic srccredit="PF" fileref="./mapfile-reference_html_4e653bb6.png"></graphic>             
                          </entry>
                      </row>  
                      <row>
                        <entry spanname='hspan'>
-                          <graphic srccredit="PF" fileref="./images/mapfile-reference_html_5c78a691.png"></graphic>
+                          <graphic srccredit="PF" fileref="./mapfile-reference_html_5c78a691.png"></graphic>
                        </entry>
                      </row>
                      </tbody>
@@ -767,12 +767,12 @@ SYMBOL
     TRANSPARENT 2
 END
              </programlisting>
-<graphic srccredit="PF" fileref="./images/mapfile-reference_html_m3f2ffd0d.png"></graphic>             
+<graphic srccredit="PF" fileref="./mapfile-reference_html_m3f2ffd0d.png"></graphic>             
                          </entry>
                      </row>  
                      <row>
                        <entry spanname='hspan'>
-                          <graphic srccredit="PF" fileref="./images/mapfile-reference_html_193e24d3.png"></graphic>
+                          <graphic srccredit="PF" fileref="./mapfile-reference_html_193e24d3.png"></graphic>
                        </entry>
                      </row>
                      </tbody>
@@ -816,7 +816,7 @@ END
         (Default is 'not set' but do not specify the string 'not set' but just ommint
         the parameter LINEJOIN.        
         </para>
-<graphic srccredit="PF" fileref="./images/mapfile-reference_html_394b31ab.jpg"></graphic>             
+<graphic srccredit="PF" fileref="./mapfile-reference_html_394b31ab.jpg"></graphic>             
         <itemizedlist>
           <listitem>
             <para>
@@ -839,7 +839,7 @@ END
             </para>
           </listitem>          
         </itemizedlist>
-<graphic srccredit="PF" fileref="./images/mapfile-reference_html_m2fcf93f1.jpg"></graphic>             
+<graphic srccredit="PF" fileref="./mapfile-reference_html_m2fcf93f1.jpg"></graphic>             
       </sect4>
       <sect4 id='linejoinmaxsize'>
         <title>LINEJOINMAXSIZE</title>
@@ -933,8 +933,8 @@ END
                      </row>  
                      <row>
                        <entry spanname='hspan'>
-<graphic srccredit="PF" fileref="./images/mapfile-reference_html_m5dac61ff.png"></graphic> 
-<graphic srccredit="PF" fileref="./images/mapfile-reference_html_m4996fe8b.png"></graphic>  
+<graphic srccredit="PF" fileref="./mapfile-reference_html_m5dac61ff.png"></graphic> 
+<graphic srccredit="PF" fileref="./mapfile-reference_html_m4996fe8b.png"></graphic>  
 <para>
 Drawing line clockwise and anticlockwise.t
 </para>
@@ -978,15 +978,15 @@ Drawing line clockwise and anticlockwise.t
     </para>
     <sect2 id='basic'>
       <title>Basic symbols</title>
-      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m725332e4.jpg"></graphic>
-      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m3f7cdfc1.jpg"></graphic>
-      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m205c8d48.jpg"></graphic>
+      <graphic srccredit="PF" fileref="./mapfile-reference_html_m725332e4.jpg"></graphic>
+      <graphic srccredit="PF" fileref="./mapfile-reference_html_m3f7cdfc1.jpg"></graphic>
+      <graphic srccredit="PF" fileref="./mapfile-reference_html_m205c8d48.jpg"></graphic>
     </sect2>
     <sect2 id='complex'>
       <title>Complex symbols</title>
-      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m767f1a62.jpg"></graphic>
-      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m2b053f83.jpg"></graphic>
-      <graphic srccredit="PF" fileref="./images/mapfile-reference_html_2cab400f.jpg"></graphic>
+      <graphic srccredit="PF" fileref="./mapfile-reference_html_m767f1a62.jpg"></graphic>
+      <graphic srccredit="PF" fileref="./mapfile-reference_html_m2b053f83.jpg"></graphic>
+      <graphic srccredit="PF" fileref="./mapfile-reference_html_2cab400f.jpg"></graphic>
     </sect2>    
   </sect1>
   <sect1 id='problems'>
@@ -1050,7 +1050,7 @@ END
             </row>  
             <row>
               <entry spanname='hspan'>
-                 <graphic srccredit="PF" fileref="./images/mapfile-reference_html_aad0862.png"></graphic>
+                 <graphic srccredit="PF" fileref="./mapfile-reference_html_aad0862.png"></graphic>
               </entry>
             </row>
             </tbody>
@@ -1101,7 +1101,7 @@ END
             </row>  
             <row>
               <entry spanname='hspan'>
-                 <graphic srccredit="PF" fileref="./images/mapfile-reference_html_m5871e3bb.png"></graphic>
+                 <graphic srccredit="PF" fileref="./mapfile-reference_html_m5871e3bb.png"></graphic>
               </entry>
             </row>
             </tbody>
