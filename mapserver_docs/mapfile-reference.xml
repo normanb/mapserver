@@ -20,7 +20,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 3.7.
    			</para>
-			<para>Last Updated:  08-20-2002</para>
+			<para>Last Updated:  09-05-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -368,9 +368,9 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>CONNECTIONTYPE [local|sde|ogr|postgis|oraclespatial]</term>
+					<term>CONNECTIONTYPE [local|sde|ogr|postgis|oraclespatial|wms]</term>
 					<listitem>
-						<para>Type of connection. Default is local.</para>
+						<para>Type of connection. Default is local. See additional documentation for any other type.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
