@@ -21,7 +21,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 3.5.
    			</para>
-			<para>Last Updated:  12-12-2001</para>
+			<para>Last Updated:  06-13-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -54,6 +54,9 @@
 				</listitem>
 				<listitem>
 					<para>Attributes are named using the following syntax: [ATTRIBUTENAME] ... Note that the name of the attribute included between the square brackets IS CASE SENSITIVE.  Generally ESRI generated shapefiles have their attributes (.dbf column names) all in upper-case for instance, and for PostGIS, ALLWAYS use lower-case.</para>
+				</listitem>
+				<listitem>
+					<para>MapServer Regular Expressions are used through the operating system's C Library.  For information on how to use and write Regular Expressions on your system, you should read the documentation provided with your C Library.  On Linux, this is GLibC, and you can read "man 7 regex" ... This man page is also available on most UNIX's.  Since these RegEx's are POSIX compliant, they should be the same on Windows as well, so windows users can try searching the web for "man 7 regex" since man pages are available all over the web. </para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
