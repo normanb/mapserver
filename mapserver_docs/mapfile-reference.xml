@@ -52,7 +52,7 @@
 				</listitem>
 			</itemizedlist>
 		</sect2>
-		<sect2>
+		<sect2 id="map">
 			<title>Map Object</title>
                         <para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
 			<variablelist>
@@ -76,15 +76,45 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>IMAGEQUALITY [int]</term>
+					<listitem>
+						<para>Compression quality for JPEG output.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>IMAGETYPE [gif|png|jpeg|wbmp]</term>
+					<listitem>
+						<para>Output image type.  This is dependent on how the MapServer executable was compiled and the GD used.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>INTERLACE [on|off]</term>
 					<listitem>
 						<para>Should output images be interlaced?  Default is [on].</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>LAYER</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="layer">LAYER</link>object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>LEGEND</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="legend">LEGEND</link>object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>NAME [name]</term>
 					<listitem>
 						<para>Prefix attached to map, scalebar and legend GIF filenames created using this MapFile.  It should be kept short.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>PROJECTION</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="projection">PROJECTION</link> object.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -97,6 +127,12 @@
 					<term>REFERENCE</term>
 					<listitem>
 						<para>Signals the start of a <link linkend="referencemap">REFERENCE MAP</link> object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>RESOLUTION</term>
+					<listitem>
+						<para>Sets the pixels per inch for output, only affects scale computations and nothing else, default is 72</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -136,6 +172,12 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>SYMBOL</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="symbology">SYMBOL</link> object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
 						<para>Should the background color for the maps be transparent. Default is off.</para>
@@ -147,6 +189,12 @@
 						<para>Units of the map coordinates.  Used for scalebar and scale computations.</para>
 					</listitem>
 				</varlistentry>
+				<varlistentry>
+					<term>WEB</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="web">WEB</link> object.</para>
+					</listitem>
+				</varlistentry>
 			</variablelist>
 		</sect2>
 		<sect2 id="label">
@@ -154,15 +202,15 @@
 			<para>This object is used to define a label, which is in turn usually used to annotate a feature with a piece of text.  Labels can however also be used as symbols through the use of various TrueType fonts.</para>
 			<variablelist>
 				<varlistentry>
-					<term>ANTIALIAS</term>
+					<term>ANGLE</term>
 					<listitem>
-						<para>Should text be antialiased? Note that this requires more available colors and results in slightly larger output images.</para>
+						<para>Angle, given in degrees, to draw the label or AUTO to allow the software to compute the angle, AUTO is valid for LINE layers only.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>BUFFER [integer]</term>
+					<term>ANTIALIAS</term>
 					<listitem>
-						<para>Padding, in pixels, around labels. Useful for maintaining spacing around text to enhance readability. Available only for cached labels. Default is 0.</para>
+						<para>Should text be antialiased? Note that this requires more available colors and results in slightly larger output images.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -184,6 +232,12 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>BUFFER [integer]</term>
+					<listitem>
+						<para>Padding, in pixels, around labels. Useful for maintaining spacing around text to enhance readability. Available only for cached labels. Default is 0.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>COLOR [r][g][b]</term>
 					<listitem>
 						<para>Color to draw text with.</para>
@@ -201,6 +255,12 @@
 						<para>Forces labels for a particular class on, regardless of collisions. Available only for cached labels. Default is false.</para>
 					</listitem>
 				</varlistentry>
+				<varlistentry id="maxsize">
+					<term>MAXSIZE [integer]</term>
+					<listitem>
+						<para>Maximum font size to use when scaling text (pixels). Default is 256.</para>
+					</listitem>
+				</varlistentry>
 				<varlistentry>
 					<term>MINDISTANCE [integer]</term>
 					<listitem>
@@ -211,12 +271,6 @@
 					<term>MINFEATURESIZE [integer|auto]</term>
 					<listitem>
 						<para>Minimum size a feature must be to be labeled. Given in pixels. For line data the overall length of the displayed line is used, for polygons features the smallest dimension of the bounding box is used.  "Auto" keyword tells MapServer to only label features that are larger than their corresponding label. Available for cached labels only.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry id="maxsize">
-					<term>MAXSIZE [integer]</term>
-					<listitem>
-						<para>Maximum font size to use when scaling text (pixels). Default is 256.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="minsize">
@@ -250,6 +304,18 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>SHADOWCOLOR [r][g][b]</term>
+					<listitem>
+						<para>Color of drop shadow.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>SHADOWSIZE [x][y]</term>
+					<listitem>
+						<para>Shadow offset in pixels.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>SIZE [integer]|[tiny|small|medium|large|giant]</term>
 					<listitem>
 						<para>Text size. Use "integer" to give the size in pixels of your TrueType font based label, or any of the other 5 listed keywords to bitmap fonts.</para>
@@ -269,10 +335,16 @@
 				</varlistentry>
 			</variablelist>
 		</sect2>
-		<sect2>
+		<sect2 id="layer">
 			<title>Layer Object</title>
 			<para>The most used object in a MapFile, this one describes layers used to make up a map.  Layers are drawn in their order of appearance in the MapFile (first layer is at the bottom, last in on top).</para>
 			<variablelist>
+				<varlistentry>
+					<term>CLASS</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="class">CLASS</link> object.</para>
+					</listitem>
+				</varlistentry>
 				<varlistentry>
 					<term>CLASSITEM [attribute]</term>
 					<listitem>
@@ -286,7 +358,7 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>CONNECTIONTYPE [local|sde]</term>
+					<term>CONNECTIONTYPE [local|sde|ogr]</term>
 					<listitem>
 						<para>Type of connection. Default is local.</para>
 					</listitem>
@@ -304,10 +376,16 @@
 						<para>Signals the start of a <link linkend="feature">FEATURE</link> object.</para>
 					</listitem>
 				</varlistentry>
-				<varlistentry>
+				<varlistentry id="filter">
 					<term>FILTER [string]</term>
 					<listitem>
 						<para>This parameter allows for data specific attribute filtering that is done at the same time spatial filtering is done, but before any CLASS expressions are evaluated.  For OGR and shapefiles the string is simply a mapserver regular expression.  For SDE the string is a SQL WHERE clause that is valid with respect to the underlying database (e.g. Oracle)</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>FILTERITEM [attribute]</term>
+					<listitem>
+						<para>Item to use with simple <link linkend="filter">FILTER</link> expressions. OGR and shapefiles only. </para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -358,6 +436,14 @@
 						<para>Minimum scale at which the layer is labeled.</para>
 					</listitem>
 				</varlistentry>
+				<varlistentry id="labelrequires">
+					<term>LABELREQUIRES [expression]</term>
+					<listitem>
+						<para>Sets context for labeling this layer, for example:</para>
+						<programlisting>LABELREQUIRES ([orthoquads] != 1)</programlisting>
+						<para>means that this layer would NOT be labeled if a layer named "orthoquads" is on. The expression consists of a boolean expression based on the status of other layers, each [layer name] substring is replaced by a 0 or a 1 depending on that layers STATUS and then evaluated as normal. Logical operators AND and OR can be used.</para>
+					</listitem>
+				</varlistentry>
 				<varlistentry>
 					<term>LABELSIZEITEM [attribute]</term>
 					<listitem>
@@ -403,15 +489,33 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>OFFSITE [color index]</term>
+					<listitem>
+						<para>Sets the color index to treat as transparent for raster layers.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>POSTLABELCACHE [true|false]</term>
 					<listitem>
 						<para>Tells MapServer to render this layer after all labels in the cache have been drawn. Useful for adding neatlines and similar elements. Default is false.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>SYMBOLSCALE [double]</term>
+					<term>PROJECTION</term>
 					<listitem>
-						<para>The scale at which symbols and/or text appear full size. This allows for dynamic scaling of objects based on the scale of the map. If not set then this layer will always appear at the same size. Scaling only takes place within the limits of <link linkend="minsize">MINSIZE</link> and <link linkend="maxsize">MAXSIZE</link> as described above.</para>
+						<para>Signals the start of a <link linkend="projection">PROJECTION</link> object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>REQUIRES [expression]</term>
+					<listitem>
+						<para>Sets context for displaying this layer (see <link linkend="labelrequires">LABELREQUIRES</link>).</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>SIZEUNITS [pixels|feet|inches|kilometers|meters|miles|</term>
+					<listitem>
+						<para>Sets the unit of <link linkend="class">CLASS</link> object <link linkend="size">SIZE</link> values (default is pixels). Usefull for simulating buffering.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -421,9 +525,33 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>STYLEITEM [attribute]</term>
+					<listitem>
+						<para>Item to use for feature specific styling.  This is *very* experimental and OGR only at the moment.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>SYMBOLSCALE [double]</term>
+					<listitem>
+						<para>The scale at which symbols and/or text appear full size. This allows for dynamic scaling of objects based on the scale of the map. If not set then this layer will always appear at the same size. Scaling only takes place within the limits of <link linkend="minsize">MINSIZE</link> and <link linkend="maxsize">MAXSIZE</link> as described above.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>TEMPLATE [file|url]</term>
+					<listitem>
+						<para>Used as a global alternative to <link linkend="class">CLASS</link>&nbsp;<link linkend="template">TEMPLATE</link></para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>TILEINDEX [filename]</term>
 					<listitem>
 						<para>Full filename for the index or tile definition for this layer. Similar to an ArcInfo library index, this shapefile contains polygon features for each tile. The item that contains the location of the tiled data is given using the <emphasis>TILEITEM</emphasis> parameter. If the <emphasis>DATA</emphasis> parameter contains a value then it is added to the end of the location. If <emphasis>DATA</emphasis> is empty then the location should contain the entire filename.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>TILEITEM [attribute]</term>
+					<listitem>
+						<para>Item that contains the location of an individual tile, default is "location".</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry id="tolerance">
@@ -523,7 +651,7 @@ END
 						<para>Color to use for outlining polygons and certain marker symbols. Line symbols do not support outline colors.</para>
 					</listitem>
 				</varlistentry>
-				<varlistentry>
+				<varlistentry id="size">
 					<term>SIZE [integer]</term>
 					<listitem>
 						<para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. Default is 1.</para>
@@ -535,7 +663,7 @@ END
 						<para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
 					</listitem>
 				</varlistentry>
-				<varlistentry>
+				<varlistentry id="template">
 					<term>TEMPLATE [filename]</term>
 					<listitem>
 						<para>Template file or URL to use in presenting query results to the user.</para>
@@ -561,7 +689,7 @@ END
 					<para>OVERLAYOUTLINECOLOR</para>
 				</listitem>
 				<listitem>
-					<para>OVERLAYSIZESCALED</para>
+					<para>OVERLAYSIZE</para>
 				</listitem>
 				<listitem>
 					<para>OVERLAYMINSIZE</para>
@@ -581,13 +709,9 @@ END
 				<varlistentry>
 					<term>POINTS</term>
 					<listitem>
-						<para>N/A</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>CLASS [string]</term>
-					<listitem>
-						<para>String that classifies this feature. In cases where a layer has multiple classes defined the class string is evaluated against the class expressions. This is effectively the same as pulling data from an attribute in a shapefile (see classitem in the layer object).</para>
+						<para>A set of xy pairs terminated with an END, for example:</para>
+						<programlisting>POINTS 1 1 50 50 1 50 1 1 END</programlisting>
+						<para>Note that with POLYGON/POLYLINE layers POINTS must start and end with the same point (i.e. close the feature).</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -598,20 +722,20 @@ END
 				</varlistentry>
 			</variablelist>
 		</sect2>
-		<sect2>
+		<sect2 id="legend">
 			<title>Legend Object</title>
 			<para>Defines how a legend is to be built. Legend components are built automatically from class objects from individual layers.  Starts with the keyword <emphasis>LEGEND</emphasis> and terminates with the keyword <emphasis>END</emphasis>. The size of the legend image is <emphasis>NOT</emphasis> known prior to creation so be careful not to hard-code width and height in the &lt;IMG> tag in the template file.</para>
 			<variablelist>
 				<varlistentry>
-					<term>EMBED [true|false]</term>
-					<listitem>
-						<para>Should the legend image be embedded into the map? Default is false.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
 					<term>IMAGECOLOR [r][g][b]</term>
 					<listitem>
 						<para>Color to initialize the legend with (i.e. the background).</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>INTERLACE [on|off]</term>
+					<listitem>
+						<para>Should the output image be interlaced?  Default is [on].</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -633,21 +757,33 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>SIZE [x][y]</term>
+					<term>KEYSIZE [x][y]</term>
 					<listitem>
 						<para>Size of symbol key boxes in pixels. Default is 20 by 10.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>SPACING [x][y]</term>
+					<term>KEYSPACING [x][y]</term>
 					<listitem>
 						<para>Spacing between symbol key boxes ([y]) and labels ([x]) in pixels. Default is 5 by 5.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>STATUS [on|off]</term>
+					<term>POSTLABELCACHE [true|false]</term>
+					<listitem>
+						<para>Tells MapServer to render this legend after all labels in the cache have been drawn. Useful for adding neatlines and similar elements. Default is false.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>STATUS [on|off|embed]</term>
 					<listitem>
 						<para>Is the legend image to be created.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>TRANSPARENT [on|off]</term>
+					<listitem>
+						<para>Should the background color for the legend be transparent. Default is off.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
@@ -666,6 +802,12 @@ END
 					<term>SIZE [x][y]</term>
 					<listitem>
 						<para>Size of the map in pixels. Defaults to the size defined in the map object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>STATUS [on|off]</term>
+					<listitem>
+						<para>Is the query map to be drawn ?</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -796,6 +938,12 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>INTERLACE [true|false]</term>
+					<listitem>
+						<para>Should output images be interlaced?  Default is [on].</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>INTERVALS [integer]</term>
 					<listitem>
 						<para>Number of intervals to break the scalebar into.  Default is 4.</para>
@@ -828,7 +976,7 @@ END
 				<varlistentry>
 					<term>SIZE [x][y]</term>
 					<listitem>
-						<para>Siz,e in pixels, of the scalebar. X specifies the rough width of the scalebar itself, so actual width may vary a bit. Y specifies the thickness of the bar itself. Neither takes into account labeling.</para>
+						<para>Size in pixels of the scalebar. Labeling is not taken into account.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -845,6 +993,12 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>TRANSPARENT [on|off]</term>
+					<listitem>
+						<para>Should the background color for the scalebar be transparent. Default is off.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>UNITS [feet|inches|kilometers|meters|miles]</term>
 					<listitem>
 						<para>Output scalebar units, default is miles. Used in conjunction with the map's units to develop the actual graphic. Note that decimal degrees are not valid scalebar units.</para>
@@ -852,7 +1006,7 @@ END
 				</varlistentry>
 			</variablelist>
 		</sect2>
-		<sect2>
+		<sect2 id="web">
 			<title>Web Object</title>
 			<para>Defines how a web interface will operate.  Starts with the keyword WEB and terminates with the keyword END.</para>
 			<variablelist>
@@ -905,6 +1059,12 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>MAXTEMPLATE [file|url]</term>
+					<listitem>
+						<para>Template to be used if above the maximum scale for the app, useful for nesting apps.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>METADATA</term>
 					<listitem>
 						<para>This keyword allows for arbitrary data to be stored as name value pairs.  This is used with OGC WMS to define things such as layer title.  It can also allow more flexibility in creating templates, as anything you put in here will be accessible via template tags.</para>
@@ -925,12 +1085,38 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>MINTEMPLATE</term>
+					<listitem>
+						<para>Template to be used if above the minimum scale for the app, useful for nesting apps.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>TEMPLATE [filename|url]</term>
 					<listitem>
 						<para>Template file or URL to use in presenting the results to the user in an interactive mode (i.e. map generates map and so on ... )</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
+		</sect2>
+		<sect2 id="projection">
+			<title>Projection Object</title>
+			<para>To set up projections you must define two projection objects: one for the output image (In the <link linkend="map">MAP</link> object) and one for each layer (In the <link linkend="layer">LAYER</link> objects) to be projected. Projection objects simply consist of a series of PROJ.4 keywords. Here is an example defining UTM zone 15, NAD83:</para>
+			<programlisting>
+PROJECTION
+  "proj=utm"
+  "ellps=GRS80"
+  "zone=15"
+  "north"
+  "no_defs"
+END
+			</programlisting>
+			<para>Geographic coordinates are defined as:</para>
+			<programlisting>
+PROJECTION
+  geographic
+END
+			</programlisting>
+			<para>See the <ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink> user guides for complete descriptions of supported projections and coordinate systems. </para>
 		</sect2>
 	</sect1>
 	<sect1 id="symbology">
