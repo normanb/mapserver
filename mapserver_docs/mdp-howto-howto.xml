@@ -314,7 +314,7 @@
 </sect1>
 
 <!-- Translation -->
-<sect1 id='docinfo'> 
+<sect1 id='translation'>
   <title>Translating to Other Languages</title>
   <para>Translation of MapServer Documentation to other languages is encouraged.  Translated documents will be stored in
         the CVS in the same branch as the English versions with an extension to indicate the language.
