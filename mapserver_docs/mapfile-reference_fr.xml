@@ -84,7 +84,7 @@
       <para>Définit l'objet maître du fichier MapFile, ainsi cet objet racine détient tous les autres objets.  Il définit les paramètres généraux de l'application/la carte.</para>
       <variablelist>
         <varlistentry>
-          <term>DEBUG</term>
+          <term>DEBUG [on|off]</term>
           <listitem>
             <para>Permet la mise au point de l'objet map.  Les sorties sont dirigées vers la sortie standard d'erreur (STDERR) ou vers le fichier de trace de MapServer s'il est indiqué dans le paramètre LOG de l'objet <link linkend="web">WEB</link>.</para>
           </listitem>
@@ -408,7 +408,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>DEBUG</term>
+          <term>DEBUG [on|off]</term>
           <listitem>
             <para>Permet la mise au point de l'objet de couche.  Les sorties sont générées et envoyées vers la sortie standard d'erreur (STDERR) ou dans le fichier de trace de MapServer si le paramètre  LOG de l'objet <link linkend="web">WEB</link> est renseigné.</para>
           </listitem>
@@ -671,7 +671,7 @@ PROCESSING "BANDS=3,2,1,4"
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>DEBUG</term>
+          <term>DEBUG [on|off]</term>
           <listitem>
             <para>Permet la mise au point de l'objet de classe.  Les sorties sont générées et envoyées vers la sortie d'erreur standard (STDERR) ou vers le fichier trace de  MapServer si le paramètre LOG est renseigné dans l'objet <link linkend="web">WEB</link>.</para>
           </listitem>

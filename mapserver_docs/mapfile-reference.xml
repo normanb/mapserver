@@ -85,7 +85,7 @@ such options would be found in specific GDAL driver documentation.
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>DEBUG</term>
+					<term>DEBUG [on|off]</term>
 					<listitem>
 						<para>Enables debugging of the map object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServer logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
 					</listitem>
@@ -416,7 +416,7 @@ such options would be found in specific GDAL driver documentation.
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>DEBUG</term>
+					<term>DEBUG [on|off]</term>
 					<listitem>
 						<para>Enables debugging of the layer object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServe r logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
 					</listitem>
@@ -689,7 +689,7 @@ PROCESSING "BANDS=3,2,1,4"
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>DEBUG</term>
+					<term>DEBUG [on|off]</term>
 					<listitem>
 						<para>Enables debugging of the class object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServe r logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
 					</listitem>
