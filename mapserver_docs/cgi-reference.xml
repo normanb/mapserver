@@ -26,8 +26,8 @@
 	</author>
     <abstract>
       <para>        This document is a reference for the mapserv CGI
-        version 4.0.        </para>
-      <para>Last Updated:  2003-08-19</para>
+        development version 4.x . </para>
+      <para>Last Updated:  2003-12-23</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -355,7 +355,7 @@
                     using a QSTRING. Returns all matches. Layer to
                     be searched is defined using slayer parameter. The
                     results of this search are applied to other
-                    searchable layers (which can belimited using the
+                    searchable layers (which can be limited using the
                     QLAYER parameter).</para>
                 </listitem>
               </varlistentry>
@@ -677,7 +677,7 @@
         feature belongs to must exist. Here&apos;s a snippet from a GET
         request that adds a feature to a webuser layer:
         <programlisting><![CDATA[
-      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789+map_webuser_feature_text=My+House!&...
+      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789&map_webuser_feature_text=My+House!&...
       ]]></programlisting>
         The &quot;map_webuser_feature=new&quot; creates a new feature
         for the webuser layer. All subsequent calls to the feature
