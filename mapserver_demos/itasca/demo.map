@@ -9,6 +9,7 @@ UNITS METERS
 SHAPEPATH "data"
 IMAGECOLOR 255 255 255
 
+# you may need to change this to match your MapServer build
 #IMAGETYPE PNG
 
 #
@@ -20,10 +21,14 @@ IMAGECOLOR 255 255 255
 #  "zone=15"
 #  "north"
 #  "no_defs"
+#
+#  OR: 
+#
+#  "init=epsg:26915"
 #END
 
 #
-# Start of web interface definition
+# Start of web interface definition (including WMS enabling metadata)
 #
 WEB
   HEADER demo_header.html
@@ -32,7 +37,17 @@ WEB
   MINSCALE 1000
   MAXSCALE 1550000
   IMAGEPATH "set in demo_init.html"
-  IMAGEURL "set in demo_init.html"  
+  IMAGEURL "set in demo_init.html"
+  METADATA
+    WMS_TITLE "UMN MapServer Itasca Demo"
+    WMS_ABSTRACT "This is the UMN MapServer demonstration application for Itasca County located in north central Minnesota."
+    WMS_ACCESSCONSTRAINTS none
+
+    # change this value to match your setup
+    WMS_ONLINERESOURCE "http://localhost.localdomain/mapserver_demos/itasca/demo_init.html"
+
+    WMS_SRS "EPSG:26915"
+  END
 END
 
 QUERYMAP
@@ -92,7 +107,7 @@ SYMBOL
   NAME 'circle'
   TYPE ELLIPSE
   POINTS 1 1 END
-  FILLED
+  FILLED TRUE
 END
 
 #
@@ -100,7 +115,7 @@ END
 #
 
 LAYER
-  NAME county
+  NAME ctybdpy2
   TYPE POLYGON
   STATUS DEFAULT
   DATA ctybdpy2
@@ -116,13 +131,19 @@ LAYER
     OUTLINECOLOR 128 128 128
     COLOR 255 255 255
   END
+  METADATA
+    WMS_TITLE "County Boundary"
+    WMS_ABSTRACT "Itasca County boundary shapefile. See http://deli.dnr.state.mn.us/metadata/full/ctybdne2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
 END
 
 LAYER
-  NAME cities
+  NAME mcd90py2
+  GROUP cities
   TYPE POLYGON
   DATA mcd90py2
-  STATUS ON
+  STATUS OFF
   CLASSITEM city_name	
   CLASS
     NAME "Cities & Towns"
@@ -133,25 +154,36 @@ LAYER
 
   HEADER "mcd90py2_header.html"
   FOOTER "mcd90py2_footer.html"
-END
 
-LAYER
-  NAME townships
-  TYPE POLYLINE
-  DATA twprgpy3
-  STATUS ON
-  CLASS
-    SYMBOL 'circle'
-    SIZE 2
-    NAME 'Townships'
-    COLOR 181 181 145
+  METADATA
+    WMS_TITLE "Minor Civil Divisions"
+    WMS_ABSTRACT "Minor civil divisions for Itasca County. (boundaries only)"
+    WMS_SRS "EPSG:26915"
   END
 END
 
 LAYER
-  NAME lakes
+  NAME twprgpy3
   TYPE POLYGON
-  STATUS ON
+  DATA twprgpy3
+  STATUS OFF
+  CLASS
+    SYMBOL 'circle'
+    SIZE 2
+    NAME 'Townships'
+    OUTLINECOLOR 181 181 145
+  END
+  METADATA
+    WMS_TITLE "Township Boundaries"
+    WMS_ABSTRACT "Pulic Land Survey (PLS) township boundaries for Itasca County. See http://deli.dnr.state.mn.us/metadata/full/twprgne2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
+END
+
+LAYER
+  NAME lakespy2
+  TYPE POLYGON
+  STATUS OFF
   DATA lakespy2
 
   CLASS
@@ -164,12 +196,18 @@ LAYER
   FOOTER "lakespy2_footer.html"
   
   TOLERANCE 3
+
+  METADATA
+    WMS_TITLE "Lakes and Rivers"
+    WMS_ABSTRACT "DLG lake and river polygons for Itasca County. See http://deli.dnr.state.mn.us/metadata/full/dlglkpy2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
 END # lakes
 
 LAYER
-  NAME streams
+  NAME dlgstln2
   TYPE LINE
-  STATUS ON
+  STATUS OFF
   DATA dlgstln2
 
   CLASS
@@ -181,24 +219,38 @@ LAYER
   HEADER "dlgstln2_header.html"
   FOOTER "dlgstln2_footer.html"
 
-  TOLERANCE 5
+  TOLERANCE 5  
+
+  METADATA
+    WMS_TITLE "Streams"
+    WMS_ABSTRACT "DLG streams for Itasca County. See http://deli.dnr.state.mn.us/metadata/full/dlgstln2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
 END # streams
 
 LAYER
-  NAME roads
+  NAME ctyrdln3
+  GROUP roads
   MAXSCALE 300000
-  STATUS ON
+  STATUS OFF
   DATA ctyrdln3
   TYPE LINE
   CLASS
     COLOR 0 0 0
   END
+
+  METADATA
+    WMS_TITLE "County Roads"
+    WMS_ABSTRACT "County roads. (lines only)  Derived from MNDOT roads layer, see http://deli.dnr.state.mn.us/metadata/full/dotrdln2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
 END # county roads
 
 LAYER
-  NAME roads
+  NAME ctyrdln3_anno
+  GROUP roads
   MAXSCALE 300000
-  STATUS ON
+  STATUS OFF
   DATA ctyrdln3
   TYPE ANNOTATION
   LABELITEM "road_name"
@@ -213,24 +265,38 @@ LAYER
       COLOR 0 0 0
     END
   END
+    
+  METADATA
+    WMS_TITLE "County Roads"
+    WMS_ABSTRACT "County roads. (shields only)  Derived from MNDOT roads layer, see http://deli.dnr.state.mn.us/metadata/full/dotrdln2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
 END # county road annotation
 
 LAYER
-  NAME roads
+  NAME majrdln3
+  GROUP roads
   MAXSCALE 600000
-  STATUS ON
+  STATUS OFF
   DATA majrdln3
   TYPE LINE
   CLASS
     NAME "Roads"
     COLOR 0 0 0
   END
+
+  METADATA
+    WMS_TITLE "Highways"
+    WMS_ABSTRACT "Highways- state, US and interstate. (lines only)  Derived from MNDOT roads layer, see http://deli.dnr.state.mn.us/metadata/full/dotrdln2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
 END # highways
 
 LAYER
-  NAME roads
+  NAME majrdln3_anno
+  GROUP roads
   MAXSCALE 600000
-  STATUS ON
+  STATUS OFF
   DATA majrdln3
   TYPE ANNOTATION
   LABELITEM "road_num"  
@@ -271,13 +337,19 @@ LAYER
       COLOR 255 255 255
     END
   END
+
+  METADATA
+    WMS_TITLE "Highways"
+    WMS_ABSTRACT "Highways- state, US and interstate. (shields only)  Derived from MNDOT roads layer, see http://deli.dnr.state.mn.us/metadata/full/dotrdln2.html for more information."
+    WMS_SRS "EPSG:26915"
+  END
 END # highway annotation
 
 LAYER
   NAME airports
   TYPE POINT
   DATA airports
-  STATUS ON
+  STATUS OFF
   CLASS
     NAME 'Airports'
     COLOR 128 255 164
@@ -290,13 +362,20 @@ LAYER
   FOOTER "airports_footer.html"
 
   TOLERANCE 5
+
+  METADATA
+    WMS_TITLE "Airports"
+    WMS_ABSTRACT "Airport runways for Itasca County."
+    WMS_SRS "EPSG:26915"
+  END
 END
 
 LAYER
+  NAME mcd90py2_anno
   NAME cities
   TYPE ANNOTATION
   DATA mcd90py2
-  STATUS ON
+  STATUS OFF
   LABELITEM "city_name"
   CLASSITEM "city_name"
   LABELMAXSCALE 500000
@@ -313,6 +392,12 @@ LAYER
       PARTIALS FALSE
       BUFFER 2
     END
+  END
+
+  METADATA
+    WMS_TITLE "Minor Civil Divisions"
+    WMS_ABSTRACT "Minor civil divisions for Itasca County. (annotation only)"
+    WMS_SRS "EPSG:26915"
   END
 END
 
