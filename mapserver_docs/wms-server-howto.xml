@@ -15,14 +15,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2004-02-27</date>
+		<date>2004-03-07</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-			<para>Last Updated: 2004-02-27</para>
+			<para>Last Updated: 2004-03-07</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -909,7 +909,7 @@
 								<emphasis>Description:</emphasis> (Recommended) Contains a list of EPSG projection codes 
                     that should be advertized as being available for all layers in this 
                     server.  The value can contain one or more EPSG:&lt;code&gt; pairs separated
-                    by spaces (e.g. "EPSG:4269 EPSG:4326")                            </para>
+                    by spaces (e.g. "EPSG:4269 EPSG:4326") This value should be upper case (EPSG:42304.....not epsg:42304) to avoid problems with case sensitive 			platforms.</para>
 						</listitem>
 						<listitem>
 							<para>
