@@ -63,10 +63,18 @@
 		<para>Much as in the WMS support, WFS publishing is enabled by adding certain magic METADATA keyword/value pairs to a MapFile.</para>
 		<para>MapServer will serve and include in its WFS capabilities only the layers that meet the following conditions:</para>
 		<itemizedlist>
-			<listitem><para>Data source is of vector type (Shapefile, OGR, PostGIS, SDE, SDO, ...)</para></listitem>
-			<listitem><para>LAYER NAME must be set</para></listitem>
-			<listitem><para>LAYER TYPE is one of: LINE, POINT, POLYGON</para></listitem>
-			<listitem><para>LAYER DUMP parameter set to TRUE</para></listitem>
+			<listitem>
+				<para>Data source is of vector type (Shapefile, OGR, PostGIS, SDE, SDO, ...)</para>
+			</listitem>
+			<listitem>
+				<para>LAYER NAME must be set</para>
+			</listitem>
+			<listitem>
+				<para>LAYER TYPE is one of: LINE, POINT, POLYGON</para>
+			</listitem>
+			<listitem>
+				<para>LAYER DUMP parameter set to TRUE</para>
+			</listitem>
 		</itemizedlist>
 		<sect2>
 			<title>MAP object METADATA parameters</title>
@@ -74,37 +82,37 @@
 				<varlistentry>
 					<term>wfs_onlineresource</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>wfs_title</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>wfs_abstract</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>wfs_keywordlist</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>wfs_accessconstraints</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>wfs_fees</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -117,12 +125,6 @@
 					<term>ows_schemas_location</term>
 					<listitem>
 						<para>(Note the name ows_schemas_location and not wfs_... this is because all OGC Web Services (OWS) use the same metadata) Root of the web tree where the family of OGC WFS XMLSchema files are located.  This must be a valid URL where the actual .xsd files are located if you want your WFS output to validate in a validating XML parser. The default if this is not set is to use ".." as the schema files location, which should correspond to the root of your web server if you installed mapserv in the cgi-bin directory. See http://ogc.dmsolutions.ca for an example of a valid schema tree.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>wfs_geometry_element_name</term>
-					<listitem>
-						<para>Name of the element (i.e. attribute) to use for the geometry in GML output.  If not set then "MS_GEOMETRY" will be used. The layer-level "wfs_geometry_element_name" takes precedence over this value.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -139,25 +141,19 @@
 				<varlistentry>
 					<term>wfs_title</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>wfs_abstract</term>
 					<listitem>
-						<para></para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>wfs_keywordlist</term>
 					<listitem>
-						<para></para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>wfs_geometry_element_name</term>
-					<listitem>
-						<para>Name of the element (i.e. attribute) to use for the geometry in GML output.  If not set then "MS_GEOMETRY" will be used. This value takes precedence over the value of "wfs_geometry_element_name" set at the map level (if one was set).</para>
+						<para/>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -207,4 +203,3 @@
 		</itemizedlist>
 	</sect1>
 </article>
-
