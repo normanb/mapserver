@@ -1,7 +1,7 @@
-//
-// Jbox applet is part of the MapServer client support
+
+// jBox applet is part of the MapServer client support
 // package. - SDL -
-//
+
 // Paramters:
 //    color int, int, int - color to use (rgb) for the selection rectangle.
 //    jitter int - minimum size (in pixels) for a dragged box.
@@ -15,11 +15,13 @@
 //			(was on/off in mapplet)
 
 // Public methods:
-//    boxon - toggles box drawing on.
-//    boxoff - toggles box drawing off.
+//    boxon, boxoff - truns box drawing on/off.
+//		lineon, lineoff - turns line drawing on/off, and box drawing off, boxoff() turns off both
+//		dragon, dragoff - turns image dragging on/off
 //    setimage(string) - displays the image loaded from the passed url.
 //    setcursor(string) - sets the cursor to one of crosshair, hand or default
-//
+//		version - returns jBox_version string
+
 // javascript functions eval'd:
 //		setbox_handler
 // 	seterror_handler
@@ -27,20 +29,17 @@
 // 	mouseenter_handler
 // 	mouseexit_handler
 // 	mousemove_handler
-
+//		measure_handler(name, seg, tot, num)
+//			seg = current segment length
+//			tot = running total length
+//			num = number of vertices
 /*
 	Rich Greenwood, rich@greenwoodmap.com
-	November 2002:	added line functionality to mimic MapInfo/ArcView ruler tool
-	October 2003: added drag functionality for panning
-
-	Public methods:
-		lineon - toggles line drawing on, and box drawing off, boxoff() turns off both`
-
-	Return: javascript eval:
-		measure_handler(name, seg, tot, num)
-			seg = current segment length
-			tot = running total length
-			num = number of vertices
+		November 2002:	added line functionality to mimic MapInfo/ArcView ruler tool
+		October 2003: 	added drag functionality for panning
+		November 2003:	added areac calculation
+		January 2004: 	moved evalThread out so that it can be shared by both jBox & jBoxPNG
+							added version()
 
 	Compiler issues:
 		Sun JDK 1.2 & 1.3 work ok, but
@@ -55,26 +54,8 @@ import java.net.*;
 import java.util.*;
 import netscape.javascript.*;
 
-class evalThread extends Thread {
-	JSObject twindow;
-	double tx1, tx2, ty1, ty2;
-	String tname;
-
-	public evalThread(JSObject window, String name, double x1, double y1, double x2, double y2) {
-		twindow = window;
-		tname = name;
-		tx1 = x1;
-		ty1 = y1;
-		tx2 = x2;
-		ty2 = y2;
-	}
-
-	public void run () {
-		twindow.eval("setbox_handler('" + tname + "'," + Math.min(tx1,tx2) + "," + Math.min(ty1,ty2) + "," + Math.max(tx1,tx2) + "," + Math.max(ty1,ty2) + ");");
-	}
-}	// end of class evalThread
-
 public class jBox extends Applet implements MouseListener, MouseMotionListener {
+	String 	jBox_version = "1.1";
 	boolean	busy=false, box=true, line=false, drag=false, init=true, verbose=false;
 	Image		img, busyimg=null;
 	double   x1=-1, y1=-1, x2=-1, y2=-1, seg=0, tot=0, area=0;
@@ -85,7 +66,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 	Graphics offScreenGraphics;
 	Dimension   screenSize;
 	String 	name;
-	Polygon pl;
+	Polygon	pl;
 
 	public void init () {
 		StringTokenizer st;
@@ -226,6 +207,10 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 			this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.CROSSHAIR_CURSOR));
 		else
 			this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));
+	}
+
+	public String version () {
+		return jBox_version;
 	}
 
 	public void boxon () {
@@ -383,6 +368,9 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 				x2 = x1;
 				y2 = y1;
 			}
+			if (line) {
+				area=calcArea();
+			}
 		} else if (drag) {
 			x1 = x2 = ((screenSize.width-1)/2.0)-(x2-x1);
 			y1 = y2 = ((screenSize.height-1)/2.0)-(y2-y1);
@@ -414,7 +402,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
 		if (line) {
 			if ((x1==x2) && (y1==y2)) {	// mouse click
-				if (pl.npoints == 0) {	// don't question first point
+				if (pl.npoints == 0) {		// don't question first point
 					pl.addPoint((int)x2, (int)y2);
 					tot=0;
 				} else if (! ((x1 == pl.xpoints[pl.npoints-1]) && (y1 == pl.ypoints[pl.npoints-1]))) {
@@ -427,7 +415,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 				offScreenGraphics.drawPolyline(pl.xpoints, pl.ypoints, pl.npoints);
 				offScreenGraphics.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
 				seg = Math.sqrt(Math.pow(y2 - pl.ypoints[pl.npoints-1],2) + Math.pow(x2 - pl.xpoints[pl.npoints-1],2));
-				window.eval("measure_handler('" + name + "'," + seg + "," + tot +"," + pl.npoints + ");");
+				window.eval("measure_handler('" + name + "'," + seg + "," + tot +"," + pl.npoints + "," + area + ");");
 			}
 		} else if (box) {
 			x = (int)Math.min(x1,x2);
@@ -458,4 +446,19 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 	public void update (Graphics g) {
 		paint(g);
 	}
+
+	public double calcArea() {
+		double a=0;
+		int i, n=pl.npoints-1;	// n=number_of_point adjusted to a zero based array
+
+		if (n >=2) {	// there are 3 or more points
+			a=pl.xpoints[0] * (pl.ypoints[1] - pl.ypoints[n]);	// calc first point
+			for (i=1; i<n; i++) {
+				a+=pl.xpoints[i] * (pl.ypoints[i+1] - pl.ypoints[i-1]);
+			}
+			a+=pl.xpoints[n] * (pl.ypoints[0] - pl.ypoints[n-1]);	// calc last point
+		}
+		return(Math.abs(a/2));
+	}
+
 }	// end of class jBox
