@@ -305,7 +305,7 @@ such options would be found in specific GDAL driver documentation.
                               drawn. 
                         </para>
                         <para>
-                              Useful for displaying international characters in MapServer.  More information can be found at: 
+                              Required for displaying international characters in MapServer.  More information can be found at: 
                               <ulink url="http://www.foss4g.org/FOSS4G/MAPSERVER/mpsnf-i18n-en.html">http://www.foss4g.org/FOSS4G/MAPSERVER/mpsnf-i18n-en.html</ulink>.
                         </para>
                     </listitem>
@@ -1342,6 +1342,14 @@ END
                     </listitem>
                 </varlistentry>
                 <varlistentry>
+                    <term>OUTPUTFORMAT [mime-type]</term>
+                    <listitem>
+                        <para>
+                          Format of the query output.  Default is "text/html".  This is experimental, the use of the <link linkend="outputformat">OUTPUTFORMAT object</link> is recommended instead.
+                        </para>
+                    </listitem>
+                </varlistentry>                
+                <varlistentry>
                     <term>TEMPLATE [filename|url]</term>
                     <listitem>
                         <para>Template file or URL to use in presenting the results to the user in an interactive mode (i.e. map generates map and so on ... )</para>
@@ -1869,10 +1877,10 @@ END
             <para>
                 <revhistory>
                     <revision>
-                        <revnumber>Number: 1.50</revnumber>
+                        <revnumber>Number: 1.51</revnumber>
                         <date>Date: 2004-11-28</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added ENCODING for label object.
+                        <revremark>Added ENCODING for label object, OUTPUTFORMAT for web object.
                                    </revremark>
                     </revision>                
                     <revision>
