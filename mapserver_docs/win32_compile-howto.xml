@@ -1,0 +1,506 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<article>
+<articleinfo>
+  <title>MapServer Win32 Compilation and Installation HOWTO</title>
+  <author>
+     <firstname>Pericles S.</firstname>
+     <surname>Nacionales</surname>
+     <affiliation>
+        <orgname>University of Minnesota</orgname>
+        <orgdiv>Conservation Biology Program</orgdiv>
+        <address>
+            <email>pnaciona@gis.umn.edu</email>
+        </address>
+     </affiliation>
+  </author>
+<abstract><para>This HOWTO provies a simple set of compilation procedures for MapServer on Win32 platforms Windows
+95/98/ME and Windows NT/2000.  The objective of this document is to let Windows users/developers create a customized
+MapServer CGI program tailored to their needs.  Microsoft's Visual C++ 6.0 is the only compiler currently documented
+here although compilation documentation for the multitude of C/C++ compilers available on Win32 platforms will be 
+added with help from outside contributions.  Support for MapScript is purposefully omitted here as it adds complexity 
+to the compilation process.</para>
+</abstract>
+
+</articleinfo>
+
+<sect1 id='intro'><title>Introduction</title><para>If you've made it this far, chances are you already know about 
+MapServer and are at least tempted to try compiling it for yourself. If you've never heard of MapServer before or 
+what it does, then may I suggest going to its web site at <ulink url="http://mapserver.gis.umn.edu/">
+http://mapserver.gis.umn.edu</ulink>.</para>
+
+<para>The novice users who wish to compile MapServer for themselves will find this HOWTO particularly useful. 
+While pre-compiled binaries are available for download, users may wish to customize their CGI program to fit 
+their needs; some users may find it necessary to compile every supporting library with MapServer while others 
+may only the required libraries. To make it easy for these users, I've made a list of steps to compile 
+MapServer. Background information is provided in each step, along with examples. Each example is a 
+continuation of the previous one and in the end will produce the MapServer static library (mapserver.lib), the 
+CGI program (the mapserv.exe), and utility programs.</para>
+</sect1>
+
+<sect1 id='compile'><title>Compiling</title><para>If you are new to Windows programming, please follow this 
+document carefully. The compilation steps are fairly simple but I've added a few blurbs in each step to help 
+you understand how MapServer compiles. For the more experienced programmers, perhaps reading the README.Win32 
+that accompanies the MapServer source code would be more useful. For those who are antsy, compiling MapServer 
+involves download and unpacking the source codes, editing the make files, and invoking Microsoft's Visual C++ 
+compiler from the command prompt. The resulting mapserv.exe is the CGI program that installs in the cgi-bin 
+directory of your web server.</para>
+
+<para>For those who are willing to take the time, the compilation steps follow.</para>
+
+<sect2 id='dir'><title>Set up a Project Directory</title><para>Before you start to compile MapServer, I 
+recommend creating a directory called "projects" where you can put the source code for MapServer and its 
+supporting libraries. Since you will be working with DOS-style commands, you might as well get used to the 
+Windows command prompt. For Windows 95/98 users the command processor would be called command.com. For Windows 
+NT/2000, it would be cmd.exe. I don't know what Windows ME uses. So fire up the old command prompt and go to 
+the drive where you want to create the project directory.</para>
+
+<para>Here is an example of how to create a directory called projects on the D: drive:</para>
+<command>C:\Users&gt;mkdir D:\Projects</command>
+<para>To go to that directory:
+<screen>
+C:\Users&gt;D:
+D:\&gt;cd Projects
+D:\Projects&gt;
+</screen>
+
+From the projects directory, you can extract the source codes for MapServer and its libraries. Now you're 
+ready to download the source codes.</para>
+
+</sect2>
+
+<sect2 id='download'><title>Download MapServer Source Code and Supporting Libraries</title>
+<para>After creating a project directory, download the MapServer source code and the 
+codes for the supporting libraries and save the source code packages in the newly created 
+"projects" directory. These source codes are usually packaged as ZIP, or as UNIX TAR and GZIP files. 
+You'll need a software that can unzip these packages. <ulink url="http://www.winzip.com/">WinZIP</ulink> 
+is an example of software that can handle these files. 
+Cygwin is a free, open-source software package which is a port of these tools on Windows. You can use 
+the gzip and tar utilities from this tool collection. Cygwin is available from 
+<ulink url="http://www.cygwin.com/">http://www.cygwin.com</ulink>.</para>
+
+<para>In order to compile the MapServer CGI program, you must download a few required and optional 
+libraries. At its simplest configuration, MapServer only requires the GD (to provide the image output) and 
+REGEX (to provide regular expression support) libraries. This configuration allows the developer/data provider 
+to use shapefiles as input and, depending on the version of GD library used, GIF or PNG images as output. 
+Additional libraries are needed for input data in alternative formats. The libraries that work with MapServer 
+are listed below.</para>
+
+<sect3 id='source'><title>The MapServer source code</title>
+<para>The MapServer source code can be downloaded from <ulink url="http://mapserver.gis.umn.edu/dload.html">
+http://mapserver.gis.umn.edu/dload.html</ulink>. There are two "official" versions of MapServer, versions 3.3.011 
+and 3.4. These versions will soon be replaced by MapServer 3.5, which is available via the CVS repository or 
+nightly build. The example I'm providing here should work for all the versions although I'm currently working 
+with the latest nightly build. The nightly build is available at <ulink 
+url="http://mapserver.gis.umn.edu/dist/nightly.tar.gz">http://mapserver.gis.umn.edu/dist/nightly.tar.gz</ulink>. 
+If you'd like to get the absolute latest copy of the source code then I recommend going to <ulink 
+url="http://mapserver.gis.umn.edu/cvs.html">http://mapserver.gis.umn.edu/cvs.html</ulink> for instructions on 
+how to retrieve MapServer source code via CVS.</para>
+</sect3>
+
+
+<variablelist>
+<title>Required Libraries</title>
+
+<varlistentry><term><application><ulink url="http://www.boutell.com/gd/">GD Library</ulink> :</application></term>
+<listitem><para>MapServer uses the GD graphics library for rendering map images in GIF or PNG format. These map images
+are displayed in web browser clients using the MapServer CGI. The current official version of GD is 1.8.4 and can 
+render PNG graphics. You can download GD from 
+<ulink url="http://www.boutell.com/gd/http/gd-1.8.4.zip">http://www.boutell.com/gd/http/gd-1.8.4.zip</ulink>.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application>GD with GIF Support:</application></term>
+<listitem><para>If you don't have licensing problems using the GIF format, a patched version that supports GIF 
+output is available from <ulink url="http://www.rime.com.au/gd/">http://www.rime.com.au/gd/"</ulink>.  Please 
+note that you may be infringing on Unisys' LZW patent (used in GIF images) by downloading it.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.libpng.org/pub/png/">PNG library</ulink>:</application></term>
+<listitem><para>This library is required by GD to render PNG images. You may download this library at 
+<ulink url="http://sourceforge.net/projects/libpng/">http://sourceforge.net/projects/libpng/</ulink>.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.gzip.org/zlib/">Zlib</ulink>:</application></term>
+<listitem><para>This library is required by GD to provide graphics compression support.  It can be downloaded 
+along with the PNG library, or at <ulink url="http://www.gzip.org/zlib.zip">http://www.gzip.org/zlib.zip</ulink>.
+</para></listitem></varlistentry>
+
+<varlistentry><term><application>Regex:</application></term>
+<listitem><para>Regex is the regular expression library used by MapServer. It can be downloaded at 
+<ulink url="ftp://ftp.gnu.org/pub/gnu/regex/regex-0.12.tar.gz">ftp://ftp.gnu.org/pub/gnu/regex/regex-0.12.tar.gz</ulink>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+
+<variablelist>
+<title>Optional Libraries</title>
+
+<varlistentry><term><application><ulink url="http://www.freetype.org/">FreeType 2</ulink>: </application></term>
+<listitem><para>FreeType provides TrueType support in MapServer. Actually, we compile FreeType with GD which then 
+provides the functionality to MapServer. It can be downloaded at 
+<ulink url="ftp://freetype.sourceforge.net/pub/freetype/freetype2/">
+ftp://freetype.sourceforge.net/pub/freetype/freetype2/</ulink>.  The most current version is 2.0.4.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.remotesensing.org/proj/">Proj.4</ulink>: </application></term>
+<listitem><para>Proj.4 provides on-the-fly projection support to MapServer. Users whose data are in different 
+projection systems can use this library to reproject into a common projection. The current version is 4.4.3 and 
+can be downloaded at <ulink url="ftp://ftp.remotesensing.org/pub/proj/proj-4.4.3.zip">
+ftp://ftp.remotesensing.org/pub/proj/proj-4.4.3.zip</ulink>.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.libtiff.org/">LIBTIFF</ulink>: </application></term>
+<listitem><para>LibTIFF allows MapServer to read TIFF (with world files) and GeoTIFF data.  In the U.S., Topo or DRG 
+maps are commonly stored in TIFF format. You can download the TIFF library at 
+<ulink url="ftp://ftp.remotesensing.org/pub/libtiff/tiff-v3.5.5.zip">
+ftp://ftp.remotesensing.org/pub/libtiff/tiff-v3.5.5.zip</ulink>.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.ijg.org/">LIBJPEG</ulink>: </application></term>
+<listitem><para>Like the TIFF library, libjpeg is used by MapServer to read data in JPEG format. In the U.S., 
+Digital Orthophoto Quadrangle (DOQ's) images are typically stored as JPEGs. You can download the JPEG library at 
+<ulink url="ftp://ftp.simtel.net/pub/simtelnet/msdos/graphics/jpegsr6b.zip">ftp://ftp.simtel.net/pub/simtelnet/msdos/graphics/jpegsr6b.zip</ulink>.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.remotesensing.org/gdal/">OGR/GDAL</ulink>: </application></term>
+<listitem><para>The OGR Simple Features Library allows MapServer to read many other vector data formats. It supports 
+MapInfo TAB and MIF/MID files, TIGER datasets, OGDI vectors, IHO S-57 datasets, UK.NTF, SDTS TVP, and PostgeSQL.
+In addition, <application>GDAL</application> provides raster file support for TIFF/GeoTIFF and 
+JPEG formats.  OGR is part of the GDAL distribution and can be downloaded at <ulink 
+url="ftp://ftp.remotesensing.org/pub/gdal/gdal115.zip">
+ftp://ftp.remotesensing.org/pub/gdal/gdal115.zip</ulink>.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.esri.com/software/sde/index.html">ArcSDE</ulink>: </application></term>
+<listitem><para>ArcSDE is an ESRI proprietary spatial database engine. Most users will not have access to it but if 
+you have ArcSDE license, you can use its libraries to give MapServer access to SDE databases.</para>
+</listitem></varlistentry>
+
+<varlistentry><term><application><ulink url="http://www.mnplan.state.mn.us/EPPL7/">EPPL7</ulink>:</application></term>
+<listitem><para>This library allows MapServer to read EPPL7 datasets, as well as the older Erdas LAN/GIS files. This 
+library is set as a default library in MapServer so there's no special source code to download.</para>
+</listitem></varlistentry>
+</variablelist>
+
+<para>Now that you have reviewed the libraries that provide support to MapServer, it is time to decide which 
+ones to compile and use. GD, PNG, zlib, and regex are all required libraries so we must compile them. If you want 
+to have TrueType font support, download the FreeType library. If you want the option to use TIFFs and 
+JPEGs, download those two libraries. If you want to be able to use MapInfo TAB or other data formats supported by 
+OGR/GDAL, download that library.</para>
+
+<para>Our example calls for the required libraries and on-the-fly projection support so we need to download GD, PNG, 
+zlib, regex, and Proj.4 libraries.  Go ahead and get those libraries.</para>
+
+</sect2>
+
+<sect2 id='options'><title>Set Compilation Options</title><para>MapServer and each of the libraries come with 
+Visual C++ make file. I shall, when I get the time, write about configuring each of the libraries but for now will 
+concentrate on MapServer. Please read the README files for each of the library before compiling them. As for MapServer, 
+the make file is called Makefile.vc and was kindly provided by Assefa Yewondwossen and the DM Solutions folks. You must 
+edit this file to enable or disable the different libraries and options within MapServer.</para>
+
+<para>The example will compile with the patched GD version 1.8.4, PNG, zlib, regex, and Proj.4. The Proj.4 support will 
+also ensure that MapServer will be OGC-WMS compliant. Use notepad or another text editor to open the Makefile.vc and 
+make the following changes. </para>
+
+<note><title>Comments</title><para> Use the pound sign ( # ) to comment out the lines that you want to nmake.exe to 
+parse.</para>
+</note>
+
+<para>A. Make sure the paths to proj.lib, the header files, and the Proj.4 options are set correctly
+<programlisting>
+# Proj.4 distribution (cartographic projection routines). Also make
+# sure that the -Duse_proj option is enabled.
+# Not required for normal use. (EXPERIMENTAL)
+PROJ_LIB=../proj-4.4.3/src/proj.lib
+PROJ_INC=-I../proj-4.4.3/src
+PROJ=-DUSE_PROJ
+</programlisting>
+</para>
+
+<para>B. Uncomment the WMS option.
+<programlisting>
+# OGC WMS Compatibility: -DUSE_WMS (Requires PROJ4 support)
+WMS=-DUSE_WMS
+</programlisting>
+</para>
+
+<para>C. Make sure the paths to gd.lib and GD headers are set correctly. Also set the GD options accordingly. 
+Here's what it should look like in our example.
+<programlisting>
+# A patched version of GD that supports GIF, PNG and WBMP can be
+# downloaded from http://www.rime.com.au/gd/.
+# The following defns will include the patched GD 1.8.4 with TTF:
+GDFONT_OBJ=
+GD_INC= -I../gd-1.8.4
+GD_LIB= ../gd-1.8.4/gd.lib ../lpng1011/libpng.lib ../zlib/zlib.lib
+GD= -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_WBMP -DGD_HAS_GDIMAGEGIFPTR
+MAKE_GD=gd
+</programlisting>
+</para>
+
+<note><title>Note:</title><para> The PNG and zlib actually gets compiled with GD. You just need to make sure that 
+the paths to those library are set properly.</para></note>
+
+<para>D. Make sure the regex path is set correctly.
+<programlisting>
+# VC++ does not include the REGEX library... so we must provide one.
+# The following definitions will try to build GNU regex-0.12 located in the
+# regex-0.12 sub-directory.
+# If it was not included in the source distribution, then you can get it from: 
+# <ulink url="ftp://ftp.gnu.org/pub/gnu/regex/regex-0.12.tar.gz">ftp://ftp.gnu.org/pub/gnu/regex/regex-0.12.tar.gz</ulink>
+# REGEX_OBJ=..\regex-0.12\regex.obj
+REGEX_INC=-I../regex-0.12
+</programlisting>
+</para>
+
+<para>You also must make sure to comment out any library options that you don't use.</para>
+
+<para>A.  Comment out the TIFF library support:
+<programlisting>
+# TIFF distribution (raster support for TIFF and
+# GEOTIFF imagery).(RECOMMENDED)
+#TIFF_INC=-I../tiff-v3.5.5/libtiff
+#TIFF_LIB=../tiff-v3.5.5/libtiff/libtiff.lib
+#TIFF=-DUSE_TIFF
+</programlisting>
+</para>
+
+<para>B.  Comment out the OGR support:
+<programlisting>
+# OGR Support OGC Simple Feature inspired interface for vector
+# formats. See http://gdal.velocet.ca/projects/opengis/
+#GDAL_DIR= ..\gdal-1.1.5
+#OGR=-DUSE_OGR
+#OGR_LIB = $(GDAL_DIR)/ogr/ogrsf_frmts/ogrsf_frmts.lib $(GDAL_DIR)/ogr/ogrsf_frmts/ogrsf_frmts_sup.lib $(GDAL_DIR)/ogr/ogr.lib $(GDAL_DIR)/ogr/../port/cpl.lib
+#OGR_INC= -I$(GDAL_DIR)/ogr/ogrsf_frmts -I$(GDAL_DIR)/ogr -I$(GDAL_DIR)/ogr/../port
+</programlisting>
+</para>
+
+<para>C.  Also find the lines
+<programlisting>
+$(MS_LIB): $(MS_OBJS)
+	copy $(GDAL_DIR)\gdal.pdb .
+	lib /out:$(MS_LIB) $(MS_OBJS)
+and comment out "copy $(GDAL_DIR)\gdal.pdb ."</programlisting>
+</para>
+
+<para>D.  Finally, comment out the PHP_REGEX lines.
+<programlisting>
+#
+# IMPORTANT NOTE ABOUT REGEX FOR PHP_MAPSCRIPT USERS:
+#
+# If you want to compile the PHP_MAPSCRIPT module, then you have to make
+# MapServer uses the same version of the REGEX library that PHP was
+# compiled with:
+#
+#PHP_REGEX=..\php-3.0.14\regex
+#PHP_REGEX=..\php-4.0.5\regex
+#REGEX_OBJ=$(PHP_REGEX)\regcomp.obj $(PHP_REGEX)\regerror.obj \
+#	$(PHP_REGEX)\regexec.obj $(PHP_REGEX)\regfree.obj
+#REGEX_INC=-I$(PHP_REGEX) -DPHP_NO_ALIASES</programlisting>
+</para>
+
+<para>Your Makefile is now set.</para>
+</sect2>
+
+<sect2 id='complib'><title>Compile the Libraries</title>
+<para>Before compiling MapServer, you must first compile its supporting libraries.  More will be said on this later. 
+For now, please read the README files to learn how to compile each library.</para>
+</sect2>
+
+<sect2 id='compmapserv'><title>Compile MapServer</title>
+<para>Once you have compile the libraries successfully, you are ready to take the final compilation step. If you have not already 
+done so, open a command prompt and set the VC++ environment variables by running the vcvars32.bat located in 
+<filename>C:\Program Files\Microsoft Visual Studio\VC98\bin\vcvars32.bat</filename>.
+<screen>C:\Users&gt;d:
+D:\&gt;cd \projects\mapserver
+C:\Projects\mapserver&gt;"C:\Program Files\Microsoft Visual Studio\VC98\Bin\vcvars32.bat"
+C:\Projects\mapserver&gt;
+Setting environment for using Microsoft Visual C++ tool.
+C:\Projects\mapserver&gt;</screen>
+</para>
+
+<para>Now issue the command: <command>>nmake /f Makefile.vc</command> and wait for it to finish compiling. If it compiles 
+successfully, you should get mapserver.lib, mapserv.exe, and other .EXE files. That's it for the compilation process. If you run 
+into problems, read section 4 about compiling errors. You can also ask for help from the helpful folks in the MapServer-Users e-mail list.</para>
+</sect2>
+
+<sect2 id='errors'><title>Common Compiling Errors</title>
+
+<itemizedlist>
+<listitem>
+<para>These are compile errors I've run into while compiling the above example without making any changes to 
+Makefile.vc. As you add more libraries to MapServer, I'm sure you'll run into other problems-that's when the MapServer-Users email list
+becomes really useful.  If you tink there are other common problems users can run into, it would help greatly if you can send
+me the error massage(s) and what you think the fix should be.
+</para>
+</listitem>
+
+<listitem>
+<para>
+<errorcode>Mapraster.c(19) : fatal error C1083: Cannot open include file: 
+'tiffio.h': No such file or directory
+NMAKE : fatal error U1077: 'cl' : return code '0x2'
+Stop.
+</errorcode>
+If you are following the example above, you've forgotten to comment out the TIFF library options. If you are 
+compiling MapServer with the TIFF library, you may have specified an incorrect path. Go back to the make file and 
+check the paths and options for TIFF.</para>
+</listitem>
+
+<listitem>
+<para>
+<errorcode>Mapogr.cpp(129) : fatal error C1083: Cannot open include file: 'ogr_spatialref.h': 
+No such file or directory
+NMAKE : fatal error U1077: 'cl' : return code '0x2'
+Stop.</errorcode>
+If you are following the example above, you have forgotten to comment out the OGR/GDAL library options in the make 
+file. Comment it out and try again. If you are compiling OGR/GDAL support, you may have specified an incorrect path.</para>
+</listitem>
+
+<listitem>
+<para>
+<errorcode>        Copy \gdal.pdb .
+The system cannot find the file specified.
+NMAKE : fatal error U1077: 'copy' : return code '0x1'
+Stop.
+</errorcode>
+If you are following the example above, you have forgotten to comment out the line "copy \gdal.pdb ." Go back and fix it.</para>
+</listitem>
+
+<listitem>
+<para>
+<errorcode>LIB : fatal error LNK1181: cannot open input file "..\php-4.0.6\regex\regcomp.obj"
+NMAKE : fatal error U1077: 'lib' : return code '0x49d'
+Stop.
+</errorcode>
+If you are following the example above, you have forgotten to comment out the PHP_REGEX lines. Go back and do it. If you are 
+compiling MapServer with PHP support make sure you have the paths set correctly for the PHP</para>
+</listitem>
+
+<listitem>
+<para>
+<errorcode>regex.
+NMAKE : fatal error U1073: don't know how to make '../gd-1.8.4/gd.lib'
+Stop.
+</errorcode>
+Make sure you have compiled GD-1.8.4 beforehand. If that's not the problem, check your paths.</para>
+</listitem>
+
+<listitem>
+<para>
+<errorcode>NMAKE : fatal error U1073: don't know how to make
+'../libpng-1.0.8/libpng.lib'
+Stop.
+</errorcode>
+Libpng is required by GD and should have been compiled with it. So, the most likely problem here is the path...
+Oops, I see it already.  Change <filename>"../libpng-1.0.8</filename>" to <filename>"../lpng1011</filename> or
+whatever your PNG path is.</para>
+</listitem>
+
+<listitem>
+<para>
+<errorcode>NMAKE : fatal error U1073: don't know how to make '../proj/src/proj.lib'
+Stop.
+</errorcode>
+Check your Proj.4 path.</para>
+</listitem>
+</itemizedlist>
+</sect2>
+
+</sect1>
+
+<sect1 id='install'><title>Installation</title>
+<para>The file we are most interested in is mapserv.exe. The other executable files are the MapServer utility programs. 
+Visit the MapServer utility page at <ulink url="http://mapserver.gis.umn.edu/utils.html">http://mapserver.gis.umn.edu/utils.html
+</ulink> to learn more about these utilities.</para>
+
+<para>To test that the CGI program is working, type mapserv.exe at the command prompt. You should see the following message:
+<screen>
+This script can only be used to decode form results and
+should be initiated as a CGI process via a httpd server.</screen></para>
+
+<para>Now type mapserv -v at the command prompt to get this message:
+<screen>
+MapServer version 3.5 (pre-alpha) OUTPUT=GIF OUTPUT=PNG OUTPUT=WBMP
+SUPPORTS=PROJ INPUT=EPPL7 INPUT=SHAPEFILE
+</screen></para>
+
+<para>This tells us what data formats are supported by mapserv.exe. Assuming you have your web server set up, copy 
+mapserv.exe to the cgi-bin directory.</para>
+
+<para>Also, locate the file zlib.dll and copy it to your system 
+directory-C:\Windows\System under Win95/98, and C:\WINNT\System32 under WinNT/2000.
+You are now ready to download the demo application and try out your own MapServer 
+CGI program. If you wish, you can also create a directory to store the utility programs. 
+I'd suggest making a subdirectory called "bin" under the directory "projects" and copy 
+the executables to that subdirectory. You might find these programs useful as you 
+develop MapServer applications.
+</para>
+
+</sect1>
+
+<sect1 id='other'><title>Other Helpful Information</title><para>The MapServer Unix Compilation and Installation 
+HOWTO has good descriptions of some MapServer compilation options and library issues. I will write more about 
+those options and issues on the next revision of this HOWTO.</para>
+
+<para>The README documents of each of the supporting libraries provide compilation instructions for Windows.</para>
+
+<para>The MapServer User community has a collective knowledge of the nuances of MapServer compilation. Seek their 
+advice wisely.</para>
+</sect1>
+
+	<!-- Section1: Document Info -->
+	<sect1 id="docinfo">
+		<title>About This Document</title>
+		<sect2 id="copyright">
+			<title>Copyright Information</title>
+			<para>
+                Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
+            </para>
+			<para>
+                This documentation is covered by the same Open Source license as the
+                MapServer software itself.  See MapServer's 
+                <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+                Credits</ulink> page for the complete text.
+            </para>
+		</sect2>
+		<sect2 id="disclaimer">
+			<title>Disclaimer</title>
+			<para>
+     				No liability for the contents of this document can be accepted.
+    				Use the concepts, examples and other content at your own risk.
+    				As this is a new edition of this document, there may be errors
+    				and inaccuracies that may be damaging to your system.
+    				Although this is highly unlikely, the author(s) do not take any 
+    				responsibility for that:  proceed with caution.
+                 	</para>
+		</sect2>
+		<!-- Section2: acknowledgements -->
+		<sect2 id="ack">
+			<title>Acknowledgements</title>
+                  <para>Thanks to Assefa Yewondwossen for providing the Makefile.vc. 
+                   I would not have been able to write this HOWTO without that file. 
+                  </para>
+
+			<para>
+                  Thanks to the Steve Lime for developing MapServer and to the many 
+                  developers who contribute time and effort in order to keep the MapServer 
+                  project successful.
+   			</para>
+		</sect2>
+		<!-- Section2: feedback -->
+		<sect2 id="feedback">
+			<title>Feedback</title>
+			<para>
+    				Input on this document is appreciated.  Send any
+    				comments or suggestions to the MapServer Documentation Coordinator at
+    				<email>mdp@lists.gis.umn.edu</email>.
+   			</para>
+		</sect2>
+
+            
+	</sect1>
+</article>
