@@ -2,7 +2,7 @@
 
 use XBase;
 
-$file = 'mcd90py2';
+$file = 'airports';
          
 $table = new XBase "$file.dbf" or die XBase->errstr;
 

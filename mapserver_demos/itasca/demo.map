@@ -274,6 +274,25 @@ LAYER
 END # highway annotation
 
 LAYER
+  NAME airports
+  TYPE POINT
+  DATA airports
+  STATUS ON
+  CLASS
+    NAME 'Airports'
+    COLOR 128 255 164
+    SYMBOL 'circle'
+    SIZE 7
+    TEMPLATE "airports.html"
+  END
+
+  HEADER "airports_header.html"
+  FOOTER "airports_footer.html"
+
+  TOLERANCE 5
+END
+
+LAYER
   NAME cities
   TYPE ANNOTATION
   DATA mcd90py2

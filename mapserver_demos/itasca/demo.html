@@ -33,6 +33,7 @@
       <p>
       <b>Select Layers to Display: </b><br>
       <select multiple name="layer" size=3>
+        <option value="airports" [airports_select]> Airports
         <option value="cities" [cities_select]> Cities
         <option value="lakes" [lakes_select]> Lakes & Rivers
         <option value="streams" [streams_select]> Streams
@@ -63,7 +64,6 @@
 <input type="hidden" name="imgext" value="[mapext]">
 <input type="hidden" name="map" value="[map]">
 <input type="hidden" name="savequery" value="true">
-<input type="hidden" name="mapext" value="shapes">
 
 <input type="hidden" name="program" value="[program]">
 <input type="hidden" name="map_web_imagepath" value="[map_web_imagepath]">
