@@ -20,7 +20,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 3.7.
    			</para>
-			<para>Last Updated:  12-06-2002</para>
+			<para>Last Updated:  12-19-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -63,6 +63,12 @@
 			<title>Map Object</title>
 			<para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
 			<variablelist>
+				<varlistentry>
+					<term>DEBUG</term>
+					<listitem>
+						<para>Enables debugging of the map object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServe r logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
+					</listitem>
+				</varlistentry>
 				<varlistentry>
 					<term>EXTENT [minx] [miny] [maxx] [maxy]</term>
 					<listitem>
@@ -383,6 +389,12 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>DEBUG</term>
+					<listitem>
+						<para>Enables debugging of the layer object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServe r logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>DUMP [true|false]</term>
 					<listitem>
 						<para>Switch to allow mapserver to return data in GML format. Usefull when used with WMS GetFeatureInfo operations. "false" by default</para>
@@ -522,7 +534,7 @@ END
 				<varlistentry>
 					<term>PROCESSING [string]</term>
 					<listitem>
-						<para>Passes a processing directive to be used with this layer.  The supported processing directives vary by layer type, and the underlying driver that processes them.  Currently the SCALE and BANDS directives are supported for raster layers processed via the GDAL driver.  This is further explained in the RasterHOWTO.</para>
+						<para>Passes a processing directive to be used with this layer.  The supported processing directives vary by layer type, and the underlying driver that processes them.  Currently the SCALE,BANDS and DITHER directives are supported for raster layers processed via the GDAL driver.  This is further explained in the Raster HOWTO.</para>
 						<para>Example:
 						<screen>
 PROCESSING "SCALE_1=AUTO"
@@ -637,6 +649,12 @@ PROCESSING "BANDS=3,2,1,4"
 					<term>COLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for drawing features.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>DEBUG</term>
+					<listitem>
+						<para>Enables debugging of the class object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServe r logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
