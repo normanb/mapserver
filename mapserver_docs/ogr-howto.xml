@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>HOWTO for OGR Use in MapServer</title>
+		<title>HOWTO for OGR Use in MapServer - Version 4.0</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
@@ -85,12 +85,11 @@
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_avc.html">ArcInfo Coverages</ulink>,
 				    </para>
 				</listitem>
-				
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
                         </para>
-				</listitem>				
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_fme.html">FMEObjects Gateway</ulink>,
@@ -121,7 +120,7 @@
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_oci.html">Oracle Spatial</ulink>,
 				    </para>
-				</listitem>				
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>,
