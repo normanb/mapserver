@@ -377,6 +377,17 @@ ESRI codes and we do not want to promote their use too much.
             parameter.
         </para>
         </listitem>
+        <listitem>
+          <para>
+            <emphasis>"wms_force_separate_request" metadata:</emphasis>
+            Set this to "1" to force this WMS layer to be requested using
+            its own separate GetMap request.
+            By default MapServer will try to merge multiple adjacent WMS layers
+            from the same server into a single multi-layer GetMap request to
+            reduce the load on remote servers and improve response time.  This 
+            metadata is used to bypass that behavior.
+        </para>
+        </listitem>
       </itemizedlist>
     </sect2>
     <sect2 id="connection_36">
