@@ -54,6 +54,19 @@
     </affiliation>
   </author>  
 
+<!-- TRANSLATORS to other languages will be specified in the "contrib" tag -->
+  <othercredit>
+     <contrib>Translation</contrib>
+     <firstname>Jamie</firstname>
+     <surname>Smedsmo</surname>
+     <affiliation>
+        <orgname>University of Minnesota, Department of Forest Resources</orgname>
+         <orgdiv>TerraSIP Project</orgdiv>
+        <address>
+            <email>jsmedsmo@gis.umn.edu</email>
+        </address>
+     </affiliation>
+  </othercredit>
 
   <abstract>  <!-- a short description of the contents of the doc -->
     <para>
@@ -602,8 +615,7 @@
   <sect2 id='feedback'>
    <title>Feedback</title>
    <para>
-    Send any comments or suggestions to the MapServer Documentation Coordinator at
-    <email>mdp@lists.gis.umn.edu</email>.
+    Send any comments or suggestions to the document author(s).
    </para>
    </sect2>
 
