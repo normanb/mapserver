@@ -508,17 +508,39 @@
       <sect3 id="val_client">
         <title>Test with a Real Client</title>
         <para>
-          If you have access to a WMS client then register your new server's online
-          resource with it and you're running.
+          If you have access to a WMS client, then register your new server's online
+          resource with it and you should be off and running.
         </para>
         <para>
-          If you don't have your own WMS client then CubeWerx's WMS interface (cubeview)
-          can be useful to test a new server.  Access the following page:
-              <ulink url="http://www.cubewerx.com/demo/cubeview/cubeview.cgi">
-          http://www.cubewerx.com/demo/cubeview/cubeview.cgi</ulink>
-          and enter your server's URL at the bottom of the page and click "GO".  
-          The default set of layers in the interface should be replaced with
-          your server's layers.
+          If you don't have your own WMS client installed already, here are a few pointers: 
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+             MapServer itself can be used as a WMS client, see the 
+             <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">WMS Client HOWTO</ulink>.
+            </para>
+          </listitem>  
+          <listitem>
+            <para>
+              MapLab's <ulink url="http://www.maptools.org/maplab/">MapBrowser</ulink> is a web-based WMS client.
+            </para>
+          </listitem>  
+          <listitem>
+            <para>
+              <ulink url="http://www.vividsolutions.com/jump/main.htm">JUMP</ulink> is a desktop GIS package 
+              which includes WMS client support.
+            </para>
+          </listitem>  
+          <listitem>
+            <para>
+              <ulink url="http://deegree.sourceforge.net/">Deegree</ulink> provides a WMS client.
+            </para>
+          </listitem>  
+        </itemizedlist>
+        <para>
+        This list is not exhaustive, there are several Open Source or proprietary packages that 
+        offer WMS support and could be used to interact with your new MapServer WMS server instance. 
         </para>
       </sect3>
     </sect2>
