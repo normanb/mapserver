@@ -16,14 +16,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-04-09</date>
+		<date>2002-06-21</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
 			  module.
                </para>
-			<para>Last Updated: 04/09/2002</para>
+			<para>Last Updated: 06/21/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -1223,13 +1223,50 @@
 			</sect3>
 		</sect2>
 	</sect1>
+<!-- Section1: FAQ -->
+	<sect1 id="FAQ">
+		<title>FAQ / Common Problems</title>
+			<qandaset defaultlabel="qanda">
+					<qandaentry>
+						<question>
+							<para>
+							   How do I change the colour of a shape on-the-fly?
+						     </para>
+						</question>
+						<answer>
+						      <para>
+						          Say you have an image object that you are trying to draw more objects on:
+						      </para>
+						      <programlisting>
+    &#36;imageObj = &#36;mapObj-&gt;draw();
+    &#36;pointObj-&gt;draw(&#36;mapObj, &#36;layerObj, &#36;imageObj, 0, &#36;label);						
+						      </programlisting>
+						      <para>
+						          Fine. However, you want to change the colour of the point on the fly 
+                                        before you draw it:
+						      </para>
+						      <programlisting>
+    &#36;imageObj = &#36;mapObj-&gt;draw();
+    &#36;classObj = &#36;layerObj-&gt;getClass(0);
+    &#36;newColour = &#36;mapObj-&gt;addColor(255,0,0);
+    &#36;classObj-&gt;set('color', &#36;newColour);
+    &#36;pointObj-&gt;draw(&#36;mapObj, &#36;layerObj, &#36;imageObj, 0, &#36;label);						
+						      </programlisting>
+						      <para>
+This won't work. In order to get the result you want, you must call
+&#36;mapObj-&gt;draw(); after you add your colour to the palatte.						
+						      </para>
+	                         </answer>
+	                      </qandaentry>
+	            </qandaset>
+	</sect1>
 	<!-- Section1: Document Info -->
 	<sect1 id="docinfo">
 		<title>About This Document</title>
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
