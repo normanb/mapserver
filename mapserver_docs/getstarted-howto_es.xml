@@ -1,8 +1,8 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
   "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
-<article>
+<article lang="es">
 	<articleinfo>
 		<!-- inserte el título aqui, incluya la palabra COMO -->
 		<title>Comenzar Con Mapserver COMO</title>
@@ -38,6 +38,21 @@
 				</address>
 			</affiliation>
 		</author>
+		
+		 <othercredit>
+                      <contrib>Translation</contrib>
+                      <firstname>René</firstname>
+                      <surname>Viáncos</surname>
+                      <affiliation>
+                              <orgname>Metropolitan Technological University</orgname>
+                              <orgdiv>Cartography Department</orgdiv>
+                              <address>
+                                       <email>rviancos@imagendeempresas.cl</email>
+                              </address>
+                      </affiliation>
+                 </othercredit>
+
+
 
 		<date>2002-02-15</date>
 		<abstract>
