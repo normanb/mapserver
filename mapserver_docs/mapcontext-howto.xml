@@ -3,456 +3,459 @@
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
-	<articleinfo>
-		<title>Mapserver Map Context HOWTO - Version 4.1</title>
-		<author>
-			<firstname>Jeff</firstname>
-			<surname>McKenna</surname>
-			<affiliation>
-				<orgname>DM Solutions Group Inc.</orgname>
-				<address>
-					<email>jmckenna@dmsolutions.ca</email>
-				</address>
-			</affiliation>
-		</author>
-		<date>2004-02-18</date>
-		<abstract>
-			<!-- a short description of the contents of the doc -->
-			<para>
+    <articleinfo>
+        <title>Mapserver Map Context HOWTO - Version 4.4</title>
+        <author>
+            <firstname>Jeff</firstname>
+            <surname>McKenna</surname>
+            <affiliation>
+                <orgname>DM Solutions Group Inc.</orgname>
+                <address>
+                    <email>jmckenna@dmsolutions.ca</email>
+                </address>
+            </affiliation>
+        </author>
+        <date>2004-02-18</date>
+        <abstract>
+            <!-- a short description of the contents of the doc -->
+            <para>
                  This document describes the procedures for the creation of a map context document with MapServer.  
       </para>
-			<para>Last Updated: 02/18/2004</para>
-		</abstract>
-	</articleinfo>
-	<sect1 id="intro">
-		<title>Introduction</title>
-		<para>
-		The term 'map context' comes from the Open GIS Constortium's (OGC) <ulink url="http://www.opengis.org/docs/03-036r2.pdf">Web Map Context 			Specification v1.0.0</ulink>, which coincides with the OGC <ulink url="http://www.opengis.org/docs/01-068r3.pdf">Web Map Server
-		Interfaces Implementation Specification (WMS) v1.1.1</ulink>.  A map context is a XML document that describes the appearance of layers from one or more WMS 		servers, and can be transferred 	between clients while maintaining startup views, the state of the view (and its layers), and storing additional layer information.
-    		</para>
-		<para>
-      		Support for OGC Web Map Context hsa been added to MapServer in version 3.7/4.0.  This allows client applications to load and save a map configuration
-		in a standard XML format.
-   		 </para>
-		<para>
-		MapServer can read context documents of versions 0.1.2, 0.1.4, 0.1.7, &amp; 1.0.0 and can export contents in versions 0.1.4, 0.1.7, &amp; 1.0.0.
-		</para>
-		<para>
+            <para>Last Updated: 10/20/2004</para>
+            <para>
+                <link linkend="rhistory">Revision History</link>
+            </para>            
+        </abstract>
+    </articleinfo>
+    <sect1 id="intro">
+        <title>Introduction</title>
+        <para>
+        The term 'map context' comes from the Open GIS Constortium's (OGC) <ulink url="http://www.opengis.org/docs/03-036r2.pdf">Web Map Context            Specification v1.0.0</ulink>, which coincides with the OGC <ulink url="http://www.opengis.org/docs/01-068r3.pdf">Web Map Server
+        Interfaces Implementation Specification (WMS) v1.1.1</ulink>.  A map context is a XML document that describes the appearance of layers from one or more WMS         servers, and can be transferred     between clients while maintaining startup views, the state of the view (and its layers), and storing additional layer information.
+            </para>
+        <para>
+            Support for OGC Web Map Context hsa been added to MapServer in version 3.7/4.0.  This allows client applications to load and save a map configuration
+        in a standard XML format.
+         </para>
+        <para>
+        MapServer can read context documents of versions 0.1.2, 0.1.4, 0.1.7, &amp; 1.0.0 and can export contents in versions 0.1.4, 0.1.7, &amp; 1.0.0.
+        </para>
+        <para>
              This document assumes that you are already familiar with certain aspects of MapServer:
           </para>
-		<itemizedlist>
-			<listitem>
-				<para>
-                      		MapServer application development and setting up .map files. 
-                		</para>
-			</listitem>
-			<listitem>
-				<para>
-          				Familiarity with the WMS spec would be an asset. Please see the following section for links to associated sources.        							</para>
-			</listitem>
-		</itemizedlist>
-		<sect2 id="links">
-			<title>Links to WMS / Map Context Related Information</title>
-			<itemizedlist>
-				<listitem>
-					<para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                            MapServer application development and setting up .map files. 
+                        </para>
+            </listitem>
+            <listitem>
+                <para>
+                        Familiarity with the WMS spec would be an asset. Please see the following section for links to associated sources.                                  </para>
+            </listitem>
+        </itemizedlist>
+        <sect2 id="links">
+            <title>Links to WMS / Map Context Related Information</title>
+            <itemizedlist>
+                <listitem>
+                    <para>
             The Mapserver Map Context Wiki:
             <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapContextHowto">
             http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapContextHowto</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             The Mapserver WMS Client HOWTO:
             <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">
             http://mapserver.gis.umn.edu/doc/wms-client-howto.html</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             Open GIS Consortium (OGC) Home Page:
               <ulink url="http://www.opengis.org/">http://www.opengis.org/</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             WMS 1.1.1 specification:
               <ulink url="http://www.opengis.org/docs/01-068r3.pdf">
             http://www.opengis.org/techno/specs/01-068r3.pdf</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             Map Context 1.0.0 specification:
               <ulink url="http://www.opengis.org/docs/03-036r2.pdf">
             http://www.opengis.org/techno/specs/03-036r2.pdf</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             WMS-Dev mailing list and archive:
               <ulink url="http://www.intl-interfaces.net/mailman/listinfo/wms-dev">
             http://www.intl-interfaces.net/mailman/listinfo/wms-dev</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             WMS FAQ:
               <ulink url="http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home">
             http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             WMS XML Capabilities validator:
               <ulink url="http://www.digitalearth.gov/wmt/xml/validator.html">
             http://www.digitalearth.gov/wmt/xml/validator.html</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
             WMS Cookbook:
               <ulink url="http://www.intl-interfaces.net/cookbook/WMS/">
             http://www.intl-interfaces.net/cookbook/WMS/</ulink>
-					</para>
-				</listitem>
-			</itemizedlist>
-		</sect2>
-	</sect1>
-	<!-- Section1: Implementation-->
-	<sect1 id="implementation">
-		<title>Implementing a Web Map Context</title>
-		<sect2 id="build">
-			<title>Special Build Considerations</title>
-			<para>
-				Map Context support requires PROJ4, GDAL/OGR and PHP support libraries.
-      			</para>
-			<para>
-				Build/install the above libraries on your system adn then build MapServer with
-				the '--with-wmsclient --with-proj --with-php' configure options.
-			</para>
-		</sect2>
-		<sect2 id="mapfile">
-			<title>Map Context Mapfile</title>
-			<para>
-			  	A map context document can ONLY contain WMS layers (e.g. CONNECTIONTYPE WMS).  
-				Please refer to the <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">
-				MapServer WMS Client HOWTO</ulink> for more information on declaring WMS layers.
-     	 		</para>
-			<sect3 id="metadata">
-				<title>MapFile Metadata</title>
-				<para>
-						The following mapfile metadata are used by MapServer to handle map context information:
-      					</para>
-				<note>
-					<para>Some parameters have <varname>width</varname>, <varname>height</varname>, <varname>format</varname>, and <varname>href</varname>, and some only have <varname>format</varname> and <varname>href</varname>.  This is because <varname>width							</varname> and <varname>height</varname> are only used for images and parameters that do not have them are text or html.   For 
-						consistency with the spec MapServer supports <varname>height</varname> and <varname>width</varname> for all parameters, but they should only be used for images.
-					 </para>
-				</note>
-				<sect4 id="web">
-					<title>Web Object Metadata</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_abstract</emphasis> : A blurb of text providing more information about the WMS server.											</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_address</emphasis> : (Optional, if provided must also then provide wms_addresstype, wms_city,
-								wms_stateorprovince, wms_postcode, and wms_country)															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_addresstype</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
-								wms_stateorprovince, wms_postcode, and wms_country)															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_city</emphasis> : (Optional, if provided must also then provide wms_address, wms_addresstype,
-								wms_stateorprovince, wms_postcode, and wms_country)															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_contactelectronicmailaddress</emphasis> : Optional contact Email address. 												</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_contactfacsimiletelephone</emphasis> : Optional contact facsimile telephone number. 											</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_contactorganization</emphasis> : (Optional)																</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_contactperson</emphasis> : (Optional)																</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_contactposition</emphasis> : (Optional)																</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_contactvoicetelephone</emphasis> : Optional contact voice telephone number. 												</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_context_fid</emphasis> : the feature id of the context.  Set to 0 when saving
-								if not specified.
-							</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_context_version</emphasis> : the version of the map context specification.
-							</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_country</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
-								wms_stateorprovince, wms_postcode, and wms_addresstype)															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_descriptionurl_format</emphasis> : Format of the webpage which contains relevant information to the view.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_descriptionurl_href</emphasis> : Reference to a webpage which contains relevant information to the view.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_keywordlist</emphasis> : A comma-separated list of keywords or keyword phrases to help catalog searching.							</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_logourl_width</emphasis> : Width of the context logo.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_logourl_height</emphasis> : Height of the context logo.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_logourl_format</emphasis> : Format of the context logo.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_logourl_href</emphasis> : Location of the context logo.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_postcode</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
-								wms_stateorprovince, wms_addresstype, and wms_country)															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_stateorprovince</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
-								wms_addresstype, wms_postcode, and wms_country)															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_title</emphasis> : A human-readable name for this Layer (this metadata does not exist beyond 
-								version 0.1.4)
-							</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="layer">
-					<title>Layer Object Metadata</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_abstract</emphasis> : A blurb of text providing more information about the WMS server.											</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_dataurl_href</emphasis> : Link to an online resource where data corresponding to the layer can be found.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_dataurl_format</emphasis> : Format of the online resource where data corresponding to the layer can be found.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_format</emphasis> : Current format used.															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_formatlist</emphasis> : List of available formats for this layer.													</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_metadataurl_href</emphasis> : Link to an online resource where descriptive metadata of the corresponding layer can be found.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_metadataurl_format</emphasis> : Format of the online resource where descriptive metadata of the corresponding layer can be found.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_name</emphasis> : Name of the WMS layer on the server. 													</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_onlineresource</emphasis> : URL to access the server.														</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_server_version</emphasis> : The version of the web map server specification.											</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_stylelist</emphasis> : Current style used.															</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_style_%s_legendurl_width</emphasis> : Width of an image describing the style.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_style_%s_legendurl_height</emphasis> : Height of an image describing the style.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_style_%s_legendurl_format</emphasis> : Format of an image describing the style.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_style_%s_legendurl_href</emphasis> : Location of an image describing the style.</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_style_%s_sld</emphasis> : URL to the SLD document of this style. %s = the name of the style.											</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_style_%s_title</emphasis> : Title of the layer. %s = the name of the style.												</para>
-						</listitem>
-					</itemizedlist>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>wms_title</emphasis> : A human-readable name for this Layer.														</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-			</sect3>
-		</sect2>
-		<sect2 id="testing">
-			<title>Testing Map Context Support</title>
-			<orderedlist numeration="lowerroman">
-				<listitem>
-					<para>
-					The first thing to do is to save your mapfile using the saveMapContext function available from the phpmapscript library (see the
-					<ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html#MapObj">Map Object functions</ulink>).	An example
-					script is shown below:
-				</para>
-					<programlisting>
-	&lt;?php
-	dl("php_mapscript_40.dll");
-	$oMap = ms_newMapObj("gmap_wms_context.map");
-	$oMap->saveMapContext("gmap_wms_context_output.xml");
-	?&gt; 				
-				</programlisting>
-				</listitem>
-				<listitem>
-					<para>
-					Scan the XML output to look for &lt;!-- WARNING: ... --&gt; comments.  Then make the necessary changes to fix every warning
-					that you encounter.  At the end of this you should have a mapfile compatible with the Map Context specification.
-				</para>
-				</listitem>
-				<listitem>
-					<para>
-					Now you can load your new Map Context document into an application using the loadMapContext function from the phpmapscript 
-					library (see the <ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html#MapObj">Map Object functions</ulink>).
-					Look for the free application <ulink url="http://www.maptools.org/maplab/index.phtml">MapLab</ulink> to be able to (in the near future) load 
-					MapContext docs from other servers and save a mapfile into a Map Context document.
-				</para>
-				</listitem>
-			</orderedlist>
-		</sect2>
-		<sect2 id="example">
-			<title>Sample Map Context Document</title>
-			<para>
-				The following is a sample Map Context document:
-			</para>
-			<programlisting>
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+    <!-- Section1: Implementation-->
+    <sect1 id="implementation">
+        <title>Implementing a Web Map Context</title>
+        <sect2 id="build">
+            <title>Special Build Considerations</title>
+            <para>
+                Map Context support requires PROJ4, GDAL/OGR and PHP support libraries.
+                </para>
+            <para>
+                Build/install the above libraries on your system adn then build MapServer with
+                the '--with-wmsclient --with-proj --with-php' configure options.
+            </para>
+        </sect2>
+        <sect2 id="mapfile">
+            <title>Map Context Mapfile</title>
+            <para>
+                A map context document can ONLY contain WMS layers (e.g. CONNECTIONTYPE WMS).  
+                Please refer to the <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">
+                MapServer WMS Client HOWTO</ulink> for more information on declaring WMS layers.
+                </para>
+            <sect3 id="metadata">
+                <title>MapFile Metadata</title>
+                <para>
+                        The following mapfile metadata are used by MapServer to handle map context information:
+                        </para>
+                <note>
+                    <para>Some parameters have <varname>width</varname>, <varname>height</varname>, <varname>format</varname>, and <varname>href</varname>, and some only have <varname>format</varname> and <varname>href</varname>.  This is because <varname>width                           </varname> and <varname>height</varname> are only used for images and parameters that do not have them are text or html.   For 
+                        consistency with the spec MapServer supports <varname>height</varname> and <varname>width</varname> for all parameters, but they should only be used for images.
+                     </para>
+                </note>
+                <sect4 id="web">
+                    <title>Web Object Metadata</title>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_abstract</emphasis> : A blurb of text providing more information about the WMS server.                                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_address</emphasis> : (Optional, if provided must also then provide wms_addresstype, wms_city,
+                                wms_stateorprovince, wms_postcode, and wms_country)                                                         </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_addresstype</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
+                                wms_stateorprovince, wms_postcode, and wms_country)                                                         </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_city</emphasis> : (Optional, if provided must also then provide wms_address, wms_addresstype,
+                                wms_stateorprovince, wms_postcode, and wms_country)                                                         </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_contactelectronicmailaddress</emphasis> : Optional contact Email address.                                                 </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_contactfacsimiletelephone</emphasis> : Optional contact facsimile telephone number.                                           </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_contactorganization</emphasis> : (Optional)                                                               </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_contactperson</emphasis> : (Optional)                                                             </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_contactposition</emphasis> : (Optional)                                                               </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_contactvoicetelephone</emphasis> : Optional contact voice telephone number.                                               </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_context_fid</emphasis> : the feature id of the context.  Set to 0 when saving
+                                if not specified.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_context_version</emphasis> : the version of the map context specification.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_country</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
+                                wms_stateorprovince, wms_postcode, and wms_addresstype)                                                         </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_descriptionurl_format</emphasis> : Format of the webpage which contains relevant information to the view.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_descriptionurl_href</emphasis> : Reference to a webpage which contains relevant information to the view.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_keywordlist</emphasis> : A comma-separated list of keywords or keyword phrases to help catalog searching.                         </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_logourl_width</emphasis> : Width of the context logo.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_logourl_height</emphasis> : Height of the context logo.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_logourl_format</emphasis> : Format of the context logo.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_logourl_href</emphasis> : Location of the context logo.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_postcode</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
+                                wms_stateorprovince, wms_addresstype, and wms_country)                                                          </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_stateorprovince</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
+                                wms_addresstype, wms_postcode, and wms_country)                                                         </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_title</emphasis> : A human-readable name for this Layer (this metadata does not exist beyond 
+                                version 0.1.4)
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </sect4>
+                <sect4 id="layer">
+                    <title>Layer Object Metadata</title>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_abstract</emphasis> : A blurb of text providing more information about the WMS server.                                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_dataurl_href</emphasis> : Link to an online resource where data corresponding to the layer can be found.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_dataurl_format</emphasis> : Format of the online resource where data corresponding to the layer can be found.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_format</emphasis> : Current format used.                                                          </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_formatlist</emphasis> : List of available formats for this layer.                                                 </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_metadataurl_href</emphasis> : Link to an online resource where descriptive metadata of the corresponding layer can be found.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_metadataurl_format</emphasis> : Format of the online resource where descriptive metadata of the corresponding layer can be found.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_name</emphasis> : Name of the WMS layer on the server.                                                    </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_onlineresource</emphasis> : URL to access the server.                                                     </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_server_version</emphasis> : The version of the web map server specification.                                          </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_stylelist</emphasis> : Current style used.                                                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_style_%s_legendurl_width</emphasis> : Width of an image describing the style.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_style_%s_legendurl_height</emphasis> : Height of an image describing the style.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_style_%s_legendurl_format</emphasis> : Format of an image describing the style.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_style_%s_legendurl_href</emphasis> : Location of an image describing the style.</para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_style_%s_sld</emphasis> : URL to the SLD document of this style. %s = the name of the style.                                          </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_style_%s_title</emphasis> : Title of the layer. %s = the name of the style.                                               </para>
+                        </listitem>
+                    </itemizedlist>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>wms_title</emphasis> : A human-readable name for this Layer.                                                      </para>
+                        </listitem>
+                    </itemizedlist>
+                </sect4>
+            </sect3>
+        </sect2>
+        <sect2 id="testing">
+            <title>Testing Map Context Support</title>
+            <orderedlist numeration="lowerroman">
+                <listitem>
+                    <para>
+                    The first thing to do is to save your mapfile using the saveMapContext function available from the phpmapscript library (see the
+                    <ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html#MapObj">Map Object functions</ulink>).   An example
+                    script is shown below:
+                </para>
+                    <programlisting>
+    &lt;?php
+    dl("php_mapscript_40.dll");
+    $oMap = ms_newMapObj("gmap_wms_context.map");
+    $oMap->saveMapContext("gmap_wms_context_output.xml");
+    ?&gt;               
+                </programlisting>
+                </listitem>
+                <listitem>
+                    <para>
+                    Scan the XML output to look for &lt;!-- WARNING: ... --&gt; comments.  Then make the necessary changes to fix every warning
+                    that you encounter.  At the end of this you should have a mapfile compatible with the Map Context specification.
+                </para>
+                </listitem>
+                <listitem>
+                    <para>
+                    Now you can load your new Map Context document into an application using the loadMapContext function from the phpmapscript 
+                    library (see the <ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html#MapObj">Map Object functions</ulink>).
+                    Look for the free application <ulink url="http://www.maptools.org/maplab/index.phtml">MapLab</ulink> to be able to (in the near future) load 
+                    MapContext docs from other servers and save a mapfile into a Map Context document.
+                </para>
+                </listitem>
+            </orderedlist>
+        </sect2>
+        <sect2 id="example">
+            <title>Sample Map Context Document</title>
+            <para>
+                The following is a sample Map Context document:
+            </para>
+            <programlisting>
 &lt;?xml version='1.0' encoding="ISO-8859-1" standalone="no" ?&gt;
 &lt;ViewContext version="1.0.0" id="DEMO" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.opengis.net/context" xsi:schemaLocation="http://www.opengis.net/context http://schemas.opengis.net/context/1.0.0/context.xsd"&gt;
   &lt;General&gt;
@@ -511,31 +514,133 @@
     &lt;/Layer&gt;
   &lt;/LayerList&gt;
 &lt;/ViewContext&gt;
-			</programlisting>
-		</sect2>
-	</sect1>
-	<sect1 id="FAQ">
-		<title>FAQ / Common Problems</title>
-		<para>None available at this time</para>
-	</sect1>
-	<!-- Section1: Document Info -->
-	<sect1 id="docinfo">
-		<title>About This Document</title>
-		<sect2 id="copyright">
-			<title>Copyright Information</title>
-			<para>
+            </programlisting>
+        </sect2>
+        <sect2 id="context">
+        <title>Map Context Support Through CGI</title>
+        <para>MapServer CGI allows you to load a map context through the use of a CONTEXT parameter, and you can point this parameter to a locally stored context file or a context file accessible through a URL.  For more information on MapServer CGI see the CGI Reference doc located at: <ulink url="http://mapserver.gis.umn.edu/doc/cgi-reference.html">http://mapserver.gis.umn.edu/doc/cgi-reference.html</ulink>. 
+            </para>
+            <sect3 id="localcontext">
+            <title>Support for Local Map Context Files</title>
+            <para> 
+                            There is a new cgi parameter called CONTEXT that is used to specify a local context file. The user can then use MapServer to request                                a map using the following syntax:
+                                </para>
+            <programlisting>
+    http://localhost/mapserver.cgi?MODE=map&amp;MAP=/path/to/mapfile.map&amp;CONTEXT=
+                         /path/to/contextfile.xml&amp;LAYERS=layer_name1 layers_name2           
+                        </programlisting>
+                        <note>
+                            <para>
+                                All layers created from a context file have their status set to ON. To be able to display layers, the user needs to add the LAYERS argument                                 in the URL.
+                            </para>
+                        </note>
+        </sect3>
+        <sect3 id="urlcontext">
+            <title>Support for Context Files Accessed Through a URL</title>
+                        <para> 
+                            The syntax of using a web accessible context file would be similar to accessing a local context file:
+                                </para>
+            <programlisting>
+    http://localhost/mapserver.cgi?MODE=map&amp;MAP=/path/to/mapfile.map&amp;CONTEXT=
+                http:://URL/path/to/contextfile.xml&amp;LAYERS=layers_name1 layer_name2     
+                        </programlisting>
+                        <para>
+                            Due to security concerns loading a file from a URL is disabled by default. To enable this functionality, the user needs to set a CONFIG                                 parameter called CGI_CONTEXT_URL in the default map file that will allow this functionality.  Here is an example of a map file with the CONFIG                          parameter:
+                        </para>
+                        <programlisting>
+    # Start of map file
+    NAME DEMO
+    STATUS ON
+    SIZE 400 300
+    EXTENT -2200000 -712631 3072800 3840000
+    UNITS METERS
+    IMAGECOLOR 255 255 255
+    IMAGETYPE png
+    CONFIG "CGI_CONTEXT_URL" "1"
+    ...                     
+                        </programlisting>
+        </sect3>        
+        <sect3 id="cgimapfile">
+            <title>Default Map File</title>
+            <para> 
+                            To smoothly run a Mapserver CGI application with a Map Context, the application administrator needs to provide a default map file with at least the                             basic required parameters that will be used with the Conext file.  This default map file can contain as little information as the imagepath and                                 imageurl or contain a list of layers. Information coming from the context (e.g.: layers, width, height, …) would either be appended or will replace                           values found  in the map file.
+                                </para>
+            <para>
+                            Here is an example of a default map file containing the minimum required parameters:
+                        </para>
+            <programlisting>
+    NAME CGI-CONTEXT-DEMO
+    STATUS ON
+    SIZE 400 300
+    EXTENT -2200000 -712631 3072800 3840000
+    UNITS METERS
+    IMAGECOLOR 255 255 255
+    IMAGETYPE png
+    #
+    # Start of web interface definition
+    #
+    WEB
+      MINSCALE 2000000
+      MAXSCALE 50000000
+    #
+    # On Windows systems, /tmp and /tmp/ms_tmp/ should be created at the root 
+    # of the drive where the .MAP file resides.
+    #
+      IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+      IMAGEURL "/ms_tmp/"
+    END
+    END # Map File                      
+                        </programlisting>
+        </sect3>
+       </sect2>        
+    </sect1>
+    <sect1 id="FAQ">
+        <title>FAQ / Common Problems</title>
+        <para>None available at this time</para>
+    </sect1>
+    <!-- Section1: Document Info -->
+    <sect1 id="docinfo">
+        <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The document revision history starts with UMN MapServer 4.2. The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.5</revnumber>
+                        <date>Date: 2004-10-20</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added CGI/context section
+                                   </revremark>
+                    </revision>
+                    <revision>
+                        <revnumber>Number: 1.4</revnumber>
+                        <date>Date: 2004-02-18</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>formatting
+                    </revremark>
+                    </revision>
+                </revhistory>
+            </para>
+        </sect2>        
+        <sect2 id="copyright">
+            <title>Copyright Information</title>
+            <para>
                 Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
       </para>
-			<para>
+            <para>
                 This documentation is covered by the same Open Source license as the
                 MapServer software itself.  See MapServer's 
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
                 Credits</ulink> page for the complete text.
             </para>
-		</sect2>
-		<sect2 id="disclaimer">
-			<title>Disclaimer</title>
-			<para>
+        </sect2>
+        <sect2 id="disclaimer">
+            <title>Disclaimer</title>
+            <para>
             No liability for the contents of this document can be accepted.
             Use the concepts, examples and other content at your own risk.
             As this is a new edition of this document, there may be errors
@@ -543,13 +648,13 @@
             Although this is highly unlikely, the author(s) do not take any 
             responsibility for that:  proceed with caution.
                   </para>
-		</sect2>
-		<!-- Section2: feedback -->
-		<sect2 id="feedback">
-			<title>Feedback</title>
-			<para>
+        </sect2>
+        <!-- Section2: feedback -->
+        <sect2 id="feedback">
+            <title>Feedback</title>
+            <para>
             Send any comments or suggestions to the author.
         </para>
-		</sect2>
-	</sect1>
+        </sect2>
+    </sect1>
 </article>
