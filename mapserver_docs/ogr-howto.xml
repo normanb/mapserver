@@ -79,63 +79,63 @@
                 the latest list of supported formats.
                 At the date this document was written, the following formats were supported:
                </para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
+			<itemizedlist>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
                         </para>
-					</listitem>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_mitab.html">MapInfo TAB and  
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_mitab.html">MapInfo TAB and  
 					   MIF/MID files</ulink>,
 				    </para>
-					</listitem>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>,
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>,
 				    </para>
-					</listitem>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
 				    </para>
-					</listitem>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>,
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>,
 				    </para>
-					</listitem>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format),
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format),
 				    </para>
-					</listitem>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
 				    </para>
-					</listitem>
-					<listitem>
-						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>.
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>.
 				    </para>
-					</listitem>
-				</itemizedlist>
-                <para>
-                    <emphasis>Note1: Some of the above formats (e.g. OGDI) have external dependencies
+				</listitem>
+			</itemizedlist>
+			<para>
+				<emphasis>Note1: Some of the above formats (e.g. OGDI) have external dependencies
                     and are not always included in the precompiled binary distributions of MapServer with OGR support.
                     </emphasis>
-                </para>
-                <para>
-                    <emphasis>Note2: Some of the above formats are not well suited
+			</para>
+			<para>
+				<emphasis>Note2: Some of the above formats are not well suited
                     for random access by nature, that's the case of MapInfo MIF/MID files which is a
                     TEXT format and will give very poor performance for a web application.  
                     On the other hand, some binary formats such as MapInfo TAB are better suited for 
                     random access and will give performance comparable to native shapefile access 
                     in Mapserver.
                     </emphasis>
-                </para>
+			</para>
 		</sect2>
 		<!-- Section2: More information on the OGR project -->
 		<sect2 id="information">
@@ -150,7 +150,7 @@
 		        <address>
 					<email>warmerda@home.com</email>
 				</address>
-               </para>
+			</para>
 			<para>
                       The integration of OGR within MapServer was done by Daniel Morissette.
                   <address>
@@ -163,21 +163,21 @@
 	<sect1 id="obtain">
 		<title>Obtaining and Compiling MapServer with OGR Support</title>
 		<para>
-            <emphasis>TODO: this is still incomplete</emphasis>
-            <itemizedlist>
-                <listitem>
-                	<para>
+			<emphasis>TODO: this is still incomplete</emphasis>
+			<itemizedlist>
+				<listitem>
+					<para>
 						Follow the instructions on the OGR page to compile/install OGR (actually GDAL since OGR is part of the GDAL library):
                         <ulink url="http://gdal.velocet.ca/projects/opengis/">http://gdal.velocet.ca/projects/opengis/</ulink>.
                     </para>
-                </listitem>
-                <listitem>
-                	<para>
+				</listitem>
+				<listitem>
+					<para>
 						Obtain the MapServer source from: <ulink url="http://mapserver.gis.umn.edu/dload.html">http://mapserver.gis.umn.edu/dload.html</ulink>.
                     </para>
-                </listitem>
-            </itemizedlist>
-	     </para>
+				</listitem>
+			</itemizedlist>
+		</para>
 		<para>
 			 For UNIX users, see the <emphasis>README.CONFIGURE</emphasis> file in the MapServer source, or see
 			the UNIX/MapServer HOWTO at <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">					http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  
@@ -256,15 +256,14 @@
 		<para>
 	                    The OGRINFO program can be used to find out the layer indices in a data set.
 	        </para>
-
 		<!-- Section2: Examples of Layer Definitions Using OGR -->
 		<sect2 id="examples">
 			<title>Examples of Layer Definitions Using OGR</title>
 			<example>
-			<title>
+				<title>
 				MapInfo TAB file
 			</title>
-			<programlisting>
+				<programlisting>
 	LAYER
 	   NAME "Builtup_Areas_tab"
 	   TYPE POLYGON
@@ -279,10 +278,10 @@
                </programlisting>
 			</example>
 			<example>
-			<title>
+				<title>
                     2. TIGER/Line file
                </title>
-			<programlisting>
+				<programlisting>
 	LAYER
 	   NAME "Roads_tig"
 	   TYPE LINE
@@ -309,29 +308,29 @@
 	ogrinfo [-ro] [-q] datasource_name [layer [layer...]]
 			</programlisting>
 			<itemizedlist>
-			<listitem>
-			  <para>
+				<listitem>
+					<para>
 			     -ro opens the file as read only (optional)
 			  </para>
-			</listitem>
-			<listitem>
-			  <para>
+				</listitem>
+				<listitem>
+					<para>
 			     -q executes in quiet mode, only the layer idex line will be returned (optional)
 			  </para>
-               </listitem>
-               <listitem>
-			  <para>
+				</listitem>
+				<listitem>
+					<para>
 			     datasource_name is the filename including extension (eg. roads.tab)
 			  </para>
-			</listitem>
+				</listitem>
 			</itemizedlist>
 			<sect3 id="example">
-			     <title>Examples</title>
-                     <example>
-                     <title>
+				<title>Examples</title>
+				<example>
+					<title>
                          To get the list of layers in a file:
 			         </title>
-			     <programlisting>
+					<programlisting>
     $ ogrinfo  popplace.tab
 
     Had to open data source read-only.
@@ -339,15 +338,15 @@
     using driver `MapInfo File' successful.
     1: popplace (Point)
 			    </programlisting>
-			    <para>
-			        <literallayout>   which shows that there is one point layer in the popplace.tab file.</literallayout>
-			    </para>
-		</example>
-		<example>
-               	<title>
+					<para>
+						<literallayout>   which shows that there is one point layer in the popplace.tab file.</literallayout>
+					</para>
+				</example>
+				<example>
+					<title>
                         To get a dump of a specific layer, including field names, projection, etc:
                    </title>
-                   <programlisting>
+					<programlisting>
     $ ogrinfo popplace.tab popplace
 
     Had to open data source read-only.
@@ -381,7 +380,7 @@
     ...
     ...
                 </programlisting>
-		</example>
+				</example>
 			</sect3>
 		</sect2>
 		<sect2 id="queries">
@@ -400,13 +399,13 @@
 	<!-- Section1: FAQ -->
 	<sect1 id="FAQ">
 		<title>FAQ / Common Problems</title>
-          <sect2>
-              <title>What Does OGR Stand For?</title>
-              <para>
+		<sect2>
+			<title>What Does "OGR" Stand For?</title>
+			<para>
                    Basically, OGR does not stand for anything.  For a detailed explanation of how OGR was named, see Frank
                    Warmerdam's OGR site at <ulink url="http://gdal.velocet.ca/projects/opengis"> 					              http://gdal.velocet.ca/projects/opengis</ulink> in the section 'OGR and OpenGIS'.
               </para>
-          </sect2>
+		</sect2>
 	</sect1>
 	<!-- Section1: Document Info -->
 	<sect1 id="docinfo">
@@ -416,7 +415,7 @@
 			<para>
                 Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
             </para>
-            <para>
+			<para>
                 This documentation is covered by the same Open Source license as the
                 MapServer software itself.  See MapServer's 
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
@@ -445,4 +444,3 @@
 		</sect2>
 	</sect1>
 </article>
-
