@@ -13,7 +13,7 @@
 //    box on/off - status for box drawing, default is on
 //    verbose true/false - turns on verbosity so that all mouse movements are passed out to javascript
 //			(was on/off in mapplet)
-//
+
 // Public methods:
 //    boxon - toggles box drawing on.
 //    boxoff - toggles box drawing off.
@@ -29,8 +29,9 @@
 // 	mousemove_handler
 
 /*
-	Rich Greenwood, rich@greenwoodmap.com, November 2002:
-	added line functionality to mimic MapInfo/ArcView ruler tool
+	Rich Greenwood, rich@greenwoodmap.com
+	November 2002:	added line functionality to mimic MapInfo/ArcView ruler tool
+	October 2003: added drag functionality for panning
 
 	Public methods:
 		lineon - toggles line drawing on, and box drawing off, boxoff() turns off both`
@@ -40,7 +41,6 @@
 			seg = current segment length
 			tot = running total length
 			num = number of vertices
-		reset_handler
 
 	Compiler issues:
 		Sun JDK 1.2 & 1.3 work ok, but
@@ -75,10 +75,10 @@ class evalThread extends Thread {
 }	// end of class evalThread
 
 public class jBox extends Applet implements MouseListener, MouseMotionListener {
-	boolean	busy=false, box=true, line=false, init=true, verbose=false;
+	boolean	busy=false, box=true, line=false, drag=false, init=true, verbose=false;
 	Image		img, busyimg=null;
-	double   x1=-1, y1=-1, x2=-1, y2=-1, seg=0, tot=0;
-	int		jitter=5, cursorsize=4, thickness=1;
+	double   x1=-1, y1=-1, x2=-1, y2=-1, seg=0, tot=0, area=0;
+	int		jitter=5, cursorsize=4, thickness=1, ix=0, iy=0;
 	Color    color=Color.red;
 	JSObject window;
 	Image    offScreenImage;
@@ -117,8 +117,9 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 			cursorsize = Integer.parseInt(s);
 
 		s = getParameter("verbose");
-		if(s != null)
+		if(s != null) {
 			if(s.equalsIgnoreCase("true")) verbose = true;
+		}
 
 		name = getParameter("name");
 
@@ -229,7 +230,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
 	public void boxon () {
 		box = true;
-		line = false;
+		line = drag = false;
 		x1 = y1 = x2 = y2 = 0; // RWG - added this & following line to clean up lines if going from lineon -> boxon
 		repaint();
 		return;
@@ -238,8 +239,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 	public void boxoff () {
 		int c = cursorsize;
 
-		box = false;
-		line = false;
+		box = line = drag = false;
 		x2 = x1; // collapse
 		y2 = y1;
 		cursorsize = 0;	// RWG kluge to elminate drawing a cross on cleanup
@@ -250,7 +250,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 	}
 
 	public void lineon () {
-		box = false;
+		box = drag = false;
 		line = true;
 		pl = new Polygon();
 		tot = seg = 0;
@@ -258,6 +258,17 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 	}
 
 	public void lineoff () {	// synonym for boxoff()
+		boxoff();
+	}
+
+	public void dragon () {
+		box = false;
+		line = false;
+		drag=true;
+		return;
+	}
+
+	public void dragoff () {	// synonym for boxoff()
 		boxoff();
 	}
 
@@ -345,18 +356,21 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
 		x2 = event.getX();
 		y2 = event.getY();
-		if(!box && !line) {
+		if(!box && !line && !drag) {
 			x1 = x2;
 			y1 = y2;
+		}
+		if (drag) {
+			ix = (int) (x2-x1);
+			iy = (int) (y2-y1);
 		}
 		repaint();
 	}
 
 	public void mouseReleased(MouseEvent event) {
-		// window.eval("javascript:jBox_debug_print('mouseReleased');");
+		x2 = event.getX();
+		y2 = event.getY();
 		if(box || line) {
-			x2 = event.getX();
-			y2 = event.getY();
 			if ( x2 > screenSize.width) { x2 = screenSize.width-1; }
 			if ( x2 < 0 ) { x2 = 0; }
 			if ( y2 > screenSize.height) { y2 = screenSize.height-1; }
@@ -369,6 +383,9 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 				x2 = x1;
 				y2 = y1;
 			}
+		} else if (drag) {
+			x1 = x2 = ((screenSize.width-1)/2.0)-(x2-x1);
+			y1 = y2 = ((screenSize.height-1)/2.0)-(y2-y1);
 		} else {
 			x2 = x1;
 			y2 = y1;
@@ -377,15 +394,20 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 		repaint();
 
 		// this a time for a re-draw if the application so chooses
-		if(!busy && !line)	// don't want a form-submit in line drawing mode
+		if(!busy && !line) {	// don't want a form-submit in line drawing mode
 			new evalThread(window, name, x1, y1, x2, y2).start();
+		}
 	}	// mouseReleased
 
 	public void paint(Graphics g) {
 		int x, y, w, h, i;
 
 		// draw the image
-		offScreenGraphics.drawImage(img,0,0,this);
+		if (drag) {	// erase the map area
+			offScreenGraphics.setColor (Color.white);
+			offScreenGraphics.fillRect (0, 0, screenSize.width,screenSize.height);
+		}
+		offScreenGraphics.drawImage(img,ix,iy,this);
 
 		// draw the user defined pline, rectangle or crosshair
 		offScreenGraphics.setColor(color);
@@ -407,7 +429,6 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 				seg = Math.sqrt(Math.pow(y2 - pl.ypoints[pl.npoints-1],2) + Math.pow(x2 - pl.xpoints[pl.npoints-1],2));
 				window.eval("measure_handler('" + name + "'," + seg + "," + tot +"," + pl.npoints + ");");
 			}
-
 		} else if (box) {
 			x = (int)Math.min(x1,x2);
 			y = (int)Math.min(y1,y2);
@@ -429,7 +450,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 			offScreenGraphics.drawImage(busyimg,x,y,this);
 		}
 
-		g.drawImage(offScreenImage, 0, 0, this);
+		g.drawImage(offScreenImage, 0,0, this);
 	}	// end of paint
 
 	public void destroy () {}
@@ -437,4 +458,4 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 	public void update (Graphics g) {
 		paint(g);
 	}
-}
+}	// end of class jBox
