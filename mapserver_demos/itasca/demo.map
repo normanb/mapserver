@@ -110,6 +110,15 @@ SYMBOL
   FILLED TRUE
 END
 
+SYMBOL
+  NAME 'hatch'
+  TYPE VECTOR
+  POINTS
+    0 0
+    1 1
+  END
+END
+
 #
 # Start of layer definitions
 #
@@ -125,6 +134,8 @@ LAYER
     EXPRESSION 'Itasca'
     OUTLINECOLOR 128 128 128
     COLOR 225 225 185
+    SYMBOL 'hatch'
+    SIZE 2
   END
   CLASS # every other county in the state
     EXPRESSION /./ 
