@@ -87,6 +87,11 @@
 			</listitem>
 			<listitem>
 				<para>
+					<ulink url="http://www.freetype.org">FreeType</ulink>: For TrueType font support.  This is used through GD only, mapserver does not compile against it directly.  Version 1 is recommended and works best, issues have been reported with version 2.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
 					<ulink url="http://gdal.velocet.ca/projects/opengis/">OGR Simple Features Library</ulink>: For providing I/O for a variety of VECTOR file formats (Optional).</para>
 			</listitem>
 			<listitem>
