@@ -74,7 +74,7 @@
 					<para>
 						Mapscript 4.0 with PHP 4.1.2 and up (PHP 4.3.2 or more recent recommended)
 					</para>
-				</listitem>									
+				</listitem>
 			</itemizedlist>
 		</sect2>
 		<!-- Section2: More information on the module -->
@@ -92,7 +92,7 @@
 					<para>
 						The <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScript">MapServer Wiki</ulink> also has PHP/Mapscript build and installation 							notes and some php code snippets.
                			</para>
-				</listitem>				
+				</listitem>
 				<listitem>
 					<para>
 		            Questions regarding the module should be forwarded to the <ulink url="http://mapserver.gis.umn.edu/support.html">Mapserver mailing list</ulink>.
@@ -253,7 +253,7 @@
 		</sect2>
 		<sect2 id="install">
 			<title>Installing PHP/Mapscript</title>
-					<para>Simply copy the file <filename>php4_mapscript.dll</filename> to your PHP4 extensions directory
+			<para>Simply copy the file <filename>php4_mapscript.dll</filename> to your PHP4 extensions directory
 					(pathto/php/extensions)
 					</para>
 		</sect2>
@@ -542,23 +542,23 @@
 						</question>
 						<answer>
 							<itemizedlist>
-							<listitem>
-							<para>
+								<listitem>
+									<para>
 								The main reference document is the 
 								<ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html">PHP/Mapscript 									Class Reference Guide</ulink>, which describes all of the current classes, properties and 									methods associated with the PHP/Mapscript module. 
 							</para>
-							</listitem>
-							<listitem>						
-							<para>
-                    				To get a more complete description of each class and the meaning of their member variables, see 								the MapServer MapScript documentation at: <ulink url="http://mapserver.gis.umn.edu/doc33/mapscript.html">http://mapserver.gis.umn.edu/doc33/mapscript.html</ulink> and the 										MapFile documentation at: <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html">										http://mapserver.gis.umn.edu/doc/mapfile-reference.html</ulink>.                   
-							</para>	
-							</listitem>	
-							<listitem>
-								<para>
+								</listitem>
+								<listitem>
+									<para>
+                    				To get a more complete description of each class and the meaning of their member variables, see 								the MapServer MapScript documentation at: <ulink url="http://mapserver.gis.umn.edu/doc/perlmapscript-reference.html">http://mapserver.gis.umn.edu/doc/perlmapscript-reference.html</ulink> and the 										MapFile documentation at: <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html">										http://mapserver.gis.umn.edu/doc/mapfile-reference.html</ulink>.                   
+							</para>
+								</listitem>
+								<listitem>
+									<para>
 						The <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScript">MapServer Wiki</ulink> also has PHP/Mapscript build and installation 							notes and some php code snippets.								
 								</para>
-							</listitem>							
-							</itemizedlist>													
+								</listitem>
+							</itemizedlist>
 						</answer>
 					</qandaentry>
 					<qandaentry>
@@ -569,26 +569,26 @@
 						</question>
 						<answer>
 							<itemizedlist>
-							<listitem>
-							<para>
+								<listitem>
+									<para>
 						Some examples are included in directory mapserver/mapscript/php3/examples/ in the MapServer
                     		source distribution. A good one to get started is 'test_draw_map.phtml': it's a very simple script that
                     		just draws a map, legend and scalebar in an HTML page. 
 						</para>
-							</listitem>	
-							<listitem>				
-						<para>
+								</listitem>
+								<listitem>
+									<para>
 							A good intermediate example is the <ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-byexample-howto.html">
 							PHP/Mapscript By Example HOWTO</ulink> (note that this is for v3.5 but the code might be still useful)
 						</para>
-							</listitem>
-							<listitem>							
-							<para>
+								</listitem>
+								<listitem>
+									<para>
                     				     The next example is the <ulink url="http://www2.dmsolutions.ca/gmap/gmap75.phtml">GMap demo</ulink>. You can
                     		download the whole source and data files from <ulink url="http://www2.dmsolutions.ca/mapserver/dl">							http://www2.dmsolutions.ca/mapserver/dl</ulink>.
 						</para>
-							</listitem>						
-							</itemizedlist>						
+								</listitem>
+							</itemizedlist>
 						</answer>
 					</qandaentry>
 				</qandadiv>
@@ -601,31 +601,31 @@
 						</para>
 						</question>
 						<answer>
-						<itemizedlist>
-							<listitem>
-							<para>
+							<itemizedlist>
+								<listitem>
+									<para>
 							    	Create a file called phpinfo.phtml with the following contents:
 								<programlisting>
        &lt;?php  dl("php_mapscript.so");
               phpinfo();
        ?&gt;
 								</programlisting>
-							</para>
-							<para>
+									</para>
+									<para>
 							      Make sure you replace the php_mapscript.so with the name under which
 							      you installed it, it could be php_mapscript_40.so on Unix, or 
 							      php_mapscript_40.dll on Windows								
 							</para>
-							</listitem>
-							<listitem>					
-							<para>
+								</listitem>
+								<listitem>
+									<para>
                     		You can then try the second test page mapserver/mapscript/php3/examples/test_draw_map.phtml.
                     		This page simply opens a MapServer .map file and inserts its map, legend, and scalebar in an HTML
                     		page. Modify the page to access one of your own MapServer .map files, and if you get the expected
                     		result, then everything is probably working fine. 
 							</para>
-							</listitem>	
-						</itemizedlist>						
+								</listitem>
+							</itemizedlist>
 						</answer>
 					</qandaentry>
 					<qandaentry>
@@ -696,7 +696,7 @@
 								PHP/Mapscript CGI</ulink> page in the Mapserver Wiki for details.
 							</para>
 						</answer>
-					</qandaentry>					
+					</qandaentry>
 					<qandaentry>
 						<question>
 							<para>
@@ -739,7 +739,7 @@
 									<para>
 									Mapscript 4.0 with PHP4.1.2 and up (PHP4.3.2 or more recent recommended)
 								</para>
-								</listitem>								
+								</listitem>
 							</itemizedlist>
 						</answer>
 					</qandaentry>
