@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2003-03-05</date>
+		<date>2003-07-14</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 03/05/2003</para>
+			<para>Last Updated: 07/14/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -85,10 +85,16 @@
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_avc.html">ArcInfo Coverages</ulink>,
 				    </para>
 				</listitem>
+				
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
                         </para>
+				</listitem>				
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_fme.html">FMEObjects Gateway</ulink>,
+				    </para>
 				</listitem>
 				<listitem>
 					<para>
@@ -111,6 +117,11 @@
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
 				    </para>
 				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_oci.html">Oracle Spatial</ulink>,
+				    </para>
+				</listitem>				
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>,
@@ -245,66 +256,65 @@
 	   ...
 	END
               </programlisting>
-      <para>
-              <emphasis>&lt;datasource_name&gt;</emphasis> is the name of the datasource to read from and is prefixed by the 
+			<para>
+				<emphasis>&lt;datasource_name&gt;</emphasis> is the name of the datasource to read from and is prefixed by the 
               CONNECTION keyword.  The exact organization depends
               on the format driver in use.  The format driver to use is automatically selected by OGR based on
               the nature of the string passed as the datasource, and/or the format of the file referenced by it.
       </para>
-      <para>
-          <itemizedlist>
-	      <listitem>
-	          <para>For <emphasis>file based</emphasis> datasources this is the name of the file, including the extension, using
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>For <emphasis>file based</emphasis> datasources this is the name of the file, including the extension, using
                   an absolute path, or a relative path. Relative paths are interpreted relative to the .map file.
                   The SHAPEPATH is ignored for OGR datasources.</para>
-              </listitem>
-              <listitem>
-                  <para>For <emphasis>directory based</emphasis> datasources, such as TIGER/Line, or Arc/Info Binary Coverages this
+					</listitem>
+					<listitem>
+						<para>For <emphasis>directory based</emphasis> datasources, such as TIGER/Line, or Arc/Info Binary Coverages this
                   is the name of the directory containing the files.  If the path is relative it is interpreted
                   relative to the .map file.</para>
-              </listitem>
-              <listitem>
-                  <para>For <emphasis>virtual</emphasis> datasources such as database systems, and OGDI this is the service 
+					</listitem>
+					<listitem>
+						<para>For <emphasis>virtual</emphasis> datasources such as database systems, and OGDI this is the service 
                   connection string and is generally not related to the filesystem.  For instance, for Oracle 
                   Spatial this might be "OCI:warmerda/Password@gdal800.velocet.ca".</para>
-              </listitem>
-          </itemizedlist>  
-      </para>
-      <para>
-          <emphasis>&lt;layer_definition&gt;</emphasis> is the name, number or SQL definition of the layer to use from the 
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				<emphasis>&lt;layer_definition&gt;</emphasis> is the name, number or SQL definition of the layer to use from the 
           datasource.  It is indicated via the DATA keyword in the map file.
       </para>
-      <para>
-          <itemizedlist>
-	      <listitem>
-	          <para><emphasis>Layer Name</emphasis>: The (case insenstive) layer name may be used to select a layer.</para>
-	      </listitem>
-	      <listitem>
-	          <para><emphasis>Layer Number</emphasis>: The layer number (starting from 0 for the first layer) may be used to
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<emphasis>Layer Name</emphasis>: The (case insenstive) layer name may be used to select a layer.</para>
+					</listitem>
+					<listitem>
+						<para>
+							<emphasis>Layer Number</emphasis>: The layer number (starting from 0 for the first layer) may be used to
                   select a layer.  Generally the layer name is preferred to this since it is more self 
                   describing.</para>
-	      </listitem>
-	      <listitem>
-	          <para><emphasis>Omitted</emphasis>: If no DATA keyword is provided, this is equivelent to selecting layer 0.</para>
-	      </listitem>
-	      <listitem>
-	          <para><emphasis>SQL SELECT</emphasis>: If an SQL SELECT statement is used, it is interpreted in a driver 
+					</listitem>
+					<listitem>
+						<para>
+							<emphasis>Omitted</emphasis>: If no DATA keyword is provided, this is equivelent to selecting layer 0.</para>
+					</listitem>
+					<listitem>
+						<para>
+							<emphasis>SQL SELECT</emphasis>: If an SQL SELECT statement is used, it is interpreted in a driver 
                   specific manner to try and generate a temporary pseudo-layer.  For some formats this a
                   restricted subset of SQL is interpreted within OGR.  For RDBMS based drivers (such as PostGIS
                   and Oracle) this is passed through to the underlying database. </para>
-	      </listitem>
-	  </itemizedlist>
-      </para>
-
-      <para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
           The <link linkend="ogrinfo">OGRINFO</link> program can be used to find out the list of layers and
 	  their names in a data source.
       </para>
-      </sect2>
-
-
-
-
+		</sect2>
 		<!-- Section2: Examples of Layer Definitions Using OGR -->
 		<sect2 id="examples">
 			<title>Examples of Layer Definitions Using OGR</title>
@@ -580,18 +590,18 @@ ogrtindex.  Details can be found on the OGR Utilities Page at
 The following is a simple example a point layer using a tile index.
 </para>
 			<programlisting>
-LAYER
-  NAME "ogr_points"
-  TYPE POINT
-  CONNECTIONTYPE OGR
-  TILEINDEX "PIP_ogr_tiles.shp,0"
-  STATUS ON
-  CLASS
-    SYMBOL "default-circle"
-    COLOR 255 0 0
-    SIZE 6
-  END
-END
+   LAYER
+     NAME "ogr_points"
+     TYPE POINT
+     CONNECTIONTYPE OGR
+     TILEINDEX "PIP_ogr_tiles.shp,0"
+     STATUS ON
+     CLASS
+        SYMBOL "default-circle"
+        COLOR 255 0 0
+        SIZE 6
+     END
+   END
 </programlisting>
 			<para>
 OGR tileindex layers should support all normal query and attribute fetching 
@@ -654,7 +664,7 @@ attributes).
 			<title>Examples</title>
 			<example>
 				<title>Layer Definition Using STYLEITEM "AUTO" without a CLASSITEM</title>
-                    <programlisting>
+				<programlisting>
     LAYER
        NAME "test_dgn"
        STATUS ON
@@ -1011,7 +1021,7 @@ attributes).
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
