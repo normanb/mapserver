@@ -14,13 +14,13 @@
 				<address/>
 			</affiliation>
 		</author>
-		<date>2002-02-23</date>
+		<date>2002-04-18</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for implementing an HTML legend in MapServer applications.
                </para>
-			<para>Last Updated: 02/23/2002</para>
+			<para>Last Updated: 04/18/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -168,6 +168,15 @@
 								</para>
 							<para>
 								<emphasis>DESCRIPTION:</emphasis> Returns the group's name. 
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_group_status] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns the group's status  Only the status of the first
+								layer that belongs to that group is checked. 
 								</para>
 						</listitem>
 						<listitem>
@@ -397,6 +406,15 @@
 								<listitem>
 									<para>
 										[if name=any_web_metadata value=...] ... [/if] 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_status value=...] ... [/if]
+									</para>
+									<para>
+										(value is the layer status of the first layer that belongs to
+										the group in integer format: 0=OFF, 1=ON, 2=DEFAULT) 
 									</para>
 								</listitem>
 							</itemizedlist>
