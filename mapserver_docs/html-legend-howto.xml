@@ -123,7 +123,8 @@
    [leg_layer_html order_metadata=legend_order opt_flag=5]
    &lt;tr&gt;
        &lt;td&gt;
-           &lt;input type=checkbox name="map_[leg_layer_name]_status" value=1 [if name=layer_status oper=eq value=2]CHECKED[/if]    		 &gt;
+           &lt;input type=checkbox name="map_[leg_layer_name]_status" 
+          value=1 [if name=layer_status oper=eq value=2]CHECKED[/if]&gt;
 	    &lt;/td&gt;
        &lt;td colspan=2&gt;
            &lt;a href="[metadata name=href]"&gt;[metadata name=layer_title]&lt;/a&gt;
@@ -374,7 +375,8 @@
    [leg_layer_html order_metadata=legend_order opt_flag=5]
    &lt;tr&gt;
        &lt;td&gt;
-           &lt;input type=checkbox name="map_[leg_layer_name]_status" value=1 [if name=layer_status oper=eq value=2]CHECKED[/if]  		 &gt;
+           &lt;input type=checkbox name="map_[leg_layer_name]_status" 
+            value=1 [if name=layer_status oper=eq value=2]CHECKED[/if] &gt;
        &lt;/td&gt;
        &lt;td colspan=2&gt;
            &lt;a href="[metadata name=href]"&gt;[metadata name=layer_title]&lt;/a&gt;
@@ -550,8 +552,11 @@
  
    [leg_layer_html order_metadata=WMS_ORDER opt_flag=15]
       &lt;tr&gt;
-           &lt;td&gt;&lt;input type=checkbox name=layer value=[leg_layer_name] [if name=layer_status value=1]CHECKED[/if]&gt;
-              [if name=layer_type value=4]&lt;img src=[leg_icon width=22 height=18]&gt;[/if]
+           &lt;td&gt;&lt;input type=checkbox name=layer value=[leg_layer_name] 
+             [if name=layer_status value=1]CHECKED[/if]&gt;
+              [if name=layer_type value=4]
+                  &lt;img src=[leg_icon width=22 height=18]&gt;
+              [/if]
               [if name=layer_type oper=neq value=4]&lt;img src=[leg_icon]&gt;[/if]
            &lt;/td&gt;
            &lt;td&gt;
