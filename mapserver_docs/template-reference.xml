@@ -24,7 +24,7 @@
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  2004-06-04
+                Last Updated:  2004-10-15
             </para>
       		<para><link linkend='rhistory'>Revision History</link></para>
         </abstract>
@@ -650,6 +650,116 @@
             </varlistentry>
   
             <varlistentry>
+                <term><literal>[shpclass]</literal></term>
+                <listitem>
+                    <para> 
+                        Classindex value of the current shape.
+                        Available only when processing query results.
+                    </para>
+                </listitem>
+            </varlistentry>
+  
+            <varlistentry>
+                <term><literal>[shpxy <emphasis>formatting options</emphasis>]</literal></term>
+                <listitem>
+                    <para> 
+			The list of shape coordinates, 
+			with list formatting options, especially useful for SVG.
+		    </para>
+		    <para>
+			The default template [shpxy] returns a comma seperated
+			list of space delimited of coordinates 
+			(i.e. x1 y1, x2 y2, x3 y3). 
+		    </para>
+		    <para>
+                        Available only when processing query results.
+                    </para>
+		    <para>
+			Available attributes (h = header, f=footer,
+			s=seperator):
+		    </para>
+		    <variablelist>
+			<varlistentry>
+                	<term>cs=</term>
+                	<listitem>
+			    <para>
+				Coordinate seperator, default is comma (",").
+			    </para>
+                	</listitem>
+			</varlistentry>
+
+			<varlistentry>
+                	<term>xh=, xf=</term>
+                	<listitem>
+			    <para>
+				Characters to put before and after the 
+				x coordinates (defaults are xh="" and xf=" ").
+			    </para>
+                	</listitem>
+			</varlistentry>
+
+			<varlistentry>
+                	<term>yh= yf=</term>
+                	<listitem>
+			    <para>
+				Characters to put before and after the 
+				y coordinates (defaults are no characters).
+			    </para>
+                	</listitem>
+			</varlistentry>
+
+			<varlistentry>
+                	<term>ph=, pf=, ps=</term>
+                	<listitem>
+			    <para>
+				Characters to put before and after and
+				seperators between feature parts 
+				(e.g. holes, defaults are no characters).
+			    </para>
+                	</listitem>
+			</varlistentry>
+
+			<varlistentry>
+                	<term>sh=, sf=</term>
+                	<listitem>
+			    <para>
+				Characters to put before and after a feature 
+				(defaults are no characters) 
+			    </para>
+                	</listitem>
+			</varlistentry>
+
+			<varlistentry>
+                	<term>precision=</term>
+                	<listitem>
+			    <para>
+				The number of decimal places to output for 
+				coordinates (default is 0).
+			    </para>
+                	</listitem>
+			</varlistentry>
+
+			<varlistentry>
+                	<term>proj=</term>
+                	<listitem>
+			    <para>
+				The output projection definition for the 
+				coordinates (default is none), a special 
+				value of "image" will convert to image 
+				coordinates. 
+			    </para>
+                	</listitem>
+			</varlistentry>
+		    </variablelist>
+		    <para>
+			As a simple example [shpxy xh="(" yf=")"] will 
+			result in: (x1 y1),(x2 y2),(x3 y3)
+		    </para>
+                </listitem>
+            </varlistentry>
+  
+
+            <varlistentry>
                 <term><literal>[tileindex]</literal></term>
                 <listitem>
                     <para> 
@@ -831,6 +941,13 @@
   system.
   <para>
     <revhistory>
+      <revision>
+        <revnumber>Number: 1.9</revnumber>
+        <date>Date: 2004-10-15</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Added [shpclass] and [shpxy] templates.
+		</revremark>
+      </revision>
       <revision>
         <revnumber>Number: 1.8</revnumber>
         <date>Date: 2004-06-04</date>
