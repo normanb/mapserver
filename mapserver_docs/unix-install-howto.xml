@@ -19,9 +19,9 @@
 		</author>
 		<abstract>
 			<para>
-    			This document describes the procedures for obtaining, compiling and installing MapServer on UNIX-type platforms.
+    			This document describes the procedures for obtaining, compiling and installing MapServer 3.7 on UNIX-type platforms.
     			</para>
-			<para>Last Updated:  12-12-2001</para>
+			<para>Last Updated:  12-19-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -71,7 +71,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://www.w3c.org/Library/">LibWWW</ulink>: For WMS Client Connections support (Optional, recommended for WMS Support).</para>
+					<ulink url="http://curl.haxx.se/libcurl/">Libcurl</ulink>: For WMS/WFS Client Connections support (Optional, required WMS/WFS Support).</para>
 			</listitem>
 			<listitem>
 				<para>
