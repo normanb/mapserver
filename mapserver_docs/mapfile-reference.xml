@@ -517,7 +517,7 @@ such options would be found in specific GDAL driver documentation.
                     <term>LABELREQUIRES [expression]</term>
                     <listitem>
                         <para>Sets context for labeling this layer, for example:</para>
-                        <programlisting>LABELREQUIRES ([orthoquads] != 1)</programlisting>
+                        <programlisting>LABELREQUIRES "![orthoquads]"</programlisting>
                         <para>means that this layer would NOT be labeled if a layer named "orthoquads" is on. The expression consists of a boolean expression based on the status of other layers, each [layer name] substring is replaced by a 0 or a 1 depending on that layers STATUS and then evaluated as normal. Logical operators AND and OR can be used.</para>
                     </listitem>
                 </varlistentry>
@@ -1811,7 +1811,7 @@ END
                         <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames, note about negative GAP values
+                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames, note about negative GAP values, corrected LABELREQUIRES example
                                    </revremark>
                     </revision>
                 </revhistory>
