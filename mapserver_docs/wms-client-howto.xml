@@ -4,14 +4,14 @@
 <!-- $Id$ -->
 <article>
   <articleinfo>
-    <title>Mapserver WMS Client HOWTO - Version 4.2</title>
+    <title>Mapserver WMS Client HOWTO - Version 4.4</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
       <affiliation>
         <orgname>DM Solutions Group Inc.</orgname>
         <address>
-          <email>mckenna@dmsolutions.ca</email>
+          <email>jmckenna@dmsolutions.ca</email>
         </address>
       </affiliation>
     </author>
@@ -22,7 +22,10 @@
                  This document describes the procedures for using MapServer's WMS connection type to include layers from          
                  remote WMS servers in MapServer applications.
       </para>
-      <para>Last Updated: 2004/03/30</para>
+      <para>Last Updated: 2004/10/27</para>
+      <para>
+          <link linkend="rhistory">Revision History</link>
+      </para>      
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -373,8 +376,7 @@ ESRI codes and we do not want to promote their use too much.
           <para>
             <emphasis>"wms_time" metadata:</emphasis>
             Value to use for the TIME parameter in GetMap requests for this layer.
-            See the WMS specification for details on the valid values of the TIME
-            parameter.
+            Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.
         </para>
         </listitem>
         <listitem>
@@ -470,6 +472,25 @@ ESRI codes and we do not want to promote their use too much.
   <!-- Section1: Document Info -->
   <sect1 id="docinfo">
     <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The document revision history starts with UMN MapServer 4.4 although the
+  document is older. The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.25</revnumber>
+                        <date>Date: 2004-10-27</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added reference to Time Support howto
+                                   </revremark>
+                    </revision>
+                </revhistory>
+            </para>
+        </sect2>    
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>

@@ -4,7 +4,7 @@
 <!-- $Id$ -->
 <article>
   <articleinfo>
-    <title>Mapserver WMS Server HOWTO - Version 4.2</title>
+    <title>Mapserver WMS Server HOWTO - Version 4.4</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
@@ -22,7 +22,10 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2004-05-04</para>
+      <para>Last Updated: 2004-10-27</para>
+      <para>
+          <link linkend="rhistory">Revision History</link>
+      </para>      
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -711,9 +714,9 @@
         </listitem>
       </orderedlist>
     </sect2>
-  </sect1>
+  </sect1>   
   <sect1 id="reference">
-    <title>Reference Section</title>
+    <title>Reference Section</title>    
     <sect2 id="metadata">
       <title>Metadata</title>
       <para>
@@ -985,6 +988,16 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="timeformat">
+          <title>wms_timeformat</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> The time format to be used when a request is sent.  (e.g. "wms_timeformat" "%Y-%m-%d  %H, %Y-%m-%d  %H:%M"). 
+                Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.</para>
+            </listitem>
+          </itemizedlist>
+        </sect4>        
         <sect4 id="title">
           <title>wms_title</title>
           <itemizedlist>
@@ -1013,6 +1026,16 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="time_default">
+          <title>wms_default</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional for Time Support) This value is used if it is defined and the Time value is missing in the request.
+                Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.</para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
         <sect4 id="extent">
           <title>wms_extent</title>
           <itemizedlist>
@@ -1075,6 +1098,26 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="time_extent">
+          <title>wms_timeextent</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Mandatory for Time Support) This is used in the capabilities to return the valid time values for the layer. The value defined here should be a valid time range.
+                Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.</para>
+            </listitem>
+          </itemizedlist>
+        </sect4> 
+        <sect4 id="time_item">
+          <title>wms_timeitem</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Mandatory for Time Support) This is the name of the field in the DB that contains the time values.
+                Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.</para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
         <sect4 id="lay_title">
           <title>wms_title</title>
           <itemizedlist>
@@ -1193,6 +1236,34 @@
   <!-- Section1: Document Info -->
   <sect1 id="docinfo">
     <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The document revision history starts with UMN MapServer 4.2 although the
+  document is older. The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.30</revnumber>
+                        <date>Date: 2004-10-27</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added time support metadata
+                                   </revremark>
+                    </revision>
+                </revhistory>            
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.29</revnumber>
+                        <date>Date: 2004-05-04</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added owsview for testing your WMS server
+                                   </revremark>
+                    </revision>
+                </revhistory>
+            </para>
+        </sect2>    
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
