@@ -70,7 +70,27 @@
 	<sect1 id="begin">
 		<title>Our first application</title>
 		
-		<para>In this first example, I'll just display a shapefile on a web page using a map file.</para>
+		<para>In this first example, I'll just display a shapefile on a web page using a map file.  
+                  To follow along with the example, download the followin files:</para>
+		<itemizedlist>
+			<listitem>
+				<para><ulink url="phpmapscript_ex.zip">shapefiles in zip format</ulink></para>
+                  </listitem>
+			<listitem>
+				<para><ulink url="phpmapscript_ex.tar.gz">shapefiles in tar.gz format</ulink></para>
+                  </listitem>
+			<listitem>
+				<para><ulink url="europe.map">the map file</ulink></para>
+                  </listitem>
+                  <listitem>
+				<para><ulink url="example1.php">example 1 php file</ulink></para>
+                  </listitem>
+			<listitem>
+				<para><ulink url="example2.php">example 2 php file</ulink></para>
+                  </listitem>
+
+		</itemizedlist>
+
 		<sect2 id="begmap">
 
 		<title>The Map File</title>
