@@ -1,0 +1,92 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<article>
+	<articleinfo>
+		<title>MapServer WFS Server HOWTO</title>
+		<author>
+			<firstname>Jean-Fran&ccedil;ois</firstname>
+			<surname>Doyon</surname>
+			<affiliation>
+				<orgname>Natural Resources Canada</orgname>
+				<orgdiv>Earth Sciences Sector</orgdiv>
+				<orgdiv>Canada Center for Remote Sensing</orgdiv>
+				<orgdiv>GeoAccess Division</orgdiv>
+				<address>
+					<email>jdoyon@nrcan.gc.ca</email>
+				</address>
+			</affiliation>
+		</author>
+		<author>
+			<firstname>Daniel</firstname>
+			<surname>Morissette</surname>
+			<affiliation>
+				<orgname>DM Solutions Group Inc.</orgname>
+			</affiliation>
+		</author>
+		<abstract>
+			<para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
+			<para>Last Updated:  01-06-2003</para>
+		</abstract>
+	</articleinfo>
+	<sect1 id="intro">
+		<title>Introduction</title>
+		<para>A WFS ( Web Feature Service ) publishes feature-level geospatial data to the web.  This means that it is possible to use this data as a data source to render a map.  In effect, this is not unlike having a shapefile accessible over the web, only it's not a shapefile, it's XML-Encoded geospatial data (GML to be exact), including both geometry AND attribute information.</para>
+		<sect2 id="related">
+			<title>WFS-Related information</title>
+			<para>Although in-depth understanding of WFS and GML is neither necessary nor required in order to implement a MapServer application that reads remote WFS data, it is recommended to at least get aquainted with the concepts and basic functionality of both.  Here are the official references:</para>
+			<itemizedlist>
+				<listitem>
+					<para>The <ulink url="http://www.opengis.org/techno/specs/02-058.pdf">OpenGIS Web Feature Service Implementation Specification</ulink>.</para>
+				</listitem>
+				<listitem>
+					<para>The <ulink url="http://www.opengis.net/gml/02-069/GML2-12.html">Geography Markup Language Implementation Specification</ulink>.</para>
+				</listitem>
+			</itemizedlist>
+		</sect2>
+		<sect2 id="software">
+			<title>Software Requirements</title>
+			<para>In order to enable MapServer to serve WFS, it MUST be compiled against certain librairies:</para>
+			<itemizedlist>
+				<listitem>
+					<para>PROJ.4: The reprojection library. Version 4.4.3 or greater is required.</para>
+				</listitem>
+				<listitem>
+					<para>GDAL/OGR: I/O support librairies. Version 1.1.8 or greater is required.</para>
+				</listitem>
+				<listitem>
+					<para>LibCURL: Used to help MapServer act as an HTTP client. Version 7.10 or greater is required.</para>
+				</listitem>
+			</itemizedlist>
+			<para>Please see the MapServer UNIX Compilation and Installation HOWTO for detailed instructions on compiling mapserver with support for these librairies and features.  For Windows users, look on the MapServer website to see if there are any binaries available that meet these requirements.</para>
+		</sect2>
+	</sect1>
+	<sect1>
+		<title>Setting up a WFS layer in your mapfile</title>
+		<para>A WFS layer is a regular mapfile layer, which can use CLASS objects, with expressions, etc.  Instead of a DATA parameter, your use the CONNECTIONTYPE and CONNECTION parameters to define the data source:</para>
+		<screen>
+ LAYER
+    NAME "mylayer"
+    TYPE POINT
+    CONNECTIONTYPE WFS
+    CONNECTION "http://my.wfs.com/cgi-bin/mapserv?map=mywfs.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;TYPENAME=mypoints
+    PROJECTION
+      "init=epsg:4326"
+    END
+    METADATA
+      "wfs_connectiontimeout" "60"              # Default is 30 seconds
+      "wfs_latlonboundingbox" "-75 45 -70 50"   # Area covered by this layer
+    END
+    CLASSITEM "point_class"
+    CLASS
+      EXPRESSION "1"
+      SYMBOL 'triangle'
+      COLOR 255 0 0
+    END
+    CLASS
+      SYMBOL 'circle'
+      COLOR 0 0 0
+    END
+  END
+		</screen>
+	</sect1>
+</article>
