@@ -783,7 +783,11 @@ PROCESSING "BANDS=3,2,1,4"
                 <varlistentry id="size">
                     <term>SIZE [integer]</term>
                     <listitem>
-                        <para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. Default is 1.</para>
+                        <para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. For vector (and ellipse) symbol types the
+                              default size is based on the range of Y values in the POINTS defining the
+                              symbol. For pixmaps, the default is the vertical size of the image. Default size
+                              is 1 for TTF symbols.
+                        </para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -1665,6 +1669,13 @@ file.  Symbol definitions in a separate file are designated using the <link link
                     <term>POINTS [x y] [x y] ... END</term>
                     <listitem>
                         <para>Signifies the start of the definition of points that make up a vector symbol or that define the x and y radius of an ellipse symbol.  The end of this section is signified with the keyword END. Coordinates are given in pixels and define the default size of the symbol before any scaling.  You can create non-contiguous paths by inserting negative coordinates at the appropriate place. For ellipse symbols you provide a single point that defines the x and y radius of an ellipse.  Circles are created when x and y are equal.</para>
+                        <note>
+                            <para>
+                                If a class using this symbol doesn't contain an explicit size, then the default symbol size will be based on the range of "y"
+                                values in the point coordinates. e.g. if the y coordinates of the points in the symbol range from 0 to 5, then the default size for this symbol
+                                will be assumed to be 5.                        
+                            </para>
+                        </note>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -1811,7 +1822,7 @@ END
                         <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames, note about negative GAP values, corrected LABELREQUIRES example
+                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames, note about negative GAP values, corrected LABELREQUIRES example, note on style size default behaviour
                                    </revremark>
                     </revision>
                 </revhistory>
