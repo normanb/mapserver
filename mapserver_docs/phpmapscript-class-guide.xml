@@ -16,14 +16,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-02-23</date>
+		<date>2002-04-09</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
 			  module.
                </para>
-			<para>Last Updated: 02/23/2002</para>
+			<para>Last Updated: 04/09/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -107,7 +107,7 @@
         MS_LAYER_POINT, MS_LAYER_LINE, MS_LAYER_POLYGON,
         MS_LAYER_RASTER, MS_LAYER_ANNOTATION, MS_LAYER_QUERY
 
-    Layer/Legend/Scalebar Status:
+    Layer/Legend/Scalebar/Class Status:
         MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED, MS_DELETE
 
     Font types:
@@ -167,10 +167,13 @@
     int          height
     int          transparent
     int          interlace
+    int    	 imagetype
+    int    	 imagequality
+    int          resolution   (pixels per inch, defaults to 72)    
     rectObj      extent
     double       cellsize
     int          units (map units type)
-    double       scale
+    double       scale (read-only, set by drawMap())
     string       shapepath
     int          keysizex
     int          keysizey
@@ -363,10 +366,53 @@
          Return an array containing all the layer names.     
 
     boolean moveLayerUp(int layerindex)
-         Move layer up in the hierarcy of drawing. 
+         Move layer up in the hierarchy of drawing. 
 
     boolean moveLayerDown(int layerindex)
-         Move layer down in the hierarcy of drawing.       
+         Move layer down in the hierarchy of drawing.
+         
+    array getlayersdrawingorder()
+         Return an array containing layer's index in the order which they
+         are drawn.
+
+    boolean setlayersdrawingorder(array layeryindex)
+         Set the layer's order array. The argument passed must be a valid
+         array with all the layer's index. 
+         Return TRUE on success or else FALSE.
+
+    char *processtemplate(array params, boolean generateimages)
+         Process the template file specified in the web object and return 
+         the resut in a buffer. 
+         The processing consists of opening the template file and replace
+         all the tags found in it.
+         Only tags that have an equivalent element in the map object are
+         replaced (ex [scale]). 
+         The are two expetions to the previous statement :
+           - [img], [scalebar], [ref], [legend] would be replaced with the 
+             appropriate url if the parameter generateimages is set to 
+             MS_TRUE. (Note :  the images corresponding to the different objects 
+             are geneterated if the object is set to MS_ON in the map file)
+           - the user can use the params parameter to specify tags and 
+             their values. For example if the user have a specific tag call [my_tag] and
+             would like it to be replaced by "value_of_my_tag" he would do :
+                $tmparray["my_tag"] = "value_of_my_tag";
+                $map->processtemplate($tmparray, MS_FALSE);
+         
+    char *processquerytemplate(array params)     
+         Process query template files and return the resut in a buffer.
+
+         See also : processtemplate function.
+   
+    char *processlegendtemplate(array params)     
+         Process legend template files and return the resut in a buffer.
+
+         See also : processtemplate function.
+
+    int  setSymbolSet(string fileName)
+         Load and set a symbol file dynamictly.
+       
+    int  getNumSymbols()
+         Return the number of symbols in map.         
 			    </programlisting>
 			</sect3>
 		</sect2>
@@ -386,7 +432,7 @@
 				<programlisting>
     int    numclasses  (read-only)
     int    index       (read-only)
-    int    status
+    int    status      (MS_ON, MS_OFF, MS_DEFAULT or MS_DELETE)
     string classitem
     string name
     string group
@@ -415,6 +461,7 @@
     string connection
     int    connectiontype
     string filteritem
+    string template    
 			</programlisting>
 			</sect3>
 			<sect3 id="Lay_methods">
@@ -517,6 +564,9 @@
 
     shapeObj getShape(int tileindex, int shapeindex)
          Retrieve shapeObj from a layer by index.
+         Tileindex is used only for tiled shapefiles (you get it from the
+         resultCacheMemberObj returned by getResult() for instance).
+         Simply pass tileindex = -1 for other data sources.         
 
     int addFeature(shapeObj shape)
          Add a new feature in a layer.  Returns -1 on error.
@@ -539,6 +589,9 @@
          WMS servers support only "MIME" (and should support "GML.1" soon).
          Returns "" and outputs a warning if layer is not a WMS layer 
          or if it is not queriable.
+         
+    char ** getItems()
+         return a list of items. Must call open function first.         
 		     </programlisting>
 			</sect3>
 		</sect2>
@@ -557,6 +610,7 @@
 				<programlisting>
     string name
     int    type
+    int    status      (MS_ON, MS_OFF or MS_DELETE)    
     int    color
     int    backgroundcolor
     int    outlinecolor
@@ -564,10 +618,12 @@
     int    overlaybackgroundcolor
     int    overlayoutlinecolor
     int    symbol
+    string symbolname    
     int    size
     int    minsize
     int    maxsize
     int    overlaysymbol
+    string overlaysymbolname    
     int    overlaysize
     int    overlayminsize
     int    overlaymaxsize
@@ -584,7 +640,14 @@
          Set the expression string for the class object.
            
     int settext(string text)
-         Set the text string for the class object.				
+         Set the text string for the class object.
+         
+    int drawLegendIcon(int width, int height, imageObj im, int dstX, int dstY)
+         Draw the legend icon on im object at dstX, dstY.
+         Returns MS_SUCCESS/MS_FAILURE.
+
+    imageObj createLegendIcon(int width, int height)
+         Draw the legend icon and return a new imageObj.         
 				</programlisting>
 			</sect3>
 		</sect2>
@@ -635,6 +698,15 @@
          higher image quality and larger image sizes.
          If quality is negative, then the default IJG JPEG quality value is 
          used  (the quality value is ignored for all formats other than JPEG).
+         
+    void pasteImage(imageObj srcImg, int transparentColorIndex [, int dstX, dstY])
+         Copy srcImg on top of the current imageObj.
+         transparentColorIndex is the color from srcImg that should be
+         considered transparent (i.e. those pixels won't be copied).  
+         Pass -1 if you don't want any transparent color.
+         If optional dstx,dsty are provided then it defines the position 
+         where the image should be copied (dstx,dsty = top-left corner 
+         position).         
 				</programlisting>
 			</sect3>
 		</sect2>
@@ -784,14 +856,16 @@
 				<title>Members:</title>
 				<programlisting>
     double x
-    double y				
+    double y
+    double m //used for measured shape files. set to 0 for other types.        
 				</programlisting>
 			</sect3>
 			<sect3 id="pt_methods">
 				<title>Methods:</title>
 				<programlisting>
-    int setXY(double x, double y)
+    int setXY(double x, double y, double m)
          Set X,Y coordinate values.
+         Note : the 3rd parameter m is used for measured shape files. It is not mandatory.         
 
     int draw(mapObj map, layerObj layer, imageObj img, 
              int class_index, string text)
@@ -839,8 +913,9 @@
     int add(pointObj point)
          Add a point to the end of line.
 
-    int addXY(double x, double y)
+    int addXY(double x, double y, double m)
          Add a point to the end of line.
+         Note : the 3rd parameter m is used for measured shape files. It is not mandatory.         
 
     PointObj point(int i)
          Returns a reference to point number i.  Reference is valid only
@@ -914,6 +989,15 @@
          Project the shape from "in" projection (1st argument) to "out" 
          projection (2nd argument).
 
+    pointObj getpointusingmeasure(double m)
+         Apply only on Measured shape files. Given a measure m, retun the 
+         corresponding XY location on the shapeobject.
+   
+    pointObj getmeasureusingpoint(pointObject point)
+         Apply only on Measured shape files. Given an XY Location, find the 
+         nearest point on the shape object. Return a point object
+         of this point with the m value set.
+         
     void free()
          Destroys resources used by a shape object.  
 			 	</programlisting>
@@ -1097,6 +1181,9 @@
 				<programlisting>
     int set(string property_name, new_value)
          Set object property to a new value. Returns -1 on error.
+         
+    int setimagecolor(int red, int green, int blue)
+         Sets the imagecolor propery (background) of the object. Returns false on error.           
 				</programlisting>
 			</sect3>
 		</sect2>
