@@ -337,7 +337,7 @@ In addition to reprojecting rasters, the raster warping ability can also
 apply rotation to GDAL rasters with rotational coefficients in their
 georeferencing information.   Currently rotational coefficients won't 
 trigger raster warping unless the map and layer have valid (though matching
-is fine) projection definitions.. 
+is fine) projection definitions. 
 </para>
 
 </sect1>
@@ -454,12 +454,12 @@ of embedding georeferencing information in the file itself.
 
 <para>
 The world file contents look like the following.  The first coefficient is
-the X pixel size.  The second and third are rotational coefficients (and should
-normally be NULL).  The fourth is the Y pixel size, normally negative
-indicating that Y decreases as you move down from the top left origin. The
-final two values are the X and Y location of the center of the top left
-pixel.  This example is for an image with a 2m x 2m pixel size, and a
-top left origin at (356800E, 5767999N). 
+the X pixel size.  The second and third are rotational/shear coefficients 
+(and should normally be 0.0).  The fourth is the Y pixel size, normally 
+negative indicating that Y decreases as you move down from the top left 
+origin. The final two values are the X and Y location of the center of the 
+top left pixel.  This example is for an image with a 2m x 2m pixel size, and 
+a top left origin at (356800E, 5767999N). 
 </para>
 
 <programlisting>
