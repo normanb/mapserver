@@ -17,14 +17,14 @@
         <abstract>
             <para>
                 This document is a reference for the MapServer 
-                version 4.2 HTML template.
+                development version 4.3 HTML template.
             </para>   
             <para>
                 It is based on the previous versions written by Steve Lime
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  2004-10-15
+                Last Updated:  2004-11-09
             </para>
       		<para><link linkend='rhistory'>Revision History</link></para>
         </abstract>
@@ -33,8 +33,22 @@
     <sect1 id="intro">
         <title>MapServer - Documentation: Template File Reference</title>
         <para>
-	Templates are used 1) to define the look of a MapServer CGI application
-	interface and 2) to present the results of a query. They guide the 
+	Templates are used
+	</para>
+	<itemizedlist>
+	    <listitem>
+		<para>to define the look of a MapServer CGI application
+		      interface and
+		</para>
+	    </listitem>
+	    <listitem>
+		<para>to present the results of a query.
+		</para>
+	    </listitem>
+	</itemizedlist>
+		
+	<para>
+	They guide the 
 	presentation of results, either a query or a map, to the user. 
 	Templates are almost always HTML files although they can also be a URL 
 	(e.g.. http://www.somewhere.com/[ATTRIBUTE]/info.html). URL templates 
@@ -50,6 +64,23 @@
     <sect1 id="notes">
         <title>Notes</title>
         <itemizedlist>
+	    <listitem>
+		<para>
+		    All <ulink url="cgi-reference.html">CGI parameters</ulink>
+		    can be referenced in template
+		    substitutions, MapServer specific parameters as well as 
+		    user defined ones. In principle parameters are handed 
+		    through by the
+		    MapServer 1:1. This feature is essential for
+		    implementing MapServer applications.
+		</para>
+		<para>
+		    The reference below only lists special template
+		    substitution strings which are needed to obtain 
+		    information modified by the MapServer, e.g. a new scale,
+		    query results, etc.
+		</para>
+            </listitem>
             <listitem>
                 <para>
                     Template substitution strings <emphasis>are</emphasis> 
@@ -941,6 +972,13 @@
   system.
   <para>
     <revhistory>
+      <revision>
+        <revnumber>Number: 1.10</revnumber>
+        <date>Date: 2004-11-09</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Added note about CGI parameter substitution.
+		</revremark>
+      </revision>
       <revision>
         <revnumber>Number: 1.9</revnumber>
         <date>Date: 2004-10-15</date>
