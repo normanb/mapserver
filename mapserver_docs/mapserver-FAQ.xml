@@ -125,11 +125,11 @@
         <orderedlist>
           <listitem><para>The lines starting with SHADESET, MARKERSET, AND 
            LINESET and the last END keyword should be deleted.</para></listitem>
-          <listitem><para>"SYMBOLSET symbol/symbol.sym" should be added
+          <listitem><para>"SYMBOLSET symbols/symbol.sym" should be added
            </para></listitem>
           <listitem><para>Make the new symbols.sym file by concatenating the 
            three symbol files together.
-          The new symbols.sym file is also avialable online at <ulink 
+          The new symbols.sym file is also available online at <ulink 
           url="http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym">
           http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym</ulink>
           </para></listitem>
