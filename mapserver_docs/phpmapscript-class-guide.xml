@@ -16,14 +16,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-10-19</date>
+		<date>2001-11-05</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
 			  module.
                </para>
-			<para>Last Updated: 10/19/2001</para>
+			<para>Last Updated: 11/05/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -104,11 +104,11 @@
         MS_PIXELS
 
     Layer types:
-        MS_LAYER_POINT, MS_LAYER_LINE, MS_LAYER_POLYGON, MS_LAYER_POLYLINE, 
+        MS_LAYER_POINT, MS_LAYER_LINE, MS_LAYER_POLYGON,
         MS_LAYER_RASTER, MS_LAYER_ANNOTATION, MS_LAYER_QUERY
 
     Layer/Legend/Scalebar Status:
-        MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED
+        MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED, MS_DELETE
 
     Font types:
         MS_TRUETYPE, MS_BITMAP
@@ -134,7 +134,7 @@
 
     Connection Types:
         MS_INLINE, MS_SHAPEFILE, MS_TILED_SHAPEFILE, MS_SDE, MS_OGR, 
-        MS_TILED_OGR
+        MS_TILED_OGR, MS_POSTGIS, MS_WMS, MS_ORACLESPATIAL
 
     Output Image Types:
         MS_GIF, MS_PNG, MS_JPEG, MS_WBMP
@@ -331,6 +331,10 @@
     int save(string filename)
          Save current map object state to a file. Returns -1 on error.
 
+    char getProjection()
+         Returns a string represenation of the projection. If no 
+         projection is set, MS_FALSE is returned.
+
     int setProjection(string proj_params, boolean bSetUnitsAndExtents)
          Set map projection and coordinate system.  Parameters are given as 
          a single string of comma-delimited PROJ.4 parameters.
@@ -356,7 +360,13 @@
          layers.  
 
     array getAllLayerNames()
-         Return an array containing all the layer names.        
+         Return an array containing all the layer names.     
+
+    boolean moveLayerUp(int layerindex)
+         Move layer up in the hierarcy of drawing. 
+
+    boolean moveLayerDown(int layerindex)
+         Move layer down in the hierarcy of drawing.       
 			    </programlisting>
 			</sect3>
 		</sect2>
@@ -482,6 +492,10 @@
     int setFilter(string expression)
          Set layer filter expression.
 
+    char getProjection()
+         Returns a string represenation of the projection. If no 
+         projection is set, MS_FALSE is returned.
+
     int setProjection(string proj_params)
          Set layer projection and coordinate system.  Parameters are given as 
          a single string of comma-delimited PROJ.4 parameters.
@@ -513,6 +527,18 @@
 
     int setMetaData(string name, string value)
          Set a metadata entry for the layer.  Returns MS_SUCCESS/MS_FAILURE.
+
+    int getWMSFeatureInfoURL(int clickX, int clickY, int featureCount, 
+                            string infoFormat)
+         Return a WMS GetFeatureInfo URL (works only for WMS layers)
+         clickX, clickY is the location of to query in pixel coordinates
+         with (0,0) at the top left of the image.
+         featureCount is the number of results to return.
+         infoFormat is the format the format in which the result should be
+         requested.  Depends on remote server's capabilities.  MapServer
+         WMS servers support only "MIME" (and should support "GML.1" soon).
+         Returns "" and outputs a warning if layer is not a WMS layer 
+         or if it is not queriable.
 		     </programlisting>
 			</sect3>
 		</sect2>
