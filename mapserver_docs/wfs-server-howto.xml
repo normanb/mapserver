@@ -550,9 +550,6 @@
       <listitem>
         <para>WFS spec. seems to require that features of a given feature type must all be of the same geometry type (point, line, polygon).  This works fine for shapefiles, but some data source formats supported by MapServer allow mixed geometry types in a single layer and this goes against the WFS spec.  Suggestions on how to handle this are welcome.</para>
       </listitem>
-      <listitem>
-        <para>GetFeature requests don't validate against the XML schema.  This seems to be related to some issue with the DescribeFeatureType schema URL embedded in the header of the GetFeature response.</para>
-      </listitem>
     </itemizedlist>
   </sect1>
     <!-- Section1: Document Info -->
