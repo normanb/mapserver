@@ -504,8 +504,12 @@
    
    <para>
     Copyright (c) 2001 Your name here.
+   </para>
+   <para>
+    This documentation is covered by the same Open Source license as the MapServer software.
+    See MapServer's
     <ulink url='http://mapserver.gis.umn.edu/license.html'>License and 
-    Credits</ulink>.
+    Credits</ulink> page for the complete text.
    </para>
   </sect2>
 
