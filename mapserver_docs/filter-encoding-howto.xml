@@ -68,14 +68,19 @@
           </listitem>
           <listitem>
             <para>
-                        Open GIS Consortium (OGC) home page at <ulink url="http://www.opengeospatial.org/">http://www.opengeospatial.org/</ulink>.
+                        <emphasis>MapServer WFS Client HOWTO</emphasis> at <ulink url="http://mapserver.gis.umn.edu/doc/wfs-client-howto.html">http://mapserver.gis.umn.edu/doc/wfs-client-howto.html</ulink>.
             </para>
-          </listitem>
+          </listitem>          
           <listitem>
             <para>
                         <emphasis>MapServer WFS Server HOWTO</emphasis> at <ulink url="http://mapserver.gis.umn.edu/doc/wfs-server-howto.html">http://mapserver.gis.umn.edu/doc/wfs-server-howto.html</ulink>.
             </para>
           </listitem>
+          <listitem>
+            <para>
+                        Open GIS Consortium (OGC) home page at <ulink url="http://www.opengeospatial.org/">http://www.opengeospatial.org/</ulink>.
+            </para>
+          </listitem>          
         </itemizedlist>
      </sect2>
   </sect1>  
@@ -211,7 +216,7 @@
     <sect2 id="server">
       <title>           Server Side</title>
       <para>
-                        To be able to use Filter Encoding, you need to create a valid WFS server using MapServer. Please refer to the <ulink url="http://mapserver.gis.umn.edu/doc40/wfs-server-howto.html">WFS HowTo</ulink> for specifics.
+                        To be able to use Filter Encoding, you need to create a valid WFS server using MapServer. Please refer to the <ulink url="http://mapserver.gis.umn.edu/doc40/wfs-server-howto.html">WFS Server HowTo</ulink> for specifics.
       </para>
       <para>
                         There is nothing special that should be added to a WFS server for Filter Encoding, but you should note that, when requesting the capabilities of your WFS server, the document returned should contain the supported filters. Here is part of a Capabilities document as well as the Post support:

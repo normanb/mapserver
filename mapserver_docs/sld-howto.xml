@@ -71,14 +71,19 @@
           </listitem>
           <listitem>
             <para>
-                        Open GIS Consortium (OGC) home page at <ulink url="http://www.opengeospatial.org">http://www.opengeospatial.org</ulink>.
+                        <emphasis>MapServer WMS Client HOWTO</emphasis> at <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">http://mapserver.gis.umn.edu/doc/wms-client-howto.html</ulink>.
             </para>
           </listitem>
           <listitem>
             <para>
-                        <emphasis>MapServer WFS Server HOWTO</emphasis> at <ulink url="http://mapserver.gis.umn.edu/doc/wfs-server-howto.html">http://mapserver.gis.umn.edu/doc/wfs-server-howto.html</ulink>.
+                        <emphasis>MapServer WMS Server HOWTO</emphasis> at <ulink url="http://mapserver.gis.umn.edu/doc/wms-server-howto.html">http://mapserver.gis.umn.edu/doc/wms-server-howto.html</ulink>.
             </para>
-          </listitem>
+          </listitem>          
+          <listitem>
+            <para>
+                        Open GIS Consortium (OGC) home page at <ulink url="http://www.opengeospatial.org">http://www.opengeospatial.org</ulink>.
+            </para>
+          </listitem>          
         </itemizedlist>
      </sect2>
   </sect1>  
