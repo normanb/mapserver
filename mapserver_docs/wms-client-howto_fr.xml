@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Franz (VDB) -->
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
@@ -41,36 +41,36 @@
 		</othercredit>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
-			<para>Ce document dÃ©crit les procÃ©dures pour la connexion type MapServer WMS de maniÃ¨re Ã  inclure des couches depuis des serveurs WMS distants dans des applications MapServer v3.5 (et suivant).
+			<para>Ce document décrit les procédures pour la connexion type MapServer WMS de manière à inclure des couches depuis des serveurs WMS distants dans des applications MapServer v3.5 (et suivant).
       </para>
-			<para>DerniÃ¨re mise Ã  jour: 06/03/2003</para>
+			<para>Dernière mise à jour: 06/03/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
-		<para>Un WMS (ou Web Map Server ou serveur oueb de cartographie) permet d'utiliser des donnÃ©es depuis plusieurs serveurs diffÃ©rents permettant ainsi la crÃ©ation d'un rÃ©seau de serveurs cartographiques depuis lequel les clients peuvent construire une carte spÃ©cifique. Ce document contient les informations sur l'utilisation d'une connexion type MapServer WMS pour inclure des couches depuis des serveurs WMS distants dans des applications MapServer.   
+		<para>Un WMS (ou Web Map Server ou serveur oueb de cartographie) permet d'utiliser des données depuis plusieurs serveurs différents permettant ainsi la création d'un réseau de serveurs cartographiques depuis lequel les clients peuvent construire une carte spécifique. Ce document contient les informations sur l'utilisation d'une connexion type MapServer WMS pour inclure des couches depuis des serveurs WMS distants dans des applications MapServer.   
     </para>
-		<para>Ce document prÃ©suppose que vous Ãªtes familier avec certains aspects de MapServer:
+		<para>Ce document présuppose que vous êtes familier avec certains aspects de MapServer:
           </para>
 		<itemizedlist>
 			<listitem>
-				<para>DÃ©veloppement d'application MapServer et paramÃ©trage des fichiers .map (mapfile). 
+				<para>Développement d'application MapServer et paramétrage des fichiers .map (mapfile). 
                 </para>
 			</listitem>
 			<listitem>
-				<para>La connaissance des spÃ©cifications de WMS serait apprÃ©ciable. Un lien vers ces spÃ©cifications est inclus dans la partie <emphasis>"Information liÃ©e Ã  WMS"</emphasis> ci-aprÃ¨s.
+				<para>La connaissance des spécifications de WMS serait appréciable. Un lien vers ces spécifications est inclus dans la partie <emphasis>"Information liée à WMS"</emphasis> ci-après.
         </para>
 			</listitem>
 		</itemizedlist>
 		<sect2 id="links">
-			<title>Liens vers l'information liÃ©e au WMS</title>
+			<title>Liens vers l'information liée au WMS</title>
 			<itemizedlist>
 				<listitem>
-					<para>Le WMS Server HOWTO Ã  <ulink url="http://mapserver.gis.umn.edu/doc/wms-server-howto_fr.html">http://mapserver.gis.umn.edu/doc/wms-server-howto_fr.html</ulink>.
+					<para>Le WMS Server HOWTO à <ulink url="http://mapserver.gis.umn.edu/doc/wms-server-howto_fr.html">http://mapserver.gis.umn.edu/doc/wms-server-howto_fr.html</ulink>.
           </para>
 				</listitem>
 				<listitem>
-					<para>SpÃ©cifications WMS 1.1.0 sur <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">http://www.opengis.org/techno/specs/01-047r2.pdf</ulink> (en anglais).
+					<para>Spécifications WMS 1.1.0 sur <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">http://www.opengis.org/techno/specs/01-047r2.pdf</ulink> (en anglais).
           </para>
 				</listitem>
 			</itemizedlist>
@@ -78,7 +78,7 @@
 	</sect1>
 	<sect1 id="compilation">
 		<title>Compilation / Installation</title>
-		<para>La connexion type WMS est disponible par l'option --with-wmsclient du script configure. PROJ4, la libwww du W3C (libwww v5.3.2 ou plus rÃ©cente Ã  cause d'un bug qui entraÃ®ne un rebouclage infini dans les versions antÃ©rieures) sont nÃ©cessaires, et GDAL est facultatif (voir plus loin).
+		<para>La connexion type WMS est disponible par l'option --with-wmsclient du script configure. PROJ4, la libwww du W3C (libwww v5.3.2 ou plus récente à cause d'un bug qui entraîne un rebouclage infini dans les versions antérieures) sont nécessaires, et GDAL est facultatif (voir plus loin).
     </para>
 		<itemizedlist>
 			<listitem>
@@ -89,19 +89,19 @@
         </para>
 			</listitem>
 			<listitem>
-				<para>Pour la libwww du W3C, tÃ©lÃ©chargez la v5.3.2 (ou plus rÃ©cente) depuis le CVS ou le tarball et compilez/installez manuellement.  Voyez <ulink url="http://www.w3.org/Library/">http://www.w3.org/Library/</ulink> pour le code source de cette bibliothÃ¨que et son installation.
+				<para>Pour la libwww du W3C, téléchargez la v5.3.2 (ou plus récente) depuis le CVS ou le tarball et compilez/installez manuellement.  Voyez <ulink url="http://www.w3.org/Library/">http://www.w3.org/Library/</ulink> pour le code source de cette bibliothèque et son installation.
         </para>
 			</listitem>
 		</itemizedlist>
-		<para>Vous souhaiterez peut-Ãªtre inclure GDAL si vous voulez que votre application soit capable de "reprojeter" une carte reÃ§ue d'un serveur distant.  Ceci Ã  cause du rÃ©-Ã©chantillonage (resampling) qui n'est possible qu'avec la bibliothÃ¨que GDAL dans MapServer.  Si GDAL n'est pas inclu dans votre MapServer alors il faut le reconstruire ou votre application ne pourra servir que des cartes d'un sous-ensemble dont les projections seront limitÃ©es pour les autres serveurs (ceci sera bien souvent suffisant pour la plupart des applications). Si vous compilez avec GDAL assurez vous que votre bibliothÃ¨que GDAL dispose du GIF et/ou PNG, selon le format d'image que vous voulez pour les serveurs requis.
+		<para>Vous souhaiterez peut-être inclure GDAL si vous voulez que votre application soit capable de "reprojeter" une carte reçue d'un serveur distant.  Ceci à cause du ré-échantillonage (resampling) qui n'est possible qu'avec la bibliothèque GDAL dans MapServer.  Si GDAL n'est pas inclu dans votre MapServer alors il faut le reconstruire ou votre application ne pourra servir que des cartes d'un sous-ensemble dont les projections seront limitées pour les autres serveurs (ceci sera bien souvent suffisant pour la plupart des applications). Si vous compilez avec GDAL assurez vous que votre bibliothèque GDAL dispose du GIF et/ou PNG, selon le format d'image que vous voulez pour les serveurs requis.
     </para>
-		<para>Une fois les bibliothÃ¨ques nÃ©cessaires en place, configurez MapServer en utilisant l'option --with-wmsclient (ainsi que les autres options utilisÃ©es) et recompilez.
+		<para>Une fois les bibliothèques nécessaires en place, configurez MapServer en utilisant l'option --with-wmsclient (ainsi que les autres options utilisées) et recompilez.
     </para>
-		<para>Cecie produira un nouvel ensemble exÃ©cutable (et Ã©ventuellement php_mapscript.so si vous l'aviez demandÃ©).  Voyez le <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">MapServer Compilation HOWTO</ulink> pour les dÃ©tails de l'installation.
+		<para>Cecie produira un nouvel ensemble exécutable (et éventuellement php_mapscript.so si vous l'aviez demandé).  Voyez le <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">MapServer Compilation HOWTO</ulink> pour les détails de l'installation.
     </para>
 		<sect2 id="check_exe">
-			<title>ContrÃ´le de votre exÃ©cutable MapServer</title>
-			<para>Pour vÃ©rifier que votre exÃ©cutable mapserv dispose bien du WMS, utilisez l'option de commande "-v" et contrÃ´lez que vous avez bien "SUPPORTS=WMS_CLIENT".
+			<title>Contrôle de votre exécutable MapServer</title>
+			<para>Pour vérifier que votre exécutable mapserv dispose bien du WMS, utilisez l'option de commande "-v" et contrôlez que vous avez bien "SUPPORTS=WMS_CLIENT".
       </para>
 			<example>
 				<title>Sur Unix:</title>
@@ -126,15 +126,15 @@
 			<title>Installation facultative des code PROJ4 EPSG</title>
 			<para>(Note: l'installation des codes PROJ4 est facultative, n'installez que si vous en avez besoin)
       </para>
-			<para>Certains serveurs WMS canadiens utiliseront les codes de projection non standard qui ne sont pas inclus dans la distribution par dÃ©faut (comme EPSG:42304, etc.). Si vous pensez utiliser MapServer pour connecter ces serveurs vous devriez tÃ©lÃ©charger un fichier spÃ©cifique 'epsg' avec ces codes depuis 
-  http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg-with-42xxx.zip et dÃ©compresser ce fichier dans le rÃ©pertoire /usr/local/share/proj .
+			<para>Certains serveurs WMS canadiens utiliseront les codes de projection non standard qui ne sont pas inclus dans la distribution par défaut (comme EPSG:42304, etc.). Si vous pensez utiliser MapServer pour connecter ces serveurs vous devriez télécharger un fichier spécifique 'epsg' avec ces codes depuis 
+  http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg-with-42xxx.zip et décompresser ce fichier dans le répertoire /usr/local/share/proj .
       </para>
-			<para>Enfin, les serveurs WMS ESRI disposent de leurs propres sÃ©ries de codes non standard.  Si vous pensez vous connecter Ã  ces serveurs vous devriez obtenir le fichier spÃ©cifique 'epsg' incluant les codes canadiens et les codes ESRI, vous permettant de vous connecter sur n'importe quel serveur.  TÃ©lÃ©chargez le fichier
- http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg-with-42xxx-and-esri.zip et dÃ©compressez le dans /usr/local/share/proj
+			<para>Enfin, les serveurs WMS ESRI disposent de leurs propres séries de codes non standard.  Si vous pensez vous connecter à ces serveurs vous devriez obtenir le fichier spécifique 'epsg' incluant les codes canadiens et les codes ESRI, vous permettant de vous connecter sur n'importe quel serveur.  Téléchargez le fichier
+ http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg-with-42xxx-and-esri.zip et décompressez le dans /usr/local/share/proj
       </para>
 			<sect3>
-				<title>Mais pourquoi ne pas installer et distribuer systÃ©matiquement le fichier proj4-epsg-with-42xxx-and-esri.zip puisqu'il est le plus complet?</title>
-				<para>Vous ne devriez installer que les codes de projection epsg dont vous avez besoin, le fichier epsg avec tous les codes ESRI est 20% plus volumineux que le fichier par dÃ©faut, ainsi il intÃ¨gre des Ã©lÃ©ments dont vous n'aurez jamais besoin.  Notez aussi qu'en crÃ©ant des serveurs WMS, pour Ãªtre rÃ©ellement interopÃ©rables, seuls les codes EPSG qui font partie de la liste standard EPSG devraient Ãªtre utilisÃ©s.  Donc ce serait une mauvaise idÃ©e pour l'interopÃ©rabilitÃ© d'utiliser les codes canadiens spÃ©cifiques ou les codes ESRI spÃ©cifiques et nous ne voulons pas les promouvoir outre mesure. 
+				<title>Mais pourquoi ne pas installer et distribuer systématiquement le fichier proj4-epsg-with-42xxx-and-esri.zip puisqu'il est le plus complet?</title>
+				<para>Vous ne devriez installer que les codes de projection epsg dont vous avez besoin, le fichier epsg avec tous les codes ESRI est 20% plus volumineux que le fichier par défaut, ainsi il intègre des éléments dont vous n'aurez jamais besoin.  Notez aussi qu'en créant des serveurs WMS, pour être réellement interopérables, seuls les codes EPSG qui font partie de la liste standard EPSG devraient être utilisés.  Donc ce serait une mauvaise idée pour l'interopérabilité d'utiliser les codes canadiens spécifiques ou les codes ESRI spécifiques et nous ne voulons pas les promouvoir outre mesure. 
         </para>
 			</sect3>
 		</sect2>
@@ -142,10 +142,10 @@
 	<sect1 id="mapfile">
 		<title>Configuration MapFile - CONNECTIONTYPE WMS</title>
 		<important>
-			<para>Une PROJECTION doit Ãªtre paramÃ©trÃ©e dans le mapfile pour l'objet MAP sauf si vous Ãªtes certain que toutes les couches WMS n'utilisent qu'une seule projection qui est la mÃªme que celle de votre carte. Le MAP PROJECTION peut Ãªtre paramÃ©trÃ© en utilisant les codes "init=epsg:xxxx" ou en utilisant les paramÃ¨tres normaux de PROJ4 .  Le dÃ©faut de paramÃ©trage de MAP PROJECTION peut gÃ©nÃ©rer une carte vide venant des serveurs WMS distants (Ã  cause de l'inconsistance  de la combinaison BBOX+SRS utilisÃ©e dans l'URL de connexion WMS).
+			<para>Une PROJECTION doit être paramétrée dans le mapfile pour l'objet MAP sauf si vous êtes certain que toutes les couches WMS n'utilisent qu'une seule projection qui est la même que celle de votre carte. Le MAP PROJECTION peut être paramétré en utilisant les codes "init=epsg:xxxx" ou en utilisant les paramètres normaux de PROJ4 .  Le défaut de paramétrage de MAP PROJECTION peut générer une carte vide venant des serveurs WMS distants (à cause de l'inconsistance  de la combinaison BBOX+SRS utilisée dans l'URL de connexion WMS).
       </para>
 		</important>
-		<para>Les couches WMS sont accÃ©dÃ©es via la connexion type WMS. Voici  l'exemple d'une couche utilisant ce type de connexion:
+		<para>Les couches WMS sont accédées via la connexion type WMS. Voici  l'exemple d'une couche utilisant ce type de connexion:
     </para>
 		<programlisting>
     LAYER
@@ -163,12 +163,12 @@
      END
     END
     </programlisting>
-		<para>Les Ã©lÃ©ments suivants sont nÃ©cessaires pour la connexion type WMS:
+		<para>Les éléments suivants sont nécessaires pour la connexion type WMS:
     </para>
 		<itemizedlist>
 			<listitem>
 				<para>
-					<emphasis>metadata "wms_srs": </emphasis>une liste dÃ©limitÃ©e par des espaces de codes de projection EPSG disponibles sur le serveur distant. Normalement vous obtenez ceci Ã  partir des propriÃ©tÃ©s du serveur.
+					<emphasis>metadata "wms_srs": </emphasis>une liste délimitée par des espaces de codes de projection EPSG disponibles sur le serveur distant. Normalement vous obtenez ceci à partir des propriétés du serveur.
         </para>
 			</listitem>
 			<listitem>
@@ -178,7 +178,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					<emphasis>paramÃ¨tre CONNECTION:</emphasis>Ceci est la ressource URL du serveur distant Ã  partir duquel vous ajoutez quelques uns des paramÃ¨tres de requÃªtes getMap/getFeatureInfo.  Ici MapServer ne paramÃ¨tre que les Ã©lÃ©ments de requÃªte suivants:
+					<emphasis>paramètre CONNECTION:</emphasis>Ceci est la ressource URL du serveur distant à partir duquel vous ajoutez quelques uns des paramètres de requêtes getMap/getFeatureInfo.  Ici MapServer ne paramètre que les éléments de requête suivants:
         </para>
 				<programlisting>
     REQUEST
@@ -187,7 +187,7 @@
     WIDTH
     HEIGHT
         </programlisting>
-				<para>La chaÃ®ne de caractÃ¨res de connexion devrait contenir tous les autres paramÃ¨tres requis, y compris:
+				<para>La chaîne de caractères de connexion devrait contenir tous les autres paramètres requis, y compris:
         </para>
 				<programlisting>
     VERSION
@@ -197,22 +197,22 @@
         </programlisting>
 			</listitem>
 		</itemizedlist>
-		<para>Les paramÃ¨tres de couche suivants sont facultatifs:
+		<para>Les paramètres de couche suivants sont facultatifs:
     </para>
 		<itemizedlist>
 			<listitem>
 				<para>
-					<emphasis>objet PROJECTION:</emphasis>il est facultatif ici. MapServer en crÃ©era un si nÃ©cessaire.
+					<emphasis>objet PROJECTION:</emphasis>il est facultatif ici. MapServer en créera un si nécessaire.
         </para>
 			</listitem>
 			<listitem>
 				<para>
-					<emphasis>MINSCALE, MAXSCALE:</emphasis>si les propriÃ©tÃ©s du serveur distant contiennent une valeur pour cette couche vous voudrez peut Ãªtre dÃ©terminer MINSCALE et MAXSCALE dans l'objet LAYER du mapfile.  Ceci permettra Ã  MapServer de demander la couche seulement Ã  l'Ã©chelle qui a un sens.
+					<emphasis>MINSCALE, MAXSCALE:</emphasis>si les propriétés du serveur distant contiennent une valeur pour cette couche vous voudrez peut être déterminer MINSCALE et MAXSCALE dans l'objet LAYER du mapfile.  Ceci permettra à MapServer de demander la couche seulement à l'échelle qui a un sens.
         </para>
 			</listitem>
 			<listitem>
 				<para>
-					<emphasis>"wms_latlonboundingbox" metadata:</emphasis>La zone cible de cette couche en coordonnÃ©es gÃ©ographiques dans le format "lon_min lat_min lon_max lat_max".  Si elle est positionnÃ©e MapServer demandera la couche seulement lorsque la vue de carte correspond Ã  cette zone.  Normalement vous obtenez ceci Ã  partir des propriÃ©tÃ©s du serveur.
+					<emphasis>"wms_latlonboundingbox" metadata:</emphasis>La zone cible de cette couche en coordonnées géographiques dans le format "lon_min lat_min lon_max lat_max".  Si elle est positionnée MapServer demandera la couche seulement lorsque la vue de carte correspond à cette zone.  Normalement vous obtenez ceci à partir des propriétés du serveur.
         </para>
 				<para>
           e.g.
@@ -225,7 +225,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					<emphasis>"wms_connectiontimeout" metadata:</emphasis>La durÃ©e maximale pour charger une couche WMS distante, en secondes (30 secondes par dÃ©faut).  Ce metadata peut Ãªtre ajoutÃ© au niveau de la couche de maniÃ¨re Ã  ne s'appliquer qu'Ã  cette couche, ou il peut Ãªtre ajoutÃ© au niveau de la carte (dans l'objet WEB) de maniÃ¨re Ã  s'appliquer Ã  toutes les couches.  Notez que <emphasis>wms_connectiontimeout</emphasis> au niveau de la couche a prioritÃ© par rapport Ã  celui du niveau carte.
+					<emphasis>"wms_connectiontimeout" metadata:</emphasis>La durée maximale pour charger une couche WMS distante, en secondes (30 secondes par défaut).  Ce metadata peut être ajouté au niveau de la couche de manière à ne s'appliquer qu'à cette couche, ou il peut être ajouté au niveau de la carte (dans l'objet WEB) de manière à s'appliquer à toutes les couches.  Notez que <emphasis>wms_connectiontimeout</emphasis> au niveau de la couche a priorité par rapport à celui du niveau carte.
         </para>
 				<programlisting>
      ...
@@ -243,27 +243,27 @@
         </programlisting>
 			</listitem>
 		</itemizedlist>
-		<para>En plus des paramÃ¨tres de couches prÃ©cÃ©dents, vous devez positionner la valeur IMAGEPATH de l'objet WEB de votre mapfile pour pointer sur un rÃ©pertoire valide et accessible en Ã©criture.  MapServer utilisera ce rÃ©pertoire pour stocker les fichiers temporaires tÃ©lÃ©chargÃ©s depuis les serveurs distants.  Les fichiers temporaires sont automatiquement supprimÃ©s par MapServer aussi ne vous en inquiÃ©tez pas... mais un IMAGEPATH valide est indispensable.
+		<para>En plus des paramètres de couches précédents, vous devez positionner la valeur IMAGEPATH de l'objet WEB de votre mapfile pour pointer sur un répertoire valide et accessible en écriture.  MapServer utilisera ce répertoire pour stocker les fichiers temporaires téléchargés depuis les serveurs distants.  Les fichiers temporaires sont automatiquement supprimés par MapServer aussi ne vous en inquiétez pas... mais un IMAGEPATH valide est indispensable.
     </para>
 	</sect1>
 	<sect1 id="limitations">
-		<title>Limitations/TODO (Ã  faire)</title>
+		<title>Limitations/TODO (à faire)</title>
 		<orderedlist>
 			<listitem>
-				<para>Les connexions WMS MapServer demandent toujours les exceptions "INIMAGE", mais il serait mieux de supporter les exceptions XML pour certains points et pour le message de retour via le mÃ©canisme de rapport d'erreur de MapServer.
+				<para>Les connexions WMS MapServer demandent toujours les exceptions "INIMAGE", mais il serait mieux de supporter les exceptions XML pour certains points et pour le message de retour via le mécanisme de rapport d'erreur de MapServer.
         </para>
 			</listitem>
 			<listitem>
-				<para>Le format PNG avec transparence (transparent=true) ne fonctionne pas trÃ¨s bien avec tous les serveurs.  Aussi, quelques serveurs utilisent le canal alpha pour la transparence (images RGBA) mais ce n'est pas trÃ¨s bien traitÃ© par MapServer pour l'instant.  Donc vous devriez forcer vos requÃªtes pour des cartes au format GIF dans ces cas lÃ .  La transparence des PNG produits par le WMS de MapServer fonctionne dans le cas des images "palettisÃ©es".
+				<para>Le format PNG avec transparence (transparent=true) ne fonctionne pas très bien avec tous les serveurs.  Aussi, quelques serveurs utilisent le canal alpha pour la transparence (images RGBA) mais ce n'est pas très bien traité par MapServer pour l'instant.  Donc vous devriez forcer vos requêtes pour des cartes au format GIF dans ces cas là.  La transparence des PNG produits par le WMS de MapServer fonctionne dans le cas des images "palettisées".
         </para>
 			</listitem>
 			<listitem>
 				<para>
-					<filename>getFeatureInfo</filename> n'est pas entiÃ¨rement fonctionnel puisque la sortie de getFeatureInfo est laissÃ©e Ã  la discrÃ©tion du serveur distant.  Une mÃ©thode layer.getWMSFeatureInfoURL() a Ã©tÃ© ajoutÃ©e Ã  MapScript pour les applications qui ont besoin d'avoir accÃ¨s aux rÃ©sultats "featureInfo" (propriÃ©tÃ©s) et en disposer directement.
+					<filename>getFeatureInfo</filename> n'est pas entièrement fonctionnel puisque la sortie de getFeatureInfo est laissée à la discrétion du serveur distant.  Une méthode layer.getWMSFeatureInfoURL() a été ajoutée à MapScript pour les applications qui ont besoin d'avoir accès aux résultats "featureInfo" (propriétés) et en disposer directement.
         </para>
 			</listitem>
 			<listitem>
-				<para>MapServer ne tente pas d'atteindre les propriÃ©tÃ©s des couches. Faire Ã§a pour chacune des couches Ã  dessiner serait extrÃªmement inefficace.  Cacher (dans le sens mettre en cache) cette information n'est pas possible avec la ressource mÃ©moire de MapServer.  Il est donc plus judicieux de le faire au niveau de l'application, dans un script, et seulement pour l'information nÃ©cessaire passÃ©e Ã  MapServer via la chaÃ®ne de caractÃ¨res de connexion et le metadata.  (Nous rÃ©aliserons rapidement l'application PHP MapBrowser qui fera la dÃ©monstration de l'utilisation de PHP pour atteindre et parcourir les propriÃ©tÃ©s d'un serveur WMS distant. NdT cette rÃ©alisation existe maintenant voir MapLab sur le site de DM Solution).
+				<para>MapServer ne tente pas d'atteindre les propriétés des couches. Faire ça pour chacune des couches à dessiner serait extrêmement inefficace.  Cacher (dans le sens mettre en cache) cette information n'est pas possible avec la ressource mémoire de MapServer.  Il est donc plus judicieux de le faire au niveau de l'application, dans un script, et seulement pour l'information nécessaire passée à MapServer via la chaîne de caractères de connexion et le metadata.  (Nous réaliserons rapidement l'application PHP MapBrowser qui fera la démonstration de l'utilisation de PHP pour atteindre et parcourir les propriétés d'un serveur WMS distant. NdT cette réalisation existe maintenant voir MapLab sur le site de DM Solution).
         </para>
 			</listitem>
 		</orderedlist>
@@ -276,20 +276,20 @@
 			<para>
                 Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
       </para>
-			<para>Ce document est protÃ©gÃ© par la mÃªme licence Open Source que celle du logiciel MapServer lui-mÃªme.  Voyez la page MapServer 
+			<para>Ce document est protégé par la même licence Open Source que celle du logiciel MapServer lui-même.  Voyez la page MapServer 
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
                 Credits</ulink> pour le texte complet.
                 </para>
 		</sect2>
 		<sect2 id="disclaimer">
 			<title>Avertissement</title>
-			<para>Aucune responsabilitÃ© pour le contenu de ce document ne peut Ãªtre acceptÃ©e. Utilisez les concepts, exemples et autres Ã©lÃ©ments Ã  vos risques et pÃ©rils. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre systÃ¨me. Aussi il est expressÃ©ment conseillÃ©, l'auteur et le traducteur n'assurant aucune responsabilitÃ©, de procÃ©der avec prÃ©caution.
+			<para>Aucune responsabilité pour le contenu de ce document ne peut être acceptée. Utilisez les concepts, exemples et autres éléments à vos risques et périls. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre système. Aussi il est expressément conseillé, l'auteur et le traducteur n'assurant aucune responsabilité, de procéder avec précaution.
                  	</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">
 			<title>Retour</title>
-			<para>Ceci est un nouveau document pour un nouveau projet; votre avis nous intÃ©resse.  Envoyez vos commentaires ou suggestions au coordinateur de la documentation MapServer sur <email>mdp@lists.gis.umn.edu</email>.
+			<para>Ceci est un nouveau document pour un nouveau projet; votre avis nous intéresse.  Envoyez vos commentaires ou suggestions au coordinateur de la documentation MapServer sur <email>mdp@lists.gis.umn.edu</email>.
         </para>
 		</sect2>
 	</sect1>

@@ -1,4 +1,4 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
@@ -41,16 +41,16 @@
 		<date>2002-04-18</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
-			<para>Ce document dÃ©crit les procÃ©dures d'implÃ©mentation d'une lÃ©gende HTML dans les applications MapServer.
+			<para>Ce document décrit les procédures d'implémentation d'une légende HTML dans les applications MapServer.
                </para>
 			<para>Last Updated: 04/18/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
-		<para>La lÃ©gende HTML est une alternative Ã  la traditionnelle lÃ©gende GIF de MapServer.  Ce document dÃ©crit le processus d'implÃ©mentation d'une lÃ©gende HTML dans les applications CGI MapServer v3.5.1 (une version de dÃ©veloppement rÃ©cente de MapServer est nÃ©cessaire parce que la lÃ©gende HTML est une fonction qui n'est pas incluse dans la version 3.5).
+		<para>La légende HTML est une alternative à la traditionnelle légende GIF de MapServer.  Ce document décrit le processus d'implémentation d'une légende HTML dans les applications CGI MapServer v3.5.1 (une version de développement récente de MapServer est nécessaire parce que la légende HTML est une fonction qui n'est pas incluse dans la version 3.5).
           </para>
-		<para>Ce document part du principe que vous Ãªtes familier de certains aspects de MapServer:
+		<para>Ce document part du principe que vous êtes familier de certains aspects de MapServer:
           </para>
 		<itemizedlist>
 			<listitem>
@@ -60,12 +60,12 @@
 		</itemizedlist>
 	</sect1>
 	<sect1 id="implement">
-		<title>ImplÃ©mentation</title>
-		<para>La lÃ©gende HTML est rendue disponible par un nouveau paramÃ¨tre TEMPLATE dans l'objet Legend du mapfile.
-			Si TEMPLATE est indiquÃ© dans l'objet Legend, alors le fichier de mise en forme de la lÃ©gende HTML est lu et utilisÃ© pour gÃ©nÃ©rer une lÃ©gende HTML qui sera insÃ©rÃ©e Ã  l'endroit indiquÃ© par l'indicateur [legend] dans le fichier principal de mise en forme HTML.  Comme tout autre fichier de mise en forme de MapServer, le nom du fichier de mise en forme HTML pour la lÃ©gende DOIT avoir une extension ".html".
+		<title>Implémentation</title>
+		<para>La légende HTML est rendue disponible par un nouveau paramètre TEMPLATE dans l'objet Legend du mapfile.
+			Si TEMPLATE est indiqué dans l'objet Legend, alors le fichier de mise en forme de la légende HTML est lu et utilisé pour générer une légende HTML qui sera insérée à l'endroit indiqué par l'indicateur [legend] dans le fichier principal de mise en forme HTML.  Comme tout autre fichier de mise en forme de MapServer, le nom du fichier de mise en forme HTML pour la légende DOIT avoir une extension ".html".
 		</para>
 		<example>
-			<title>Exemple d'objet Legend avec le nouveau paramÃ¨tre TEMPLATE :</title>
+			<title>Exemple d'objet Legend avec le nouveau paramètre TEMPLATE :</title>
 			<programlisting>
   ...
   # LEGEND object
@@ -83,11 +83,11 @@
   ...					
 			</programlisting>
 		</example>
-		<para>Si TEMPLATE n'Ã©tait pas mis, alors l'indicateur [legend] produirait une image normale GIF/PNG (fonctionnement normal).	
+		<para>Si TEMPLATE n'était pas mis, alors l'indicateur [legend] produirait une image normale GIF/PNG (fonctionnement normal).	
 		</para>
 		<note>
 			<para>
-				<emphasis>L'indicateur traditionnel [legend] retourne l'URL d'une image, il est habituellement utilisÃ© dans l'indicateur &lt;IMG SRC=[legend]&gt; dans le code HTML. Le nouvel indicateur HTML [legend] retourne un bloc HTML, aussi quand il est converti en une mise en forme existante utilisant une image traditionnelle de lÃ©gende qui se substitue Ã  la lÃ©gende HTML, vous devez donc supprimer l'indicateur IMG dans le fichier de mise en forme principal. Notez aussi que si le mode lÃ©gende est indiquÃ© dans l'URL, alors MapServer retournera un gif contenant l'ensemble des lÃ©gendes si aucun fichier de mise en forme n'est spÃ©cifiÃ©.</emphasis>
+				<emphasis>L'indicateur traditionnel [legend] retourne l'URL d'une image, il est habituellement utilisé dans l'indicateur &lt;IMG SRC=[legend]&gt; dans le code HTML. Le nouvel indicateur HTML [legend] retourne un bloc HTML, aussi quand il est converti en une mise en forme existante utilisant une image traditionnelle de légende qui se substitue à la légende HTML, vous devez donc supprimer l'indicateur IMG dans le fichier de mise en forme principal. Notez aussi que si le mode légende est indiqué dans l'URL, alors MapServer retournera un gif contenant l'ensemble des légendes si aucun fichier de mise en forme n'est spécifié.</emphasis>
 			</para>
 		</note>
 		<example>
@@ -107,8 +107,8 @@
 			</programlisting>
 		</example>
 		<sect2 id="template-file">
-			<title>Le fichier de mise en forme de la lÃ©gende en HTML</title>
-			<para>Le fichier de mise en forme HTML contient 0 ou 1 de chacun des indicateurs suivants qui definissent des blocs HTML Ã  utiliser pour construire la lÃ©gende: 
+			<title>Le fichier de mise en forme de la légende en HTML</title>
+			<para>Le fichier de mise en forme HTML contient 0 ou 1 de chacun des indicateurs suivants qui definissent des blocs HTML à utiliser pour construire la légende: 
 			</para>
 			<programlisting>
     [leg_group_html] ... [/leg_group_html]
@@ -117,13 +117,13 @@
                </programlisting>
 			<note>
 				<para>
-					<emphasis>Tous textes ou indicateurs HTML en dehors de la paire d'indicateurs [leg_*_html] du fichier de mise en forme de la lÃ©gende sont ignorÃ©s par le module de mise en forme.</emphasis>
+					<emphasis>Tous textes ou indicateurs HTML en dehors de la paire d'indicateurs [leg_*_html] du fichier de mise en forme de la légende sont ignorés par le module de mise en forme.</emphasis>
 				</para>
 			</note>
-			<para>L'exemple suivant montre ce qu'une lÃ©gende HTML avec un fichier TEMPLATE peut donner:
+			<para>L'exemple suivant montre ce qu'une légende HTML avec un fichier TEMPLATE peut donner:
 			</para>
 			<example>
-				<title>Un fichier TEMPLATE de lÃ©gende HTML</title>
+				<title>Un fichier TEMPLATE de légende HTML</title>
 				<programlisting>
    [leg_group_html]
    &lt;tr&gt;
@@ -157,17 +157,17 @@
 				</programlisting>
 			</example>
 			<sect3 id="tags">
-				<title>Indicateurs supportÃ©s pour le TEMPLATE</title>
+				<title>Indicateurs supportés pour le TEMPLATE</title>
 				<sect4 id="group">
 					<title>GROUP block</title>
 					<para>
 						<emphasis>TAG:</emphasis> [leg_group_html]...[/leg_group_html]
 						</para>
-					<para>Un bloc HTML Ã  utiliser pour un groupe d'entÃªte de couche si les couches doivent Ãªtre regroupÃ©es dans la lÃ©gende; Sinon les couches ne sont pas regroupÃ©es dans la lÃ©gende. 
+					<para>Un bloc HTML à utiliser pour un groupe d'entête de couche si les couches doivent être regroupées dans la légende; Sinon les couches ne sont pas regroupées dans la légende. 
 						</para>
-					<para>Quand l'indicateur [leg_group_html] est utilisÃ©, les couches qui ne correspondent pas Ã  un groupe quelconque (par exemple LAYER GROUP n'est pas utilisÃ© dans le mapfile) et leurs classes ne seront pas montrÃ©es dans la lÃ©gende. La liste de groupes est dÃ©terminÃ©e par le paramÃ¨tre order_metadata parameter, qui est expliquÃ© plus loin.
+					<para>Quand l'indicateur [leg_group_html] est utilisé, les couches qui ne correspondent pas à un groupe quelconque (par exemple LAYER GROUP n'est pas utilisé dans le mapfile) et leurs classes ne seront pas montrées dans la légende. La liste de groupes est déterminée par le paramètre order_metadata parameter, qui est expliqué plus loin.
 						</para>
-					<para>Indicateurs supportÃ©s du bloc [leg_group_html]: 
+					<para>Indicateurs supportés du bloc [leg_group_html]: 
 						</para>
 					<itemizedlist>
 						<listitem>
@@ -183,7 +183,7 @@
 								<emphasis>INDICATEUR:</emphasis> [leg_group_status] 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Retourne l'Ã©tat du groupe.  Seul l'Ã©tat de la premiÃ¨re couche correspondant Ã  ce groupe est vÃ©rifiÃ©. 
+								<emphasis>DESCRIPTION:</emphasis> Retourne l'état du groupe.  Seul l'état de la première couche correspondant à ce groupe est vérifié. 
 								</para>
 						</listitem>
 						<listitem>
@@ -191,7 +191,7 @@
 								<emphasis>INDICATEUR:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Dans le contexte du groupe, l'indicateur [leg_icon] retourne l'URL d'une icÃ´ne de lÃ©gende pour la premiÃ¨re classe dans la premiÃ¨re couche qui fait partie de ce groupe. 
+								<emphasis>DESCRIPTION:</emphasis> Dans le contexte du groupe, l'indicateur [leg_icon] retourne l'URL d'une icône de légende pour la première classe dans la première couche qui fait partie de ce groupe. 
 								</para>
 						</listitem>
 						<listitem>
@@ -199,7 +199,7 @@
 								<emphasis>INDICATEUR:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Retourne la valeur du metadata spÃ©cifiÃ© depuis le metadata web. 
+								<emphasis>DESCRIPTION:</emphasis> Retourne la valeur du metadata spécifié depuis le metadata web. 
 								</para>
 						</listitem>
 					</itemizedlist>
@@ -209,9 +209,9 @@
 					<para>
 						<emphasis>TAG:</emphasis> [leg_layer_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_layer_html]
 						</para>
-					<para>Bloc HTML Ã  utiliser pour l'entÃªte de couche. Si non indiquÃ© aucun entÃªte de couche ne sera affichÃ© (permet une lÃ©gende avec seulement une classe contenue).
+					<para>Bloc HTML à utiliser pour l'entête de couche. Si non indiqué aucun entête de couche ne sera affiché (permet une légende avec seulement une classe contenue).
 						</para>
-					<para>ParamÃ¨tres optionnels pour l'indicateur [leg_layer_html]:
+					<para>Paramètres optionnels pour l'indicateur [leg_layer_html]:
 						</para>
 					<itemizedlist>
 						<listitem>
@@ -222,16 +222,16 @@
 								<emphasis>DESCRIPTION:</emphasis>
 								<itemizedlist>
 									<listitem>
-										<para>spÃ©cifie que la valeur de la couche metadata 
-											    <filename>&lt;field_to_order_by&gt;</filename> contrÃ´le l'ordre et la visibilitÃ© des couches dans la lÃ©gende.
+										<para>spécifie que la valeur de la couche metadata 
+											    <filename>&lt;field_to_order_by&gt;</filename> contrôle l'ordre et la visibilité des couches dans la légende.
 											</para>
 									</listitem>
 									<listitem>
-										<para>Les couches avec <filename>&lt;field_to_order_by&gt; &gt;= 0</filename> sont triÃ©es dans l'ordre de cette valeur, les couches multiples ayant la mÃªme valeur Ã©tant acceptÃ©es, dans ce cas l'ordre de la carte s'applique pour le dÃ©partage.
+										<para>Les couches avec <filename>&lt;field_to_order_by&gt; &gt;= 0</filename> sont triées dans l'ordre de cette valeur, les couches multiples ayant la même valeur étant acceptées, dans ce cas l'ordre de la carte s'applique pour le départage.
 											</para>
 									</listitem>
 									<listitem>
-										<para>Les couches avec <filename>&lt;field_to_order_by&gt; &lt; 0</filename> sont toujours cachÃ©es dans la lÃ©gende.
+										<para>Les couches avec <filename>&lt;field_to_order_by&gt; &lt; 0</filename> sont toujours cachées dans la légende.
 											</para>
 									</listitem>
 								</itemizedlist>
@@ -242,27 +242,27 @@
 								<emphasis>PARAMETRE:</emphasis> opt_flag=&lt;bit_mask&gt;
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> ContrÃ´le le processus d'affichage de la couche. Ajoute les valeurs suivantes pour acquÃ©rir les options dÃ©sirÃ©es:
+								<emphasis>DESCRIPTION:</emphasis> Contrôle le processus d'affichage de la couche. Ajoute les valeurs suivantes pour acquérir les options désirées:
 								</para>
 							<itemizedlist>
 								<listitem>
 									<para>
-											1: Si positionnÃ©, montre la couche mÃªme hors Ã©chelle (par dÃ©faut: cache la couche hors Ã©chelle).
+											1: Si positionné, montre la couche même hors échelle (par défaut: cache la couche hors échelle).
 										</para>
 								</listitem>
 								<listitem>
 									<para>
-											2: Si positionnÃ©, montre la couche mÃªme si l'Ã©tat est Ã  OFF (par dÃ©faut: cache les couches dont l'Ã©tat est OFF).
+											2: Si positionné, montre la couche même si l'état est à OFF (par défaut: cache les couches dont l'état est OFF).
 										</para>
 								</listitem>
 								<listitem>
 									<para>
-											4: Si positionnÃ©, montre la couche mÃªme si le type est QUERY (par dÃ©faut: cache les couches de type QUERY)
+											4: Si positionné, montre la couche même si le type est QUERY (par défaut: cache les couches de type QUERY)
 										</para>
 								</listitem>
 								<listitem>
 									<para>
-											8: Si positionnÃ©, montre la couche mÃªme si le type est ANNOTATION (par dÃ©faut: cache les couche de type ANNOTATION)
+											8: Si positionné, montre la couche même si le type est ANNOTATION (par défaut: cache les couche de type ANNOTATION)
 										</para>
 								</listitem>
 							</itemizedlist>
@@ -271,7 +271,7 @@
 								</para>
 						</listitem>
 					</itemizedlist>
-					<para>Indicateurs supportÃ©s dans le bloc [leg_layer_html]...[/leg_layer_html]: 
+					<para>Indicateurs supportés dans le bloc [leg_layer_html]...[/leg_layer_html]: 
 						</para>
 					<itemizedlist>
 						<listitem>
@@ -287,7 +287,7 @@
 								<emphasis>INDICATEUR:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Dans le contexte de la couche, l'indicateur [leg_icon] retourne l''URL d'une icÃ´ne de lÃ©gende pour la premiÃ¨re classe dans cette couche. 
+								<emphasis>DESCRIPTION:</emphasis> Dans le contexte de la couche, l'indicateur [leg_icon] retourne l''URL d'une icône de légende pour la première classe dans cette couche. 
 								</para>
 						</listitem>
 						<listitem>
@@ -295,7 +295,7 @@
 								<emphasis>INDICATEUR:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Retourne la valeur du metadata spÃ©cifiÃ© depuis ce metadata de la couche et du metadata web. 
+								<emphasis>DESCRIPTION:</emphasis> Retourne la valeur du metadata spécifié depuis ce metadata de la couche et du metadata web. 
 								</para>
 						</listitem>
 					</itemizedlist>
@@ -305,14 +305,14 @@
 					<para>
 						<emphasis>INDICATEUR:</emphasis> [leg_class_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_class_html]
 						</para>
-					<para>Bloc HTML Ã  utiliser pour les classes. Si non positionnÃ© aucune des classes n'est affichÃ©e (permet une lÃ©gende avec une seule couche d'entÃªte).
+					<para>Bloc HTML à utiliser pour les classes. Si non positionné aucune des classes n'est affichée (permet une légende avec une seule couche d'entête).
 						</para>
 					<note>
 						<para>
-							<emphasis>Les classes avec des noms NULL (donc vide) ne sont pas affichÃ©es.</emphasis>
+							<emphasis>Les classes avec des noms NULL (donc vide) ne sont pas affichées.</emphasis>
 						</para>
 					</note>
-					<para>ParamÃ¨tres optionnels pour ces indicateurs:
+					<para>Paramètres optionnels pour ces indicateurs:
 						</para>
 					<itemizedlist>
 						<listitem>
@@ -320,11 +320,11 @@
 								<emphasis>PARAMETRE:</emphasis> opt_flag=&lt;bit_mask&gt; 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> la mÃªme chose que l'indicateur [leg_layer_html] 
+								<emphasis>DESCRIPTION:</emphasis> la même chose que l'indicateur [leg_layer_html] 
 								</para>
 						</listitem>
 					</itemizedlist>
-					<para>Indicateurs supportÃ©s dans ce bloc:
+					<para>Indicateurs supportés dans ce bloc:
 						</para>
 					<itemizedlist>
 						<listitem>
@@ -348,7 +348,7 @@
 								<emphasis>INDICATEUR:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Dans le contexte de la couche, l'indicateur [leg_icon] retourne l'URL d'une icÃ´ne de lÃ©gende pour la premiÃ¨re classe dans cette couche. 
+								<emphasis>DESCRIPTION:</emphasis> Dans le contexte de la couche, l'indicateur [leg_icon] retourne l'URL d'une icône de légende pour la première classe dans cette couche. 
 								</para>
 						</listitem>
 						<listitem>
@@ -356,7 +356,7 @@
 								<emphasis>INDICATEUR:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Retourne une valeur du metadata spÃ©cifiÃ© de la couche Ã  laquelle cette classe correspond et du metadata web. 
+								<emphasis>DESCRIPTION:</emphasis> Retourne une valeur du metadata spécifié de la couche à laquelle cette classe correspond et du metadata web. 
 								</para>
 						</listitem>
 					</itemizedlist>
@@ -364,19 +364,19 @@
 				<sect4 id="if">
 					<title>Texte CONDITIONNEL</title>
 					<para>
-						[if] indicateurs pouvant Ãªtre utilisÃ©s dans n'importe quel indicateur [leg_*_html] au dÃ©but du texte conditionnel. La syntaxe est: 
+						[if] indicateurs pouvant être utilisés dans n'importe quel indicateur [leg_*_html] au début du texte conditionnel. La syntaxe est: 
 					</para>
 					<programlisting>
    [if name=&lt;field_to_check&gt; oper=&lt;eq|neq|isset|isnull&gt; value=&lt;to_compare_with_field&gt;] ... [/if]					
 					</programlisting>
 					<note>
 						<para>
-							<emphasis>Les IF imbriquÃ©s sont autorisÃ©s. Le parametre "<filename>oper</filename>" peut Ãªtre 
-							"<filename>eq</filename>" pour Ã©gal (equal), "<filename>neq</filename>" pour non Ã©gal (not equal), "<filename>isset</filename>"                             							pour est positionnÃ© (ou a une valeur), ou "<filename>isnull</filename>" est null (ou est vide). La valeur par dÃ©faut est <filename>eq</filename>.</emphasis>
+							<emphasis>Les IF imbriqués sont autorisés. Le parametre "<filename>oper</filename>" peut être 
+							"<filename>eq</filename>" pour égal (equal), "<filename>neq</filename>" pour non égal (not equal), "<filename>isset</filename>"                             							pour est positionné (ou a une valeur), ou "<filename>isnull</filename>" est null (ou est vide). La valeur par défaut est <filename>eq</filename>.</emphasis>
 						</para>
 					</note>
 					<example>
-						<title>L'indicateur [if] peut Ãªtre utilisÃ© pour maintenir l'Ã©tat d'une case Ã  cocher d'une couche</title>
+						<title>L'indicateur [if] peut être utilisé pour maintenir l'état d'une case à cocher d'une couche</title>
 						<programlisting>
    [leg_layer_html order_metadata=legend_order opt_flag=5]
    &lt;tr&gt;
@@ -391,7 +391,7 @@
    [/leg_layer_html]			
 						</programlisting>
 					</example>
-					<para>Les valeurs qui peuvent Ãªtre testÃ©es dans un indicateur [if] dÃ©pendent du contexte dans lequel l'indicateur [if] est utilisÃ©. Actuellement le nombre de valeurs pouvant Ãªtre testÃ©es est limitÃ©, mais de nouvelles valeurs peuvent Ãªtre ajoutÃ©es selon les besoins. Les valeurs possibles qui peuvent Ãªtre testÃ©es sont les suivantes:
+					<para>Les valeurs qui peuvent être testées dans un indicateur [if] dépendent du contexte dans lequel l'indicateur [if] est utilisé. Actuellement le nombre de valeurs pouvant être testées est limité, mais de nouvelles valeurs peuvent être ajoutées selon les besoins. Les valeurs possibles qui peuvent être testées sont les suivantes:
 					</para>
 					<itemizedlist>
 						<listitem>
@@ -407,7 +407,7 @@
 									<para>
 										[if name=layer_status value=...] ... [/if]
 									</para>
-									<para>(la valeur est l'Ã©tat de la premiÃ¨re couche qui correspond au groupe sous la forme d'un entier: 0=OFF, 1=ON, 2=DEFAULT) 
+									<para>(la valeur est l'état de la première couche qui correspond au groupe sous la forme d'un entier: 0=OFF, 1=ON, 2=DEFAULT) 
 									</para>
 								</listitem>
 							</itemizedlist>
@@ -421,7 +421,7 @@
 									<para>
 										[if name=layer_status value=...] ... [/if]
 									</para>
-									<para>(la valeur est l'Ã©tat de la couche sous la forme d'un entier: 0=OFF, 1=ON, 2=DEFAULT) 
+									<para>(la valeur est l'état de la couche sous la forme d'un entier: 0=OFF, 1=ON, 2=DEFAULT) 
 									</para>
 								</listitem>
 								<listitem>
@@ -436,14 +436,14 @@
 									<para>
 										[if name=layer_name value=...] ... [/if] 
 									</para>
-									<para>(la valeur est le nom de la couche sous la forme d'une chaÃ®ne de caractÃ¨res) 
+									<para>(la valeur est le nom de la couche sous la forme d'une chaîne de caractères) 
 									</para>
 								</listitem>
 								<listitem>
 									<para>
 										[if name=layer_group value=...] ... [/if] 
 									</para>
-									<para>(la valeur est le nom du groupe de couches sous la forme d'une chaÃ®ne de caractÃ¨res) 
+									<para>(la valeur est le nom du groupe de couches sous la forme d'une chaîne de caractères) 
 									</para>
 								</listitem>
 								<listitem>
@@ -467,7 +467,7 @@
 									<para>
 										[if name=layer_status value=...] ... [/if]
 									</para>
-									<para>(la valeur est l'Ã©tat de la couche dans laquelle se trouve la classe) 
+									<para>(la valeur est l'état de la couche dans laquelle se trouve la classe) 
 									</para>
 								</listitem>
 								<listitem>
@@ -482,14 +482,14 @@
 									<para>
 										[if name=layer_name value=...] ... [/if] 
 									</para>
-									<para>(la valeur est le nom de la couche sous la forme d'une chaÃ®ne de caractÃ¨res) 
+									<para>(la valeur est le nom de la couche sous la forme d'une chaîne de caractères) 
 									</para>
 								</listitem>
 								<listitem>
 									<para>
 										[if name=layer_group value=...] ... [/if] 
 									</para>
-									<para>(la valeur est le nom du groupe de couches sous la forme d'une chaÃ®ne de caractÃ¨res) 
+									<para>(la valeur est le nom du groupe de couches sous la forme d'une chaîne de caractères) 
 									</para>
 								</listitem>
 								<listitem>
@@ -510,19 +510,19 @@
 		</sect2>
 	</sect1>
 	<sect1 id="live">
-		<title>Exemples de sites utilisant la lÃ©gende HTML</title>
+		<title>Exemples de sites utilisant la légende HTML</title>
 		<orderedlist>
 			<listitem>
 				<para>
 					<ulink url="http://www2.dmsolutions.ca/msapps/itasca_legend/demo_init.html">
 				    http://www2.dmsolutions.ca/msapps/itasca_legend/demo_init.html</ulink>
 				</para>
-				<para>Cette dÃ©monstration est basÃ©e sur le dÃ©monstrateur itasca de MapServer et contient plusieurs variantes de lÃ©gendes HTML, dont quelques unes sont listÃ©es ci-aprÃ¨s:
+				<para>Cette démonstration est basée sur le démonstrateur itasca de MapServer et contient plusieurs variantes de légendes HTML, dont quelques unes sont listées ci-après:
 				</para>
 				<itemizedlist>
 					<listitem>
 						<para>
-							"HTML Legend 1" - affiche seulement les classes, similaire aux lÃ©gendes traditionnelles:
+							"HTML Legend 1" - affiche seulement les classes, similaire aux légendes traditionnelles:
 						</para>
 						<programlisting>
    [leg_class_html opt_flag=15]
@@ -546,7 +546,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							"HTML Legend 3" - affiche les couches par groupe, avec les cases Ã  cocher pour basculer les couches visible/invisible (on/off):
+							"HTML Legend 3" - affiche les couches par groupe, avec les cases à cocher pour basculer les couches visible/invisible (on/off):
 						</para>
 						<programlisting>
    [leg_group_html]
@@ -576,7 +576,7 @@
 					<ulink url="http://www2.dmsolutions.ca/msapps/html_test/gmap_excal/demo_init.html">
 				    http://www2.dmsolutions.ca/msapps/html_test/gmap_excal/demo_init.html</ulink>
 				</para>
-				<para>Cette dÃ©monstration est basÃ©e sur l'application GMAP de DM Solutions, et affiche la lÃ©gende HTML utilisÃ©e.
+				<para>Cette démonstration est basée sur l'application GMAP de DM Solutions, et affiche la légende HTML utilisée.
 			</para>
 			</listitem>
 		</orderedlist>
@@ -589,20 +589,20 @@
 			<para>
                 Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
             </para>
-			<para>Ce document est protÃ©gÃ© par la mÃªme licence Open Source que celle du logiciel MapServer lui mÃªme.  Voyez la page MapServer 
+			<para>Ce document est protégé par la même licence Open Source que celle du logiciel MapServer lui même.  Voyez la page MapServer 
                 <ulink url="license_fr.html">License and 
                 Credits</ulink> pour le texte complet.
             </para>
 		</sect2>
 		<sect2 id="disclaimer">
 			<title>Avertissement</title>
-			<para>Aucune responsabilitÃ© pour le contenu de ce document ne peut Ãªtre acceptÃ©e. Utilisez les concepts, exemples et autres Ã©lÃ©ments Ã  vos risques et pÃ©rils. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre systÃ¨me. Aussi il est expressÃ©ment conseillÃ©, l'auteur et le traducteur n'assurant aucune responsabilitÃ©, de procÃ©der avec prÃ©caution.
+			<para>Aucune responsabilité pour le contenu de ce document ne peut être acceptée. Utilisez les concepts, exemples et autres éléments à vos risques et périls. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre système. Aussi il est expressément conseillé, l'auteur et le traducteur n'assurant aucune responsabilité, de procéder avec précaution.
                  	</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">
 			<title>Feedback</title>
-			<para>Envoyez toutes vos suggestions et commentaires Ã  l'auteur, ou au traducteur.
+			<para>Envoyez toutes vos suggestions et commentaires à l'auteur, ou au traducteur.
    			</para>
 		</sect2>
 	</sect1>

@@ -1,10 +1,10 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
-		<title>RÃ©fÃ©rence MapScript</title>
+		<title>Référence MapScript</title>
 		<author>
-			<firstname>Jean-FranÃ§ois</firstname>
+			<firstname>Jean-François</firstname>
 			<surname>Doyon</surname>
 			<affiliation>
 				<orgname>Natural Resources Canada</orgname>
@@ -41,17 +41,17 @@
 			</affiliation>
 		</othercredit>
 		<abstract>
-			<para>Ce document est un document de rÃ©fÃ©rence pour MapScript pour MapServer version 3.5.
+			<para>Ce document est un document de référence pour MapScript pour MapServer version 3.5.
     </para>
-			<para>DerniÃ¨re mise Ã  jour:  19/07/2001</para>
+			<para>Dernière mise à jour:  19/07/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
-		<title>RÃ©fÃ©rence MapScript</title>
-		<para> MapScript est l'interface de script pour MapServer. Il permet aux utilisateurs de construire plus facilement des applications personnalisÃ©es en dissimulant la complexitÃ© de l'API C derriÃ¨re une simple interface script orientÃ©e objet. MapScript existe actuellement comme un module <ulink href="http://www.perl.com/">Perl 5</ulink>, mais il pourrait aussi Ãªtre fait en <ulink url="http://www.tclconsortium.org">TK/TCL</ulink>, 
+		<title>Référence MapScript</title>
+		<para> MapScript est l'interface de script pour MapServer. Il permet aux utilisateurs de construire plus facilement des applications personnalisées en dissimulant la complexité de l'API C derrière une simple interface script orientée objet. MapScript existe actuellement comme un module <ulink href="http://www.perl.com/">Perl 5</ulink>, mais il pourrait aussi être fait en <ulink url="http://www.tclconsortium.org">TK/TCL</ulink>, 
     <ulink url="http://www.python.org">Python</ulink> et <ulink url="http://java.sun.com/">Java</ulink>.
     </para>
-		<para>L'organisation de MapScript est trÃ¨s proche de celle d'un <ulink url="mapfile-reference_fr.html">mapfile</ulink>. Il <emphasis>ne donne pas</emphasis> la fonctionnalitÃ© du programme CGI MapServer, au lieu de Ã§Ã  il fournit les Ã©lÃ©ments nÃ©cessaires pour construire vos propres versions personnalisÃ©es pour une utilisation sur le oueb ou comme des programmes autonomes. Voici un simple exemple perl qui charge un mapfile, crÃ©e une image et la sauvegarde.
+		<para>L'organisation de MapScript est très proche de celle d'un <ulink url="mapfile-reference_fr.html">mapfile</ulink>. Il <emphasis>ne donne pas</emphasis> la fonctionnalité du programme CGI MapServer, au lieu de çà il fournit les éléments nécessaires pour construire vos propres versions personnalisées pour une utilisation sur le oueb ou comme des programmes autonomes. Voici un simple exemple perl qui charge un mapfile, crée une image et la sauvegarde.
     </para>
 		<programlisting>
       #!/usr/bin/perl
@@ -81,16 +81,16 @@
 	<sect1 id="usage">
 		<title>Constantes</title>
 		<para>
-    Plusieurs paramÃ¨tres <ulink url="mapfile-reference.html">map file</ulink> emploient des valeurs constantes. Les constantes suivantes sont autorisÃ©es dans MapScript.
+    Plusieurs paramètres <ulink url="mapfile-reference.html">map file</ulink> emploient des valeurs constantes. Les constantes suivantes sont autorisées dans MapScript.
     </para>
 		<variablelist>
 			<varlistentry>
-				<term>valeurs boolÃ©ennes</term>
+				<term>valeurs booléennes</term>
 				<listitem><para>MS_TRUE, MS_FALSE, MS_ON, MS_OFF, MS_YES, MS_NO</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>unitÃ©s de carte</term>
+				<term>unités de carte</term>
 				<listitem><para>MS_INCHES, MS_FEET, MS_MILES, MS_METERS, MS_KILOMETERS, MS_DD</para>
 				</listitem>
 			</varlistentry>
@@ -100,12 +100,12 @@
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>types de police de caractÃ¨res</term>
+				<term>types de police de caractères</term>
 				<listitem><para>MS_TRUETYPE, MS_BITMAP</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>positions d'Ã©tiquette</term>
+				<term>positions d'étiquette</term>
 				<listitem><para>MS_UL, MS_LR, MS_UR, MS_LL, MS_CR, MS_CL, MS_UC, MS_LC, MS_CC, MS_AUTO</para>
 				</listitem>
 			</varlistentry>
@@ -120,7 +120,7 @@
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>types de requÃªte/jointure</term>
+				<term>types de requête/jointure</term>
 				<listitem><para>MS_SINGLE, MS_MULTIPLE</para>
 				</listitem>
 			</varlistentry>
@@ -133,69 +133,69 @@
 	<sect1 id="class">
 		<title>Classes/Objets</title>
 		<itemizedlist>
-			<title>L'accÃ¨s Ã  l'API MapServer se fait au moyen d'une sÃ©rie de classes. Ces classes permettent au programmeur de:</title>
+			<title>L'accès à l'API MapServer se fait au moyen d'une série de classes. Ces classes permettent au programmeur de:</title>
 			<listitem><para>manipuler virtuellement tous les aspects d'un <ulink url="mapfile-reference_fr.html">mapfile</ulink></para></listitem>
 			<listitem><para>dessiner toutes cartes, couches ou des fichiers individuels de formes</para></listitem>
-			<listitem><para>exÃ©cuter des requÃªtes gÃ©ographiques en utilisant des points, des zones ou d'autres fonctions</para></listitem>
-			<listitem><para>lire/Ã©crire des fichiers de formes</para></listitem>
+			<listitem><para>exécuter des requêtes géographiques en utilisant des points, des zones ou d'autres fonctions</para></listitem>
+			<listitem><para>lire/écrire des fichiers de formes</para></listitem>
 		</itemizedlist>
 		<para>
-    Les classes principales MapScript sont donnÃ©es dans le tableau suivant. Chaque classe est dÃ©crite en dÃ©tail ultÃ©rieurement dans ce document.
+    Les classes principales MapScript sont données dans le tableau suivant. Chaque classe est décrite en détail ultérieurement dans ce document.
     </para>
 		<variablelist>
 			<varlistentry>
 				<term>mapObj</term>
-				<listitem><para>gestion de tous les paramÃ¨tres <ulink url="mapfile-reference_fr.html">mapfile</ulink></para>
+				<listitem><para>gestion de tous les paramètres <ulink url="mapfile-reference_fr.html">mapfile</ulink></para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>layerObj</term>
-				<listitem><para>gestion de tous les paramÃ¨tres de couche, existe dans un mapObj</para>
+				<listitem><para>gestion de tous les paramètres de couche, existe dans un mapObj</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>classObj</term>
-				<listitem><para>gestion de tous les paramÃ¨tres de classe, existe dans un layerObj</para>
+				<listitem><para>gestion de tous les paramètres de classe, existe dans un layerObj</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>featureObj</term>
-				<listitem><para>gestion des attributs d'une seule fonction intÃ©grÃ©e, existe dans un layerObj</para>
+				<listitem><para>gestion des attributs d'une seule fonction intégrée, existe dans un layerObj</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>queryResultObj</term>
-				<listitem><para>gestion des rÃ©sultats d'une requÃªte gÃ©ographique (par point, zone ou fonction)</para>
+				<listitem><para>gestion des résultats d'une requête géographique (par point, zone ou fonction)</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>pointObj</term>
-				<listitem><para>simple classe pour gÃ©rer un point 2-D</para>
+				<listitem><para>simple classe pour gérer un point 2-D</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>lineObj</term>
-				<listitem><para>un lineObj est constituÃ© de pointObjs, peut ou non faire parti d'un anneau fermÃ©</para>
+				<listitem><para>un lineObj est constitué de pointObjs, peut ou non faire parti d'un anneau fermé</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>shapeObj</term>
-				<listitem><para>un shapeObj est constituÃ© de lineObjs</para>
+				<listitem><para>un shapeObj est constitué de lineObjs</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>rectObj</term>
-				<listitem><para>classe utilisÃ©e pour reprÃ©senter un rectangle 2-D, dÃ©fini en utilisant les coordonnÃ©es x et y minimum et maximum</para>
+				<listitem><para>classe utilisée pour représenter un rectangle 2-D, défini en utilisant les coordonnées x et y minimum et maximum</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>shapefileObj</term>
-				<listitem><para>classe utilisÃ©e pour l'accÃ¨s aux informations gÃ©ographiques (les fonctions) enregistrÃ©es dans un fichier <ulink url="http://www.esri.com">ESRI</ulink> de formes</para>
+				<listitem><para>classe utilisée pour l'accès aux informations géographiques (les fonctions) enregistrées dans un fichier <ulink url="http://www.esri.com">ESRI</ulink> de formes</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>labelCacheMemberObj</term>
-				<listitem><para>gestion d'un simple Ã©lÃ©ment depuis le cache d'Ã©tiquette</para>
+				<listitem><para>gestion d'un simple élément depuis le cache d'étiquette</para>
 				</listitem>
 			</varlistentry>
 		</variablelist>
@@ -205,25 +205,25 @@
 			<simplesect>
 				<title>Constructeur</title>
 				<para>
-          new mapObj(filename), par exemple <programlisting>$map = new mapObj('foo.map');</programlisting>. Si le nom de fichier n'est pas dÃ©fini un mapObj vide est crÃ©Ã© et initialisÃ©.
+          new mapObj(filename), par exemple <programlisting>$map = new mapObj('foo.map');</programlisting>. Si le nom de fichier n'est pas défini un mapObj vide est créé et initialisé.
         </para>
 			</simplesect>
 			<simplesect>
 				<title>Membres</title>
-				<para> Voyez la documentation <ulink url="mapfile-reference_fr.html">mapfile</ulink> pour une liste des paramÃ¨tres qui peuvent Ãªtre modifiÃ©s. Pour rÃ©cupÃ©rer/donner les paramÃ¨tres de couche vous aurez besoin d'utiliser les mÃ©thodes ci-aprÃ¨s. Il est possible d'accÃ©der individuellement Ã  un Ã©lÃ©ment pour les paramÃ¨tres constituÃ©s d'une liste (size par exemple) - voir ci-aprÃ¨s. Tous les noms de paramÃ¨tres sont en <emphasis>minuscules</emphasis>. Seuls les membres qui ne sont pas dÃ©crits dans la documentation mapfile seront dÃ©taillÃ©s pour chaque objet MapScript. Il n'y a pas d'objets dÃ©finissant les lÃ©gendes, cartes rÃ©fÃ©rence et barres d'Ã©chelle puisque tous leurs paramÃ¨tres sont accessibles via mapObj. Les ensembles de symboles et de polices de caractÃ¨res ne sont pas encore disponibles via MapScript.
+				<para> Voyez la documentation <ulink url="mapfile-reference_fr.html">mapfile</ulink> pour une liste des paramètres qui peuvent être modifiés. Pour récupérer/donner les paramètres de couche vous aurez besoin d'utiliser les méthodes ci-après. Il est possible d'accéder individuellement à un élément pour les paramètres constitués d'une liste (size par exemple) - voir ci-après. Tous les noms de paramètres sont en <emphasis>minuscules</emphasis>. Seuls les membres qui ne sont pas décrits dans la documentation mapfile seront détaillés pour chaque objet MapScript. Il n'y a pas d'objets définissant les légendes, cartes référence et barres d'échelle puisque tous leurs paramètres sont accessibles via mapObj. Les ensembles de symboles et de polices de caractères ne sont pas encore disponibles via MapScript.
       </para>
 				<itemizedlist>
 					<listitem><para>
-							<emphasis>size</emphasis> de carte, barre d'Ã©chelle et carte rÃ©fÃ©rence  utilise <varname>height</varname> (hauteur) et <varname>width</varname> (largeur) par exemple: $map-&gt;{scalebar}-&gt;{width} = 250;</para></listitem>
+							<emphasis>size</emphasis> de carte, barre d'échelle et carte référence  utilise <varname>height</varname> (hauteur) et <varname>width</varname> (largeur) par exemple: $map-&gt;{scalebar}-&gt;{width} = 250;</para></listitem>
 					<listitem><para> la zone de carte est un objet rectObj (voir plus loin)</para></listitem>
 					<listitem><para>
-							<emphasis>keysize</emphasis> de lÃ©gende utilise <varname>keysizex</varname> et <varname>keysizey</varname></para></listitem>
+							<emphasis>keysize</emphasis> de légende utilise <varname>keysizex</varname> et <varname>keysizey</varname></para></listitem>
 					<listitem><para>
-							<emphasis>keyspacing</emphasis> de lÃ©gende utilise <varname>keyspacingx</varname> et <varname>keyspacingy</varname></para></listitem>
+							<emphasis>keyspacing</emphasis> de légende utilise <varname>keyspacingx</varname> et <varname>keyspacingy</varname></para></listitem>
 					<listitem><para> numlayers - nombre de couches dans la carte, lecture seule</para></listitem>
 				</itemizedlist>
 				<para>
-      Voici quelques exemples illustrants l'accÃ¨s aux membres:
+      Voici quelques exemples illustrants l'accès aux membres:
       </para>
 				<programlisting>
         $map-&gt;{extent}-&gt;{minx} = $minx;
@@ -234,30 +234,30 @@
       </programlisting>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<simplelist type="vert" columns="1">
-					<member><replaceable>integer </replaceable><function>addColor(rouge, vert, bleu)</function> - Ajoute une couleur Ã  la palette des cartes, retourne un index de couleur. Les valeurs de couleur se situent dans la plage 0 Ã  255. Doit Ãªtre appelÃ© avant d'exÃ©cuter draw() ou prepareImage().</member>
+					<member><replaceable>integer </replaceable><function>addColor(rouge, vert, bleu)</function> - Ajoute une couleur à la palette des cartes, retourne un index de couleur. Les valeurs de couleur se situent dans la plage 0 à 255. Doit être appelé avant d'exécuter draw() ou prepareImage().</member>
 					<member><replaceable>image </replaceable><function>draw()</function> - restitue une carte, retourne une image.</member>
-					<member><replaceable>image </replaceable><function>drawQueryMap()</function> - restitue une carte de requÃªte, retourne une image.</member>
-					<member><replaceable>integer </replaceable><function>drawLabelCache(image)</function> - restitue les Ã©tiquettes d'une carte. C'est aussi effectuÃ© en tant que partie de la mÃ©thode draw(), mais peut avoir besoin d'Ãªtre appelÃ© pour l'utilisation d'autres mÃ©thodes de restitution d'objet. Retourne -1 en cas d'erreur.</member>
-					<member><replaceable>image </replaceable><function>drawLegend()</function> - restitue une lÃ©gende, retourne une image.</member>
-					<member><replaceable>image </replaceable><function>drawReferenceMap()</function> - restitue une carte rÃ©fÃ©rence, retourne une image.</member>
-					<member><replaceable>image </replaceable><function>drawScalebar()</function> - restitue une barre d'Ã©chelle, retourne une image.</member>
-					<member><replaceable>integer </replaceable><function>embedLegend()</function> - incruste une lÃ©gende. Actuellement la lÃ©gende est simplement ajoutÃ©e au cache d'Ã©tiquette aussi vous devez invoquer drawLabelCache()  pour effectuer la restitution (sauf si postlabelcache est utilisÃ©).</member>
-					<member><replaceable>integer </replaceable><function>embedScalebar()</function> - incruste une barre d'Ã©chelle. Actuellement la barre d'Ã©chelle est simplement ajoutÃ©e au cache d'Ã©tiquette aussi vous devez invoquer drawLabelCache()  pour effectuer la restitution (sauf si postlabelcache est utilisÃ©).</member>
-					<member><replaceable>layerObj </replaceable><function>getLayer(index)</function> - retourne un layerObj donnant une valeur d'index. 0 pour la premiÃ¨re couche. Le nombre total de couches d'un mapfile est dÃ©terminÃ© par $map-&gt;{numlayers}.</member>
-					<member><replaceable>layerObj </replaceable><function>getLayerByName(name)</function> - retourne un layerObj donnant un nom de couche. 0 pour la premiÃ¨re couche. Le nombre total de couches d'un mapfile est dÃ©terminÃ© par $map-&gt;{numlayers}. Si des couches multiples existent avec le mÃªme nom la premiÃ¨re occurence est retournÃ©e.</member>
-					<member><replaceable>integer </replaceable><function>getSymbolByName(type, name)</function> - retourne l'index de symbole pour un symbole de type MS_MARKERSET, MS_LINESET ou MS_SHADESET et de nom name. Retourne -1 si le symbole n'est pas trouvÃ©.</member>
-					<member><replaceable>labelCacheMemberObj </replaceable><function>nextLabel()</function> - vous permet de marquer la progression du cache d'Ã©tiquette. Une raison pour celÃ  serait de produire une image de carte basÃ©e sur l'annotation. Une autre serait de traiter une carte ultÃ©rieurement pour cacher le texte. Retourne une rÃ©fÃ©rence Ã  un labelCacheMemberObj.</member>
-					<member><replaceable>image </replaceable><function>prepareImage()</function> - initialise une image pour dessiner une carte, retourne une image. Doit Ãªtre appelÃ© avant d'appeler les mÃ©thodes de dessin pour les autres objets.</member>
-					<member><replaceable>queryResultObj </replaceable><function>queryByPoint(point, type, buffer)</function> - interroge un  mapfile (un groupe de couches) en utilisant un point. Le type est MS_SINGLE ou MS_MULTIPLE selon le nombre de rÃ©sultats souhaitÃ©. La tolÃ©rance par dÃ©faut est indiquÃ©e dans le mapfile mais peut utiliser Ã  la place une valeur tampon constante. Retourne un queryResultObj.</member>
+					<member><replaceable>image </replaceable><function>drawQueryMap()</function> - restitue une carte de requête, retourne une image.</member>
+					<member><replaceable>integer </replaceable><function>drawLabelCache(image)</function> - restitue les étiquettes d'une carte. C'est aussi effectué en tant que partie de la méthode draw(), mais peut avoir besoin d'être appelé pour l'utilisation d'autres méthodes de restitution d'objet. Retourne -1 en cas d'erreur.</member>
+					<member><replaceable>image </replaceable><function>drawLegend()</function> - restitue une légende, retourne une image.</member>
+					<member><replaceable>image </replaceable><function>drawReferenceMap()</function> - restitue une carte référence, retourne une image.</member>
+					<member><replaceable>image </replaceable><function>drawScalebar()</function> - restitue une barre d'échelle, retourne une image.</member>
+					<member><replaceable>integer </replaceable><function>embedLegend()</function> - incruste une légende. Actuellement la légende est simplement ajoutée au cache d'étiquette aussi vous devez invoquer drawLabelCache()  pour effectuer la restitution (sauf si postlabelcache est utilisé).</member>
+					<member><replaceable>integer </replaceable><function>embedScalebar()</function> - incruste une barre d'échelle. Actuellement la barre d'échelle est simplement ajoutée au cache d'étiquette aussi vous devez invoquer drawLabelCache()  pour effectuer la restitution (sauf si postlabelcache est utilisé).</member>
+					<member><replaceable>layerObj </replaceable><function>getLayer(index)</function> - retourne un layerObj donnant une valeur d'index. 0 pour la première couche. Le nombre total de couches d'un mapfile est déterminé par $map-&gt;{numlayers}.</member>
+					<member><replaceable>layerObj </replaceable><function>getLayerByName(name)</function> - retourne un layerObj donnant un nom de couche. 0 pour la première couche. Le nombre total de couches d'un mapfile est déterminé par $map-&gt;{numlayers}. Si des couches multiples existent avec le même nom la première occurence est retournée.</member>
+					<member><replaceable>integer </replaceable><function>getSymbolByName(type, name)</function> - retourne l'index de symbole pour un symbole de type MS_MARKERSET, MS_LINESET ou MS_SHADESET et de nom name. Retourne -1 si le symbole n'est pas trouvé.</member>
+					<member><replaceable>labelCacheMemberObj </replaceable><function>nextLabel()</function> - vous permet de marquer la progression du cache d'étiquette. Une raison pour celà serait de produire une image de carte basée sur l'annotation. Une autre serait de traiter une carte ultérieurement pour cacher le texte. Retourne une référence à un labelCacheMemberObj.</member>
+					<member><replaceable>image </replaceable><function>prepareImage()</function> - initialise une image pour dessiner une carte, retourne une image. Doit être appelé avant d'appeler les méthodes de dessin pour les autres objets.</member>
+					<member><replaceable>queryResultObj </replaceable><function>queryByPoint(point, type, buffer)</function> - interroge un  mapfile (un groupe de couches) en utilisant un point. Le type est MS_SINGLE ou MS_MULTIPLE selon le nombre de résultats souhaité. La tolérance par défaut est indiquée dans le mapfile mais peut utiliser à la place une valeur tampon constante. Retourne un queryResultObj.</member>
 					<member><replaceable>queryResultObj </replaceable><function>queryByRect(rect)</function> - interroge un mapfile (un groupe de couches) en utilisant un rectangle. Retourne un queryResultObj.</member>
-					<member><replaceable>queryResultObj </replaceable><function>queryByFeature(results)</function> - interroge un mapfile (un groupe de couches) en utilisant un autre ensemble de rÃ©sultats. Retourne un queryResultObj.</member>
-					<member><replaceable>integer </replaceable><function>save(filename)</function> - Ã©crit les contextes du mapfile sur le disque. Retourne -1 en cas d'erreur.</member>
-					<member><replaceable>integer </replaceable><function>setProjection(parameters)</function> - DÃ©termine la projection et le systÃ¨me de coordonnÃ©es pour la carte. Retourne -1 en cas d'erreur. Les paramÃ¨tres sont donnÃ©s sous forme d'une chaÃ®ne de caractÃ¨res dÃ©limitÃ©e conforme Ã  PROJ.4 . Par exemple, "proj=utm,ellps=GRS80,zone=15,north,no_defs".</member>
+					<member><replaceable>queryResultObj </replaceable><function>queryByFeature(results)</function> - interroge un mapfile (un groupe de couches) en utilisant un autre ensemble de résultats. Retourne un queryResultObj.</member>
+					<member><replaceable>integer </replaceable><function>save(filename)</function> - écrit les contextes du mapfile sur le disque. Retourne -1 en cas d'erreur.</member>
+					<member><replaceable>integer </replaceable><function>setProjection(parameters)</function> - Détermine la projection et le système de coordonnées pour la carte. Retourne -1 en cas d'erreur. Les paramètres sont donnés sous forme d'une chaîne de caractères délimitée conforme à PROJ.4 . Par exemple, "proj=utm,ellps=GRS80,zone=15,north,no_defs".</member>
 				</simplelist>
 				<para>    
-        Voici un exemple qui imprime la chaÃ®ne de caractÃ¨res et l'entourage de polygone(s) pour toutes les Ã©tiquettes dans le cache qui doivent Ãªtre dessinÃ©es:
+        Voici un exemple qui imprime la chaîne de caractères et l'entourage de polygone(s) pour toutes les étiquettes dans le cache qui doivent être dessinées:
 	</para>
 				<programlisting>
       while($label = $map-&gt;nextLabel()) {
@@ -284,22 +284,22 @@
 			<simplesect>
 				<title>Constructeur:</title>
 				<para>
-        new layerObj(map), par exemple <programlisting>$layer = new layerObj($map);</programlisting> Normalement vous obtenez un layerObj depuis une couche existante dans une carte, de toute faÃ§on, vous pouvez crÃ©er une nouvelle couche (dans une dÃ©finition mapObj).
+        new layerObj(map), par exemple <programlisting>$layer = new layerObj($map);</programlisting> Normalement vous obtenez un layerObj depuis une couche existante dans une carte, de toute façon, vous pouvez créer une nouvelle couche (dans une définition mapObj).
 	</para>
 			</simplesect>
 			<simplesect>
-				<title>Membres (voir la documentation <ulink url="mapfile-reference_fr.html">mapfile</ulink> pour une liste des paramÃ¨tres qui peuvent Ãªtre modifiÃ©s.)</title>
+				<title>Membres (voir la documentation <ulink url="mapfile-reference_fr.html">mapfile</ulink> pour une liste des paramètres qui peuvent être modifiés.)</title>
 				<para> numclasses - nombre de classes dans la couche, lecture seule</para>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes:</title>
+				<title>Méthodes:</title>
 				<simplelist type="vert" columns="1">
-					<member><replaceable>classObj </replaceable><function>getClass(index)</function> - retourne un classObj donnÃ© par une valeur d'index. 0 pour la premiÃ¨re classe. Le nombre total de classes dÃ©fini dans une classe est $class-&gt;{numclasses}.</member>
-					<member><replaceable>integer </replaceable><function>draw(map, image)</function> - dessine une seule couche et ajoute des Ã©tiquettes au cache si nÃ©cessaire. Retourne 0 en cas de succÃ¨s et -1 sinon.</member>
-					<member><replaceable>queryResultObj </replaceable><function>queryByPoint(map, point, type, buffer)</function> - interroge une seule couche en utilisant un point. Le type est MS_SINGLE ou MS_MULTIPLE  selon le nombre de rÃ©sultats souhaitÃ©s. La tolÃ©rance par dÃ©faut est indiquÃ©e dans le mapfile mais peut utiliser une zone tampon constante. Retourne un queryResultObj.</member>
+					<member><replaceable>classObj </replaceable><function>getClass(index)</function> - retourne un classObj donné par une valeur d'index. 0 pour la première classe. Le nombre total de classes défini dans une classe est $class-&gt;{numclasses}.</member>
+					<member><replaceable>integer </replaceable><function>draw(map, image)</function> - dessine une seule couche et ajoute des étiquettes au cache si nécessaire. Retourne 0 en cas de succès et -1 sinon.</member>
+					<member><replaceable>queryResultObj </replaceable><function>queryByPoint(map, point, type, buffer)</function> - interroge une seule couche en utilisant un point. Le type est MS_SINGLE ou MS_MULTIPLE  selon le nombre de résultats souhaités. La tolérance par défaut est indiquée dans le mapfile mais peut utiliser une zone tampon constante. Retourne un queryResultObj.</member>
 					<member><replaceable>queryResultObj </replaceable><function>queryByRect(map, rect)</function> - interroge une seule couche en utilisant un rectangle. Retourne un queryResultObj.</member>
-					<member><replaceable>queryResultObj </replaceable><function>queryByFeature(map, results)</function> - interroge une seule couche en utilisant un autre ensemble de rÃ©sultats. Retourne un queryResultObj.</member>
-					<member><replaceable>integer </replaceable><function>setProjection(parameters)</function> - Indique la projection et le systÃ¨me de coordonnÃ©es pour la carte. Retourne -1 en cas d'erreur. Les paramÃ¨tres sont donnÃ©s sous la forme d'une chaÃ®ne de caractÃ¨res dÃ©limitÃ©e conforme Ã  PROJ.4 . Par exemple, "proj=utm,ellps=GRS80,zone=15,north,no_defs".</member>
+					<member><replaceable>queryResultObj </replaceable><function>queryByFeature(map, results)</function> - interroge une seule couche en utilisant un autre ensemble de résultats. Retourne un queryResultObj.</member>
+					<member><replaceable>integer </replaceable><function>setProjection(parameters)</function> - Indique la projection et le système de coordonnées pour la carte. Retourne -1 en cas d'erreur. Les paramètres sont donnés sous la forme d'une chaîne de caractères délimitée conforme à PROJ.4 . Par exemple, "proj=utm,ellps=GRS80,zone=15,north,no_defs".</member>
 				</simplelist>
 			</simplesect>
 		</sect2>
@@ -314,10 +314,10 @@
 				</simplelist>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<simplelist type="vert" columns="1">
-					<member><replaceable>shapeResultObj </replaceable><function>next()</function> - retourne l'enregistrement rÃ©sultat suivant. Chauqe enreigstrement (shapeResultObj) contient 4 valeurs d'index: layer (numÃ©ro de couche), tile (toujours -1 pour l'instant), shape (numÃ©ro d'enregistrement), et query (numÃ©ro de requÃªte)</member>
-					<member><function>free()</function> - libÃ¨re la mÃ©moire associÃ©e avec ces rÃ©sultats. Puisqu'il n'y a pas de constructeur il n'y a pas non plus de destructeur vous devez appeler cette mÃ©thode ou laisser une fuite de mÃ©moire.</member>
+					<member><replaceable>shapeResultObj </replaceable><function>next()</function> - retourne l'enregistrement résultat suivant. Chauqe enreigstrement (shapeResultObj) contient 4 valeurs d'index: layer (numéro de couche), tile (toujours -1 pour l'instant), shape (numéro d'enregistrement), et query (numéro de requête)</member>
+					<member><function>free()</function> - libère la mémoire associée avec ces résultats. Puisqu'il n'y a pas de constructeur il n'y a pas non plus de destructeur vous devez appeler cette méthode ou laisser une fuite de mémoire.</member>
 				</simplelist>
 			</simplesect>
 		</sect2>
@@ -327,15 +327,15 @@
 			<simplesect>
 				<title>Constructeur</title>
 				<para>
-        new classObj(layer), par exemple $class = new classObj($layer);  - fournit tous les accÃ¨s pour tous les paramÃ¨tres de classe (couleur, symbole, Ã©tiquette, etc...). 
-	Normalement vous obtenez un classObj depuis une classe existante dans une couche, en tout Ã©tat de cause, vous pouvez crÃ©er une nouvelle classe (dans une dÃ©finition de couche).
+        new classObj(layer), par exemple $class = new classObj($layer);  - fournit tous les accès pour tous les paramètres de classe (couleur, symbole, étiquette, etc...). 
+	Normalement vous obtenez un classObj depuis une classe existante dans une couche, en tout état de cause, vous pouvez créer une nouvelle classe (dans une définition de couche).
 	</para>
 			</simplesect>
 			<simplesect>
-				<title>Membres (voir la documentation <ulink url="mapfile-reference_fr.html">mapfile</ulink> pour une liste des paramÃ¨tres qui peuvent Ãªtre modifiÃ©s.)</title>
+				<title>Membres (voir la documentation <ulink url="mapfile-reference_fr.html">mapfile</ulink> pour une liste des paramètres qui peuvent être modifiés.)</title>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<para>none</para>
 			</simplesect>
 		</sect2>
@@ -351,14 +351,14 @@
 			<simplesect>
 				<title>Membres</title>
 				<simplelist type="vert" columns="1">
-					<member> x - coordonnÃ©es x</member>
-					<member> y - coordonnÃ©es y</member>
+					<member> x - coordonnées x</member>
+					<member> y - coordonnées y</member>
 				</simplelist>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<simplelist type="vert" columns="1">
-					<member><replaceable>integer </replaceable><function>draw(map, layer, image, class, text)</function> - dessine un point unique en utilisant la couche. La classe chaine est utilisÃ©e pour classifier le point basÃ© sur les classes dÃ©finies pour la couche. La chaÃ®ne texte est utilisÃ©e pour annoter le point. Retourne 0 en cas de succÃ¨s et -1 sinon.
+					<member><replaceable>integer </replaceable><function>draw(map, layer, image, class, text)</function> - dessine un point unique en utilisant la couche. La classe chaine est utilisée pour classifier le point basé sur les classes définies pour la couche. La chaîne texte est utilisée pour annoter le point. Retourne 0 en cas de succès et -1 sinon.
 	  </member>
 				</simplelist>
 			</simplesect>
@@ -375,13 +375,13 @@
 			<simplesect>
 				<title>Membres</title>
 				<simplelist type="vert" columns="1">
-					<member>numlines - numÃ©ro des lignes (parties) dans cette forme, lecture seule</member>
+					<member>numlines - numéro des lignes (parties) dans cette forme, lecture seule</member>
 				</simplelist>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<simplelist type="vert" columns="1">
-					<member><function>add(point)</function> - ajoute un point Ã  la fin d'une ligne.</member>
+					<member><function>add(point)</function> - ajoute un point à la fin d'une ligne.</member>
 				</simplelist>
 			</simplesect>
 		</sect2>
@@ -394,22 +394,22 @@
          new shapeObj(type), par exemple <programlisting>$shape = new shapeObj($mapscript::MS_POLYGON);</programlisting>
 				</para>
 				<para>
-        Le type de paramÃ¨tre est juste un type gÃ©nÃ©ral utilisÃ© pour rendre MapScript moins volumineux. Avec Ã§a MapScript peut Ã©valuer plusieurs mÃ©thodes de comparaison (contient, intersection) sans avoir un nombre important de mÃ©thodes spÃ©cifiques. Le type n'est pas utilisÃ© d'une quelconque autre maniÃ¨re actuellement, aussi la plupart du temps une valeur de -1 devrait suffire. Les autres valeurs autorisÃ©es sont : MS_POINT, MS_LINE et MS_POLYGON. Les autres mÃ©thodes de crÃ©ation de forme (voir shapefileObj) renseignent ce paramÃ¨tre correctement.
+        Le type de paramètre est juste un type général utilisé pour rendre MapScript moins volumineux. Avec ça MapScript peut évaluer plusieurs méthodes de comparaison (contient, intersection) sans avoir un nombre important de méthodes spécifiques. Le type n'est pas utilisé d'une quelconque autre manière actuellement, aussi la plupart du temps une valeur de -1 devrait suffire. Les autres valeurs autorisées sont : MS_POINT, MS_LINE et MS_POLYGON. Les autres méthodes de création de forme (voir shapefileObj) renseignent ce paramètre correctement.
 	</para>
 			</simplesect>
 			<simplesect>
 				<title>Members</title>
 				<simplelist type="vert" columns="1">
-					<member> bounds - un rectObj contenant les pÃ©rimÃ¨tres de la forme, si disponible</member>
-					<member> numlines - numÃ©ro des lignes (parties) dans cette forme, lecture seule</member>
-					<member> type - type gÃ©nÃ©rique (MS_POINT, MS_LINE, MS_POLYGON) de cette forme</member>
+					<member> bounds - un rectObj contenant les périmètres de la forme, si disponible</member>
+					<member> numlines - numéro des lignes (parties) dans cette forme, lecture seule</member>
+					<member> type - type générique (MS_POINT, MS_LINE, MS_POLYGON) de cette forme</member>
 				</simplelist>
 			</simplesect>
 			<simplesect>
 				<title>Methods</title>
 				<simplelist type="vert" columns="1">
-					<member><function>add(line)</function> - ajoute une ligne Ã  la forme.</member>
-					<member><replaceable>integer </replaceable><function>draw(map, layer, image, class, text)</function> - dessine une forme individuelle en utilisant la couche. La classe de chaine est utilisÃ©e pour classifier le point basÃ© sur les classes dÃ©finies pour la couche. La chaine texte est utilisÃ©e pour annoter la forme. Retourne 0 en cas de succÃ¨s et -1 sinon.</member>
+					<member><function>add(line)</function> - ajoute une ligne à la forme.</member>
+					<member><replaceable>integer </replaceable><function>draw(map, layer, image, class, text)</function> - dessine une forme individuelle en utilisant la couche. La classe de chaine est utilisée pour classifier le point basé sur les classes définies pour la couche. La chaine texte est utilisée pour annoter la forme. Retourne 0 en cas de succès et -1 sinon.</member>
 				</simplelist>
 			</simplesect>
 		</sect2>
@@ -425,14 +425,14 @@
 			<simplesect>
 				<title>Membres</title>
 				<simplelist type="vert" columns="1">
-					<member>class - utilisÃ© pour classifier la fonction si des classes multiples sont dÃ©finies pour la couche</member>
-					<member>text - utilisÃ© pour annoter la fonction</member>
+					<member>class - utilisé pour classifier la fonction si des classes multiples sont définies pour la couche</member>
+					<member>text - utilisé pour annoter la fonction</member>
 				</simplelist>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<simplelist type="vert" columns="1">
-					<member><function>add(line)</function> - ajoute une ligne Ã  la fonction.</member>
+					<member><function>add(line)</function> - ajoute une ligne à la fonction.</member>
 				</simplelist>
 			</simplesect>
 		</sect2>
@@ -452,10 +452,10 @@
 				</simplelist>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<simplelist type="vert" columns="1">
-					<member><replaceable>integer </replaceable><function>draw(map, layer, image, class, text)</function> - dessine un rectangle individuel en utilisant la couche. La classe chaine est utilisÃ©e pour classifier le point basÃ© sur les classes pour la couche. La chaine texte est utilisÃ©e pour annoter le rectangle. Retourne 0 en cas de succÃ¨s et -1 sinon.</member>
-					<member><replaceable>double  </replaceable><function>fit(height, width)</function> - ajuste un rectangle (une zone) pour correspondre Ã  la taille image. Le  cellsize (taille de cellule) en pixels est retournÃ©.</member>
+					<member><replaceable>integer </replaceable><function>draw(map, layer, image, class, text)</function> - dessine un rectangle individuel en utilisant la couche. La classe chaine est utilisée pour classifier le point basé sur les classes pour la couche. La chaine texte est utilisée pour annoter le rectangle. Retourne 0 en cas de succès et -1 sinon.</member>
+					<member><replaceable>double  </replaceable><function>fit(height, width)</function> - ajuste un rectangle (une zone) pour correspondre à la taille image. Le  cellsize (taille de cellule) en pixels est retourné.</member>
 				</simplelist>
 			</simplesect>
 		</sect2>
@@ -465,19 +465,19 @@
 			<simplesect>
 				<title>Constructeur</title>
 				<para>
-        new shapefileObj(filename, type), par exemple <programlisting>$shapefile = new shapeObj('lakes');</programlisting> Aucune extension n'est nÃ©cessaire. Pour les fichiers existant le type devrait Ãªtre Ã  -1, pour crÃ©er un fichier vide le type devrait Ãªtre Ã  l'une des valeurs: MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON, ou MS_SHP_MULTIPOINT. Pour fermer un fichier de formes dans lequel vous avez Ã©crit vous devez supprimer la dÃ©finition de la rÃ©fÃ©rence perl (par exemple undef $shapefile; ou $shapefile = '';).
+        new shapefileObj(filename, type), par exemple <programlisting>$shapefile = new shapeObj('lakes');</programlisting> Aucune extension n'est nécessaire. Pour les fichiers existant le type devrait être à -1, pour créer un fichier vide le type devrait être à l'une des valeurs: MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON, ou MS_SHP_MULTIPOINT. Pour fermer un fichier de formes dans lequel vous avez écrit vous devez supprimer la définition de la référence perl (par exemple undef $shapefile; ou $shapefile = '';).
 	</para>
 			</simplesect>
 			<simplesect>
 				<title>Membres</title>
 				<simplelist type="vert" columns="1">
-					<member>numshapes - numÃ©mro des formes dans le fichier de formes, lecture seule</member>
+					<member>numshapes - numémro des formes dans le fichier de formes, lecture seule</member>
 					<member>type - type du fichier de forme, lecture seule</member>
 					<member>bounds - un rectObj contenant les fichiers de forme de rectangle</member>
 				</simplelist>
 			</simplesect>
 			<simplesect>
-				<title>MÃ©thodes</title>
+				<title>Méthodes</title>
 				<simplelist type="vert" columns="1">
 					<member><function>get(index, shape)</function> - recherche une forme par son index.</member>
 					<member><function>getExtent(index, rect)</function> - recherche un forme rectangle par son index.</member>
@@ -489,11 +489,11 @@
 		<sect2>
 			<title>Fonctions diverses</title>
 			<para>
-        MapScript dispose de plusieurs fonctions diverses pour gÃ©rer l'image. Elles sont:
+        MapScript dispose de plusieurs fonctions diverses pour gérer l'image. Elles sont:
       </para>
 			<simplelist>
-				<member><function>msSaveImage(image, filename, transparent, interlace)</function> - sauvegarde une image dans un fichier. Ne dÃ©finissez pas un nom de fichier pour sauvegarder sur stdout. La transparence et l'entrelacement sont des valeurs boolÃ©ennes.</member>
-				<member><function>msFreeImage(image)</function> - libÃ¨re la mÃ©moire associÃ©e Ã  une image.</member>
+				<member><function>msSaveImage(image, filename, transparent, interlace)</function> - sauvegarde une image dans un fichier. Ne définissez pas un nom de fichier pour sauvegarder sur stdout. La transparence et l'entrelacement sont des valeurs booléennes.</member>
+				<member><function>msFreeImage(image)</function> - libère la mémoire associée à une image.</member>
 			</simplelist>
 		</sect2>
 	</sect1>

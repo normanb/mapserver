@@ -1,6 +1,5 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
 	<articleinfo>
@@ -44,45 +43,45 @@
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
-         Ce document dÃ©crit les procÃ©dures pour obtenir, compiler et installer le module PHP/Mapscript Module pour Mapserver.
+         Ce document décrit les procédures pour obtenir, compiler et installer le module PHP/Mapscript Module pour Mapserver.
       </para>
-			<para>DerniÃ¨re mise Ã  jour: 11/06/2001</para>
+			<para>Dernière mise à jour: 11/06/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-			Le module PHP/MapScript est un module PHP chargeable dynamiquement qui rend disponible l'accÃ¨s aux fonctions et classes de <ulink url="mapscript_fr.html">MapScript de MapServer</ulink> dans un environnement PHP3/PHP4. 		
+			Le module PHP/MapScript est un module PHP chargeable dynamiquement qui rend disponible l'accès aux fonctions et classes de <ulink url="mapscript_fr.html">MapScript de MapServer</ulink> dans un environnement PHP3/PHP4. 		
           </para>
 		<para>
-			La version d'origine de MapScript (en Perl) utilise <ulink url="http://www.swig.org/">SWIG</ulink>, mais puisque SWIG ne reconnaÃ®t pas le langage PHP, le module a Ã©tÃ© maintenu sÃ©parÃ©ment et n'est pas synchrone avec la version Perl. 
+			La version d'origine de MapScript (en Perl) utilise <ulink url="http://www.swig.org/">SWIG</ulink>, mais puisque SWIG ne reconnaît pas le langage PHP, le module a été maintenu séparément et n'est pas synchrone avec la version Perl. 
           </para>
 		<para>
-			Le module PHP a Ã©tÃ© dÃ©veloppÃ© et est actuellement maintenu par <ulink url="http://www.dmsolutions.ca/">DM Solutions Group</ulink>. 
+			Le module PHP a été développé et est actuellement maintenu par <ulink url="http://www.dmsolutions.ca/">DM Solutions Group</ulink>. 
           </para>
 		<para>
-             Ce document considÃ¨re que vous Ãªtes familier de certains aspects de votre systÃ¨me d'exploitation:
+             Ce document considère que vous êtes familier de certains aspects de votre système d'exploitation:
           </para>
 		<itemizedlist>
 			<listitem>
 				<para>
-                    	Pour les utilisateurs Unix/Linux, une connaissance de l'environnement de dÃ©veloppement, en particulier 'make'.
+                    	Pour les utilisateurs Unix/Linux, une connaissance de l'environnement de développement, en particulier 'make'.
                 </para>
 			</listitem>
 			<listitem>
 				<para>
-					Pour les utilisateurs Windows, une certaine dextÃ©ritÃ© pour la compilation si vous n'avez pas eu accÃ¨s Ã  une version prÃ©compilÃ©e. Vous aurez donc Ã  compiler votre propre exemplaire de MapServer avec son module PHP/Mapscript.
+					Pour les utilisateurs Windows, une certaine dextérité pour la compilation si vous n'avez pas eu accès à une version précompilée. Vous aurez donc à compiler votre propre exemplaire de MapServer avec son module PHP/Mapscript.
 				</para>
 			</listitem>
 		</itemizedlist>
 		<!-- Section2: Which version -->
 		<sect2 id="version">
-			<title>Quelle est la version de PHP Ã  utiliser?</title>
+			<title>Quelle est la version de PHP à utiliser?</title>
 			<para>
-				Le module a Ã©tÃ© dÃ©veloppÃ© Ã  l'origine pour PHP-3.0.14 et fonctionne avec les versions rÃ©centes de PHP3. Il est aussi portÃ© sous PHP4: l'utilisation de PHP4 a commencÃ© avec la version 3.4 de MapServer.
+				Le module a été développé à l'origine pour PHP-3.0.14 et fonctionne avec les versions récentes de PHP3. Il est aussi porté sous PHP4: l'utilisation de PHP4 a commencé avec la version 3.4 de MapServer.
 			</para>
 			<para>    
-				Notez qu'un PHP MapScript compilÃ© pour PHP3 ne fonctionnera pas avec PHP4 et vice-versa. Le script de configuration de MapServer dÃ©tectera automatiquement quelle version de PHP vous tentez d'utiliser pour la construction et prendra toutes les dispositions utiles. 
+				Notez qu'un PHP MapScript compilé pour PHP3 ne fonctionnera pas avec PHP4 et vice-versa. Le script de configuration de MapServer détectera automatiquement quelle version de PHP vous tentez d'utiliser pour la construction et prendra toutes les dispositions utiles. 
 			</para>
 			<para>
 				Les meilleures combinaisons des versions de Mapscript et PHP sont:
@@ -111,7 +110,7 @@
 				</listitem>
 				<listitem>
 					<para>
-		            Les questions concernant le module peuvent Ãªtre adressÃ©es Ã  la <ulink url="support_fr.html">liste de diffusion Mapserver</ulink>. NdT : ATTENTION cette liste de diffusion est anglophone, avec un peu de chance si vous posez votre question en franÃ§ais un francophone pourra vous rÃ©pondre, le plus souvent ce ne sera pas le cas; aussi je vous recommande de vous exprimer en anglais sur cette liste, mÃªme si c'est un anglais approximatif, vous ne serez jamais ridicule.
+		            Les questions concernant le module peuvent être adressées à la <ulink url="support_fr.html">liste de diffusion Mapserver</ulink>. NdT : ATTENTION cette liste de diffusion est anglophone, avec un peu de chance si vous posez votre question en français un francophone pourra vous répondre, le plus souvent ce ne sera pas le cas; aussi je vous recommande de vous exprimer en anglais sur cette liste, même si c'est un anglais approximatif, vous ne serez jamais ridicule.
 			</para>
 				</listitem>
 			</itemizedlist>
@@ -121,28 +120,28 @@
 	<sect1 id="obtain">
 		<title>Obtenir, compiler et installer PHP et le module PHP/Mascript</title>
 		<sect2 id="download">
-			<title>TÃ©lÃ©charger PHP et PHP/Mapscript</title>
+			<title>Télécharger PHP et PHP/Mapscript</title>
 			<itemizedlist>
 				<listitem>
 					<para>
-					   Les sources PHP ou les binaires Win32 peuvent Ãªtre obtenus depuis le site officiel PHP Ã  l'URL <ulink url="http://www.php.net/">http://www.php.net/</ulink>.
+					   Les sources PHP ou les binaires Win32 peuvent être obtenus depuis le site officiel PHP à l'URL <ulink url="http://www.php.net/">http://www.php.net/</ulink>.
 					</para>
 				</listitem>
 				<listitem>
 					<para>
-					  AprÃ¨s avoir vÃ©rifiÃ© que PHP est installÃ© et qu'il fonctionne, vous avez Ã  vous procurer la derniÃ¨re version des sources de MapServer (voir <ulink url="http://mapserver.gis.umn.edu/dload.html"> http://mapserver.gis.umn.edu/dload.html</ulink>) et Ã  compiler MapServer et le module PHP. 
+					  Après avoir vérifié que PHP est installé et qu'il fonctionne, vous avez à vous procurer la dernière version des sources de MapServer (voir <ulink url="http://mapserver.gis.umn.edu/dload.html"> http://mapserver.gis.umn.edu/dload.html</ulink>) et à compiler MapServer et le module PHP. 
 				    </para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 		<sect2 id="server">
-			<title>ParamÃ©trer PHP sur votre serveur</title>
+			<title>Paramétrer PHP sur votre serveur</title>
 			<sect3 id="unix">
 				<title>Unix</title>
 				<itemizedlist>
 					<listitem>
 						<para>
-							VÃ©rifiez que PHP est dÃ©jÃ  installÃ© (disponible avec la quasi totalitÃ© des distributions Linux).
+							Vérifiez que PHP est déjà installé (disponible avec la quasi totalité des distributions Linux).
 						</para>
 					</listitem>
 					<listitem>
@@ -157,12 +156,12 @@
 				<itemizedlist>
 					<listitem>
 						<para>
-						 	L'URL <ulink url="http://sourceforge.net/projects/foxserv/">SourceForge project FoxServ</ulink> vous procurera une installation simple pour Windows contenant les rÃ©centes versions de Apache, MySQL, et PHP; de toute faÃ§on, au moment de la derniÃ¨re mise Ã  jour de ce HOWTO il apparaÃ®t que le projet FoxServ semble abandonnÃ©, aussi l'installation de FoxServ est donc dÃ©passÃ©e lorsque vous la tÃ©lÃ©chargerez. NdT : essayez donc de rÃ©cupÃ©rer EasyPHP qui intÃ¨gre les mÃªmes Ã©lÃ©ments (non testÃ© en totalitÃ©).
+						 	L'URL <ulink url="http://sourceforge.net/projects/foxserv/">SourceForge project FoxServ</ulink> vous procurera une installation simple pour Windows contenant les récentes versions de Apache, MySQL, et PHP; de toute façon, au moment de la dernière mise à jour de ce HOWTO il apparaît que le projet FoxServ semble abandonné, aussi l'installation de FoxServ est donc dépassée lorsque vous la téléchargerez. NdT : essayez donc de récupérer EasyPHP qui intègre les mêmes éléments (non testé en totalité).
 						</para>
 					</listitem>
 					<listitem>
 						<para>
-					    Les utilisateurs Windows doivent suivre les Ã©tapes 1 Ã  9 du document <ulink url="http://www.net-language.com/workshops/Default.asp?workshop=21">Installing Apache, PHP4 and MySQL on Win98</ulink> pour installer manuellement Apache et PHP4 sur leur systÃ¨me.
+					    Les utilisateurs Windows doivent suivre les étapes 1 à 9 du document <ulink url="http://www.net-language.com/workshops/Default.asp?workshop=21">Installing Apache, PHP4 and MySQL on Win98</ulink> pour installer manuellement Apache et PHP4 sur leur système.
 					</para>
 					</listitem>
 					<listitem>
@@ -172,7 +171,7 @@
 						<itemizedlist>
 							<listitem>
 								<para>
-									<ulink url="http://www.php.net/manual/en/install.iis.php">Php.net's</ulink> howto pour installer PHP pour PWS/IIS 3, PWS 4 ou plus rÃ©cent, et IIS 4 ou plus rÃ©cent. 
+									<ulink url="http://www.php.net/manual/en/install.iis.php">Php.net's</ulink> howto pour installer PHP pour PWS/IIS 3, PWS 4 ou plus récent, et IIS 4 ou plus récent. 
 								</para>
 							</listitem>
 							<listitem>
@@ -185,7 +184,7 @@
 					</listitem>
 				</itemizedlist>
 				<note>
-					<para>Pour le paramÃ©trage de PHP sur Windows, assurez-vous que PHP est configurÃ© comme un CGI et non comme un module Apache parce que <filename>php4_mapscript.dll</filename> n'est pas thread-safe et ne fonctionne pas comme un module Apache (voir <link linkend="example">"Example Steps of a Full Windows Installation"</link>).
+					<para>Pour le paramétrage de PHP sur Windows, assurez-vous que PHP est configuré comme un CGI et non comme un module Apache parce que <filename>php4_mapscript.dll</filename> n'est pas thread-safe et ne fonctionne pas comme un module Apache (voir <link linkend="example">"Example Steps of a Full Windows Installation"</link>).
 					</para>
 				</note>
 			</sect3>
@@ -200,21 +199,21 @@
 				<para>
 					<itemizedlist>
 						<listitem>
-							<para>Le script principal de configuration de MapServer paramÃ¨trera automatiquement le makefile pour compiler <filename>php_mapscript.so</filename> si vous donnez l'argument <parameter>--with-php=DIR</parameter> Ã  ce script.
+							<para>Le script principal de configuration de MapServer paramètrera automatiquement le makefile pour compiler <filename>php_mapscript.so</filename> si vous donnez l'argument <parameter>--with-php=DIR</parameter> à ce script.
 				                    </para>
 						</listitem>
 						<listitem>
-							<para>Copiez la bibliothÃ¨que <filename>php_mapscript.so</filename> dans votre rÃ©pertoire d'extensions PHP, et ensuite utilisez la fonction <function>dl()</function> pour charger le module au dÃ©but de vos scripts PHP.  Voyez aussi la fonction PHP <ulink url="http://www.php.net/manual/en/function.extension-loaded.php">
+							<para>Copiez la bibliothèque <filename>php_mapscript.so</filename> dans votre répertoire d'extensions PHP, et ensuite utilisez la fonction <function>dl()</function> pour charger le module au début de vos scripts PHP.  Voyez aussi la fonction PHP <ulink url="http://www.php.net/manual/en/function.extension-loaded.php">
 									<function>extension_loaded()</function>
-								</ulink> pour  vÃ©rifier que l'extension est correctement chargÃ©e.
+								</ulink> pour  vérifier que l'extension est correctement chargée.
 				        </para>
 						</listitem>
 						<listitem>
-							<para>Le fichier <filename>mapscript/php3/examples/phpinfo_mapscript.phtml</filename> testera que le module php_mapscript est correctement installÃ© et peut Ãªtre chargÃ©.
+							<para>Le fichier <filename>mapscript/php3/examples/phpinfo_mapscript.phtml</filename> testera que le module php_mapscript est correctement installé et peut être chargé.
 				           </para>
 						</listitem>
 						<listitem>
-							<para>Si vous obtenez une erreur de PHP indiquant qu'il est impossible de charger la bibliothÃ¨que, assurez vous que vous avez bien recompilÃ© et rÃ©installÃ© PHP avec l'option de bibliothÃ¨ques dynamiques.  Pour RedHat 5.x et 6.x, celÃ  signifie qu'il faut ajouter "-rdynamic" au CLDFLAGS dans le makefile principal PHP3 aprÃ¨s exÃ©cution de ./configure. De mÃªme assurez vous que tous les rÃ©pertoires du chemin pour la localisation du php_mapscript.so sont au moins r-x pour l'utilisateur pour le compte duquel le serveur HTTP est exÃ©cutÃ© (habituellement 'nobody'), sinon dl() peut se lamenter qu'il ne trouve pas le fichier mÃªme s'il est lÃ .
+							<para>Si vous obtenez une erreur de PHP indiquant qu'il est impossible de charger la bibliothèque, assurez vous que vous avez bien recompilé et réinstallé PHP avec l'option de bibliothèques dynamiques.  Pour RedHat 5.x et 6.x, celà signifie qu'il faut ajouter "-rdynamic" au CLDFLAGS dans le makefile principal PHP3 après exécution de ./configure. De même assurez vous que tous les répertoires du chemin pour la localisation du php_mapscript.so sont au moins r-x pour l'utilisateur pour le compte duquel le serveur HTTP est exécuté (habituellement 'nobody'), sinon dl() peut se lamenter qu'il ne trouve pas le fichier même s'il est là.
 				        </para>
 						</listitem>
 					</itemizedlist>
@@ -224,7 +223,7 @@
 				<title>Construire pour Windows</title>
 				<itemizedlist>
 					<listitem>
-						<para>Pour les utilisateurs Windows, il est recommandÃ© de se procurer une version PHP prÃ©compilÃ©e sur le site MapServer Ã  <ulink url="http://mapserver.gis.umn.edu/win32binaries.html">http://mapserver.gis.umn.edu/win32binaries.html</ulink> ou sur le site de DM Solutions Ã 
+						<para>Pour les utilisateurs Windows, il est recommandé de se procurer une version PHP précompilée sur le site MapServer à <ulink url="http://mapserver.gis.umn.edu/win32binaries.html">http://mapserver.gis.umn.edu/win32binaries.html</ulink> ou sur le site de DM Solutions à
 <ulink url="http://www2.dmsolutions.ca/mapserver/dl/">http://www2.dmsolutions.ca/mapserver/dl/</ulink>
 						</para>
 						<para>Si, pour une raison ou une autre, vous avez besoin de compiler votre propre binaire pour Windows reportez vous au fichier README.WIN32 et... que la force soit avec vous!
@@ -237,17 +236,17 @@
 			<title>Installer PHP/Mapscript</title>
 			<itemizedlist>
 				<listitem>
-					<para>Copiez simplement le fichier <filename>php4_mapscript.dll</filename> dans votre rÃ©pertoire PHP3/PHP4</para>
-					<para>Pour PHP4, placez le fichier dans le sous-rÃ©pertoire <emphasis>pathto/php/extensions</emphasis>.
+					<para>Copiez simplement le fichier <filename>php4_mapscript.dll</filename> dans votre répertoire PHP3/PHP4</para>
+					<para>Pour PHP4, placez le fichier dans le sous-répertoire <emphasis>pathto/php/extensions</emphasis>.
 					</para>
-					<para>Pour PHP3, placez le fichier dans le sous-rÃ©pertoire <emphasis>pathto/php3</emphasis>.
+					<para>Pour PHP3, placez le fichier dans le sous-répertoire <emphasis>pathto/php3</emphasis>.
 					</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 		<sect2 id="verify">
 			<title>Utilisation de phpinfo()</title>
-			<para>Pour vÃ©rifier que PHP et PHP/Mapscript sont bien installÃ©s, crÃ©ez un fichier '.php' contenant le code suivant et essayez d'y accÃ©der via votre serveur HTTP:
+			<para>Pour vérifier que PHP et PHP/Mapscript sont bien installés, créez un fichier '.php' contenant le code suivant et essayez d'y accéder via votre serveur HTTP:
 			</para>
 			<programlisting>
     &lt;HTML&gt;
@@ -268,24 +267,24 @@
    &lt;/BODY&gt;
    &lt;/HTML&gt;
 			</programlisting>
-			<para>Si PHP et PHP/Mapscript sont installÃ©s correctement, plusieurs tables devraient s'afficher sur votre navigateur, et 'Mapscript' devrait se trouver dans la table 'Extensions'.
+			<para>Si PHP et PHP/Mapscript sont installés correctement, plusieurs tables devraient s'afficher sur votre navigateur, et 'Mapscript' devrait se trouver dans la table 'Extensions'.
 			</para>
 		</sect2>
 		<sect2 id="example">
-			<title>Exemple pour une installation Windows complÃ¨te</title>
+			<title>Exemple pour une installation Windows complète</title>
 			<sect3 id="foxserv">
 				<title>En utilisant le projet Project FoxServ de SourceForge</title>
 				<orderedlist numeration="lowerroman">
 					<listitem>
-						<para>TÃ©lÃ©chargez <ulink url="http://sourceforge.net/projects/foxserv/">FoxServ</ulink> et double-cliquez sur le fichier exe pour commencer l'installation.		
+						<para>Téléchargez <ulink url="http://sourceforge.net/projects/foxserv/">FoxServ</ulink> et double-cliquez sur le fichier exe pour commencer l'installation.		
 						</para>
 						<note>
-							<para>FoxServ devrait Ãªtre installÃ© dans le rÃ©pertoire racine(c:/FoxServ) de maniÃ¨re Ã  ce que Apache fonctionne correctement.
+							<para>FoxServ devrait être installé dans le répertoire racine(c:/FoxServ) de manière à ce que Apache fonctionne correctement.
 							</para>
 						</note>
 					</listitem>
 					<listitem>
-						<para>Renseignez l'adresse mel et le nom de l'hÃ´te, comme suit:					
+						<para>Renseignez l'adresse mel et le nom de l'hôte, comme suit:					
 						</para>
 						<programlisting>
     email: your_company.com
@@ -293,34 +292,34 @@
 						</programlisting>
 					</listitem>
 					<listitem>
-						<para>AprÃ¨s installation, lancez Apache, ouvrez votre navigateur et mettez <ulink url="http://127.0.0.1/">http://127.0.0.1/</ulink> dans l'adresse URL. Vous devriez voir une page FoxServ avec la date et quelques autres informations en haut Ã  droite si Apache et PHP ont Ã©tÃ© correctement installÃ©s.
+						<para>Après installation, lancez Apache, ouvrez votre navigateur et mettez <ulink url="http://127.0.0.1/">http://127.0.0.1/</ulink> dans l'adresse URL. Vous devriez voir une page FoxServ avec la date et quelques autres informations en haut à droite si Apache et PHP ont été correctement installés.
 						</para>
 					</listitem>
 					<listitem>
-						<para>CrÃ©ez un rÃ©pertoire temporaire pour stocker les images GIF crÃ©Ã©es par MapServer.
-							<emphasis>NOTE: Ce rÃ©pertoire est spÃ©cifiÃ© dans le paramÃ¨tre IMAGEPATH de l'objet WEB dans le fichier <ulink url="mapfile-reference_fr.html">MapFile</ulink>
-							</emphasis>. Pour cet exemple nous appellerons ce rÃ©pertoire â€œms_tmpâ€ (par exemple E:/tmp/ms_tmp).
+						<para>Créez un répertoire temporaire pour stocker les images GIF créées par MapServer.
+							<emphasis>NOTE: Ce répertoire est spécifié dans le paramètre IMAGEPATH de l'objet WEB dans le fichier <ulink url="mapfile-reference_fr.html">MapFile</ulink>
+							</emphasis>. Pour cet exemple nous appellerons ce répertoire “ms_tmp” (par exemple E:/tmp/ms_tmp).
 						</para>
 					</listitem>
 					<listitem>
-						<para>Cherchez le fichier â€˜httpd.confâ€™ dans le rÃ©pertoire â€˜confâ€™ de Apache, et ouvrez le dans un Ã©diteur de texte (comme TextPad, Emacs, Notepad).
+						<para>Cherchez le fichier ‘httpd.conf’ dans le répertoire ‘conf’ de Apache, et ouvrez le dans un éditeur de texte (comme TextPad, Emacs, Notepad).
 						</para>
-						<para>Pour paramÃ©trer PHP comme un CGI et non comme un module Apache, commentez la ligne suivante:
+						<para>Pour paramétrer PHP comme un CGI et non comme un module Apache, commentez la ligne suivante:
 						</para>
 						<programlisting>
     LoadModule php4_module pathto/FoxServ/php/sapi/php4apache.dll
 						</programlisting>
-						<para>Dans la section â€œActionâ€ de ce fichier, ajoutez une action pour le fichier php.exe:
+						<para>Dans la section “Action” de ce fichier, ajoutez une action pour le fichier php.exe:
 						</para>
 						<programlisting>
     Action application/x-httpd-php "/cgi-php/php.exe"				
 						</programlisting>
-						<para>Dans la section â€œScriptAliasâ€ de ce fichier, ajoutez un alias pour le rÃ©pertoire PHP:
+						<para>Dans la section “ScriptAlias” de ce fichier, ajoutez un alias pour le répertoire PHP:
 						</para>
 						<programlisting>
     ScriptAlias /cgi-php/ "pathto/FoxServ/php/"				
 						</programlisting>
-						<para>Dans la section â€œAliasâ€ de ce fichier, ajoutez des alias pour le rÃ©pertoire ms_tmp et tout autre rÃ©pertoire nÃ©cessaire (pour cet exemple nous utiliserons le rÃ©pertoire â€œmsappsâ€):
+						<para>Dans la section “Alias” de ce fichier, ajoutez des alias pour le répertoire ms_tmp et tout autre répertoire nécessaire (pour cet exemple nous utiliserons le répertoire “msapps”):
 						</para>
 						<programlisting>
     Alias   /ms_tmp/  "path/to/ms_tmp/"
@@ -328,11 +327,11 @@
 						</programlisting>
 					</listitem>
 					<listitem>
-						<para>Placez le fichier <filename>php_mapscript.dll</filename> dans votre rÃ©pertoire <emphasis>FoxServ/php/extensions</emphasis>.	
+						<para>Placez le fichier <filename>php_mapscript.dll</filename> dans votre répertoire <emphasis>FoxServ/php/extensions</emphasis>.	
 					</para>
 					</listitem>
 					<listitem>
-						<para>Pour vÃ©rifier que PHP et PHP/Mapscript sont correctement installÃ©s, crÃ©ez un fichier '.php' contenant le code suivant et essayez d'y accÃ©der via votre serveur HTTP:							</para>
+						<para>Pour vérifier que PHP et PHP/Mapscript sont correctement installés, créez un fichier '.php' contenant le code suivant et essayez d'y accéder via votre serveur HTTP:							</para>
 						<programlisting>
     &lt;HTML&gt;
     &lt;BODY&gt;
@@ -345,7 +344,7 @@
    &lt;/BODY&gt;
    &lt;/HTML&gt;
 			</programlisting>
-						<para>Si PHP et PHP/Mapscript sont bien installÃ©s, plusieurs tableaux devraient Ãªtre affichÃ©s sur votre page, et une section Mapscript devrait apparaÃ®tre, semblable Ã :			
+						<para>Si PHP et PHP/Mapscript sont bien installés, plusieurs tableaux devraient être affichés sur votre page, et une section Mapscript devrait apparaître, semblable à:			
 			</para>
 						<programlisting>
     Mapscript:
@@ -359,54 +358,54 @@
 				<title>Installation manuelle en utilisant le serveur Apache</title>
 				<orderedlist numeration="lowerroman">
 					<listitem>
-						<para>TÃ©lÃ©chargez le <ulink url="http://httpd.apache.org/">Apache Web Server</ulink> et extrayez le dans un rÃ©pertoire (par exemple D:/Apache).
+						<para>Téléchargez le <ulink url="http://httpd.apache.org/">Apache Web Server</ulink> et extrayez le dans un répertoire (par exemple D:/Apache).
 								</para>
 					</listitem>
 					<listitem>
-						<para>TÃ©lÃ©chargez <ulink url="http://www.php.net/">PHP4</ulink> et extrayez le dans votre rÃ©pertoire Apache (par exemple D:/Apache/PHP4).
+						<para>Téléchargez <ulink url="http://www.php.net/">PHP4</ulink> et extrayez le dans votre répertoire Apache (par exemple D:/Apache/PHP4).
 								</para>
 					</listitem>
 					<listitem>
-						<para>CrÃ©ez un rÃ©pertoire temporaire pour stocker les images GIF crÃ©Ã©es par MapServer.
-									<emphasis>NOTE: Ce rÃ©pertoire est spÃ©cifiÃ© dans le paramÃ¨tre IMAGEPATH de l'objet WEB dans le <ulink url="mapfile-reference_fr.html">MapFile</ulink>
-							</emphasis>. Pour cet exemple nous appellerons ce rÃ©pertoire temporaire  â€œms_tmpâ€ (par exemple E:/tmp/ms_tmp).
+						<para>Créez un répertoire temporaire pour stocker les images GIF créées par MapServer.
+									<emphasis>NOTE: Ce répertoire est spécifié dans le paramètre IMAGEPATH de l'objet WEB dans le <ulink url="mapfile-reference_fr.html">MapFile</ulink>
+							</emphasis>. Pour cet exemple nous appellerons ce répertoire temporaire  ms_tmp (par exemple E:/tmp/ms_tmp).
 								</para>
 					</listitem>
 					<listitem>
-						<para>Cherchez le fichier â€˜httpd.confâ€™ dans le rÃ©pertoire â€˜confâ€™ de Apache, et ouvrez le dans un Ã©diteur de texte (par exemple TextPad, Emacs, Notepad).
+						<para>Cherchez le fichier httpd.conf dans le répertoire conf de Apache, et ouvrez le dans un éditeur de texte (par exemple TextPad, Emacs, Notepad).
 								</para>
-						<para>Dans la section â€œAliasâ€ de ce fichier, ajoutez les alias vers le rÃ©pertoire ms_tmp folder et vers tout autre rÃ©pertoire nÃ©cessaire (pour cet exemple nous utiliserons le rÃ©pertoire â€œmsappsâ€):
+						<para>Dans la section Alias de ce fichier, ajoutez les alias vers le répertoire ms_tmp folder et vers tout autre répertoire nécessaire (pour cet exemple nous utiliserons le répertoire msapps):
 								</para>
 						<programlisting>
     Alias   /ms_tmp/   "path/to/ms_tmp/"
     Alias   /msapps/   "path/to/msapps/"
 						</programlisting>
-						<para>Dans la section â€œScriptAliasâ€ de ce fichier, ajoutez un alias pour le rÃ©pertoire PHP4.
+						<para>Dans la section ScriptAlias de ce fichier, ajoutez un alias pour le répertoire PHP4.
 								</para>
 						<programlisting>
     ScriptAlias    /cgi-php4/     "pathto/apache/php4/"						
 								</programlisting>
-						<para>Dans la section â€œAddTypeâ€ de ce fichier, ajoutez un type pour les fichiers php4.
+						<para>Dans la section AddType de ce fichier, ajoutez un type pour les fichiers php4.
 								</para>
 						<programlisting>
     AddType application/x-httpd-php4   .php
 								</programlisting>
-						<para>Dans la section â€œActionâ€ de ce fichier, ajoutez une action pour le fichier php.exe.
+						<para>Dans la section Action de ce fichier, ajoutez une action pour le fichier php.exe.
 								</para>
 						<programlisting>
     Action application/x-httpd-php4    "/cgi-php4/php.exe"						
 								</programlisting>
 					</listitem>
 					<listitem>
-						<para>Copiez le fichier â€˜php4.ini-distâ€™ se trouvant dans votre rÃ©pertoire Apache/php4 vers le rÃ©pertoire WindowsNT (par exemple c:/winnt), et renommez le en â€˜php.iniâ€™ dans le rÃ©pertoire WindowsNT.
+						<para>Copiez le fichier php4.ini-dist se trouvant dans votre répertoire Apache/php4 vers le répertoire WindowsNT (par exemple c:/winnt), et renommez le en ‘php.ini’ dans le répertoire WindowsNT.
 								</para>
 					</listitem>
 					<listitem>
-						<para>Si vous voulez que des extensions particuliÃ¨res soient chargÃ©es par dÃ©faut, ouvrez le fichier 'php.ini' dans un Ã©diteur de texte et enlevez la marque de commentaire pour l'extension souhaitÃ©e.
+						<para>Si vous voulez que des extensions particulières soient chargées par défaut, ouvrez le fichier 'php.ini' dans un éditeur de texte et enlevez la marque de commentaire pour l'extension souhaitée.
 								</para>
 					</listitem>
 					<listitem>
-						<para>Placez le fichier <filename>php_mapscript.dll</filename> dans votre rÃ©pertoire <emphasis>Apache/php4/extensions</emphasis>.
+						<para>Placez le fichier <filename>php_mapscript.dll</filename> dans votre répertoire <emphasis>Apache/php4/extensions</emphasis>.
 						</para>
 					</listitem>
 				</orderedlist>
@@ -471,7 +470,7 @@
 						<para>
 								     Create a temp directory in Explorer to store MapServer created GIFs.
 									<emphasis>NOTE: This directory is specified in the IMAGEPATH parameter of the WEB Object in the <ulink url="mapfile-reference_fr.html">MapFile</ulink>
-							</emphasis>. For this 										example we will call the temp directory â€œms_tmpâ€ (eg. C:\tmp\ms_tmp).
+							</emphasis>. For this 										example we will call the temp directory “ms_tmp” (eg. C:\tmp\ms_tmp).
 								</para>
 					</listitem>
 					<listitem>
@@ -481,7 +480,7 @@
 					</listitem>
 					<listitem>
 						<para>
-									Select the Default web site and create a virtual directory called â€˜ms_tmpâ€™ (right click, select 										New/Virtual directory). Set the path to the ms_tmp directory (eg. C:\tmp\ms_tmp) . The 										directory permissions should at least be set to Read/Write Access. 
+									Select the Default web site and create a virtual directory called ‘ms_tmp’ (right click, select 										New/Virtual directory). Set the path to the ms_tmp directory (eg. C:\tmp\ms_tmp) . The 										directory permissions should at least be set to Read/Write Access. 
 								</para>
 					</listitem>
 				</orderedlist>
@@ -502,22 +501,22 @@
 						</para>
 						</question>
 						<answer>
-							<para>La documentation principale de rÃ©fÃ©rence <ulink url="phpmapscript-class-guide_fr.html">PHP/Mapscript Class Reference Guide</ulink>, qui dÃ©crit toutes les classes, propriÃ©tÃ©s et mÃ©thodes associÃ©es au module PHP/Mapscript. 
+							<para>La documentation principale de référence <ulink url="phpmapscript-class-guide_fr.html">PHP/Mapscript Class Reference Guide</ulink>, qui décrit toutes les classes, propriétés et méthodes associées au module PHP/Mapscript. 
 							</para>
-							<para>Pour avoir une description complÃ¨te de chaque classe et des variables associÃ©es, voyez la documentation MapServer MapScript Ã : <ulink url="mapscript_fr.html">http://mapserver.gis.umn.edu/mapscript.html</ulink> et la documentation MapFile Ã : <ulink url="mapfile_fr.html">http://mapserver.gis.umn.edu/mapfile.html</ulink>.                   
+							<para>Pour avoir une description complète de chaque classe et des variables associées, voyez la documentation MapServer MapScript à: <ulink url="mapscript_fr.html">http://mapserver.gis.umn.edu/mapscript.html</ulink> et la documentation MapFile à: <ulink url="mapfile_fr.html">http://mapserver.gis.umn.edu/mapfile.html</ulink>.                   
 							</para>
 						</answer>
 					</qandaentry>
 					<qandaentry>
 						<question>
 							<para>
-							OÃ¹ puis-je trouver d'autres exemples de scripts?
+							Où puis-je trouver d'autres exemples de scripts?
 						</para>
 						</question>
 						<answer>
-							<para>Quelques exemples sont inclus dans le rÃ©pertoire  mapserver/mapscript/php3/examples/ dans les sources de MapServer. Le plus simple est de commencer avec le script 'test_draw_map.phtml': il est vraiment trÃ¨s simple et consiste Ã  dessiner une carte, une lÃ©gende et une barre d'Ã©chelle dans une page HTML. 
+							<para>Quelques exemples sont inclus dans le répertoire  mapserver/mapscript/php3/examples/ dans les sources de MapServer. Le plus simple est de commencer avec le script 'test_draw_map.phtml': il est vraiment très simple et consiste à dessiner une carte, une légende et une barre d'échelle dans une page HTML. 
 						</para>
-							<para>Malheureusement il n'y a pas d'intermÃ©diaire... avec l'exemple suivant qui est <ulink url="http://www2.dmsolutions.ca/gmap/gmap75.phtml">GMap demo</ulink>. Vous pouvez tÃ©lÃ©charger l'ensemble du source et des fichiers de donnÃ©es sur <ulink url="http://www2.dmsolutions.ca/mapserver/dl">http://www2.dmsolutions.ca/mapserver/dl</ulink>.
+							<para>Malheureusement il n'y a pas d'intermédiaire... avec l'exemple suivant qui est <ulink url="http://www2.dmsolutions.ca/gmap/gmap75.phtml">GMap demo</ulink>. Vous pouvez télécharger l'ensemble du source et des fichiers de données sur <ulink url="http://www2.dmsolutions.ca/mapserver/dl">http://www2.dmsolutions.ca/mapserver/dl</ulink>.
 						</para>
 						</answer>
 					</qandaentry>
@@ -526,83 +525,83 @@
 					<title>Questions au sujet de l'installation</title>
 					<qandaentry>
 						<question>
-							<para>Comment m'assurer que le module est bien installÃ© sur mon serveur? 
+							<para>Comment m'assurer que le module est bien installé sur mon serveur? 
 						</para>
 						</question>
 						<answer>
-							<para>PremiÃ¨rement, copiez la page de test PHP mapserver/mapscript/php3/examples/phpinfo_mapscript.phtml et essayez d'y accÃ©der via votre server HTTP. Si vous n'obtenez aucune erreur et que le module MapScript est montrÃ© en fin de liste des modules PHP suite au phpinfo(), alors c'est que le module est correctement installÃ©. 
+							<para>Premièrement, copiez la page de test PHP mapserver/mapscript/php3/examples/phpinfo_mapscript.phtml et essayez d'y accéder via votre server HTTP. Si vous n'obtenez aucune erreur et que le module MapScript est montré en fin de liste des modules PHP suite au phpinfo(), alors c'est que le module est correctement installé. 
 						</para>
-							<para>Vous pouvez essayer en second test la page mapserver/mapscript/php3/examples/test_draw_map.phtml. Cette page ouvre simplement un fichier .map dans  MapServer et inserre cette carte, lÃ©gende et barre d'Ã©chelle dans une page HTML. Modifiez cette page pour accÃ©der Ã  vos propres fichiers .map avec MapServer, et si vous obtenez le rÃ©sultat attendu alors c'est que tout fonctionne bien, probablement. 
+							<para>Vous pouvez essayer en second test la page mapserver/mapscript/php3/examples/test_draw_map.phtml. Cette page ouvre simplement un fichier .map dans  MapServer et inserre cette carte, légende et barre d'échelle dans une page HTML. Modifiez cette page pour accéder à vos propres fichiers .map avec MapServer, et si vous obtenez le résultat attendu alors c'est que tout fonctionne bien, probablement. 
 						</para>
 						</answer>
 					</qandaentry>
 					<qandaentry>
 						<question>
-							<para>J'essaye d'afficher ma page .phtml ou .php dans mon navigateur mais la page s'affiche comme si j'Ã©tais sous Notepad. 
+							<para>J'essaye d'afficher ma page .phtml ou .php dans mon navigateur mais la page s'affiche comme si j'étais sous Notepad. 
 						</para>
 						</question>
 						<answer>
-							<para>Le problÃ¨me est que votre installation PHP ne reconnaÃ®t pas ".phtml" comme une extension de fichier PHP.  VÃ©rifiez que vous utilisez bien  PHP4 sous Apache et que vous avez ajoutÃ© la ligne suivante, avec les autres lignes relatives aux types reconnus par PHP, dans le httpd.conf:
+							<para>Le problème est que votre installation PHP ne reconnaît pas ".phtml" comme une extension de fichier PHP.  Vérifiez que vous utilisez bien  PHP4 sous Apache et que vous avez ajouté la ligne suivante, avec les autres lignes relatives aux types reconnus par PHP, dans le httpd.conf:
 						</para>
 							<programlisting>
     AddType application/x-httpd-php .phtml 
 						</programlisting>
-							<para>Pour une explication dÃ©taillÃ©e voyez la partie <link linkend="example">"Exemple d'une installation complÃ¨te sous Windows"</link> de ce document.
+							<para>Pour une explication détaillée voyez la partie <link linkend="example">"Exemple d'une installation complète sous Windows"</link> de ce document.
 						</para>
 						</answer>
 					</qandaentry>
 					<qandaentry>
 						<question>
-							<para>J'ai compilÃ© php_mapscript.so sur une RedHat 6.2, il se charge normalement et est listÃ© par le phpinfo(), mais "Ã§a plante" dÃ¨s que j'essaye d'ouvrir un fichier .map. Qu'est-ce qui ne va pas? 
+							<para>J'ai compilé php_mapscript.so sur une RedHat 6.2, il se charge normalement et est listé par le phpinfo(), mais "ça plante" dès que j'essaye d'ouvrir un fichier .map. Qu'est-ce qui ne va pas? 
 						</para>
 						</question>
 						<answer>
-							<para>Sur RedHat 6.2, Apache est compilÃ© avec l'option -DEAPI qui apparemment a une incidence sur les modules DSO tel que libphp3.so. Je ne comprend pas ce que -DEAPI fait exactement, mais Ã§a a un impact sur la maniÃ¨re de compiler php_mapscript.so. 
+							<para>Sur RedHat 6.2, Apache est compilé avec l'option -DEAPI qui apparemment a une incidence sur les modules DSO tel que libphp3.so. Je ne comprend pas ce que -DEAPI fait exactement, mais ça a un impact sur la manière de compiler php_mapscript.so. 
 						</para>
-							<para>Vous devez installer apache-devel-1.3.12-2.i386.rpm, refaire la configuration de votre rÃ©pertoire source PHP avec l'option --with-apxs (et tous les autres Ã©lÃ©ments avec lesquels RH6.2 libphp3.so avait Ã©tÃ© compilÃ©), et ensuite exÃ©cuter configure dans le rÃ©pertoire mapserver avec l'option --with-apxs. 
+							<para>Vous devez installer apache-devel-1.3.12-2.i386.rpm, refaire la configuration de votre répertoire source PHP avec l'option --with-apxs (et tous les autres éléments avec lesquels RH6.2 libphp3.so avait été compilé), et ensuite exécuter configure dans le répertoire mapserver avec l'option --with-apxs. 
 						</para>
 							<para>Ensuite recompilez php_mapscript.so (make clean; make), copiez le dans /usr/lib/apache et tout devrait "tomber en marche". 
 						</para>
-							<para>Voyez le <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_redhat.html">step by step instructions for RedHat 							users</ulink> pour plus de dÃ©tails.
+							<para>Voyez le <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_redhat.html">step by step instructions for RedHat 							users</ulink> pour plus de détails.
 						</para>
 						</answer>
 					</qandaentry>
 					<qandaentry>
 						<question>
-							<para>J'ai installÃ© le rpm PROJ.4 tÃ©lÃ©chargÃ© chez remotesensing.org sur mon systÃ¨me, il est reconnu par le script "configure" de MapServer comme une bibliothÃ¨que systÃ¨me mais Ã  l'exÃ©cution j'ai l'erreur: "libproj.so.0: No such file or directory". 
+							<para>J'ai installé le rpm PROJ.4 téléchargé chez remotesensing.org sur mon système, il est reconnu par le script "configure" de MapServer comme une bibliothèque système mais à l'exécution j'ai l'erreur: "libproj.so.0: No such file or directory". 
 						</para>
 						</question>
 						<answer>
-							<para>Vous Ãªtes probablement sous un systÃ¨me RedHat Linux si Ã§a vous arrive. La cause en est que l'installation RPM est elle-mÃªme sous /usr/local/lib mais que ce rÃ©pertoire ne fait pas partie du path des bibliothÃ¨ques exÃ©cutables. 
+							<para>Vous êtes probablement sous un système RedHat Linux si ça vous arrive. La cause en est que l'installation RPM est elle-même sous /usr/local/lib mais que ce répertoire ne fait pas partie du path des bibliothèques exécutables. 
 						</para>
-							<para>(Je suis trÃ¨s surpris que le "configure" trouve proj.4 comme une bibliothÃ¨que systÃ¨me puisqu'il n'est pas dans le path des bibliothÃ¨que systÃ¨me... c'est probablement la magie de l'informatique ou de autoconf, il faudra vÃ©rifier cette information) 
+							<para>(Je suis très surpris que le "configure" trouve proj.4 comme une bibliothèque système puisqu'il n'est pas dans le path des bibliothèque système... c'est probablement la magie de l'informatique ou de autoconf, il faudra vérifier cette information) 
 						</para>
 							<para>Il y a trois solutions possibles:
 						</para>
 							<literallayout>
-                  1. Ajoutez un "setenv LD_LIBRARY_PATH" Ã  votre httpd.conf qui contient ce rÃ©pertoire
-                  2. Editez le /etc/ld.so.conf pour ajouter /usr/local/lib, puis exÃ©cutez "/sbin/ldconfig". Ceci ajoutera de maniÃ¨re permanente /usr/local/lib au path correspondant. 
+                  1. Ajoutez un "setenv LD_LIBRARY_PATH" à votre httpd.conf qui contient ce répertoire
+                  2. Editez le /etc/ld.so.conf pour ajouter /usr/local/lib, puis exécutez "/sbin/ldconfig". Ceci ajoutera de manière permanente /usr/local/lib au path correspondant. 
                   3. Configurez MapServer avec les options suivantes:
 
                          --with-proj=/usr/local --enable-runpath
 
-                      ainsi le rÃ©pertoire /usr/local/lib figurera en dur dans les fichiers exÃ©cutables et .so
+                      ainsi le répertoire /usr/local/lib figurera en dur dans les fichiers exécutables et .so
 					</literallayout>
-							<para>Personnellement je prÃ©fÃ¨re l'option 2 parce qu'elle est permanente et s'applique Ã  tout le systÃ¨me. Proj.4 probablement n'est pas le seul paquet qui s'installe dans /usr/local/lib. NdT: personnellement j'ai employÃ© la solution 3 qui marche trÃ¨s bien.
+							<para>Personnellement je préfère l'option 2 parce qu'elle est permanente et s'applique à tout le système. Proj.4 probablement n'est pas le seul paquet qui s'installe dans /usr/local/lib. NdT: personnellement j'ai employé la solution 3 qui marche très bien.
 						</para>
 						</answer>
 					</qandaentry>
 					<qandaentry>
 						<question>
-							<para>J'ai compilÃ© PHP comme un CGI et PHP essaye de charger le php_mapscript.so, j'ai une erreur "undefined symbol: _register_list_destructors". Qu'est-ce qui ne va pas? 
+							<para>J'ai compilé PHP comme un CGI et PHP essaye de charger le php_mapscript.so, j'ai une erreur "undefined symbol: _register_list_destructors". Qu'est-ce qui ne va pas? 
 						</para>
 						</question>
 						<answer>
-							<para>Votre PHP n'est probablement pas construit pour permettre l'utilisation des bibliothÃ¨ques partagÃ©es. Le script configure de MapServer doit vous donner un message Ã  propos d'une option Ã  ajouter au makefile de PHP pour permettre l'utilisation des bibliothÃ¨ques partagÃ©es. 
+							<para>Votre PHP n'est probablement pas construit pour permettre l'utilisation des bibliothèques partagées. Le script configure de MapServer doit vous donner un message à propos d'une option à ajouter au makefile de PHP pour permettre l'utilisation des bibliothèques partagées. 
 						</para>
-							<para>Editez le fichier makefile principal de PHP et ajoutez "-rdynamic" au LDFLAGS en dÃ©but de fichier, ensuite relinkez PHP. 
+							<para>Editez le fichier makefile principal de PHP et ajoutez "-rdynamic" au LDFLAGS en début de fichier, ensuite relinkez PHP. 
 						</para>
-							<para>Note: Le paramÃ¨tre actuel pour ajouter quelque chose au LDFLAGS peut varier selon le systÃ¨me que vous utilisez. Pour Linux c'est "-rdynamic", et pour *BSD c'est "-export-dynamic". 
+							<para>Note: Le paramètre actuel pour ajouter quelque chose au LDFLAGS peut varier selon le système que vous utilisez. Pour Linux c'est "-rdynamic", et pour *BSD c'est "-export-dynamic". 
 					     </para>
 						</answer>
 					</qandaentry>
@@ -612,9 +611,9 @@
 						</para>
 						</question>
 						<answer>
-							<para>Vous ne pouvez disposer de Freetype Ã  la fois dans PHP et dans MapServer parce qu'il existe un conflit entre les fichiers gdttf.c et gdcache.c qui sont inclus autant dans PHP que dans MapServer mais sans Ãªtre identiques. 
+							<para>Vous ne pouvez disposer de Freetype à la fois dans PHP et dans MapServer parce qu'il existe un conflit entre les fichiers gdttf.c et gdcache.c qui sont inclus autant dans PHP que dans MapServer mais sans être identiques. 
 						</para>
-							<para>Nous essayerons de rÃ©soudre ce conflit dans le future, mais en attendant, soit PHP soit MapServer doit Ãªtre compilÃ© en utilisant --without-ttf. C'est particuliÃ¨rement important avec PHP4 parce qu'il contient la fonctionnalitÃ© TTF par dÃ©faut. 
+							<para>Nous essayerons de résoudre ce conflit dans le future, mais en attendant, soit PHP soit MapServer doit être compilé en utilisant --without-ttf. C'est particulièrement important avec PHP4 parce qu'il contient la fonctionnalité TTF par défaut. 
 						</para>
 						</answer>
 					</qandaentry>
@@ -624,18 +623,18 @@
 					</para>
 						</question>
 						<answer>
-							<para>Non pas forcÃ©ment, Ã§a marchera quand-mÃªme. 
+							<para>Non pas forcément, ça marchera quand-même. 
 						</para>
-							<para>De toute faÃ§on, si PHP a Ã©tÃ© compilÃ© comme un DSO vous aurez Ã  donner l'option --with-apxs au script configure de MapServer. Il est trÃ¨s important que l'option --with-apxs soit indiquÃ©e si  PHP a Ã©tÃ© compilÃ© comme un DSO Apache, spÃ©cialement sur les systÃ¨mes comme RedHat 6.2 oÃ¹ Apache est dÃ©jÃ  compilÃ© avec l'option -DEAPI qui a un impact sur les modules  DSO. 
+							<para>De toute façon, si PHP a été compilé comme un DSO vous aurez à donner l'option --with-apxs au script configure de MapServer. Il est très important que l'option --with-apxs soit indiquée si  PHP a été compilé comme un DSO Apache, spécialement sur les systèmes comme RedHat 6.2 où Apache est déjà compilé avec l'option -DEAPI qui a un impact sur les modules  DSO. 
 						</para>
-							<para>Nous avons utilisÃ© le module PHP MapScript avec les 3 configurations suivantes pour Apache:
+							<para>Nous avons utilisé le module PHP MapScript avec les 3 configurations suivantes pour Apache:
 						<literallayout>
                          A - Avec PHP3 comme un DSO
-                         B - Avec PHP3 statiquement liÃ© dans Apache (httpd)
+                         B - Avec PHP3 statiquement lié dans Apache (httpd)
                          C - Avec PHP3 comme un CGI
 						</literallayout>
 							</para>
-							<para>Notez que pour les configurations B et C, l'option "-rdynamic" avait Ã©tÃ© ajoutÃ©e Ã  LDFLAGS pour Apache (configuration B) ou pour PHP (configuration C) de maniÃ¨re Ã  rendre disponible les bibliothÃ¨ques partagÃ©es (php_mapscript.so) depuis votre exÃ©cutable statique (httpd ou php). Vous n'avez pas besoin de faire quelque chose de spÃ©cial pour la  configuration A puisque la modification est prise en compte immÃ©diatement ou quand Apache est compilÃ© pour les modules DSO. 
+							<para>Notez que pour les configurations B et C, l'option "-rdynamic" avait été ajoutée à LDFLAGS pour Apache (configuration B) ou pour PHP (configuration C) de manière à rendre disponible les bibliothèques partagées (php_mapscript.so) depuis votre exécutable statique (httpd ou php). Vous n'avez pas besoin de faire quelque chose de spécial pour la  configuration A puisque la modification est prise en compte immédiatement ou quand Apache est compilé pour les modules DSO. 
 						</para>
 						</answer>
 					</qandaentry>
@@ -661,20 +660,20 @@
 					</qandaentry>
 				</qandadiv>
 				<qandadiv>
-					<title>Questions gÃ©nÃ©rales</title>
+					<title>Questions générales</title>
 					<qandaentry>
 						<question>
-							<para>Je fais fonctionner PHP 4.0.6 et j'ai un crash ou des erreurs "Invalid _handle_" lorsque j'appelle map->getLayer(). 
+							<para>Je fais fonctionner PHP 4.0.6 et j'ai un crash ou des erreurs "Invalid _handle_" lorsque j'appelle map-&gt;getLayer(). 
 						</para>
 						</question>
 						<answer>
-							<para>Il y avait un problÃ¨me avec le module PHP/MapScript dans la version 3.4 (et la version de dÃ©veloppement 3.5 jusqu'au 20/07/2001) qui causait des crash ou des erreurs alÃ©atoires lors du lancement avec PHP4.0.6, la plupart du temps avec l'appel de map->getLayer(). Ceci intervenait aussi bien sous Windows que sous Unix. 
+							<para>Il y avait un problème avec le module PHP/MapScript dans la version 3.4 (et la version de développement 3.5 jusqu'au 20/07/2001) qui causait des crash ou des erreurs aléatoires lors du lancement avec PHP4.0.6, la plupart du temps avec l'appel de map-&gt;getLayer(). Ceci intervenait aussi bien sous Windows que sous Unix. 
 						</para>
-							<para>Voyez <ulink url="http://mapserver.gis.umn.edu/bugs/show_bug.cgi?id=23">Bug #23</ulink> pour plus de dÃ©tails sur ce bug. 
+							<para>Voyez <ulink url="http://mapserver.gis.umn.edu/bugs/show_bug.cgi?id=23">Bug #23</ulink> pour plus de détails sur ce bug. 
 						</para>
-							<para>La solution est d'utiliser MapServer 3.5 (version de dÃ©veloppement postÃ©rieure au 20/07/2001) avec PHP4.0.6 ou plus rÃ©cent, ou MapServer 3.4 avec PHP4.0.5 ou plus ancien. PHP3 n'Ã©tait pas affectÃ© par ce problÃ¨me. 
+							<para>La solution est d'utiliser MapServer 3.5 (version de développement postérieure au 20/07/2001) avec PHP4.0.6 ou plus récent, ou MapServer 3.4 avec PHP4.0.5 ou plus ancien. PHP3 n'était pas affecté par ce problème. 
 						</para>
-							<para>Notez que les anciennes versions de MapServers comme 3.4 ou 3.3.011 avec PHP 4.0.6 ne sont pas susceptibles de rÃ©soudre le problÃ¨me. 
+							<para>Notez que les anciennes versions de MapServers comme 3.4 ou 3.3.011 avec PHP 4.0.6 ne sont pas susceptibles de résoudre le problème. 
 						</para>
 						</answer>
 					</qandaentry>
@@ -690,18 +689,18 @@
 			<para>
                 Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
             </para>
-			<para>Ce document est protÃ©gÃ© par la mÃªme licence Open Source que le logiciel MapServer lui-mÃªme.  Voyez la page <ulink url="license_fr.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
+			<para>Ce document est protégé par la même licence Open Source que le logiciel MapServer lui-même.  Voyez la page <ulink url="license_fr.html">Licence et Remerciements</ulink> de MapServer pour le texte complet.
             </para>
 		</sect2>
 		<sect2 id="disclaimer">
 			<title>Avertissement</title>
-			<para>Aucune responsabilitÃ© pour le contenu de ce document ne peut Ãªtre acceptÃ©e. Utilisez les concepts, exemples et autres Ã©lÃ©ments Ã  vos risques et pÃ©rils. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre systÃ¨me. Aussi il est expressÃ©ment conseillÃ©, l'auteur et le traducteur n'assurant aucune responsabilitÃ©, de procÃ©der avec prÃ©caution.
+			<para>Aucune responsabilité pour le contenu de ce document ne peut être acceptée. Utilisez les concepts, exemples et autres éléments à vos risques et périls. Comme il s'agit d'une nouvelle version  de ce document, il peut y persister des erreurs et omissions qui pourraient endommager votre système. Aussi il est expressément conseillé, l'auteur et le traducteur n'assurant aucune responsabilité, de procéder avec précaution.
 			</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">
 			<title>Feedback</title>
-			<para>Envoyez toutes vos suggestions et commentaires Ã  l'auteur, ou au traducteur.
+			<para>Envoyez toutes vos suggestions et commentaires à l'auteur, ou au traducteur.
    			</para>
 		</sect2>
 	</sect1>
