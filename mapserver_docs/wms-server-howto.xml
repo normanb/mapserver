@@ -79,9 +79,26 @@
 				<listitem>
 					<para>
 						<emphasis>GetFeatureInfo:</emphasis> return info about feature(s) at a query (mouse click) 
-     					location.  MapServer supports this and will return either a text response
-     					with attribute information, or the selected feature(s) in GML format.
+     					location.  MapServer supports 3 types of responses to this request:
 					</para>
+					<orderedlist>
+						<listitem>
+							<para>
+							    Text/plain output with attribute info.
+							</para>
+						</listitem>
+						<listitem>
+							<para>
+							    Text/html output using MapServer query templates specified in the CLASS template parameter.
+							    The MIME type returned by the Class templates defaults to text/html and can be controlled using the 								    metadata  <link linkend="mime_type">"wms_feature_info_mime_type"</link>.
+							</para>							
+						</listitem>
+						<listitem>
+							<para>
+								Gml features.
+							</para>
+						</listitem>
+					</orderedlist>
 				</listitem>
 				<listitem>
 					<para>
@@ -680,7 +697,43 @@
 							</para>
 						</listitem>
 					</itemizedlist>
-				</sect4>				
+				</sect4>	
+				<sect4 id="mime_type">
+					<title>wms_feature_info_mime_type</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> Feature_info_mime_type
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis>							
+								<itemizedlist>
+									<listitem>
+										<para>
+											If not specified, then MapServer CAN process "text/html" MIME type if
+											the GetFeatureInfo parameter INFO_FORMAT is set. In this case, the layer 
+											template is returned.
+										</para>
+									</listitem>
+									<listitem>
+										<para>
+											If set to "NONE", then MapServer will not process MIME type
+											other than the default MIME type.
+										</para>
+									</listitem>
+									<listitem>
+										<para>
+											If set to something (except "NONE"), then MapServer will use the
+											specified MIME type (whatever it is) if the GetFeatureInfo parameter INFO_FORMAT is set as well. 											In this case, the layer template is returned.
+										</para>
+									</listitem>
+								</itemizedlist>
+							</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>								
 				<sect4 id="fees">
 					<title>wms_fees</title>
 					<itemizedlist>
