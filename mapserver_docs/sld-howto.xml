@@ -190,7 +190,15 @@ http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&amp;VeRsIoN=1.1.1&amp
           </row>             
         </tbody>
       </tgroup>
-    </table>     
+    </table> 
+    <note>
+      <para>
+         As of MapServer version 4.2.3, the GetLegendGraphic request (see section 12 of the <ulink url="http://www.opengeospatial.org/docs/02-070.pdf">
+         Styled Layer Descriptor Implementation Specification</ulink>) 
+         works as follows: if the RULE keyword is absent from the request, an image containing the entire legend for the specified layer will be returned. 
+         This image consists of the layer name and a symbolization graphic and label for each class.      
+      </para>
+    </note>
     </sect2>
     <sect2 id="specific">
       <title>Specific SLD Elements Supported</title>
