@@ -235,19 +235,19 @@
 								<emphasis>wms_country</emphasis> : (Optional, if provided must also then provide wms_address, wms_city,
 								wms_stateorprovince, wms_postcode, and wms_addresstype)															</para>
 						</listitem>
-					</itemizedlist>				
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
 								<emphasis>wms_descriptionurl_format</emphasis> : Format of the webpage which contains relevant information to the view.</para>
 						</listitem>
-					</itemizedlist>	
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
 								<emphasis>wms_descriptionurl_href</emphasis> : Reference to a webpage which contains relevant information to the view.</para>
 						</listitem>
-					</itemizedlist>										
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -265,19 +265,19 @@
 							<para>
 								<emphasis>wms_logourl_height</emphasis> : Height of the context logo.</para>
 						</listitem>
-					</itemizedlist>	
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
 								<emphasis>wms_logourl_format</emphasis> : Format of the context logo.</para>
 						</listitem>
-					</itemizedlist>	
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
 								<emphasis>wms_logourl_href</emphasis> : Location of the context logo.</para>
 						</listitem>
-					</itemizedlist>													
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -320,7 +320,7 @@
 							<para>
 								<emphasis>wms_dataurl_format</emphasis> : Format of the online resource where data corresponding to the layer can be found.</para>
 						</listitem>
-					</itemizedlist>						
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -338,13 +338,13 @@
 							<para>
 								<emphasis>wms_metadataurl_href</emphasis> : Link to an online resource where descriptive metadata of the corresponding layer can be found.</para>
 						</listitem>
-					</itemizedlist>	
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
 								<emphasis>wms_metadataurl_format</emphasis> : Format of the online resource where descriptive metadata of the corresponding layer can be found.</para>
 						</listitem>
-					</itemizedlist>											
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -380,19 +380,19 @@
 							<para>
 								<emphasis>wms_style_%s_legendurl_height</emphasis> : Height of an image describing the style.</para>
 						</listitem>
-					</itemizedlist>	
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
 								<emphasis>wms_style_%s_legendurl_format</emphasis> : Format of an image describing the style.</para>
 						</listitem>
-					</itemizedlist>	
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
 								<emphasis>wms_style_%s_legendurl_href</emphasis> : Location of an image describing the style.</para>
 						</listitem>
-					</itemizedlist>													
+					</itemizedlist>
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -513,23 +513,6 @@
 &lt;/ViewContext&gt;
 			</programlisting>
 		</sect2>
-	</sect1>
-	<sect1 id="todo">
-		<title>TODO</title>
-			<itemizedlist>
-				<listitem>
-					<para>
-						Need to validate request results against the corresponding XML schema files.
-						</para>
-				</listitem>
-			</itemizedlist>
-			<itemizedlist>
-				<listitem>
-					<para>
-						Possibly add a configure option (--with-context).
-					</para>
-				</listitem>
-			</itemizedlist>
 	</sect1>
 	<sect1 id="FAQ">
 		<title>FAQ / Common Problems</title>
