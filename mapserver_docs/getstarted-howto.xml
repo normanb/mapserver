@@ -138,7 +138,7 @@
     Binary Download</ulink> page. Complete instructions for compilation and 
     installation instructions are available for several operating systems:
     <itemizedlist>
-	<listitem><para><ulink url="win32-compile-howto.html">Windows</ulink></para></listitem>
+	<listitem><para><ulink url="win32_compile-howto.html">Windows</ulink></para></listitem>
 	<listitem><para><ulink url="unix-install-howto.html">UNIX</ulink></para></listitem>
 	<listitem><para><ulink url="mapserver-cygwin-howto.html">Cygwin on Win32</ulink></para></listitem>
     </itemizedlist>
