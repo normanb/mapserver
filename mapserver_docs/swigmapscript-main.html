@@ -715,7 +715,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::colorObj()
+      new mapscript::colorObj(red, green, blue, pen)
     </td>
     <td>
       legend->{imagecolor}
@@ -1256,7 +1256,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::imageObj(width, height)
+      new mapscript::imageObj(width, height, input_format, file)
     </td>
     <td>
       class->createLegendIcon(map, layer, 100, 100)
@@ -4540,7 +4540,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::outputFormatObj()
+      new mapscript::outputFormatObj(driver, name)
     </td>
     <td>
       image->{format}
@@ -4871,7 +4871,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::pointObj()
+      new mapscript::pointObj(x, y, z, m)
     </td>
     <td>
       graticule->{pboundingpoints}
@@ -5232,7 +5232,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::rectObj()
+      new mapscript::rectObj(minx, miny, maxx, maxy, imageunits 0/1)
     </td>
     <td>
       gracticule->{extent}
@@ -5842,7 +5842,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::shapefileObj(filename,type)
+      new mapscript::shapefileObj(filename, type)
     </td>
     <td>
       mstiledshplayer->{shpfile}
@@ -6347,7 +6347,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::styleObj()
+      new mapscript::styleObj(classObj)
     </td>
     <td>
       class->getStyle(0)
@@ -6513,7 +6513,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::symbolObj()
+      new mapscript::symbolObj(symbolname, imagefile)
     </td>
     <td>
       symbolset->{symbol}
@@ -6771,7 +6771,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::symbolSetObj()
+      new mapscript::symbolSetObj(symbolfile)
     </td>
     <td>
       map->{symbolset}
@@ -7231,7 +7231,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::intarray()
+      new mapscript::intarray(nelements)
     </td>
     <td>
       intarray->frompointer()
