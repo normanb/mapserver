@@ -514,7 +514,7 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>PROCESSING "directive"</term>
+					<term>PROCESSING [string]</term>
 					<listitem>
 						<para>Passes a processing directive to be used with this layer.  The supported processing directives vary by layer type, and the underlying driver that processes them.  Currently the SCALE and BANDS directives are supported for raster layers processed via the GDAL driver.  This is further explained in the RasterHOWTO.</para>
 						<para>Example:
