@@ -16,7 +16,7 @@
 
       <abstract>
          <para>In this document I'll try to do a step by step explanation of the PHP Mapscript 3.5 objects and their methods.
-         <emphasis>It is assumed a basic knowledge of <ulink url="http://mapserver.gis.umn.edu/mapfile.html">map files</ulink>
+         <emphasis>It is assumed a basic knowledge of <ulink url="mapfile-reference.html">map files</ulink>
           and familiarity with the <ulink url="http://www.php.net">PHP</ulink> (scripting) and HTML (markup) languages .</emphasis></para>
          <para>Information given here refers to PHP MapScript version 3.5.</para>
          <para>Last Updated: 01-24-2002</para>
