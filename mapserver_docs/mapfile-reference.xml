@@ -793,9 +793,15 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>SYMBOL [integer|string]</term>
+                    <term>SYMBOL [integer|string|filename]</term>
                     <listitem>
-                        <para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
+                        <para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol 
+                        in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names 
+                        using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which 
+                        results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
+                        <para>
+                            You can also specify a gif or png filename.  The path is relative to the location of the mapfile.
+                        </para>
                     </listitem>
                 </varlistentry>
                 <varlistentry id="template">
@@ -890,9 +896,12 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>SYMBOL [integer|string]</term>
+                    <term>SYMBOL [integer|string|filename]</term>
                     <listitem>
                         <para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
+                        <para>
+                            You can also specify a gif or png filename.  The path is relative to the location of the mapfile.
+                        </para>
                     </listitem>
                 </varlistentry>
             </variablelist>
@@ -1799,7 +1808,7 @@ END
                         <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added MINSCALE MAXSCALE for class object, added note on inline features
+                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames
                                    </revremark>
                     </revision>
                 </revhistory>
