@@ -45,3 +45,4 @@
 *.shp -k 'b'
 *.shx -k 'b'
 *.qix -k 'b'
+*.doc -k 'b'
