@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-04-08</date>
+		<date>2002-07-15</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 04/08/2002</para>
+			<para>Last Updated: 07/15/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -246,7 +246,7 @@
 	END
               </programlisting>
 			<para>
-                 -where the "ogr_connection_string" is:  &lt;dataset_filename&gt;[,&lt;layer_index&gt;].
+                 -where the "ogr_connection_string" is:  &lt;dataset_filename&gt;[,&lt;layer_index&gt;|&lt;layer_name&gt;].
           </para>
 			<para>
                 &lt;dataset_filename&gt;  is:
@@ -291,6 +291,23 @@
 				</itemizedlist>
 			</para>
 			<para>
+				&lt;layer_name&gt; is: 
+			</para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							optional,
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							the layer name
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
 	            The <link linkend="ogrinfo">OGRINFO</link> program can be used to find out the list of layers and
 			  their indices in a data source.  <emphasis>Note</emphasis> that the OGRINFO layer index
   			  numbers begin at '1', while Mapserver OGR index numbers begin at 
@@ -316,7 +333,7 @@
 	END
               </programlisting>
 			<para>
-                 -where the "ogr_connection_string" is:  &lt;dataset_directory&gt;,&lt;layer_index&gt;.
+                 -where the "ogr_connection_string" is:  &lt;dataset_directory&gt;[,&lt;layer_index&gt;|&lt;layer_name&gt;].
           </para>
 			<para>
                 &lt;dataset_directory&gt;  is:
@@ -337,7 +354,7 @@
 			</para>
 			<para>
                 &lt;layer_index&gt; is:
-          </para>
+               </para>
 			<para>
 				<itemizedlist>
 					<listitem>
@@ -355,6 +372,23 @@
 						<para>
 	                     0 by default (the first layer). 
 	                </para>
+					</listitem>
+				</itemizedlist>
+			</para>
+						<para>
+				&lt;layer_name&gt; is: 
+			</para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							optional,
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							the layer name
+						</para>
 					</listitem>
 				</itemizedlist>
 			</para>
@@ -404,11 +438,11 @@
 			</example>
 			<example>
 				<title>
-                    TIGER/Line file
+                    TIGER/Line file using &lt;layer_index&gt;
                </title>
 				<programlisting>
 	LAYER
-	   NAME "Roads_tig"
+           NAME "Roads_tig"
 	   TYPE LINE
 	   CONNECTIONTYPE OGR
 	   CONNECTION "data/tiger/roads, 5"
@@ -420,6 +454,23 @@
 	END
                </programlisting>
 			</example>
+			<example>
+				<title>
+                    TIGER/Line file using &lt;layer_name&gt;
+               </title>
+				<programlisting>
+	LAYER
+           NAME "Roads_tig"
+           TYPE line
+           CONNECTIONTYPE OGR
+           CONNECTION "../data/TGR01001, CompleteChain"
+           STATUS ON
+           CLASS
+             ...
+           END
+	END
+               </programlisting>
+			</example>			
 			<example>
 				<title>
                        ArcInfo Coverage
