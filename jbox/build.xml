@@ -17,8 +17,8 @@
   <property name="vm.version" value="1.1"/>
   
   <path id="project.class.path">
-  	 <pathelement location="${netscape.classes}"/>
-  	 <pathelement location="${sixlegs.classes}"/>
+    <pathelement location="${netscape.classes}"/>
+    <pathelement location="${sixlegs.classes}"/>
   </path>
 
   <!-- Target to create the build directories prior to the -->
@@ -36,19 +36,28 @@
   <target name="compile" depends="prepare"
           description="Compiles all source code.">
     <javac srcdir="${src.dir}" destdir="${build.classes}" target="${vm.version}">
-    	<classpath refid="project.class.path"/>
+      <classpath refid="project.class.path"/>
     </javac>
   </target>
 
   <target name="jar" depends="compile"
-          description="Generates oreilly.jar in the 'dist' directory.">
-    <!-- Exclude unit tests from the final JAR file -->
-    <jar jarfile="${build.lib}/oreilly.jar" 
+          description="Generates jBox.jar and jBoxPNG.jar in the 'lib' directory.">
+    <jar jarfile="${build.lib}/jBox.jar"
          basedir="${build.classes}"
-         excludes="**/*Test.class"/>
+         includes="jBox.class,evalThread.class"/>
+    <jar jarfile="${build.lib}/jBoxPNG.jar"
+         basedir="${build.classes}"
+         includes="jBoxPNG.class,evalThread.class"/>
   </target>
 
-  <target name="all" depends="clean,jar"
+  <target name="zip" depends="compile,jar"
+          description="Generates a distribution zip file">
+    <zip zipfile="${build.lib}/jBox.zip"
+         basedir="."
+         includes="*.*"/>
+  </target>
+
+  <target name="all" depends="clean,jar,zip"
           description="Cleans, compiles, then builds the JAR file."/>
 
 </project>
