@@ -5,7 +5,7 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>HOWTO for OGR Use in MapServer - Version 4.2</title>
+    <title>HOWTO for OGR Use in MapServer - Version 4.3</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
@@ -22,7 +22,7 @@
       <para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-      <para>Last Updated: 2003-10-17</para>
+      <para>Last Updated: 2004-9-22</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -612,6 +612,84 @@ be encountered if the component tiles have differing schemas (different sets of
 attributes).
 </para>
     </sect2>
+  <!-- Section2: Connection Pooling -->
+
+  <sect2 id="ConnectionPooling">
+    <title>Connection Pooling</title>
+ 
+    <para> 
+For some OGR supported formats, connecting to the dataset is quite expensive 
+in terms of CPU use and amount of disk IO.  For instance, establishing access
+to an S-57 dataset results in a complete read into memory of the data files.
+Connection pooling control aims at reducing this overhead in situations where
+the same file is used for several different map layers. 
+</para>
+
+<para> 
+To ensure that an OGR supported dataset is only opened once per map render
+(instead of seperately for each map LAYER referencing the dataset, use the
+CLOSE_CONNECTION PROCESSING option.  The default value is for CLOSE_CONNECTION
+is NORMAL, but if set to DEFER the dataset will be kept open till the map
+render is complete.  It will be reused by any other layers with using the
+same datasource. 
+</para>
+
+<example>
+<title>Preserve S-57 connection for two layers</title>
+
+<para>
+In this example, we are using the same dataset (NO410810.000) for two
+layers.  To avoid re-reading the dataset, we mark the first layer to 
+defer closing the connection till layer.  In the second (or last) layer
+we request NORMAL connection handling (though this could have been left
+out as normal handling is the default). 
+</para>
+<programlisting>
+    LAYER
+       NAME "AdminAreas"
+       TYPE POLYGON
+       CONNECTIONTYPE OGR
+       CONNECTION "NO410810.000"
+       DATA "ADMARE"
+       PROCESSING "CLOSE_CONNECTION=DEFER"
+       STATUS ON
+       ...
+    END
+    LAYER
+       NAME "Land Areas"
+       TYPE POLYGON
+       CONNECTIONTYPE OGR
+       CONNECTION "NO410810.000"
+       DATA "LNDARE"
+       PROCESSING "CLOSE_CONNECTION=NORMAL"
+       STATUS ON
+       ...
+    END
+</programlisting>
+
+<orderedlist numeration="arabic">
+  <listitem>
+    <para>The text of the CONNECTION keyword must match exactly between layers
+for the connection to be reused. </para>
+  </listitem>
+  <listitem>
+    <para>Some dataset connections are quite memory expensive, and keeping
+them open may result in increased memory use.</para>
+  </listitem>
+  <listitem>
+    <para>If all layers rendered for a particular connection defer closing the
+connection, it will remain open till MapServer terminates.  For normal cgi
+or MapScript use this is likely OK.</para>
+  </listitem>
+  <listitem>
+    <para>This use of CLOSE_CONNECTION handling is unique to OGR layers, and
+may be changed at some point in the future as part of a broader implementation
+of connection pooling in MapServer.</para>
+  </listitem>
+</orderedlist>
+</example>
+
+  </sect2>
     <sect2 id="formatinfo">
       <title>Format-Specific Information</title>
       <para>
@@ -897,6 +975,7 @@ attributes).
       </variablelist>
     </sect2>
   </sect1>
+
   <!-- Section1: Live Demos -->
   <sect1 id="Sample_sites">
     <title>Sample Sites Using OGR/Mapserver</title>
