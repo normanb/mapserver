@@ -21,7 +21,7 @@
             <para>
                  This document describes the procedures for the creation of a map context document with MapServer.  
       </para>
-            <para>Last Updated: 2004-11-02</para>
+            <para>Last Updated: 2004-12-08</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>            
@@ -137,8 +137,9 @@
                 Map Context support requires PROJ4, GDAL/OGR and PHP support libraries.
                 </para>
             <para>
-                Build/install the above libraries on your system adn then build MapServer with
-                the '--with-wmsclient --with-proj --with-php' configure options.
+                Build/install the above libraries on your system and then build MapServer with
+                the '--with-wmsclient --with-proj --with-ogr --with-gdal --with-php' configure options.
+                Also make sure that your build uses the USE_WMS_LYR and USE_OGR flags.
             </para>
         </sect2>
         <sect2 id="mapfile">
@@ -615,6 +616,13 @@
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.10</revnumber>
+                        <date>Date: 2004-12-10</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added mention of required build flags.
+                                   </revremark>
+                    </revision>                
                     <revision>
                         <revnumber>Number: 1.8</revnumber>
                         <date>Date: 2004-11-02</date>
