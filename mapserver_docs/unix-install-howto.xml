@@ -19,9 +19,9 @@
 		</author>
 		<abstract>
 			<para>
-    			This document describes the procedures for obtaining, compiling and installing MapServer 3.7 on UNIX-type platforms.
+    			This document describes the procedures for obtaining, compiling and installing MapServer 4.0 on UNIX-type platforms.
     			</para>
-			<para>Last Updated:  01-06-2003</para>
+			<para>Last Updated:  07-02-2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -30,7 +30,7 @@
   The University of Minnesota's MapServer is an open-source and freely available map rendering engine for the web.  Due to its
   open-source nature, it can be compiled on a wide variety of platforms and operating systems.  We will focus on how to obtain, compile
   and install MapServer on UNIX-like platforms. Throughout this document we will use the popular Linux and Apache combination for the
-  examples, as well as the MapServer demo package.  
+  examples, as well as the MapServer demo package.
   </para>
 		<para>
   This document assumes you are already familiar with basic aspects of your operating system and web server:
@@ -63,7 +63,7 @@
 		<itemizedlist>
 			<listitem>
 				<para>
-					<ulink url="http://www.boutell.com/gd/">GD</ulink>: For rendering GIFs or PNGs (Mandatory).</para>
+					<ulink url="http://www.boutell.com/gd/">GD</ulink>: For rendering GIFs or PNGs (Mandatory, version 2.0.12 or greater required).</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -71,7 +71,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://curl.haxx.se/libcurl/">LibCURL</ulink>: For WMS/WFS Client Connections support (Optional, required WMS/WFS Support). Version 7.10 or greater required.</para>
+					<ulink url="http://curl.haxx.se/libcurl/">LibCURL</ulink>: For WMS/WFS Client Connections support (Optional, required WMS/WFS Support, Version 7.10 or greater required).</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -87,8 +87,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://www.freetype.org">FreeType</ulink>: For TrueType font support.  This is used through GD only, mapserver does not compile against it directly.  Version 1 is recommended and works best, issues have been reported with version 2.
-				</para>
+					<ulink url="http://www.freetype.org">FreeType</ulink>: For TrueType font support.  This is used through GD only, mapserver does not compile against it directly (Optional but highly recommended, version 2.x+ required).</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -96,7 +95,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://www.remotesensing.org/gdal/">GDAL - Geospatial Data Abstraction Library</ulink>: For providing I/O for a number of RASTER formats (Optional).</para>
+					<ulink url="http://www.remotesensing.org/gdal/">GDAL - Geospatial Data Abstraction Library</ulink>: For providing I/O for a number of RASTER formats (Optional, version 1.1.8 or later required).</para>
 			</listitem>
 			<listitem>
 				<para>SDE Client Librairies: These libraries are provided with ESRI's Spatial Data Warehouse ArcSDE (Optional).</para>
@@ -106,11 +105,17 @@
 					<ulink url="http://www.postgresql.org">PostgreSQL</ulink> Client: In order for MapServer to be able to read PostGIS data, it needs to be compiled against the PostgreSQL client libraries.</para>
 			</listitem>
 			<listitem>
-				<para>
-					<ulink url="http://www.cbmamiga.demon.co.uk/mpatrol/">MPATROL</ulink>: For debugging  (Developers only).</para>
+				<para>Oracle Spatial Client Librairies:  These librairies are provided with your Oracle product, and used to interface with an Oracle Spatial warehouse.</para>
 			</listitem>
 			<listitem>
-				<para>Oracle Spatial Client Librairies:  These librairies are provided with your Oracle product, and used to interface with an Oracle Spatial warehouse.</para>
+				<para><ulink url="http://ming.sourceforge.net/">MING</ulink>: For Macromedia Flash output support (Optional, version 0.2a or greater required).</para>
+			</listitem>
+			<listitem>
+				<para><ulink url="http://www.pdflib.com/products/pdflib/index.html">PDFLib</ulink>: For PDF output support. (Optional, version 4.0.3 or greater required).  Note: There are licensing restrictions as this is not an entirely open-source product.  If you qualify you may however use PDFlib Lite free of charge.</para>
+			</listitem>
+			<listitem>
+				<para>
+					<ulink url="http://www.cbmamiga.demon.co.uk/mpatrol/">MPATROL</ulink>: For debugging  (Developers only).</para>
 			</listitem>
 		</itemizedlist>
 	</sect1>
