@@ -983,6 +983,35 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="service_onlineresource">
+          <title>wms_service_onlineresource</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Top-level onlineresource URL.  MapServer uses the onlineresource
+                metadata (if provided) in the following order:
+              </para>
+              <orderedlist>
+                <listitem>
+                  <para>
+                    wms_service_onlineresource
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    ows_service_onlineresource
+                  </para>
+                </listitem>  
+                <listitem>
+                  <para>
+                    wms_onlineresource (or automatically generated URL, see the <link linkend="wms_onlineresource">onlineresource section</link>
+                    of this document)
+                  </para>
+                </listitem>                 
+              </orderedlist>
+            </listitem>
+          </itemizedlist>
+        </sect4>
         <sect4 id="srs">
           <title>wms_srs</title>
           <itemizedlist>
@@ -1487,7 +1516,7 @@
                         <revnumber>Number: 1.38</revnumber>
                         <date>Date: 2004-01-10</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added layer name warning, feature_info_mime_type note.
+                        <revremark>Added layer name warning, feature_info_mime_type note, onlineresource...
                                    </revremark>
                     </revision>                 
                     <revision>

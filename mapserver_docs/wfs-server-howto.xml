@@ -434,7 +434,36 @@
           </para>
         </listitem>
       </itemizedlist>
-    </sect4> 
+    </sect4>
+    <sect4 id="service_onlineresource">
+      <title>wfs_service_onlineresource</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis>Description:</emphasis> (Optional) Top-level onlineresource URL.  MapServer uses the onlineresource
+            metadata (if provided) in the following order:
+          </para>
+          <orderedlist>
+            <listitem>
+              <para>
+                wfs_service_onlineresource
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                ows_service_onlineresource
+              </para>
+            </listitem>  
+            <listitem>
+              <para>
+                wfs_onlineresource (or automatically generated URL, see the <link linkend="wfs_onlineresource">onlineresource section</link>
+                of this document)
+              </para>
+            </listitem>                 
+          </orderedlist>
+        </listitem>
+      </itemizedlist>
+    </sect4>    
     <sect4 id="title">
       <title>wfs_title</title>
       <itemizedlist>
