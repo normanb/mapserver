@@ -22,7 +22,7 @@
                  This document describes the procedures for using MapServer's WMS connection type to include layers from          
                  remote WMS servers in MapServer applications.
       </para>
-      <para>Last Updated: 2004-11-02</para>
+      <para>Last Updated: 2005-01-10</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -186,8 +186,6 @@ ESRI codes and we do not want to promote their use too much.
   </sect1>
   <sect1 id="mapfile">
     <title>MapFile configuration</title>
-    <sect2 id="mapconfig">
-      <title>Map-level configuration</title>
       <important>
         <para>
                A PROJECTION must be set in the mapfile for the MAP unless you are sure that all your WMS 
@@ -196,7 +194,9 @@ ESRI codes and we do not want to promote their use too much.
                Failure to set a MAP PROJECTION may result in blank maps coming from remote WMS servers (because 
                of inconsistent BBOX+SRS combination being used in the WMS cnonection URL).
       </para>
-      </important>
+      </important>    
+    <sect2 id="tmp_files">
+      <title>Storing Temporary Files</title>
       <para>
       You have to set the IMAGEPATH 
       value in the WEB object of your mapfile to point to a valid and writable 
@@ -205,9 +205,33 @@ ESRI codes and we do not want to promote their use too much.
       deleted by MapServer so you won't notice them... but a valid IMAGEPATH is 
       still required.
     </para>
+          <example>
+            <title>IMAGEPATH Parameter</title>
+            <programlisting>
+  MAP
+    ...
+    WEB
+      IMAGEPATH "/tmp/ms_tmp/"
+      IMAGEURL ...
+    END
+    ...
+  END                        
+            
+            </programlisting>
+          </example>  
+      <para>
+          If you want to keep this temporary file for debugging puposes, you should add the following statement to the LAYER object of your mapfile:
+      </para>
+      <programlisting>
+    LAYER
+      ....
+      DEBUG ON
+      ... 
+    END
+      </programlisting>          
     </sect2>
     <sect2 id="layerconfig">
-      <title>Layer configuration - CONNECTIONTYPE WMS</title>
+      <title>WMS Layer</title>
       <para>
       WMS layers are accessed via the WMS connection type.  Here is an example 
       of a layer using this connection type:
@@ -377,6 +401,9 @@ ESRI codes and we do not want to promote their use too much.
       ...
     END
           </programlisting>
+          <para>
+           For more information on SLDs in MapServer see the <ulink url="http://mapserver.gis.umn.edu/doc/sld-howto.html">SLD HOWTO</ulink> document.
+          </para>
         </listitem>
         <listitem>
           <para>
@@ -397,6 +424,15 @@ ESRI codes and we do not want to promote their use too much.
         </para>
         </listitem>
       </itemizedlist>
+      <note>
+       <para>
+          Each of the above metadata can also be referred to as 'ows_*' instead of 'wms_*'.  MapServer tries the 'wms_*' metadata first, and if not 
+          found it tries the corresponding 'ows_*' name.  Using this reduces
+          the amount of duplication in mapfiles that support multiple OGC interfaces since
+          "ows_*" metadata can be used almost everywhere for common metadata items shared
+          by multiple OGC interfaces.       
+       </para>
+      </note>
     </sect2>
     <sect2 id="connection_36">
       <title>Old CONNECTION parameter format from version 3.5 and 3.6 (deprecated)</title>
@@ -425,22 +461,6 @@ ESRI codes and we do not want to promote their use too much.
      END
     END
     </programlisting>
-    </sect2>
-    <sect2 id="temp">
-      <title>Temporary Image Files</title>
-      <para>
-            When a WMS layer is requested, MapServer locally creates a temporary image returned by the server until the map is drawn. This temporary file is          created in the IMAGEPATH directory of the client machine. This file is then autmatically deleted.
-      </para>
-      <para>
-          If you want to keep this temporary file for debugging puposes, you should add the following statement to the LAYER object of your mapfile:
-      </para>
-      <programlisting>
-    LAYER
-      ....
-      DEBUG ON
-      ... 
-    END
-      </programlisting>
     </sect2>
   </sect1>
   <sect1 id="limitations">
@@ -488,6 +508,13 @@ ESRI codes and we do not want to promote their use too much.
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.29</revnumber>
+                        <date>Date: 2005-01-10</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added ows note, link to SLD doc, ...
+                                   </revremark>
+                    </revision>                 
+                    <revision>
                         <revnumber>Number: 1.27</revnumber>
                         <date>Date: 2004-11-02</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -507,7 +534,7 @@ ESRI codes and we do not want to promote their use too much.
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
-                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2005, Jeff McKenna, DM Solutions Group Inc.
       </para>
       <para>
                 This documentation is covered by the same Open Source license as the

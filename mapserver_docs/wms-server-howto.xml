@@ -194,7 +194,13 @@
             MapServer OGC Web Services Workshop package: <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
            http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
           </para>
-        </listitem>         
+        </listitem> 
+        <listitem>
+          <para>
+            MapServer Styled Layer Descriptor HOWTO: <ulink url="http://mapserver.gis.umn.edu/doc/sld-howto.html">
+           http://mapserver.gis.umn.edu/doc/sld-howto.html</ulink>.
+          </para>
+        </listitem>          
       </itemizedlist>
     </sect2>
   </sect1>

@@ -167,6 +167,15 @@
             </itemizedlist>
         </listitem>        
       </itemizedlist>
+      <note>
+       <para>
+          Each of the above metadata can also be referred to as 'ows_*' instead of 'wfs_*'.  MapServer tries the 'wfs_*' metadata first, and if not 
+          found it tries the corresponding 'ows_*' name.  Using this reduces
+          the amount of duplication in mapfiles that support multiple OGC interfaces since
+          "ows_*" metadata can be used almost everywhere for common metadata items shared
+          by multiple OGC interfaces.       
+       </para>
+      </note>      
     </sect2>
     <sect2 id="example">
       <title>Example WFS Layer</title>
