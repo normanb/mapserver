@@ -20,7 +20,7 @@
 			<para>
     			This document describes the procedures for obtaining, compiling and installing MapServer on UNIX-type platforms.
     			</para>   
-    			<para>Last Updated:  08-09-2001</para>
+    			<para>Last Updated:  08-22-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -66,7 +66,10 @@
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink>: For on-the-fly projection conversion (Recommended, mandatory for WMS Support). You will need AT LEAST version 4.4.3.</para>
+					<ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink>: For on-the-fly projection conversion (Recommended, mandatory for WMS Support). For WMS, you will need AT LEAST version 4.4.3.</para>
+			</listitem>
+			<listitem>
+				<para><ulink url="http://www.w3c.org/Library/">LibWWW</ulink>: For WMS Client Connections support (Optional, recommended for WMS Support).</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -88,10 +91,10 @@
 				<para><ulink url="http://www.remotesensing.org/gdal/">GDAL - Geospatial Data Abstraction Library</ulink>: For providing I/O for a number of RASTER formats (Optional).</para>
 			</listitem>
 			<listitem>
-				<para>SDE Client Librairies: These librairies are provided with ESRI's Spatial Data Warehouse ArcSDE (Optional).</para>
+				<para>SDE Client Librairies: These libraries are provided with ESRI's Spatial Data Warehouse ArcSDE (Optional).</para>
 			</listitem>
 			<listitem>
-				<para><ulink url="http://www.postgresql.org">PostgreSQL</ulink> Client: In order for MapServer to be able to read PostGIS data, it needs to be compiled against the PostgreSQL client librairies.</para>
+				<para><ulink url="http://www.postgresql.org">PostgreSQL</ulink> Client: In order for MapServer to be able to read PostGIS data, it needs to be compiled against the PostgreSQL client libraries.</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -117,18 +120,38 @@
 			<para>Not sure whether your GD qualifies? Here's how you can tell:</para>
 			<para>When you run your "configure" script, look for the following output:</para>
 			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
-			<para>If your GD is built against FreeType, you will see the "-DUSE_GD_TTF" part.  If it's missing, you will need to recompile your GD to make sure you include FreeType support. Please see the <ulink url="http://www.boutell.com/gd/">GD</ulink> documentation for help with that.</para>
+			<para>If your GD is built against FreeType, you will see either "-DUSE_GD_TTF" (Or "-DUSE_GD_FT" for Freetype 2.x) part.  If it's missing, you will need to recompile your GD to make sure you include FreeType support. Please see the <ulink url="http://www.boutell.com/gd/">GD</ulink> documentation for help with that.</para>
+			<para>Also note that the configure script looks for the Freetype library seperatly as well, generating output looking somewhat like this:</para>
+			<screen>
+checking where FreeType is installed...
+checking for FT_Init_FreeType in -lfreetype... yes
+	using libfreetype -lfreetype from system libs.
+			</screen>
+			<para>Now, because you have Freetype installed on your system, and because the configure script finds it, does NOT mean you will have TrueType font support.  GD MUST be compiled against Freetype either way.</para>
 		</sect2>
 	</sect1>
 	<sect1>
 		<title>OGC WMS Support</title>
-		<para>New with version 3.5 of MapServer is support for the much touted <ulink url="http://www.opengis.org/">OpenGIS Consortium</ulink>'s <ulink url="http://www.opengis.org/techno/specs/00-028.pdf">Web Map Server</ulink> standard.</para>
-		<para>Support for this specification is automatically enabled when you include PROJ.4 support.</para>
-		<para>You can check this yourself by looking for the following in your "configure" output:</para>
-		<screen>checking whether we should include WMS support...
+		<sect2>
+			<title>Server</title>
+			<para>New with version 3.5 of MapServer is support for the much touted <ulink url="http://www.opengis.org/">OpenGIS Consortium</ulink>'s <ulink url="http://www.opengis.org/techno/specs/00-028.pdf">Web Map Server</ulink> standard.</para>
+			<para>Support for this specification is automatically enabled when you include PROJ.4 support.</para>
+			<para>You can check this yourself by looking for the following in your "configure" output:</para>
+			<screen>checking whether we should include WMS support...
         OGC WMS compatibility enabled (-DUSE_WMS).
-		</screen>
-		<para>If, for some reason you DON'T want WMS support, you can force it off by passing "--without-wms" to your configure script.</para>
+			</screen>
+			<para>If, for some reason you DON'T want WMS support, you can force it off by passing "--without-wms" to your configure script.</para>
+		</sect2>
+		<sect2>
+			<title>Client</title>
+			<para>Cascading is also supported.  This allows mapserver to transparently fetch remote layers over WMS, basically acting like a client, and combine them with other layers to generate the final map.</para>
+			<para>In order to enable this feature, you will need the w3c's www library and to pass the "--with-wmsclient" to the configure script.</para>
+			<para>To verify that the WMS Client feature is enabled, check the output fomr the configure script:</para>
+			<screen>checking whether we should include WMS Client Connections support...
+	OGC WMS Client Connections enabled (-DUSE_WMS_LYR).
+			</screen>
+			<para>Note that this feature is disabled by default, you have to specifically request it, the configure script will not attempt to detect the presence of the WWW library otherwise.</para>
+		</sect2>
 	</sect1>
 	<sect1>
 		<title>ESRI SDE Support</title>
@@ -209,6 +232,9 @@
 						</listitem>
 						<listitem>
 							<para>GDAL: The RASTER file formats I/O library (--with-gdal).</para>
+						</listitem>
+						<listitem>
+							<para>LibWWW: The W3C's WWW library (--with-wmsclient).</para>
 						</listitem>
 					</itemizedlist>
 					<para>If the configure script can't find the libraries, you can always specify their location manually by appending the path
