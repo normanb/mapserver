@@ -1,0 +1,247 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<!-- $Id$ -->
+<article>
+	<articleinfo>
+		<!-- insert title here, include the word HOWTO -->
+		<title>HOWTO for Rasters in MapServer</title>
+		<author>
+			<firstname>Frank</firstname>
+			<surname>Warmerdam</surname>
+			<affiliation>
+				<orgname>DM Solutions Group Inc.</orgname>
+				<address>
+					<email>warmerdam@pobox.com</email>
+				</address>
+			</affiliation>
+		</author>
+		<date>2001-06-27</date>
+		<abstract>
+			<!-- a short description of the contents of the doc -->
+			<para>
+                 This document describes the procedures for using raster data within MapServer applications.
+               </para>
+			<para>Last Updated: 2001-06-27</para>
+		</abstract>
+	</articleinfo>
+
+<!-- ********************************************************************** -->
+     
+<sect1 id="intro">
+
+<title>Introduction</title>
+		
+<para>
+    MapServer supports rendering a variety of raster file formats
+    in maps.  The following describes some of the supported formats,
+    and what capabilities are supported with what formats.
+</para>
+<para>
+This document assumes that you are already familiar with setting up MapServer
+map files, but does explain the raster specific aspects of map files. 
+</para>
+
+<!-- ====================================================================== -->
+
+<sect2 id="definition">
+<title>How are rasters add to a Map file?</title>
+
+<para>
+A simple raster layer declaration looks like this.  The DATA file is
+interpreted relative to the SHAPEPATH, much like shapefiles.  
+</para>
+
+<para>
+<programlisting>
+LAYER
+  NAME "JacksonvilleNC_CIB"
+  DATA "Jacksonville.tif"
+  TYPE RASTER
+  STATUS ON
+END
+</programlisting>
+</para>
+
+<para>
+Though not shown rasters can have PROJECTION, METADATA, MINSCALE, 
+and MAXSCALE information.  It cannot have labels, queries, CONNECTION, 
+CONNECTIONTYPE, or FEATURE information.  
+</para>
+</sect2>
+
+<!-- ====================================================================== -->
+
+<sect2 id="classify">
+<title>Classifying Rasters</title>
+
+<para>
+Rasters can be classified in a manner similar to vectors, with a few
+exceptions.  The CLASSITEM is always the pixel value, which is indicated
+by the special string "[pixel]" (must be lower case).  Some format drivers
+(ie. GDAL)
+cast the pixel values to the range 0 to 255 <emphasis>before</emphasis>
+applying the classification scheme to them, making it hard to use this
+classification mechanism to classify floating point, or other data not well
+expressed as unsigned byte data (0-255).  This is a bug and should be corrected
+at some point in the future.  The following demonstrates a raster layer with
+a simple classification scheme applied to it. 
+</para>
+
+<programlisting>
+LAYER
+  NAME "JacksonvilleNC_CIB"
+  DATA "Jacksonville.tif"
+  TYPE RASTER
+  STATUS ON
+  CLASSITEM "[pixel]"
+  CLASS
+    EXPRESSION ([pixel] &lt; 64)
+    COLOR 0 0 0
+  END
+  CLASS
+    EXPRESSION ([pixel] &gt;= 64 AND [pixel] &lt; 128)
+    COLOR 255 0 0 
+  END
+  CLASS
+    EXPRESSION ([pixel] &gt;= 128 AND [pixel] &lt; 196)
+    COLOR 0 255 0 
+  END
+  CLASS
+    EXPRESSION ([pixel] &gt;= 196 AND [pixel] &lt; 256)
+    COLOR 0 0 255
+  END
+END
+</programlisting>
+
+</sect2>
+
+<!-- ====================================================================== -->
+
+<sect2 id="formats">
+<title>Supported Formats</title>
+
+<para>
+What raster formats are supported by MapServer is largely controlled by
+configuration time options.  Some formats are considered to be <emphasis>
+built-in</emphasis> while the remainder are handled by the optional
+GDAL raster library.  
+</para>
+
+<para>
+More information on GDAL can be found at <ulink 
+url="http://www.remotesensing.org/gdal/">http://www.remotesensing.org/gdal
+</ulink>, including the <ulink url="http://www.remotesensing.org/gdal/formats_list.html">supported formats list</ulink>.  Some of the advanced MapServer
+raster features, such as resampling, RGB color cube generation and automatic
+projection capture only work with raster formats used through GDAL.  GDAL 
+is normally built and installed separately from MapServer, and then enabled
+during the build of MapServer using the <emphasis>--with-gdal</emphasis>
+configuration switch.  GDAL formats not listed below include 
+CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI and Erdas Imagine
+(.hfa).
+</para>
+
+<itemizedlist>
+  <listitem>
+    <para><emphasis>TIFF/GeoTIFF</emphasis>: 
+      If built with <emphasis>--with-tiff</emphasis> MapServer will have
+      builtin support for reading TIFF or GeoTIFF files.  The builtin 
+      TIFF support has some limitations with regard to the organization of
+      files that can be read (no tiled, 16bit, RGB, or odd color models). 
+      This driver supports world files, or simple builtin GeoTIFF coordinates
+      for georeferencing.  The AUTO projection declaration is not support.
+    </para>
+    <para>
+      Full featured TIFF/GeoTIFF support is available through GDAL.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para><emphasis>GIF</emphasis>: 
+      If GD is configured with GIF support, then MapServer will also be able
+      to read GIF files for raster layers.  The only way to georeference GIF
+      files is with a world file.
+    </para>
+    <para>
+      If GD is not configured with GIF support, it may still be available in
+      GDAL, which does not support georeferencing via world files.  
+    </para>
+  </listitem>
+  <listitem>
+    <para><emphasis>PNG</emphasis>: 
+      If GD is configured with PNG support, then MapServer will also be able
+      to read PNG files for raster layers.  The only way to georeference PNG
+      files is with a world file.
+    </para>
+    <para>
+      If GD is not configured with PNG support, it may still be available in
+      GDAL, which also supports georeferencing via world files. 
+    </para>
+  </listitem>
+  <listitem>
+    <para><emphasis>JPEG</emphasis>: 
+      If MapServer is built with JPEG support via the 
+      <emphasis>--with-jpeg</emphasis> configuration switch then greyscale
+      JPEG files may be rendered in raster layers.  RGB files (the more common 
+      kind) will not be able to be displayed.  Georeferencing is via world 
+      files.
+    </para>
+    <para>
+      If MapServer is not built with native JPEG support, GDAL may still 
+      support the format.  In this case RGB files are also supported (via
+      the RGB color cube mechanism).  Georeferencing is still via world file.
+    </para>
+  </listitem>
+  <listitem>
+    <para><emphasis>Erdas .LAN/.GIS</emphasis>: 
+      If configured with <emphasis>--with-eppl</emphasis> (the default) 
+      MapServer will support one band eight bit Erdas LAN/GIS files.  The 
+      .trl file is read for a colormap, and if not found the layer is treated 
+      as greyscale.  Georeferencing is read from the file. 
+    </para>
+  </listitem>
+</itemizedlist>
+
+</sect2>
+
+</sect1>
+
+<!-- ********************************************************************** -->
+     
+	<!-- Section1: Document Info -->
+	<sect1 id="docinfo">
+		<title>About This Document</title>
+		<sect2 id="copyright">
+			<title>Copyright Information</title>
+			<para>
+                Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
+            </para>
+			<para>
+                This documentation is covered by the same Open Source license as the
+                MapServer software itself.  See MapServer's 
+                <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+                Credits</ulink> page for the complete text.
+            </para>
+		</sect2>
+		<sect2 id="disclaimer">
+			<title>Disclaimer</title>
+			<para>
+     				No liability for the contents of this document can be accepted.
+    				Use the concepts, examples and other content at your own risk.
+    				As this is a new edition of this document, there may be errors
+    				and inaccuracies that may be damaging to your system.
+    				Although this is highly unlikely, the author(s) do not take any 
+    				responsibility for that:  proceed with caution.
+                 	</para>
+		</sect2>
+		<!-- Section2: feedback -->
+		<sect2 id="feedback">
+			<title>Feedback</title>
+			<para>
+    				This is a new document for a new project; input is appreciated.  Send any
+    				comments or suggestions to the MapServer Documentation Coordinator at
+    				<email>mdp@lists.gis.umn.edu</email>.
+   			</para>
+		</sect2>
+	</sect1>
+</article>
