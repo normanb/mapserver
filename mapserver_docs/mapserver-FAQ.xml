@@ -5,7 +5,7 @@
 <qandaset defaultlabel='qanda'>
 <title>MapServer Frequently Asked Questions</title>
 
-<!-- demo in 3.5 -->
+<!-- Addin Questions -->
     <qandaentry>
       <question>
         <para>
@@ -41,6 +41,33 @@
         </para>
       </answer>
     </qandaentry>
+
+
+<!-- Polylines -->
+    <qandaentry>
+      <question>
+        <para>
+        What does Polyline mean in MapServer?
+        </para>
+      </question>
+      <answer>
+        <para>
+          There's confusion over what POLYLINE means in MapServer and via ESRI.
+          In MapServer POLYLINE simply means a linear representation of POLYGON data.
+          With ESRI polyline means multi-line. Old versions of the Shapefile techical description
+          don't even refer to polyline shapefiles, just line. So, ESRI polyline shapefiles are just
+          linework and can only be drawn and labeled as LINE layers. Those shapefiles don't
+          have feature closure enforced as polygon shapefiles do which is why the distinction
+          is so important. I suppose there is a better choice than POLYLINE but I don't know
+          what it would be.
+        </para>
+        <para>
+          Note that the only difference between POLYLINE and LINE layers is how they are
+          labeled.
+        </para>
+      </answer>
+    </qandaentry>
+
 
 <!-- query in 3.5 -->
     <qandaentry>
