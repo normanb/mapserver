@@ -27,7 +27,7 @@
       MapServer web pages.
     </para>
 
-    <para>Last Updated:  05-11-2001</para>
+    <para>Last Updated:  09-19-2001</para>
   </abstract>
 
 </articleinfo>
@@ -565,9 +565,75 @@
 
 <sect1 id="finetune">
 <title>Fine-tuning with JavaScript</title>
-  <para>
-    Tips for fine-tuning your applications with JavaScript coming soon.
-  </para>
+
+  <sect2 id="auto_submit">
+  <title>Automating Form Submission</title>
+
+    <para>
+      Rather than requiring the user to hit the Refresh/Query button,
+      you can add a couple of lines to the end of the mapplet_apply()
+      function to submit the form. For example:
+    </para>
+  
+    <programlisting>
+      if (redraw) {
+	document.form1.submit();
+      }
+    </programlisting>
+
+    <para>
+      This checks the redraw flag which was passed to mapplet_apply()
+      and submits the form if the flag is set.
+    </para>
+  </sect2>
+
+  <sect2 id="box_on_off">
+  <title>Turning Box Dragging On and Off</title>
+
+    <para>
+
+      It is logical to drag a box across a part of the map to zoom in,
+      or to select objects to query. But what about zooming out
+      (mode=browse, zoomdir=-1), or re-centering the map (mode=browse,
+      zoomdir=0)?  In these 
+      operations the box doesn't do us much good. Worse yet, dragging
+      a box in either of these situations would cause a zoom-in
+      regardless  of the zoomdir setting.
+
+    </para>
+
+    <para>
+      Rather than expecting the user to choose between dragging or
+      clicking dependent on context, you may wish to use the mapplet boxon() and
+      boxoff() methods to control when box dragging is enabled and when it
+      is not. The basic JavaScript syntax for calling the methods is:
+    </para>
+
+    <programlisting>
+      document.mapplet.boxoff();
+    </programlisting>
+
+    <para>
+      In the MapServer demo, you might place the code in an event
+      handler in a form control.  For example:
+    </para>
+
+    <programlisting>
+      &lt;input type=radio
+                name=zoomdir
+                value=0
+                onClick="document.mapplet.boxoff();"
+                [zoomdir_0_check] &gt;
+    </programlisting>
+
+    <para>
+      In the above example, when the user switches to the pan mode
+      (zoomdir=0), box dragging is turned off. Obviously you would need to
+      add additional calls in other form controls to turn box dragging on
+      and off as is appropriate to the operation.
+    </para>
+
+  </sect2>    
 </sect1>
 
 <sect1 id="parameters">
