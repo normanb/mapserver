@@ -22,7 +22,7 @@
                  This document describes the procedures for using MapServer's WMS connection type to include layers from          
                  remote WMS servers in MapServer v3.5 (and later) applications.
       </para>
-      <para>Last Updated: 06/21/2002</para>
+      <para>Last Updated: 2003/03/06</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -130,6 +130,42 @@
    INPUT=GDAL INPUT=SHAPEFILE
         </programlisting>
       </example>
+    </sect2>
+    <sect2 id="inst_epsg_files">
+      <title>Install Optional PROJ4 EPSG Codes</title>
+      <para>
+  (Note: installing those PROJ4 codes is optional, install only if you need them)
+      </para>
+      <para>
+Some Canadian WMS servers will use some non-standard projection codes not
+included in the default distribution (e.g. EPSG:42304, etc.).  
+If you are planning to use MapServer 
+to connect to canadian WMS servers then you might want to download a 
+custom 'espg' file with those codes from 
+  http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg-with-42xxx.zip
+and unzip it in the /usr/local/share/proj directory.
+      </para>
+      <para>
+Finally, ESRI WMS servers also come with their own series of non-standard
+codes.  If you are planning to connect to ESRI WMS servers then you might
+want to get a custom epsg file that contains the canadian codes and the 
+ESRI codes, allowing you to connect to any server.  Download the file 
+  http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg-with-42xxx-and-esri.zip
+and unzip it in /usr/local/share/proj
+      </para>
+      <sect3>
+        <title>But why not always install and distribute the 
+               proj4-epsg-with-42xxx-and-esri.zip file then since it's more complete?</title>
+        <para>
+You should install only the epsg projection codes that you need, the epsg
+file with all ESRI codes in it is 20% larger than the default one, so it 
+comes with extra overhead that you may not need.  Also note that when 
+creating WMS servers, in order to be really interoperable, only EPSG codes
+that are part of the standard EPSG list should be used.  i.e. it is a bad
+idea for interoperability to use the custom canadian codes or the custom
+ESRI codes and we do not want to promote their use too much. 
+        </para>
+      </sect3>
     </sect2>
   </sect1>
   <sect1 id="mapfile">
