@@ -402,7 +402,8 @@
       <programlisting>
         &lt;tr&gt;
           &lt;td colspan="2"&gt;
-            &lt;applet codebase="/java/mapplet" code="mapplet.class" width="600" height="600" name="mapplet" MAYSCRIPT&gt;
+            &lt;applet codebase="/java/mapplet" code="mapplet.class" width="600"
+               height="600" name="mapplet" MAYSCRIPT&gt;
               &lt;param name="image" value="http://[host][img]"&gt;
             &lt;/applet&gt;
           &lt;/td&gt;
