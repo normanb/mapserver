@@ -19,7 +19,7 @@
 		</author>
 		<abstract>
 			<para>
-    			This document is a reference to the MapFile syntax for MapServer version 4.0.
+    			This document is a reference to the MapFile syntax for MapServer version 4.2.
    			</para>
 			<para>Last Updated:  05-03-2004</para>
 		</abstract>
@@ -625,8 +625,8 @@ PROCESSING "BANDS=3,2,1,4"
 					<term>TILEINDEX [filename]</term>
 					<listitem>
 						<para>Full filename for the index or tile definition for this layer. Similar to an ArcInfo library index, this shapefile contains polygon features for each tile. The item that contains the location of the tiled data is given using the <emphasis>TILEITEM</emphasis> parameter. If the <emphasis>DATA</emphasis> parameter contains a value then it is added to the end of the location. If <emphasis>DATA</emphasis> is empty then the location should contain the entire filename.</para>
-                                        <para>
-						<emphasis>NOTE:</emphasis> The DBFs of all of the shapefiles being included into a tileindex must have the exact same set of fields and 
+						<para>
+							<emphasis>NOTE:</emphasis> The DBFs of all of the shapefiles being included into a tileindex must have the exact same set of fields and 
 						the fields must be in the same order for MapServer to properly index the files.
                                         </para>
 					</listitem>
