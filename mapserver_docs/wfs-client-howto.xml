@@ -2,7 +2,7 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
-		<title>MapServer WFS Server HOWTO</title>
+		<title>MapServer WFS Client HOWTO</title>
 		<author>
 			<firstname>Jean-Fran&ccedil;ois</firstname>
 			<surname>Doyon</surname>
