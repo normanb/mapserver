@@ -316,11 +316,11 @@
 <!-- Translation -->
 <sect1 id='docinfo'> 
   <title>Translating to Other Languages</title>
-  <para>Translation of MapServer Documentation to other languages is encouraged.  The translated documents will be stored in
-        the CVS in the same branch as other documents with an extension the indicate which language
-        it is in.  The two-letter extension is determined by the <ulink url="http://www.w3.org/WAI/ER/IG/ert/iso639.htm">
-        ISO-639 standard</ulink>.  For example, a spanish translation of getstarted-howto.xml will be stored
-        as get-started-howto_es.xml.
+  <para>Translation of MapServer Documentation to other languages is encouraged.  Translated documents will be stored in
+        the CVS in the same branch as the English versions with an extension to indicate the language.
+        The two-letter extension is determined by the <ulink url="http://www.w3.org/WAI/ER/IG/ert/iso639.htm">
+        ISO-639 standard</ulink>.  For example, a Spanish translation of getstarted-howto.xml will be named
+        getstarted-howto_es.xml.
   </para>
 
   <para>The translator will be specified in the document with the "othercredit" tag within the "articleinfo" 
