@@ -443,7 +443,7 @@
 					<listitem>
 						<para>Signals the start of a <link linkend="grid">GRID</link> object. </para>
 					</listitem>
-				</varlistentry>				
+				</varlistentry>
 				<varlistentry id="group">
 					<term>GROUP [name]</term>
 					<listitem>
@@ -679,7 +679,7 @@ PROCESSING "BANDS=3,2,1,4"
 				<varlistentry>
 					<term>EXPRESSION [string]</term>
 					<listitem>
-						<para>Three types of expressions are now supported to define class membership. String comparisons, regular expressions, and simple logical expressions. If no expression is given, then all features are said to belong to this class.</para>
+						<para>Four types of expressions are now supported to define class membership. String comparisons, regular expressions, simple logical expressions, and string functions. If no expression is given, then all features are said to belong to this class.</para>
 						<itemizedlist>
 							<listitem>
 								<para>String comparisons are case sensitive and are the fastest to evaluate. No special delimiters are necessary although string must be quoted if they contain special characters. (As a matter of good habit, it is recommended you quote all strings).</para>
@@ -690,6 +690,12 @@ PROCESSING "BANDS=3,2,1,4"
 							<listitem>
 								<para>Logical expressions allow you to build fairly complex tests based on one or more attributes and therefore are only available with shapefiles. Logical expressions are delimited by parentheses "(expression)".  Attribute names are delimited by square brackets "[ATTRIBUTE]". These names are case sensitive and must match the items in the shapefile. For example: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... The following logical operators are supported : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq. As you might expect this level of complexity is slower to process.</para>
 							</listitem>
+							<listitem>
+								<para>One string function exists: length().  This obviously computes the length of a string.  An example follows:</para>
+								<screen>
+        EXPRESSION (length('[NAME_E]') &lt; 8)						
+								</screen>
+							</listitem>							
 						</itemizedlist>
 						<para>String comparisons and regular expressions work from the classitem defined at the layer level. You may mix expression types within the different classes of a layer.</para>
 					</listitem>
@@ -1418,8 +1424,8 @@ END
 			</variablelist>
 		</sect2>
 		<sect2 id="grid">
-		  <title>Grid Object</title>
-		<para>The GRID object defines a map graticule as a LAYER.  Starts with the keyword <emphasis>GRID</emphasis> and terminates with the keyword <emphasis>END</emphasis>.  </para>
+			<title>Grid Object</title>
+			<para>The GRID object defines a map graticule as a LAYER.  Starts with the keyword <emphasis>GRID</emphasis> and terminates with the keyword <emphasis>END</emphasis>.  </para>
 			<variablelist>
 				<varlistentry>
 					<term>LABELFORMAT [DDMM|DDMMSS]</term>
@@ -1439,7 +1445,7 @@ END
 					<listitem>
 						<para>The maximum number of arcs to draw. </para>
 					</listitem>
-				</varlistentry>	
+				</varlistentry>
 				<varlistentry>
 					<term>MININTERVAL [double]</term>
 					<listitem>
@@ -1451,23 +1457,24 @@ END
 					<listitem>
 						<para>The maximum number of intervals to try to use. </para>
 					</listitem>
-				</varlistentry>	
+				</varlistentry>
 				<varlistentry>
 					<term>MINSUBDIVIDE [double]</term>
 					<listitem>
 						<para>The minimum number of segments to use when rendering an arc. </para>
 					</listitem>
-				</varlistentry>	
+				</varlistentry>
 				<varlistentry>
 					<term>MAXSUBDIVIDE [double]</term>
 					<listitem>
 						<para>The maximum number of segments to use when rendering an arc. </para>
 					</listitem>
-				</varlistentry>	
-			</variablelist>																								             <para>
+				</varlistentry>
+			</variablelist>
+			<para>
                The following is an example of a GRID object in use:
              </para>
-             <screen>
+			<screen>
    LAYER
      NAME "grid"
      METADATA
@@ -1499,7 +1506,7 @@ END
       MAXSUBDIVIDE 2
     END
   END # Layer
-             </screen>				
+             </screen>
 		</sect2>
 		<sect2 id="variablesubstitution">
 			<title>Variable Substitution</title>
