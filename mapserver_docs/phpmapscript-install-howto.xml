@@ -66,6 +66,21 @@
                     configure script should automatically detect which version of PHP you are attempting to build with and
                     take the necessary actions. 
 			</para>
+			<para>
+				The best combinations of Mapscript and PHP versions are:
+			</para>
+			<itemizedlist>
+				<listitem>
+					<para>
+						Mapscript 3.4 with PHP4.0.4p11 or 4.0.5 (does not work with PHP4.0.6).
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						Mapscript 3.5 with PHP4.0.5 or 4.0.6 ( as well as 4.0.4p11).
+					</para>
+				</listitem>
+			</itemizedlist>
 		</sect2>
 		<!-- Section2: More information on the module -->
 		<sect2 id="information">
@@ -721,6 +736,30 @@
                     from your static executable (httpd or php). You don't need to do anything special for configuration A
                     because this is already taken care of when Apache is compiled to support DSO modules. 
 						</para>
+						</answer>
+					</qandaentry>
+					<qandaentry>
+						<question>
+							<para>
+								What are the best combinations of Mapscript and PHP versions?
+							</para>
+						</question>
+						<answer>
+						<para>
+							The best combinations are:
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									Mapscript 3.4 with PHP4.0.4p11 or 4.0.5 (does not work with PHP4.0.6).
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									Mapscript 3.5 with PHP4.0.5 or 4.0.6 ( as well as 4.0.4p11).
+								</para>
+							</listitem>
+						</itemizedlist>
 						</answer>
 					</qandaentry>
 				</qandadiv>
