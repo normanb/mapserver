@@ -47,13 +47,19 @@
           <listitem><para>"SYMBOLSET symbol/symbol.sym" should be added
            </para></listitem>
           <listitem><para>Make the new symbols.sym file by concatenating the 
-           three symbol files together.</para></listitem>
-        </orderedlist>
-        <para>
+           three symbol files together.
           The new symbols.sym file is also avialable online at <ulink 
           url="http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym">
           http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym</ulink>
-        </para>
+          </para></listitem>
+          <listitem><para>Get your gifs and pngs sorted out if you've switched over to png.
+          </para></listitem>
+          <listitem><para>Styled is no longer supported, you can delete them.
+          </para></listitem>
+          <listitem><para>Refer to png or gif symbols directly, not via the symbol file.
+          </para></listitem>
+        </orderedlist>
+
       </answer>
     </qandaentry>
     
