@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" standalone="no"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
@@ -394,7 +394,7 @@
          new shapeObj(type), par exemple <programlisting>$shape = new shapeObj($mapscript::MS_POLYGON);</programlisting>
 				</para>
 				<para>
-        Le type de paramètre est juste un type général utilisé pour rendre MapScript moins volumineux. Avec ça MapScript peut évaluer plusieurs méthodes de comparaison (contient, inetrsecte) sans avoir un nombre important de méthodes spécifiques. Le type n'est pas utilisé d'une quelconque autre manière actuellement, aussi la plupart du temps une valeur de -1 devrait suffire. Les autres valeurs autorisées sont : MS_POINT, MS_LINE et MS_POLYGON. Les autres méthodes de création de forme (voir shapefileObj) renseignent ce paramètre correctement.
+        Le type de paramètre est juste un type général utilisé pour rendre MapScript moins volumineux. Avec ça MapScript peut évaluer plusieurs méthodes de comparaison (contient, intersection) sans avoir un nombre important de méthodes spécifiques. Le type n'est pas utilisé d'une quelconque autre manière actuellement, aussi la plupart du temps une valeur de -1 devrait suffire. Les autres valeurs autorisées sont : MS_POINT, MS_LINE et MS_POLYGON. Les autres méthodes de création de forme (voir shapefileObj) renseignent ce paramètre correctement.
 	</para>
 			</simplesect>
 			<simplesect>
@@ -465,7 +465,7 @@
 			<simplesect>
 				<title>Constructeur</title>
 				<para>
-        new shapefileObj(filename, type), par exemple <programlisting>$shapefile = new shapeObj('lakes');</programlisting> Aucune extension n'est nécessaire. Pour les fichiers existant le type devrait être à -1, pour créer un fichier vide le type devrait être à l'une des valeurs: MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON, ou MS_SHP_MULTIPOINT. Pour fermer un fichier de formes dans lequel vous avez écrit vous devez indéfinir la référence perl (par exemple undef $shapefile; ou $shapefile = '';).
+        new shapefileObj(filename, type), par exemple <programlisting>$shapefile = new shapeObj('lakes');</programlisting> Aucune extension n'est nécessaire. Pour les fichiers existant le type devrait être à -1, pour créer un fichier vide le type devrait être à l'une des valeurs: MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON, ou MS_SHP_MULTIPOINT. Pour fermer un fichier de formes dans lequel vous avez écrit vous devez supprimer la définition de la référence perl (par exemple undef $shapefile; ou $shapefile = '';).
 	</para>
 			</simplesect>
 			<simplesect>
@@ -487,12 +487,12 @@
 		</sect2>
 		<!-- MISCELANEOUS FUNCTIONS -->
 		<sect2>
- 			<title>Fonctions diverses</title>
+			<title>Fonctions diverses</title>
 			<para>
         MapScript dispose de plusieurs fonctions diverses pour gérer l'image. Elles sont:
       </para>
 			<simplelist>
-				<member><function>msSaveImage(image, filename, transparent, interlace)</function> - sauvegarde une image dans un fichier. Indéfinissez le nom du fichier pour sauvegarder sur stdout. La transparence et l'entrelacement sont des valeurs booléennes.</member>
+				<member><function>msSaveImage(image, filename, transparent, interlace)</function> - sauvegarde une image dans un fichier. Ne définissez pas un nom de fichier pour sauvegarder sur stdout. La transparence et l'entrelacement sont des valeurs booléennes.</member>
 				<member><function>msFreeImage(image)</function> - libère la mémoire associée à une image.</member>
 			</simplelist>
 		</sect2>
