@@ -1,0 +1,386 @@
+<?xml version='1.0' standalone='no'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<article>
+	<articleinfo>
+		<title>MapServer CGI Reference</title>
+		<author>
+			<firstname>Stephen </firstname>
+			<surname>Lime</surname>
+			<affiliation>
+				<orgname>Minnesota Department of Natural Resources</orgname>
+				<address>
+					<email>steve.lime@dnr.state.mn.us</email>
+				</address>
+			</affiliation>
+		</author>
+		<abstract>
+			<para>
+    			This document is a reference for the mapserv CGI version 3.5.
+    			</para>   
+    			<para>Last Updated:  07-23-2001</para>
+		</abstract>
+	</articleinfo>
+  <sect1 id="intro">
+
+  <title>MapServer - Documentation: CGI Reference</title>
+  <para> Mapserv is the CGI portion for the MapServer package. It handles user 
+    input and directs image creation or query requests. The program accepts input 
+    via either "GET" or "POST" methods and can be used in an interactive manner 
+    or as an image engine.
+  </para>
+
+
+<!-- NOTES on syntax -->
+   <sect2>
+      <title>Notes:</title> 
+      <itemizedlist>
+        <listitem>
+          <para>Variable names are not case sensitive.</para> 
+        </listitem>
+        <listitem>
+          <para>In cases where multiple values are associated with a variable 
+            (eg. mapext), the values must be seperated by spaces (or their escaped 
+            equivalents for GET requests). </para> 
+        </listitem>
+        <listitem>
+          <para>Variable contents are checked for appropriate data types and 
+            magnitude as they are loaded. </para> 
+        </listitem>
+      </itemizedlist>
+    </sect2>
+
+<!-- Format -->
+     <sect2>
+      <title>Format</title> 
+      <para>Mapserv accepts input in the form of CGI variables as described below.</para>
+      <variablelist>
+        <title>CGI Variables</title>
+        <varlistentry>
+              <term>buffer [distance]</term> 
+          <listitem><para>A distance, in the same coordinate system as the 
+            shapefiles, used in conjunction with mapxy to create an new map 
+            extent.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>img</term>
+	    <listitem><para> The name associated with the inline map image used to 
+           record user clicks. What actually is passed are two variables, img.x and img.y.
+	   </para></listitem>
+        </varlistentry>
+	<varlistentry>
+            <term>imgbox [x1] [y1] [x2] [y2]</term>
+	    <listitem><para> Coordinates (in pixels) of a box drag in the image. We're using this in 
+	    conjunction with Java based front ends to the MapServer.
+	    </para></listitem>
+        </varlistentry>
+	<varlistentry>
+          <term>imgext [minx] [miny] [maxx] [maxy]</term>
+	  <listitem><para> The spatial extent of the existing inline image.</para></listitem>
+        </varlistentry><varlistentry>
+          <term>imgsize [cols] [rows]</term>
+	  <listitem><para> The size (in pixels) of the exiting inline image.
+	  </para></listitem>
+        </varlistentry>
+	<varlistentry>
+          <term>imgxy [x] [y]</term>
+	  <listitem><para> Coordinates (in pixels) of a single mouse click. We're using this in 
+	  conjunction with Java based front ends to the MapServer.
+	  </para></listitem>
+        </varlistentry><varlistentry>
+          <term>item [name]</term>
+	  <listitem><para> The name of an attribute in a layer attribute table. Used for item/value
+	   lookups.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>layer [name]</term>
+	  <listitem><para> The name of a layer as it appears in the 
+	    <ulink url="mapfile-reference.html">map file</ulink>. Sending mapserv a layer name turns that layer ON.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>layers [name name ...]</term>
+	  <listitem><para> The names of the layers to be turned on. Layer names must be seperated 
+	    by spaces.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>map [filename]</term>
+	  <listitem><para> Path, relative to the CGI directory, of the <ulink
+	  url="mapfile-reference.html">map 
+	    file</ulink> to be used.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>mapext [minx] [miny] [maxx] [maxy]</term>
+	  <listitem><para> The spatial extent of the map to be created.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>mapsize [cols] [rows]</term><listitem><para> The size (in pixels) of the image to
+	     be created. Useful for allowing users to change the resolution of output images 
+	     interactively.
+	   </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>mapshape [x1 y1 x2 y2 ...]</term>
+	  <listitem><para> An arbitrary polygon shape to be used for query purposes. Multiple 
+	  instances simply add parts to the shape so it is possible to construct a shape with 
+	  holes. Used with modes NQUERY and NQUERYMAP. (development version only)
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>mapxy [x] [y]</term>
+	  <listitem><para> A point, in the same coordinate system as the shapefiles, to be used 
+	  in conjuction with a buffer or a scale to construct a map extent.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>minx|miny|maxx|maxy [number]</term>
+	  <listitem><para> Minimum x coordinate of the spatial extent for a new map/query. 
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>mode [value]</term>
+	  <listitem><para> Mode of operation. The following options are supported:</para>
+	  
+             <variablelist>
+               <varlistentry>
+	         <term>browse</term>
+		 <listitem><para> Fully interactive interface where maps (and interactive pages) 
+		   are created.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>featurequery</term>
+	         <listitem><para> A spatial search that uses one feature (from slayer) to query 
+		   other layers.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>featurenquery</term>
+		 <listitem><para> A spatial search that uses multiple features (from slayer) 
+		   to query other layers.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>query</term>
+	         <listitem><para> A spatial search (finds closest) is triggered by a click in a 
+		   map.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry><term>nquery</term>
+	         <listitem><para> A spatial search (finds all) is triggered by a click in a map 
+		   or by user-define selection box.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>itemquery</term>
+		 <listitem><para> A text search of attribute data is triggered with an item/value 
+		   pair. Returns 1st match.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>itemnquery</term>
+	         <listitem><para> A text search of attribute data is triggered with an item/value 
+		   pair. Returns all matches.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>map</term>
+		 <listitem><para> The created map (GIF) is returned. Used with an &lt;img ... &gt;
+		  tag.
+		  </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>reference</term>
+		 <listitem><para> The created reference map is returned. Used with an &lt;img ... 
+		   &gt; tag.
+		 </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>scalebar</term><listitem><para> The created scalebar is returned. Used with
+		  an &lt;img ... &gt; tag.
+		  </para></listitem>
+               </varlistentry>
+	       
+	       <varlistentry>
+	         <term>legend</term>
+		 <listitem><para> The created legend is returned. Used with an &lt;img ... &gt; tag.
+		 </para></listitem>
+	       </varlistentry>
+	     </variablelist>
+	     
+             <para> There are several additional modes to retrieve the querymap associated with 
+	       a particular query. They are querymap, nquerymap, itemquerymap, 
+	       and itemnquerymap. Like the map mode they are to be used within an 
+	       &lt;img ... &gt; tag.
+	     </para>
+	   </listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>qlayer [name]</term>
+	  <listitem><para> Query layer. The name of the layer to be queried as it appears in 
+	    the <ulink url="mapfile-reference.html">map file</ulink>. If not specified then all layers are 
+	    searched in turn.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>queryfile [filename]</term>
+	  <listitem><para> Query results to use with modes map or browse (see savequery above).
+	   The cached query is applied before the map is produced using the QUERYMAP definition 
+	   of the <ulink url="mapfile-reference.html">mapfile</ulink>.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>ref</term>
+	  <listitem><para> The name associated with the inline reference map image used to 
+	    record user clicks. What actually is passed are two variables, ref.x and ref.y.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>refext [minx] [miny] [maxx] [maxy]</term><listitem><para> The spatial extent of 
+	  the reference image.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>savequery</term>
+	  <listitem><para> When used with any of the query modes this tells the MapServer to save 
+	    the query results to a temporary file for use in subsequent operations (see queryfile). 
+	    Useful for making queries sticky.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>scale [number]</term>
+	  <listitem><para> Scale to create a new map at. Used with mapxy.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>searchmap</term><listitem><para> It is possible to do pan/zoom interfaces using 
+	    querymaps. In these cases you will likey want information about the contents of the 
+	    new map rather than the previous map which is the normal way queries work. When 
+	    searchmap is specified the new map is created an it's extent is used to query layers. 
+	    Useful with NQUERY, or ITEMNQUERY mode only. 
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>slayer [name]</term>
+	  <listitem><para> Select layer. The name of the layer to be used for queries of type 
+	    FEATUREQUERY or FEATURENQUERY. The select layer <emphasis>must</emphasis> be a polygon layer. The 
+	    selection feature(s) are available for presentation to the user. A special version of 
+	    the reference map with the polygons used for this query highlighted is also generated 
+	    in lieu of the normal reference map.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>template [filename]</term><listitem><para> Name of the main template file to use 
+	    for formatting the results. Overrides anything set in the map file.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>tile [name]</term>
+	  <listitem><para> The name of a tile directory containing 
+	    shapefiles. Most often used in conjucntion with the shapepath option in the 
+	    <ulink url="mapfile-reference.html">map file</ulink>.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>value [expression]</term><listitem><para> Value (regular expression) to match 
+	    against in item/value lookups.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>zoom [number]</term><listitem><para> Zoom scaling to apply to the creation of 
+	    the new map. Values greater than 0 resulting in zooming in, 0 is a pan, and values 
+	    less than zero are for zooming out. A value of 2 means "zoom in twice".
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>zoomdir [1|0|-1]</term>
+	  <listitem><para> Direction to zoom. See above.
+	  </para></listitem>
+        </varlistentry>
+	
+	<varlistentry>
+          <term>zoomsize [number]</term><listitem><para> Magnitude (absolute) of a zoom. Used 
+	    with zoomdir.
+	  </para></listitem>
+        </varlistentry>
+      </variablelist>
+  </sect2>
+  <sect2>
+    <title>Changing <ulink url="mapfile-reference.html">map file</ulink> parameters via a form or a URL
+    </title>
+
+    <para>
+    Begining with version 3.3 it is now possible to change virtually any map file value from 
+    a form or a URL. The syntax for this is fairly straight forward. Any value can be 
+    expressed using the hierarchy used in a map file. A map contains a layer, which contains 
+    a class, which contains a label, which has a color. This hierarchy is expressed as a 
+    sequence of MapServer keywords seperated by underscores. For example to change the color 
+    of a layer called "lakes" with only one class defined you would use a form variable named 
+    "map_lakes_class_color" and could assign it a color like "0 0 255". Layers can be 
+    referenced by index (i.e. map_layer_0...) or by name as shown above. Layer classes 
+    are referenced by index value (i.e.  map_layer_0_class_2). If there is only 1 class for
+    a layer then the index should be ommited. These variables must always begin with the 
+    sequence "map_". Values assigned must conform to the syntax of a map file. 
+    </para>
+    
+    <para>
+    It is also possible to define inline features using this mechanism. This is the only case 
+    where you can add on to the map file.  You can edit/change layer parameters but you cannot
+    create a new layer. With inline features you have to first create a feature and then build
+    upon it, however, the layer the feature belongs to must exist. Here's a snippet from a GET
+    request that adds a feature to a webuser layer:
+    <programlisting><![CDATA[
+      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789+map_webuser_feature_text=My+House!&...
+      ]]>
+    </programlisting>
+    The "map_webuser_feature=new" creates a new feature for the webuser layer. All subsequent 
+    calls to the feature object for that layer will modify the new feature. You can repeat the
+    process to create additional features. This is really intended for very small (point, 
+    rectangle) amounts of data.
+    </para>
+    
+    <para>
+    It's quite possible that I'll come up with some shortcuts for this processing, but until I
+    know how useful this is to users this is it. One potentially very powerful use involves 
+    changing class expressions on-the-fly. Anyway, try it out.
+    </para>
+
+  </sect2>
+</sect1>
+</article>
