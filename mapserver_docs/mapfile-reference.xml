@@ -135,12 +135,6 @@
 						<para>Full filename of the symbolset to use.</para>
 					</listitem>
 				</varlistentry>
-				<varlistentry id="tile">
-					<term>TILE [string]</term>
-					<listitem>
-						<para>Name of a directory containing shapefiles (see <link linkend="shapepath">SHAPEPATH</link>).</para>
-					</listitem>
-				</varlistentry>
 				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
@@ -300,7 +294,7 @@
 				<varlistentry>
 					<term>DATA [filename]|[sde parameters]</term>
 					<listitem>
-						<para>Full filename of the spatial data to process. No file extension is necessary for shapefiles. Can be specified relative to the <link linkend="shapepath">SHAPEPATH</link> or <link linkend="tile">TILE</link> options from the Map Object.</para>
+						<para>Full filename of the spatial data to process. No file extension is necessary for shapefiles. Can be specified relative to the <link linkend="shapepath">SHAPEPATH</link> option from the Map Object.</para>
 						<para>If this is an SDE layer, the parameter should include the name of the layer as well as the geometry column, i.e. "mylayer,shape".</para>
 					</listitem>
 				</varlistentry>
