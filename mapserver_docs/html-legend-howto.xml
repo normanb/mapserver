@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>MapServer HTML Legend HOWTO</title>
+		<title>MapServer HTML Legend HOWTO - Version 3.7/4.0</title>
 		<author>
 			<firstname/>
 			<surname/>
@@ -20,14 +20,15 @@
 			<para>
                  This document describes the procedures for implementing an HTML legend in MapServer applications.
                </para>
-			<para>Last Updated: 04/18/2002</para>
+			<para>Last Updated: 07/14/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
              The HTML legend is an alternative to the traditional GIF legend in MapServer.  The following document 
-             describes the process for implementing an HTML legend in MapServer v3.5.1 CGI applications (a recent development version 		   of MapServer is required because HTML legend functionality is not part of the 3.5 release).
+             describes the process for implementing an HTML legend in MapServer CGI applications 
+             (NOTE: MapServer <emphasis>version > 3.5 is required</emphasis>, e.g. v3.5.1 is valid)
           </para>
 		<para>
              This document assumes that you are already familiar with certain aspects of MapServer:
@@ -605,7 +606,7 @@
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
