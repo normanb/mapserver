@@ -21,7 +21,7 @@
 			<para>
     			This document describes the procedures for obtaining, compiling and installing MapServer on UNIX-type platforms.
     			</para>   
-    			<para>Last Updated:  05-11-2001</para>
+    			<para>Last Updated:  05-23-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -63,15 +63,11 @@
 		<itemizedlist>
 			<listitem>
 				<para>
-					<ulink url="http://www.boutell.com/gd/">GD</ulink>: For rendering GIFs or PNGs (Mandatory, Version 1.2 Included).</para>
+					<ulink url="http://www.boutell.com/gd/">GD</ulink>: For rendering GIFs or PNGs (Mandatory).</para>
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://www.freetype.org/">FreeType</ulink>: For TrueType Font rendering (Recommended).</para>
-			</listitem>
-			<listitem>
-				<para>
-					<ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink>: For on-the-fly projection conversion (Recommended).</para>
+					<ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink>: For on-the-fly projection conversion (Recommended, mandatory for WMS Support). You will need AT LEAST version 4.4.3.</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -87,7 +83,13 @@
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://gdal.velocet.ca/projects/opengis/">OGR Simple Features Library</ulink>: For providing I/O for a variety of vector file formats (Optional).</para>
+					<ulink url="http://gdal.velocet.ca/projects/opengis/">OGR Simple Features Library</ulink>: For providing I/O for a variety of VECTOR file formats (Optional).</para>
+			</listitem>
+			<listitem>
+				<para><ulink url="http://www.remotesensing.org/gdal/">GDAL - Geospatial Data Abstraction Library</ulink>: For providing I/O for a number of RASTER formats (Optional).</para>
+			</listitem>
+			<listitem>
+				<para>SDE Client Librairies: These librairies are provided with ESRI's Spatial Data Warehouse ArcSDE (Optional).</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -95,12 +97,43 @@
 			</listitem>
 		</itemizedlist>
 	</sect1>
+	<sect1>
+		<title>The GD issues</title>
+		<sect2>
+			<title>GIF Output</title>
+			<para>MapServer uses the Open-Source <ulink url="http://www.boutell.com/gd/">GD library</ulink> to render it's output.  The more recent versions of this library (Post 1.6) do NOT support GIF output, recommending instead the superior PNG format.</para>
+			<para>This is due to the fact that the LZW Compression algorythm used in GIF's is copyrighted to UNISYS, which has recently started enforcing it's Intellectual Property rights.  This means anyone who whishes to use GIF imaging must use properly licensed software, or pay royalties to UNISYS.</para>
+			<para>Starting with version 3.5 of MapServer, the old GD 1.2 is no longer included with the code. If you wish to use GIF output with the more recent versions of GD, and are properly licensed to do so, you can obtain patched versions of the library in Australia, at the following address: <ulink url="http://www.rhyme.com.au/gd/">http://www.rhyme.com.au/gd/</ulink>.</para>
+			<para>Not sure whether your GD supports GIFs? Here's how you can tell:</para>
+			<para>When you run your "configure" script, look for the following output:</para>
+			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
+			<para>If your GD is built with GD support, you will see the "-DUSE_GD_GIF" part.  If it's missing, you will need to either use PNG images or obtain the patched GD mentionned above (After paying for the rights, of course).</para>
+		</sect2>
+		<sect2>
+			<title>TrueType Font Support</title>
+			<para>Also, starting with version 3.5 of MapServer, the GD you compile MapServer against MUST be compiled against the FreeType library in order to use TrueType fonts.  MapServer no longer uses it's own interface to FreeType, using it through GD instead.</para>
+			<para>Not sure whether your GD qualifies? Here's how you can tell:</para>
+			<para>When you run your "configure" script, look for the following output:</para>
+			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
+			<para>If your GD is built against FreeType, you will see the "-DUSE_GD_TTF" part.  If it's missing, you will need to recompile your GD to make sure you include FreeType support. Please see the <ulink url="http://www.boutell.com/gd/">GD</ulink> documentation for help with that.</para>
+		</sect2>
+	</sect1>
+	<sect1>
+		<title>OGC WMS Support</title>
+		<para>New with version 3.5 of MapServer is support for the much touted <ulink url="http://www.opengis.org/">OpenGIS Consortium</ulink>'s <ulink url="http://www.opengis.org/techno/specs/00-028.pdf">Web Map Server</ulink> standard.</para>
+		<para>Support for this specification is automatically enabled when you include PROJ.4 support.</para>
+		<para>You can check this yourself by looking for the following in your "configure" output:</para>
+		<screen>checking whether we should include WMS support...
+        OGC WMS compatibility enabled (-DUSE_WMS).
+		</screen>
+		<para>If, for some reason you DON'T want WMS support, you can force it off by passing "--without-wms" to your configure script.</para>
+	</sect1>
 	<sect1 id="compiling">
 		<title>Compiling</title>
 		<para>The first thing you should do is unpack the source code tar-ball:
 
   <screen>
-  [user@host user]$ tar -zxvf ms_3.4.000.tar.gz
+  [user@host user]$ tar -zxvf ms_3.5.000.tar.gz
   </screen>
 
   This will unpack the file into a directory called "mapserver".
@@ -108,7 +141,7 @@
   </para>
 		<sect2 id="quickcompile">
 			<title>The QUICK and DIRTY way</title>
-			<para>If you're in a hurry, try this:
+			<para>If you're in a hurry (*NOT* recommended!), try this:
    <screen>
    [user@host user]$ cd mapserver
    [user@host mapserver]$ ./configure
@@ -137,23 +170,6 @@
   [user@host mapserver]$ ./configure
   </screen>
 				<para>Note the output of the above command and make sure that the configure script located all the libraries you want it to use.  If not, you may have to manually specify the location of the libraries (see the example in the following section).</para>
-				<sect4 id="gd">
-					<title>The GD Issue</title>
-					<para>By default Mapserver will use the system libraries, including GD.  The problem is that nowadays most Linux distribution come
-  with recent versions (>1.6) of GD that no longer supports GIFs, but PNGs instead.  This is often not preferred since PNGs, although
-  superior, are not yet widely supported by all browsers.  Therefore, most Web developers still prefer to use GIFs.
-  </para>
-					<para>The GD library stopped supporting GIFs because UNISYS, the patent holder for the LZW Compression algorithm used in GIFs, has
-  started claiming royalty for the use of the said patent.  This makes it illegal for you to use GIFs unless you used a software package   licensed by UNISYS or you or your business hold such licenses.  Packages such as Corel/Adobe are safe; GD, being open-source, couldn't possibly be licensed.  So beware!</para>
-					<para>Thankfully, Mapserver is distributed with an older version of GD, which is GIF capable. In order to force its use you would
-  take the following steps:</para>
-					<screen>
-  [user@host mapserver]$ cd gd-1.2
-  [user@host gd-1.2]$ make
-  [user@host gd-1.2]$ cd .. 
-  [user@host mapserver]$ ./configure --with-gd=gd-1.2/ <emphasis>(...and possibly other options)</emphasis>
-					</screen>
-				</sect4>
 				<sect4 id="manlib">
 					<title>Requesting specific libraries</title>
 					<para>Some libraries will NEVER be detected by default, and HAVE to be specified via the configure script.</para>
@@ -169,7 +185,10 @@
 							<para>MPATROL: A debugging library (--with-mpatrol).</para>
 						</listitem>
 						<listitem>
-							<para>OGR: The vector file formats I/O library (--with-ogr).</para>
+							<para>OGR: The VECTOR file formats I/O library (--with-ogr).</para>
+						</listitem>
+						<listitem>
+							<para>GDAL: The RASTER file formats I/O library (--with-gdal).</para>
 						</listitem>
 					</itemizedlist>
 					<para>If the configure script can't find the libraries, you can always specify their location manually by appending the path
