@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Jean-Francois Doyon (Natural Resources Canada) -->
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
@@ -19,8 +20,8 @@
 		<abstract>
 			<para>
     			This document describes the procedures for obtaining, compiling and installing MapServer on UNIX-type platforms.
-    			</para>   
-    			<para>Last Updated:  12-12-2001</para>
+    			</para>
+			<para>Last Updated:  12-12-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -69,7 +70,8 @@
 					<ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink>: For on-the-fly projection conversion (Recommended, mandatory for WMS Support). For WMS, you will need AT LEAST version 4.4.3.</para>
 			</listitem>
 			<listitem>
-				<para><ulink url="http://www.w3c.org/Library/">LibWWW</ulink>: For WMS Client Connections support (Optional, recommended for WMS Support).</para>
+				<para>
+					<ulink url="http://www.w3c.org/Library/">LibWWW</ulink>: For WMS Client Connections support (Optional, recommended for WMS Support).</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -88,13 +90,15 @@
 					<ulink url="http://gdal.velocet.ca/projects/opengis/">OGR Simple Features Library</ulink>: For providing I/O for a variety of VECTOR file formats (Optional).</para>
 			</listitem>
 			<listitem>
-				<para><ulink url="http://www.remotesensing.org/gdal/">GDAL - Geospatial Data Abstraction Library</ulink>: For providing I/O for a number of RASTER formats (Optional).</para>
+				<para>
+					<ulink url="http://www.remotesensing.org/gdal/">GDAL - Geospatial Data Abstraction Library</ulink>: For providing I/O for a number of RASTER formats (Optional).</para>
 			</listitem>
 			<listitem>
 				<para>SDE Client Librairies: These libraries are provided with ESRI's Spatial Data Warehouse ArcSDE (Optional).</para>
 			</listitem>
 			<listitem>
-				<para><ulink url="http://www.postgresql.org">PostgreSQL</ulink> Client: In order for MapServer to be able to read PostGIS data, it needs to be compiled against the PostgreSQL client libraries.</para>
+				<para>
+					<ulink url="http://www.postgresql.org">PostgreSQL</ulink> Client: In order for MapServer to be able to read PostGIS data, it needs to be compiled against the PostgreSQL client libraries.</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -116,7 +120,7 @@
 			<para>When you run your "configure" script, look for the following output:</para>
 			<screen>        using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG -DUSE_GD_WBMP
          -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</screen>
-			<para>If your GD is built with GD support, you will see the "-DUSE_GD_GIF" part.  If it's missing, you will need to either use PNG images or obtain the patched GD mentionned above (After paying for the rights, of course).</para>
+			<para>If your GD is built with GIF support, you will see the "-DUSE_GD_GIF" part.  If it's missing, you will need to either use PNG images or obtain the patched GD mentionned above (After paying for the rights, of course).</para>
 		</sect2>
 		<sect2>
 			<title>TrueType Font Support</title>
@@ -162,28 +166,29 @@ checking for FT_Init_FreeType in -lfreetype... yes
 		<title>Spatial Warehousing</title>
 		<para>MapServer can use a wide variety of sources of data input.  One of the solutions growing in popularity is to use spatially enabled databases to store data, and to use them directly to draw maps for the web.</para>
 		<para>Here you will find out how to enable mapserver to talk to one of these products.  Please refer to the MapFile reference for more details on how to use these.  This section only details how to compile MapServer for their use.</para>
-			<sect2>
-				<title>ESRI SDE</title>
-				<para>MapServer allows you to use SDE as a data source both for geometry and attributes.  In order to achieve this, you must have the SDE client librairies at your disposition, and have them installed on the machine running MapServer.</para>
-				<para>In order to enable SDE support in MapServer, you have to compile it with 2 options specified:</para>
-				<itemizedlist>
-					<listitem>
-						<para>--with-sde: This option allows you to specifiy where to find the SDE client librairies</para>
-					</listitem>
-					<listitem>
-						<para>--with-sde-version: This option allows you to specify the version of the librairies. You can use values such as "80" or "81".</para>
-					</listitem>
-				</itemizedlist>
-			</sect2>
-			<sect2>
-				<title>PostGIS</title>
-				<para><ulink url="http://postgis.refractions.net">PostGIS</ulink> adds support for geographic objects to the <ulink url="http://www.postgresql.org">PostgreSQL</ulink> object-relational database. In effect, PostGIS "spatially enables" the PostgreSQL server, allowing it to be used as a backend spatial database for geographic information systems (GIS), much like ESRI's SDE or Oracle's Spatial extension.</para>
-				<para>As with SDE, MapServer can use PostGIS as a data source.  In order to do so simply use "--with-postgis" when running your configure script.</para>
-			</sect2>
-			<sect2>
-				<title>Oracle Spatial</title>
-				<para>Oracle's Spatial Warehousing cartrige is also supported by MapServer.  In order to connect to it, you will need to compile MapServer against the Oracle librairies by passing the "--with-oraclespatial" argument to your configure script.</para>
-			</sect2>
+		<sect2>
+			<title>ESRI SDE</title>
+			<para>MapServer allows you to use SDE as a data source both for geometry and attributes.  In order to achieve this, you must have the SDE client librairies at your disposition, and have them installed on the machine running MapServer.</para>
+			<para>In order to enable SDE support in MapServer, you have to compile it with 2 options specified:</para>
+			<itemizedlist>
+				<listitem>
+					<para>--with-sde: This option allows you to specifiy where to find the SDE client librairies</para>
+				</listitem>
+				<listitem>
+					<para>--with-sde-version: This option allows you to specify the version of the librairies. You can use values such as "80" or "81".</para>
+				</listitem>
+			</itemizedlist>
+		</sect2>
+		<sect2>
+			<title>PostGIS</title>
+			<para>
+				<ulink url="http://postgis.refractions.net">PostGIS</ulink> adds support for geographic objects to the <ulink url="http://www.postgresql.org">PostgreSQL</ulink> object-relational database. In effect, PostGIS "spatially enables" the PostgreSQL server, allowing it to be used as a backend spatial database for geographic information systems (GIS), much like ESRI's SDE or Oracle's Spatial extension.</para>
+			<para>As with SDE, MapServer can use PostGIS as a data source.  In order to do so simply use "--with-postgis" when running your configure script.</para>
+		</sect2>
+		<sect2>
+			<title>Oracle Spatial</title>
+			<para>Oracle's Spatial Warehousing cartrige is also supported by MapServer.  In order to connect to it, you will need to compile MapServer against the Oracle librairies by passing the "--with-oraclespatial" argument to your configure script.</para>
+		</sect2>
 	</sect1>
 	<sect1 id="compiling">
 		<title>Compiling</title>
