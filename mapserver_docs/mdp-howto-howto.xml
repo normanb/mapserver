@@ -92,7 +92,20 @@
 
 <sect1 id='tools'>
   <title>The Tools</title>
-
+  
+  <sect2 id='mdp_transform'>
+    <title>The MDP DocBook XML to HTML Transformer</title>
+     <para>
+      A <ulink url='/cgi-bin/mdp_transform.cgi'>
+      MDP Transformer</ulink> is available to preview DocBook XML documents
+      without downloading any additional software.
+      It uploads a local XML file, transforms it with the DocBook XSL stylesheets 
+      and Saxon, and outputs an HTML version of the file.  If you use
+      this tool you will not need the XSL stylesheets and XML processing tools
+      listed below.  You will, however, need the DocBook DTD for your XML editor.
+     </para>
+  </sect2>
+  
   <sect2 id='docbookdtd'>
     <title>The DocBook DTD</title>
      <para>
@@ -180,7 +193,16 @@
 
 <sect1 id='writing'>
   <title>Writing a Document</title>
-
+  
+  <sect2 id='template'>
+    <title>The MDP XML template</title>
+    <para>
+      The MDP HOWTO Template in <ulink url="mdp-howto-template.html">HTML</ulink> and DocBook 
+      <ulink url="mdp-howto-template.xml">XML</ulink> gives you a document skeleton
+      (to download the XML file right click on the link and select "Save Link As...").
+    </para>
+  </sect2>
+  
   <sect2 id='topic'>
     <title>Choosing a Topic</title>
     <para>
