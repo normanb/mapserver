@@ -119,7 +119,16 @@ public class jBoxPNG extends Applet implements MouseListener, MouseMotionListene
 
 	s = getParameter("box");
 	if(s != null) {
-	    if(s.equalsIgnoreCase("off")) box = false;
+		if(s.equalsIgnoreCase("false")) {
+			box = false;
+	 }
+	}
+	s = getParameter("drag");
+	if(s != null) {
+		if(s.equalsIgnoreCase("true")) {
+			drag = true;
+			box = false;
+	  }
 	}
 
 	// nab the image itself
