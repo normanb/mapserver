@@ -30,15 +30,18 @@
 			</affiliation>
 		</author>
 
-		<date>2004-01-16</date>
+		<date>2004-01-23</date>
 		<abstract>
 			<para>
                  This document describes the components of a MapServer application and how 
                  they work together.  It also gives suggestions for getting your first application
-                 running. Testing the script.
+                 running. 
                </para>
-			<para>Last Updated: 02/15/2002</para>
-		</abstract>
+	       <para>Last Updated: 01/23/2004</para>
+
+            <para><link linkend='rhistory'>Revision History</link></para>
+
+	       </abstract>
 	</articleinfo>
 <sect1 id="intro"><title>Parts of a MapServer Application</title>
 
@@ -152,6 +155,20 @@
      </ulink> (coming soon).  This will walk you through setting up an application
      and familiarize you with mapfiles and template files.
   </sect2>
+
+  <sect2 id='rhistory'><title>Document Changes</title>
+  <para>
+     <revhistory>
+      <revision>
+        <revnumber>: 1</revnumber>
+        <date>Date: 01/23/2004</date>
+        <authorinitials>Author: Kari Geurts</authorinitials>
+        <revremark>I added the Revision History section to this document.</revremark>
+      </revision>
+     </revhistory>
+  </para>
+  </sect2>
+
 </sect1>
 </article>
 
