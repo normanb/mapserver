@@ -71,7 +71,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					<ulink url="http://curl.haxx.se/libcurl/">Libcurl</ulink>: For WMS/WFS Client Connections support (Optional, required WMS/WFS Support). Version 7.10 or greater required.</para>
+					<ulink url="http://curl.haxx.se/libcurl/">LibCURL</ulink>: For WMS/WFS Client Connections support (Optional, required WMS/WFS Support). Version 7.10 or greater required.</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -185,7 +185,7 @@ checking for FT_Init_FreeType in -lfreetype... yes
 		<sect2>
 			<title>Client</title>
 			<para>MapServer can also act as a WFS client.  This effectively means that MapServer reads it's data from a remote server's WFS output and renders it into a map, just like it would when reading data from a shapefile.</para>
-			<para>In order to enable this feature, you will need to make sure you include OGR and PROJ.4 support, and pass the "--with-wfsclient" option to your configure script. MapServer will automatically look for libcurl, which is also required.</para>
+			<para>In order to enable this feature, you will need to make sure you include OGR (Built with Xerces support) and PROJ.4 support, and pass the "--with-wfsclient" option to your configure script. MapServer will automatically look for libcurl, which is also required.</para>
 			<para>To verify that the WFS Client feature is enabled, check the output from the configure script:</para>
 			<screen>checking whether we should include WFS Client Connections support...
         OGC WFS Client Connections enabled (-DUSE_WFS_LYR).
