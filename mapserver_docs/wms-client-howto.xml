@@ -15,13 +15,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-12-12</date>
+		<date>2001-12-13</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using MapServer's WMS connection type to include layers from 				  remote WMS servers in MapServer v3.5 applications.
                </para>
-			<para>Last Updated: 13/12/2001</para>
+			<para>Last Updated: 12/13/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
