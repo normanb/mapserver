@@ -854,7 +854,7 @@ PROCESSING "BANDS=3,2,1,4"
                 <varlistentry>
                     <term>ANTIALIAS [true|false]</term>
                     <listitem>
-                        <para>Should TrueType fonts be antialiased.</para>
+                        <para>Should TrueType fonts and Cartoline symbols be antialiased.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -1666,6 +1666,24 @@ file.  Symbol definitions in a separate file are designated using the <link link
                     </listitem>
                 </varlistentry>
                 <varlistentry>
+                    <term>LINECAP [butt|round|square|triangle]</term>
+                    <listitem>
+                        <para>Sets the line cap type for the cartoline symbol. Default is butt. Works with the CARTOLINE symbol only!</para>
+                    </listitem>
+                </varlistentry>  
+                <varlistentry>
+                    <term>LINEJOIN [round|miter|bevel]</term>
+                    <listitem>
+                        <para>Sets the line join type for the cartoline symbol. Default is "none" - lines will not be joined . Works with the CARTOLINE symbol only!</para>
+                    </listitem>
+                </varlistentry> 
+                <varlistentry>
+                    <term>LINEJOINMAXSIZE [int]</term>
+                    <listitem>
+                        <para>Sets the max length of the miter line join type. The value represents a coefficient which multiplies a current symbol size. Default is 3. Works with the CARTOLINE symbol only!</para>
+                    </listitem>
+                </varlistentry>                 
+                <varlistentry>
                     <term>POINTS [x y] [x y] ... END</term>
                     <listitem>
                         <para>Signifies the start of the definition of points that make up a vector symbol or that define the x and y radius of an ellipse symbol.  The end of this section is signified with the keyword END. Coordinates are given in pixels and define the default size of the symbol before any scaling.  You can create non-contiguous paths by inserting negative coordinates at the appropriate place. For ellipse symbols you provide a single point that defines the x and y radius of an ellipse.  Circles are created when x and y are equal.</para>
@@ -1691,7 +1709,7 @@ file.  Symbol definitions in a separate file are designated using the <link link
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>TYPE [vector|ellipse|pixmap|truetype|simple]</term>
+                    <term>TYPE [vector|ellipse|pixmap|truetype|simple|cartoline]</term>
                     <listitem>
                         <para>
                             <itemizedlist>
@@ -1804,6 +1822,24 @@ SYMBOL
 END
                 </programlisting>
             </example>
+            <example>
+                <title>Dashed Cartoline symbol</title>
+                <programlisting>
+SYMBOL   
+  NAME "cartoline"
+  TYPE cartoline
+  LINECAP butt
+  LINEJOIN miter
+  LINEJOINMAXSIZE 1
+  STYLE 10 5
+END
+                </programlisting>
+                <para>
+                    This creates a dashed line with 10 pixels on, 5 off,... The line will have butt caps and short miter joins. 
+                    For layers with a scaled symbol (SYMBOLSCALE, MINSIZE, MAXSIZE, ...) the STYLE will be resized to maintain 
+                    symbol ratios.                
+                </para>
+            </example>            
         </sect2>
     </sect1>
     <!-- Section1: Document Info -->
@@ -1822,7 +1858,7 @@ END
                         <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames, note about negative GAP values, corrected LABELREQUIRES example, note on style size default behaviour
+                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames, note about negative GAP values, corrected LABELREQUIRES example, note on style size default behaviour, cartoline notes
                                    </revremark>
                     </revision>
                 </revhistory>
