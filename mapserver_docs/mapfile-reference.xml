@@ -31,7 +31,7 @@
             <para>
                 This document is a reference to the MapFile syntax for MapServer version 4.4.
             </para>
-            <para>Last Updated:  10-21-2004</para>
+            <para>Last Updated:  11-28-2004</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>
@@ -296,6 +296,20 @@ such options would be found in specific GDAL driver documentation.
                         <para>Color to draw text with.</para>
                     </listitem>
                 </varlistentry>
+                <varlistentry id="encoding">
+                    <term>ENCODING [string]</term>
+                    <listitem>
+                        <para>Supported encoding format to be used for labels.  If the format is not supported, the label
+                              will not be drawn. Requires the iconv library (present on most systems). The library is
+                              always detected if present on the system, but if not the label will not be
+                              drawn. 
+                        </para>
+                        <para>
+                              Useful for displaying international characters in MapServer.  More information can be found at: 
+                              <ulink url="http://www.foss4g.org/FOSS4G/MAPSERVER/mpsnf-i18n-en.html">http://www.foss4g.org/FOSS4G/MAPSERVER/mpsnf-i18n-en.html</ulink>.
+                        </para>
+                    </listitem>
+                </varlistentry>                
                 <varlistentry id="font">
                     <term>FONT [name]</term>
                     <listitem>
@@ -1855,6 +1869,13 @@ END
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.50</revnumber>
+                        <date>Date: 2004-11-28</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added ENCODING for label object.
+                                   </revremark>
+                    </revision>                
+                    <revision>
                         <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -1867,7 +1888,7 @@ END
         <sect2 id="copyright">
             <title>Copyright Information</title>
             <para>
-    Copyright (c) 2001, 2002, 2003, 2004, Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
+    Copyright (c) 2004 Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
    </para>
             <para>
     This documentation is covered by the same Free Software license as the MapServer software.
@@ -1890,9 +1911,11 @@ END
         <!-- Section2: feedback -->
         <sect2 id="feedback">
             <title>Feedback</title>
-            <para>
-    Send any comments or suggestions to the author(s).
-   </para>
+      <para>
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
+        </para>
         </sect2>
     </sect1>
 </article>
