@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<!-- build.xml -->
+<project name="MapServer jBox" default="compile">
+
+  <property name="src.dir" value="."/>
+
+  <!-- imported class locations -->
+  <property name="netscape.classes" value="."/>
+  <property name="sixlegs.classes" value="."/>
+  
+  <!-- Temporary build directories -->
+  <property name="build.dir" value="build"/>
+  <property name="build.classes" value="${build.dir}/classes"/>
+  <property name="build.lib" value="${build.dir}/lib"/>
+  
+  <property name="vm.version" value="1.1"/>
+  
+  <path id="project.class.path">
+  	 <pathelement location="${netscape.classes}"/>
+  	 <pathelement location="${sixlegs.classes}"/>
+  </path>
+
+  <!-- Target to create the build directories prior to the -->
+  <!-- compile target. -->
+  <target name="prepare">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.classes}"/>
+    <mkdir dir="${build.lib}"/>
+  </target>
+
+  <target name="clean" description="Remove all generated files.">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" depends="prepare"
+          description="Compiles all source code.">
+    <javac srcdir="${src.dir}" destdir="${build.classes}" target="${vm.version}">
+    	<classpath refid="project.class.path"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile"
+          description="Generates oreilly.jar in the 'dist' directory.">
+    <!-- Exclude unit tests from the final JAR file -->
+    <jar jarfile="${build.lib}/oreilly.jar" 
+         basedir="${build.classes}"
+         excludes="**/*Test.class"/>
+  </target>
+
+  <target name="all" depends="clean,jar"
+          description="Cleans, compiles, then builds the JAR file."/>
+
+</project>
