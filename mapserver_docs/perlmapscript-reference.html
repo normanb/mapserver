@@ -9,9 +9,11 @@
 <script language="javascript">header("doc");</script>
 <h2><u>Perl MapScript Reference</u></h2>
 <b><u>Abstract:<br></u></b>
-This document is a reference to the Perl MapScript syntax for MapServer version 3.6.1.<br>
+This document is a reference to the Perl MapScript syntax for MapServer version 3.6.x.<br>
+<b>Important Note for 3.6.4: The version of Swig used to build the Perl/Python/Tcl interfaces is different than in previous releases.<br>
+As a result: "$map = new mapObj(...);" becomes "$map = new mapscript::mapObj(...);"</b><br>
 Be <b>Sure</b> to see the <a href="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PerlMapScript">Wiki</a> for Build, Install, Samples, & Debugging Help.<br>
-Last Updated: 8/27/2002 by <a href="mailto:lfilak@medinaco.org">Lowell Filak</a>
+Last Updated: 2/19/2003 by <a href="mailto:lfilak@medinaco.org">Lowell Filak</a>
 <br>
 Medina County Engineer's Office<br>
 Medina, Ohio<br>
@@ -3144,6 +3146,10 @@ Each class is described in detail later in this document.<br>
     <td>
       integer
     </td>
+    <td>
+      See open() & close().<br>
+      Seems to equate to new shapefileObj(), get(), & undef.
+    </td>
   </tr>
   <tr>
     <td>
@@ -3300,7 +3306,11 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       $qryresult = $layer->queryByPoint($map,$point,$mapscript::MS_SINGLE,0);<br>
-      $resultmember = $layer->getResult(0);
+      $resultmember = $layer->getResult(0);<br>
+      <br>
+      $query = "(([AREA]>500000 AND [AREA]<=1000000) AND ([CODE]=311 OR [CODE]=312))";<br>
+      $layer->setFilter($query);<br>
+      (thanks to Armin Burger)
     </td>
   </tr>
 </table>
