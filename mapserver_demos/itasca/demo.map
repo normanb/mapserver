@@ -155,6 +155,8 @@ LAYER
   HEADER "mcd90py2_header.html"
   FOOTER "mcd90py2_footer.html"
 
+  DUMP TRUE # allow GML export
+
   METADATA
     WMS_TITLE "Minor Civil Divisions"
     WMS_ABSTRACT "Minor civil divisions for Itasca County. (boundaries only)"
@@ -197,6 +199,8 @@ LAYER
   
   TOLERANCE 3
 
+  DUMP TRUE # allow GML export
+
   METADATA
     WMS_TITLE "Lakes and Rivers"
     WMS_ABSTRACT "DLG lake and river polygons for Itasca County. See http://deli.dnr.state.mn.us/metadata/full/dlglkpy2.html for more information."
@@ -220,6 +224,8 @@ LAYER
   FOOTER "dlgstln2_footer.html"
 
   TOLERANCE 5  
+
+  DUMP TRUE # allow GML export
 
   METADATA
     WMS_TITLE "Streams"
