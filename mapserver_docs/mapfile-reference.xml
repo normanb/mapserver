@@ -64,6 +64,12 @@
 			<title>Map Object</title>
 			<para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
 			<variablelist>
+				<varlistentry id="datapattern">
+					<term>DATAPATTERN [regular expression]</term>
+					<listitem>
+						<para>This defines a regular expression to be applied to requests to change <link linkend="data">DATA</link> parameters via URL requests (i.e. map_layername_data=...). If a pattern doesn't exist then web users can't monkey with support files via URLs. This allows you to isolate one application from another if you desire, with the default operation being very conservative. See also <link linkend="templatepattern">TEMPLATEPATTERN</link>.</para>
+					</listitem>
+				</varlistentry>
 				<varlistentry>
 					<term>DEBUG</term>
 					<listitem>
@@ -189,6 +195,12 @@
 					<term>SYMBOL</term>
 					<listitem>
 						<para>Signals the start of a <link linkend="symbology">SYMBOL</link> object.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry id="templatepattern">
+					<term>TEMPLATEPATTERN [regular expression]</term>
+					<listitem>
+						<para>This defines a regular expression to be applied to requests to change <link linkend="template">TEMPLATE</link> parameters via URL requests (i.e. map_layername_template=...). If a pattern doesn't exist then web users can't monkey with support files via URLs. This allows you to isolate one application from another if you desire, with the default operation being very conservative. See also <link linkend="datapattern">DATAPATTERN</link>.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -380,7 +392,7 @@
 						<para>Type of connection. Default is local. See additional documentation for any other type.</para>
 					</listitem>
 				</varlistentry>
-				<varlistentry>
+				<varlistentry id="data">
 					<term>DATA [filename]|[sde parameters][postgis table/column][oracle table/column]</term>
 					<listitem>
 						<para>Full filename of the spatial data to process. No file extension is necessary for shapefiles. Can be specified relative to the <link linkend="shapepath">SHAPEPATH</link> option from the Map Object.</para>
