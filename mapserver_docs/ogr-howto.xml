@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<!-- $Id$ -->
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
@@ -19,17 +20,21 @@
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
-                 This document describes the specifications for implementing OGR support within MapServer.
+                 This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-             The following document describes the process for implementing OGR support within MapServer.
+             Starting with version 3.5, MapServer included the ability to access 
+             vector datasets in their native format using the OGR library.  
+             The following document describes the process for implementing OGR support within MapServer applications.
           </para>
 		<para>
-			<emphasis>Also include the version of the MapServer software that you are describing.</emphasis>
+			<emphasis>Note that experimental OGR support was included in MapServer version 3.4
+            but this initial implementation had some limitations and is not covered in
+            this document.</emphasis>
 		</para>
 		<para>
              This document assumes that you are already familiar with certain aspects of MapServer:
@@ -37,12 +42,13 @@
 		<itemizedlist>
 			<listitem>
 				<para>
-                             MapServer .map files.
-                          </para>
+                    MapServer application development and especially setting up .map files.
+                </para>
 			</listitem>
 			<listitem>
 				<para>
-					<emphasis>Some other aspect?</emphasis>
+					Some compilation skills if you don't have ready access to a precompiled installation
+                    and need to compile your own copy of MapServer with OGR support.
 				</para>
 			</listitem>
 		</itemizedlist>
@@ -52,14 +58,14 @@
 			<para>
                       The OGR Simple Features Library is a C++ open source library (and commandline tools) 
                       providing read (and sometimes write) access to a variety of vector file formats 
-                      including ESRI Shapefiles, and Mapinfo mid/mif and TAB formats.  
+                      including ESRI Shapefiles, and MapInfo mid/mif and TAB formats.  
                     </para>
 		</sect2>
 		<!-- Section2: What does it add to MapServer? -->
 		<sect2 id="addtition">
 			<title>What Does OGR Add to MapServer?</title>
 			<para>
-                      The OGR Simple Features Library allows MapServer users to display several types of data files in their native                                
+                      The OGR Simple Features Library allows MapServer users to display several types of vector data files in their native
                       formats.  For example, MapInfo Mid/Mif and TAB data do not need to be converted to ESRI shapefiles 
                       when using OGR support with MapServer.
                </para>
@@ -68,6 +74,9 @@
 		<sect2 id="supported">
 			<title>What Data Formats are Supported?</title>
 			<para>
+                See <ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html">http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html</ulink> for 
+                the latest list of supported formats.
+                At the date this document was written, the following formats were supported:
 				<itemizedlist>
 					<listitem>
 						<para>
@@ -111,7 +120,21 @@
 				    </para>
 					</listitem>
 				</itemizedlist>
-			</para>
+                <para>
+                    <emphasis>Note1: Some of the above formats (e.g. OGDI) have external dependencies
+                    and are not always included in the precompiled binary distributions of MapServer with OGR support.
+                    </emphasis>
+                </para>
+                <para>
+                    <emphasis>Note2: Some of the above formats are not well suited
+                    for random access by nature, that's the case of MapInfo MIF/MID files which is a
+                    TEXT format and will give very poor performance for a web application.  
+                    On the other hand, some binary formats such as MapInfo TAB are better suited for 
+                    random access and will give performance comparable to native shapefile access 
+                    in Mapserver.
+                    </emphasis>
+                </para>
+            </para>
 		</sect2>
 		<!-- Section2: More information on the OGR project -->
 		<sect2 id="information">
@@ -128,7 +151,7 @@
 				</address>
                </para>
 			<para>
-                      The integration of OGR inside MapServer was done by Daniel Morissette.
+                      The integration of OGR within MapServer was done by Daniel Morissette.
                   <address>
 					<email>morissette@dmsolutions.ca</email>
 				</address>
@@ -139,15 +162,30 @@
 	<sect1 id="obtain">
 		<title>Obtaining and Compiling MapServer with OGR Support</title>
 		<para>
-			  MapServer with OGR support can be obtained from the main MapServer download page,
-			  <ulink url="http://mapserver.gis.umn.edu/dload.html">http://mapserver.gis.umn.edu/dload.html</ulink>.
+            <emphasis>TODO: this is still incomplete</emphasis>
+            <itemizedlist>
+                <listitem>
+                	<para>
+						Follow the instructions on the OGR page to compile/install OGR (actually GDAL since OGR is part of the GDAL library):
+                        <ulink url="http://gdal.velocet.ca/projects/opengis/">http://gdal.velocet.ca/projects/opengis/</ulink>.
+                    </para>
+                </listitem>
+                <listitem>
+                	<para>
+						Obtain the MapServer source from: <ulink url="http://mapserver.gis.umn.edu/dload.html">http://mapserver.gis.umn.edu/dload.html</ulink>.
+                    </para>
+                </listitem>
+            </itemizedlist>
 	     </para>
 		<para>
 			 For UNIX users, see the <emphasis>README.CONFIGURE</emphasis> file in the MapServer source, or see
 			the UNIX/MapServer HOWTO at <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">					http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  
 	     </para>
 		<para>
-		     For Windows users, see the <emphasis>README.WIN32</emphasis> file in the MapServer source.
+		     For Windows users, it is recommended to look for a precompiled binary on the MapServer
+             site at <ulink url="http://mapserver.gis.umn.edu/win32binaries.html">http://mapserver.gis.umn.edu/win32binaries.html</ulink>  
+             (<emphasis>Unfortunately there is no 3.5 executable with OGR support on this site yet.</emphasis>).
+             If you want to compile your own then see the <emphasis>README.WIN32</emphasis> file in the MapServer source.
 	     </para>
 	</sect1>
 	<!-- Section1: Integration or developing  an application-->
@@ -155,8 +193,8 @@
 		<title>Integrating OGR Support with MapServer Applications</title>
 		<para>
                 The only change that is needed to integrate OGR support with a MapServer
-                application is with the .map file.  Two parameters must be added to the .map 
-                file inside the layer in question:
+                application is with the .map file.  The LAYER's DATA parameter is replaced by
+                two parameters (CONNECTIONTYPE OGR, and CONNECTION):
              </para>
 		<programlisting>
 	LAYER
@@ -181,7 +219,12 @@
 				</listitem>
 				<listitem>
 					<para>
-	                     the location of the file relative to the location of the .map file.
+	                     this is the location of the file relative to the location of the .map file.
+	               </para>
+				</listitem>
+				<listitem>
+					<para>
+	                     note that the SHAPEPATH parameter is ignored when accessing OGR data sources.
 	               </para>
 				</listitem>
 			</itemizedlist>
@@ -253,7 +296,8 @@
 		<sect2 id="ogrinfo">
 			<title>How to Use "OGRINFO"</title>
 			<para>
-				OGRINFO is an .exe that can be used to obtain layer information about OGR supported files.  The parameters
+				OGRINFO is part of the GDAL/OGR distribution.  It is an executable that can be used 
+                to obtain layer information about OGR supported files.  The parameters
 				are:
 			</para>
 			<programlisting>
@@ -278,29 +322,63 @@
 			</itemizedlist>
 			<sect3 id="example">
 			     <title>Example</title>
-                           <para>
-			                 1.  Entering <emphasis>ogrinfo canada.tab</emphasis> will return:
-			            </para>
+                     <para>
+                         1. To get the list of layers in a file:
+			         </para>
 			     <programlisting>
-	INFO: open of 'canada.tab'
-	using driver 'MapInfo File' successful.
-	1: canada (Polygon)
+    $ ogrinfo  popplace.tab
+
+    Had to open data source read-only.
+    INFO: Open of `popplace.tab'
+    using driver `MapInfo File' successful.
+    1: popplace (Point)
 			    </programlisting>
 			    <para>
-			        <literallayout>   which shows that there is one polygon layer in the canada.tab file.</literallayout>
+			        <literallayout>   which shows that there is one point layer in the popplace.tab file.</literallayout>
 			    </para>
                    <para>
-                        2.  Entering <emphasis>ogrinfo -q canada.tab</emphasis> will return:
+                        2.  To get a dump of a specific layer, including field names, projection, etc:
                    </para>
                    <programlisting>
-	1. canada (Polygon)
-                   </programlisting>
+    $ ogrinfo popplace.tab popplace
+
+    Had to open data source read-only.
+    INFO: Open of `popplace.tab'
+    using driver `MapInfo File' successful.
+
+    Layer name: popplace
+    Geometry: Point
+    Feature Count: 497
+    Layer SRS WKT: PROJCS["unnamed",GEOGCS["unnamed",DATUM["North ...snipped...
+    AREA: Real (15.3)
+    PERIMETER: Real (15.3)
+    POPPLACE_: Real (11.0)
+    POPPLACE_I: Real (15.0)
+    NAME: String (50.0)
+    OGRFeature(popplace):1
+      AREA (Real) =           0.000
+      PERIMETER (Real) =           0.000
+      POPPLACE_ (Real) =           1
+      POPPLACE_I (Real) =               1
+      NAME (String) = Port Hope Simpson
+      POINT (2437287.249 1153656.751)
+
+    OGRFeature(popplace):2
+      AREA (Real) =           0.000
+      PERIMETER (Real) =           0.000
+      POPPLACE_ (Real) =           2
+      POPPLACE_I (Real) =               1
+      NAME (String) = Hopedale
+
+    ...
+    ...
+                </programlisting>
 			</sect3>
 		</sect2>
 		<sect2 id="queries">
 			<title>Queries through OGR format</title>
 			<para>
-				<emphasis>Queries through OGR format???</emphasis>
+				OGR layers can be queried the same way as regular shapefiles in MapServer.
 			</para>
 		</sect2>
 		<sect2 id="formatinfo">
@@ -323,10 +401,14 @@
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                        Copyright (c) 2001 Jeff McKenna.
-                        <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
-                         Credits</ulink>.
-                    </para>
+                Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
+            </para>
+            <para>
+                This documentation is covered by the same Open Source license as the
+                MapServer software itself.  See MapServer's 
+                <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+                Credits</ulink> page for the complete text.
+            </para>
 		</sect2>
 		<sect2 id="disclaimer">
 			<title>Disclaimer</title>
