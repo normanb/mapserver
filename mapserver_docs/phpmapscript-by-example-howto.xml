@@ -202,16 +202,16 @@
                                 <orderedlist>
                                 	<listitem><para>
 					the first parameter defines the type of image generated (in this case PNG),
-                                        </listitem></para>
+                                        </para></listitem>
                                 	<listitem><para>
                                              the second determines if the image will be transparent (1 means yes), 
-                                        </listitem></para>
+                                        </para></listitem>
                                 	<listitem><para>
 					the third determines if the image file will be interlaced (1 means yes),
-                                        </listitem></para>
+                                        </para></listitem>
                                 	<listitem><para>
 						the fourth is ignored except when the image type is MS_JPEG.</para>
-                                        </listitem></para>
+                                        </listitem>
                                  </orderedlist>
                                  </para>
 			</listitem>
