@@ -28,6 +28,16 @@
 				</address>
 			</affiliation>
 		</author>
+		<author>
+			<firstname>Puneet</firstname>
+			<surname>Kishor</surname>
+			<affiliation>
+				<orgname>GeoAnalytics, Inc.</orgname>
+				<address>
+					<email>pkishor@geoanalytics.com</email>
+				</address>
+			</affiliation>
+		</author>
 
 		<date>2002-02-15</date>
 		<abstract>
@@ -44,10 +54,10 @@
     <para>MapServer generally runs as a CGI application from your http 
           server.  This hold true unless you are building a more advanced 
           application with MapScript which accesses the MapServer API 
-          directly.
+          directly. 
     </para> 
 
-    <para>MapServer CGI applications uses the following:</para>
+    <para>MapServer CGI applications use the following resources:</para>
 <orderedlist>
   <listitem><para> an http server like Apache or Internet Information Server,</para></listitem>
   <listitem><para>MapServer software,</para></listitem>
@@ -61,6 +71,12 @@
 </orderedlist>
 <para>MapServer is normally installed in the cgi-bin directory of the http server, 
   and MapServer files and datasets are stored in the http documents directory.</para>
+   <para>The logic of a MapServer Application is demonstrated in the flowchart below.</para>
+   <para>
+          <imageobject>
+          	<imagedata fileref="mapserverlogic.png" format="png"></imagedata>
+	  </imageobject>
+  </para>
 
   <sect2 id="init"><title>The Initialization File</title>
   <para>This file can be part of another html file, but for simplicity it may also 
