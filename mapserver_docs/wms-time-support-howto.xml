@@ -21,7 +21,7 @@
       <para>
                  This document describes the procedures for enabling WMS time support in MapServer v4.4 (and later).  
       </para>
-      <para>Last Updated: 2004-10-27</para>
+      <para>Last Updated: 2004-10-31</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -51,56 +51,56 @@
                 <entry><emphasis>Examples</emphasis></entry>
             </row>
             <row>
-                <entry>%Y%m%d</entry>
+                <entry>YYYYMMDD</entry>
                 <entry>20041012</entry>
             </row>
             <row>
-                <entry>%Y-%m-%dT%H:%M:%SZ</entry>
-                <entry>2004-10-12T13:55:20SZ</entry>
+                <entry>YYYY-MM-DDTHH:MM:SSZ</entry>
+                <entry>2004-10-12T13:55:20Z</entry>
             </row>    
             <row>
-                <entry>%Y-%m-%dT%H:%M:%S</entry>
-                <entry>2004-10-12T13:55:20S</entry>
+                <entry>YYYY-MM-DDTHH:MM:SS</entry>
+                <entry>2004-10-12T13:55:20</entry>
             </row>
             <row>
-                <entry>%Y-%m-%d %H:%M:%S</entry>
+                <entry>YYYY-MM-DD HH:MM:SS</entry>
                 <entry>2004-10-12 13:55:20</entry>
             </row> 
             <row>
-                <entry>Y-%m-%dT%H:%M</entry>
+                <entry>YYYY-MM-DDTHH:MM</entry>
                 <entry>2004-10-12T13:55</entry>
             </row>
             <row>
-                <entry>%Y-%m-%d %H:%M</entry>
+                <entry>YYYY-MM-DD HH:MM</entry>
                 <entry>2004-10-12 13:55</entry>
             </row>  
             <row>
-                <entry>%Y-%m-%dT%H</entry>
+                <entry>YYYY-MM-DDTHH</entry>
                 <entry>2004-10-12T13</entry>
             </row>
             <row>
-                <entry>%Y-%m-%d %H</entry>
+                <entry>YYYY-MM-DD HH</entry>
                 <entry>2004-10-12 13</entry>
             </row>
             <row>
-                <entry>"%Y-%m-%d</entry>
+                <entry>YYYY-MM-DD</entry>
                 <entry>2004-10-12</entry>
             </row>
             <row>
-                <entry>%Y-%m</entry>
+                <entry>YYYY-MM</entry>
                 <entry>2004-10</entry>
             </row> 
             <row>
-                <entry>%Y</entry>
+                <entry>YYYY</entry>
                 <entry>2004</entry>
             </row>
             <row>
-                <entry>T%H:%M:%SZ</entry>
-                <entry>T13:55:20SZ</entry>
+                <entry>THH:MM:SSZ</entry>
+                <entry>T13:55:20Z</entry>
             </row>   
             <row>
-                <entry>T%H:%M:%S</entry>
-                <entry>T13:55:20S</entry>
+                <entry>THH:MM:SS</entry>
+                <entry>T13:55:20</entry>
             </row>             
             </tbody>
           </tgroup>
@@ -185,11 +185,24 @@
             of specifying time expressions inside MapServer.        
         </para>
         <para>
-            <emphasis>Exception to this rule</emphasis>: when we are dealing with layers that are not Shapefiles or through OGR, the expression built does not 
-            include the back tics. An example is for a PostGIS layer, the expression set in the filter for the first example above would be ('[time_field]' eq '2004-10-12'). 
-            The reason being that Postgis would recognize a request on a time field and interpret the time string as being a time value but for regular shapefiles MapServer 
-            needs to recognize that the expression is actually a time expression.        
+            <emphasis>Exceptions to this rule</emphasis>:
         </para>
+        <orderedlist numeration="lowerroman">
+          <listitem>
+             <para>When we are dealing with layers that are not Shapefiles or through OGR, the expression built does not 
+                   include the back tics. For example, the expression set in the filter for the first example above would be (time_field = '2004-10-12'). 
+             </para>
+          </listitem>
+          <listitem>
+             <para>
+                For PostGIS layers, the time expression built uses the date_trunc function available in PostgreSQL. For example, if the user passes a time value of '2004-10-12', 
+                the expression set in the filter is date_trunc('day', time_field) = '2004-10-12'.  The use of the date_trunc function allows requests to use the concept of time 
+                resolution. In the example above, for a request of '2004-10-12' MapServer will determine that the resolution is "day" by parsing the time string and the result will  
+                give all records matching the date 2004-10-12 regardless of the values of set for Hours/Minutes/Seconds in the database. For more information on the date_trunc function, please refer 
+                to PostgreSQL documentation (<ulink url="http://www.postgresql.org/docs/7.4/static/functions-datetime.html">http://www.postgresql.org/docs/7.4/static/functions-datetime.html</ulink>).        
+             </para>
+          </listitem>
+        </orderedlist>
       </sect2>
       <sect2 id="limiting-formats">
         <title>Limiting the Time Formats to Use</title>
@@ -197,7 +210,7 @@
                 The user has the ability to define the time format(s) to be used when a request is sent, in metadata at the web level. 
                 For example, the user can define the following two formats:
                 <programlisting>
-    "wms_timeformat" "%Y-%m-%d  %H, %Y-%m-%d  %H:%M"  
+    "wms_timeformat" "YYYY-MM-DDTHH, YYYY-MM-DDTHH:MM"  
                 </programlisting>
             </para>
             <para>
@@ -216,6 +229,14 @@
                 </listitem>
             </itemizedlist>
       </sect2>
+      <sect2 id="limitations">
+        <title>Limitations and Known Bugs</title>
+            <itemizedlist>
+                <listitem>
+                    <para>Pattern "YYYYMMDD" does not work on windows (Bug 970)</para>
+                </listitem>
+            </itemizedlist>
+      </sect2>      
     </sect1>  
   <!-- Section1: Document Info -->
   <sect1 id="docinfo">
@@ -229,11 +250,16 @@ The numbering is in parallel with the revision control
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.3</revnumber>
+                        <date>Date: 2004-10-31</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>changed time patterns, added section for postgis exception, and modified timeformat example.</revremark>
+                    </revision>                
+                    <revision>
                         <revnumber>Number: 1.0</revnumber>
                         <date>Date: 2004-10-27</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>created document
-                                   </revremark>
+                        <revremark>created document</revremark>
                     </revision>
                 </revhistory>            
             </para>
