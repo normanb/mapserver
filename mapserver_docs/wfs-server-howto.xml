@@ -25,7 +25,7 @@
     </author>
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  01-06-2003</para>
+      <para>Last Updated:  2004-09-08</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -187,12 +187,6 @@
     <itemizedlist>
       <listitem>
         <para>This is just a basic WFS (read-only): transaction requests are not supported and probably never will given the nature of MapServer.</para>
-      </listitem>
-      <listitem>
-        <para>For now we support only GET requests. The spec also talks about XML-encoded POST requests but we do not support that.</para>
-      </listitem>
-      <listitem>
-        <para>We support only the BBOX filter for now.  It would be nice to support attribute filters, but this means supporting the OGC Filter Encoding spec and we'll keep that for later.</para>
       </listitem>
       <listitem>
         <para>WFS spec. seems to require that features of a given feature type must all be of the same geometry type (point, line, polygon).  This works fine for shapefiles, but some data source formats supported by MapServer allow mixed geometry types in a single layer and this goes against the WFS spec.  Suggestions on how to handle this are welcome.</para>
