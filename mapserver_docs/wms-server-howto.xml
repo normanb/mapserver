@@ -883,8 +883,8 @@
   							the beginning of every line.
 						</para>
 						<para>
-							The "epsg" file is usually located in <filename>/usr/local/share/proj</filename> on Unix
-  							systems and in <filename>C:\proj\</filename> on Windows systems.
+							The "epsg" file is usually located in <filename>/USR/LOCAL/SHARE/PROJ</filename> on Unix
+  							systems and in <filename>C:\PROJ\</filename> or <filename>C:\PROJ\NAD</filename> in 									Windows systems (depending on the installation).
 						</para>
 					</answer>
 				</qandaentry>
@@ -900,8 +900,9 @@
 							That's likely PROJ4 complaining that it cannot find the "epsg" 
   							projection definition file.  Make sure you have installed PROJ 4.4.3
   							or more recent and that the "epsg" file is installed at the right
-  							location.  On Unix it should be under <filename>/usr/local/share/proj/</filename>, and 
-  							on Windows PROJ looks for it under <filename>C:\PROJ\</filename>.
+  							location.  On Unix it should be under <filename>/USR/LOCAL/SHARE/PROJ/</filename>, and 
+  							on Windows PROJ looks for it under <filename>C:\PROJ\</filename> or 
+          				     <filename>C:\PROJ\NAD</filename> (depending on the installation).
 						</para>
 						<para>
 							If you don't have the "epsg" file then you can get it as part of the
