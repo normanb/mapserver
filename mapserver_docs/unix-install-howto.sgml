@@ -60,7 +60,7 @@
   <title>Obtaining the necessary software</title>
 
   <para>
-  You can obtain the source code as well as the demo package from the MapServer site, located at <ulink url="http://mapserver.gis.umn.edu">  http://mapserver.gis.umn.edu</ulink>
+  You can obtain the source code as well as the demo package from the MapServer site, located at <ulink url="http://mapserver.gis.umn.edu">http://mapserver.gis.umn.edu</ulink>.
   </para>
 
   <para>
@@ -70,23 +70,29 @@
 
   <itemizedlist>
    <listitem>
-    <para>GD: The graphics rendering library, used to output GIF's or PNG's</para>
+	<para><ulink url="http://www.boutell.com/gd/">GD</ulink>: The graphics rendering library, used to output GIF's or PNG's (Mandatory, Version 1.2 Included).</para>
    </listitem>
    <listitem>
-    <para>FreeType: For TrueType Font rendering</para>
+	<para><ulink url="http://www.freetype.org/">FreeType</ulink>: For TrueType Font rendering (Recommended).</para>
    </listitem>
    <listitem>
-    <para>Proj.4: For projection conversion</para>
+	<para><ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink>: For on-the-fly projection conversion (Recommended).</para>
    </listitem>
    <listitem>
-    <para>LibTIFF: For TIFF/GeoTIFF support</para>
+	<para><ulink url="http://www.libtiff.org/">LibTIFF</ulink>: For TIFF support (Optional).</para>
+   </listitem>
+      <listitem>
+	<para><ulink url="http://www.remotesensing.org/geotiff/geotiff.html">LibGeoTIFF</ulink>: For GeoTIFF (Geo-Referenced TIFF Images) Support (Optional).</para>
+      </listitem>
+   <listitem>
+	<para><ulink url="ftp://ftp.uu.net/graphics/jpeg/">LibJPEG</ulink>: For JPEG Support (Optional).</para>
    </listitem>
    <listitem>
-    <para>LibJPEG: For JPEG Support</para>
+	<para><ulink url="http://gdal.velocet.ca/projects/opengis/">OGR Simple Features Library</ulink>: An open-source library (and tools) providing I/O for a variety of vector file formats (Optional).</para>
    </listitem>
-   <listitem>
-    <para>OGR: For input abstraction</para>
-   </listitem>
+      <listitem>
+	<para><ulink url="http://www.cbmamiga.demon.co.uk/mpatrol/">MPATROL</ulink>: Debugging library (Developpers only).</para>
+      </listitem>
   </itemizedlist>
 
 </sect1>
@@ -97,7 +103,7 @@
   <para>The first thing you should do is unpack the source code tar-ball:
 
   <screen>
-  [user@host user]$ tar -zxvf ms_3.3.011.tar.gz
+  [user@host user]$ tar -zxvf ms_3.4.000.tar.gz
   </screen>
 
   This will unpack the file into a directory called "mapserver".
@@ -105,7 +111,7 @@
   </para>
 
   <sect2 id="quickcompile">
-   <title>The quick and dirty way</title>
+   <title>The QUICK and DIRTY way</title>
 
    <para>If you're in a hurry, try this:
    <screen>
@@ -122,36 +128,86 @@
 
   <sect2 id="compileproper">
    <title>The RIGHT way</title>
-  <para>Here we will review in detail how to properly compile Mapserver, using the proper librairies and so on.</para>
+  <para>Here we will learn in detail how to properly compile Mapserver.  There are two major steps to compiling a program from source: configuring the source code, and actually compiling it.</para>
+
+      <sect3 id="configure">
+	<title>Configuring the source code</title>
 
   <para>The best way to find out the options available at compile time is to run <application>configure</application> with the help
   parameter:</para>
 
   <screen>
+  [user@host user]$ cd mapserver
   [user@host mapserver]$ ./configure --help
   </screen>
 
   <para>You will note the ability to specify which library to use, and from which location.  Under normal circumstances the configuration
-  script will automatically find all the librairies on your system and use them, but there are some circumstances where this process fails
-  , and you need to do it by hand.</para>
+  script will automatically find all the librairies on your system and use them:</para>
 
-  <para>The best and most common example would be making sure Mapserver links and uses the correct version of GD. By default Mapserver will
-  use the system librairies, including GD.  The problem is that nowadays most Linux distribution come with recent versions (>1.3) of GD
-  that no longer supports GIF's, but PNG's instead.
+  <screen>
+  [user@host mapserver]$ ./configure
+  </screen>
+
+  <para>Note the output of the above command and make sure that the configure script located all the librairies you want it to use.  If not, you may have to manually specify the location of the librairies.</para>
+
+  <para>See an example on doing that in the following section.</para>
+
+  <sect4 id="gd">
+     <title>The GD Issue</title>
+
+  <para>By default Mapserver will use the system librairies, including GD.  The problem is that nowadays most Linux distribution come
+  with recent versions (>1.3) of GD that no longer supports GIF's, but PNG's instead.  This is often not prefered since PNG's, although
+  superior, are not yet widely supported by all browsers.  Therefore, most Web developpers still prefer to use GIF's.
   </para>
 
-  <para>Thankfully, Mapserver is ditributed with it's own older version of GD, which is GIF capable. In order to force it's use you would
+  <para>The GD library stopped supporting GIF's because UNISYS, the patent holder for the LZW Compression algorythm used in GIF's, has
+  started claiming royalty for the use of the said patent.  This makes it illegal for you to use GIF's unless you used a software package   licensed by UNISYS (Packages such as Corel/Adobe are safe, GD, being open-source, couldn't possibly be licensed), or you or your business hold such licenses.  So beware !</para> 
+
+  <para>Thankfully, Mapserver is distributed with it's own older version of GD, which is GIF capable. In order to force it's use you would
   take the following steps:</para>
   
   <screen>
   [user@host mapserver]$ cd gd-1.2
   [user@host gd-1.2]$ make
   [user@host gd-1.2]$ cd .. 
-  [user@host mapserver]$ ./configure --with-gd=gd-1.2/
+  [user@host mapserver]$ ./configure --with-gd=gd-1.2/ <emphasis>(...and possibly other options)</emphasis>
   </screen>
 
-  <para>This procedure will most likely also be necessary in order to have Mapserver detect and use non standard librairies such as PROJ.4
-  or the SDE Client Librairies.</para>
+	</sect4>
+
+  <sect4 id="manlib">
+	  <title>Requesting specific librairies</title>
+	  <para>Some librairies will NEVER be detected by default, and HAVE to be specified via the configure script.</para>
+
+	  <para>The librairies are:</para>
+
+	  <itemizedlist>
+	    <listitem>
+	      <para>PROJ.4: The on-the-fly projection conversion librairy (--with-proj).</para>
+	    </listitem>
+	    <listitem>
+	      <para>SDE: Librairies for ESRI's Spatial Data Engine. These come from ESRI's product (--with-sde).</para>
+	    </listitem>
+	    <listitem>
+	      <para>MPATROL: A debugging library (--with-mpatrol).</para>
+	    </listitem>
+	    <listitem>
+	      <para>OGR: The vector file formats I/O library (--with-ogr).</para>
+	    </listitem>
+	  </itemizedlist>
+
+	  <para>If the configure script can't find the librairies, you can allways specify the location manually by appending "=/usr/lib/sde/" for example.</para>
+
+	</sect4>
+
+      </sect3>
+
+  <sect3 id="compile">
+	<title>Compiling the source code</title>
+  <screen>
+  [user@host mapserver]$ make
+  </screen>
+  </sect3>
 
   </sect2>
  </sect1>
