@@ -2,7 +2,7 @@
 // jBox applet is part of the MapServer client support
 // package. - SDL -
 
-// Paramters:
+// Parameters:
 //    color int, int, int - color to use (rgb) for the selection rectangle.
 //    jitter int - minimum size (in pixels) for a dragged box.
 //    image string - url for the image to display, must be fully qualified.
@@ -15,7 +15,7 @@
 //      (was on/off in mapplet)
 
 // Public methods:
-//    boxon, boxoff - truns box drawing on/off.
+//    boxon, boxoff - turns box drawing on/off.
 //    lineon, lineoff - turns line drawing on/off, and box drawing off, boxoff() turns off both
 //    dragon, dragoff - turns image dragging on/off
 //    setimage(string) - displays the image loaded from the passed url.
@@ -38,8 +38,9 @@
       November 2002:   added line functionality to mimic MapInfo/ArcView ruler tool
       October 2003:    added drag functionality for panning
       November 2003:   added area calculation
-      January 2004:    moved evalThread out so that it can be shared by both jBox & jBoxPNG
-                  added version()
+      January 2004:    moved evalThread into seperate class
+      		           added version()
+      May 2004:		  merged jBox & jBoxPNG - set boolean sixlegs true or false below
 
    Compiler issues:
       Sun JDK 1.2 & 1.3 work ok, but
@@ -53,12 +54,18 @@ import java.awt.event.*;
 import java.net.*;
 import java.util.*;
 import netscape.javascript.*;
+/*
+	Importing sixlegs is only required for sixlegs PNG support
+	it can be commented out if you don't have, or don't require sixlegs
+*/
+// import com.sixlegs.image.png.*;
 
 public class jBox extends Applet implements MouseListener, MouseMotionListener {
-   String    jBox_version = "1.1";
+   String    jBox_version = "1.1.1";
    boolean   busy=false, box=true, line=false, drag=false, init=true, verbose=false;
    Image     img, busyimg=null;
-   double    x1=-1, y1=-1, x2=-1, y2=-1, seg=0, tot=0, area=0;
+   double    x1=-1, y1=-1, x2=-1, y2=-1;
+   double	 seg=0, tot=0, area=0;
    int       jitter=5, cursorsize=4, thickness=1, ix=0, iy=0;
    Color     color=Color.red;
    JSObject  window;
@@ -67,10 +74,34 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
    Dimension screenSize;
    String    name;
    Polygon   pl;
+//	PngImage	 pngimg;
+
+	public Image get_image(String s) {
+		URL url=null;
+
+      try {
+          url = new URL(s);
+      } catch(MalformedURLException e) {
+			window.eval("seterror_handler('Applet error. Malformed image URL.');");
+			this.stop();
+      }
+		// comment next line for sixlegs
+		return(getImage(url));
+
+		/* begin sixlegs support ***
+		try {
+			 pngimg = new PngImage(url);
+		} catch(java.io.IOException e) {
+			window.eval("seterror_handler('Applet error. IOException PngImage.');");
+			this.stop();
+		}
+		return(Toolkit.getDefaultToolkit().createImage(pngimg));
+		*** end sixlegs */
+	}
 
    public void init () {
       StringTokenizer st;
-      String    s=null;   //RWG, t=null;
+      String    s=null;
       URL url=null;
 
       screenSize = this.getSize(); // nab the applet size
@@ -110,7 +141,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
             url = new URL(s);
          } catch(MalformedURLException e) {
             window.eval("seterror_handler('Applet error. Malformed image URL.');");
-         this.stop();
+         	this.stop();
          }
          busyimg = getImage(url);
       }
@@ -131,13 +162,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
       // nab the image itself
       s = getParameter("image");
-      try {
-         url = new URL(s);
-      } catch(MalformedURLException e) {
-         window.eval("seterror_handler('Applet error. Malformed image URL.');");
-         this.stop();
-      }
-      img = getImage(url);
+		img = get_image(s);
 
       // we want mouse events and mouse movement events
       addMouseListener(this);
@@ -212,7 +237,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
    public void setcursor(String name) {
       if (name.equalsIgnoreCase("hand"))
-         this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+         this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       else if (name.equalsIgnoreCase("crosshair"))
          this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.CROSSHAIR_CURSOR));
       else
@@ -220,7 +245,7 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
    }
 
    public String version () {
-      return jBox_version;
+      return("jBox "+jBox_version+" Java VM "+System.getProperty("java.version")+" from "+System.getProperty("java.vendor"));
    }
 
    public void boxon () {
@@ -257,8 +282,9 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
    }
 
    public void dragon () {
-      box = false;
-      line = false;
+		x2 = x1 = y2 = y1 = -1;
+		boxoff();
+      // box = line = false;
       drag=true;
       return;
    }
@@ -268,7 +294,8 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
    }
 
    public void setimage(String s) {   // was swap() in mapplet
-      URL url=null;
+   	ix=iy=0;	// Adam Ryan's fix for panning problem (aryan@co.linn.or.us)
+//      URL url=null;
       MediaTracker tracker = new MediaTracker(this);
 
       busy = true;
@@ -282,14 +309,8 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
       // img.flush();
 
-      try {
-          url = new URL(s);
-      } catch(MalformedURLException e) {
-          return;
-      }
-
-      img = getImage(url);
-      tracker.addImage(img, 0);
+		img = get_image(s);
+		tracker.addImage(img, 0);
 
       try {
          tracker.waitForID(0); // wait till it loads
@@ -393,7 +414,10 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
       // this a time for a re-draw if the application so chooses
       if(!busy && !line) {   // don't want a form-submit in line drawing mode
-         new evalThread(window, name, x1, y1, x2, y2).start();
+        new evalThread(window, name, x1, y1, x2, y2).start();
+        // window.eval("setbox_handler('" + name + "'," + Math.min(x1,x2) + "," + Math.min(y1,y2) + "," + Math.max(x1,x2) + "," + Math.max(y1,y2) + ");");
+        // String[] args = {name, Double.toString(Math.min(x1,x2)), Double.toString(Math.min(y1,y2)), Double.toString(Math.max(x1,x2)), Double.toString(Math.max(y1,y2))};
+   		// window.call("setbox_handler", args);
       }
    }   // mouseReleased
 
@@ -413,7 +437,6 @@ public class jBox extends Applet implements MouseListener, MouseMotionListener {
 
    public void paint(Graphics g) {
       int x, y, w, h, i;
-      // window.eval("seterror_handler('in paint');");
       // draw the image
       if (drag) {   // erase the map area
          offScreenGraphics.setColor (Color.white);

@@ -18,7 +18,7 @@
   <!-- target virtual machine version number -->
   <property name="vm.version" value="1.1"/>
 
-  <!-- 
+  <!--
     extra files to be included in distribution e.g. sixlegs
     sixlegs is required to run jBoxPNG
     could also add netscape, which is required to build jBox
@@ -28,8 +28,8 @@
   <!-- working jBox jar directory, see copy copy target below -->
   <property name="web.dir" value="/Inetpub/wwwroot/mapserver/mapplet"/>
 
-  <!-- 
-    should not need to edit below here 
+  <!--
+    should not need to edit below here
   -->
 
   <path id="project.class.path">
@@ -69,11 +69,11 @@
           description="Generates a distribution zip file">
     <copy todir="${dist.src}">
     	<fileset dir="${src.dir}" includes="*.java"/>
-    </copy>    
+    </copy>
     <zip zipfile="${dist.dir}/jBox.zip">
        <fileset dir="." excludes="*.java" includes="*.*"/>
        <fileset dir="${dist.dir}" includes="**/*.*"/>
-       <zipfileset src="${dist_extras}/png-sixlegs-1.2.3.zip"/> 
+       <zipfileset src="${dist_extras}/png-sixlegs-1.2.3.zip"/>
     </zip>
   </target>
 
@@ -81,9 +81,9 @@
   <target name="copy" depends="jar" description="copies jar's to working directory">
     <copy todir="${web.dir}">
     	<fileset dir="${dist.lib}" includes="*.jar"/>
-    </copy> 
+    </copy>
   </target>
-  
+
   <target name="all" depends="clean,jar,zip"
           description="Cleans, compiles, then builds the JAR file."/>
 
