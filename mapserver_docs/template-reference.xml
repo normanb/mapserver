@@ -17,15 +17,16 @@
         <abstract>
             <para>
                 This document is a reference for the MapServer 
-                version 4.0 HTML template.
+                version 4.2 HTML template.
             </para>   
             <para>
                 It is based on the previous versions written by Steve Lime
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  2003-08-19
+                Last Updated:  2004-06-04
             </para>
+      		<para><link linkend='rhistory'>Revision History</link></para>
         </abstract>
     </articleinfo>
 
@@ -719,6 +720,22 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry>
+                <term>
+                    <literal>[metadata_<replaceable>meta data key</replaceable>],
+                    [metadata_<replaceable>meta data key</replaceable>_esc]</literal>
+                </term>
+                <listitem>
+                    <para> 
+                        Queried layer meta data access 
+						(e.g <literal>[metadata_projection]</literal>
+                    </para>
+                    <para>
+                        Also available as escaped version.
+                    </para>
+                </listitem>
+            </varlistentry>
+
         </variablelist>
         
         <para>
@@ -801,4 +818,67 @@
 
         </sect2>
     </sect1>
+
+<!-- Section1: Document Info -->
+<sect1 id='docinfo'> 
+  <title>About This Document</title>
+
+  <sect2 id='rhistory'><title>Revision History</title>
+  <para> 
+  </para>  
+  The document revision history starts with UMN MapServer 4.2 altough the
+  document is older. The numbering is in parallel with the revision control
+  system.
+  <para>
+    <revhistory>
+      <revision>
+        <revnumber>Number: 1.8</revnumber>
+        <date>Date: 2004-06-04</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Update to MapServer version 4.2:
+        [metadata_<replaceable>meta data key</replaceable>] 
+			template and 
+			Document info section added.</revremark>
+      </revision>
+    </revhistory>  
+  </para>  
+  </sect2>
+  <sect2 id='copyright'>
+   <title>Copyright Information</title>
+   
+   <para>
+    Copyright (c) 2001, 2002, 2003, 2004, Frank Koormann, Steve Lime.
+   </para>
+   <para>
+    This documentation is covered by the same Free Software license as the MapServer software.
+    See MapServer's
+    <ulink url='http://mapserver.gis.umn.edu/license.html'>License and 
+    Credits</ulink> page for the complete text.
+   </para>
+  </sect2>
+
+  <sect2 id='disclaimer'>
+   <title>Disclaimer</title>
+
+   <para>
+    No liability for the contents of this document can be accepted.
+    Use the concepts, examples and other content at your own risk.
+    As this is a new edition of this document, there may be errors
+    and inaccuracies that may be damaging to your system.
+    Although this is highly unlikely, the author(s) do not take any 
+    responsibility for that:  proceed with caution.
+   </para>
+
+  </sect2>
+
+<!-- Section2: feedback -->
+
+  <sect2 id='feedback'>
+   <title>Feedback</title>
+   <para>
+    Send any comments or suggestions to the author(s).
+   </para>
+   </sect2>
+
+ </sect1>
 </article>
