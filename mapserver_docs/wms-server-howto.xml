@@ -15,13 +15,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-11-05</date>
+		<date>2002-03-01</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through 				  the use of MapServer v3.5.  
                </para>
-			<para>Last Updated: 11/05/2001</para>
+			<para>Last Updated: 03/01/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -91,7 +91,7 @@
 							<para>
 							    Text/html output using MapServer query templates specified in the CLASS template parameter.
 							    The MIME type returned by the Class templates defaults to text/html and can be controlled using the 								    metadata  <link linkend="mime_type">"wms_feature_info_mime_type"</link>.
-							</para>							
+							</para>
 						</listitem>
 						<listitem>
 							<para>
@@ -697,7 +697,7 @@
 							</para>
 						</listitem>
 					</itemizedlist>
-				</sect4>	
+				</sect4>
 				<sect4 id="mime_type">
 					<title>wms_feature_info_mime_type</title>
 					<itemizedlist>
@@ -708,7 +708,7 @@
 						</listitem>
 						<listitem>
 							<para>
-								<emphasis>Description:</emphasis>							
+								<emphasis>Description:</emphasis>
 								<itemizedlist>
 									<listitem>
 										<para>
@@ -733,7 +733,7 @@
 							</para>
 						</listitem>
 					</itemizedlist>
-				</sect4>								
+				</sect4>
 				<sect4 id="fees">
 					<title>wms_fees</title>
 					<itemizedlist>
