@@ -5,7 +5,7 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>HOWTO for OGR Use in MapServer - Version 4.3</title>
+    <title>HOWTO for OGR Use in MapServer - Version 4.4</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
@@ -22,7 +22,10 @@
       <para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-      <para>Last Updated: 2004-9-22</para>
+      <para>Last Updated: 2004-10-21</para>
+      <para>
+           <link linkend="rhistory">Revision History</link>
+      </para>      
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -174,7 +177,7 @@
       <para>
                       The integration of OGR within MapServer was done by Daniel Morissette.
                   <address>
-          <email>morissette@dmsolutions.ca</email>
+          <email>dmorissette@dmsolutions.ca</email>
         </address>
       </para>
     </sect2>
@@ -1096,10 +1099,29 @@ of connection pooling in MapServer.</para>
   <!-- Section1: Document Info -->
   <sect1 id="docinfo">
     <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The document revision history starts with UMN MapServer 4.2 although the
+  document is older. The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.32</revnumber>
+                        <date>Date: 2004-09-22</date>
+                        <authorinitials>Author: Frank Warmerdam</authorinitials>
+                        <revremark>Added notes on connection pooling
+                        </revremark>
+                    </revision>
+                </revhistory>
+            </para>
+        </sect2>    
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
-                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
             </para>
       <para>
                 This documentation is covered by the same Open Source license as the
