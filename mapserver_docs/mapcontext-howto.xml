@@ -4,7 +4,7 @@
 <!-- $Id$ -->
 <article>
     <articleinfo>
-        <title>Mapserver Map Context HOWTO - Version 4.4</title>
+        <title>MapServer Map Context HOWTO - Version 4.4</title>
         <author>
             <firstname>Jeff</firstname>
             <surname>McKenna</surname>
@@ -21,7 +21,7 @@
             <para>
                  This document describes the procedures for the creation of a map context document with MapServer.  
       </para>
-            <para>Last Updated: 10/20/2004</para>
+            <para>Last Updated: 2004-11-02</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>            
@@ -73,8 +73,8 @@
                 </listitem>
                 <listitem>
                     <para>
-            Open GIS Consortium (OGC) Home Page:
-              <ulink url="http://www.opengis.org/">http://www.opengis.org/</ulink>
+            Open Geospatial Consortium (OGC) Home Page:
+              <ulink url="http://www.opengeospatial.org/">http://www.opengeospatial.org/</ulink>
                     </para>
                 </listitem>
                 <listitem>
@@ -119,6 +119,12 @@
             http://www.intl-interfaces.net/cookbook/WMS/</ulink>
                     </para>
                 </listitem>
+        <listitem>
+          <para>
+            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+           http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
+          </para>
+        </listitem>                 
             </itemizedlist>
         </sect2>
     </sect1>
@@ -610,6 +616,13 @@
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.8</revnumber>
+                        <date>Date: 2004-11-02</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added OGC workshop link
+                                   </revremark>
+                    </revision>                
+                    <revision>
                         <revnumber>Number: 1.5</revnumber>
                         <date>Date: 2004-10-20</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -652,8 +665,10 @@
         <!-- Section2: feedback -->
         <sect2 id="feedback">
             <title>Feedback</title>
-            <para>
-            Send any comments or suggestions to the author.
+      <para>
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
         </para>
         </sect2>
     </sect1>

@@ -22,7 +22,7 @@
                  This document describes the procedures for using MapServer's WMS connection type to include layers from          
                  remote WMS servers in MapServer applications.
       </para>
-      <para>Last Updated: 2004/10/27</para>
+      <para>Last Updated: 2004-11-02</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -69,6 +69,12 @@
            http://www.opengis.org/docs/01-068r2.pdf</ulink>.
           </para>
         </listitem>
+        <listitem>
+          <para>
+            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+           http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
+          </para>
+        </listitem>        
       </itemizedlist>
     </sect2>
   </sect1>
@@ -482,12 +488,19 @@ ESRI codes and we do not want to promote their use too much.
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.27</revnumber>
+                        <date>Date: 2004-11-02</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added OGC workshop link
+                                   </revremark>
+                    </revision>                
+                    <revision>
                         <revnumber>Number: 1.25</revnumber>
                         <date>Date: 2004-10-27</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
                         <revremark>Added reference to Time Support howto
                                    </revremark>
-                    </revision>
+                    </revision>                    
                 </revhistory>
             </para>
         </sect2>    
@@ -518,7 +531,7 @@ ESRI codes and we do not want to promote their use too much.
     <sect2 id="feedback">
       <title>Feedback</title>
       <para>
-            This is a new document for a new project; input is appreciated.  Send any
+            Input is appreciated.  Send any
             comments or suggestions to the MapServer Documentation Coordinator at
             <email>mdp@lists.gis.umn.edu</email>.
         </para>

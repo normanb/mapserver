@@ -22,7 +22,7 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2004-10-27</para>
+      <para>Last Updated: 2004-11-02</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -136,8 +136,8 @@
         </listitem>
         <listitem>
           <para>
-            Open GIS Consortium (OGC) Home Page:
-              <ulink url="http://www.opengis.org/">http://www.opengis.org/</ulink>
+            Open Geospatial Consortium (OGC) Home Page:
+              <ulink url="http://www.opengeospatial.org/">http://www.opengeospatial.org/</ulink>
           </para>
         </listitem>
         <listitem>
@@ -189,6 +189,12 @@
             http://www.intl-interfaces.net/cookbook/WMS/</ulink>
           </para>
         </listitem>
+        <listitem>
+          <para>
+            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+           http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
+          </para>
+        </listitem>         
       </itemizedlist>
     </sect2>
   </sect1>
@@ -1246,6 +1252,13 @@
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.32</revnumber>
+                        <date>Date: 2004-11-02</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added OGC workshop link
+                                   </revremark>
+                    </revision>                
+                    <revision>
                         <revnumber>Number: 1.30</revnumber>
                         <date>Date: 2004-10-27</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -1291,7 +1304,9 @@
     <sect2 id="feedback">
       <title>Feedback</title>
       <para>
-            Send any comments or suggestions to the author.
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
         </para>
     </sect2>
   </sect1>

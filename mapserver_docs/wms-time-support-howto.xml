@@ -21,7 +21,7 @@
       <para>
                  This document describes the procedures for enabling WMS time support in MapServer v4.4 (and later).  
       </para>
-      <para>Last Updated: 2004-11-01</para>
+      <para>Last Updated: 2004-11-02</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -33,6 +33,38 @@
         MapServer 4.4 and above provide support to interpret the TIME parameter and transform the resulting values into appropriate requests.
         </para>
   </sect1>
+    <sect1 id="links">
+      <title>Links to WMS-Related Information</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            The Mapserver WMS Client HOWTO:
+            <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">
+            http://mapserver.gis.umn.edu/doc/wms-client-howto.html</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            The Mapserver WMS Server HOWTO:
+            <ulink url="http://mapserver.gis.umn.edu/doc/wms-server-howto.html">
+            http://mapserver.gis.umn.edu/doc/wms-server-howto.html</ulink>
+          </para>
+        </listitem>        
+        <listitem>
+          <para>
+            WMS 1.1.1 specification:
+              <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
+            http://www.opengis.org/docs/01-068r2.pdf</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+           http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
+          </para>
+        </listitem>         
+      </itemizedlist>
+    </sect1>  
   <sect1 id="patterns">
     <title>Time Patterns</title>
     <para>
@@ -246,6 +278,12 @@ The numbering is in parallel with the revision control
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.5</revnumber>
+                        <date>Date: 2004-11-02</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>added related links section</revremark>
+                    </revision>                 
+                    <revision>
                         <revnumber>Number: 1.4</revnumber>
                         <date>Date: 2004-11-01</date>
                         <authorinitials>Author: Darren Redfern</authorinitials>
@@ -293,7 +331,9 @@ The numbering is in parallel with the revision control
     <sect2 id="feedback">
       <title>Feedback</title>
       <para>
-            Send any comments or suggestions to the author.
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
         </para>
     </sect2>
   </sect1>

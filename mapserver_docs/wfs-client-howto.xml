@@ -2,7 +2,7 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
   <articleinfo>
-    <title>MapServer WFS Client HOWTO - Version 4.2</title>
+    <title>MapServer WFS Client HOWTO - Version 4.4</title>
     <author>
       <firstname>Jean-Fran&ccedil;ois</firstname>
       <surname>Doyon</surname>
@@ -25,7 +25,10 @@
     </author>
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  01-06-2003</para>
+      <para>Last Updated:  2004-11-02</para>
+      <para>
+          <link linkend="rhistory">Revision History</link>
+      </para>       
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -33,14 +36,20 @@
     <para>A WFS ( Web Feature Service ) publishes feature-level geospatial data to the web.  This means that it is possible to use this data as a data source to render a map.  In effect, this is not unlike having a shapefile accessible over the web, only it's not a shapefile, it's XML-Encoded geospatial data (GML to be exact), including both geometry AND attribute information.</para>
     <sect2 id="related">
       <title>WFS-Related information</title>
-      <para>Although in-depth understanding of WFS and GML is neither necessary nor required in order to implement a MapServer application that reads remote WFS data, it is recommended to at least get aquainted with the concepts and basic functionality of both.  Here are the official references:</para>
+      <para>Although in-depth understanding of WFS and GML is neither necessary nor required in order to implement a MapServer application that reads remote WFS data, it is recommended to at least get aquainted with the concepts and basic functionality of both.  Here are the official references (including a newly added OGC workshop with MapServer):</para>
       <itemizedlist>
         <listitem>
-          <para>The <ulink url="http://www.opengis.org/techno/specs/02-058.pdf">OpenGIS Web Feature Service Implementation Specification</ulink>.</para>
+          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7176">OpenGIS Web Feature Service Implementation Specification</ulink>.</para>
         </listitem>
         <listitem>
-          <para>The <ulink url="http://www.opengis.net/gml/02-069/GML2-12.html">Geography Markup Language Implementation Specification</ulink>.</para>
+          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7174">Geography Markup Language Implementation Specification</ulink>.</para>
         </listitem>
+        <listitem>
+          <para>
+            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+           http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
+          </para>
+        </listitem>         
       </itemizedlist>
     </sect2>
     <sect2 id="software">
@@ -89,4 +98,59 @@
   END
     </screen>
   </sect1>
+  <!-- Section1: Document Info -->
+  <sect1 id="docinfo">
+    <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The document revision history starts with UMN MapServer 4.4 although the
+  document is older. The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.4</revnumber>
+                        <date>Date: 2004-11-02</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added OGC workshop link, cleanup doc
+                                   </revremark>
+                    </revision>                                   
+                </revhistory>
+            </para>
+        </sect2>    
+    <sect2 id="copyright">
+      <title>Copyright Information</title>
+      <para>
+                Copyright (c) 2001, 2002, 2003, 2004, Jean-Fran&ccedil;ois Doyon, Daniel Morissette.
+      </para>
+      <para>
+                This documentation is covered by the same Open Source license as the
+                MapServer software itself.  See MapServer's 
+                <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+                Credits</ulink> page for the complete text.
+            </para>
+    </sect2>
+    <sect2 id="disclaimer">
+      <title>Disclaimer</title>
+      <para>
+            No liability for the contents of this document can be accepted.
+            Use the concepts, examples and other content at your own risk.
+            As this is a new edition of this document, there may be errors
+            and inaccuracies that may be damaging to your system.
+            Although this is highly unlikely, the author(s) do not take any 
+            responsibility for that:  proceed with caution.
+                  </para>
+    </sect2>
+    <!-- Section2: feedback -->
+    <sect2 id="feedback">
+      <title>Feedback</title>
+      <para>
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
+        </para>
+    </sect2>
+  </sect1>  
 </article>
