@@ -22,7 +22,7 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2004-11-29</para>
+      <para>Last Updated: 2005-01-10</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -340,7 +340,9 @@
           <para>
             Every individual layer needs its own unique name and title.
               Layer names are also used in GetMap and GetFeatureInfo requests to refer
-              to layers that should be included in the map output and in the query.
+              to layers that should be included in the map output and in the query.  <emphasis>
+              Layer names must start with a letter when setting up a WMS server (layer names should 
+              not start with a digit or have spaces in them).</emphasis>
           </para>
         </listitem>
         <listitem id="projection_srs">
@@ -1479,6 +1481,13 @@
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.38</revnumber>
+                        <date>Date: 2004-01-10</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added layer name warning.
+                                   </revremark>
+                    </revision>                 
+                    <revision>
                         <revnumber>Number: 1.37</revnumber>
                         <date>Date: 2004-11-29</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -1521,7 +1530,7 @@
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
-                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2005, Jeff McKenna, DM Solutions Group Inc.
       </para>
       <para>
                 This documentation is covered by the same Open Source license as the

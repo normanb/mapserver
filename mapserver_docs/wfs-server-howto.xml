@@ -28,7 +28,7 @@
     </author>
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  2005-01-09</para>
+      <para>Last Updated:  2005-01-10</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>       
@@ -79,7 +79,9 @@
         <para>Data source is of vector type (Shapefile, OGR, PostGIS, SDE, SDO, ...)</para>
       </listitem>
       <listitem>
-        <para>LAYER NAME must be set</para>
+        <para>LAYER NAME must be set. <emphasis>
+              Layer names must start with a letter when setting up a WFS server (layer names should 
+              not start with a digit or have spaces in them).</emphasis></para>
       </listitem>
       <listitem>
         <para>LAYER TYPE is one of: LINE, POINT, POLYGON</para>
@@ -566,9 +568,9 @@
                 <revhistory>
                     <revision>
                         <revnumber>Number: 1.10</revnumber>
-                        <date>Date: 2005-01-09</date>
+                        <date>Date: 2005-01-10</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added several sections, added wfs_metadataurl* 
+                        <revremark>several updates
                                    </revremark>
                     </revision>                 
                     <revision>
