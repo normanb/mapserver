@@ -167,6 +167,32 @@ IMAGEPATH C:\Inetpub\wwwroot\tmp\
     I will leave the IMAGEURL line as it is. IMAGEURL tells mapserver where 
     the mapserver-generated images are located, relative to the web root directory.</para>
 
+        <para>
+        Version 3.4 and higher uses a unified symbol file format which means you can
+        store all symbols in one file. This allows for inline definitions (i.e.
+        within a mapfile) of symbols and more straight forward mapscript access.
+        Anyway here's what's needed to switch for newer versions of MapServer:
+        </para>
+        <orderedlist>
+          <listitem><para>The lines starting with SHADESET, MARKERSET, AND 
+           LINESET and the last END keyword should be deleted.</para></listitem>
+          <listitem><para>"SYMBOLSET symbol/symbol.sym" should be added
+           </para></listitem>
+          <listitem><para>Make the new symbols.sym file by concatenating the 
+           three symbol files together.
+          The new symbols.sym file is also avialable online at <ulink 
+          url="http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym">
+          http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym</ulink>
+          </para></listitem>
+          <listitem><para>Get your gifs and pngs sorted out if you've switched over to png.
+          </para></listitem>
+          <listitem><para>Styled is no longer supported, you can delete them.
+          </para></listitem>
+          <listitem><para>Refer to png or gif symbols directly, not via the symbol file.
+          </para></listitem>
+        </orderedlist>
+
+
     <para>These should be the only things you need to change in <filename>demo.map</filename>.</para>
   </sect2>
 
