@@ -400,9 +400,13 @@
 	<!-- Section1: FAQ -->
 	<sect1 id="FAQ">
 		<title>FAQ / Common problems</title>
-		<para>
-                This section will contain frequently asked questions and common problems that occur over time.
-          </para>
+          <sect2>
+              <title>What does OGR stand for?</title>
+              <para>
+                   Basically, OGR does not stand for anything.  For a detailed explanation of how OGR was named, see Frank
+                   Warmerdam's OGR site at <ulink url="http://gdal.velocet.ca/projects/opengis"> 					              http://gdal.velocet.ca/projects/opengis</ulink> in the section 'OGR and OpenGIS'.
+              </para>
+          </sect2>
 	</sect1>
 	<!-- Section1: Document Info -->
 	<sect1 id="docinfo">
