@@ -54,7 +54,7 @@
 		</sect2>
 		<sect2>
 			<title>Map Object</title>
-                        <para>Defines...</para>
+                        <para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
 			<variablelist>
 				<varlistentry>
 					<term>EXTENT [minx] [miny] [maxx] [maxy]</term>
@@ -157,7 +157,7 @@
 		</sect2>
 		<sect2 id="label">
 			<title>Label Object</title>
-			<para>Defines...</para>
+			<para>This object is used to define a label, which is in turn usually used to annotate a feature with a piece of text.  Labels can however also be used as symbols through the use of various TrueType fonts.</para>
 			<variablelist>
 				<varlistentry>
 					<term>ANTIALIAS</term>
@@ -277,7 +277,7 @@
 		</sect2>
 		<sect2>
 			<title>Layer Object</title>
-			<para>Defines...</para>
+			<para>The most used object in a MapFile, this one describes layers used to make up a map.  Layers are drawn in their order of appearance in the MapFile (first layer is at the bottom, last in on top).</para>
 			<variablelist>
 				<varlistentry>
 					<term>CLASSITEM [attribute]</term>
