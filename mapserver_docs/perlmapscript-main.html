@@ -1322,6 +1322,211 @@ Each class is described in detail later in this document.<br>
   </tr>
 </table>
 <br>
+<a name="graticuleobj"></a><br>
+<b><u><font size="5">graticuleObj:</font></u></b><br>
+<br>
+<table border="1">
+  <tr>
+    <td>
+      <b>Constructors:</b><br>
+    </td>
+    <td align="left">
+      new mapscript::graticuleObj()
+	</td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>blabelaxes - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>bvertical - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dendlatitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dendlongitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dincrementlatitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dincrementlongitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dstartlatitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dstartlongitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dwhichlatitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dwhichlongitude - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>extent - rectObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>ilabelstate - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>ilabeltype - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelformat - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxarcs - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxincrement - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxsubdivides - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minarcs - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minincrement - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minsubdivides - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>pboundinglines - lineObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>pboundingpoints - pointObj - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
 <a name="imageobj"></a><br>
 <b><u><font size="5">imageObj:</font></u></b><br>
 <br>
@@ -2027,6 +2232,13 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      <li>debug - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       <li>dump - integer - rw.</li>
     </td>
   </tr>
@@ -2077,6 +2289,13 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       <li>items - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>joins - joinObj - rw.</li>
     </td>
   </tr>
   <tr>
@@ -2153,6 +2372,13 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      <li>map - mapObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       <li>maxfeatures - integer - rw.</li>
     </td>
   </tr>
@@ -2195,7 +2421,14 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>offsite - integer - rw - color index to treat as transparent for raster layers.</li>
+      <li>numjoins - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>offsite - colorObj - rw - color index to treat as transparent for raster layers.</li>
     </td>
   </tr>
   <tr>
@@ -2209,7 +2442,14 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>requires - character - rw - context expressions, simple enough to not use expressionObj.</li>
+      <li>project - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>requires - character - rw - context expressions.</li>
     </td>
   </tr>
   <tr>
@@ -2217,6 +2457,20 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       <li>resultcache - resultCacheObj - rw - holds the results of a query against this layer.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>sameconnection - layerObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>scalefactor - double - rw.</li>
     </td>
   </tr>
   <tr>
@@ -2372,6 +2626,20 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      demote()
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       draw(mapObj, imageObj)
     </td>
     <td>
@@ -2415,6 +2683,19 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      getFilterString()
+    </td>
+    <td>
+      Returns the current filter string.
+    </td>
+    <td>
+      character
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       getItem(integer)
     </td>
     <td>
@@ -2443,6 +2724,7 @@ Each class is described in detail later in this document.<br>
       getProjection()
     </td>
     <td>
+	  Returns current projection string.
     </td>
     <td>
       character
@@ -2473,15 +2755,14 @@ Each class is described in detail later in this document.<br>
       integer
     </td>
     <td>
-      See open() & close().<br>
-      Seems to equate to new mapscript::shapefileObj(), get(), & undef.
+      See open() & close().
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      open(character path)
+      open()
     </td>
     <td>
     </td>
@@ -2493,7 +2774,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      queryByAttributes(mapObj, integer mode)
+      promote()
     </td>
     <td>
     </td>
@@ -2505,7 +2786,19 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      queryByFeatures(mapObj, integer slayer)
+      queryByAttributes(mapObj, character query item, character query string, integer mode)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByFeatures(mapObj, integer query layer index)
     </td>
     <td>
       Queries a single layer using another set of results.
@@ -2523,7 +2816,7 @@ Each class is described in detail later in this document.<br>
       queryByPoint(mapObj,pointObj,integer mode,double buffer)
     </td>
     <td>
-      Queries a single layer using a point.
+      Queries layer(s) using a point.
     </td>
     <td>
       integer
@@ -2552,6 +2845,18 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       queryByShape(mapObj,shapeObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      removeClass(integer class index)
     </td>
     <td>
     </td>
