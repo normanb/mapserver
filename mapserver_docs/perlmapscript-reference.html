@@ -1,29 +1,3638 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
 <html>
 <head>
-  <title>Perl MapScript Reference - 3.6 <b>Noted</b> Changes</title>
+  <title>Perl MapScript Reference</title>
+  <script language="javascript" src="../javascript/include.js"></script>
 </head>
 
 <body bgcolor="#FFFFFF">
+<script language="javascript">header("doc");</script>
 <h2><u>Perl MapScript Reference</u></h2>
-<b><u>Abstract:</u> Work In Progress</b><br>
-This document is a reference to the <b>Noticed Changes</b> in the Perl MapScript syntax for MapServer version 3.6.<br>
-Last Updated: 4/16/2002 by <a href="mailto:lfilak@medinaco.org">Lowell Filak</a>
+<b><u>Abstract:<br></u></b>
+This document is a reference to the Perl MapScript syntax for MapServer version 3.6.1.<br>
+Be <b>Sure</b> to see the <a href="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PerlMapScript">Wiki</a> for Build, Install, Samples, & Debugging Help.<br>
+Last Updated: 8/27/2002 by <a href="mailto:lfilak@medinaco.org">Lowell Filak</a>
 <br>
 Medina County Engineer's Office<br>
 Medina, Ohio<br>
 United States<br>
 <hr width="90%" size="2">
 <a name="toc"></a><br>
-</a><b><u>Table of Contents:</u></b><br>
+<b><u>Table of Contents:</u></b><br>
 <br>
 <a href="#introduction">Introduction</a><br>
-<a href="#mapobj">mapObj(ect)</a><br>
+<a href="#usage">Usage</a><br>
+<a href="#constants">Constants</a><br>
+<a href="#classes">Classes/Objects</a><br>
+<a href="#classobj">classObj</a><br>
+<a href="#colorobj">colorObj</a><br>
+<a href="#dbfinfo">DBFInfo</a><br>
 <a href="#imageobj">imageObj</a><br>
+<a href="#itemobj">itemObj</a><br>
+<a href="#labelcachememberobj">labelCacheMemberObj</a><br>
+<a href="#labelcacheobj">labelCacheObj</a><br>
+<a href="#labelobj">labelObj</a><br>
+<a href="#layerobj">layerObj</a><br>
+<a href="#legendobj">legendObj</a><br>
+<a href="#lineobj">lineObj</a><br>
+<a href="#mapobj">mapObj</a><br>
+<a href="#markercachememberobj">markerCacheMemberObj</a><br>
+<a href="#pointobj">pointObj</a><br>
+<a href="#projectionobj">projectionObj</a><br>
+<a href="#querymapobj">queryMapObj</a><br>
+<a href="#rectobj">rectObj</a><br>
+<a href="#referencemapobj">referenceMapObj</a><br>
+<a href="#resultcachememberobj">resultCacheMemberObj</a><br>
+<a href="#resultcacheobj">resultCacheObj</a><br>
+<a href="#scalebarobj">scalebarObj</a><br>
+<a href="#shapefileobj">shapefileObj</a><br>
+<a href="#shapeobj">shapeObj</a><br>
+<a href="#styleobj">styleObj</a><br>
+<a href="#webobj">webObj</a><br>
+<a href="#misccom">Miscellaneous Commands</a><br>
+<a href="#misc">Miscellaneous Functions</a><br>
+<a href="#error">Error Handling</a><br>
 <a name="introduction"></a><br>
 <a href="#toc"><b><u>Introduction:</u></b></a><br>
-All notes contained here incorporate the following nightly builds:<br>
-4-16-2002<br>
+MapScript is a scripting interface for the MapServer. It allows users to more<br>
+easily build custom applications by hiding much of the complexity of the C API<br>
+behind a simple object-oriented scripting interface. MapScript currently exists<br>
+as a module in many languages, see <a href="http://mapserver.gis.umn.edu/doc36/">for the main documentation</a>.<br>
+<br>
+The organization of MapScript is very close to that of a mapfile. It does <b>NOT</b><br>
+give you the functionality of the MapServer CGI program, rather it gives you<br>
+the necessary pieces to build your own custom versions for use on the web or as<br>
+a standalone program. Here is a simple perl example that loads a mapfile,<br>
+creates an image and saves it:<br>
+<br>
+#!/usr/bin/perl<br>
+use mapscript;<br>
+my $map = new mapObj('boundary.map') or die('Unable to open mapfile.');<br>
+my $img = $map->draw() or die('Unable to draw map');<br>
+my $void = $img->saveImage('example.png', $mapscript::MS_PNG, $map->{transparent}, $map->{interlace}, 0);<br>
+<a name="usage"></a><br>
+<a href="#toc"><b><u>Usage:</u></b></a><br>
+Perl - use mapscript;<br>
+<a name="constants"></a><br>
+<a href="#toc"><b><u>Constants:</u></b></a><br>
+Many mapfile paramters take constant values.<br>
+The following constants are available in MapScript:<br>
+<br>
+<table border="0">
+  <tr>
+    <td align="right">
+      <b>logical control/boolean values</b>
+    </td>
+    <td>
+      MS_VERSION - character (3.6.1)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_TRUE/MS_ON/MS_YES - integer (1)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_FALSE/MS_OFF/MS_NO - integer (0)
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>logical control/status values</b>
+    </td>
+    <td>
+      MS_DEFAULT (layer) - integer (2)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_EMBED (legend & scalebar) - integer (3)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_DELETE (layer) - integer (4)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>map units</b>
+    </td>
+    <td>
+      MS_INCHES - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_FEET - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MILES - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_METERS - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_KILOMETERS - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_DD - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_PIXELS - integer
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
+      <b>layer types</b>
+    </td>
+    <td>
+      MS_LAYER_POINT - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LAYER_LINE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LAYER_POLYGON - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LAYER_RASTER - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LAYER_ANNOTATION - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LAYER_QUERY - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LAYER_CIRCLE - integer
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
+      <b>font types</b>
+    </td>
+    <td>
+      MS_TRUETYPE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_BITMAP - integer
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
+      <b>label positions</b>
+    </td>
+    <td>
+      MS_UL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LR - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_UR - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CR - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_UC - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LC - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CC - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_AUTO - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_XY - integer (arrangement matters for auto placement, don't change it)
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>label size</b> (bitmap only)
+    </td>
+    <td>
+      MS_TINY - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SMALL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MEDIUM - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LARGE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_GIANT - integer
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
+      <b>shape types</b>
+    </td>
+    <td>
+      MS_SHAPE_POINT - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHAPE_LINE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHAPE_POLYGON - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHAPE_NULL - integer
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
+      <b>shapefile types</b>
+    </td>
+    <td>
+      MS_SHAPEFILE_POINT (1)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHAPEFILE_ARC (3)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHAPEFILE_POLYGON (5)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHAPEFILE_MULTIPOINT (8)
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
+      <b>query/join types/modes</b>
+    </td>
+    <td>
+      MS_SINGLE - integer (0)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MULTIPLE - integer (1)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>file types</b>
+    </td>
+    <td>
+      MS_FILE_MAP - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_FILE_SYMBOL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_FILE_DEFAULT - integer (MS_FILE_MAP)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>querymap styles</b>
+    </td>
+    <td>
+      MS_NORMAL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_HILITE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SELECTED - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>connection type</b>
+    </td>
+    <td>
+      MS_INLINE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHAPEFILE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_TILED_SHAPEFILE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SDE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_OGR - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_POSTGIS - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_WMS - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_ORACLESPATIAL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>image type</b>
+    </td>
+    <td>
+      MS_GIF - integer (0)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_PNG - integer (1)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_JPEG - integer (2)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_WBMP - integer (3)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_GML - integer (4)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>line joins & caps</b>
+    </td>
+    <td>
+      MS_CJC_NONE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_BEVEL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_BUTT - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_MITER - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_ROUND - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_SQUARE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_TRIANGLE - integer
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>return codes</b>
+    </td>
+    <td>
+      MS_SUCCESS - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_FAILURE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_DONE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $layer->{status}=$mapscript::MS_ON; or $layer->{status}=$mapscript::MS_OFF;.
+    </td>
+  </tr>
+</table>
+<a name="classes"></a><br>
+<a href="#toc"><b><u>Classes/Objects:</u></b></a><br>
+Access to the mapserver API is provided largely through a series of classes.<br>
+These classes allow the programmer to:<br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+    </td>
+    <td>
+      - manipulate virtually all aspects of a mapfile
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      - draw entire maps, layers or individual shapes
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      - perform spatial queries using points, areas or other features
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      - read/write shapefiles
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      - perform attribute queries
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      - read/write dbf files (for limited use only, please use XBase or DBI/XBase)
+    </td>
+  </tr>
+</table>
+<br>
+The main MapScript classes are given in the table below.<br>
+Each class is described in detail later in this document.<br>
+<br>
+<table>
+  <tr>
+    <td align="right">
+      <b>classObj</b>
+    </td>
+    <td>
+      holds all class parameters
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      exists within a layerObj
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>colorObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>DBFInfo</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>imageObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>itemObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>labelCacheMemberObj</b>
+    </td>
+    <td>
+      holds a single element from the label cache
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>labelCacheObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>labelObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>layerObj</b>
+    </td>
+    <td>
+      holds all layer parameters
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      exists within a mapObj
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>legendObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>lineObj</b>
+    </td>
+    <td>
+      made up of pointObjs
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      may or may not be a closed ring
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>mapObj</b>
+    </td>
+    <td>
+      holds all mapfile parameters
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>markerCacheMemberObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>pointObj</b>
+    </td>
+    <td>
+      simple class to hold a 2-D point
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>projectionObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>queryMapObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>rectObj</b>
+    </td>
+    <td>
+      class used to represent a 2-D rectangle
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      defined using minimum and maximum x and y coordinates
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>referenceMapObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>resultCacheMemberObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>resultCacheObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>scalebarObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>shapefileObj</b>
+    </td>
+    <td>
+      class used to access spatial information (i.e. features) stored in an ESRI shapefile
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>shapeObj</b>
+    </td>
+    <td>
+      made up of lineObjs
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>styleObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>webObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="classobj"></a><br>
+<a href="#toc"><b><u>classObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new classObj(layerObj)
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $class = new classObj($layer);
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      Provides access to all class parameters (color, symbol, label, & etc...).
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      Normally you obtain a classObj from an existing class within a layer, however, you can create a new class.
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      See the <a href="http://mapserver.gis.umn.edu/doc35/mapfile-reference.html">mapfile documentation</a> for a list of parameters that can be changed.<br>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>backgroundcolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>color - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>joins - joinObj - rw - see the <a href="http://mapserver.gis.umn.edu/doc36/mapfile-reference.html">mapfile documentation</a>.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>label - labelObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxscale - double - .</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minscale - double - .</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>name - character - rw - should be unique within a layer.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numjoins - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outlinecolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlaybackgroundcolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlaycolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlaymaxsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlayminsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlayoutlinecolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlaysize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlaysizescaled - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlaysymbol - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>overlaysymbolname - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>size - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>sizescaled - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>symbol - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>symbolname - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>template - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>title - character -  - used for legend labelling.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>type - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $class->{label}->{autoangle} = 1;
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $class->{label}->{sizescaled} = 8;
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      createLegendIcon(mapObj, layerObj, width, height);
+    </td>
+    <td>
+    </td>
+    <td>
+      imageObj
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      drawLegendIcon(mapObj, layerObj, width, height, dstImage, dstX, dstY)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setExpression(character string)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getMetaData(character name)
+    </td>
+    <td>
+    </td>
+    <td>
+      character
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setMetaData(character name,character value)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      MS_FAILURE,MS_SUCCESS
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setText(layerObj,character string)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $class->setExpression("\"${string_variable}\"");
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $class->setExpression('/^{A-Z}/');
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $class->setExpression('([LENGTH] gt 50 and [AREA] < 150000)');
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $class->setExpression('N');
+    </td>
+  </tr>
+</table>
+<br>
+<a name="colorobj"></a><br>
+<a href="#toc"><b><u>colorObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>blue - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>green - integer - rw..</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>red - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="dbfinfo"></a><br>
+<a href="#toc"><b><u>DBFInfo:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor/Destructor:</b><br>
+    </td>
+    <td align="left">
+      mapscript::msDBFOpen(filename, 'r+b')/mapscript::msDBFClose(hDBF);
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>bCurrentRecordModified - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>bNoHeader - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>bUpdated - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>fp - file - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>nCurrentRecord - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>nFields - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>nHeaderLength - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>nRecordLength - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>nRecords - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>nStringFieldLen - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>panFieldDecimals - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>panFieldOffset - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>panFieldSize - integer - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>pachFieldType - character - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>pszCurrentRecord - character - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>pszHeader - character - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>pszStringField - character - ro.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      See Method Examples below.
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getFieldDecimals(integer field)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getFieldName(integer field)
+    </td>
+    <td>
+    </td>
+    <td>
+      character
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getFieldWidth(integer field)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getFieldType(integer field)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      0=String, 1=Integer, 2=Double, 3=Invalid
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      This example is the shpinfo.pl sample rewritten to use mapscript DBFInfo instead of the seperate XBase/Xbase module.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td><pre>
+      #!/usr/bin/perl
+      use mapscript;
+      use Getopt::Long;
+      %shptypes = ( '1' => 'point',
+                 '3' => 'arc',
+                 '5' => 'polygon',
+                 '8' => 'multipoint'
+               );
+      %typetypes = ( '0' => 'String',
+                  '1' => 'Integer',
+                  '2' => 'Double',
+                  '3' => 'Invalid'
+                );
+      &GetOptions("file=s", \$file);
+      if(!$file) {
+        print "Syntax: shpinfo.pl -file=[filename]\n";
+        exit 0;
+      }
+      $shapefile = new shapefileObj($file, -1) or die "Unable to open shapefile $file.";
+      print "Shapefile $file:\n\n";
+      print "\ttype: ". $shptypes{$shapefile->{type}} ."\n";
+      print "\tnumber of features: ". $shapefile->{numshapes} ."\n";
+      printf "\tbounds: (%f,%f) (%f,%f)\n", $shapefile->{bounds}->{minx}, $shapefile->{bounds}->{miny}, $shapefile->{bounds}->{maxx}, $shapefile->{bounds}->{maxy};
+      #
+      $table = mapscript::msDBFOpen("$file.dbf","r+b");
+      print "\nDBFInfo table $file.dbf:\n\n";
+      print "\tnumber of records: ". $table->{nRecords} ."\n";
+      my $nofields = $table->{nFields};
+      print "\tnumber of fields: ". $nofields ."\n\n";
+      print "\tName             Type    Length Decimals\n";
+      print "\t---------------- ------- ------ --------\n";
+      for ($i=0; $i<$nofields; $i++) {
+        printf "\t%-16s %-7s %6d %8d\n", $table->getFieldName($i), $typetypes{$table->getFieldType($i)}, $table->getFieldWidth($i); $table->getFieldDecimals($i)
+      }</pre>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="imageobj"></a><br>
+<a href="#toc"><b><u>imageObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new imageObj(width, height)
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $image = new imageObj(600, 600);
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>height - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagepath - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imageurl - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>width - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      free()
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      saveImage(character filenam, type, transparent, interlace, quality)
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $image->saveImage('out.png', $mapscript::MS_PNG, $map->{transparent}, $map->{interlace}, 0);
+    </td>
+  </tr>
+</table>
+<a name="itemobj"></a><br>
+<a href="#toc"><b><u>itemObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>index - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>name - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numdecimals - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>size - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>type - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="labelcachememberobj"></a><br>
+<a href="#toc"><b><u>labelCacheMemberObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>class - classObj - rw - the entire class is stored for variences between labels.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>classidx - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>featuresize - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>layeridx - integer - rw - indexes.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>point - pointObj - rw - label point.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>poly - shapeObj - rw - label bounding box.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>shapeidx - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw - has the label been drawn or not.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>string - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tileidx - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="labelcacheobj"></a><br>
+<a href="#toc"><b><u>labelCacheObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>cachesize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labels - labelCacheMemberObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>markers - markerCacheMemberObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>markercachesize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numlabels - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>nummarkers - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      freeCache()
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="labelobj"></a><br>
+<a href="#toc"><b><u>labelObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>angle - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>antialias - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>autoangle - integer - rw - true or false.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>autominfeaturesize - integer - rw - true or false.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>backgroundcolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>backgroundshadowcolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>backgroundshadowsizex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>backgroundshadowsizey - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>buffer - integer - rw - space to reserve around a label.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>color - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>font - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>force - integer - rw - labels <b>Must</b> be drawn.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>mindistance - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minfeaturesize - integer - rw - minimum feature size (in pixels) to label.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>offsetx - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>offsety - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outlinecolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>partials - integer - rw - can labels run off an image.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>position - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>shadowcolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>shadowsizex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>shadowsizey - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>size - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>sizescaled - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>type - MS_FONT_TYPE - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>wrap - character - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="layerobj"></a><br>
+<a href="#toc"><b><u>layerObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td>
+      new layerObj(mapObj)
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $layer = new layerObj($map);
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      Normally you obtain layerObj from an existing layer within a map, however you can create a new layer.
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>annotate - integer - rw - boolean flag for annotation.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>classitem - character - rw - .DBF item to be used for symbol lookup.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>classitemindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>connection - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>connectiontype - MS_CONNECTION_TYPE - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>data - character - rw - filename, can be relative or full path.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>dump - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>filteritem - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>filteritemindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>footer - character - rw - only used with multi result queries.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>group - character - rw - should not be unique.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>header - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>index - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>items - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelangleitem - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelangleitemindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelcache - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelitem - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelitemindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelmaxscale - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelminscale - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelrequires - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelsizeitem - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelsizeitemindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxfeatures - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxscale - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minscale - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>name - character - rw - should be unique.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numclasses - integer - ro - number of classes in the layer.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numitems - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>offsite - integer - rw - color index to treat as transparent for raster layers.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>postlabelcache - integer - rw - on or off.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>requires - character - rw - context expressions, simple enough to not use expressionObj.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>resultcache - resultCacheObj - rw - holds the results of a query against this layer.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>sizeunits - integer - rw - applies to all classes.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw - on or off.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>styleitem - character - rw - item to be used for style lookup - can also be 'AUTO'.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>styleitemindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>symbolscale - double - rw - scale at which symbols are default size.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>template - character - rw - global template, used across all classes.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tileindex - character - rw - layer index file for tiling support.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tileitem - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tileitemindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tolerance - double - rw - search buffer for point and line queries (in toleranceunits).</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>toleranceunits - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transform - integer - rw - does this layer have to be transformed to file coordinates.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transparency - integer - rw - transparency value 0-100.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>type - MS_LAYER_TYPE - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>units - integer - rw - units of the projection.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $num_classes = $layer->{numclasses};<br>
+      $result_cache = $layer->{resultcache};
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      addFeature(shapeObj shape)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer, -1 on failure
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      close()
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      draw(mapObj, imageObj)
+    </td>
+    <td>
+      Draws a single layer and adds labels to the cache if required.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      drawQuery(mapObj, imageObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getClass(integer index) 
+    </td>
+    <td>
+      Retrieves a classObj given an index value.
+    </td>
+    <td>
+      <a href="#classobj">classObj</a>
+    </td>
+    <td>
+      Class index values start at 0. Total number of classes defined in a layer is $layer->{numclasses}.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getItem(integer)
+    </td>
+    <td>
+      Returns an existing item name.
+    </td>
+    <td>
+      character
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getMetaData(character name)
+    </td>
+    <td>
+    </td>
+    <td>
+      character
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getProjection()
+    </td>
+    <td>
+    </td>
+    <td>
+      character
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getResult(integer member)
+    </td>
+    <td>
+      Retrieves the nth member of the result cache created by the previous query, ie. queryByPoint.
+    </td>
+    <td>
+      resultCacheMemberObj
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getShape(shapeObj, integer tileindex, integer shapeindex)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      open(character path)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByAttributes(mapObj, integer mode)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByFeatures(mapObj, integer slayer)
+    </td>
+    <td>
+      Queries a single layer using another set of results.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByPoint(mapObj,pointObj,integer mode,double buffer)
+    </td>
+    <td>
+      Queries a single layer using a point.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      "mode" is MS_SINGLE or MS_MULTIPLE. Defaults to tolerances set in the mapfile but can use a constant buffer instead.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByRect(mapObj,rectObj)
+    </td>
+    <td>
+      Queries a single layer using a rectangle.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByShape(mapObj,shapeObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setFilter(character string filter)
+    </td>
+    <td>
+      Please see the examples below.
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setProjection(character string parameters)
+    </td>
+    <td>
+      Sets the projection and coordinate system for the layer.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      Parameters are given as a single string of comma delimited <a href="http://www.remotesensing.org/proj">PROJ.4</a> parameters, ie. "proj=utm,ellps=GRS80,zone=15,north,no_defs".
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setMetaData(character name,character value)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer - MS_FAILURE,MS_SUCCESS
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setWKTProjection(character string)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getWMSFeatureInfoURL(mapObj,integer click_x,integer click_y,integer feature_count,character info_format)
+    </td>
+    <td>
+    </td>
+    <td>
+      character
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $qryresult = $layer->queryByPoint($map,$point,$mapscript::MS_SINGLE,0);<br>
+      $resultmember = $layer->getResult(0);
+    </td>
+  </tr>
+</table>
+<br>
+<a name="legendobj"></a><br>
+<a href="#toc"><b><u>legendObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>height - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagecolor - colorObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>interlace - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>keysizex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>keysizey - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>keyspacingx - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>keyspacingy - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>label - labelObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outlinecolor - integer - rw - color of outline of box, -1 for no outline.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>position - integer - rw - for embeded legends.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>postlabelcache - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw - ON, OFF or EMBED.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>template - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transparent - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>width - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="lineobj"></a><br>
+<a href="#toc"><b><u>lineObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new lineObj()
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $line = new lineObj();
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>numpoints - integer - rw - number of points in this line.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>point - pointObj - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $numpoints = $line->{numpoints};
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      add(pointObj)
+    </td>
+    <td>
+      Adds a point to the end of the line.
+    </td>
+    <td>
+       integer, -1 on failure
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      get(integer)
+    </td>
+    <td>
+    </td>
+    <td>
+      pointObj
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      project(projectionObj in,projectionObj out)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td><pre>
+      for($j=0; $j<$numpoints; $j++) {
+        $point = $line->get($j);
+      }</pre>
+    </td>
+  </tr>
+</table>
 <br>
 <a name="mapobj"></a><br>
 <a href="#toc"><b><u>mapObj:</u></b></a><br>
@@ -45,12 +3654,14 @@ All notes contained here incorporate the following nightly builds:<br>
       <b>Example:</b>
     </td>
     <td>
+      $map = new mapObj('demo.map');<br>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
+      If the filename is undefined an empty mapObj is created and initialized.
     </td>
   </tr>
 </table>
@@ -67,14 +3678,112 @@ All notes contained here incorporate the following nightly builds:<br>
     <td>
     </td>
     <td>
-      <li>latlon - projectionObj - rw - REMOVED Use getProjection.</li>
+      Parameters that consist of a list (eg. size) can be accessed using individual list members- see below.
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>projection - projectionObj - rw - REMOVED Use getProjection.</li>
+      All parameter names are to be given in lowercase.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>cellsize - double - rw - in map units.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>extent - rectObj - rw - map extent array.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>height - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagecolor - colorObj - rw - holds the initial image color value.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagequality - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagetype - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>interlace - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>labelcache - labelCacheObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>layerorder - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>layers - layerObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>legend - legendObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>name - character - rw - small identifier for naming etc.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numlayers - integer - ro - number of layers in the map.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>palette - paletteObj - rw - paletteObj is used to hold colors while a  mapfile is read.</li>
     </td>
   </tr>
   <tr>
@@ -82,6 +3791,101 @@ All notes contained here incorporate the following nightly builds:<br>
     </td>
     <td>
       <li>querymap - queryMapObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>reference - referenceMapObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>resolution - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>scale - double - rw - scale of the output image.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>scalebar - scalebarObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>shapepath - character - rw - where are the shape files located.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw - map creation on or off.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transparent - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>units - MS_UNITS - rw - units of the projection.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>web - webObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>width - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>map, legend, scalebar, and reference map <b>size</b> use <b>height</b> and <b>width</b></li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>legend <b>keysize</b> use <b>keysizex</b> and <b>keysizey</b></li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>legend <b>keyspacing</b> use <b>keyspacingx</b> and <b>keyspacingy</b></li>
+    </td>
+  </tr>
+  <tr>
+    <td>
     </td>
   </tr>
 </table>
@@ -92,12 +3896,77 @@ All notes contained here incorporate the following nightly builds:<br>
       <b>Examples:</b>
     </td>
     <td>
+      $minx = $map->{extent}->{minx};
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
+      $map->{interlace} = $mapscript::MS_TRUE;
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{legend}->{keysizex} = 18;
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{legend}->{keyspacingx} = 4;
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{legend}->{label}->{font} = "congobold";
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{legend}->{label}->{sizescaled} = 8; (TT font you use needs to be loaded on your system first.)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{legend}->{label}->{type}=$mapscript::MS_TRUETYPE;
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{name} = 'example.map';
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $num_layers = $map->{numlayers};
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{scalebar}->{color} = $map->addColor(255,255,255);
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $map->{scalebar}->{width} = 50;
     </td>
   </tr>
 </table>
@@ -106,9 +3975,6 @@ All notes contained here incorporate the following nightly builds:<br>
   <tr>
     <th>
       <b>Methods:</b>
-    </th>
-    <th>
-      Type
     </th>
     <th>
       Method
@@ -127,14 +3993,29 @@ All notes contained here incorporate the following nightly builds:<br>
     <td>
     </td>
     <td>
+      addColor(integer red,integer green,integer blue)
+    </td>
+    <td>
+      Adds a color to the maps palette.
+    </td>
+    <td>
       integer
     </td>
     <td>
-      getLayersdrawingOrder()
+      Color values can range from 0 to 255. Must be called prior to draw() or prepareImage().
     </td>
+  </tr>
+  <tr>
     <td>
     </td>
     <td>
+      draw()
+    </td>
+    <td>
+      Renders a map.
+    </td>
+    <td>
+      imageObj
     </td>
     <td>
     </td>
@@ -143,31 +4024,57 @@ All notes contained here incorporate the following nightly builds:<br>
     <td>
     </td>
     <td>
+      drawLabelCache(imageObj)
+    </td>
+    <td>
+      Renders the labels for a map.
+    </td>
+    <td>
       integer
     </td>
     <td>
-      getNumSymbols()
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-      may not work (typo).
+      Done as part of the draw() method but may need called when using other object draw methods.
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      integer
+      drawLegend()
     </td>
     <td>
-      moveLayerdown(integer layerindex)
+      Renders a legend.
+    </td>
+    <td>
+      imageObj
     </td>
     <td>
     </td>
+  </tr>
+  <tr>
     <td>
+    </td>
+    <td>
+      drawQuery()
+    </td>
+    <td>
+      Renders a query map.
+    </td>
+    <td>
+      imageObj
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      drawReferenceMap()
+    </td>
+    <td>
+      Renders a reference map.
+    </td>
+    <td>
+      imageObj
     </td>
     <td>
     </td>
@@ -176,62 +4083,300 @@ All notes contained here incorporate the following nightly builds:<br>
     <td>
     </td>
     <td>
-      integer
+      drawScalebar
     </td>
     <td>
-      moveLayerup(integer layerindex)
+      Renders a scalebar.
     </td>
     <td>
-    </td>
-    <td>
+      imageObj
     </td>
     <td>
     </td>
   </tr>
   <tr>
+    <td>
+    </td>
+    <td>
+      embedLegend(imageObj)
+    </td>
+    <td>
+      Embeds a legend in a map.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      Adds legend to label cache. Invoke drawLabelCache(imageObj) to render (unless postlabelcache is set).
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      embedScalebar(image)
+    </td>
+    <td>
+      Embeds a scalebar in a map.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      Adds scalebar to label cache. Invoke drawLabelCache(imageObj) to render (unless postlabelcache is set).
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getImageToVar(imageObj,character varname)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getLayer(integer index)
+    </td>
+    <td>
+      Retrieves a layer by index.
+    </td>
+    <td>
+      <a href="#layerobj">layerObj</a>
+    </td>
+    <td>
+      Layer indexes start with 0. Total number of layers in a mapfile is $map->{numlayers};.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getLayerByName(character name)
+    </td>
+    <td>
+      Retrieves a layer by name.
+    </td>
+    <td>
+      <a href="#layerobj">layerObj</a>
+    </td>
+    <td>
+      If multiple layers exist with the same name the first occurence is returned.
+    </td>
+  </tr>
+  <tr>
+    <td> 
+    </td>
+    <td>
+      getLayersdrawingOrder() 
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getMetaData(character name)
+    </td>
     <td>
     </td>
     <td>
       character
     </td>
-    <td>
-      processLegendTemplate(char names,char values,int numentries)
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
   </tr>
   <tr>
+    <td> 
+    </td> 
+    <td> 
+      mapObj_getNumSymbols() 
+    </td> 
+    <td> 
+    </td> 
+    <td> 
+      integer
+    </td> 
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getProjection()
+    </td>
     <td>
     </td>
     <td>
       character
     </td>
+  </tr>
+  <tr>
     <td>
-      processQueryTemplate(char names,char values,int numentries)
     </td>
     <td>
+      getSymbolByName(character name)
     </td>
     <td>
+      Retrieves the symbol index by name.
+    </td>
+    <td>
+      integer -1 if symbol is not found
     </td>
     <td>
     </td>
   </tr>
   <tr>
+    <td> 
+    </td>
+    <td>
+      moveLayerdown(layerindex) 
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      moveLayerup(layerindex)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      nextLabel()
+    </td>
+    <td>
+      Allows you to step through the label cache.
+    </td>
+    <td>
+      labelCacheMemberObj
+    </td>
+    <td>
+      One reason to do this would be to produce an imagemap based on annotation or post process a map by avoiding text.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      prepareImage()
+    </td>
+    <td>
+      Initializes an image for drawing a map.
+    </td>
+    <td>
+      imageObj
+    </td>
+    <td>
+      Must be called prior to calling the draw methods for other objects (not draw()).
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      prepareQuery()
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      processLegendTemplate(names,values,numentries)
+    </td>
     <td>
     </td>
     <td>
       character
     </td>
+  </tr>
+  <tr>
     <td>
-      processTemplate(int bGenerateImages,char names,char values,int numentries)
+    </td>
+    <td>
+      processQueryTemplate(names,values,numentries)
     </td>
     <td>
     </td>
     <td>
+      character
+    </td>
+  </tr>
+  <tr>
+    <td> 
+    </td>
+    <td>
+      processTemplate(bGenerateImages,names,values,numentries)
+    </td>
+    <td>
+    </td>
+    <td>
+      character
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByFeatures(int slayer)
+    </td>
+    <td>
+      Queries a group of layers using another set of results.
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByPoint(point,int mode,double buffer)
+    </td>
+    <td>
+      Queries a group of layers using a point.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      "mode" is MS_SINGLE or MS_MULTIPLE. Defaults to tolerances set in the mapfile but can use a constant buffer instead.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      queryByRect(rectObj)
+    </td>
+    <td>
+      Queries a group of layers using a rectangle.
+    </td>
+    <td>
+      integer
     </td>
     <td>
     </td>
@@ -240,14 +4385,25 @@ All notes contained here incorporate the following nightly builds:<br>
     <td>
     </td>
     <td>
+      queryByShape(shapeObj)
+    </td>
+    <td>
+    </td>
+    <td>
       integer
     </td>
+  </tr>
+  <tr>
     <td>
-      setLayersdrawingOrder(integer panIndexes)
     </td>
     <td>
+      save(char filename)
     </td>
     <td>
+      Writes the contents of a mapfile to disk.
+    </td>
+    <td>
+      integer
     </td>
     <td>
     </td>
@@ -256,16 +4412,88 @@ All notes contained here incorporate the following nightly builds:<br>
     <td>
     </td>
     <td>
+      saveQuery(char filename)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      saveQueryAsGML(char filename)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td> 
+    </td>
+    <td>
+      setLayersdrawingOrder(panIndexes) 
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setMetaData(char name,char value)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setProjection(string parameters)
+    </td>
+    <td>
+      Sets the projection and coordinate system for the map.
+    </td>
+    <td>
       integer
     </td>
     <td>
-      setSymbolSet(char szFileName)
+      Parameters are given as a single string of comma delimited <a href="http://www.remotesensing.org/proj">PROJ.4</a> parameters, ie. "proj=utm,ellps=GRS80,zone=15,north,no_defs".
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setSymbolSet(szFileName)
     </td>
     <td>
     </td>
     <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
     </td>
     <td>
+      setWKTProjection(char string)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
     </td>
   </tr>
 </table>
@@ -276,12 +4504,33 @@ All notes contained here incorporate the following nightly builds:<br>
       <b>Example:</b>
     </td>
     <td>
+      Prints the string and bounding polygon(s) for all labels in the cache that are actually drawn.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td><pre>
+      while ( $label = $map->nextLabel()) {
+        if ( $label->{status} ) {
+          print $label->{string} . "\n";
+          $shape = $label->{poly};
+          for ( $i=0; $i<$shape->{numlines}; i++ ) {
+            $part = $shape->get($i);
+            for ( $j=0; $j<$part->{numpoints}; $j++) {
+              $point = $part->get($j);
+              print $point->{x} . "," . $point->{y} . " ";
+            }
+            print "\n";
+          }
+        }
+      }</pre>
     </td>
   </tr>
 </table>
 <br>
-<a name="imageobj"></a><br>
-<a href="#toc"><b><u>imageObj:</u></b></a><br>
+<a name="markercachememberobj"></a><br>
+<a href="#toc"><b><u>markerCacheMemberObj:</u></b></a><br>
 <br>
 <table border="0">
   <tr>
@@ -289,7 +4538,7 @@ All notes contained here incorporate the following nightly builds:<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      n/a. Created by prepare & draw methods.
+      n/a
     </td>
   </tr>
 </table>
@@ -316,28 +4565,14 @@ All notes contained here incorporate the following nightly builds:<br>
       <b>Members:</b>
     </td>
     <td>
-      <li>height - integer - ro.</li>
+      <li>id - integer - rw.</li>
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      <li>imagepath - character - ro.</li>
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      <li>imageurl - character - ro.</li>
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      <li>width - integer - ro.</li>
+      <li>poly - shapeObj - rw - marker bounding box (POINT layers only).</li>
     </td>
   </tr>
 </table>
@@ -358,9 +4593,6 @@ All notes contained here incorporate the following nightly builds:<br>
       <b>Methods:</b>
     </th>
     <th>
-      Type
-    </th>
-    <th>
       Method
     </th>
     <th>
@@ -377,26 +4609,9 @@ All notes contained here incorporate the following nightly builds:<br>
     <td>
     </td>
     <td>
-      void
+      none
     </td>
     <td>
-      free()
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      void
-    </td>
-    <td>
-      saveImage(char filename,MS_IMAGE_TYPE,int transparent,int interlace,int quality)
     </td>
     <td>
     </td>
@@ -416,5 +4631,2324 @@ All notes contained here incorporate the following nightly builds:<br>
     </td>
   </tr>
 </table>
+<br>
+<a name="pointobj"></a><br>
+<a href="#toc"><b><u>pointObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new pointObj()
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $point = new pointObj();
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>m - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>x - double - rw - x coordinate.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>y - double - rw - y coordinate.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $point->{x} = 100;<br>
+      $pointx = $point->{x};<br>
+      $pointy = $point->{y};
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      distanceToLine(pointObj a,pointObj b)
+    </td>
+    <td>
+    </td>
+    <td>
+      double
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      distanceToPoint(pointObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      double
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      distanceToShape(shapeObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      double, -1 if shape type is not recognized
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      draw(mapObj,layerObj,imageObj,integer classindex,character text)
+    </td>
+    <td>
+      Draws an individual point using layerObj.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+      The class_index is used to classify the point based on the classes defined for layerObj.<br>
+      The text string is used to annotate the point.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      project(projectionObj in,projectionObj out)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td><pre>
+      my $distance = $point->distanceToPoint($garagepoint);
+    </td>
+  </tr>
+</table>
+<br>
+<a name="projectionobj"></a><br>
+<a href="#toc"><b><u>projectionObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new projectionObj(string)
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      my $projection = new projectionObj('proj=utm,ellps=GRS80,zone=15,north,no_defs');
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>args - character - rw - variable number of projection args.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numargs - integer - rw - actual number of projection args.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>proj - void - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="querymapobj"></a><br>
+<a href="#toc"><b><u>queryMapObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>color - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>height - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>style - integer - rw - HILITE, SELECTED or NORMAL.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>width - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="rectobj"></a><br>
+<a href="#toc"><b><u>rectObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new rectObj()
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      my $rectangle = new rectObj();
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>minx - double - rw - left.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>miny - double - rw - lower.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxx - double - rw - right.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxy - double - rw - upper.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $rectangle->{minx} = 0;<br>
+      $rectangle->{miny} = 0;<br>
+      $rectangle->{maxx} = 10;<br>
+      $rectangle->{maxy} = 10;
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      draw(mapObj,layerObj,imageObj,integer classindex,character text)
+    </td>
+    <td>
+      Draws an individual rectangle using layerObj.
+    </td>
+    <td>
+      integer, 0 on success
+    </td>
+    <td>
+      The class_index is used to classify the feature based on the classes defined for layerObj.<br>
+       The text string is used to annotate the shape.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      fit(integer width,integer height)
+    </td>
+    <td>
+      Adjusts a rectangle to fit a size.
+    </td>
+    <td>
+      double
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      project(projectionObj in,projectionObj out)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="referencemapobj"></a><br>
+<a href="#toc"><b><u>referenceMapObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>color - colorObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>extent - rectObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>height - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>image - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxboxsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>marker - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>markername - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>markersize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minboxsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outlinecolor - colorObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>width - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="resultcachememberobj"></a><br>
+<a href="#toc"><b><u>resultCacheMemberObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $resultmember = $layer->getResult(0);
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>classindex - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>shapeindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tileindex - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $shaperecnum = $resultmember->{shapeindex};
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      None
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="resultcacheobj"></a><br>
+<a href="#toc"><b><u>resultCacheObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $resultcache = $layer->{resultcache};
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>bounds - rectObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numresults - integer - rw - total number of matching records.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $resultsfnd = $resultcache->{numresults};
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      None
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="scalebarobj"></a><br>
+<a href="#toc"><b><u>scalebarObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>backgroundcolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>color - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>height - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagecolor - colorObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>interlace - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>intervals - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>label - labelObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outlinecolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>position - integer - rw - for embeded scalebars.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>postlabelcache - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - integer - rw - ON, OFF or EMBED.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>style - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transparent - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>units - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>width - integer - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="shapefileobj"></a><br>
+<a href="#toc"><b><u>shapefileObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new shapefileObj(filename,type)
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $shapefile = new shapefileObj('lakes',-1) or die "Unable to open lakes shapefile";
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      No extension is necessary.<br>
+      For existing files type should be -1.<br>
+      To create an empty file type can be MS_SHAPEFILE_POINT, MS_SHAPEFILE_ARC, MS_SHAPEFILE_POLYGON, or MS_SHAPEFILE_MULTIPOINT.<br>
+      To <b>Close</b> a shapefile you've opened you need to undefine the reference, ie. "undef $shapefile;" or "$shapefile = '';".
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>bounds - rectObj - ro - The shapefiles bounding box.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>lastshape - integer - ro.</li> 
+   </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numshapes - integer - ro - number of shapes in the shapefile.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>shapepath - character - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>source - character - ro - full path to shapefile.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>status - character - ro.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>statusbounds - rectObj - roi - holds extent associated with the status vector.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>type - integer - ro - type of shapefile.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $extents = $shapefile->{bounds};<br>
+      $minx = $extents->{minx};<br>
+      $miny = $extents->{miny};<br>
+      $maxx = $extents->{maxx};<br>
+      $maxy = $extents->{maxy};<br>
+      $numshapes = $shapefile->{numshapes};<br>
+      $typeno = $shapefile->{type};
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      add(shapeObj)
+    </td>
+    <td>
+      Appends a shape to an open file.
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      addPoint(pointObj)
+    </td>
+    <td>
+    </td>
+    <td>
+     integer
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      get(integer index,shapeObj)
+    </td>
+    <td>
+      Retrieves a shape by index.
+    </td>
+    <td>
+      integer, -1 if index is < 0 or >= number of shapes
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getExtent(integer index,rectObj)
+    </td>
+    <td>
+      Retrieves a shape bounding box by index.
+    </td>
+    <td>
+      void
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getPoint(integer index,pointObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer, -1 if index is < 0 or >= number of shapes
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getTransformed(mapObj,integer index,shapeObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer, -1 if index is < 0 or >= number of shapes
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+      $shapefile->add($shape);
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      This example saves a selected polygon shape into a new shapefile.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td><pre>
+      #
+      # Open the map.
+      my $map = new mapObj('your.map');
+      #
+      # Create the layer object to query.
+      my $layer = new layerObj($map);
+      #
+      # Create a new shapefile for the selection set.
+      my $newshpf = new shapefileObj("$newshpfname", 5);
+      #
+      # Set index value for selected shape.
+      my $poly = 400;
+      #
+      # Create a shapefile object for getting queried shape.
+      my $shpf = new shapefileObj("data_shapefile", -1);
+      #
+      # Create shape object for storing queried shape.
+      my $shp = new shapeObj(-1);
+      #
+      # Retrieve shape into shape object.
+      $shpf->get($poly, $shp);
+      #
+      # Put shape into new shapefile.
+      $newshpf->add($shp);
+      #
+      # Create dbf to go with new.
+      @toucherror = system("touch $newshpfname.dbf");
+      #
+      # Get the extent of the new shapefile.
+      my $newrect = $newshpf->{bounds};
+      my $newminx = $newrect->{minx};
+      my $newminy = $newrect->{miny};
+      my $newmaxx = $newrect->{maxx};
+      my $newmaxy = $newrect->{maxy};
+      #
+      # Close new shapefile.
+      undef $newshpf;
+    </td></pre>
+  </tr>
+</table>
+<br>
+<a name="shapeobj"></a><br>
+<a href="#toc"><b><u>shapeObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      new shapeObj(type)
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $shape = new shapeObj(-1);
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $shape = new shapeObj($mapscript::MS_SHAPE_POLYGON);
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>bounds - rectObj - rw - the shapes bounding box.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>classindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>index - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>line - lineObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numlines - integer - rw - number of lines in this shape.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numvalues - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>text - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>tileindex - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>type - integer - rw - generic type (MS_SHAPE_POINT, MS_SHAPE_LINE, MS_SHAPE_POLYGON) of this shape.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>values - character - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      $extents = $shape->{bounds};<br>
+      $minx = $shape->{bounds}->{minx};<br>
+      $miny = $shape->{bounds}->{miny};<br>
+      $maxx = $shape->{bounds}->{maxx};<br>
+      $maxy = $shape->{bounds}->{maxy};<br>
+      $numlines = $shape->{numlines};
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      add(lineObj)
+    </td>
+    <td>
+      Adds a line to the shape.
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      contains(pointObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer, -1 if shape is not polygon
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      copy(shapeObj destination)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      draw(mapObj,layerObj,imageObj)
+    </td>
+    <td>
+      Draws an individual shape using layerObj.
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      get(integer index)
+    </td>
+    <td>
+    </td>
+    <td>
+      lineObj
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      getValue(integer index)
+    </td>
+    <td>
+      returns an existing value.
+    </td>
+    <td>
+      character
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      intersects(shapeObj)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer, -1 if shape is not line or polygon
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      project(projectionObj in,projectionObj out)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setBounds()
+    </td>
+    <td>
+    </td>
+    <td>
+      void
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Examples:</b>
+    </td>
+    <td>
+      This example retrieves all of the x,y's for all the lines in a polygon shape.
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td><pre>
+      #
+      # Create shape object.
+      $shp = new shapeObj(-1);
+      #
+      # Retrieve shape into shape object.
+      $shpfile->get(1,$shp);
+      #
+      # How many lines in shape.
+      my $num_lines = $shp->{numlines};
+      #
+      # Loop through each line.
+      for ( $line_num=0; $line_num<$num_lines; $line_num++ ) {
+        #
+        # Get line.
+        my $line = new lineObj();
+        $line = $ishp->get($line_num);
+        print "Got Line #$line_num\n";
+        #
+        # How many points in line.
+        my $num_points = $line->{numpoints};
+        #
+        # Loop through each point.
+        for ( $point_num=0; $point_num<$num_points; $point_num++ ) {
+          #
+          # Get the point.
+          my $point = new pointObj();
+          $point = $line->get($point_num);
+          print "Got Point #$point_num";
+          $px = $point->{x};
+          $py = $point->{y};
+          print " X=$px Y=$py\n";
+        }
+      }
+      print "\n";
+    </pre></td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td><pre>
+      for($i=0; $i<$numshapes; i++) {
+        $shapefile->get($i, $shape);
+        ...
+      }</pre>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="styleobj"></a><br>
+<a href="#toc"><b><u>styleObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>background - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>color - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxsize - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minsize - minsize - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outlinecolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>size - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>sizescaled - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>symbol - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>symbolname - character - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="webobj"></a><br>
+<a href="#toc"><b><u>webObj:</u></b></a><br>
+<br>
+<table border="0">
+  <tr>
+    <td>
+      <b>Constructor:</b><br>
+    </td>
+    <td align="left">
+      n/a
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>empty - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>error - character - rw - error handling.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>extent - rectObj - rw - clipping extent.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>footer - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>header - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagepath - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imageurl - caracter - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>log - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxscale - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>maxtemplate - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>minscale - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>mintemplate - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>template - character - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="misccom"></a><br>
+<a href="#toc"><b><u>Miscellaneous Commands:</u></b></a><br>
+The MapServer distribution supplies the following command of interest.<br>
+<table>
+  <tr>
+    <td>
+    </td>
+    <td>
+      shp2pdf -m [mapfile] -o [pdf] -l [layers]
+    </td>
+    <td>
+      Saves a mapfile as a pdf.
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Example:</b>
+    </td>
+    <td><pre>
+      #
+      # Save the current map.
+      $map->save("tobepdf.map");
+      #
+      # Convert the map to pdf.
+      @topdferror = system("shp2pdf -m tobepdf.map -o map.pdf");
+    </pre></td>
+  </tr>
+</table>
+<br>
+<a name="misc"></a><br>
+<a href="#toc"><b><u>Miscellaneous Functions:</u></b></a><br>
+<table>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      GetMapserverUnitUsingProj(psProj);
+    </td>
+    <td>
+      returns integer.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFAddField(hDBF,field_name,field_type,field_width,decimal_places);
+    </td>
+    <td>
+      returns integer.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFClose(hDBF);
+    </td>
+    <td>
+      returns void.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFCreate(dbf_filename);
+    </td>
+    <td>
+      returns hDBF.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetFieldCount(hDBF);
+    </td>
+    <td>
+      returns integer.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetFieldInfo(hDBFi,field_index,field_name,field_width,decimal_places);
+    </td>
+    <td>
+      returns FTDouble, FTInteger, FTString.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetItemIndex(dbf_filename,item name);
+    </td>
+    <td>
+      returns integer.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetItemIndexes(dbf_filename,items,number_of_items);
+    </td>
+    <td>
+      returns integer.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetItems(dbf_filename);
+    </td>
+    <td>
+      returns character.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetRecordCount(dbf_filename);
+    </td>
+    <td>
+      returns integer.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetValueList(dbf_filename,record_number,item_indexes,number_of_items);
+    </td>
+    <td>
+      returns character.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFGetValues(dbf_filename,record_number);
+    </td>
+    <td>
+      returns character.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFOpen(dbf_filename,access_mode);
+    </td>
+    <td>
+      Returns hDBF<br>
+      access_mode is one of: rb+, r+b, or r+
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFReadDoubleAttribute(hdbf,shape_index,field_index);
+    </td>
+    <td>
+      returns double
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFReadStringAttribute(hDBF,shape_index,field_index);
+    </td>
+    <td>
+      returns character
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFReadIntegerAttribute(hDBF,shape_index,field_index);
+    </td>
+    <td>
+      returns integer.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFWriteDoubleAttribute(hDBF,shape_index,field_index,new_double_value);
+    </td>
+    <td>
+      returns integer
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFWriteIntegerAttribute(hDBF,shape_index,field_index,new_integer_value);
+    </td>
+    <td>
+      returns integer
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msDBFWriteStringAttribute(hDBF,shape_index,field_index,new_string_value);
+    </td>
+    <td>
+      returns integer
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msFreeImage(imgObj);
+    </td>
+    <td>
+      Frees the memory associated with an image.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msGetVersion();
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+    </td>
+    <td>
+      msSaveImage(imgObj,filename,type,transparent,interlace,quality);
+    </td>
+    <td>
+      Saves an image to a file.<br>
+      Set filename to undef to save to stdout.<br>
+      The transparent and interlace flags are boolean values.<br>
+      The filetype is $mapscript::MS_GIF=GIF, $mapscript::MS_PNG=PNG, $mapscript::MS_JPEG=JPEG, $mapscript::MS_WBMP=WBMP.<br>
+      The quality is 0-95. Ignored for all but JPEG.
+    </td>
+  </tr>
+</table>
+<br>
+<a name="error"></a><br>
+<a href="#toc"><b><u>Error Handling:</u></b></a><br>
+Current error handling supports returned codes (where applicable).
+<table>
+  <tr>
+    <td>
+    </td>
+    <td>
+      Please see the <a href="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PerlMapScriptDebugging">wiki</a>.
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<script language="javascript">doc_footer();</script>
 </body>
 </html>
