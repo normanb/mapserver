@@ -1,0 +1,360 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+          "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<article>
+	<articleinfo>
+		<!-- insert title here, include the word HOWTO -->
+		<title>HOWTO for OGR Use in MapServer</title>
+		<author>
+			<firstname>Jeff</firstname>
+			<surname>McKenna</surname>
+			<affiliation>
+				<orgname>DM Solutions Group</orgname>
+				<address>
+					<email>mckenna@dmsolutions.ca</email>
+				</address>
+			</affiliation>
+		</author>
+		<date>2001-05-07</date>
+		<abstract>
+			<!-- a short description of the contents of the doc -->
+			<para>
+                 This document describes the specifications for implementing OGR support within MapServer.
+               </para>
+		</abstract>
+	</articleinfo>
+	<sect1 id="intro">
+		<title>Introduction</title>
+		<para>
+             The following document describes the process for implementing OGR support within MapServer.
+          </para>
+		<para>
+			<emphasis>Also include the version of the MapServer software that you are describing.</emphasis>
+		</para>
+		<para>
+             This document assumes that you are already familiar with certain aspects of MapServer:
+          </para>
+		<itemizedlist>
+			<listitem>
+				<para>
+                             MapServer .map files.
+                          </para>
+			</listitem>
+			<listitem>
+				<para>
+					<emphasis>Some other aspect?</emphasis>
+				</para>
+			</listitem>
+		</itemizedlist>
+		<!-- Section2: What is OGR? -->
+		<sect2 id="definition">
+			<title>What is OGR?</title>
+			<para>
+                      The OGR Simple Features Library is a C++ open source library (and commandline tools) 
+                      providing read (and sometimes write) access to a variety of vector file formats 
+                      including ESRI Shapefiles, and Mapinfo mid/mif and TAB formats.  
+                    </para>
+		</sect2>
+		<!-- Section2: What does it add to MapServer? -->
+		<sect2 id="addtition">
+			<title>What Does OGR Add to MapServer?</title>
+			<para>
+                      The OGR Simple Features Library allows MapServer users to display several types of data files in their native                                
+                      formats.  For example, MapInfo Mid/Mif and TAB data do not need to be converted to ESRI shapefiles 
+                      when using OGR support with MapServer.
+               </para>
+		</sect2>
+		<!-- Section2: What formats are supported? -->
+		<sect2 id="supported">
+			<title>What Data Formats are Supported?</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>.
+                        </para>
+					</listitem>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_mitab.html">MapInfo TAB and  
+					   MIF/MID files</ulink>.
+				    </para>
+					</listitem>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>.
+				    </para>
+					</listitem>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>.
+				    </para>
+					</listitem>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>.
+				    </para>
+					</listitem>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format).
+				    </para>
+					</listitem>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets).
+				    </para>
+					</listitem>
+					<listitem>
+						<para>
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>.
+				    </para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		<!-- Section2: More information on the OGR project -->
+		<sect2 id="information">
+			<title>How to Get More Information on the Project</title>
+			<para>
+                      More information on the OGR Simple Features Project can be found at 
+                      <ulink url="http://gdal.velocet.ca/projects/opengis/">
+                      http://gdal.velocet.ca/projects/opengis/</ulink>.
+               </para>
+			<para>
+		            The main developer of the OGR Simple Features Project is Frank Warmerdam.
+		        <address>
+					<email>warmerda@home.com</email>
+				</address>
+			</para>
+			<para>
+                      The developer of OGR's MapInfo TAB support is Daniel Morissette.
+                  <address>
+					<email>morissette@dmsolutions.ca</email>
+				</address>
+			</para>
+		</sect2>
+	</sect1>
+	<!-- Section1: obtaining and installing -->
+	<sect1 id="obtain">
+		<title>Obtaining and Compiling MapServer with OGR Support</title>
+		<para>
+			  MapServer with OGR support can be obtained from the main MapServer download page,
+			  <ulink url="http://mapserver.gis.umn.edu/dload.html">http://mapserver.gis.umn.edu/dload.html</ulink>.
+	     </para>
+		<para>
+			 For UNIX users, see the <emphasis>README.CONFIGURE</emphasis> file in the MapServer source, or see
+			the UNIX/MapServer HOWTO at <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">					http://mapserver.gis.umn.edu/doc/unix-install-howto.html</ulink>.  
+	     </para>
+		<para>
+		     For Windows users, see the <emphasis>README.WIN32</emphasis> file in the MapServer source.
+	     </para>
+	</sect1>
+	<!-- Section1: Integration or developing  an application-->
+	<sect1 id="integrate">
+		<title>Integrating OGR Support with MapServer Applications</title>
+		<para>
+                The only change that is needed to integrate OGR support with a MapServer
+                application is with the .map file.  Two parameters must be added to the .map 
+                file inside the layer in question:
+             </para>
+		<programlisting>
+	LAYER
+	   ...
+	   CONNECTIONTYPE OGR
+	   CONNECTION "ogr_connection_string"
+	   ...
+	END
+              </programlisting>
+		<para>
+                 -where the "ogr_connection_string" is:  &lt;dataset_filename&gt;[,&lt;layer_index&gt;]
+          </para>
+		<para>
+                &lt;dataset_filename&gt;  is:
+          </para>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>
+	                     the filename of the dataset (including the extension).
+	                </para>
+				</listitem>
+				<listitem>
+					<para>
+	                     the location of the file relative to the location of the .map file.
+	               </para>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para>
+                &lt;layer_index&gt; is:
+                     </para>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>
+	                     (optional)
+	                </para>
+				</listitem>
+				<listitem>
+					<para>
+	                     the OGR layer index number.
+	                </para>
+				</listitem>
+				<listitem>
+					<para>
+	                    the default is 0, the first layer. 
+	                </para>
+				</listitem>
+				<listitem>
+					<para>
+	                    the OGRINFO program can be used to find out the layer indicies in a dataset.
+	                </para>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<!-- Section2: Examples of Layer Definitions Using OGR -->
+		<sect2 id="examples">
+			<title>Examples of Layer Definitions Using OGR</title>
+			<para>
+				1. MapInfo TAB file
+			</para>
+			<programlisting>
+	LAYER
+	   NAME "Builtup_Areas_tab"
+	   TYPE POLYGON
+	   CONNECTIONTYPE OGR
+	   CONNECTION "data/tab/092b06_builtup_a.tab"
+	   STATUS ON
+	   CLASS
+	     ...
+	   END
+	...
+	END
+               </programlisting>
+			<para>
+                    2. TIGER/Line file
+               </para>
+			<programlisting>
+	LAYER
+	   NAME "Roads_tig"
+	   TYPE LINE
+	   CONNECTIONTYPE OGR
+	   CONNECTION "data/tgr_roads.rt1"
+	   STATUS ON
+	   CLASS
+	     ...
+	   END
+	...
+	END
+               </programlisting>
+		</sect2>
+		<!-- Section2: Examples of Layer Definitions Using OGR -->
+		<sect2 id="ogrinfo">
+			<title>How to Use "OGRINFO"</title>
+			<para>
+				OGRINFO is an .exe that can be used to obtain layer information about OGR supported files.  The parameters
+				are:
+			</para>
+			<programlisting>
+	ogrinfo [-ro] [-q] datasource_name [layer [layer...]]
+			</programlisting>
+			<itemizedlist>
+			<listitem>
+			  <para>
+			     -ro opens the file as read only (optional)
+			  </para>
+			</listitem>
+			<listitem>
+			  <para>
+			     -q executes in quiet mode, only the layer idex line will be returned (optional)
+			  </para>
+               </listitem>
+               <listitem>
+			  <para>
+			     datasource_name is the filename including extension (eg. roads.tab)
+			  </para>
+			</listitem>
+			</itemizedlist>
+			<sect3 id="example">
+			     <title>Example</title>
+                           <para>
+			                 1.  Entering <emphasis>ogrinfo canada.tab</emphasis> will return:
+			            </para>
+			     <programlisting>
+	INFO: open of 'canada.tab'
+	using driver 'MapInfo File' successful.
+	1: canada (Polygon)
+			    </programlisting>
+			    <para>
+			        <literallayout>   which shows that there is one polygon layer in the canada.tab file.</literallayout>
+			    </para>
+                   <para>
+                        2.  Entering <emphasis>ogrinfo -q canada.tab</emphasis> will return:
+                   </para>
+                   <programlisting>
+	1. canada (Polygon)
+                   </programlisting>
+			</sect3>
+		</sect2>
+		<sect2 id="queries">
+			<title>Queries through OGR format</title>
+			<para>
+				<emphasis>Queries through OGR format???</emphasis>
+			</para>
+		</sect2>
+		<sect2 id="formatinfo">
+			<title>Format-Specific Information</title>
+			<para>
+                   This section will contain any format-specific issues that are discovered over time.
+              </para>
+		</sect2>
+	</sect1>
+	<!-- Section1: FAQ -->
+	<sect1 id="FAQ">
+		<title>FAQ / Common problems</title>
+		<para>
+                This section will contain frequently asked questions and common problems that occur over time.
+          </para>
+	</sect1>
+	<!-- Section1: Document Info -->
+	<sect1 id="docinfo">
+		<title>About This Document</title>
+		<sect2 id="copyright">
+			<title>Copyright Information</title>
+			<para>
+                        Copyright (c) 2001 Jeff McKenna.
+                        <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+                         Credits</ulink>.
+                    </para>
+		</sect2>
+		<sect2 id="disclaimer">
+			<title>Disclaimer</title>
+			<para>
+     				No liability for the contents of this document can be accepted.
+    				Use the concepts, examples and other content at your own risk.
+    				As this is a new edition of this document, there may be errors
+    				and inaccuracies that may be damaging to your system.
+    				Although this is highly unlikely, the author(s) do not take any 
+    				responsibility for that:  proceed with caution.
+                 	</para>
+		</sect2>
+		<sect2 id="acknowledgmements">
+			<title>Acknowledgments</title>
+			<para>
+    				This document was heavily influenced by the <ulink url="http://www.linuxdoc.org/authors/template/">
+    				LDP HOWTO-template for Big HOWTOs</ulink> 
+    				by Stein Gjoen, Gregory Leblanc, and Greg Ferguson.  
+   			</para>
+		</sect2>
+		<!-- Section2: feedback -->
+		<sect2 id="feedback">
+			<title>Feedback</title>
+			<para>
+    				This is a new document for a new project; input is appreciated.  Send any
+    				comments or suggestions to the MapServer Documentation Coordinator at
+    				<email>mdp@lists.gis.umn.edu</email>.
+   			</para>
+		</sect2>
+	</sect1>
+</article>
