@@ -20,7 +20,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 3.7.
    			</para>
-			<para>Last Updated:  06-21-2002</para>
+			<para>Last Updated:  08-20-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -578,6 +578,12 @@ END
 					<term>TOLERANCEUNITS [pixels|feet|inches|kilometers|meters|miles|dd]</term>
 					<listitem>
 						<para>Units of the <link linkend="tolerance">TOLERANCE</link> value. Default is pixels.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>TRANSPARENCY [integer]</term>
+					<listitem>
+						<para>Sets the transparency level of all classed pixels for a given layer.  The value is a percentage (0-100) where 100 is opaque and 0 is fully transparent.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
