@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-07-15</date>
+		<date>2002-07-30</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 07/15/2002</para>
+			<para>Last Updated: 07/30/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -375,7 +375,7 @@
 					</listitem>
 				</itemizedlist>
 			</para>
-						<para>
+			<para>
 				&lt;layer_name&gt; is: 
 			</para>
 			<para>
@@ -470,7 +470,7 @@
            END
 	END
                </programlisting>
-			</example>			
+			</example>
 			<example>
 				<title>
                        ArcInfo Coverage
@@ -738,7 +738,7 @@ attributes).
 				</listitem>
 				<listitem>
 					<para>
-			  Your layer definition needs to contain at least one <function>CLASS</function> (which may be empty) and a 				  <function>CLASSITEM</function>.  The empty <function>CLASS</function> in the layer will be updated
+			  Your layer definition needs to contain at least one <function>CLASS</function> (which may be empty) and optionally a          	            <function>CLASSITEM</function> to match the expressions if your <function>CLASS</function> contains an expression.  			  The empty <function>CLASS</function> in the layer will be updated
 			  dynamically at runtime to contain colours and styles coming from the data source for each shape.
 			</para>
 				</listitem>
@@ -747,7 +747,27 @@ attributes).
 		<sect2>
 			<title>Examples</title>
 			<example>
-				<title>Layer Definition Using STYLEITEM "AUTO"</title>
+				<title>Layer Definition Using STYLEITEM "AUTO" without a CLASSITEM</title>
+                    <programlisting>
+    LAYER
+       NAME "test_dgn"
+       STATUS ON
+       TYPE POLYGON
+       CONNECTIONTYPE OGR
+       CONNECTION "../data/dgn/test.dgn"
+
+       # This enables use of colors and styles from the source file.
+       STYLEITEM "AUTO"
+
+       # Define an empty class that will be filled at runtime from the color and
+       # styles read on each shape in the source file.
+       CLASS
+       END
+   END  # layer
+                    </programlisting>
+			</example>
+			<example>
+				<title>Layer Definition Using STYLEITEM "AUTO" with a CLASSITEM</title>
 				<programlisting>
     LAYER
        NAME "Builtup_Areas_tab"
