@@ -584,6 +584,11 @@
               <para>
                 <emphasis>FORMAT=output_format</emphasis> : Output format of map.
             </para>
+            <note>
+              <para>
+                 WMS Servers only advertize supported formats that are part of the gd / gdal libraries.
+              </para>
+            </note>
             </listitem>
           </itemizedlist>
           <para>An valid example would therefore be:</para>

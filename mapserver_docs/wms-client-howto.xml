@@ -308,6 +308,9 @@ ESRI codes and we do not want to promote their use too much.
             wms_formatlist for use in GetMap requests.  If both wms_format and wms_formatlist are
             provided then wms_format takes precedence.
         </para>
+        <para>
+            Also note that WMS Servers only advertize supported formats that are part of the gd / gdal libraries.
+        </para>        
         </listitem>
       </itemizedlist>
       <para>
