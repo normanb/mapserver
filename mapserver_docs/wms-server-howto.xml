@@ -3,334 +3,334 @@
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
-	<articleinfo>
-		<title>Mapserver WMS Server HOWTO - Version 4.0</title>
-		<author>
-			<firstname>Jeff</firstname>
-			<surname>McKenna</surname>
-			<affiliation>
-				<orgname>DM Solutions Group Inc.</orgname>
-				<address>
-					<email>mckenna@dmsolutions.ca</email>
-				</address>
-			</affiliation>
-		</author>
-		<date>2003-07-29</date>
-		<abstract>
-			<!-- a short description of the contents of the doc -->
-			<para>
+  <articleinfo>
+    <title>Mapserver WMS Server HOWTO - Version 4.1</title>
+    <author>
+      <firstname>Jeff</firstname>
+      <surname>McKenna</surname>
+      <affiliation>
+        <orgname>DM Solutions Group Inc.</orgname>
+        <address>
+          <email>mckenna@dmsolutions.ca</email>
+        </address>
+      </affiliation>
+    </author>
+    <date>2003-11-07</date>
+    <abstract>
+      <!-- a short description of the contents of the doc -->
+      <para>
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-			<para>Last Updated: 07/29/2003</para>
-		</abstract>
-	</articleinfo>
-	<sect1 id="intro">
-		<title>Introduction</title>
-		<para>
+      <para>Last Updated: 2003-11-07</para>
+    </abstract>
+  </articleinfo>
+  <sect1 id="intro">
+    <title>Introduction</title>
+    <para>
             A WMS (or Web Map Server) allows for use of data from several different servers, and enables for the creation of a
         network of Map Servers from which clients can build customized maps.  
       The following documentation is based on the <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
                 Open GIS Consortium's (OGC) Web Map Server Interfaces Implementation Specification v1.1.0</ulink>. 
     </para>
-		<para>
+    <para>
       MapServer v3.5 or more recent is required to implement WMS features.  At the time this document was written, Mapserver
          supports the following WMS versions: 1.0.0, 1.0.7, and 1.1.0 (a.k.a. 1.0.8).
     </para>
-		<para>
+    <para>
              This document assumes that you are already familiar with certain aspects of MapServer:
           </para>
-		<itemizedlist>
-			<listitem>
-				<para>
+    <itemizedlist>
+      <listitem>
+        <para>
                       MapServer application development and setting up .map files. 
                 </para>
-			</listitem>
-			<listitem>
-				<para>
+      </listitem>
+      <listitem>
+        <para>
           Familiarity with the WMS spec would be an asset. A link to the WMS specification document is included in
           the <link linkend="links">"WMS-Related Information"</link> section below.
         </para>
-			</listitem>
-		</itemizedlist>
-		<sect2 id="howitworks">
-			<title>How does a WMS Work</title>
-			<para>
+      </listitem>
+    </itemizedlist>
+    <sect2 id="howitworks">
+      <title>How does a WMS Work</title>
+      <para>
         WMS servers interact with their clients via the HTTP protocol.  In most cases,
         a WMS server is a CGI program.  This is also the case with MapServer.     
       </para>
-			<para>
+      <para>
         The WMS specification defines a number of request types, and for each of 
         them a set of query parameters and associated behaviors.  A WMS-compliant 
         server MUST be able to handle at least the following 2 types of WMS requests:
       </para>
-			<orderedlist>
-				<listitem>
-					<para>
-						<emphasis>GetCapabilities:</emphasis> return an XML document with metadata of the Web Map
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>GetCapabilities:</emphasis> return an XML document with metadata of the Web Map
             Server's information      
           </para>
-				</listitem>
-				<listitem>
-					<para>
-						<emphasis>GetMap:</emphasis> return an image of a map according to the user's needs.
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis>GetMap:</emphasis> return an image of a map according to the user's needs.
           </para>
-				</listitem>
-			</orderedlist>
-			<para>
+        </listitem>
+      </orderedlist>
+      <para>
         And support for the following types is optional:
       </para>
-			<orderedlist continuation="continues">
-				<listitem>
-					<para>
-						<emphasis>GetFeatureInfo:</emphasis> return info about feature(s) at a query (mouse click) 
+      <orderedlist continuation="continues">
+        <listitem>
+          <para>
+            <emphasis>GetFeatureInfo:</emphasis> return info about feature(s) at a query (mouse click) 
               location.  MapServer supports 3 types of responses to this request:
           </para>
-					<orderedlist>
-						<listitem>
-							<para>
+          <orderedlist>
+            <listitem>
+              <para>
                   Text/plain output with attribute info.
               </para>
-						</listitem>
-						<listitem>
-							<para>
+            </listitem>
+            <listitem>
+              <para>
                   Text/html output using MapServer query templates specified in the CLASS template parameter.
                   The MIME type returned by the Class templates defaults to text/html and can be controlled using the
                   metadata  <link linkend="mime_type">"wms_feature_info_mime_type"</link>.
               </para>
-						</listitem>
-						<listitem>
-							<para>
+            </listitem>
+            <listitem>
+              <para>
                 Gml features.
               </para>
-						</listitem>
-					</orderedlist>
-				</listitem>
-				<listitem>
-					<para>
-						<emphasis>DescribeLayer:</emphasis> return an XML description of one or more map layers.  This
+            </listitem>
+          </orderedlist>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis>DescribeLayer:</emphasis> return an XML description of one or more map layers.  This
                 applies only to SLD WMS servers and is not currently supported by 
                 MapServer.
           </para>
-				</listitem>
-			</orderedlist>
-			<para>
+        </listitem>
+      </orderedlist>
+      <para>
         With respect to MapServer specifically, it is the "mapserv" CGI program that
         knows how to handle WMS requests.  So setting up a WMS server with MapServer
         involves installing the mapserv CGI program and a setting up a mapfile with 
         appropriate metadata in it.  This is covered in the rest of this document.
       </para>
-		</sect2>
-		<sect2 id="links">
-			<title>Links to WMS-Related Information</title>
-			<itemizedlist>
-				<listitem>
-					<para>
+    </sect2>
+    <sect2 id="links">
+      <title>Links to WMS-Related Information</title>
+      <itemizedlist>
+        <listitem>
+          <para>
             The Mapserver WMS Client HOWTO:
             <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">
             http://mapserver.gis.umn.edu/doc/wms-client-howto.html</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             Open GIS Consortium (OGC) Home Page:
               <ulink url="http://www.opengis.org/">http://www.opengis.org/</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             WMS 1.0.0 specification:
               <ulink url="http://www.opengis.org/techno/specs/00-028.pdf">
             http://www.opengis.org/techno/specs/00-028.pdf</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             WMS 1.1.0 specification:
               <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
             http://www.opengis.org/techno/specs/01-047r2.pdf</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             WMS-Dev mailing list and archive:
               <ulink url="http://www.intl-interfaces.net/mailman/listinfo/wms-dev">
             http://www.intl-interfaces.net/mailman/listinfo/wms-dev</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             WMS FAQ:
               <ulink url="http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home">
             http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             WMS XML Capabilities validator:
               <ulink url="http://www.digitalearth.gov/wmt/xml/validator.html">
             http://www.digitalearth.gov/wmt/xml/validator.html</ulink>
-					</para>
-				</listitem>
-				<listitem>
-					<para>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             WMS Cookbook:
               <ulink url="http://www.intl-interfaces.net/cookbook/WMS/">
             http://www.intl-interfaces.net/cookbook/WMS/</ulink>
-					</para>
-				</listitem>
-			</itemizedlist>
-		</sect2>
-	</sect1>
-	<!-- Section1: Integration or developing  an application-->
-	<sect1 id="settingup">
-		<title>Setting Up a WMS Server Using Mapserver</title>
-		<sect2 id="install">
-			<title>Install the Required Software</title>
-			<para>
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <!-- Section1: Integration or developing  an application-->
+  <sect1 id="settingup">
+    <title>Setting Up a WMS Server Using Mapserver</title>
+    <sect2 id="install">
+      <title>Install the Required Software</title>
+      <para>
         WMS requests are handled by the "mapserv" CGI program.  Not all versions of the
         mapserv program do include WMS support (it is included by default when you 
         compile together with the PROJ library), so the first step is to check that
         your mapserv executable includes WMS support.  One way to verify this is to
         use the "-v" command-line switch and look for "SUPPORTS=WMS_SERVER".
       </para>
-			<example>
-				<title>On Unix:</title>
-				<programlisting>
+      <example>
+        <title>On Unix:</title>
+        <programlisting>
    $ ./mapserv -v
    MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
    SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER INPUT=EPPL7 INPUT=JPEG INPUT=OGR 
    INPUT=GDAL INPUT=SHAPEFILE       
         </programlisting>
-			</example>
-			<example>
-				<title>On Windows:</title>
-				<programlisting>
+      </example>
+      <example>
+        <title>On Windows:</title>
+        <programlisting>
    C:\apache\cgi-bin> mapserv -v
    MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
    SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER INPUT=EPPL7 INPUT=JPEG INPUT=OGR
    INPUT=GDAL INPUT=SHAPEFILE
         </programlisting>
-			</example>
-		</sect2>
-		<sect2 id="mapfile">
-			<title>Setup a Mapfile For Your WMS</title>
-			<para>
+      </example>
+    </sect2>
+    <sect2 id="mapfile">
+      <title>Setup a Mapfile For Your WMS</title>
+      <para>
         Each instance of WMS server that you setup needs to have its own mapfile.
         It is just a regular MapServer mapfile in which some parameters and some 
         metadata entries are mandatory.  Most of the metadata is required in order 
         to produce a valid GetCapabilites output.
       </para>
-			<para>
+      <para>
         Here is the list of parameters and metadata items that usually optional with
         MapServer, but are required (or strongly recommended) for a WMS configuration:
       </para>
-			<para>
+      <para>
         At the map level:
       </para>
-			<itemizedlist>
-				<listitem>
-					<para>
+      <itemizedlist>
+        <listitem>
+          <para>
             Map NAME
           </para>
-				</listitem>
-				<listitem>
-					<para>
+        </listitem>
+        <listitem>
+          <para>
             Map PROJECTION
           </para>
-				</listitem>
-				<listitem>
-					<para>
+        </listitem>
+        <listitem>
+          <para>
             Map Metadata (in the WEB Object):
           </para>
-					<itemizedlist>
-						<listitem>
-							<para>
+          <itemizedlist>
+            <listitem>
+              <para>
                 wms_title
               </para>
-						</listitem>
-						<listitem>
-							<para>
+            </listitem>
+            <listitem>
+              <para>
                 wms_onlineresource
               </para>
-						</listitem>
-						<listitem>
-							<para>
+            </listitem>
+            <listitem>
+              <para>
                 wms_srs (unless PROJECTION object is defined using "init=epsg:...")
               </para>
-						</listitem>
-					</itemizedlist>
-				</listitem>
-			</itemizedlist>
-			<para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+      <para>
         And for each layer:
       </para>
-			<itemizedlist>
-				<listitem>
-					<para>
+      <itemizedlist>
+        <listitem>
+          <para>
             Layer NAME
           </para>
-				</listitem>
-				<listitem>
-					<para>
+        </listitem>
+        <listitem>
+          <para>
             Layer PROJECTION
           </para>
-				</listitem>
-				<listitem>
-					<para>
+        </listitem>
+        <listitem>
+          <para>
             Layer Metadata
           </para>
-					<itemizedlist>
-						<listitem>
-							<para>
+          <itemizedlist>
+            <listitem>
+              <para>
                 wms_title
               </para>
-						</listitem>
-						<listitem>
-							<para>
+            </listitem>
+            <listitem>
+              <para>
                 wms_srs (optional since the layers inherit the map's SRS value)
               </para>
-						</listitem>
-					</itemizedlist>
-				</listitem>
-			</itemizedlist>
-			<para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+      <para>
         Let's go through each of these paramters in more detail:
       </para>
-			<itemizedlist>
-				<listitem>
-					<para>
+      <itemizedlist>
+        <listitem>
+          <para>
             Map Name and wms_title:
           </para>
-					<para>
+          <para>
             WMS Capabilities requires a Name and a Title tag for every layer.  The
               Map's NAME and wms_title metadata will be used to set the root layer's
               name and title in the GetCapabilities XML output.  The root layer in the
               WMS context corresponds to the whole mapfile.
           </para>
-				</listitem>
-				<listitem>
-					<para>
+        </listitem>
+        <listitem>
+          <para>
             Layer Name and wms_title metadata:
           </para>
-					<para>
+          <para>
             Every individual layer needs its own unique name and title.
               Layer names are also used in GetMap and GetFeatureInfo requests to refer
               to layers that should be included in the map output and in the query.
           </para>
-				</listitem>
-				<listitem id="projection_srs">
-					<para>
+        </listitem>
+        <listitem id="projection_srs">
+          <para>
             Map PROJECTION and wms_srs metadata:
           </para>
-					<para>
+          <para>
             WMS servers have to advertise the projection in which they are able to
               serve data using EPSG projection codes (see 
               <ulink url="http://inovagis.dcea.fct.unl.pt/giserver/epsg.asp">
             http://inovagis.dcea.fct.unl.pt/giserver/epsg.asp</ulink> for a list of EPSG codes).
               Recent versions of the PROJ4 library come with a table of EPSG 
               initialization codes and allow users to define a projection like this:                    </para>
-					<programlisting>
+          <programlisting>
    PROJECTION
       "init=epsg:4269"
    END    
@@ -344,7 +344,7 @@
             the top-level layer in the WMS capabilities document.  Note that the BoundingBox is an optional
             element of WMS capabilities, but it is good practice to allow MapServer to include it when possible.
           </para>
-					<para>
+          <para>
             The above is sufficient for MapServer to recognize the EPSG code and
               include it in SRS tags in the capabilities output (wms_srs metadata is not
               required in this case).  However, it is often impossible to find an 
@@ -353,13 +353,13 @@
               can be served in, and the PROJECTION object contains the real PROJ4 
               definition of the data's projection.
           </para>
-					<para>
+          <para>
             Here is an example of a server whose data is in an Lambert Conformal Conic
               projection (for which there is no EPSG code).  It's capabilities output
               will advertize EPSG:4269 and EPSG:4326 projections (lat/lon), but the
               PROJECTION object is set to the real projection that the data is in:
           </para>
-					<programlisting>
+          <programlisting>
    NAME DEMO
    ...
 
@@ -382,24 +382,24 @@
    END
    ...
           </programlisting>
-				</listitem>
-				<listitem>
-					<para>
+        </listitem>
+        <listitem>
+          <para>
             Layer PROJECTION and wms_srs metadata:
           </para>
-					<para>
+          <para>
             By default in the WMS context, layers inherit the SRS or their parent layer
               (the map's projection in the MapServer case).  For this reason it is not
               necessary (but still strongly recommended) to provide PROJECTION and wms_srs
               for every layer.
           </para>
-					<para>
+          <para>
             However, if your server wants to advertise multiple projections, then at least
               a PROJECTION object is required in every layer, otherwise the layers won't
               be reprojected.  This is just the way on-the-fly reprojection works in 
               MapServer.
           </para>
-					<para>
+          <para>
             Layer PROJECTION and wms_srs metadata are defined exactly the same way as
               the map's PROJECTION and wms_srs metadata.
           </para>
@@ -409,12 +409,12 @@
             this layer in the WMS capabilities document.  Note that the BoundingBox is an optional
             element of WMS capabilities, but it is good practice to allow MapServer to include it when possible.
           </para>
-				</listitem>
-				<listitem id="wms_onlineresource">
-					<para>
+        </listitem>
+        <listitem id="wms_onlineresource">
+          <para>
             The "wms_onlineresource" metadata:
           </para>
-					<para>
+          <para>
             The wms_onlineresource metadata is set in the map's web object metadata and
               specifies the URL that should be used to access your server.  This is
               required for the GetCapabilities output. If wms_onlineresource is not 
@@ -422,60 +422,60 @@
               name and hostname, but you shouldn't count on that too much.  It is strongly
               recommended that you provide the wms_onlineresource metadata.
           </para>
-					<para>
+          <para>
             See section 6.2.1 of the <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
             WMS 1.1.0 specification</ulink> for the whole story about
               the online resource URL.  Basically, what you need is a complete HTTP URL
               including the <filename>http://</filename> prefix, hostname, script name, potentially a "map="
               parameter, and and terminated by "?" or "&amp;".
           </para>
-					<para>
+          <para>
             Here is a valid online resource URL:
           </para>
-					<programlisting>
+          <programlisting>
    http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;
           </programlisting>
-					<para>
+          <para>
             By creating a wrapper script on the server it is possible to hide the 
               "map=" parameter from the URL and then your server's online resource 
               URL could be something like:
           </para>
-					<programlisting>
+          <programlisting>
    http://my.host.com/cgi-bin/mywms?
           </programlisting>
-					<para>
+          <para>
             This is covered in more detail in the section <link linkend="onlineresourceurl">
             "More About the Online Resource URL"</link> below.
           </para>
-				</listitem>
-			</itemizedlist>
-		</sect2>
-		<sect2 id="test">
-			<title>Test Your WMS Server</title>
-			<sect3 id="val_capabilities">
-				<title>Validate the Capabilities Metadata</title>
-				<para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+    <sect2 id="test">
+      <title>Test Your WMS Server</title>
+      <sect3 id="val_capabilities">
+        <title>Validate the Capabilities Metadata</title>
+        <para>
           OK, now that we've got a mapfile, we have to check the XML capabilities 
           returned by our server to make sure nothing is missing.
         </para>
-				<para>
+        <para>
           Using a web browser, access your server's online resource URL to which you
           add the parameter "REQUEST=GetCapabilities" to the end, e.g.
         </para>
-				<programlisting>
+        <programlisting>
    http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;REQUEST=GetCapabilities
         </programlisting>
-				<para>
+        <para>
           This should return a document of MIME type application/vnd.ogc.wms_xml, so 
           your browser is likely going to prompt you to save the file.  Save it and 
           open it in a text editor (Emacs, Notepad, etc.)
         </para>
-				<para>
+        <para>
           If you get an error message in the XML output then take necessary actions.  
           Common problems and solutions are listed in the <link linkend="FAQ">FAQ</link> at the end of this 
           document.
         </para>
-				<para>
+        <para>
           If everything went well, you should have a complete XML capabilities document.
           Search it for the word "WARNING"... MapServer inserts XML comments starting
           with "&lt;!--WARNING: " in the XML output if it detects missing mapfile parameters
@@ -483,35 +483,35 @@
           to fix all of them before you can register your server with a WMS client, 
           otherwise things are likely not going to work.
         </para>
-			</sect3>
-			<sect3 id="val_getmap">
-				<title>Test With a GetMap Request</title>
-				<para>
+      </sect3>
+      <sect3 id="val_getmap">
+        <title>Test With a GetMap Request</title>
+        <para>
           OK, now that we know that our server can produce a valid XML GetCapabilities
           response we should test the GetMap request. 
         </para>
-				<para>
+        <para>
           Simply adding <filename>"VERSION=1.1.0&amp;REQUEST=GetMap"</filename> to your server's URL should 
           generate a map with the default map size and all the layers with STATUS ON or
           DEFAULT displayed, e.g.
         </para>
-				<programlisting>
+        <programlisting>
    http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;VERSION=1.1.0&amp;REQUEST=GetMap
         </programlisting>
-				<para>
+        <para>
           (Note that this works with MapServer's WMS interface even if it would be an
           incomplete GetMap request according to the WMS spec.  It lacks several 
           mandatory parameters such as SRS, BBOX, etc.  But for testing at this point 
           it is good enough.)
         </para>
-			</sect3>
-			<sect3 id="val_client">
-				<title>Test with a Real Client</title>
-				<para>
+      </sect3>
+      <sect3 id="val_client">
+        <title>Test with a Real Client</title>
+        <para>
           If you have access to a WMS client then register your new server's online
           resource with it and you're running.
         </para>
-				<para>
+        <para>
           If you don't have your own WMS client then CubeWerx's WMS interface (cubeview)
           can be useful to test a new server.  Access the following page:
               <ulink url="http://www.cubewerx.com/demo/cubeview/cubeview.cgi">
@@ -520,19 +520,19 @@
           The default set of layers in the interface should be replaced with
           your server's layers.
         </para>
-			</sect3>
-		</sect2>
-		<sect2 id="onlineresourceurl">
-			<title>More About the Online Resource URL</title>
-			<para>
+      </sect3>
+    </sect2>
+    <sect2 id="onlineresourceurl">
+      <title>More About the Online Resource URL</title>
+      <para>
         As mentioned in the section <link linkend="wms_onlineresource">
         "Setup a Mapfile / wms_onlineresource metadata"</link> above, the following Online Resource URL is
           perfectly valid for a MapServer WMS according to section 6.2.1 or the WMS 1.1.0 specification:
       </para>
-			<programlisting>
+      <programlisting>
    http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;
       </programlisting>
-			<para>
+      <para>
         However, some people will argue that the above URL contains mandatory 
         vendor-specific parameters and that this is illegal.  First we would like
         to point that "map=..." is not considered a vendor-specific parameter in this
@@ -541,469 +541,469 @@
         (See <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
         WMS 1.1.0 section 6.2.1</ulink>).
       </para>
-			<para>
+      <para>
         But anyway, even if it's valid, the above URL is still ugly.  And you might 
         want to use a nicer URL for your WMS Online Resource URL.  Here are some 
         suggestions, some of them will work only on Unix, but at least #2 will
         work for Windows/Apache users as well.
       </para>
-			<orderedlist>
-				<listitem>
-					<para>
+      <orderedlist>
+        <listitem>
+          <para>
             On Unix servers, you can setup a wrapper
             shell script that sets the MS_MAPFILE environment variable and then
             passes control to the mapserv executable... that results on a cleaner
             OnlineResource URL:
           </para>
-					<programlisting>
+          <programlisting>
    #! /bin/sh
    MS_MAPFILE=/path/to/demo.map
    export MS_MAPFILE
    /path/to/mapserv           
           </programlisting>
-				</listitem>
-				<listitem>
-					<para>
+        </listitem>
+        <listitem>
+          <para>
             Another option is to use the "setenvif" feature of Apache: use symbolic links that all
             point to a same mapserv binary, and then for each symbolic link test the url, and set the
             MAP environment accordingly.
           </para>
-					<para>
+          <para>
             For Windows and Apache users the steps are as follows <emphasis>(this requires Apache
                1.3 or newer)</emphasis>:
           </para>
-					<itemizedlist>
-						<listitem>
-							<para>
+          <itemizedlist>
+            <listitem>
+              <para>
                 Copy <filename>mapserv.exe</filename> to a new name for your WMS, such as
                 "mywms.exe".
               </para>
-						</listitem>
-						<listitem>
-							<para>
+            </listitem>
+            <listitem>
+              <para>
                 In <filename>httpd.conf</filename>, add:
               </para>
-							<programlisting>
+              <programlisting>
    SetEnvIf Request_URI "/cgi-bin/mywms" MS_MAPFILE=/path/to/mymap.map
               </programlisting>
-						</listitem>
-					</itemizedlist>
-				</listitem>
-			</orderedlist>
-		</sect2>
-	</sect1>
-	<sect1 id="reference">
-		<title>Reference Section</title>
-		<sect2 id="metadata">
-			<title>Metadata</title>
-			<para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </orderedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="reference">
+    <title>Reference Section</title>
+    <sect2 id="metadata">
+      <title>Metadata</title>
+      <para>
         The following metadata are available in the setup of the mapfile:
       </para>
-			<sect3 id="web">
-				<title>Web Object</title>
-				<sect4 id="abstract">
-					<title>wms_abstract</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Abstract (WMS1.1.0, sect. 7.1.5.2)
+      <sect3 id="web">
+        <title>Web Object</title>
+        <sect4 id="abstract">
+          <title>wms_abstract</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> Abstract (WMS1.1.0, sect. 7.1.5.2)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) A blurb of text providing more information about
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) A blurb of text providing more information about
                     the WMS server.
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="accesscontraints">
-					<title>wms_accesscontraints</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> AccessConstraints (WMS1.1.0, sect. 7.1.5.2)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="accesscontraints">
+          <title>wms_accesscontraints</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> AccessConstraints (WMS1.1.0, sect. 7.1.5.2)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis>(Optional) Access constraints information.  Use the 
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis>(Optional) Access constraints information.  Use the 
                     reserved word "none" if there are no access constraints.
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactaddress">
-					<title>wms_addresstype, wms_address, wms_city, wms_stateorprovince, wms_postcode, wms_country           </title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactAddress and family
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="contactaddress">
+          <title>wms_addresstype, wms_address, wms_city, wms_stateorprovince, wms_postcode, wms_country           </title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> ContactAddress and family
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact address information.  If provided then 
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> Optional contact address information.  If provided then 
                     all six  metadata items are required.                               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactelectronicmailaddress">
-					<title>wms_contactelectronicmailaddress</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactElectronicMailAddress
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="contactelectronicmailaddress">
+          <title>wms_contactelectronicmailaddress</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> ContactElectronicMailAddress
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact Email address.                     </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactfacsimiletelephone">
-					<title>wms_contactfacsimiletelephone</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactFacsimileTelephone
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> Optional contact Email address.                     </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="contactfacsimiletelephone">
+          <title>wms_contactfacsimiletelephone</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> ContactFacsimileTelephone
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact facsimile telephone number.                  </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactinformation">
-					<title>wms_contactperson, wms_contactorganization, wms_contactposition</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactInformation, ContactPerson,                     ContactOrganization, ContactPosition (WMS1.1.0, sect. 7.1.5.2)
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> Optional contact facsimile telephone number.                  </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="contactinformation">
+          <title>wms_contactperson, wms_contactorganization, wms_contactposition</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> ContactInformation, ContactPerson,                     ContactOrganization, ContactPosition (WMS1.1.0, sect. 7.1.5.2)
               </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact information.  If provided then all three
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> Optional contact information.  If provided then all three
                     metadata items are required.                                    </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="contactvoicetelephone">
-					<title>wms_contactvoicetelephone</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> ContactVoiceTelephone
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="contactvoicetelephone">
+          <title>wms_contactvoicetelephone</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> ContactVoiceTelephone
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional contact voice telephone number.                    </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="encoding">
-					<title>wms_encoding</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Encoding
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> Optional contact voice telephone number.                    </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="encoding">
+          <title>wms_encoding</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> Encoding
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> Optional XML capabilities encoding type.  The default is 
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> Optional XML capabilities encoding type.  The default is 
                 ISO-8859-1.
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="mime_type">
-					<title>wms_feature_info_mime_type</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Feature_info_mime_type
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="mime_type">
+          <title>wms_feature_info_mime_type</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> Feature_info_mime_type
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis>
-								<itemizedlist>
-									<listitem>
-										<para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis>
+                <itemizedlist>
+                  <listitem>
+                    <para>
                       If not specified, then MapServer CAN process "text/html" MIME type if
                       the GetFeatureInfo parameter INFO_FORMAT is set. In this case, the layer 
                       template is returned.
                     </para>
-									</listitem>
-									<listitem>
-										<para>
+                  </listitem>
+                  <listitem>
+                    <para>
                       If set to "NONE", then MapServer will not process MIME type
                       other than the default MIME type.
                     </para>
-									</listitem>
-									<listitem>
-										<para>
+                  </listitem>
+                  <listitem>
+                    <para>
                       If set to something (except "NONE"), then MapServer will use the
                       specified MIME type (whatever it is) if the GetFeatureInfo parameter INFO_FORMAT is set as well.                      In this case, the layer template is returned.
                     </para>
-									</listitem>
-								</itemizedlist>
-							</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="fees">
-					<title>wms_fees</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Fees (WMS1.1.0, sect. 7.1.5.2)
+                  </listitem>
+                </itemizedlist>
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="fees">
+          <title>wms_fees</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> Fees (WMS1.1.0, sect. 7.1.5.2)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) Fees information.  Use the reserved word "none"
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Fees information.  Use the reserved word "none"
                     if there are no fees.                                         </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="group">
-					<title>wms_group_title</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Group_title (WMS1.1.0, sect. 7.1.5.1)
-              					</para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) A human-readable name for the group that this layer belongs 																			to.  Only one layer for the group needs to contain <filename>																				wms_group_title</filename>, MapServer will find and use the value.
-                				</para>
-						</listitem>
-					</itemizedlist>
-				</sect4>				
-				<sect4 id="keywordlist">
-					<title>wms_keywordlist</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> KeywordList (WMS1.1.0, sect. 7.1.5.2)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="group">
+          <title>wms_group_title</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> Group_title (WMS1.1.0, sect. 7.1.5.1)
+                        </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) A human-readable name for the group that this layer belongs                                      to.  Only one layer for the group needs to contain <filename>                                       wms_group_title</filename>, MapServer will find and use the value.
+                        </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>        
+        <sect4 id="keywordlist">
+          <title>wms_keywordlist</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> KeywordList (WMS1.1.0, sect. 7.1.5.2)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) A comma-separated list of keywords or keyword
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) A comma-separated list of keywords or keyword
                     phrases to help catalog searching.  As of WMS 1.1.0 no controlled
                     vocabulary has been defined.                                    </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="OnlineResource">
-					<title>wms_onlineresource</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> OnlineResource (WMS1.1.0, sect. 6.2.1)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="OnlineResource">
+          <title>wms_onlineresource</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> OnlineResource (WMS1.1.0, sect. 6.2.1)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Recommended) The URL that will be used to access this 
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Recommended) The URL that will be used to access this 
                     WMS server.  This value is used in the GetCapabilities response.  
               </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>See Also:</emphasis> Sections <link linkend="wms_onlineresource">
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>See Also:</emphasis> Sections <link linkend="wms_onlineresource">
                 "Setup a Mapfile / wms_onlineresource metadata"</link> and 
                 <link linkend="onlineresourceurl">More About the Online Resource URL</link> above.                  </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="resxy">
-					<title>wms_resx, wms_resy</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="resxy">
+          <title>wms_resx, wms_resy</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) Used in the BoundingBox tag to provide info 
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Used in the BoundingBox tag to provide info 
                     about spatial resolution of the data, values are in map projection 
                     units.                          
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="srs">
-					<title>wms_srs</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> SRS (WMS1.1.0, sect. 6.5.5)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="srs">
+          <title>wms_srs</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> SRS (WMS1.1.0, sect. 6.5.5)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Recommended) Contains a list of EPSG projection codes 
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Recommended) Contains a list of EPSG projection codes 
                     that should be advertized as being available for all layers in this 
                     server.  The value can contain one or more EPSG:&lt;code&gt; pairs separated
                     by spaces (e.g. "EPSG:4269 EPSG:4326")                            </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>See Also:</emphasis> Section <link linkend="projection_srs">
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>See Also:</emphasis> Section <link linkend="projection_srs">
                 "Setup a Mapfile / Map PROJECTION and wms_srs metadata"</link> above.
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="title">
-					<title>wms_title</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Title (WMS1.1.0, sect. 7.1.5.1)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="title">
+          <title>wms_title</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> Title (WMS1.1.0, sect. 7.1.5.1)
               </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Required) A human-readable name for this Layer.
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Required) A human-readable name for this Layer.
                 </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-			</sect3>
-			<sect3 id="layer">
-				<title>Layer Object</title>
-				<sect4 id="lay_abstract">
-					<title>wms_abstract</title>
-					<itemizedlist>
-						<listitem>
-							<para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+      </sect3>
+      <sect3 id="layer">
+        <title>Layer Object</title>
+        <sect4 id="lay_abstract">
+          <title>wms_abstract</title>
+          <itemizedlist>
+            <listitem>
+              <para>
                 Same as <link linkend="abstract">wms_abstract</link> in the Web Object .
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="extent">
-					<title>wms_extent</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="extent">
+          <title>wms_extent</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> BoundingBox (WMS1.1.0, sect. 7.1.5.4)
                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) Used for the layer's BoundingBox tag for cases
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Used for the layer's BoundingBox tag for cases
                     where it is impossible (or very inefficient) for MapServer to probe the
                     data source to figure its extents.  The value for this metadata is 
                     "minx miny maxx maxy" separated by spaces, with the values in the 
                     layer's projection units.  If <filename>wms_extent</filename> is provided then it has 
                     priority and MapServer will NOT try to read the source file's extents.                      </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Note:</emphasis>
-								<filename>wms_extent</filename> MUST be provided for raster                   layers in the current version since MapServer probing rasters for their extents is on the 
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Note:</emphasis>
+                <filename>wms_extent</filename> MUST be provided for raster                   layers in the current version since MapServer probing rasters for their extents is on the 
                     TODO list!
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="lay_keywordlist">
-					<title>wms_keywordlist</title>
-					<itemizedlist>
-						<listitem>
-							<para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="lay_keywordlist">
+          <title>wms_keywordlist</title>
+          <itemizedlist>
+            <listitem>
+              <para>
                 Same as <link linkend="keywordlist">wms_keywordlist</link> in the Web Object .
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="lay_opaque">
-					<title>wms_opaque</title>
-					<itemizedlist>
-						<listitem>
-							<para>
-								<emphasis>WMS TAG Name:</emphasis> Layer (WMS1.1.0, sect. 7.1.5.5.3)
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="lay_opaque">
+          <title>wms_opaque</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>WMS TAG Name:</emphasis> Layer (WMS1.1.0, sect. 7.1.5.5.3)
                                 </para>
-						</listitem>
-						<listitem>
-							<para>
-								<emphasis>Description:</emphasis> (Optional) Set this metadata to "1" to indicate that the
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Set this metadata to "1" to indicate that the
                             layer represents an area-filling coverage of space (e.g. a bathymetry and elevation layer). 
                             This should be taken by the client as a hint that this layer should be
                             placed at the bottom of the stack of layers.
                           </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="lay_srs">
-					<title>wms_srs</title>
-					<itemizedlist>
-						<listitem>
-							<para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="lay_srs">
+          <title>wms_srs</title>
+          <itemizedlist>
+            <listitem>
+              <para>
                 Same as <link linkend="srs">wms_srs</link> in the Web Object .
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-				<sect4 id="lay_title">
-					<title>wms_title</title>
-					<itemizedlist>
-						<listitem>
-							<para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="lay_title">
+          <title>wms_title</title>
+          <itemizedlist>
+            <listitem>
+              <para>
                 Same as <link linkend="title">wms_title</link> in the Web Object .
               </para>
-						</listitem>
-					</itemizedlist>
-				</sect4>
-			</sect3>
-		</sect2>
-	</sect1>
-	<sect1 id="FAQ">
-		<title>FAQ / Common Problems</title>
-		<sect2>
-			<title/>
-			<qandaset defaultlabel="qanda">
-				<qandaentry>
-					<question>
-						<para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+      </sect3>
+    </sect2>
+  </sect1>
+  <sect1 id="FAQ">
+    <title>FAQ / Common Problems</title>
+    <sect2>
+      <title/>
+      <qandaset defaultlabel="qanda">
+        <qandaentry>
+          <question>
+            <para>
               How can I find the EPSG code for my data's projection?
             </para>
-					</question>
-					<answer>
-						<para>
+          </question>
+          <answer>
+            <para>
               If you know the parameters of your data's projection, then you 
                 can browse the "epsg" file that comes with PROJ4 and look for a
                 projection definition that matches your data's projection.  It's a
                 simple text file and the EPSG code is inside brackets (&lt;...&gt;) at 
                 the beginning of every line.
             </para>
-						<para>
+            <para>
               The "epsg" file is usually located in <filename>/usr/local/share/proj/</filename> on Unix
                 systems and in <filename>C:\PROJ\</filename> or <filename>C:\PROJ\NAD</filename> in                   Windows systems (depending on the installation).
             </para>
-					</answer>
-				</qandaentry>
-				<qandaentry>
-					<question>
-						<para>
+          </answer>
+        </qandaentry>
+        <qandaentry>
+          <question>
+            <para>
               My WMS server produces the error "msProcessProjection(): no system
                 list, errno: .."
             </para>
-					</question>
-					<answer>
-						<para>
+          </question>
+          <answer>
+            <para>
               That's likely PROJ4 complaining that it cannot find the "epsg" 
                 projection definition file.  Make sure you have installed PROJ 4.4.3
                 or more recent and that the "epsg" file is installed at the right
@@ -1011,36 +1011,36 @@
                 on Windows PROJ looks for it under <filename>C:\PROJ\</filename> or 
                        <filename>C:\PROJ\NAD</filename> (depending on the installation).
             </para>
-						<para>
+            <para>
               If you don't have the "epsg" file then you can get it as part of the
                 PROJ4 distribution at <ulink url="http://www.remotesensing.org/proj/">
               http://www.remotesensing.org/proj/</ulink> or you can 
                 download it at <ulink url="http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg.zip">
               http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg.zip</ulink>.
             </para>
-					</answer>
-				</qandaentry>
-			</qandaset>
-		</sect2>
-	</sect1>
-	<!-- Section1: Document Info -->
-	<sect1 id="docinfo">
-		<title>About This Document</title>
-		<sect2 id="copyright">
-			<title>Copyright Information</title>
-			<para>
+          </answer>
+        </qandaentry>
+      </qandaset>
+    </sect2>
+  </sect1>
+  <!-- Section1: Document Info -->
+  <sect1 id="docinfo">
+    <title>About This Document</title>
+    <sect2 id="copyright">
+      <title>Copyright Information</title>
+      <para>
                 Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
       </para>
-			<para>
+      <para>
                 This documentation is covered by the same Open Source license as the
                 MapServer software itself.  See MapServer's 
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
                 Credits</ulink> page for the complete text.
             </para>
-		</sect2>
-		<sect2 id="disclaimer">
-			<title>Disclaimer</title>
-			<para>
+    </sect2>
+    <sect2 id="disclaimer">
+      <title>Disclaimer</title>
+      <para>
             No liability for the contents of this document can be accepted.
             Use the concepts, examples and other content at your own risk.
             As this is a new edition of this document, there may be errors
@@ -1048,13 +1048,13 @@
             Although this is highly unlikely, the author(s) do not take any 
             responsibility for that:  proceed with caution.
                   </para>
-		</sect2>
-		<!-- Section2: feedback -->
-		<sect2 id="feedback">
-			<title>Feedback</title>
-			<para>
+    </sect2>
+    <!-- Section2: feedback -->
+    <sect2 id="feedback">
+      <title>Feedback</title>
+      <para>
             Send any comments or suggestions to the author.
         </para>
-		</sect2>
-	</sect1>
+    </sect2>
+  </sect1>
 </article>
