@@ -111,10 +111,24 @@
         </listitem>
         <listitem>
           <para>
-            <emphasis>DescribeLayer:</emphasis> return an XML description of one or more map layers.  This
-                applies only to SLD WMS servers and is not currently supported by 
-                MapServer.
+            <emphasis>DescribeLayer:</emphasis> return an XML description of one or more map layers.  To execute this:
           </para>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>for vector layers</emphasis>: to have a valid return the user needs to setup 
+                wfs_onlineresource (or ows_onlineresource) metadata either at the map level or 
+                at the layer level (the layer level metadata is the one which is used if both 
+                are defined)
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis>for raster layers</emphasis>: the metadata is wcs_onlineresource with the same logic 
+                as above.
+              </para>
+            </listitem>            
+          </itemizedlist>
         </listitem>
       </orderedlist>
       <para>
