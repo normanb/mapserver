@@ -28,7 +28,7 @@
     </author>    
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  2004-11-02</para>
+      <para>Last Updated:  2005-01-09</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>       
@@ -38,7 +38,7 @@
     <title>Introduction</title>
     <para>A WFS ( Web Feature Service ) publishes feature-level geospatial data to the web.  This means that it is possible to use this data as a data source to render a map.  In effect, this is not unlike having a shapefile accessible over the web, only it's not a shapefile, it's XML-Encoded geospatial data (GML to be exact), including both geometry AND attribute information.</para>
     <sect2 id="related">
-      <title>WFS-Related information</title>
+      <title>WFS-Related Information</title>
       <para>Although in-depth understanding of WFS and GML is neither necessary nor required in order to implement a MapServer application that reads remote WFS data, it is recommended to at least get aquainted with the concepts and basic functionality of both.  Here are the official references (including a newly added OGC workshop with MapServer):</para>
       <itemizedlist>
         <listitem>
@@ -73,68 +73,162 @@
     </sect2>
   </sect1>
   <sect1 id="mapfile">
-    <title>Setting up a WFS layer in your mapfile</title>
-      <para>A WFS layer is a regular mapfile layer, which can use CLASS objects, with expressions, etc.  Instead of a DATA parameter, you must use the CONNECTIONTYPE and CONNECTION parameters to define the data source.</para>
-    <sect2 id="requirements">
-      <title>Requirements</title>
-        <para>
-          The following are the key components of a WFS layer in a mapfile:
-        </para>
-        <itemizedlist>
-          <listitem>
-            <para><emphasis>CONNECTIONTYPE</emphasis>: must be "WFS"
-            </para>
-          </listitem>
-          <listitem>
-            <para><emphasis>CONNECTION</emphasis>: The URL to the WFS Server. e.g. <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;TYPENAME=park">
-            http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;TYPENAME=park</ulink>
-            </para>
-                  <itemizedlist>
-                    <listitem>
-                      <para><emphasis>SERVICE</emphasis>: must be "WFS"
-                      </para>
-                    </listitem>
-                    <listitem>
-                      <para><emphasis>VERSION</emphasis>: currently "1.0.0"
-                      </para>
-                    </listitem> 
-                    <listitem>
-                      <para><emphasis>TYPENAME</emphasis>: the &lt;Name&gt; of the layer found in the GetCapabilities (an example GetCapabilities request is:
-                      <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getcapabilities">
-                      http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getcapabilities</ulink>
-                      </para>
-                    </listitem> 
-                    <listitem>
-                      <para><emphasis>MAP</emphasis>: path to the mapfile on the WFS server (only required if it was required in the GetCapabilities request e.g. you
+    <title>Setting up a WFS-client Mapfile</title>
+      <sect2 id="imagepath">
+        <title>Storing Temporary Files</title>
+          <para>You must set the <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html#web">IMAGEPATH</ulink> parameter in your mapfile since MapServer
+           uses this directory to store temporary files downloaded from the remote WFS server.
+          </para>
+          <example>
+            <title>IMAGEPATH Parameter</title>
+            <programlisting>
+  MAP
+    ...
+    WEB
+      IMAGEPATH "/tmp/ms_tmp/"
+      IMAGEURL ...
+    END
+    ...
+  END                        
+            
+            </programlisting>
+          </example>
+    </sect2>
+    <sect2 id="layer">
+      <title>WFS Layer</title>
+      <para>A WFS layer is a regular mapfile layer, which can use CLASS objects, with expressions, etc.</para>
+      <para>As of MapServer 4.4, the suggested method to define a WFS Client layer is through the CONNECTION parameter
+      and the layer's METADATA.  The necessary mapfile parameters are defined below:
+      </para>
+      <itemizedlist>
+        <listitem>
+            <para><emphasis>CONNECTIONTYPE</emphasis>: must be "wfs"</para>
+        </listitem>
+        <listitem>
+            <para><emphasis>CONNECTION</emphasis>: The URL to the WFS Server. e.g. <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?">
+            http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?</ulink> The path to the mapfile on the WFS server is required if it was required in the GetCapabilities request e.g. you
                       would have to specify the MAP parameter in the CONNECTION for the following server:
                       <ulink url="http://map.ns.ec.gc.ca/MapServer/mapserv.exe?MAP=/mapserver/services/envdat/config.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=GetCapabilities">
-                      http://map.ns.ec.gc.ca/MapServer/mapserv.exe?MAP=/mapserver/services/envdat/config.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=GetCapabilities</ulink>).
+                      http://map.ns.ec.gc.ca/MapServer/mapserv.exe?MAP=/mapserver/services/envdat/config.map&amp;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=GetCapabilities</ulink>.
                       </para>
-                    </listitem>                    
-                  </itemizedlist>
-          </listitem>          
-        </itemizedlist>
+        </listitem>   
+        <listitem>
+            <para><emphasis>METADATA</emphasis>: The LAYER's must contain a METADATA object with the following parameters:</para>
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>wfs_connectiontimeout</emphasis> (optional): The maximum time to wait for a remote WFS layer to load, set in seconds (default is 30 seconds). 
+                This metadata can be added at the layer level so that it affects only that layer, or it can be added at the map level (in the web object) so that it affects all of the layers. 
+                Note that wfs_connectiontimeout at the layer level has priority over the map level.</para>
+              </listitem>             
+              <listitem>
+                <para><emphasis>wfs_filter</emphasis> (optional): This can be included to include a filter encoding parameter in the getFeature
+                  request.  The content of the wfs_filter is a valid filter encoding element.
+                </para>
+                  <screen>
+        ...
+        METADATA
+          "wfs_filter"   "&lt;PropertyIsGreaterThan&gt;&lt;PropertyName&gt;POP_RANGE&lt;/PropertyName&gt;&lt;Literal&gt;4
+                          &lt;/Literal&gt;&lt;/PropertyIsGreaterThan&gt;"
+        END
+        ...
+                  </screen>
+              </listitem>  
+              <listitem>
+                <para><emphasis>wfs_latlongboundingbox</emphasis> (optional): The bounding box of this layer in geographic coordinates in the format "lon_min lat_min lon_max lat_max". 
+                If it is set then MapServer will request the layer only when the map view overlaps that bounding box. You normally get this from the server's capabilities output.</para>
+              </listitem>               
+              <listitem>
+                <para><emphasis>wfs_maxfeatures</emphasis> (optional): Limit the number of GML features to return.</para>
+              </listitem>             
+              <listitem>
+                <para><emphasis>wfs_request_method</emphasis> (optional): Can be set to "GET" to do a Get request to WFS servers
+                that do not support Post requests.  The default method in MapServer is Post.</para>
+                  <screen>
+        ...
+        METADATA
+          "wfs_filter"   "GET"
+        END
+        ...
+                  </screen>                
+              </listitem>              
+              <listitem>
+                <para><emphasis>wfs_service</emphasis> (required): must be "WFS"</para>
+              </listitem>              
+              <listitem>
+                <para><emphasis>wfs_typename</emphasis> (required): the &lt;Name&gt; of the layer found in the GetCapabilities (an example GetCapabilities request is:
+                   <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getcapabilities">
+                   http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getcapabilities</ulink>
+                </para> 
+              </listitem>
+              <listitem>
+                <para><emphasis>wfs_version</emphasis> (required): WFS version, currently "1.0.0"</para>
+              </listitem>                                            
+            </itemizedlist>
+        </listitem>        
+      </itemizedlist>
     </sect2>
     <sect2 id="example">
-      <title>Example Layer</title>
+      <title>Example WFS Layer</title>
     <screen>
-    LAYER
-      NAME park
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE WFS
-      CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;TYPENAME=park"
-      PROJECTION
-        "init=epsg:42304"
-      END
-      CLASS
-        NAME "Parks"
-        COLOR 200 255 0
-        OUTLINECOLOR 120 120 120
-      END
-    END # Layer
+        LAYER
+          NAME park
+          TYPE POLYGON
+          STATUS ON
+          CONNECTIONTYPE WFS
+          CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?"
+          METADATA
+            "wfs_service"           "WFS"
+            "wfs_typename"          "park"
+            "wfs_version"           "1.0.0"
+            "wfs_request_method"    "GET"
+            "wfs_connectiontimeout" "60"
+            "wfs_maxfeatures"       "1"
+          END
+          PROJECTION
+            "init=epsg:42304"
+          END
+          CLASS
+            NAME "Parks"
+            COLOR 200 255 0
+            OUTLINECOLOR 120 120 120
+          END
+        END # Layer
     </screen>
     </sect2>
+    <sect2 id="connection">
+      <title>Connection - deprecated</title>
+        <para>
+          As of MapServer v4.4 the method of specifying all of the connection information in the CONNECTION parameter has been
+          deprecated.  The preferred method is mentioned above.  If the metadata is not provided, VERSION, SERVICE, and TYPENAME
+          will be fetched from the CONNECTION, as shown below:
+        </para>
+        <screen> 
+        CONNECTION    "http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;TYPENAME=park"
+        </screen>
+    </sect2>
+  </sect1>
+  <sect1 id="limitations">
+    <title>TODO / Known Limitations</title>
+    <orderedlist>
+      <listitem>
+        <para>
+            Temporary WFS (gml) files are written to the IMAGEPATH directory, but this
+            could become a security concern since it makes the raw GML data downloadable by
+            someone who could guess the gml filename.  We should consider having a
+            "wfs_cache_dir" metadata that, if it is set will define a directory where temp
+            files should be written.  The default would still be to use the value of
+            IMAGEPATH if "wfs_tmpdir" is not set.    
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+            Xerces is an annoying dependency for GML support in OGR.  There have been
+            discussions about modifying the OGR GML driver to use in internal XML parser by
+            default.  This would save us from the Xerces dependency. There is no formal plan
+            for when this would happen yet.        
+        </para>
+      </listitem>
+    </orderedlist>
   </sect1>
   <!-- Section1: Document Info -->
   <sect1 id="docinfo">
@@ -149,6 +243,20 @@
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.7</revnumber>
+                        <date>Date: 2005-01-09</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added metadata section
+                                   </revremark>
+                    </revision>                  
+                    <revision>
+                        <revnumber>Number: 1.6</revnumber>
+                        <date>Date: 2004-11-08</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added OGC workshop link, cleaned up doc, added mapfile requirements
+                                   </revremark>
+                    </revision>                 
+                    <revision>
                         <revnumber>Number: 1.4</revnumber>
                         <date>Date: 2004-11-02</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -161,7 +269,7 @@
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
-                Copyright (c) 2001, 2002, 2003, 2004, Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
+                Copyright (c) 2004, Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
       </para>
       <para>
                 This documentation is covered by the same Open Source license as the
