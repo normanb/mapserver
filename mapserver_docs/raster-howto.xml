@@ -28,9 +28,7 @@
 
 <!-- ********************************************************************** -->
      
-<sect1 id="intro">
-
-<title>Introduction</title>
+<sect1 id="intro">  <title>Introduction</title>
 		
 <para>
     MapServer supports rendering a variety of raster file formats
@@ -42,10 +40,11 @@ This document assumes that you are already familiar with setting up MapServer
 map files, but does explain the raster specific aspects of map files. 
 </para>
 
+</sect1>
+
 <!-- ====================================================================== -->
 
-<sect2 id="definition">
-<title>How are rasters add to a Map file?</title>
+<sect1 id="definition">  <title>How are rasters added to a Map file?</title>
 
 <para>
 A simple raster layer declaration looks like this.  The DATA file is
@@ -68,25 +67,20 @@ Though not shown rasters can have PROJECTION, METADATA, MINSCALE,
 and MAXSCALE information.  It cannot have labels, queries, CONNECTION, 
 CONNECTIONTYPE, or FEATURE information.  
 </para>
-</sect2>
+</sect1>
 
 <!-- ====================================================================== -->
 
-<sect2 id="classify">
-<title>Classifying Rasters</title>
+<sect1 id="classify">  <title>Classifying Rasters</title>
 
 <para>
 Rasters can be classified in a manner similar to vectors, with a few
 exceptions.  The CLASSITEM is always the pixel value, which is indicated
-by the special string "[pixel]" (must be lower case).  Some format drivers
-(ie. GDAL)
-cast the pixel values to the range 0 to 255 <emphasis>before</emphasis>
-applying the classification scheme to them, making it hard to use this
-classification mechanism to classify floating point, or other data not well
-expressed as unsigned byte data (0-255).  This is a bug and should be corrected
-at some point in the future.  The following demonstrates a raster layer with
+by the special string "[pixel]" (must be lower case, it was "[value]" in
+versions before 3.5).  The following demonstrates a raster layer with
 a simple classification scheme applied to it. 
 </para>
+
 
 <programlisting>
 LAYER
@@ -114,12 +108,25 @@ LAYER
 END
 </programlisting>
 
-</sect2>
+<para>
+Some format drivers (ie. GDAL)
+cast the pixel values to the range 0 to 255 <emphasis>before</emphasis>
+applying the classification scheme to them, making it hard to use this
+classification mechanism to classify floating point, or other data not well
+expressed as unsigned byte data (0-255).  This is a bug and should be corrected
+at some point in the future.  
+</para>
+
+<para>
+Note that only the COLOR, EXPRESSION and NAME parameters are utilized for
+raster classifications.  The other rendering information is ignored. 
+</para>
+
+</sect1>
 
 <!-- ====================================================================== -->
 
-<sect2 id="formats">
-<title>Supported Formats</title>
+<sect1 id="formats">  <title>Supported Formats</title>
 
 <para>
 What raster formats are supported by MapServer is largely controlled by
@@ -141,24 +148,49 @@ CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI and Erdas Imagine
 (.hfa).
 </para>
 
+<para>
+To find out what is built into a particular MapServer executable, use the
+-v flags to discover what build options are enabled.  To find out what 
+gdal formats are build, the gdal-config command may be used.  For example:
+</para>
+
+<programlisting>
+warmerda@gdal[103]% ./mapserv -v
+MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
+SUPPORTS=PROJ SUPPORTS=TTF INPUT=EPPL7 INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE
+warmerda@gdal[104]% gdal-config --formats
+gxf gtiff hfa aigrid aaigrid ceos ceos2 iso8211 sdts raw dted mem jdem 
+envisat elas ogdi gif jpeg png fits grass
+</programlisting>
+
+<para>
+The following formats are potential builtins.
+</para>
+
 <itemizedlist>
   <listitem>
     <para><emphasis>TIFF/GeoTIFF</emphasis>: 
-      If built with <emphasis>--with-tiff</emphasis> MapServer will have
+      If built with <emphasis>INPUT=TIFF</emphasis> MapServer will have
       builtin support for reading TIFF or GeoTIFF files.  The builtin 
       TIFF support has some limitations with regard to the organization of
       files that can be read (no tiled, 16bit, RGB, or odd color models). 
-      This driver supports world files, or simple builtin GeoTIFF coordinates
+      This driver supports 
+      <ulink url="#world_files">world files</ulink>, 
+      or simple builtin GeoTIFF coordinates
       for georeferencing.  The AUTO projection declaration is not support.
     </para>
     <para>
-      Full featured TIFF/GeoTIFF support is available through GDAL.
+      Full featured TIFF/GeoTIFF support is available through GDAL.  Note
+      that only GDAL supports tiled TIFF files and TIFF files with overviews.
+      Tiled TIFF files with overviews pre-built are one of the highest 
+      performance ways of serving large raster images.
     </para>
   </listitem>
 
   <listitem>
     <para><emphasis>GIF</emphasis>: 
-      If GD is configured with GIF support, then MapServer will also be able
+      If GD is configured with GIF (<emphasis>OUTPUT=GIF</emphasis>) support, 
+      then MapServer will also be able
       to read GIF files for raster layers.  The only way to georeference GIF
       files is with a world file.
     </para>
@@ -169,7 +201,8 @@ CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI and Erdas Imagine
   </listitem>
   <listitem>
     <para><emphasis>PNG</emphasis>: 
-      If GD is configured with PNG support, then MapServer will also be able
+      If GD is configured with PNG (<emphasis>OUTPUT=PNG</emphasis>) support, 
+      then MapServer will also be able
       to read PNG files for raster layers.  The only way to georeference PNG
       files is with a world file.
     </para>
@@ -180,8 +213,8 @@ CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI and Erdas Imagine
   </listitem>
   <listitem>
     <para><emphasis>JPEG</emphasis>: 
-      If MapServer is built with JPEG support via the 
-      <emphasis>--with-jpeg</emphasis> configuration switch then greyscale
+      If MapServer is built with JPEG (<emphasis>INPUT=JPEG</emphasis>) 
+      support then greyscale
       JPEG files may be rendered in raster layers.  RGB files (the more common 
       kind) will not be able to be displayed.  Georeferencing is via world 
       files.
@@ -194,7 +227,7 @@ CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI and Erdas Imagine
   </listitem>
   <listitem>
     <para><emphasis>Erdas .LAN/.GIS</emphasis>: 
-      If configured with <emphasis>--with-eppl</emphasis> (the default) 
+      If configured with <emphasis>INPUT=EPPL7</emphasis> (the default) 
       MapServer will support one band eight bit Erdas LAN/GIS files.  The 
       .trl file is read for a colormap, and if not found the layer is treated 
       as greyscale.  Georeferencing is read from the file. 
@@ -202,7 +235,237 @@ CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI and Erdas Imagine
   </listitem>
 </itemizedlist>
 
-</sect2>
+</sect1>
+
+<!-- ====================================================================== -->
+
+<sect1 id="">  <title>Rasters and Tile Indexing</title>
+
+<para>
+When handling very large raster layers it is often convenient, and higher
+performance to split the raster image into a number of smaller images.  Each
+file is a tile of the larger raster mosaic available for display.  The list
+of files forming a layer can be stored in a shapefile with polygons 
+representing the footprint of each file, and the name of the files.  This is
+called a TILEINDEX and works similarly to the same feature in vector layers. 
+The result can be represented in the MAP file as one layer, but MapServer 
+will first scan the tile index, and ensure that only raster files overlapping
+the current display request will be opened.
+</para>
+
+<para>
+The following example shows a simple example.  No DATA statement is required
+because MapServer will fetch the filename of the raster files from the
+Location attribute column in the hp2.dbf file for records associated with
+polygons in hp2.shp that intersect the current display region.  The polygons
+in hp2.shp should be rectangles representing the footprint of the corresponding
+file.  Note that the files do not have to be all the same size, the formats
+can vary and they can even
+overlap (later files will be drawn over earlier ones); however, they must all
+be in the same coordinate system (projection) as the layer.
+</para>
+
+<programlisting>
+  LAYER
+    NAME "hpool"
+    STATUS ON
+    TILEINDEX "hp2.shp"
+    TILEITEM "Location"
+    TYPE RASTER
+  END
+</programlisting>
+
+<para>
+While there are many ways to produce TILEINDEX shapefiles for use with this
+command, one option is the <emphasis>gdaltindex</emphasis> program, part of
+the GDAL utility suite.  The gdaltindex program will automatically generate
+a tile index shapefile from a list of GDAL supported raster files passed on
+the command line.
+</para>
+
+<programlisting>
+Usage: gdaltindex [-tileindex field_name] index_file [gdal_file]*
+
+eg.
+  % gdaltindex doq_index.shp doq/*.tif
+
+NOTES:
+  o The shapefile (index_file) will be created if it doesn't already exist.
+  o The default tile index field is 'location'.
+  o Raster filenames will be put in the file exactly as they are specified
+    on the commandline.
+  o Simple rectangular polygons are generated in the same
+    coordinate system as the rasters.
+</programlisting>
+
+<para>
+The gdaltindex program can be built as part of GDAL (it isn't part of the
+default build), or a prebuilt copy for Windows can be downloaded from
+<ulink url="ftp//gdal.velocet.ca/pub/outgoing/gdaltindex.zip">
+ftp//gdal.velocet.ca/pub/outgoing/gdaltindex.zip</ulink>.  You will also need
+supporting libraries <ulink 
+url="ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip">
+ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip</ulink>.
+</para>
+
+</sect1>
+
+<!-- ====================================================================== -->
+
+<sect1 id="warping">  <title>Raster Warping</title>
+
+<para>
+A new feature in MapServer 3.5 is the ability to resample rasters on the
+fly into new projections.  Previous versions would only allow for up or
+down sampling without any rotation or warping.  However, raster warping is
+currently only supported for images accessed through GDAL, not for the other
+builtin formats.
+</para>
+
+<para>
+Raster warping kicks in if the projection appears to be different for a 
+raster layer than for the map being generated.  Warping rasters are 
+significantly more expensive to render than normal raster layers with 
+rendering time being perhaps 2-4 times long than a normal layer.  The
+projection and datum shifting transformation is computed only at selected
+points, and generally linearly interpolated along the scanlines (as long as
+the error appears to be less than 0.333 pixels. 
+</para>
+
+<para>
+In addition to reprojecting rasters, the raster warping ability can also
+apply rotation to GDAL rasters with rotational coefficients in their
+georeferencing information.   Currently rotational coefficients won't 
+trigger raster warping, but if warping is triggered for a difference in 
+projection, the rotational coefficients will also be accounted for. 
+</para>
+
+</sect1>
+
+<!-- ====================================================================== -->
+
+<sect1 id="rgb_color_cube">  <title>24bit RGB Rendering</title>
+
+<para>
+A new feature in MapServer 3.5 is the on the fly conversion of 24bit RGB
+raster images to 8bit colormapped format.  This is only supported for images
+read through the GDAL gateway.
+</para>
+
+<para>
+This is accomplished by converting on the fly to the nearest color in a
+color cube.  The default color cube is 5x7x5 (five levels of red, seven
+levels of green and five levels of blue).  This substantially degrades 
+color quality and consumes 175 colors in the output maps color table.
+</para>
+
+<para>
+The RGB conversion feature will be utilized any time a GDAL file is used
+that has three bands, with no classification information provided in the
+mapfile and if the first band in the file does not have a colormap. 
+</para>
+
+<para>
+Because of the relatively poor quality, and increased IO and CPU requirements
+of on the fly conversion to a color cube, users are still encouraged to 
+preprocess images to eight bit using optimal color map generation and 
+dithering.  This is discussed further in the Preprocessing Rasters section.
+</para>
+
+</sect1>
+
+<!-- ====================================================================== -->
+
+<sect1 id="preprocessing">  <title>Preprocessing Rasters</title>
+
+</sect1>
+
+<para>
+<emphasis>Eventually I should add some general information on how to 
+preprocess raster data for optimal use in MapServer, and give specific 
+information on how to use GDAL's rgb2pct.py, gdaladdo and gdal_translate to 
+converting stuff into pseudocolored, tiled GeoTIFF files with overviews.
+</emphasis>
+</para>
+
+<!-- ====================================================================== -->
+
+<sect1 id="performance">  <title>Raster Display Performance Tips</title>
+
+<itemizedlist>
+
+<listitem>
+<para>
+Build overview levels for large rasters to ensure only a reasonable amount of
+data needs to be touched to display an overview of a large layer.  Overviews
+can be implemented as a group of raster layers at different resolutions, using
+MINSCALE, and MAXSCALE to control which layers are displayed at different
+resolutions.  Another, perhaps easier way, is to build overviews for GDAL
+supported formats using the gdaladdo utility.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Preprocess RGB images to eightbit with a colormap to reduce the amount of
+data that has to be read, and the amount of computation to do on the fly.
+</para>
+</listitem>
+
+<listitem>
+<para>
+For large images use tiling to reduce the overhead for loading a view
+of a small area.  This can be accomplished using the TILEINDEX mechanism
+of the mapfile, or by creating a tiled format file (ie. TIFF with GDAL). 
+</para>
+</listitem>
+
+<listitem>
+<para>
+Ensure that the image is kept on disk in the most commonly requested 
+projection to avoid on-the-fly image warping which is fairly expensive. 
+</para>
+</listitem>
+
+</itemizedlist>
+</sect1>
+
+<!-- ====================================================================== -->
+
+<sect1 id="world_files">  <title>Georeference with World Files</title>
+
+<para>
+World files are a simple mechanism for associating georeferencing (world
+coordinates) information with raster files.  ESRI was the first company to
+propagate the use of world files, and they often used with TIFF instead
+of embedding georeferencing information in the file itself.  
+</para>
+
+<para>
+The world file contents look like the following.  The first coefficient is
+the X pixel size.  The second and third are rotational coefficients (and should
+normally be NULL).  The fourth is the Y pixel size, normally negative
+indicating that Y decreases as you move down from the top left origin. The
+final two values are the X and Y location of the center of the top left
+pixel.  This example is for an image with a 2m x 2m pixel size, and a
+top left origin at (356800E, 5767999N). 
+</para>
+
+<programlisting>
+2
+0.0000000000
+0.0000000000
+-2
+356800.00
+5767999.00
+</programlisting>
+
+<para>
+The name of the world file is based on the file it relates to.  For instance,
+the world file for aerial.tif might be aerial.tfw.  Conventions vary for
+appropriate endings, but with MapServer the extension .wld is always OK
+for world files. 
+</para>
 
 </sect1>
 
