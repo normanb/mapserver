@@ -731,6 +731,15 @@
       <para>
         The following metadata are available in the setup of the mapfile:
       </para>
+      <note>
+       <para>
+          Each of the metadata below can also be referred to as 'ows_*' instead of 'wms_*'.  MapServer tries the 'wms_*' metadata first, and if not 
+          found it tries the corresponding 'ows_*' name.  Using this reduces
+          the amount of duplication in mapfiles that support multiple OGC interfaces since
+          "ows_*" metadata can be used almost everywhere for common metadata items shared
+          by multiple OGC interfaces.       
+       </para>
+      </note>      
       <sect3 id="web">
         <title>Web Object</title>
         <sect4 id="abstract">
