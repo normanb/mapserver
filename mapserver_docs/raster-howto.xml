@@ -5,7 +5,7 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>HOWTO for Rasters in MapServer 4.2</title>
+    <title>HOWTO for Rasters in MapServer 4.4</title>
     <author>
       <firstname>Frank</firstname>
       <surname>Warmerdam</surname>
@@ -22,7 +22,7 @@
       <para>
                  This document describes the procedures for using raster data within MapServer applications.
                </para>
-      <para>Last Updated: $Date$</para>
+      <para>Last Updated: 2004/10/31</para>
             <para><link linkend='rhistory'>Revision History</link></para>
     </abstract>
   </articleinfo>
@@ -240,7 +240,7 @@ The following formats are potential builtins.
 
 <!-- ====================================================================== -->
 
-<sect1 id="">  <title>Rasters and Tile Indexing</title>
+<sect1 id="indexing">  <title>Rasters and Tile Indexing</title>
 
 <para>
 When handling very large raster layers it is often convenient, and higher
@@ -397,7 +397,6 @@ alpha/transparency) for supported formats.
 <!-- ====================================================================== -->
 
 <sect1 id="processing">  <title>Special Processing Directives</title>
-</sect1>
 
 <para>
 In MapServer 4, the new PROCESSING keyword was added to the LAYER object.
@@ -481,12 +480,12 @@ PROCESSING "COLOR_MATCH_THRESHOLD=3"
 
 </variablelist>
 
+</sect1>
 
 <!-- ====================================================================== -->
 
 <sect1 id="preprocessing">  <title>Preprocessing Rasters</title>
 
-</sect1>
 
 <para>
 <emphasis>Eventually I should add some general information on how to 
@@ -495,6 +494,8 @@ information on how to use GDAL's rgb2pct.py, gdaladdo and gdal_translate to
 converting stuff into pseudocolored, tiled GeoTIFF files with overviews.
 </emphasis>
 </para>
+
+</sect1>
 
 <!-- ====================================================================== -->
 
@@ -631,6 +632,12 @@ for world files.
   <sect2 id='rhistory'><title>Document Changes</title>
   <para>
      <revhistory>
+      <revision>
+        <revnumber>: 1.12</revnumber>
+        <date>$Date: 2004/10/31</date>
+        <authorinitials>Author: Jeff McKenna</authorinitials>
+        <revremark>Fixed anchor for indexing section.</revremark>
+      </revision>     
       <revision>
         <revnumber>: 1</revnumber>
         <date>$Date$</date>
