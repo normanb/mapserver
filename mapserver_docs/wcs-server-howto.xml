@@ -439,7 +439,8 @@
   <sect1>
     <title>To-do items and known limitations</title>
     <itemizedlist>
-      <listitem>This is the initial release of WCS support for MapServer and it has not been widely used nor tested.</para>
+      <listitem>
+        <para>This is the initial release of WCS support for MapServer and it has not been widely used nor tested.</para>
       </listitem>
       <listitem>
         <para>For now we support only GET requests. The spec also talks about XML-encoded POST requests but that is not supported at this time. It is anticipated that a general XML request solution will be created for all OWS services.</para>
