@@ -128,6 +128,19 @@
 		</screen>
 		<para>If, for some reason you DON'T want WMS support, you can force it off by passing "--without-wms" to your configure script.</para>
 	</sect1>
+	<sect1>
+		<title>ESRI SDE Support</title>
+		<para>MapServer allows you to use SDE as a data source both for geometry and attributes.  In order to achieve this, you must have the SDE client librairies at your disposition, and have them installed on the machine running MapServer.</para>
+		<para>In order to enable SDE support in MapServer, you have to compile it with 2 options specified:</para>
+		<itemizedlist>
+			<listitem>
+				<para>--with-sde: This option allows you to specifiy where to find the SDE client librairies</para>
+			</listitem>
+			<listitem>
+				<para>--with-sde-version: This option allows you to specify the version of the librairies. You can use values such as "80" or "81".</para>
+			</listitem>
+		</itemizedlist>
+	</sect1>
 	<sect1 id="compiling">
 		<title>Compiling</title>
 		<para>The first thing you should do is unpack the source code tar-ball:
