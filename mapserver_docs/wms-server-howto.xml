@@ -562,7 +562,6 @@
               </para>
               <programlisting>
    SetEnvIf Request_URI "/cgi-bin/mywms" MS_MAPFILE=/path/to/mymap.map
-<<<<<<< wms-server-howto.xml
               </programlisting>
             </listitem>
           </itemizedlist>
