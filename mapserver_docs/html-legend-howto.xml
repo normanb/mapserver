@@ -419,8 +419,9 @@
 										[if name=layer_type value=...] ... [/if] 
 									</para>
 									<para>
-										(value is the layer's type in integer format: 0=POINT, 1=LINE, 2=POLYGON, 3=RASTER, 4											=ANNOTATION, 5=QUERY, 6=CIRCLE) 
-									</para>
+										(value is the layer's type in integer format: 0=POINT, 1=LINE, 
+     2=POLYGON, 3=RASTER, 4=ANNOTATION, 5=QUERY, 6=CIRCLE) 
+			</para>
 								</listitem>
 								<listitem>
 									<para>
@@ -468,8 +469,9 @@
 										[if name=layer_type value=...] ... [/if] 
 									</para>
 									<para>
-										(value is the layer's type in integer format: 0=POINT, 1=LINE, 2=POLYGON, 3=RASTER, 4											=ANNOTATION, 5=QUERY, 6=CIRCLE) 
-									</para>
+										(value is the layer's type in integer format: 0=POINT, 1=LINE, 
+     2=POLYGON, 3=RASTER, 4=ANNOTATION, 5=QUERY, 6=CIRCLE)
+</para>
 								</listitem>
 								<listitem>
 									<para>
