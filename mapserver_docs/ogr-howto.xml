@@ -115,20 +115,20 @@
 		</sect2>
 		<!-- Section2: More information on the OGR project -->
 		<sect2 id="information">
-			<title>How to Get More Information on the Project</title>
+			<title>How to Get More Information on the OGR Project</title>
 			<para>
                       More information on the OGR Simple Features Project can be found at 
                       <ulink url="http://gdal.velocet.ca/projects/opengis/">
                       http://gdal.velocet.ca/projects/opengis/</ulink>.
                </para>
 			<para>
-		            The main developer of the OGR Simple Features Project is Frank Warmerdam.
+		            The main developer of the OGR library is Frank Warmerdam.
 		        <address>
 					<email>warmerda@home.com</email>
 				</address>
-			</para>
+               </para>
 			<para>
-                      The developer of OGR's MapInfo TAB support is Daniel Morissette.
+                      The integration of OGR inside MapServer was done by Daniel Morissette.
                   <address>
 					<email>morissette@dmsolutions.ca</email>
 				</address>
@@ -358,3 +358,4 @@
 		</sect2>
 	</sect1>
 </article>
+
