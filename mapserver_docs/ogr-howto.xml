@@ -640,7 +640,7 @@ OGR tileindex layers should support all normal query and attribute fetching
 mechanisms, including from MapScript; however, this has not been heavily tested
 as of April/2002.  Please report problems via the MapServer Bugzilla.  If
 auto projection support is used for tileindexed OGR layers, the tileindex is
-read from the projeciton (not the component tiles).   Problems may (or may not)
+read for the projection (not the component tiles).   Problems may (or may not)
 be encountered if the component tiles have differing schemas (different sets of
 attributes).
 </para>
