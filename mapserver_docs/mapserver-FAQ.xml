@@ -9,7 +9,7 @@
     <qandaentry>
       <question>
         <para>
-        When I try running the demo with 3.4 i get the following error 
+        When I try running the demo with 3.4 I get the following error 
         message:  msLoadMap(): Unknown identifier. (SHADESET):(6).
         </para>
       </question>
@@ -36,11 +36,12 @@
       </answer>
     </qandaentry>
     
-<!-- True Type font -->
+<!-- Finding Fonts -->
     <qandaentry>
       <question>
         <para>
-         How can I get MapServer to recognize partition letters (C:, D: E:)?
+         How can I get MapServer to recognize partition letters (C:, D: E:)
+         to find my fonts?
         </para>
       </question>
       <answer>
@@ -75,30 +76,51 @@
         </para>
 
          <para>
-         2. On my map file, I add the line:
+         2. In my map file, I add the line:
            <literal>FONTSET "E:\Projects\fonts"</literal>
-        </para>
-        <orderedlist>
-          <listitem><para>The lines starting with SHADESET, MARKERSET, AND 
-           LINESET and the last END keyword should be deleted.</para></listitem>
-          <listitem><para>"SYMBOLSET symbol/symbol.sym" should be added
-           </para></listitem>
-          <listitem><para>Make the new symbols.sym file by concatenating the 
-           three symbol files together.</para></listitem>
-        </orderedlist>
-        <para>
-          The new symbols.sym file is also avialable online at <ulink 
-          url="http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym">
-          http://www2.dmsolutions.ca/mapserver/dl/symbols-for-ms34.sym</ulink>
         </para>
       </answer>
     </qandaentry>
 
+<!-- True Type font -->
+    <qandaentry>
+      <question>
+        <para>
+          Does anyone have a bat file or an exe file that I can
+          use to delete MapServer temp files on Windows? 
+        </para>
+      </question>
+      <answer>
+        <para>
+         Answer 1:  
+          For those of you who use windows, there is an executable on our site that
+          can be used to delete tmp files created by mapserver. <ulink 
+          url="http://www2.dmsolutions.on.ca/webtools/dl/deltmpfiles.zip">
+          http://www2.dmsolutions.on.ca/webtools/dl/deltmpfiles.zip</ulink>
+        </para>
+
+        <para>
+          Answer 2:
+          On Windows 2000 Server we use a simple .cmd file that has one line:
+          del C:/temp/*.gif.  The cmd file is run daily by the Task Scheduler 
+          service, which is available on Win98SE and above, I believe. The 
+          Task Scheduler is usually found in the Start Menu in 
+          Program Files->Accessories->System Tools.
+        </para>
+        <para>
+          .cmd files are similar to batch files (.bat) so perhaps on Win98 a batch
+          file would work when scheduled to run by the Task Scheduler. Since you have
+          Win95, perhaps you could run the bat file automatically when the machine
+          reboots. Assuming you reboot daily at the most and weekly at the least, this
+          could meet your needs if the machine has enough disk space.
+        </para>
+      </answer>
+    </qandaentry>
 <!-- compiling on windows with SDE support -->
     <qandaentry>
       <question>
         <para>
-         How do I compile MapServer with SDE support on windows?
+         How do I compile MapServer with SDE support on Windows?
         </para>
       </question>
       <answer>
