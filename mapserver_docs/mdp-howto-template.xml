@@ -19,7 +19,7 @@
         </address>
      </affiliation>
   </author>
-
+  
   <author>
      <firstname>Ken</firstname>
      <surname>Boss</surname>
@@ -43,6 +43,17 @@
         </address>
      </affiliation>
   </author>
+  <author>
+    <firstname>Jeff</firstname>
+    <surname>McKenna</surname>
+    <affiliation>
+      <orgname>DM Solutions Group Inc.</orgname>
+      <address>
+        <email>mckenna@dmsolutions.ca</email>
+      </address>
+    </affiliation>
+  </author>  
+
 
   <abstract>  <!-- a short description of the contents of the doc -->
     <para>
@@ -487,6 +498,56 @@
   </para>
 </sect1>
 
+<!-- Section1: Frequently Asked Questions -->
+<sect1>
+<title>Frequently Asked Questions<title/>
+  <qandaset defaultlabel="qanda">
+    <qandaentry>
+      <question>
+        <para>
+        How can I find the EPSG code for my data's projection?
+        </para>
+      </question>
+      <answer>
+        <para>
+        If you know the parameters of your data's projection, then you 
+        can browse the "epsg" file that comes with PROJ4 and look for a
+        projection definition that matches your data's projection.  It's a
+        simple text file and the EPSG code is inside brackets (&lt;...&gt;) at 
+        the beginning of every line.
+        </para>
+        <para>
+        The "epsg" file is usually located in <filename>/usr/local/share/proj</filename> on Unix
+        systems and in <filename>C:\proj\</filename> on Windows systems.
+        </para>
+      </answer>
+    </qandaentry>
+    <qandaentry>
+      <question>
+        <para>
+        My WMS server produces the error "msProcessProjection(): no system
+        list, errno: .."
+        </para>
+      </question>
+      <answer>
+        <para>
+        That's likely PROJ4 complaining that it cannot find the "epsg" 
+        projection definition file.  Make sure you have installed PROJ 4.4.3
+        or more recent and that the "epsg" file is installed at the right
+        location.  On Unix it should be under <filename>/usr/local/share/proj/</filename>, and 
+        on Windows PROJ looks for it under <filename>C:\PROJ\</filename>.
+        </para>
+        <para>
+        If you don't have the "epsg" file then you can get it as part of the
+        PROJ4 distribution at <ulink url="http://www.remotesensing.org/proj/">
+        http://www.remotesensing.org/proj/</ulink> or you can 
+        download it at <ulink url="http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg.zip">
+        http://www2.dmsolutions.ca/mapserver/dl/proj4-epsg.zip</ulink>.
+        </para>
+      </answer>
+    </qandaentry>
+  </qandaset>
+</sect1>
 
 <!-- Section1: Document Info -->
 <sect1 id='docinfo'> 
@@ -541,8 +602,7 @@
   <sect2 id='feedback'>
    <title>Feedback</title>
    <para>
-    This is a new document for a new project; input is appreciated.  Send any
-    comments or suggestions to the MapServer Documentation Coordinator at
+    Send any comments or suggestions to the MapServer Documentation Coordinator at
     <email>mdp@lists.gis.umn.edu</email>.
    </para>
    </sect2>
