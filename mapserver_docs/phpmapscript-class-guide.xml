@@ -16,22 +16,22 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-06-21</date>
+		<date>2003-06-04</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
 			  module.
                </para>
-			<para>Last Updated: 06/21/2002</para>
+			<para>Last Updated: 06/04/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-            PHP MapScript was originally developed for PHP-3.0.14 and works with more recent versions of PHP3.  
-            It has also been ported to PHP4; the MapServer configure script should automatically detect which version 
-           of PHP you are attempting to build with and take the necessary actions.
+		PHP MapScript was originally developed for PHP-3.0.14 but after MapServer
+		3.5 support for PHP3 has been dropped and as of the last update of this
+		document, PHP 4.1.2 or more recent was required.
           </para>
 		<para>
 		  The module has been tested and used on Linux, Solaris, *BSD, and WinNT.
@@ -50,15 +50,21 @@
 				</listitem>
 				<listitem>
 					<para>
+						See also the MapServer Wiki for links to more information on this module:
+  						<ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScript">http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScript</ulink>
+					</para>
+				</listitem>
+				<listitem>
+					<para>
 						For installation questions regarding the PHP/Mapscript module, see the <ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-install-howto.html">PHP/Mapscript Installation HOWTO</ulink>.
 					</para>
 				</listitem>
 				<listitem>
 					<para>
                   			Also, see the Mapserver MapScript documentation at:
-        		   <ulink url="http://mapserver.gis.umn.edu/mapscript.html">http://mapserver.gis.umn.edu/mapscript.html</ulink>
+        		   <ulink url="http://mapserver.gis.umn.edu/doc/perlmapscript-reference.html">http://mapserver.gis.umn.edu/doc/perlmapscript-reference.html</ulink>
                   			and the MapServer MapFile documentation at:
-                  <ulink url="http://mapserver.gis.umn.edu/mapfile.html">http://mapserver.gis.umn.edu/mapfile.html</ulink>.  
+                  <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html">http://mapserver.gis.umn.edu/doc/mapfile-reference.html</ulink>.  
                		</para>
 				</listitem>
 				<listitem>
@@ -97,15 +103,16 @@
 			</para>
 			<programlisting>
     Boolean values:
-        MS_TRUE, MS_FALSE, MS_ON, MS_OFF, MS_YES, MS_NO
+  	MS_TRUE, MS_FALSE, MS_ON, MS_OFF, MS_YES, MS_NO
 
     Map units:
-        MS_INCHES, MS_FEET, MS_MILES, MS_METERS, MS_KILOMETERS, MS_DD,
+ 	MS_INCHES, MS_FEET, MS_MILES, MS_METERS, MS_KILOMETERS, MS_DD,
         MS_PIXELS
 
     Layer types:
-        MS_LAYER_POINT, MS_LAYER_LINE, MS_LAYER_POLYGON,
-        MS_LAYER_RASTER, MS_LAYER_ANNOTATION, MS_LAYER_QUERY
+        MS_LAYER_POINT, MS_LAYER_LINE, MS_LAYER_POLYGON, 
+        MS_LAYER_RASTER, MS_LAYER_ANNOTATION, MS_LAYER_QUERY,
+        MS_LAYER_CIRCLE  MS_LAYER_GRATICULE
 
     Layer/Legend/Scalebar/Class Status:
         MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED, MS_DELETE
@@ -136,120 +143,699 @@
         MS_INLINE, MS_SHAPEFILE, MS_TILED_SHAPEFILE, MS_SDE, MS_OGR, 
         MS_TILED_OGR, MS_POSTGIS, MS_WMS, MS_ORACLESPATIAL
 
-    Output Image Types:
-        MS_GIF, MS_PNG, MS_JPEG, MS_WBMP
+    Error codes:
+        MS_NOERR, MS_IOERR, MS_MEMERR, MS_TYPEERR, MS_SYMERR, 
+        MS_REGEXERR, MS_TTFERR, MS_DBFERR, MS_GDERR, MS_IDENTERR, 
+        MS_EOFERR, MS_PROJERR, MS_MISCERR, MS_CGIERR, MS_WEBERR, 
+        MS_IMGERR, MS_HASHERR, MS_JOINERR, MS_NOTFOUND, MS_SHPERR, 
+        MS_PARSEERR, MS_SDEERR, MS_OGRERR, MS_QUERYERR, MS_WMSERR, 
+        MS_WMSCONNERR, MS_ORACLESPATIALERR, MS_WFSERR, MS_WFSCONNERR, 
+        MS_MAPCONTEXTERR, MS_HTTPERR
 			</programlisting>
 		</sect2>
 		<sect2 id="Functions">
 			<title>Functions</title>
 			<programlisting>
-    string ms_GetVersion()
+   string ms_GetVersion()
         Returns the MapServer version and options in a string.  This string
         can be parsed to find out which modules were compiled in, etc.
+
+   array ms_TokenizeMap(string map_file_name)
+        Preparses a mapfile through the MapServer parser and return an 
+        array with one item for each token from the mapfile.  Strings, 
+        logical expressions, regex expressions and comments are returned
+        as individual tokens.
 			</programlisting>
 		</sect2>
-		<sect2 id="MapObj">
-			<title>MapObj Class</title>
-			<sect3 id="Constructor">
+	<!-- Section2: Classes -->	
+	      <sect2 id="classlist">
+		<title>Classes</title>
+		<sect3 id="ClassObj">
+			<title>ClassObj Class</title>
+			<sect4 id="Class_constructor">
 				<title>Constructor:</title>
 				<programlisting>
-    mapObj ms_newMapObj(string map_file_name)
-        Returns a new object to deal with a MapServer map file.
-				</programlisting>
-			</sect3>
-			<sect3 id="Members">
+   Class Objects can be returned by the LayerObj class, or can be created using:
+
+   classObj ms_newClassObj(layerObj layer)
+                    </programlisting>
+			</sect4>
+			<sect4 id="Class_members">
 				<title>Members:</title>
 				<programlisting>
-    int          numlayers  (read-only)
-    string       name
-    int          status
-    int          width
-    int          height
-    int          transparent
-    int          interlace
-    int    	 imagetype
-    int    	 imagequality
-    int          resolution   (pixels per inch, defaults to 72)    
-    rectObj      extent
-    double       cellsize
-    int          units (map units type)
-    double       scale (read-only, set by drawMap())
-    string       shapepath
-    int          keysizex
-    int          keysizey
-    int          keyspacingx
-    int          keyspacingy
-    webObj       web
-    referenceMapObj reference
-    colorObj     imagecolor
-    scalebarObj scalebar
-    legendObj legend
-				</programlisting>
-			</sect3>
-			<sect3 id="Methods">
+   string name
+   string title
+   int    type
+   int    status      (MS_ON, MS_OFF or MS_DELETE)
+   double    minscale
+   double    maxscale
+   string template
+   labelObj label
+   int    numstyles
+	               </programlisting>
+			</sect4>
+			<sect4 id="Class_methods">
 				<title>Methods:</title>
 				<programlisting>
-    int set(string property_name, new_value)
-         Set map object property to new value. Returns -1 on error.
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.
 
-    int addColor(int r, int g, int b)  
-         Add a color to map's palette.  Returns color index.
+   int setexpression(string expression)
+        Set the expression string for the class object.
+           
+   int settext(string text)
+        Set the text string for the class object.
+   
+   int drawLegendIcon(int width, int height, imageObj im, int dstX, int dstY)
+        Draw the legend icon on im object at dstX, dstY.
+        Returns MS_SUCCESS/MS_FAILURE.
 
-    int getsymbolbyname(string symbol_name)  
-         Returns the symbol index using the name.
+   imageObj createLegendIcon(int width, int height)
+        Draw the legend icon and return a new imageObj.
+     
+   styleObj getStyle(int index)
+        Return the style object using an index. index &gt;= 0 &amp;&amp;
+        index &lt; class-&gt;numstyles.  
+				</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="colorobj">
+			<title>ColorObj Class</title>
+			<sect4 id="col_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+  Instances of ColorObj are always embedded inside other classes.
+ 				</programlisting>
+			</sect4>
+			<sect4 id="col_members">
+				<title>Members:</title>
+				<programlisting>
+   int    red
+   int    green
+   int    blue
+				</programlisting>
+			</sect4>
+			<sect4 id="col_methods">
+				<title>Method:</title>
+				<programlisting>
+   void setRGB(int red, int green, int blue)
+        Set red, green, blue values.
+				</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="errorobj">
+			<title>ErrorObj Class</title>
+			<para>
+   Instances of errorObj are created internally by MapServer as errors
+   happen.  Errors are managed as a chained list with the first item being
+   the most recent error.  The head of the list can be fetched using 
+   ms_GetErrorObj(), and the list can be cleared using ms_ResetErrorList()				
+			</para>
+			<sect4 id="error_functions">
+				<title>Functions:</title>
+				<programlisting>
+   errorObj ms_GetErrorObj()
+        Returns a reference to the head of the list of errorObj.
 
-    void preparequery()
-         Calculate the scale of the map and assign it to the map->scale.
+   void ms_ResetErrorList()
+        Clear the current error list.  
+        Note that clearing the list invalidates any errorObj handles obtained 
+        via the $error->next() method.				
+				</programlisting>
+			</sect4>
+			<sect4 id="error_members">
+				<title>Members:</title>
+				<programlisting>
+   int      code      /* See error code constants above */
+   string   routine
+   string   message				
+				</programlisting>
+			</sect4>
+			<sect4 id="error_methods">
+				<title>Methods:</title>
+				<programlisting>
+   errorObj next()
+        Returns the next errorObj in the list, or NULL if we reached the end
+        of the list.				
+				</programlisting>
+			</sect4>
+			<sect4 id="error_example">
+				<title>Example:</title>
+				<programlisting>
+   This example draws a map and reports all errors generated during
+   the draw() call, errors can potentially come from multiple layers.
+
+       ms_ResetErrorList();
+       $img = $map-&gt;draw();
+       $error = ms_GetErrorObj();
+       while($error &amp;&amp; $error-&gt;code != MS_NOERR)
+       {
+           printf("Error in %s: %s&lt;br&gt;\n", $error-&gt;routine, $error-&gt;message);
+           $error = $error-&gt;next();
+       }				
+				</programlisting>
+			</sect4>
+		</sect3>		
+		<sect3 id="gridobj">
+			<title>GridObj</title>
+			<sect4 id="grid_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   The grid is always embedded inside a layer object defined as
+   a grid (layer-&gt;connectiontype = MS_GRATICULE)
+   (for more docs : <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapServerGrid">http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapServerGrid</ulink>)
+
+   A layer can become a grid layer by adding a grid object to it using :
+      ms_newGridObj(layerObj layer)
+
+   Example :   $oLayer = ms_newlayerobj($oMap);
+              $oLayer-&gt;set("name", "GRID");
+              ms_newgridobj($oLayer);
+              $oLayer-&gt;grid->set("labelformat", "DDMMSS");				
+				</programlisting>
+			</sect4>
+			<sect4 id="grid_members">
+				<title>Members:</title>
+				<programlisting>
+   double    minsubdivide;
+   double    maxsubdivide;
+   double    minarcs;
+   double    maxacrs;
+   double    mininterval;
+   double    maxinterval;
+   string      labelformat;				
+				</programlisting>
+			</sect4>
+			<sect4 id="grid_methods">
+				<title>Methods:</title>
+				<programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value.				
+				</programlisting>
+			</sect4>
+		</sect3>		
+		<sect3 id="ImageObj">
+			<title>ImageObj Class</title>
+			<sect4 id="Img_contructor">
+				<title>Constructor:</title>
+				<programlisting>
+Instances of ImageObj are always created by the map class methods.
+				</programlisting>
+			</sect4>
+			<sect4 id="Img_members">
+				<title>Members:</title>
+				<programlisting>
+   int    width     (read-only)
+   int    height    (read-only)
+   string imagepath
+   string imageurl				
+				</programlisting>
+			</sect4>
+			<sect4 id="Img_methods">
+				<title>Methods:</title>
+				<programlisting>
+   void free()
+        Destroys resources used by an image object.
+
+   int saveImage(string filename)
+        Writes image object to specifed filename.
+        Passing an empty filename sends output to stdout.  In this case,
+        the PHP header() function should be used to set the documents's
+        content-type prior to calling saveImage().
+        The output format is the one that is currently selected in the 
+        map file.
+        The function returns -1 on error.  On success, it returns either 0
+        if writing to an external file, or the number of bytes written if 
+        output is sent to stdout.
+
+   string saveWebImage()
+        Writes image to temp directory.  Returns image URL.
+        The output format is the one that is currently selected in the 
+        map file.
+       
+
+   void pasteImage(imageObj srcImg, int transparentColorIndex 
+                   [, int dstX, dstY])
+        Copy srcImg on top of the current imageObj.
+        transparentColorIndex is the color from srcImg that should be
+        considered transparent (i.e. those pixels won't be copied).  
+        Pass -1 if you don't want any transparent color.
+        If optional dstx,dsty are provided then it defines the position 
+        where the image should be copied (dstx,dsty = top-left corner 
+        position).     
+				</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="labelcache">
+			<title>LabelCacheObj Class</title>
+			<para>
+Accessible only through the map object (map->labelcache). This object
+is only used to give the possiblity to free the label cache 
+(map-&gt;labelcache-&gt;free())				
+			</para>
+			<sect4 id="labelcache_method">
+				<title>Methods:</title>
+				<programlisting>
+   boolean free()
+        Free the label cache. Returns true on success or false if an error
+        occurs.
+        Ex : (map-&gt;labelcache-&gt;free();				
+				</programlisting>
+			</sect4>
+		</sect3>		
+		<sect3 id="labelobj">
+			<title>LabelObj Class</title>
+			<sect4 id="Lab_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   LabelObj are always embedded inside other classes.
+				</programlisting>
+			</sect4>
+			<sect4 id="Lab_members">
+				<title>Members:</title>
+				<programlisting>
+   string font
+   int    type
+   colorObj    color
+   colorObj    outlinecolor
+   colorObj    shadowcolor
+   int    shadowsizex
+   int    shadowsizey
+   colorObj    backgroundcolor
+   colorObj    backgroundshadowcolor
+   int    backgroundshadowsizex
+   int    backgroundshadowsizey
+   int    size
+   int    minsize
+   int    maxsize
+   int    position
+   int    offsetx
+   int    offsety
+   double angle
+   int    autoangle
+   int    buffer
+   int    antialias
+   int    wrap
+   int    minfeaturesize
+   int    autominfeaturesize
+   int    mindistance
+   int    partials
+   int    force			
+				</programlisting>
+			</sect4>
+			<sect4 id="Lab_methods">
+				<title>Method:</title>
+				<programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.			
+				</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="LayerObj">
+			<title>LayerObj Class</title>
+			<sect4 id="constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   Layer Objects can be returned by the MapObj class, or can be created
+   using:
+
+   layerObj ms_newLayerObj(MapObj map, layerObj layer)
+
+   A second argument (which is not manadatory) can be given to the  ms_newLayerObj
+   to be able to create a new layer based on an existing layer. If a layer is 
+   given as argument, all members of a this layer will be copied in the new
+   layer created.
+               </programlisting>
+			</sect4>
+			<sect4 id="Lay_members">
+				<title>Members:</title>
+				<programlisting>
+   int    numclasses  (read-only)
+   int    index       (read-only)
+   int    status      (MS_ON, MS_OFF, MS_DEFAULT or MS_DELETE)
+   int    debug
+   string classitem
+   string name
+   string group
+   string data
+   int    type
+   double tolerance
+   int    toleranceunits
+   double symbolscale
+   double minscale
+   double maxscale
+   double labelminscale
+   double labelmaxscale
+   int    maxfeatures
+   colorObj    offsite
+   int    annotate
+   int    transform
+   int    labelcache
+   int    postlabelcache
+   string labelitem
+   string labelsizeitem
+   string labelangleitem
+   string tileitem
+   string tileindex
+   string header
+   string footer
+   string connection
+   int    connectiontype
+   string filteritem
+   string template
+   string styleitem
+   gridObj grid //only available on a layer defined as grid (MS_GRATICULE) 
+			</programlisting>
+			</sect4>
+			<sect4 id="Lay_methods">
+				<title>Methods:</title>
+				<programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.
+
+   int draw(imageObj image)
+        Draw a single layer, add labels to cache if required. 
+        Returns -1 on error.
+
+   int drawQuery(imageObj image)
+        Draw query map for a single layer.
+
+   classObj getClass(int classIndex)
+        Returns a classObj from the layer given an index value (0=first class)
+
+   int queryByPoint(pointObj point, int mode, double buffer)
+        Query layer at point location specified in georeferenced map 
+        coordinates (i.e. not pixels).  
+        The query is performed on all the shapes that are part of a CLASS 
+        that contains a TEMPLATE value or that match any class in a
+        layer that contains a LAYER TEMPLATE value.
+        Mode is MS_SINGLE or MS_MULTIPLE depending on number of results
+        you want. 
+        Passing buffer &lt;=0 defaults to tolerances set in the map file 
+        (in pixels) but you can use a constant buffer (specified in 
+        ground units) instead.
+        Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+        was found or if some other error happened (note that the error 
+        message in case nothing was found can be avoided in PHP using 
+        the '@' control operator).
+
+   int queryByRect(rectObj rect)
+        Query layer using a rectangle specified in georeferenced map 
+        coordinates (i.e. not pixels).
+        The query is performed on all the shapes that are part of a CLASS 
+        that contains a TEMPLATE value or that match any class in a
+        layer that contains a LAYER TEMPLATE value.
+        Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+        was found or if some other error happened (note that the error 
+        message in case nothing was found can be avoided in PHP using 
+        the '@' control operator).
+
+   int queryByShape(shapeObj shape)
+        Query layer based on a single shape, the shape has to be a polygon
+        at this point.
+        Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+        was found or if some other error happened (note that the error 
+        message in case nothing was found can be avoided in PHP using 
+        the '@' control operator).
+
+   int queryByFeatures(int slayer) 
+        Perform a query set based on a previous set of results from
+        another layer. At present the results MUST be based on a polygon
+        layer.
+        Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+        was found or if some other error happened (note that the error 
+        message in case nothing was found can be avoided in PHP using 
+        the '@' control operator).
+
+   int queryByAttributes(string qitem, string qstring, int mode)
+        Query layer for shapes that intersect current map extents.
+        qitem is the item (attribute) on which the query is performed, 
+        and qstring is the expression to match.
+        The query is performed on all the shapes that are part of a CLASS 
+        that contains a TEMPLATE value or that match any class in a
+        layer that contains a LAYER TEMPLATE value.  
+        Note that the layer's FILTER/FILTERITEM are ignored by this function.
+        Mode is MS_SINGLE or MS_MULTIPLE depending on number of results
+        you want. 
+        Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+        was found or if some other error happened (note that the error 
+        message in case nothing was found can be avoided in PHP using 
+        the '@' control operator).
+
+   int setFilter(string expression)
+        Set layer filter expression.
+
+   char getProjection()
+        Returns a string represenation of the projection. If no 
+        projection is set, MS_FALSE is returned.
+
+   int setProjection(string proj_params)
+        Set layer projection and coordinate system.  Parameters are given as 
+        a single string of comma-delimited PROJ.4 parameters.
+
+   int setWKTProjection(string proj_params)
+        Same as setProjection(), but takes an OGC WKT projection 
+        definition string as input.
+
+   int getNumResult()
+        Returns the number of results from this layer in the last query.
+
+   resultCacheMemberObj getResult(int index)
+        Returns a resultCacheMemberObj by index from a layer object with 
+        index in the range 0 to numresults-1.  
+        Returns a valid object or FALSE(0) if index is invalid.
+
+   int open()
+        Open the layer for use with getShape().  
+        Returns MS_SUCCESS/MS_FAILURE.
+
+   void close()
+        Close layer previously opened with open().
+
+   shapeObj getShape(int tileindex, int shapeindex)
+        Retrieve shapeObj from a layer by index.
+        Tileindex is used only for tiled shapefiles (you get it from the
+        resultCacheMemberObj returned by getResult() for instance).
+        Simply pass tileindex = -1 for other data sources.
+
+   int addFeature(shapeObj shape)
+        Add a new feature in a layer.  Returns -1 on error.
+
+   int getMetaData(string name)
+        Fetch layer metadata entry by name.  Returns "" if no entry 
+        matches the name.  Note that the search is case sensitive.
+
+   int setMetaData(string name, string value)
+        Set a metadata entry for the layer.  Returns MS_SUCCESS/MS_FAILURE.
+
+   int getWMSFeatureInfoURL(int clickX, int clickY, int featureCount, 
+                            string infoFormat)
+        Return a WMS GetFeatureInfo URL (works only for WMS layers)
+        clickX, clickY is the location of to query in pixel coordinates
+        with (0,0) at the top left of the image.
+        featureCount is the number of results to return.
+        infoFormat is the format the format in which the result should be
+        requested.  Depends on remote server's capabilities.  MapServer
+        WMS servers support only "MIME" (and should support "GML.1" soon).
+        Returns "" and outputs a warning if layer is not a WMS layer 
+        or if it is not queriable.
+        
+   char ** getItems()
+        return a list of items. Must call open function first.     
+		     </programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="legend">
+			<title>LegendObj Class</title>
+			<sect4 id="leg_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   Instances of legendObj are always are always embedded inside the mapObj.
+				</programlisting>
+			</sect4>
+			<sect4 id="leg_members">
+				<title>Members:</title>
+				<programlisting>
+   int height;
+   int width;
+   int keysizex;      
+   int keysizey;
+   int keyspacingx;
+   int keyspacingy;
+   colorObj outlinecolor; //Color of outline of box, -1 for no outline
+   int status; //MS_ON, MS_OFF, MS_EMBED
+   int position; //for embeded legends, MS_UL, MS_UC, ...
+   int transparent;
+   int interlace;
+   int postlabelcache; //MS_TRUE, MS_FALSE
+   labelObj label;
+   colorObj imagecolor;
+   string   template
+				</programlisting>
+			</sect4>
+			<sect4 id="leg_methods">
+				<title>Methods:</title>
+				<programlisting>
+      int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.
+				</programlisting>
+			</sect4>
+		</sect3>		
+		<sect3 id="LineObj">
+			<title>LineObj Class</title>
+			<sect4 id="line_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+LineObj ms_newLineObj()			
+				</programlisting>
+			</sect4>
+			<sect4 id="line_members">
+				<title>Members:</title>
+				<programlisting>
+   int    numpoints  (read-only)			
+				</programlisting>
+			</sect4>
+			<sect4 id="line_methods">
+				<title>Methods:</title>
+				<programlisting>
+   int add(pointObj point)
+        Add a point to the end of line.
+
+   int addXY(double x, double y [, double m])
+        Add a point to the end of line.
+        Note : the 3rd parameter m is used for measured shape files only. 
+        It is not mandatory.
+
+   PointObj point(int i)
+        Returns a reference to point number i.  Reference is valid only
+        during the life of the lineObj that contains the point.
+
+   int project(projectionObj in, projectionObj out)
+        Project the line from "in" projection (1st argument) to "out" 
+        projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.
+
+   void free()
+        Destroys resources used by a line object. 
+				</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="MapObj">
+			<title>MapObj Class</title>
+			<sect4 id="Constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   mapObj ms_newMapObj(string map_file_name [, string new_map_path])
+        Returns a new object to deal with a MapServer map file.
+
+        By default, the SYMBOLSET, FONTSET, and other paths in the mapfile
+        are relative to the mapfile location.  If new_map_path is provided
+        then this directory will be used as the base path for all the 
+        relative paths inside the mapfile.
+				</programlisting>
+			</sect4>
+			<sect4 id="Members">
+				<title>Members:</title>
+				<programlisting>
+   int          numlayers  (read-only)
+   string       name
+   int          status
+   int          debug
+   int          width
+   int          height
+   int          transparent
+   int          interlace
+   int          imagetype  (read-only, use selectOutputformat())
+   int          imagequality
+   double       resolution   (pixels per inch, defaults to 72)
+   rectObj      extent; 
+   double       cellsize
+   int          units (map units type)
+   double       scale (read-only, set by drawMap())
+   string       shapepath
+   int          keysizex
+   int          keysizey
+   int          keyspacingx
+   int          keyspacingy
+   webObj       web
+   referenceMapObj reference
+   colorObj     imagecolor
+   scalebarObj  scalebar
+   legendObj    legend                  
+   string       symbolsetfilename (read-only, set by setSymbolSet())
+   string       fontsetfilename (read-only, set by setFontSet())
+   outputformatObj outputformat (read only)   
+   labelcacheObj labelcache (no memebers. Used only to be able to free the
+                             the label cache (ex : map->labelcache->free())
+				</programlisting>
+			</sect4>
+			<sect4 id="Methods">
+				<title>Methods:</title>
+				<programlisting>
+   mapObj clone()
+        Returns a handle to a new mapObj which is a clone of the current
+        mapObj.  All parameters in the current mapObj are copied to the
+        new mapObj.  Returns NULL (0) on error.
+
+   int set(string property_name, new_value)
+        Set map object property to new value. Returns -1 on error.
+
+   int getsymbolbyname(string symbol_name)  
+        Returns the symbol index using the name.
+
+   void preparequery()
+        Calculate the scale of the map and assign it to the map->scale.
              
-    imageObj prepareImage()
-         Return handle on blank image object.
+   imageObj prepareImage()
+        Return handle on blank image object.
 
-    imageObj draw()
-         Render map and return handle on image object.
+   imageObj draw()
+        Render map and return handle on image object.
 
-    imageObj drawQuery()
-         Render a query map and return handle on image object.
+   imageObj drawQuery()
+        Render a query map and return handle on image object.
 
-    imageObj drawLegend()
-         Render legend and return handle on image object.
+   imageObj drawLegend()
+        Render legend and return handle on image object.
 
-    imageObj drawReferenceMap()
-         Render reference map and return handle on image object.
+   imageObj drawReferenceMap()
+        Render reference map and return handle on image object.
 
-    imageObj drawScaleBar()
-         Render scale bar and return handle on image object.
+   imageObj drawScaleBar()
+        Render scale bar and return handle on image object.
 
-    int embedlegend(imageObj image) 
-         embeds a legend. Actually the legend is just added to the label 
-         cache so you must invoke drawLabelCache() to actually do the 
-         rendering (unless postlabelcache is set in which case it is drawn right away).
+   int embedlegend(imageObj image) 
+        embeds a legend. Actually the legend is just added to the label 
+        cache so you must invoke drawLabelCache() to actually do the 
+        rendering (unless postlabelcache is set in which case it is 
+        drawn right away).
 
-    int embedScalebar(imageObj image) 
-         embeds a scalebar. Actually the scalebar is just added to the label 
-         cache so you must invoke drawLabelCache() to actually do the rendering 
-         (unless postlabelcache is set in which case it is drawn right away).
+   int embedScalebar(imageObj image) 
+        embeds a scalebar. Actually the scalebar is just added to the label 
+        cache so you must invoke drawLabelCache() to actually do the rendering 
+        (unless postlabelcache is set in which case it is drawn right away).
 
-    int drawLabelCache(imageObj image)
-         Renders the labels for a map. Returns -1 on error.
+   int drawLabelCache(imageObj image)
+        Renders the labels for a map. Returns -1 on error.
 
-    layerObj getLayer(int index)
-         Returns a layerObj from the map given an index value (0=first layer)
+   layerObj getLayer(int index)
+        Returns a layerObj from the map given an index value (0=first layer)
 
-    layerObj getLayerByName(string layer_name)
-         Returns a layerObj from the map given a layer name.
+   layerObj getLayerByName(string layer_name)
+        Returns a layerObj from the map given a layer name.  
+        Returns FALSE if layer doesn't exist.
 
-    colorObj getcolorbyindex(int iCloIndex)
-         Returns a colorObj corresponding to the color index in the palette
+   colorObj getcolorbyindex(int iCloIndex)
+	Returns a colorObj corresponding to the color index in the palette
 
-    void setextent(double minx, double miny, double maxx, double maxy)
-         Set the map extents using the georef extents passed in argument.
+   void setextent(double minx, double miny, double maxx, double maxy)
+	Set the map extents using the georef extents passed in argument.
 
-    void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, 
+   void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, 
                   int nImageHeight, rectObj oGeorefExt)
 
-        Zoom to a given XY postion;
+	Zoom to a given	XY postion;
 
-        Parmeters are :                                                 
+	Parmeters are :                                                 
        - Zoom factor : positive values do zoom in, negative values  
                       zoom out. Factor of 1 will recenter.           
        - Pixel position (pointObj) : x, y coordinates of the click, 
@@ -261,23 +847,33 @@
          If provided then it will be impossible to zoom/pan outside of
          those extents.
 
-    void zoomrectange(rectObj oPixelExt, int nImageWidth, int nImageHeight,
-                     rectObj oGeorefExt)
-        Set the map extents to a given extents.
-        
-        Parmeters are :
-        - Pixel Extents, with (0,0) at the top-left
+   void zoomrectange(rectObj oPixelExt, int nImageWidth, int nImageHeight,
+		     rectObj oGeorefExt)
+	Set the map extents to a given extents.
+	
+	Parmeters are :
+	- oPixelExt (rect object) : Pixel Extents, with (0,0) at the top-left
+          The rectangle contains the coordinates of the LL and UR coordinates
+          in pixel. (the maxy in the rect object should be &lt; miny value)
+          
+          ------- UR (values in the rect object : maxx, maxy)
+          |     | 
+          |     |
+          |     |
+          ------
+        LL (values in the rectobject minx, miny)                      
+         
         - Width : width in pixel of the current image.
         - Height : Height in pixel of the current image. 
         - Georef extent (rectObj) : current georef extents.
 
-    void zoomscale(int nScale, pointObj oPixelPos, int nImageWidth, 
+   void zoomscale(double nScale, pointObj oPixelPos, int nImageWidth, 
                   int nImageHeight, rectObj oGeorefExt)
 
-        Zoom in or out to a given XY postion so that the map is displayed
+	Zoom in or out to a given XY position so that the map is displayed
         at specified scale.
 
-        Parmeters are :                                                 
+	Parmeters are :                                                 
        - Scale : Scale at which the map should be displayed.
        - Pixel position (pointObj) : x, y coordinates of the click, 
                                      with (0,0) at the top-left
@@ -288,7 +884,7 @@
          If provided then it will be impossible to zoom/pan outside of
          those extents.
 
-    int queryByPoint(pointObj point, int mode, double buffer)
+   int queryByPoint(pointObj point, int mode, double buffer)
         Query all selected layers in map at point location specified in 
         georeferenced map coordinates (i.e. not pixels).  
         The query is performed on all the shapes that are part of a CLASS 
@@ -304,7 +900,7 @@
         message in case nothing was found can be avoided in PHP using 
         the '@' control operator).
 
-    int queryByRect(rectObj rect)
+   int queryByRect(rectObj rect)
         Query all selected layers in map using a rectangle specified in 
         georeferenced map coordinates (i.e. not pixels).
         The query is performed on all the shapes that are part of a CLASS 
@@ -315,7 +911,7 @@
         message in case nothing was found can be avoided in PHP using 
         the '@' control operator).
 
-    int queryByShape(shapeObj shape)
+   int queryByShape(shapeObj shape)
         Query all selected layers in map based on a single shape, the 
         shape has to be a polygon at this point.
         Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
@@ -323,7 +919,7 @@
         message in case nothing was found can be avoided in PHP using 
         the '@' control operator).
 
-    int queryByFeatures(int slayer) 
+   int queryByFeatures(int slayer) 
         Perform a query based on a previous set of results from
         a layer. At present the results MUST be based on a polygon layer.
         Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
@@ -331,798 +927,234 @@
         message in case nothing was found can be avoided in PHP using 
         the '@' control operator).
 
-    int save(string filename)
-         Save current map object state to a file. Returns -1 on error.
+   int queryByIndex(layerindex, tileindex, shapeindex, addtoquery)
+        Add a specific shape on a given layer to the query result.
+        If addtoquery (which is a non mandatory argument) is set to MS_TRUE,
+        the shape will be added to the existing query list. Default behavaior
+        is to free the existing query list and add only the new shape.
 
-    char getProjection()
-         Returns a string represenation of the projection. If no 
-         projection is set, MS_FALSE is returned.
+   int savequery(filename)
+        Save the current query in a file. Returns MS_SUCESS or MS_FAILURE.
+        Can be used with loadquery
 
-    int setProjection(string proj_params, boolean bSetUnitsAndExtents)
-         Set map projection and coordinate system.  Parameters are given as 
-         a single string of comma-delimited PROJ.4 parameters.
-         The argument bSetUnitsAndExtents is used to automatically update
-         the map units and extents based on the new projection. Possible 
-         values are MS_TRUE and MS_FALSE. By default it is set to MS_FALSE.
+   int loadquery(filename)
+        Loads a query from a file. Returns MS_SUCESS or MS_FAILURE.
+        To be used with savequery.
 
-    int getMetaData(string name)
-         Fetch metadata entry by name (stored in the WEB object in the map
-         file).  Returns "" if no entry matches the name.  Note that the
-         search is case sensitive.
+   void freequery(layerindex)
+        Frees the query result on a specified layer. If the layerindex is -1,
+        all queries on layers will be freed.
 
-    int setMetaData(string name, string value)
-         Set a metadata entry for the map (stored in the WEB object in the map
-         file).  Returns MS_SUCCESS/MS_FAILURE.
+   int save(string filename)
+        Save current map object state to a file. Returns -1 on error.
+        Use absolute path. If a relative path is used, then it will be 
+        relative to the mapfile location.
 
-    array getLayersIndexByGroup(string groupname)
-         Return an array containing all the layer's indexes given
-         a group name.
+   char getProjection()
+        Returns a string represenation of the projection. If no 
+        projection is set, MS_FALSE is returned.
 
-    array getAllGroupNames()
-         Return an array containing all the group names used in the
-         layers.  
+   int setProjection(string proj_params, boolean bSetUnitsAndExtents)
+        Set map projection and coordinate system.  Parameters are given as 
+        a single string of comma-delimited PROJ.4 parameters.
+        The argument : bSetUnitsAndExtents is used to automatically update
+        the map units and extents based on the new projection. Possible 
+        values are MS_TRUE and MS_FALSE. By defualt it is set at MS_FALSE
 
-    array getAllLayerNames()
-         Return an array containing all the layer names.     
+   int setWKTProjection(string proj_params, boolean bSetUnitsAndExtents)
+        Same as setProjection(), but takes an OGC WKT projection 
+        definition string as input.
 
-    boolean moveLayerUp(int layerindex)
-         Move layer up in the hierarchy of drawing. 
+   int getMetaData(string name)
+        Fetch metadata entry by name (stored in the WEB object in the map
+        file).  Returns "" if no entry matches the name.  Note that the
+        search is case sensitive.
 
-    boolean moveLayerDown(int layerindex)
-         Move layer down in the hierarchy of drawing.
+   int setMetaData(string name, string value)
+        Set a metadata entry for the map (stored in the WEB object in the map
+        file).  Returns MS_SUCCESS/MS_FAILURE.
+
+   array getLayersIndexByGroup(string groupname)
+        Return an array containing all the layer's indexes given
+        a group name.
+
+   array getAllGroupNames()
+        Return an array containing all the group names used in the
+        layers.  
+
+   array getAllLayerNames()
+        Return an array containing all the layer names.
+
+   boolean moveLayerUp(int layerindex)
+        Move layer up in the hierarcy of drawing. 
+
+   boolean moveLayerDown(int layerindex)
+        Move layer down in the hierarcy of drawing.
+
+   array   getlayersdrawingorder()
+        Return an array containing layer's index in the order which they
+        are drawn.
+
+   boolean  setlayersdrawingorder(array layeryindex)
+        Set the layer's order array. The argument passed must be a valid
+        array with all the layer's index. 
+        Return TRUE on success or else FALSE.
+
+   char *processtemplate(array params, boolean generateimages)
+        Process the template file specified in the web object and return 
+        the resut in a buffer. 
+        The processing consists of opening the template file and replace
+        all the tags found in it.
+        Only tags that have an equivalent element in the map object are
+        replaced (ex [scale]). 
+        The are two expetions to the previous statement :
+          - [img], [scalebar], [ref], [legend] would be replaced with the 
+            appropriate url if the parameter generateimages is set to 
+            MS_TRUE. (Note :  the images corresponding to the diffrent objects 
+            are generated if the object is set to MS_ON in the map file)
+         - the user can use the params parameter to specify tags and 
+           their values. For example if the user have a specific tag call
+           [my_tag] and would like it to be replaced by "value_of_my_tag"
+           he would do :
+              $tmparray["my_tag"] = "value_of_my_tag";
+              $map->processtemplate($tmparray, MS_FASLE);
          
-    array getlayersdrawingorder()
-         Return an array containing layer's index in the order which they
-         are drawn.
+   char *processquerytemplate(array params)     
+       Process query template files and return the resut in a buffer.
 
-    boolean setlayersdrawingorder(array layeryindex)
-         Set the layer's order array. The argument passed must be a valid
-         array with all the layer's index. 
-         Return TRUE on success or else FALSE.
-
-    char *processtemplate(array params, boolean generateimages)
-         Process the template file specified in the web object and return 
-         the resut in a buffer. 
-         The processing consists of opening the template file and replace
-         all the tags found in it.
-         Only tags that have an equivalent element in the map object are
-         replaced (ex [scale]). 
-         The are two expetions to the previous statement :
-           - [img], [scalebar], [ref], [legend] would be replaced with the 
-             appropriate url if the parameter generateimages is set to 
-             MS_TRUE. (Note :  the images corresponding to the different objects 
-             are geneterated if the object is set to MS_ON in the map file)
-           - the user can use the params parameter to specify tags and 
-             their values. For example if the user have a specific tag call [my_tag] and
-             would like it to be replaced by "value_of_my_tag" he would do :
-                $tmparray["my_tag"] = "value_of_my_tag";
-                $map->processtemplate($tmparray, MS_FALSE);
-         
-    char *processquerytemplate(array params)     
-         Process query template files and return the resut in a buffer.
-
-         See also : processtemplate function.
+       See also : processtemplate function.
    
-    char *processlegendtemplate(array params)     
-         Process legend template files and return the resut in a buffer.
+   char *processlegendtemplate(array params)     
+       Process legend template files and return the resut in a buffer.
 
-         See also : processtemplate function.
+     See also : processtemplate function.
 
-    int  setSymbolSet(string fileName)
-         Load and set a symbol file dynamictly.
+   int setSymbolSet(string fileName)
+       Load and set a symbol file dynamictly.
        
-    int  getNumSymbols()
-         Return the number of symbols in map.         
+   int getNumSymbols()
+       Return the number of symbols in map.
+       
+   int setFontSet(string fileName)
+       Load and set a new fontset.
+       
+
+   int selectOutputFormat(string type)
+        Selects the output format to be used in the map. 
+        Returns MS_SUCCESS/MS_FAILURE.
+       
+        Note : the type used should correspond to one of the output
+               formats declared in the map file.
+               The type argument passed is compared with the mimetype
+               parameter in the output format structure and then to
+               the name parameter in the structure. 
+
+   int saveMapContext(string filename)
+        Available only if WMS support is enabled.
+        Save current map object state in WMS Map Context format. 
+        Only WMS layers are saved in the WMS Map Context XML file.
+        Returns MS_SUCCESS/MS_FAILURE.
+
+   int loadMapContext(string filename)
+        Available only if WMS support is enabled.
+        Load a WMS Map Context XML file into the current mapObj.
+        If the map already contains some layers then the layers defined
+        in the WMS Map context document are added to the current map.
+        Returns MS_SUCCESS/MS_FAILURE.
 			    </programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="LayerObj">
-			<title>LayerObj Class</title>
-			<sect3 id="constructor">
+			</sect4>
+		</sect3>
+		<sect3 id="output_format">
+			<title>OutputFormatObj Class</title>
+			<sect4 id="format_constructor">
 				<title>Constructor:</title>
 				<programlisting>
-    Layer Objects can be returned by the MapObj class, or can be created
-    using:
+  Instance of outputformatObj is always embedded inside the mapObj.
+  It is uses a read only.
 
-    layerObj ms_newLayerObj(MapObj map)
-               </programlisting>
-			</sect3>
-			<sect3 id="Lay_members">
+  No constructor available				
+				</programlisting>
+			</sect4>
+			<sect4 id="format_members">
 				<title>Members:</title>
 				<programlisting>
-    int    numclasses  (read-only)
-    int    index       (read-only)
-    int    status      (MS_ON, MS_OFF, MS_DEFAULT or MS_DELETE)
-    string classitem
-    string name
-    string group
-    string data
-    int    type
-    double tolerance
-    int    toleranceunits
-    double symbolscale
-    double minscale
-    double maxscale
-    double labelminscale
-    double labelmaxscale
-    int    maxfeatures
-    int    offsite
-    int    annotate
-    int    transform
-    int    labelcache
-    int    postlabelcache
-    string labelitem
-    string labelsizeitem
-    string labelangleitem
-    string tileitem
-    string tileindex
-    string header
-    string footer
-    string connection
-    int    connectiontype
-    string filteritem
-    string template    
-			</programlisting>
-			</sect3>
-			<sect3 id="Lay_methods">
+   string    name;
+   string    mimetype;
+   string    driver;
+   string    extension;
+   int       renderer;
+   int       imagemode     
+   int       transparent				
+				</programlisting>
+			</sect4>
+			<sect4 id="format_methods">
 				<title>Methods:</title>
 				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.
+   void setformatoption(string property_name, new_value)
+        Add or Modify the format option list. return true on success.
 
-    int draw(imageObj image)
-         Draw a single layer, add labels to cache if required. 
-         Returns -1 on error.
-
-    int drawQuery(imageObj image)
-         Draw query map for a single layer.
-
-    classObj getClass(int classIndex)
-         Returns a classObj from the layer given an index value (0=first class)
-
-    int queryByPoint(pointObj point, int mode, double buffer)
-         Query layer at point location specified in georeferenced map 
-         coordinates (i.e. not pixels).  
-         The query is performed on all the shapes that are part of a CLASS 
-         that contains a TEMPLATE value or that match any class in a
-         layer that contains a LAYER TEMPLATE value.
-         Mode is MS_SINGLE or MS_MULTIPLE depending on number of results
-         you want. 
-         Passing buffer &lt;=0 defaults to tolerances set in the map file 
-         (in pixels) but you can use a constant buffer (specified in 
-         ground units) instead.
-         Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
-         was found or if some other error happened (note that the error 
-         message in case nothing was found can be avoided in PHP using 
-         the '@' control operator).
-
-    int queryByRect(rectObj rect)
-         Query layer using a rectangle specified in georeferenced map 
-         coordinates (i.e. not pixels).
-         The query is performed on all the shapes that are part of a CLASS 
-         that contains a TEMPLATE value or that match any class in a
-         layer that contains a LAYER TEMPLATE value.
-         Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
-         was found or if some other error happened (note that the error 
-         message in case nothing was found can be avoided in PHP using 
-         the '@' control operator).
-
-    int queryByShape(shapeObj shape)
-         Query layer based on a single shape, the shape has to be a polygon
-         at this point.
-         Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
-         was found or if some other error happened (note that the error 
-         message in case nothing was found can be avoided in PHP using 
-         the '@' control operator).
-
-    int queryByFeatures(int slayer) 
-         Perform a query set based on a previous set of results from
-         another layer. At present the results MUST be based on a polygon
-         layer.
-         Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
-         was found or if some other error happened (note that the error 
-         message in case nothing was found can be avoided in PHP using 
-         the '@' control operator).
-
-    int queryByAttributes(int mode)
-         Query layer for shapes that intersect current map extents.
-         The query is performed on all the shapes that are part of a CLASS 
-         that contains a TEMPLATE value or that match any class in a
-         layer that contains a LAYER TEMPLATE value.
-         Mode is MS_SINGLE or MS_MULTIPLE depending on number of results
-	    you want. 
- 	    Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
-         was found or if some other error happened (note that the error 
-         message in case nothing was found can be avoided in PHP using 
-         the '@' control operator).
-
-    int setFilter(string expression)
-         Set layer filter expression.
-
-    char getProjection()
-         Returns a string represenation of the projection. If no 
-         projection is set, MS_FALSE is returned.
-
-    int setProjection(string proj_params)
-         Set layer projection and coordinate system.  Parameters are given as 
-         a single string of comma-delimited PROJ.4 parameters.
-
-    int getNumResult()
-         Returns the number of results from this layer in the last query.
-
-    resultCacheMemberObj getResult(int index)
-         Returns a resultCacheMemberObj by index from a layer object with 
-         index in the range 0 to numresults-1.  
-         Returns a valid object or FALSE(0) if index is invalid.
-
-    int open(string shapepath)
-         Open the layer for use with getShape().  
-         Returns MS_SUCCESS/MS_FAILURE.
-
-    void close()
-         Close layer previously opened with open().
-
-    shapeObj getShape(int tileindex, int shapeindex)
-         Retrieve shapeObj from a layer by index.
-         Tileindex is used only for tiled shapefiles (you get it from the
-         resultCacheMemberObj returned by getResult() for instance).
-         Simply pass tileindex = -1 for other data sources.         
-
-    int addFeature(shapeObj shape)
-         Add a new feature in a layer.  Returns -1 on error.
-
-    int getMetaData(string name)
-         Fetch layer metadata entry by name.  Returns "" if no entry 
-         matches the name.  Note that the search is case sensitive.
-
-    int setMetaData(string name, string value)
-         Set a metadata entry for the layer.  Returns MS_SUCCESS/MS_FAILURE.
-
-    int getWMSFeatureInfoURL(int clickX, int clickY, int featureCount, 
-                            string infoFormat)
-         Return a WMS GetFeatureInfo URL (works only for WMS layers)
-         clickX, clickY is the location of to query in pixel coordinates
-         with (0,0) at the top left of the image.
-         featureCount is the number of results to return.
-         infoFormat is the format the format in which the result should be
-         requested.  Depends on remote server's capabilities.  MapServer
-         WMS servers support only "MIME" (and should support "GML.1" soon).
-         Returns "" and outputs a warning if layer is not a WMS layer 
-         or if it is not queriable.
-         
-    char ** getItems()
-         return a list of items. Must call open function first.         
-		     </programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="ClassObj">
-			<title>ClassObj Class</title>
-			<sect3 id="Class_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    Class Objects can be returned by the LayerObj class, or can be created using:
-
-    classObj ms_newClassObj(layerObj layer)
-                    </programlisting>
-			</sect3>
-			<sect3 id="Class_members">
-				<title>Members:</title>
-				<programlisting>
-    string name
-    int    type
-    int    status      (MS_ON, MS_OFF or MS_DELETE)    
-    int    color
-    int    backgroundcolor
-    int    outlinecolor
-    int    overlaycolor
-    int    overlaybackgroundcolor
-    int    overlayoutlinecolor
-    int    symbol
-    string symbolname    
-    int    size
-    int    minsize
-    int    maxsize
-    int    overlaysymbol
-    string overlaysymbolname    
-    int    overlaysize
-    int    overlayminsize
-    int    overlaymaxsize
-    labelObj label
-	               </programlisting>
-			</sect3>
-			<sect3 id="Class_methods">
-				<title>Methods:</title>
-				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.
-
-    int setexpression(string expression)
-         Set the expression string for the class object.
-           
-    int settext(string text)
-         Set the text string for the class object.
-         
-    int drawLegendIcon(int width, int height, imageObj im, int dstX, int dstY)
-         Draw the legend icon on im object at dstX, dstY.
-         Returns MS_SUCCESS/MS_FAILURE.
-
-    imageObj createLegendIcon(int width, int height)
-         Draw the legend icon and return a new imageObj.         
+        Example : $oMap-&gt;outputformat-&gt;setformatoption("OUTPUT_TYPE", "RASTER");
+     
+   string  getformatoption(string property_name)
+        Returns the associated value for the format option property passed
+        as argument. Returns an empty string if property not found.				
 				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="ImageObj">
-			<title>ImageObj Class</title>
-			<sect3 id="Img_contructor">
-				<title>Constructor:</title>
-				<programlisting>
-    Instances of ImageObj are always created by the map class methods.
-				</programlisting>
-			</sect3>
-			<sect3 id="Img_members">
-				<title>Members:</title>
-				<programlisting>
-    int    width     (read-only)
-    int    height    (read-only)
-    string imagepath
-    string imageurl				
-				</programlisting>
-			</sect3>
-			<sect3 id="Img_methods">
-				<title>Methods:</title>
-				<programlisting>
-    void free()
-         Destroys resources used by an image object.
-
-    int saveImage(string filename, int type, int transparent, int interlace, 
-                  int quality)
-         Writes image object to specifed filename.
-         Passing an empty filename sends output to stdout.  In this case,
-         the PHP header() function should be used to set the documents's
-         content-type prior to calling saveImage().
-         Type can be either MS_GIF, MS_PNG, MS_JPEG or MS_WBMP (depends on
-         which version of GD was used to compile MapScript)
-         Quality should be a value in the range 0-95, higher value implies
-         higher image quality and larger image sizes.
-         If quality is negative, then the default IJG JPEG quality value is 
-         used (the quality value is ignored for all formats other than JPEG).
-         The function returns -1 on error.  On success, it returns either 0
-         if writing to an external file, or the number of bytes written if 
-         output is sent to stdout.
-
-    string saveWebImage(int type, int transparent, int interlace, int quality)
-         Writes image to temp directory.  Returns image URL.
-         Type can be either MS_GIF, MS_PNG, MS_JPEG or MS_WBMP (depends on
-         which version of GD was used to compile MapScript)
-         Quality should be a value in the range 0-95, higher value implies
-         higher image quality and larger image sizes.
-         If quality is negative, then the default IJG JPEG quality value is 
-         used  (the quality value is ignored for all formats other than JPEG).
-         
-    void pasteImage(imageObj srcImg, int transparentColorIndex [, int dstX, dstY])
-         Copy srcImg on top of the current imageObj.
-         transparentColorIndex is the color from srcImg that should be
-         considered transparent (i.e. those pixels won't be copied).  
-         Pass -1 if you don't want any transparent color.
-         If optional dstx,dsty are provided then it defines the position 
-         where the image should be copied (dstx,dsty = top-left corner 
-         position).         
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="labelobj">
-			<title>LabelObj Class</title>
-			<sect3 id="Lab_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    LabelObj are always embedded inside other classes.
-				</programlisting>
-			</sect3>
-			<sect3 id="Lab_members">
-				<title>Members:</title>
-				<programlisting>
-    string font
-    int    type
-    int    color
-    int    outlinecolor
-    int    shadowcolor
-    int    shadowsizex
-    int    shadowsizey
-    int    backgroundcolor
-    int    backgroundshadowcolor
-    int    backgroundshadowsizex
-    int    backgroundshadowsizey
-    int    size
-    int    minsize
-    int    maxsize
-    int    position
-    int    offsetx
-    int    offsety
-    double angle
-    int    autoangle
-    int    buffer
-    int    antialias
-    int    wrap
-    int    minfeaturesize
-    int    autominfeaturesize
-    int    mindistance
-    int    partials
-    int    force				
-				</programlisting>
-			</sect3>
-			<sect3 id="Lab_methods">
-				<title>Method:</title>
-				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.				
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="webobj">
-			<title>WebObj Class</title>
-			<sect3 id="web_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    Instances of WebObj are always are always embedded inside the MapObj.				
-				</programlisting>
-			</sect3>
-			<sect3 id="web_members">
-				<title>Members:</title>
-				<programlisting>
-    string log
-    string imagepath
-    string template              
-    string imageurl
-    string header
-    string footer
-    string empty     (read-only)
-    string error     (read-only)
-    string mintemplate
-    string maxtemplate
-    double minscale
-    double maxscale
-    rectObj extent   (read-only)				
-				</programlisting>
-			</sect3>
-			<sect3 id="web_methods">
-				<title>Method:</title>
-				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.				
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="referenceMapObj">
-			<title>referenceMapObj Class</title>
-			<sect3 id="ref_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    Instances of referenceMapObj are always embedded inside the mapObj.				
-				</programlisting>
-			</sect3>
-			<sect3 id="ref_members">
-				<title>Members:</title>
-				<programlisting>
-    string   image
-    int      width
-    int      height
-    int      status
-    rectObj  extent       (read-only)
-    ColorObj color        (read-only)
-    ColorObj outlinecolor (read-only)
-				</programlisting>
-			</sect3>
-			<sect3 id="ref_method">
-				<title>Method:</title>
-				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.				
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="colorobj">
-			<title>ColorObj Class</title>
-			<sect3 id="col_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    Instances of ColorObj are always embedded inside other classes.
- 				</programlisting>
-			</sect3>
-			<sect3 id="col_members">
-				<title>Members:</title>
-				<programlisting>
-    int    red
-    int    green
-    int    blue
-				</programlisting>
-			</sect3>
-			<sect3 id="col_methods">
-				<title>Method:</title>
-				<programlisting>
-    void setRGB(int red, int green, int blue)
-         Set red, green, blue values.
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="pointobj">
+			</sect4>
+		</sect3>		
+		<sect3 id="pointobj">
 			<title>PointObj Class</title>
-			<sect3 id="pt_constructor">
+			<sect4 id="pt_constructor">
 				<title>Constructor:</title>
 				<programlisting>
-    PointObj ms_newPointObj()
+PointObj ms_newPointObj()
 			     </programlisting>
-			</sect3>
-			<sect3 id="pt_members">
+			</sect4>
+			<sect4 id="pt_members">
 				<title>Members:</title>
 				<programlisting>
-    double x
-    double y
-    double m //used for measured shape files. set to 0 for other types.        
+   double x
+   double y
+   double m  (used only for measured shape files. set to 0 for other types.)   
 				</programlisting>
-			</sect3>
-			<sect3 id="pt_methods">
+			</sect4>
+			<sect4 id="pt_methods">
 				<title>Methods:</title>
 				<programlisting>
-    int setXY(double x, double y, double m)
-         Set X,Y coordinate values.
-         Note : the 3rd parameter m is used for measured shape files. It is not mandatory.         
+   int setXY(double x, double y [, double m])
+        Set X,Y coordinate values.
+        Note : the 3rd parameter m is used for measured shape files only.
+        It is not mandatory.
+        Returns 0 on success, -1 on error.
 
-    int draw(mapObj map, layerObj layer, imageObj img, 
-             int class_index, string text)
-         Draws the individual point using layer.  The class_index is used
-         to classify the point based on the classes defined for the layer.
-         The text string is used to annotate the point.
-         Returns MS_SUCCESS/MS_FAILURE.
-
-    double distanceToPoint(pointObj poPoint)
-         Calculates distance between two points.  
-
-    double distanceToLine(pointObject p1, pointObject p2)
-         Calculates distance between a point and a line defined by the
-         two points passed in argument. 
-
-    double distanceToShape(shapeObj shape)
-         Calculates the minimum distance between a point and a shape.
-
-    projectionObj project(projectionObj in, projectionObj out)
-         Project the point from "in" projection (1st argument) to "out" 
-         projection (2nd argument).
-
-    void free()
-         Releases all resources used by the object.       
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="LineObj">
-			<title>LineObj Class</title>
-			<sect3 id="line_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    LineObj ms_newLineObj()				
-				</programlisting>
-			</sect3>
-			<sect3 id="line_members">
-				<title>Members:</title>
-				<programlisting>
-    int    numpoints  (read-only)				
-				</programlisting>
-			</sect3>
-			<sect3 id="line_methods">
-				<title>Methods:</title>
-				<programlisting>
-    int add(pointObj point)
-         Add a point to the end of line.
-
-    int addXY(double x, double y, double m)
-         Add a point to the end of line.
-         Note : the 3rd parameter m is used for measured shape files. It is not mandatory.         
-
-    PointObj point(int i)
-         Returns a reference to point number i.  Reference is valid only
-         during the life of the lineObj that contains the point.
-
-    projectionObj project(projectionObj in, projectionObj out)
-         Project the line from "in" projection (1st argument) to "out" 
-         projection (2nd argument).
-
-    void free()
-         Destroys resources used by a line object.     
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="ShapeObj">
-			<title>ShapeObj Class</title>
-			<sect3 id="shape_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    ShapeObj ms_newShapeObj(int type)
-         'type' is one of MS_SHAPE_POINT, MS_SHAPE_LINE, MS_SHAPE_POLYGON or
-         MS_SHAPE_NULL				
-				</programlisting>
-			</sect3>
-			<sect3 id="shape_members">
-				<title>Members:</title>
-				<programlisting>
-    string  text
-    int     classindex
-    int     type      (read-only)
-    int     numlines  (read-only)
-    int     index     (read-only)
-    int     tileindex (read-only)
-    rectObj bounds    (read-only)
-    int     numvalues (read-only)
-    array   values    (read-only)
-
-    The values array is an associative array with the attribute values for
-    this shape.  It is set only on shapes obtained from layer->getShape().
-    The key to the values in the array is the attribute name, e.g. 
-     $population = $shape->values["Population"];				
-				</programlisting>
-			</sect3>
-			<sect3 id="shape_methods">
-				<title>Methods:</title>
-				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.
-				
-    int add(lineObj line)
-         Add a line (i.e. a part) to the shape.
-
-    LineObj line(int i)
-         Returns a reference to line number i.  Reference is valid only
-         during the life of the shapeObj that contains the point.
-
-    int draw(mapObj map, layerObj layer, imageObj img, 
+   int draw(mapObj map, layerObj layer, imageObj img, 
             int class_index, string text)
-         Draws the individual shape using layer.  The class_index is used
-         to classify the shape based on the classes defined for the layer.
-         The text string is used to annotate the shape.
-         Returns MS_SUCCESS/MS_FAILURE.
+        Draws the individual point using layer.  The class_index is used
+        to classify the point based on the classes defined for the layer.
+        The text string is used to annotate the point.
+        Returns MS_SUCCESS/MS_FAILURE.
 
-    boolean contains(pointObj point)
-         Returns MS_TRUE if the point is inside the shape, MS_FALSE otherwise.
+  double distanceToPoint(pointObj poPoint)
+       Calculates distance between two points.  
 
-    boolean intersects(shapeObj shape)
-         Returns MS_TRUE if the two shapes intersect, MS_FALSE otherwise.
-   
-    projectionObj project(projectionObj in, projectionObj out)
-         Project the shape from "in" projection (1st argument) to "out" 
-         projection (2nd argument).
+  double distanceToLine(pointObject p1, pointObject p2)
+        Calculates distance between a point ad a lined defined by the
+        two points passed in argument. 
 
-    pointObj getpointusingmeasure(double m)
-         Apply only on Measured shape files. Given a measure m, retun the 
-         corresponding XY location on the shapeobject.
-   
-    pointObj getmeasureusingpoint(pointObject point)
-         Apply only on Measured shape files. Given an XY Location, find the 
-         nearest point on the shape object. Return a point object
-         of this point with the m value set.
-         
-    void free()
-         Destroys resources used by a shape object.  
-			 	</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="rectObj">
-			<title>RectObj Class</title>
-			<sect3 id="rect_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    RectObj are sometimes embedded inside other objects.  New ones can
-    also be created with:
+  double distanceToShape(shapeObj shape)
+        Calculates the minimum distance between a point and a shape.
 
-    RectObj ms_newRectObj()				
+  int project(projectionObj in, projectionObj out)
+        Project the point from "in" projection (1st argument) to "out" 
+        projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.
+      
+  void free()
+       Releases all resources used by the object.    
 				</programlisting>
-			</sect3>
-			<sect3 id="rect_members">
-				<title>Members:</title>
-				<programlisting>
-    double minx
-    double miny
-    double maxx
-    double maxy				
-				</programlisting>
-			</sect3>
-			<sect3 id="rect_methods">
-				<title>Methods:</title>
-				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.
-
-    void setextent(double minx, double miny, double maxx, double maxy)
-         Set the rectangle extents.
-
-    int draw(mapObj map, layerObj layer, imageObj img, 
-             int class_index, string text)
-         Draws the individual rectangle using layer.  The class_index is used
-         to classify the rectangle based on the classes defined for the layer.
-         The text string is used to annotate the rectangle.
-         Returns MS_SUCCESS/MS_FAILURE.
-
-   double fit(int width, int height)
-         Adjust extents of the rectangle to fit the width/height specified.
-
-   projectionObj project(projectionObj in, projectionObj out)
-         Project the rectangle from "in" projection (1st argument) to "out" 
-         projection (2nd argument).
-
-   void free()
-         Destroys resources used by a rect object.  				
-				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="shapefileObj">
-			<title>ShapefileObj Class</title>
-			<sect3 id="shp_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    shapefileObj ms_newShapefileObj(string filename, int type)
-         Opens a shapefile and returns a new object to deal with it. 
-         Filename should be passed with no extension.
-         To create a new file (or overwrite an existing one), type should 
-         be one of MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON or 
-         MS_SHP_MULTIPOINT.
-         Pass type as -1 to open an existing file for read-only access,
-         and type=-2 to open an existing file for update (append).
-			</programlisting>
-			</sect3>
-			<sect3 id="shp_members">
-				<title>Members:</title>
-				<programlisting>
-    int     numshapes  (read-only)
-    int     type       (read-only)
-    string  source     (read-only)
-    rectObj bounds     (read-only)
-			</programlisting>
-			</sect3>
-			<sect3 id="shp_methods">
-				<title>Methods:</title>
-				<programlisting>
-    shapeObj getShape(int i)
-         Retrieve shape by index.
-
-    shapeObj getPoint(int i)
-         Retrieve point by index.
-
-    shapeObj getTransformed(mapObj map, int i)
-         Retrieve shape by index.
-
-    rectObj getExtent(int i)
-         Retrieve a shape's bounding box by index.
-
-    int addShape(shapeObj shape)
-         Appends a shape to an open shapefile.
-
-    int addPoint(pointObj point)
-         Appends a point to an open shapefile.
-
-    void free()
-         Closes a shape file (and commits all changes in write mode) and 
-         releases all resources used by the object.			
-			</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="result">
-			<title>ResultCacheMemberObj Class</title>
-			<sect3 id="result_constructor">
-				<title>Constructor:</title>
-				<programlisting>
-    Instances of ResultCacheMemberObj are always obtained through 
-    layerObj's getResult() method.
-				</programlisting>
-			</sect3>
-			<sect3 id="result_members">
-				<title>Members:</title>
-				<programlisting>
-    int    shapeindex    (read-only)
-    int    tileindex     (read-only)
-    int    classindex    (read-only)
- 				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="proj">
+			</sect4>
+		</sect3>
+		<sect3 id="proj">
 			<title>ProjectionObj Class</title>
-			<sect3 id="proj_constructor">
+			<sect4 id="proj_constructor">
 				<title>Constructor:</title>
 				<programlisting>
     shapefileObj ms_newprojectionobj(string projectionstring)
@@ -1146,119 +1178,368 @@
     $poPoint->setXY(-92.0, 62.0);         
     $poPoint = $poPoint->project($projInObj, $projOutObj);				
 				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="scale">
+			</sect4>
+		</sect3>		
+		<sect3 id="rectObj">
+			<title>RectObj Class</title>
+			<sect4 id="rect_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   RectObj are sometimes embedded inside other objects.  New ones can
+   also be created with:
+
+   RectObj ms_newRectObj()			
+				</programlisting>
+			</sect4>
+			<sect4 id="rect_members">
+				<title>Members:</title>
+				<programlisting>
+   double minx
+   double miny
+   double maxx
+   double maxy			
+				</programlisting>
+			</sect4>
+			<sect4 id="rect_methods">
+				<title>Methods:</title>
+				<programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.
+
+   void setextent(double minx, double miny, double maxx, double maxy)
+	Set the rectangle extents.
+
+   int draw(mapObj map, layerObj layer, imageObj img, 
+            int class_index, string text)
+        Draws the individual rectangle using layer.  The class_index is used
+        to classify the rectangle based on the classes defined for the layer.
+        The text string is used to annotate the rectangle.
+        Returns MS_SUCCESS/MS_FAILURE.
+
+  double fit(int width, int height)
+        Adjust extents of the rectangle to fit the width/height specified.
+
+  int project(projectionObj in, projectionObj out)
+        Project the rectangle from "in" projection (1st argument) to "out" 
+        projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.
+
+  void free()
+        Destroys resources used by a rect object. 			
+				</programlisting>
+			</sect4>
+		</sect3>		
+		<sect3 id="referenceMapObj">
+			<title>ReferenceMapObj Class</title>
+			<sect4 id="ref_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   Instances of referenceMapObj are always embedded inside the mapObj.			
+				</programlisting>
+			</sect4>
+			<sect4 id="ref_members">
+				<title>Members:</title>
+				<programlisting>
+   string   image
+   int      width
+   int      height
+   int      status
+   rectObj  extent
+   ColorObj color
+   ColorObj outlinecolor
+				</programlisting>
+			</sect4>
+			<sect4 id="ref_method">
+				<title>Method:</title>
+				<programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.			
+				</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="result">
+			<title>ResultCacheMemberObj Class</title>
+			<sect4 id="result_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   Instances of ResultCacheMemberObj are always obtained through 
+   layerObj's getResult() method.
+				</programlisting>
+			</sect4>
+			<sect4 id="result_members">
+				<title>Members:</title>
+				<programlisting>
+   int    shapeindex    (read-only)
+   int    tileindex     (read-only)
+   int    classindex    (read-only)
+ 				</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="scale">
 			<title>ScalebarObj Class</title>
-			<sect3 id="scale_constructor">
+			<sect4 id="scale_constructor">
 				<title>Constructor:</title>
 				<programlisting>
-    Instances of scalebarObj are always embedded inside the mapObj.
+   Instances of scalebarObj are always are always embedded inside the mapObj.
 				</programlisting>
-			</sect3>
-			<sect3 id="scale_members">
+			</sect4>
+			<sect4 id="scale_members">
 				<title>Members:</title>
 				<programlisting>
-    int height
-    int width
-    int style      
-    int intervals
-    int color
-    int backgroundcolor            
-    int outlinecolor
-    int units
-    int status //MS_ON, MS_OFF, MS_EMBED
-    int position //for embeded scalebars, MS_UL, MS_UC, ...
-    int transparent
-    int interlace
-    int postlabelcache
-    labelObj label
-    colorObj imagecolor
+   int height;
+   int width;
+   int style;      
+   int intervals;
+   colorObj color;
+   colorObj backgroundcolor;            
+   colorObj outlinecolor;
+   int units;
+   int status; //MS_ON, MS_OFF, MS_EMBED
+   int position; //for embeded scalebars, MS_UL, MS_UC, ...
+   int transparent;
+   int interlace;
+   int postlabelcache;
+   labelObj label;
+   colorObj imagecolor;
 				</programlisting>
-			</sect3>
-			<sect3 id="scale_methods">
+			</sect4>
+			<sect4 id="scale_methods">
 				<title>Methods:</title>
 				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.
-         
-    int setimagecolor(int red, int green, int blue)
-         Sets the imagecolor propery (background) of the object. Returns false on error.           
+      int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.
+        
+      int setimagecolor(int red, int green, int blue)
+        Sets the imagecolor propery (baclground) of the object.
+        Returns false on error.         
 				</programlisting>
-			</sect3>
-		</sect2>
-		<sect2 id="legend">
-			<title>LegendObj Class</title>
-			<sect3 id="leg_constructor">
+			</sect4>
+		</sect3>				
+		<sect3 id="shapefileObj">
+			<title>ShapefileObj Class</title>
+			<sect4 id="shp_constructor">
 				<title>Constructor:</title>
 				<programlisting>
-    Instances of legendObj are always are always embedded inside the mapObj.
-				</programlisting>
-			</sect3>
-			<sect3 id="leg_members">
+   shapefileObj ms_newShapefileObj(string filename, int type)
+        Opens a shapefile and returns a new object to deal with it. 
+        Filename should be passed with no extension.
+        To create a new file (or overwrite an existing one), type should 
+        be one of MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON or 
+        MS_SHP_MULTIPOINT.
+        Pass type as -1 to open an existing file for read-only access,
+	and type=-2 to open an existing file for update (append).
+			</programlisting>
+			</sect4>
+			<sect4 id="shp_members">
 				<title>Members:</title>
 				<programlisting>
-    int height
-    int width
-    int keysizex      
-    int keysizey
-    int keyspacingx
-    int keyspacingy
-    int outlinecolor //Colour of outline of box, -1 for no outline
-    int status //MS_ON, MS_OFF, MS_EMBED
-    int position //for embeded legends, MS_UL, MS_UC, ...
-    int transparent
-    int interlace
-    int postlabelcache //MS_TRUE, MS_FALSE
-    labelObj label
-    colorObj imagecolor
-				</programlisting>
-			</sect3>
-			<sect3 id="leg_methods">
+   int     numshapes  (read-only)
+   int     type       (read-only)
+   string  source     (read-only)
+   rectObj bounds     (read-only)
+			</programlisting>
+			</sect4>
+			<sect4 id="shp_methods">
 				<title>Methods:</title>
 				<programlisting>
-    int set(string property_name, new_value)
-         Set object property to a new value. Returns -1 on error.
+   shapeObj getShape(int i)
+        Retrieve shape by index.
+
+   shapeObj getPoint(int i)
+        Retrieve point by index.
+      
+   shapeObj getTransformed(mapObj map, int i)
+        Retrieve shape by index.
+
+   rectObj getExtent(int i)
+        Retrieve a shape's bounding box by index.
+
+   int addShape(shapeObj shape)
+        Appends a shape to an open shapefile.
+        
+   int addPoint(pointObj point)
+        Appends a point to an open shapefile.
+
+   void free()
+        Closes a shape file (and commits all changes in write mode) and 
+        releases all resources used by the object.		
+			</programlisting>
+			</sect4>
+		</sect3>				
+		<sect3 id="ShapeObj">
+			<title>ShapeObj Class</title>
+			<sect4 id="shape_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   ShapeObj ms_newShapeObj(int type)
+        'type' is one of MS_SHAPE_POINT, MS_SHAPE_LINE, MS_SHAPE_POLYGON or
+        MS_SHAPE_NULL			
 				</programlisting>
-			</sect3>
+			</sect4>
+			<sect4 id="shape_members">
+				<title>Members:</title>
+				<programlisting>
+   string  text
+   int     classindex
+   int     type      (read-only)
+   int     numlines  (read-only)
+   int     index     (read-only)
+   int     tileindex (read-only)
+   rectObj bounds    (read-only)
+   int     numvalues (read-only)
+   array   values    (read-only)
+
+   The values array is an associative array with the attribute values for
+   this shape.  It is set only on shapes obtained from layer->getShape().
+   The key to the values in the array is the attribute name, e.g. 
+     $population = $shape->values["Population"];			
+				</programlisting>
+			</sect4>
+			<sect4 id="shape_methods">
+				<title>Methods:</title>
+				<programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.
+ 
+   int add(lineObj line)
+        Add a line (i.e. a part) to the shape.
+
+   LineObj line(int i)
+        Returns a reference to line number i.  Reference is valid only
+        during the life of the shapeObj that contains the point.
+
+   int draw(mapObj map, layerObj layer, imageObj img)
+        Draws the individual shape using layer.
+        Returns MS_SUCCESS/MS_FAILURE.
+
+   boolean contains(pointObj point)
+        Returns MS_TRUE if the point is inside the shape, MS_FALSE otherwise.
+
+   boolean intersects(shapeObj shape)
+        Returns MS_TRUE if the two shapes intersect, MS_FALSE otherwise.
+     
+   int project(projectionObj in, projectionObj out)
+        Project the shape from "in" projection (1st argument) to "out" 
+        projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.
+
+   pointObj getpointusingmeasure(double m)
+        Apply only on Measured shape files. Given a measure m, retun the 
+        corresponding XY location on the shapeobject.
+   
+   pointObj  getmeasureusingpoint(pointObject point)
+       Apply only on Measured shape files. Given an XY Location, find the 
+       nearest point on the shape object. Return a point object
+       of this point with the m value set.
+
+   void free()
+        Destroys resources used by a shape object.  
+			 	</programlisting>
+			</sect4>
+		</sect3>
+		<sect3 id="style">
+			<title>StyleObj Class</title>
+			<sect4 id="style_contructor">
+				<title>Constructor:</title>
+				<programlisting>
+   Instances of styleObj are always embedded inside the classObj.
+
+   styleObj ms_newStyleObj(classObj class)				
+				</programlisting>
+			</sect4>
+			<sect4 id="style_members">
+				<title>Members:</title>
+				<programlisting>
+  int           symbol
+  string        symbolname
+  int           size
+  int           minsize 
+  int           maxsize 
+  int           offsetx
+  int           offsety
+  colorObj      color
+  colorObj      backgroundcolor
+  colorObj      outlinecolor				
+				</programlisting>
+			</sect4>
+			<sect4 id="style_methods">
+				<title>Methods:</title>
+				<programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.				
+				</programlisting>
+			</sect4>
+		</sect3>				
+		<sect3 id="webobj">
+			<title>WebObj Class</title>
+			<sect4 id="web_constructor">
+				<title>Constructor:</title>
+				<programlisting>
+   Instances of webObjare always are always embedded inside the mapObj.			
+				</programlisting>
+			</sect4>
+			<sect4 id="web_members">
+				<title>Members:</title>
+				<programlisting>
+   string log;
+   string imagepath
+   string template		
+   string imageurl
+   string header
+   string footer
+   string empty     (read-only)
+   string error     (read-only)
+   string mintemplate
+   string maxtemplate
+   double minscale
+   double maxscale
+   rectObj extent   (read-only)			
+				</programlisting>
+			</sect4>
+			<sect4 id="web_methods">
+				<title>Method:</title>
+				<programlisting>
+      int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.		
+				</programlisting>
+			</sect4>
+		</sect3>
 		</sect2>
 	</sect1>
-<!-- Section1: FAQ -->
+	<!-- Section1: FAQ -->
 	<sect1 id="FAQ">
 		<title>FAQ / Common Problems</title>
-			<qandaset defaultlabel="qanda">
-					<qandaentry>
-						<question>
-							<para>
+		<qandaset defaultlabel="qanda">
+			<qandaentry>
+				<question>
+					<para>
 							   How do I change the colour of a shape on-the-fly?
 						     </para>
-						</question>
-						<answer>
-						      <para>
+				</question>
+				<answer>
+					<para>
 						          Say you have an image object that you are trying to draw more objects on:
 						      </para>
-						      <programlisting>
+					<programlisting>
     &#36;imageObj = &#36;mapObj-&gt;draw();
     &#36;pointObj-&gt;draw(&#36;mapObj, &#36;layerObj, &#36;imageObj, 0, &#36;label);						
 						      </programlisting>
-						      <para>
+					<para>
 						          Fine. However, you want to change the colour of the point on the fly 
                                         before you draw it:
 						      </para>
-						      <programlisting>
+					<programlisting>
     &#36;imageObj = &#36;mapObj-&gt;draw();
     &#36;classObj = &#36;layerObj-&gt;getClass(0);
     &#36;newColour = &#36;mapObj-&gt;addColor(255,0,0);
     &#36;classObj-&gt;set('color', &#36;newColour);
     &#36;pointObj-&gt;draw(&#36;mapObj, &#36;layerObj, &#36;imageObj, 0, &#36;label);						
 						      </programlisting>
-						      <para>
+					<para>
 This won't work. In order to get the result you want, you must call
 &#36;mapObj-&gt;draw(); after you add your colour to the palatte.						
 						      </para>
-	                         </answer>
-	                      </qandaentry>
-	            </qandaset>
+				</answer>
+			</qandaentry>
+		</qandaset>
 	</sect1>
 	<!-- Section1: Document Info -->
 	<sect1 id="docinfo">
@@ -1266,7 +1547,7 @@ This won't work. In order to get the result you want, you must call
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
