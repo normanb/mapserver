@@ -372,50 +372,43 @@
       by default:
     </para>
 
-
     <programlisting>&lt;head&gt;&lt;title&gt;MapServer Demo Interface&lt;/title&gt;&lt;/head&gt;</programlisting>
-
 
     <para>
       Change that to look like this:
     </para>
 
-
     <programlisting>
-	&lt;head&gt;
-	&lt;title&gt;MapServer Demo Interface&lt;/title&gt;
+    &lt;head&gt;
+      &lt;title&gt;MapServer Demo Interface&lt;/title&gt;
 
-	&lt;SCRIPT LANGUAGE="JavaScript"&gt;
+      &lt;SCRIPT LANGUAGE="JavaScript"&gt;
 
-	function setbox_handler(name, minx, miny, maxx, maxy) {
-		document.mapserv.imgbox.value = minx + " " + miny + " " + maxx + " " + maxy;
-		document.mapserv.imgxy.value = minx + " " + miny;
-		  // Additional code can go here prior to the form submit, below.
-		  // For example, form validation code.
-		document.mapserv.submit();
-	}
+        function setbox_handler(name, minx, miny, maxx, maxy) {
+          document.mapserv.imgbox.value = minx + " " + miny + " " + maxx + " " + maxy;
+          document.mapserv.imgxy.value = minx + " " + miny;
+          // Additional code can go here prior to the form submit, below.
+          // For example, form validation code.
+          document.mapserv.submit();
+        }
 
-	function seterror_handler(message) { 
-		alert(message);
-	}
+        function seterror_handler(message) { 
+          alert(message);
+        }
 
-	&lt;/SCRIPT&gt;
-
-	&lt;/head&gt;
+      &lt;/SCRIPT&gt;
+    &lt;/head&gt;
     </programlisting>
-
 
     <para>
       Note the use of "mapserv" on the left side of the assignment 
       statements in the <function>setbox_handler</function> function:
     </para>
 
-
     <programlisting>
       document.mapserv.imgbox.value = ...
       document.mapserv.imgxy.value = ...
     </programlisting>
-
 
     <para>
       This is the name attribute that we assigned to the form above.
@@ -429,7 +422,6 @@
       to the applet.  
     </para>
   </sect2>
-
 
   <sect2 id="replacedef">
     <title>Replace output map image definition</title>
@@ -474,37 +466,30 @@
       </programlisting>
   
       <para>
-      	Note: For PNG image support, use 
-      	     <programlisting>
-      	     	code="jBoxPNG.class"
-      	     	archive="jBoxPNG.jar,png.jar"
-      	     </programlisting>
-      	above.
+        Note: For PNG image support, use 
+       <programlisting>
+        code="jBoxPNG.class"
+        archive="jBoxPNG.jar,png.jar"
+       </programlisting>
+      above.
       </para>
       <para>
         Let's pick this applet definition apart a bit.
       </para>
-  
+
       <sect3>
         <title>A Closer Look</title>
 
-
         <variablelist><title>The &lt;applet&gt; tag</title>
-
 
           <varlistentry><term>codebase</term>
             <listitem>
               <para>
                 Specifies the path, relative to the html document
-                root, to the directory containing the needed class file(s).  If
+                root, to the directory containing the needed class file(s). If
                 you put your class files in a directory structure other than
                 <filename class="directory">/java/jBox</filename>, you will
                 need to change the codebase attribute accordingly.
-                  <note><para>
-                    You can also use a url for the codebase attribute,
-                    so that the class files could actually be located just about
-                    anywhere on the Internet.
-                  </para></note>
               </para>
             </listitem>
           </varlistentry>
@@ -534,12 +519,10 @@
                 substitution and define the width and height as:
                </para>
                <programlisting>
-						width=[mapwidth] height=[mapheight]
+        width=[mapwidth] height=[mapheight]
                 </programlisting>
             </listitem>
-            
           </varlistentry>
-          
           <varlistentry><term>name</term>
             <listitem>
               <para>
@@ -579,53 +562,30 @@
           </varlistentry>
         </variablelist>
 
-
-
     </sect3>
-
-
   </sect2>
 </sect1>
-
 
 <sect1 id="firstrun">
   <title>A First Run</title>
 
-
   <para>
-    When you have made the changes to
-    <filename>demo.html</filename> detailed in the previous section,
-    you will be able to load the modified version into your
-    browser.  Load the front page and hit the
-    <guilabel>Initialize</guilabel> button.  You can now specify
-    a zoom extent by dragging a box over the map.  You'll need to have
-    the <guilabel>Browse map</guilabel> button on, and hit the
-    <guilabel>Refresh/Query</guilabel> button in order to make the box
-    zoom take effect.
+    Load the initilization page (<filename>demo_init.html</filename>) and hit the
+    <guilabel>Initialize</guilabel> button. Select &quot;Zoom In&quot;, and you can now define
+    the zoom extent by dragging a box over the map. (You'll need to have
+    the <guilabel>Browse map</guilabel> button on.)
   </para>
   
   <para>
-    What's more, if you turn on the <guilabel>Query multiple
-    features</guilabel> button, drag a box, and hit the
-    <guilabel>Query/Refresh</guilabel> button, you'll get back results
+    Additionally, if you turn on the <guilabel>Query multiple
+    features</guilabel> button, drag a box, and you'll get back results
     for all of the features that intersect the bounds of your box.
-  </para>
-
-
-  <para>
-    However, if you turn on the <guilabel>Query feature</guilabel>
-    button and try to get information on some feature, you may get
-    the error message:
-    <errorname>mapserv(): Web application error. Query mode needs a point, imgxy and mapxy are not set.</errorname>
-    This is discussed in more detail, below.
   </para>
 
 </sect1>
 
-
 <sect1 id="finetune">
 <title>Fine-tuning with JavaScript</title>
-
 
   <sect2 id="box_on_off">
   <title>Turning Box Dragging On and Off</title>
@@ -649,7 +609,6 @@
       calling the methods is:
     </para>
 
-
     <programlisting>
       document.jBox.boxoff();
     </programlisting>
@@ -659,7 +618,6 @@
       In the MapServer demo, you might place the code in an event
       handler in a form control.  For example:
     </para>
-
 
     <programlisting>
        Zoom Out &lt;input type=radio
@@ -689,25 +647,11 @@
     <para>
 		The state of boxon(), dragon(), etc. is lost each time the
 		page is submitted. Typically you would use some Javascript to
-		reset the state as appropriate to the current mode. Below is a very 
-		simple example of such code, which could be inserted at the bottom of the 
-		body section of the <filename>demo.html</filename> page, or called 
-		by the page body's <function>onLoad()</function> function.
+		reset the state as appropriate to the current mode.
     </para>
 
-    <programlisting>
-       &lt;SCRIPT LANGUAGE="JavaScript"&gt;
-         if (document.mapserv.zoomdir[0].checked) // Zoom In
-           document.jBox.boxon();
-         if (document.mapserv.zoomdir[1].checked) // Pan
-           document.jBox.dragon();
-         if (document.mapserv.zoomdir[2].checked) // Zoom Out
-           document.jBox.boxoff();
-       &lt;/SCRIPT&gt;
-    </programlisting>
   </sect2>    
 </sect1>
-
 
 <sect1 id="parameters">
 <title>Optional <application>jBox</application> Parameters</title>
@@ -718,11 +662,9 @@
     from <filename>demo.html</filename>:
   </para>
 
-
   <programlisting>
     &lt;param name="image" value="http://[host][img]"&gt;
   </programlisting>
-
 
   <para>
     The "image" parameter must be specified in order for the
@@ -734,18 +676,15 @@
     tag with the general form
   </para>
 
-
   <programlisting>
     &lt;param name="somename" value="somevalue"&gt;
   </programlisting>
-
 
   <para>
     must appear between the opening and closing applet tags.  
     A list of the optional jBox parameters, their purpose 
     and valid values is given below.
   </para>
-
 
   <variablelist><title>Optional parameters</title>
     <varlistentry><term>jitter</term>
@@ -792,13 +731,11 @@
     </varlistentry>
     <varlistentry><term>verbose</term>
       <listitem>
-      
         <para>
           Enables/disables cursor location reporting. 
           Valid values are "true" or "false". (Mapplet used "on" and "off")
           Default is "false".  Note that in order to use this feature, 
           three additional JavaScript functions must be defined:
-
           	<variablelist>
 				 <varlistentry><term>mouseenter_handler(name)</term>
 				 	<listitem>
@@ -852,7 +789,6 @@
     </varlistentry>
   </variablelist>
 
-
 </sect1>
 
 <sect1 id="methods">
@@ -860,35 +796,30 @@
 
 <variablelist>
 	<!--<title>Optional parameters</title>-->
-
     <varlistentry><term>boxon()</term>
       <listitem>
         <para>toggles box drawing on.
         </para>
       </listitem>
     </varlistentry>
-    
     <varlistentry><term>boxoff()</term>
       <listitem>
         <para>toggles box (and line) drawing off.
         </para>
       </listitem>
     </varlistentry>
-
 	<varlistentry><term>lineon()</term>
       <listitem>
         <para>toggles line drawing on, and box drawing off.
         </para>
       </listitem>
     </varlistentry>
-    
     <varlistentry><term>lineoff()</term>
       <listitem>
         <para>synonym for <function>boxoff()</function>, turns both line and box drawing off.
         </para>
       </listitem>
     </varlistentry>
-
     <varlistentry><term>dragon()</term>
       <listitem>
         <para>
@@ -897,28 +828,24 @@
         </para>
       </listitem>
     </varlistentry>
-
      <varlistentry><term>dragoff()</term>
        <listitem>
          <para>synonym for <function>boxoff()</function>
          </para>
        </listitem>
     </varlistentry>
-
     <varlistentry><term>setimage(string)</term>
       <listitem>
         <para>displays the image loaded from the passed url.
         </para>
       </listitem>
     </varlistentry>
-    
     <varlistentry><term>setcursor(string)</term>
       <listitem>
         <para>sets the cursor to one of crosshair, hand or default
         </para>
       </listitem>
     </varlistentry>
-
     <varlistentry><term>version()</term>
       <listitem>
         <para>returns jBox version number string</para>
@@ -930,7 +857,6 @@
 </sect1>
 
 
-
 <sect1 id="jscript_func">
 <title>JavaScript Functions</title>
 	<para>
@@ -939,10 +865,8 @@
 	  to communicate back to the HTML page, it calls a JavaScript function. The following is a list 
 	  of JavaScript functions that may be called be jBox.
 	</para>
-	
   <variablelist>
 	<title>JavaScript Functions</title>
-
     <varlistentry><term>setbox_handler(name, minx, miny, maxx, maxy, redraw)</term>
       <listitem>
         <para>
