@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-03-11</date>
+		<date>2002-04-05</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 03/11/2002</para>
+			<para>Last Updated: 04/05/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -84,7 +84,7 @@
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_avc.html">ArcInfo Coverages</ulink>,
 				    </para>
-				</listitem>			
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
@@ -94,7 +94,7 @@
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>,
 				    </para>
-				</listitem>				
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_mitab.html">MapInfo TAB and  
@@ -105,22 +105,22 @@
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">Microstation DGN files</ulink>,
 				    </para>
-				</listitem>				
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
 				    </para>
-				</listitem>	
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>,
 				    </para>
-				</listitem>				
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
 				    </para>
-				</listitem>							
+				</listitem>
 				<listitem>
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>,
@@ -130,7 +130,7 @@
 					<para>
 						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format).
 				    </para>
-				</listitem>				
+				</listitem>
 			</itemizedlist>
 			<para>
 				<emphasis>Note1: Some of the above formats (e.g. OGDI) have external dependencies
@@ -437,7 +437,7 @@
 	...
 	END
                </programlisting>
-			</example>			
+			</example>
 		</sect2>
 		<!-- Section2: How to Use OGRINFO -->
 		<sect2 id="ogrinfo">
@@ -599,13 +599,13 @@
 		</sect2>
 		<sect2 id="tileindex">
 			<title>TILEINDEX with OGR</title>
-
-<para>
+			<para>
 OGR layers can utilize tile indexes in a similar fashion to Shapefile based 
 layers.  The TILEINDEX keyword should contain the connection string for the 
 tile index file.  The tile index file may be any supported OGR format, 
 including shapefiles.
-</para><para>
+</para>
+			<para>
 The TILEITEM keyword in the LAYER definition indicates
 what attribute from the tile index file should be used as the datasource 
 location.  If omitted, the default TILEITEM value is "location".  The value 
@@ -613,15 +613,16 @@ in the location field should be a connection string the same as would have
 been used in the CONNECTION field for OGR layers.  The CONNECTION keyword is
 not needed (and will be ignored) for layers using the OGR connection type
 and having the TILEINDEX keyword. 
-</para><para>
+</para>
+			<para>
 Tileindex files can be prepared in an external GIS, or using the OGR utility
 ogrtindex.  Details can be found on the OGR Utilities Page at
 <ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html">http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html</ulink>.
 </para>
-<para>
+			<para>
 The following is a simple example a point layer using a tile index.
 </para>
-<programlisting>
+			<programlisting>
 LAYER
   NAME "ogr_points"
   TYPE POINT
@@ -635,7 +636,7 @@ LAYER
   END
 END
 </programlisting>
-<para>
+			<para>
 OGR tileindex layers should support all normal query and attribute fetching 
 mechanisms, including from MapScript; however, this has not been heavily tested
 as of April/2002.  Please report problems via the MapServer Bugzilla.  If
@@ -729,17 +730,62 @@ attributes).
 		<sect2>
 			<title>Important Notes</title>
 			<para>
-				<emphasis>NOTE 1: Even though MapInfo and other OGR data sources may support layers with mixed
+				NOTE 1: Even though MapInfo and other OGR data sources may support layers with mixed
 		geometry types (e.g. points, lines and polygons in the same file) this is
 		not yet supported in MapServer.  So you still have to define a layer 'TYPE' 
 		and make sure that all the shapes in the OGR data source are compatible with
 		that layer type, otherwise MapServer may produce an error about incompatible
-		geometry types at runtime.</emphasis>
+		geometry types at runtime.
 			</para>
 			<para>
-				<emphasis>NOTE 2: Due to the dynamic nature of this feature, it is not compatible with the 
+				NOTE 2: Due to the dynamic nature of this feature, it is not compatible with the 
 		labelcache, so the labelcache is automatically disabled for layers that
-		make use of 'STYLEITEM "AUTO"'.</emphasis>
+		make use of 'STYLEITEM "AUTO"'.
+			</para>
+			<para>
+				NOTE 3: When you use STYLEITEM AUTO, MapServer tries to match symbol names
+				returned by OGR to names in your symbol file.  For a quick solution, try
+				using the following symbol file:
+			</para>
+			<para>
+				<ulink url="http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym">
+				http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym</ulink>
+			</para>
+			<para>
+				The name of the symbols returned by OGR to MapServer depends on the file
+				format.  In the case of MapInfo files, it will be:
+			</para>
+			<itemizedlist>
+				<listitem>
+					<para>
+						For "old-style" symbols (default MapInfo 3.0 symbols numbered 32 to
+  						67) the symbol name will be 'mapinfo-sym-##' where '##' is the symbol
+  						number, e.g. 'mapinfo-sym-32'.
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>
+						For "Font Symbols", the symbol name is also 'mapinfo-sym-##' where
+  						'##' is the symbol number in the font.  In this case, the name of 
+  						the font itself is ignored by MapServer.
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>
+						MapInfo also supports "custom symbols" (bitmap symbols)... I'm not
+  						sure what you would get from OGR for this, but I'm pretty sure that
+  						MapServer doesn't do anything useful with them.
+					</para>
+				</listitem>
+			</itemizedlist>
+			<para>
+				The <link linkend="ogrinfo">OGRINFO</link> utility can be used to find out exactly
+				which symbol names OGR will return to MapServer.  Look at the "Style"
+				string in the ogrinfo output for each shape that is read.
 			</para>
 		</sect2>
 		<sect2>
