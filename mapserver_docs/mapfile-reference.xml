@@ -221,13 +221,13 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>BACKGROUNDCOLOR [r][g][b]</term>
+					<term>BACKGROUNDCOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to draw a background rectangle (i.e. billboard). Off by default.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>BACKGROUNDSHADOWCOLOR [r][g][b]</term>
+					<term>BACKGROUNDSHADOWCOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to draw a background rectangle (i.e. billboard) shadow. Off by default.</para>
 					</listitem>
@@ -245,7 +245,7 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>COLOR [r][g][b]</term>
+					<term>COLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to draw text with.</para>
 					</listitem>
@@ -293,7 +293,7 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>OUTLINECOLOR [r][g][b]</term>
+					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to draw a one pixel outline around the text.</para>
 					</listitem>
@@ -311,7 +311,7 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>SHADOWCOLOR [r][g][b]</term>
+					<term>SHADOWCOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color of drop shadow.</para>
 					</listitem>
@@ -388,7 +388,6 @@
 						<para>Switch to allow mapserver to return data in GML format. Usefull when used with WMS GetFeatureInfo operations. "false" by default</para>
 					</listitem>
 				</varlistentry>
-
 				<varlistentry>
 					<term>FEATURE</term>
 					<listitem>
@@ -509,7 +508,7 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>OFFSITE [color index]</term>
+					<term>OFFSITE [r] [g] [b]</term>
 					<listitem>
 						<para>Sets the color index to treat as transparent for raster layers.</para>
 					</listitem>
@@ -629,13 +628,13 @@ PROCESSING "BANDS=3,2,1,4"
 			</para>
 			<variablelist>
 				<varlistentry>
-					<term>BACKGROUNDCOLOR [r][g][b]</term>
+					<term>BACKGROUNDCOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for non-transparent symbols.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>COLOR [r][g][b]</term>
+					<term>COLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for drawing features.</para>
 					</listitem>
@@ -689,7 +688,7 @@ PROCESSING "BANDS=3,2,1,4"
 					</listitem>
 				</varlistentry>
 				<varlistentry id="outlinecolor">
-					<term>OUTLINECOLOR [r][g][b]</term>
+					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for outlining polygons and certain marker symbols. Line symbols do not support outline colors.</para>
 					</listitem>
@@ -770,7 +769,7 @@ PROCESSING "BANDS=3,2,1,4"
 			<para>Defines how a legend is to be built. Legend components are built automatically from class objects from individual layers.  Starts with the keyword <emphasis>LEGEND</emphasis> and terminates with the keyword <emphasis>END</emphasis>. The size of the legend image is <emphasis>NOT</emphasis> known prior to creation so be careful not to hard-code width and height in the &lt;IMG> tag in the template file.</para>
 			<variablelist>
 				<varlistentry>
-					<term>IMAGECOLOR [r][g][b]</term>
+					<term>IMAGECOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to initialize the legend with (i.e. the background).</para>
 					</listitem>
@@ -788,7 +787,7 @@ PROCESSING "BANDS=3,2,1,4"
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>OUTLINECOLOR [r][g][b]</term>
+					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for outlining symbol key boxes.</para>
 					</listitem>
@@ -836,7 +835,7 @@ PROCESSING "BANDS=3,2,1,4"
 			<para>Defines a mechanism to map the results of a query. Starts with the keyword <emphasis>QUERYMAP</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
 			<variablelist>
 				<varlistentry id="color">
-					<term>COLOR [r][g][b]</term>
+					<term>COLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color in which features are highlighted. Default is yellow.</para>
 					</listitem>
@@ -919,7 +918,7 @@ PROCESSING "BANDS=3,2,1,4"
 			<para>Defines how reference maps are to be created. Starts with the keyword <emphasis>REFERENCE</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Three types of reference maps are supported. The most common would be one showing the extent of a map in an interactive interface. It is also possible to request reference maps as part of a query. Point queries will generate an image with a marker (see below) placed at the query point. Region based queries will depict the extent of the area of interest. Finally, feature based queries will display the selection feature(s) used.</para>
 			<variablelist>
 				<varlistentry>
-					<term>COLOR [r][g][b]</term>
+					<term>COLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color in which the reference box is drawn. Set any component to -1 for no fill. Default is red.</para>
 					</listitem>
@@ -939,7 +938,7 @@ PROCESSING "BANDS=3,2,1,4"
 			</variablelist>
 			<variablelist>
 				<varlistentry>
-					<term>OUTLINECOLOR [r][g][b]</term>
+					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for outlining the reference box. Set any component to -1 for no outline.</para>
 					</listitem>
@@ -963,19 +962,19 @@ PROCESSING "BANDS=3,2,1,4"
 			<para>Defines how a scalebar should be built. Starts with the keyword <emphasis>SCALEBAR</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Scalebars currently do not make use of TrueType fonts. The size of the scalebar image is <emphasis>NOT</emphasis> known prior to rendering, so be careful not to hard-code width and height in the &lt;IMG> tag in the template file. Future versions will make the image size available.</para>
 			<variablelist>
 				<varlistentry>
-					<term>BACKGROUNDCOLOR [r][g][b]</term>
+					<term>BACKGROUNDCOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for scalebar background, not the image background.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>COLOR [r][g][b]</term>
+					<term>COLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for drawing all features if attribute tables are not used.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>IMAGECOLOR [r][g][b]</term>
+					<term>IMAGECOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to initialize the scalebar with (i.e. background).</para>
 					</listitem>
@@ -999,7 +998,7 @@ PROCESSING "BANDS=3,2,1,4"
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>OUTLINECOLOR [r][g][b]</term>
+					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
 						<para>Color to use for outlining individual intervals.  Set any component to -1 for no outline which is the default.</para>
 					</listitem>
