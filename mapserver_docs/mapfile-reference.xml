@@ -415,9 +415,9 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>STATUS [on|off|default|queryonly]</term>
+					<term>STATUS [on|off|default]</term>
 					<listitem>
-						<para>Sets the current status of the layer. Often modified by MapServer itself.  Default turns the layer on permanently. Query only means the layer can be queried but not drawn.</para>
+						<para>Sets the current status of the layer. Often modified by MapServer itself.  Default turns the layer on permanently.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -445,9 +445,9 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>TYPE [point|line|polyline|polygon|annotation|raster]</term>
+					<term>TYPE [point|line|polyline|polygon|annotation|raster|queryonly]</term>
 					<listitem>
-						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, but a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line.</para>
+						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, but a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line. Query only means the layer can be queried but not drawn.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
