@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>Mapserver PHP/Mapscript Installation HOWTO</title>
+		<title>Mapserver PHP/Mapscript Installation HOWTO - Version 3.7/4.0</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
@@ -16,26 +16,26 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-11-06</date>
+		<date>2003-07-09</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
          This document describes the procedures for obtaining, compiling and installing the PHP/Mapscript Module for Mapserver.
       </para>
-			<para>Last Updated: 11/06/2001</para>
+			<para>Last Updated: 07/09/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
 			The PHP/MapScript module is a PHP dynamically loadable module that makes <ulink url="http://mapserver.gis.umn.edu/mapscript.html">MapServer's
-               MapScript</ulink> functions and classes available in a PHP3/PHP4 environment. 		
+               MapScript</ulink> functions and classes available in a PHP4 environment. 		
           </para>
 		<para>
-			The original version of MapScript (in Perl) uses <ulink url="http://www.swig.org/">SWIG</ulink>, but since 				SWIG does not support the PHP language, the module has to be maintained separately and may not always be in 			sync with the Perl version. 
+			The original version of MapScript (in Perl) uses <ulink url="http://www.swig.org/">SWIG</ulink>, but since SWIG does not support the PHP language, the        module has to be maintained separately and may not always be in sync with the Perl version. 
           </para>
 		<para>
-			The PHP module was developed and is currently maintained by <ulink url="http://www.dmsolutions.ca/">DM 				Solutions Group</ulink>. 
+			The PHP module was developed and is currently maintained by <ulink url="http://www.dmsolutions.ca/">DM Solutions Group</ulink>. 
           </para>
 		<para>
              This document assumes that you are already familiar with certain aspects of your operating system:
@@ -57,14 +57,9 @@
 		<sect2 id="version">
 			<title>Which version of PHP is supported?</title>
 			<para>
-				The module was originally developed for PHP-3.0.14 and works with more recent versions of PHP3. It
-                    has also been ported to PHP4: PHP4 support started being available with the release of MapServer
-                    version 3.4.
-			</para>
-			<para>    
-				Note that a PHP MapScript compiled for PHP3 won't work with PHP4 and vice-versa. The MapServer
-                    configure script should automatically detect which version of PHP you are attempting to build with and
-                    take the necessary actions. 
+				PHP MapScript was originally developed for PHP-3.0.14 but after MapServer
+				3.5 support for PHP3 has been dropped and as of the last update of this
+				document, PHP 4.1.2 or more recent was required.
 			</para>
 			<para>
 				The best combinations of Mapscript and PHP versions are:
@@ -72,14 +67,14 @@
 			<itemizedlist>
 				<listitem>
 					<para>
-						Mapscript 3.4 with PHP4.0.4p11 or 4.0.5 (does not work with PHP4.0.6).
+						Mapscript 3.6 with PHP 4.1.2 and up (PHP 4.3.2 or more recent recommended)
 					</para>
 				</listitem>
 				<listitem>
 					<para>
-						Mapscript 3.5 with PHP4.0.6 (PHP &lt; 4.0.6 is no longer supported).
+						Mapscript 4.0 with PHP 4.1.2 and up (PHP 4.3.2 or more recent recommended)
 					</para>
-				</listitem>
+				</listitem>									
 			</itemizedlist>
 		</sect2>
 		<!-- Section2: More information on the module -->
@@ -93,6 +88,11 @@
                       http://www2.dmsolutions.ca/mapserver/php_mapscript/index.html</ulink>.
                </para>
 				</listitem>
+				<listitem>
+					<para>
+						The <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScript">MapServer Wiki</ulink> also has PHP/Mapscript build and installation 							notes and some php code snippets.
+               			</para>
+				</listitem>				
 				<listitem>
 					<para>
 		            Questions regarding the module should be forwarded to the <ulink url="http://mapserver.gis.umn.edu/support.html">Mapserver mailing list</ulink>.
@@ -253,17 +253,9 @@
 		</sect2>
 		<sect2 id="install">
 			<title>Installing PHP/Mapscript</title>
-			<itemizedlist>
-				<listitem>
-					<para>Simply copy the file <filename>php4_mapscript.dll</filename> to your PHP3/PHP4 directory</para>
-					<para>
-						For PHP4, place the file into the <emphasis>pathto/php/extensions</emphasis> folder.
+					<para>Simply copy the file <filename>php4_mapscript.dll</filename> to your PHP4 extensions directory
+					(pathto/php/extensions)
 					</para>
-					<para>
-						For PHP3, place the file into the <emphasis>pathto/php3</emphasis> folder.
-					</para>
-				</listitem>
-			</itemizedlist>
 		</sect2>
 		<sect2 id="verify">
 			<title>Using phpinfo()</title>
@@ -549,13 +541,24 @@
 						</para>
 						</question>
 						<answer>
+							<itemizedlist>
+							<listitem>
 							<para>
 								The main reference document is the 
 								<ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html">PHP/Mapscript 									Class Reference Guide</ulink>, which describes all of the current classes, properties and 									methods associated with the PHP/Mapscript module. 
 							</para>
+							</listitem>
+							<listitem>						
 							<para>
-                    				To get a more complete description of each class and the meaning of their member variables, see 								the MapServer MapScript documentation at: <ulink url="http://mapserver.gis.umn.edu/mapscript.html">http://mapserver.gis.umn.edu/mapscript.html</ulink> and the 										MapFile documentation at: <ulink url="http://mapserver.gis.umn.edu/mapfile.html">										http://mapserver.gis.umn.edu/mapfile.html</ulink>.                   
-							</para>
+                    				To get a more complete description of each class and the meaning of their member variables, see 								the MapServer MapScript documentation at: <ulink url="http://mapserver.gis.umn.edu/doc33/mapscript.html">http://mapserver.gis.umn.edu/doc33/mapscript.html</ulink> and the 										MapFile documentation at: <ulink url="http://mapserver.gis.umn.edu/doc/mapfile-reference.html">										http://mapserver.gis.umn.edu/doc/mapfile-reference.html</ulink>.                   
+							</para>	
+							</listitem>	
+							<listitem>
+								<para>
+						The <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScript">MapServer Wiki</ulink> also has PHP/Mapscript build and installation 							notes and some php code snippets.								
+								</para>
+							</listitem>							
+							</itemizedlist>													
 						</answer>
 					</qandaentry>
 					<qandaentry>
@@ -565,15 +568,27 @@
 						</para>
 						</question>
 						<answer>
+							<itemizedlist>
+							<listitem>
 							<para>
 						Some examples are included in directory mapserver/mapscript/php3/examples/ in the MapServer
                     		source distribution. A good one to get started is 'test_draw_map.phtml': it's a very simple script that
                     		just draws a map, legend and scalebar in an HTML page. 
 						</para>
+							</listitem>	
+							<listitem>				
+						<para>
+							A good intermediate example is the <ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-byexample-howto.html">
+							PHP/Mapscript By Example HOWTO</ulink> (note that this is for v3.5 but the code might be still useful)
+						</para>
+							</listitem>
+							<listitem>							
 							<para>
-                    		Unfortunately there is nothing intermediate yet... the next example is the <ulink url="http://www2.dmsolutions.ca/gmap/gmap75.phtml">GMap demo</ulink>. You can
+                    				     The next example is the <ulink url="http://www2.dmsolutions.ca/gmap/gmap75.phtml">GMap demo</ulink>. You can
                     		download the whole source and data files from <ulink url="http://www2.dmsolutions.ca/mapserver/dl">							http://www2.dmsolutions.ca/mapserver/dl</ulink>.
 						</para>
+							</listitem>						
+							</itemizedlist>						
 						</answer>
 					</qandaentry>
 				</qandadiv>
@@ -586,17 +601,31 @@
 						</para>
 						</question>
 						<answer>
+						<itemizedlist>
+							<listitem>
 							<para>
-						First, copy the PHP test page mapserver/mapscript/php3/examples/phpinfo_mapscript.phtml and try
-                    		to access it through your web server. If you get no error and the MapScript module shows up at the
-                    		bottom of the list of PHP modules in the phpinfo() output, then the module is properly installed. 
-						</para>
+							    	Create a file called phpinfo.phtml with the following contents:
+								<programlisting>
+       &lt;?php  dl("php_mapscript.so");
+              phpinfo();
+       ?&gt;
+								</programlisting>
+							</para>
+							<para>
+							      Make sure you replace the php_mapscript.so with the name under which
+							      you installed it, it could be php_mapscript_40.so on Unix, or 
+							      php_mapscript_40.dll on Windows								
+							</para>
+							</listitem>
+							<listitem>					
 							<para>
                     		You can then try the second test page mapserver/mapscript/php3/examples/test_draw_map.phtml.
                     		This page simply opens a MapServer .map file and inserts its map, legend, and scalebar in an HTML
                     		page. Modify the page to access one of your own MapServer .map files, and if you get the expected
                     		result, then everything is probably working fine. 
-						</para>
+							</para>
+							</listitem>	
+						</itemizedlist>						
 						</answer>
 					</qandaentry>
 					<qandaentry>
@@ -623,32 +652,7 @@
 					<qandaentry>
 						<question>
 							<para>
-						 	 I compiled php_mapscript.so on RedHat 6.2, it loads properly and is listed in the phpinfo()
-               				output, but it crashes as soon as it try to open a .map file. What's wrong? 
-						</para>
-						</question>
-						<answer>
-							<para>
-							On RedHat 6.2, Apache is compiled with the -DEAPI option which apparently has an impact on DSO
-                    			modules like libphp3.so. I don't understand what -DEAPI does exactly, but it definitely has an impact
-                    			on the way php_mapscript.so should be compiled. 
-						</para>
-							<para>
-                    			You have to install apache-devel-1.3.12-2.i386.rpm, re-run configure in your PHP source directory 								with the --with-apxs switch (and all the other switches that the RH6.2 libphp3.so was compiled with), 							and then run configure in the mapserver directory with the --with-apxs switch as well. 
-						</para>
-							<para>
-                    			Then recompile php_mapscript.so (make clean; make), copy it to /usr/lib/apache and everything
-                    			should work fine. 
-						</para>
-							<para>
-                    			See the <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_redhat.html">step by step instructions for RedHat 							users</ulink> for more details.
-						</para>
-						</answer>
-					</qandaentry>
-					<qandaentry>
-						<question>
-							<para>
-							I installed the PROJ.4 RPM from remotesensing.org on my system, it is recognized by
+							I installed the PROJ.4, GDAL, or one of the support libraries on my system, it is recognized by
                				MapServer's "configure" as a system lib but at runtime I get an error: "libproj.so.0: No such file or
                				directory". 
 						</para>
@@ -656,7 +660,7 @@
 						<answer>
 							<para>
 							You are probably running a RedHat Linux system if this happened to you. This happens because the
-                    			RPM installs itself under /usr/local/lib but this directory is not part of the runtime library path by 								default on your system. 
+                    			libraries install themselves under /usr/local/lib but this directory is not part of the runtime library path by 								default on your system. 
 						</para>
 							<para>
                     			(I'm still surprised that "configure" picked proj.4 as a system lib since it's not in the system's lib 								path...probably something magic in autoconf that we'll have to look into) 
@@ -676,10 +680,23 @@
 					</literallayout>
 							<para>
                     I personally prefer option #2 because it is permanent and applies to everything running on your
-                    system. Proj.4 probably won't be the only package to install itself in /usr/local/lib.
+                    system.
 						</para>
 						</answer>
 					</qandaentry>
+					<qandaentry>
+						<question>
+							<para>
+								Does PHP/Mapscript have to be setup as a CGI?  If so, why?
+							</para>
+						</question>
+						<answer>
+							<para>
+								Yes, please see the <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScriptCGI">
+								PHP/Mapscript CGI</ulink> page in the Mapserver Wiki for details.
+							</para>
+						</answer>
+					</qandaentry>					
 					<qandaentry>
 						<question>
 							<para>
@@ -705,56 +722,6 @@
 					<qandaentry>
 						<question>
 							<para>
-							Why can't both PHP and MapScript be compiled with Freetype support? 
-						</para>
-						</question>
-						<answer>
-							<para>
-							You cannot have Freetype enabled in both PHP and MapServer because of a conflict with the gdttf.c
-                    			and gdcache.c files that are included in both PHP and MapServer but are not identical. 
-						</para>
-							<para>
-                    			We may try to fix that conflict in the future, but in the meantime, one of PHP or MapServer has to be
-                    			compiled using --without-ttf. This is especially important with PHP4 because it includes TTF support
-                    			by default. 
-						</para>
-						</answer>
-					</qandaentry>
-					<qandaentry>
-						<question>
-							<para>
-						Does MapScript require that PHP3/PHP4 be a DSO? 
-					</para>
-						</question>
-						<answer>
-							<para>
-						It does not, it will work either way. 
-						</para>
-							<para>
-                    		However, if PHP was compiled as a DSO then you will have to pass the --with-apxs switch to the
-                    		Maperver configure script. It is very important that the --with-apxs switch be provided if PHP was
-                    		compiled as an Apache DSO, especially on systems like RedHat 6.2 where Apache comes compiled
-                   			with the -DEAPI switch and this has an impact on DSO modules. 
-						</para>
-							<para>
-                    We have used the PHP MapScript module with Apache with the 3 following configurations:
-						<literallayout>
-                         A - With PHP3 as a DSO
-                         B - With PHP3 statically linked into Apache (httpd)
-                         C - With PHP3 as a CGI
-						</literallayout>
-							</para>
-							<para>
-                    Note that for configurations B and C, the "-rdynamic" flag has to be added the LDFLAGS for Apache
-                    (configuration B) or for PHP (configuration C) in order to enable loading shared libs (php_mapscript.so)
-                    from your static executable (httpd or php). You don't need to do anything special for configuration A
-                    because this is already taken care of when Apache is compiled to support DSO modules. 
-						</para>
-						</answer>
-					</qandaentry>
-					<qandaentry>
-						<question>
-							<para>
 								What are the best combinations of Mapscript and PHP versions?
 							</para>
 						</question>
@@ -765,43 +732,15 @@
 							<itemizedlist>
 								<listitem>
 									<para>
-									Mapscript 3.4 with PHP4.0.4p11 or 4.0.5 (does not work with PHP4.0.6).
+									Mapscript 3.6 with PHP4.1.2 and up (PHP4.3.2 or more recent recommended)
 								</para>
 								</listitem>
 								<listitem>
 									<para>
-									Mapscript 3.5 with PHP4.0.5 or 4.0.6 ( as well as 4.0.4p11).
+									Mapscript 4.0 with PHP4.1.2 and up (PHP4.3.2 or more recent recommended)
 								</para>
-								</listitem>
+								</listitem>								
 							</itemizedlist>
-						</answer>
-					</qandaentry>
-				</qandadiv>
-				<qandadiv>
-					<title>General Questions</title>
-					<qandaentry>
-						<question>
-							<para>
-							I am running PHP 4.0.6 and I get crashes or "Invalid _handle_" errors when calling
-               				map->getLayer(). 
-						</para>
-						</question>
-						<answer>
-							<para>
-							There was a problem with the PHP/MapScript module in version 3.4 (and the development version 3.5
-                    			until 2001/07/20) that caused crashes or odd error situations starting with PHP4.0.6, most of the 								time with the map->getLayer() call. This happens on both Windows and Unix. 
-						</para>
-							<para>
-                    			See <ulink url="http://mapserver.gis.umn.edu/bugs/show_bug.cgi?id=23">Bug #23</ulink> for more 								details on this bug. 
-						</para>
-							<para>
-                    			The solution is to either use MapServer 3.5 (dev. version after 2001/07/20) with PHP4.0.6 or newer, or
-                    			MapServer 3.4 with PHP4.0.5 or older. PHP3 was not affected by this problem. 
-						</para>
-							<para>
-                    			Note that backtracking to older versions of MapServers such as 3.4 or 3.3.011 with PHP 4.0.6 is not
-                    			likely to resolve the problem. 
-						</para>
 						</answer>
 					</qandaentry>
 				</qandadiv>
@@ -814,7 +753,7 @@
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
                 This documentation is covered by the same Open Source license as the

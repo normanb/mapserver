@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>Mapserver PHP/MapScript Class Reference - Version 3.7</title>
+		<title>Mapserver PHP/MapScript Class Reference - Version 3.7/4.0</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
@@ -16,14 +16,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2003-06-04</date>
+		<date>2003-07-09</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
 			  module.
                </para>
-			<para>Last Updated: 06/04/2003</para>
+			<para>Last Updated: 07/09/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -505,6 +505,7 @@ is only used to give the possiblity to free the label cache
    string template
    string styleitem
    gridObj grid //only available on a layer defined as grid (MS_GRATICULE) 
+   int num_processing
 			</programlisting>
 				</sect4>
 				<sect4 id="Lay_methods">
@@ -641,7 +642,19 @@ is only used to give the possiblity to free the label cache
         or if it is not queriable.
         
    char ** getItems()
-        return a list of items. Must call open function first.     
+        return a list of items. Must call open function first. 
+    
+   boolean setProcessing(string)
+        Add the string to the processing string list for the layer.
+        The layer->num_processing is incremented by 1.
+        Ex : $oLayer->setprocessing("SCALE_1=AUTO");
+             $oLayer->setprocessing("SCALE_2=AUTO");       
+
+   aString getProcessing
+        Returns an array containing the processing strings
+
+   boolean clearProcessing
+        Clears all the processing strings
 		     </programlisting>
 				</sect4>
 			</sect3>
@@ -1019,8 +1032,10 @@ LineObj ms_newLineObj()
               $tmparray["my_tag"] = "value_of_my_tag";
               $map->processtemplate($tmparray, MS_FASLE);
          
-   char *processquerytemplate(array params)     
+   char *processquerytemplate(array params, boolean generateimages)     
        Process query template files and return the resut in a buffer.
+       Second argument generateimages is not manadatory. If not given
+       it will be set to TRUE.       
 
        See also : processtemplate function.
    
@@ -1505,42 +1520,7 @@ PointObj ms_newPointObj()
 		</sect2>
 	</sect1>
 	<!-- Section1: FAQ -->
-	<sect1 id="FAQ">
-		<title>FAQ / Common Problems</title>
-		<qandaset defaultlabel="qanda">
-			<qandaentry>
-				<question>
-					<para>
-							   How do I change the colour of a shape on-the-fly?
-						     </para>
-				</question>
-				<answer>
-					<para>
-						          Say you have an image object that you are trying to draw more objects on:
-						      </para>
-					<programlisting>
-    &#36;imageObj = &#36;mapObj-&gt;draw();
-    &#36;pointObj-&gt;draw(&#36;mapObj, &#36;layerObj, &#36;imageObj, 0, &#36;label);						
-						      </programlisting>
-					<para>
-						          Fine. However, you want to change the colour of the point on the fly 
-                                        before you draw it:
-						      </para>
-					<programlisting>
-    &#36;imageObj = &#36;mapObj-&gt;draw();
-    &#36;classObj = &#36;layerObj-&gt;getClass(0);
-    &#36;newColour = &#36;mapObj-&gt;addColor(255,0,0);
-    &#36;classObj-&gt;set('color', &#36;newColour);
-    &#36;pointObj-&gt;draw(&#36;mapObj, &#36;layerObj, &#36;imageObj, 0, &#36;label);						
-						      </programlisting>
-					<para>
-This won't work. In order to get the result you want, you must call
-&#36;mapObj-&gt;draw(); after you add your colour to the palatte.						
-						      </para>
-				</answer>
-			</qandaentry>
-		</qandaset>
-	</sect1>
+               <!-- insert FAQs here -->
 	<!-- Section1: Document Info -->
 	<sect1 id="docinfo">
 		<title>About This Document</title>
