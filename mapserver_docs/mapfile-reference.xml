@@ -50,6 +50,9 @@
 				<listitem>
 					<para>Comments are designated with a #.</para>
 				</listitem>
+				<listitem>
+					<para>Attributes are named using the following syntax: [ATTRIBUTENAME] ... Note that the name of the attribute included between the square brackets IS CASE SENSITIVE.  Generally ESRI generated shapefiles have their attributes (.dbf column names) all in upper-case for instance, and for PostGIS, ALLWAYS use lower-case.</para>
+				</listitem>
 			</itemizedlist>
 		</sect2>
 		<sect2 id="map">
@@ -354,20 +357,23 @@
 				<varlistentry>
 					<term>CONNECTION [string]</term>
 					<listitem>
-						<para>Database connection string to retrieve remote data. At present only ESRI SDE is supported.  An SDE connection string consists of a hostname, instance name, database name, username and password separated by commas.</para>
+						<para>Database connection string to retrieve remote data.</para>
+						<para>An SDE connection string consists of a hostname, instance name, database name, username and password separated by commas.</para>
+						<para>A PostGIS connection string is basically a regular PostgreSQL connection string, it takes the form of "user=nobody password=****** dbname=dbname host=localhost port=5432"</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>CONNECTIONTYPE [local|sde|ogr]</term>
+					<term>CONNECTIONTYPE [local|sde|ogr|postgis]</term>
 					<listitem>
 						<para>Type of connection. Default is local.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>DATA [filename]|[sde parameters]</term>
+					<term>DATA [filename]|[sde parameters][postgis table/column]</term>
 					<listitem>
 						<para>Full filename of the spatial data to process. No file extension is necessary for shapefiles. Can be specified relative to the <link linkend="shapepath">SHAPEPATH</link> option from the Map Object.</para>
 						<para>If this is an SDE layer, the parameter should include the name of the layer as well as the geometry column, i.e. "mylayer,shape".</para>
+						<para>If this is a PostGIS layer, the parameter should be in the form of "&lt;columnname&gt; from &lt;tablename&gt;", where "columnname" is the name of the column containing the geometry objects and "tablename" is the name of the table from which the geometry data will be read.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -379,7 +385,8 @@
 				<varlistentry id="filter">
 					<term>FILTER [string]</term>
 					<listitem>
-						<para>This parameter allows for data specific attribute filtering that is done at the same time spatial filtering is done, but before any CLASS expressions are evaluated.  For OGR and shapefiles the string is simply a mapserver regular expression.  For SDE the string is a SQL WHERE clause that is valid with respect to the underlying database (e.g. Oracle)</para>
+						<para>This parameter allows for data specific attribute filtering that is done at the same time spatial filtering is done, but before any CLASS expressions are evaluated.  For OGR and shapefiles the string is simply a mapserver regular expression.  For SDE and PostGIS the string is a SQL WHERE clause that is valid with respect to the underlying database (e.g. Oracle/PostgreSQL)</para>
+						<para>For example: FILTER "type='road' and size &lt;2"</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
