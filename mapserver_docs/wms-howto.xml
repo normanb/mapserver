@@ -45,7 +45,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					Familiarity with the WMS spec would be an asset. A link to the WMS specification document is included in 					the "related links" section below.
+					Familiarity with the WMS spec would be an asset. A link to the WMS specification document is included in 					the <link linkend="links">"WMS-Related Information"</link> section below.
 				</para>
 			</listitem>
 		</itemizedlist>
@@ -675,7 +675,7 @@
 								<emphasis>Description:</emphasis> Optional contact address information.  If provided then 
       							all six  metadata items are required.																</para>
 						</listitem>
-					</itemizedlist>	
+					</itemizedlist>
 				</sect4>
 				<sect4 id="contactvoicetelephone">
 					<title>wms_contactvoicetelephone</title>
@@ -829,7 +829,8 @@
 						</listitem>
 						<listitem>
 							<para>
-								<emphasis>Note:</emphasis> <filename>wms_extent</filename> MUST be provided for raster 									layers in the current version since MapServer probing rasters for their extents is on the 
+								<emphasis>Note:</emphasis>
+								<filename>wms_extent</filename> MUST be provided for raster 									layers in the current version since MapServer probing rasters for their extents is on the 
       							TODO list!
 							</para>
 						</listitem>
