@@ -597,6 +597,54 @@
 				OGR layers can be queried the same way as regular shapefiles in MapServer.
 			</para>
 		</sect2>
+		<sect2 id="tileindex">
+			<title>TILEINDEX with OGR</title>
+
+<para>
+OGR layers can utilize tile indexes in a similar fashion to Shapefile based 
+layers.  The TILEINDEX keyword should contain the connection string for the 
+tile index file.  The tile index file may be any supported OGR format, 
+including shapefiles.
+</para><para>
+The TILEITEM keyword in the LAYER definition indicates
+what attribute from the tile index file should be used as the datasource 
+location.  If omitted, the default TILEITEM value is "location".  The value 
+in the location field should be a connection string the same as would have
+been used in the CONNECTION field for OGR layers.  The CONNECTION keyword is
+not needed (and will be ignored) for layers using the OGR connection type
+and having the TILEINDEX keyword. 
+</para><para>
+Tileindex files can be prepared in an external GIS, or using the OGR utility
+ogrtindex.  Details can be found on the OGR Utilities Page at
+<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html">http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html</ulink>.
+</para>
+<para>
+The following is a simple example a point layer using a tile index.
+</para>
+<programlisting>
+LAYER
+  NAME "ogr_points"
+  TYPE POINT
+  CONNECTIONTYPE OGR
+  TILEINDEX "PIP_ogr_tiles.shp,0"
+  STATUS ON
+  CLASS
+    SYMBOL "default-circle"
+    COLOR 255 0 0
+    SIZE 6
+  END
+END
+</programlisting>
+<para>
+OGR tileindex layers should support all normal query and attribute fetching 
+mechanisms, including from MapScript; however, this has not been heavily tested
+as of April/2002.  Please report problems via the MapServer Bugzilla.  If
+auto projection support is used for tileindexed OGR layers, the tileindex is
+read from the projeciton (not the component tiles).   Problems may (or may not)
+be encountered if the component tiles have differing schemas (different sets of
+attributes).
+</para>
+		</sect2>
 		<sect2 id="formatinfo">
 			<title>Format-Specific Information</title>
 			<para>
