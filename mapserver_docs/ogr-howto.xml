@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-06-28</date>
+		<date>2001-07-06</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 06/28/2001</para>
+			<para>Last Updated: 07/06/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -226,7 +226,7 @@
 			</itemizedlist>
 		</para>
 		<para>
-		     <emphasis>NOTE:</emphasis> SHAPEPATH parameter is ignored when accessing OGR data sources.
+			<emphasis>NOTE:</emphasis> SHAPEPATH parameter is ignored when accessing OGR data sources.
 	     </para>
 		<para>
                 &lt;layer_index&gt; is:
@@ -393,14 +393,14 @@
               </para>
 		</sect2>
 	</sect1>
-     <sect1 id="styleitem">
-          <title>STYLEITEM "AUTO" - Rendering Layers Using Style Information from the OGR File</title>
+	<sect1 id="styleitem">
+		<title>STYLEITEM "AUTO" - Rendering Layers Using Style Information from the OGR File</title>
 		<para>
-		  <emphasis>NOTE: This feature is only supported with MapInfo TAB files at the moment,
+			<emphasis>NOTE: This feature is only supported with MapInfo TAB files at the moment,
 		  but eventually other formats that carry colors and styles at the shape-level may also be supported through
-		  OGR.</emphasis> 
+		  OGR.</emphasis>
 		</para>
-	     <para>
+		<para>
 	       In MapServer, ArcView, and other shapefile-based applications, colors and 
 		  styles are usually defined at the layer level.  This means that all the shapes
 		  in a given layer are usually rendered using the same color and styles.
@@ -413,31 +413,31 @@
 	       the data source instead of being driven by CLASSes as was traditionally 
  		  done with MapServer.
 		</para>
-         <sect2>
-            <title>How to Implement</title>
-            <para>
+		<sect2>
+			<title>How to Implement</title>
+			<para>
               In order to have a layer rendered using colours and styles coming from the OGR data source, your must do
               the following:
             </para>
-		  <itemizedlist>
-			<listitem>
-			<para>
+			<itemizedlist>
+				<listitem>
+					<para>
 			  Your layer definition must contain the <function>STYLEITEM "AUTO"</function> parameter.	
 			</para>
-			</listitem>
-			<listitem>
-			<para>
+				</listitem>
+				<listitem>
+					<para>
 			  Your layer definition needs to contain at least one <function>CLASS</function> (which may be empty) and a 				  <function>CLASSITEM</function>.  The empty <function>CLASS</function> in the layer will be updated
 			  dynamically at runtime to contain colours and styles coming from the data source for each shape.
 			</para>
-			</listitem>
-		</itemizedlist>
-         </sect2>
-	    <sect2>
-		<title>Example</title>
-		<example>
-			<title>Layer Definition Using STYLEITEM "AUTO"</title>
-			<programlisting>
+				</listitem>
+			</itemizedlist>
+		</sect2>
+		<sect2>
+			<title>Examples</title>
+			<example>
+				<title>Layer Definition Using STYLEITEM "AUTO"</title>
+				<programlisting>
     LAYER
        NAME "Builtup_Areas_tab"
        TYPE POLYGON
@@ -456,175 +456,205 @@
        END
     END			
 			</programlisting>
-          </example>
-         <note><title>Please Note:</title>
-	    <para>
+			</example>
+			<note>
+				<title>Please Note:</title>
+				<para>
 	    CLASS EXPRESSIONs are still working, so it is still 
 	     possible to query and classify layers that are using STYLEITEM "AUTO".  
 		The only difference is that instead of using static class definitions, the
 		colors and style will be read from the data file.
 	    </para>
-	    </note>
-	    </sect2>
-	    <sect2>
-		<title>Important Notes</title>
-		<para>
-		<emphasis>NOTE 1: Even though MapInfo and other OGR data sources may support layers with mixed
+			</note>
+		</sect2>
+		<sect2>
+			<title>Important Notes</title>
+			<para>
+				<emphasis>NOTE 1: Even though MapInfo and other OGR data sources may support layers with mixed
 		geometry types (e.g. points, lines and polygons in the same file) this is
 		not yet supported in MapServer.  So you still have to define a layer 'TYPE' 
 		and make sure that all the shapes in the OGR data source are compatible with
 		that layer type, otherwise MapServer may produce an error about incompatible
 		geometry types at runtime.</emphasis>
-		</para>
-		<para>
-		<emphasis>NOTE 2: Due to the dynamic nature of this feature, it is not compatible with the 
+			</para>
+			<para>
+				<emphasis>NOTE 2: Due to the dynamic nature of this feature, it is not compatible with the 
 		labelcache, so the labelcache is automatically disabled for layers that
 		make use of 'STYLEITEM "AUTO"'.</emphasis>
-		</para>
-	</sect2>
-	<sect2>
-		<title>Mapping of OGR Style Info to the Mapserver CLASS Members</title>
-		<para>
+			</para>
+		</sect2>
+		<sect2>
+			<title>Mapping of OGR Style Info to the Mapserver CLASS Members</title>
+			<para>
 		  Here is the list of style parameters that are currently supported from OGR 
 		  data sources and how they're mapped in MapServer:
 		</para>
-	     <variablelist>
-		<varlistentry>
-			<term>Line color</term>
-			<listitem>
-			<para>
+			<variablelist>
+				<varlistentry>
+					<term>Line color</term>
+					<listitem>
+						<para>
 			The line colour is mapped to CLASS.COLOR
 			</para>
-			</listitem>
-          </varlistentry>
-		<varlistentry>
-			<term>Line thickness</term>
-			<listitem>
-			<para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Line thickness</term>
+					<listitem>
+						<para>
 			The default will be 1 pixel line (as it always is with MapServer).
   			In MapServer, in order to get lines thicker than 1 pixel, one has to
   			define a circle symbol that will be used to render the line (by applying
   			a size to the circle symbol).
 			</para>
-			<para>
+						<para>
 			So if your data source contains lines thicker than 1 pixel then you
   			need to provide a circle symbol in your symbolset and you must name it 
   			"default-circle".  If this symbol is present then the lines will be
   			drawn using their real thickness, otherwise all lines will be 1 pixel wide.
 			</para>
-			</listitem>
-		</varlistentry>
-	     <varlistentry>
-		     <term>Polygon fill color</term>
-		     <listitem>
-               <para>
-               <literallayout>Polygon fill color is mapped directly to CLASS.COLOR
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Polygon fill color</term>
+					<listitem>
+						<para>
+							<literallayout>Polygon fill color is mapped directly to CLASS.COLOR
 			</literallayout>
   			Note that at this time, transparent polygons are not supported (they're
   			always opaque).
           	</para>
-			</listitem>
-		</varlistentry>
-		<varlistentry>
-			<term>Polygon outline</term>
-			<listitem>
-			<para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Polygon outline</term>
+					<listitem>
+						<para>
 			If a polygon has an outline color and thickness defined in the data source
   			then the same rule as for line color and thickness above will apply, 
  			except that the outline color is mapped to CLASS.OUTLINECOLOR
-			</para>			
-			</listitem>
-          </varlistentry>
-		<varlistentry>
-			<term>Point symbols</term>
-			<listitem>
-			<para>
-			<literallayout>Point symbol color is directly mapped to CLASS.COLOR
+			</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Point symbols</term>
+					<listitem>
+						<para>
+							<literallayout>Point symbol color is directly mapped to CLASS.COLOR
 			Point symbol size is directly mapped to CLASS.SIZE
                </literallayout>
   			If your symbolset contains a symbol called "default-marker" then this
   			symbol will be used, otherwise the default will be CLASS.SYMBOL=0 
   			(i.e. a 1 pixel dot)
 			</para>
-			<para>
+						<para>
 			It is also possible (with a bit of work) to control which symbol
   			gets used in rendering point symbols.  OGR provides MapServer with symbol
   			names, and if the symbol name returned by OGR to MapServer matches the name
   			of one of the symbols in your symbolset then this symbol will be used.
 			</para>
-			<para>
+						<para>
 			For MapInfo point symbols (numbered 32 to 67 in the MapInfo MIF spec), 
   			the name returned by OGR is "mapinfo-sym-X" where X should be replaced 
   			with the MapInfo symbol number (e.g. "mapinfo-sym-35" is the star symbol).
 			</para>
-			</listitem>
-		</varlistentry>
-		<varlistentry>
-			<term>Text labels</term>
-			<listitem>
-			<para>
-			<literallayout>The text string is mapped to CLASS.TEXT
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Text labels</term>
+					<listitem>
+						<para>
+							<literallayout>The text string is mapped to CLASS.TEXT
 			Text color is mapped to CLASS.LABEL.COLOR
 			Text background color is mapped to CLASS.LABEL.BACKGROUNDCOLOR
 			Text height is mapped to CLASS.LABEL.SIZE
 			Text angle is mapped to CLASS.LABEL.ANGLE
 			</literallayout>
-			</para>
-			<para>
+						</para>
+						<para>
 			Text font mapping follows the following rules:
 			</para>
-               <orderedlist numeration="arabic" >
-			   <listitem>
-			   <para>
+						<orderedlist numeration="arabic">
+							<listitem>
+								<para>
 			   If TTF fonts are supported:
 			   </para>
-			   <orderedlist numeration="loweralpha" inheritnum="inherit">
-				<listitem>
-				<para>
+								<orderedlist numeration="loweralpha" inheritnum="inherit">
+									<listitem>
+										<para>
 				  If the native font name (e.g. "Arial") is found in your fontset 
          			  then this font will be used.
 				</para>
-				</listitem>
-				<listitem>
-				<para>
+									</listitem>
+									<listitem>
+										<para>
 				If 1a. failed and a font called "default" is present in your fontset
          		     then this "default" font will be used.
 				</para>
-				</listitem>
-			   </orderedlist>
-                  </listitem>
-			  <listitem>
-			  <para>
+									</listitem>
+								</orderedlist>
+							</listitem>
+							<listitem>
+								<para>
 			   If TTF fonts are not supported or if all above cases failed, then BITMAP MEDIUM
      	        font will be used.
 			  </para>
-			  </listitem>
-			</orderedlist>
-			</listitem>
-		</varlistentry>
-		</variablelist>
-	</sect2>
+							</listitem>
+						</orderedlist>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
 	</sect1>
+	<!-- Section1: Live Demos -->
+	<sect1 id="Sample_sites">
+		<title>Sample Sites Using OGR/Mapserver</title>
+		<para>
+		    The following sites use OGR's STYLEITEM "AUTO" feature:
+		</para>
+		<itemizedlist>
+			<listitem>
+		        <para>
+		           <ulink url="http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html</ulink>
+		        </para>
+			</listitem>
+			<listitem>
+		        <para>
+		           <ulink url="http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html</ulink>
+		        </para>
+			</listitem>
+		</itemizedlist>
+	     <para>
+	         The following site uses OGR, as well as MapInfo's 'Seamless Map Layers' feature:
+	    </para>
+	    <itemizedlist>
+			<listitem>
+		        <para>
+		           <ulink url="http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html</ulink>
+		        </para>
+			</listitem>
+	    </itemizedlist>
+     </sect1>
 	<!-- Section1: FAQ -->
 	<sect1 id="FAQ">
 		<title>FAQ / Common Problems</title>
 		<sect2>
-		     <title></title>
-		     <qandaset defaultlabel="qanda">
-			<qandaentry>
-				<question>
-				<para>
+			<title/>
+			<qandaset defaultlabel="qanda">
+				<qandaentry>
+					<question>
+						<para>
 				What Does "OGR" Stand For?
 				</para>
-		          </question>
-				<answer>
-			     <para>
+					</question>
+					<answer>
+						<para>
                        Basically, OGR does not stand for anything.  For a detailed explanation of how OGR was named, see Frank
                        Warmerdam's OGR site at <ulink url="http://gdal.velocet.ca/projects/opengis"> 					                  http://gdal.velocet.ca/projects/opengis</ulink> in the section 'OGR and OpenGIS'.
                     </para>
-				</answer>
-			</qandaentry>
-		     </qandaset> 
+					</answer>
+				</qandaentry>
+			</qandaset>
 		</sect2>
 	</sect1>
 	<!-- Section1: Document Info -->
