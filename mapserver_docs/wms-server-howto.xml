@@ -873,21 +873,21 @@
                 <itemizedlist>
                   <listitem>
                     <para>
-                      If not specified, then MapServer CAN process "text/html" MIME type if
-                      the GetFeatureInfo parameter INFO_FORMAT is set. In this case, the layer 
-                      template is returned.
+                        Used to specify an additional MIME type that can be used when responding
+                        to the GetFeature request. 
+                    </para>
+                    <para>
+                        For example if you want to use the layer's HTML template as a base for its
+                        response, you need to add "WMS_FEATURE_INFO_MIME_TYPE"  "text/html". Setting
+                        this will have the effect of advertizing text/html as one of the MIME types
+                        supported for a GetFeature request. You also need to make sure that the layer
+                        points to a valid html template.  The client can then call the server with
+                        INFO_FORMAT=text/html.
                     </para>
                   </listitem>
                   <listitem>
                     <para>
-                      If set to "NONE", then MapServer will not process MIME type
-                      other than the default MIME type.
-                    </para>
-                  </listitem>
-                  <listitem>
-                    <para>
-                      If set to something (except "NONE"), then MapServer will use the
-                      specified MIME type (whatever it is) if the GetFeatureInfo parameter INFO_FORMAT is set as well.                      In this case, the layer template is returned.
+                        If not specified, MapServer by default has text/plain and GML implemented.
                     </para>
                   </listitem>
                 </itemizedlist>
@@ -1484,7 +1484,7 @@
                         <revnumber>Number: 1.38</revnumber>
                         <date>Date: 2004-01-10</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added layer name warning.
+                        <revremark>Added layer name warning, feature_info_mime_type note.
                                    </revremark>
                     </revision>                 
                     <revision>
