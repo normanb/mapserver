@@ -22,7 +22,7 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2004-11-28</para>
+      <para>Last Updated: 2004-11-29</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -1032,7 +1032,41 @@
               </para>
             </listitem>
           </itemizedlist>
-        </sect4>        
+        </sect4>  
+        <sect4 id="lay_dataformat">
+          <title>wms_dataurl_format</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Non-standardized file format of the metadata.
+                 The layer metadata <emphasis>wms_dataurl_href</emphasis> must also be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.14 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4> 
+        <sect4 id="lay_datahref">
+          <title>wms_dataurl_href</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The URL to the layer's metadata. 
+                 The layer metadata <emphasis>wms_dataurl_format</emphasis> must also be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.14 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
         <sect4 id="extent">
           <title>wms_extent</title>
           <itemizedlist>
@@ -1056,7 +1090,7 @@
       </para>
             </listitem>
           </itemizedlist>
-        </sect4>
+        </sect4>       
         <sect4 id="lay_keywordlist">
           <title>wms_keywordlist</title>
           <itemizedlist>
@@ -1106,13 +1140,69 @@
               </example>
             </listitem>
           </itemizedlist>
+        </sect4> 
+        <sect4 id="lay_metaformat">
+          <title>wms_metadataurl_format</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The file format MIME type of the metadata 
+                record (e.g. "text/plain").
+                 The layer metadata <emphasis>wms_metadataurl_type</emphasis> and
+                 <emphasis>wms_metadataurl_href</emphasis> must also be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.10 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>  
+        <sect4 id="lay_metahref">
+          <title>wms_metadataurl_href</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The URL to the layer's metadata.  
+                The layer metadata <emphasis>wms_metadataurl_format</emphasis> and
+                 <emphasis>wms_metadataurl_type</emphasis> must also be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.10 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>            
+          </itemizedlist>
+        </sect4>         
+        <sect4 id="lay_metatype">
+          <title>wms_metadataurl_type</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The standard to which the metadata complies.
+                 Currently only two types are valid: "TC211" which refers to [ISO 19115], and "FGDC" which
+                 refers to [FGDC-STD-001-1988].  The layer metadata <emphasis>wms_metadataurl_format</emphasis> and
+                 <emphasis>wms_metadataurl_href</emphasis> must also be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.10 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>            
+          </itemizedlist>
         </sect4>        
         <sect4 id="lay_opaque">
           <title>wms_opaque</title>
           <itemizedlist>
             <listitem>
               <para>
-                <emphasis>WMS TAG Name:</emphasis> Layer (WMS1.1.1, sect. 7.1.4.6.3)
+                <emphasis>WMS TAG Name:</emphasis> Opaque (WMS1.1.1, sect. 7.1.4.6.3)
                                 </para>
             </listitem>
             <listitem>
@@ -1135,6 +1225,96 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="lay_style">
+          <title>wms_style</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The LegendURL style name.  Requires the following
+                metadata: <emphasis>wms_style_&lt;style's_name&gt;_width, wms_style_&lt;style's_name&gt;_legendurl_height,
+                wms_style_&lt;style's_name&gt;_legendurl_format, wms_style_&lt;style's_name&gt;_legendurl_href</emphasis>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.4 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+        <sect4 id="lay_style_height">
+          <title>wms_style_&lt;style's_name&gt;_legendurl_height</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The height of the legend image in pixels. 
+                 Requires the following metadata: <emphasis>wms_style_&lt;style's_name&gt;_width, wms_style,
+                wms_style_&lt;style's_name&gt;_legendurl_format, wms_style_&lt;style's_name&gt;_legendurl_href</emphasis>.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.4 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4> 
+        <sect4 id="lay_style_href">
+          <title>wms_style_&lt;style's_name&gt;_legendurl_href</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The URL to the layer's legend. 
+                Requires the following metadata: <emphasis>wms_style_&lt;style's_name&gt;_width, wms_style_&lt;style's_name&gt;_legendurl_height,
+                wms_style_&lt;style's_name&gt;_legendurl_format, wms_style</emphasis>.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.4 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
+        <sect4 id="lay_style_format">
+          <title>wms_style_&lt;style's_name&gt;_legendurl_format</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The file format MIME type of the legend image. 
+                 Requires the following metadata: <emphasis>wms_style_&lt;style's_name&gt;_width, wms_style_&lt;style's_name&gt;_legendurl_height,
+                wms_style, wms_style_&lt;style's_name&gt;_legendurl_href</emphasis>.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.4 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
+        <sect4 id="lay_style_width">
+          <title>wms_style_&lt;style's_name&gt;_legendurl_width</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The width of the legend image in pixels. 
+                 Requires the following metadata: <emphasis>wms_style_&lt;style's_name&gt;_format, wms_style_&lt;style's_name&gt;_legendurl_height,
+                wms_style, wms_style_&lt;style's_name&gt;_legendurl_href</emphasis>.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.4 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4> 
         <sect4 id="time_default">
           <title>wms_timedefault</title>
           <itemizedlist>
@@ -1170,7 +1350,7 @@
           <itemizedlist>
             <listitem>
               <para>
-                Same as <link linkend="title">wms_title</link> in the Web Object .
+                Same as <link linkend="title">wms_title</link> in the Web Object.
               </para>
             </listitem>
           </itemizedlist>
@@ -1292,6 +1472,13 @@
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.37</revnumber>
+                        <date>Date: 2004-11-29</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added several metadata.
+                                   </revremark>
+                    </revision>                 
                     <revision>
                         <revnumber>Number: 1.35</revnumber>
                         <date>Date: 2004-11-28</date>
