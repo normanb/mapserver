@@ -16,14 +16,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-11-05</date>
+		<date>2002-02-23</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
 			  module.
                </para>
-			<para>Last Updated: 11/05/2001</para>
+			<para>Last Updated: 02/23/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -1089,7 +1089,7 @@
     int interlace
     int postlabelcache
     labelObj label
-    colorObj inagecolor
+    colorObj imagecolor
 				</programlisting>
 			</sect3>
 			<sect3 id="scale_methods">
@@ -1124,7 +1124,7 @@
     int interlace
     int postlabelcache //MS_TRUE, MS_FALSE
     labelObj label
-    colorObj inagecolor
+    colorObj imagecolor
 				</programlisting>
 			</sect3>
 			<sect3 id="leg_methods">
