@@ -8,6 +8,19 @@
   <!-- insert title here, include the word HOWTO -->
   <title>HOWTO template for MapServer Documentation</title>
 
+
+  <author>
+     <firstname>Kari</firstname>
+     <surname>Geurts</surname>
+     <affiliation>
+        <orgname>University of Minnesota, Department of Forest Resources</orgname>
+        <orgdiv>Mapserver Project</orgdiv>
+        <address>
+          <email>mdp@lists.gis.umn.edu</email>
+        </address> 
+      </affiliation>
+   </author>        
+
   <author>
      <firstname>Jamie</firstname>
      <surname>Smedsmo</surname>
@@ -15,7 +28,7 @@
         <orgname>University of Minnesota, Department of Forest Resources</orgname>
          <orgdiv>TerraSIP Project</orgdiv>
         <address>
-            <email>jsmedsmo@gis.umn.edu</email>
+            <email>mdp@lists.gis.umn.edu</email>
         </address>
      </affiliation>
   </author>
@@ -54,19 +67,6 @@
     </affiliation>
   </author>  
 
-<!-- TRANSLATORS to other languages will be specified in the "contrib" tag -->
-  <othercredit>
-     <contrib>Translation</contrib>
-     <firstname>Jamie</firstname>
-     <surname>Smedsmo</surname>
-     <affiliation>
-        <orgname>University of Minnesota, Department of Forest Resources</orgname>
-         <orgdiv>TerraSIP Project</orgdiv>
-        <address>
-            <email>jsmedsmo@gis.umn.edu</email>
-        </address>
-     </affiliation>
-  </othercredit>
 
   <abstract>  <!-- a short description of the contents of the doc -->
     <para>
@@ -76,7 +76,8 @@
     Information given here refers to MapServer version 3.5.
     </para>
 
-    <para>Last Updated:  06-14-2002</para>
+    <para>Last Updated:  05-11-2001</para>
+    <para><link linkend='rhistory'>Revision History</link></para>
   </abstract>
 
 </articleinfo>
@@ -573,6 +574,34 @@
     to avoid all the clutter at the beginning of the document.</emphasis>
   </para>
 
+  <sect2 id='rhistory'><title>Revision History</title>
+  <para> 
+    <emphasis>For each significant revision (i.e., either new material added, or 
+    technical corrections made), please update the following table.</emphasis>
+  </para>  
+  <para>
+    <revhistory>
+      <revision>
+        <revnumber><emphasis>Number</emphasis></revnumber>
+        <date><emphasis>Date</emphasis></date>
+        <authorinitials><emphasis>Author</emphasis></authorinitials>
+        <revremark><emphasis>brief description of changes here</emphasis></revremark>
+      </revision>
+      <revision>
+        <revnumber><emphasis>Number</emphasis></revnumber>
+        <date><emphasis>Date</emphasis></date>
+        <authorinitials><emphasis>Author</emphasis></authorinitials>
+        <revremark><emphasis>brief description of changes here</emphasis></revremark>
+      </revision>
+      <revision>
+        <revnumber><emphasis>Number</emphasis></revnumber>
+        <date><emphasis>Date</emphasis></date>
+        <authorinitials><emphasis>Author</emphasis></authorinitials>
+        <revremark><emphasis>brief description of changes here</emphasis></revremark>
+      </revision>      
+    </revhistory>  
+  </para>  
+  </sect2>
   <sect2 id='copyright'>
    <title>Copyright Information</title>
    
@@ -615,7 +644,7 @@
   <sect2 id='feedback'>
    <title>Feedback</title>
    <para>
-    Send any comments or suggestions to the document author(s).
+    Send any comments or suggestions to the author(s).
    </para>
    </sect2>
 
