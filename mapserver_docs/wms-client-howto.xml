@@ -299,7 +299,7 @@
 			<listitem>
 				<para>
 					<filename>getFeatureInfo</filename> is not fully supported yet since the output of getFeatureInfo is
-  					left to the discretion of the remote server.  A method layer.getFeatureInfoURL()
+  					left to the discretion of the remote server.  A method layer.getWMSFeatureInfoURL()
                                         has been added to MapScript for applications that want to access featureInfo
                                         results and handle them directly.
 				</para>
