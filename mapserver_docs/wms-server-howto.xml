@@ -56,6 +56,71 @@
         </para>
       </listitem>
     </itemizedlist>
+    <sect2 id="links">
+      <title>Links to WMS-Related Information</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            The Mapserver WMS Client HOWTO:
+            <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">
+            http://mapserver.gis.umn.edu/doc/wms-client-howto.html</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            WMS 1.1.1 specification:
+              <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+            http://www.opengeospatial.org/docs/01-068r2.pdf</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Open Geospatial Consortium (OGC) Home Page:
+              <ulink url="http://www.opengeospatial.org/">http://www.opengeospatial.org/</ulink>
+          </para>
+        </listitem>        
+        <listitem>
+          <para>
+            WMS-Dev mailing list and archive:
+              <ulink url="http://www.intl-interfaces.net/mailman/listinfo/wms-dev">
+            http://www.intl-interfaces.net/mailman/listinfo/wms-dev</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            WMS FAQ:
+              <ulink url="http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home">
+            http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            WMS XML Capabilities validator:
+              <ulink url="http://www.digitalearth.gov/wmt/xml/validator.html">
+            http://www.digitalearth.gov/wmt/xml/validator.html</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            WMS Cookbook:
+              <ulink url="http://www.intl-interfaces.net/cookbook/WMS/">
+            http://www.intl-interfaces.net/cookbook/WMS/</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            MapServer OGC Web Services Workshop package: <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+           http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
+          </para>
+        </listitem> 
+        <listitem>
+          <para>
+            MapServer Styled Layer Descriptor HOWTO: <ulink url="http://mapserver.gis.umn.edu/doc/sld-howto.html">
+           http://mapserver.gis.umn.edu/doc/sld-howto.html</ulink>.
+          </para>
+        </listitem>          
+      </itemizedlist>
+    </sect2>    
     <sect2 id="howitworks">
       <title>How does a WMS Work</title>
       <para>
@@ -137,85 +202,6 @@
         involves installing the mapserv CGI program and a setting up a mapfile with 
         appropriate metadata in it.  This is covered in the rest of this document.
       </para>
-    </sect2>
-    <sect2 id="links">
-      <title>Links to WMS-Related Information</title>
-      <itemizedlist>
-        <listitem>
-          <para>
-            The Mapserver WMS Client HOWTO:
-            <ulink url="http://mapserver.gis.umn.edu/doc/wms-client-howto.html">
-            http://mapserver.gis.umn.edu/doc/wms-client-howto.html</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            Open Geospatial Consortium (OGC) Home Page:
-              <ulink url="http://www.opengeospatial.org/">http://www.opengeospatial.org/</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            WMS 1.0.0 specification:
-              <ulink url="http://www.opengeospatial.org/docs/00-028.pdf">
-            http://www.opengeospatial.org/docs/00-028.pdf</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            WMS 1.1.0 specification:
-              <ulink url="http://www.opengeospatial.org/docs/01-047r2.pdf">
-            http://www.opengeospatial.org/docs/01-047r2.pdf</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            WMS 1.1.1 specification:
-              <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
-            http://www.opengeospatial.org/docs/01-068r2.pdf</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            WMS-Dev mailing list and archive:
-              <ulink url="http://www.intl-interfaces.net/mailman/listinfo/wms-dev">
-            http://www.intl-interfaces.net/mailman/listinfo/wms-dev</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            WMS FAQ:
-              <ulink url="http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home">
-            http://www.intl-interfaces.net/cookbook/WMS/faq/faqw.py?req=home</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            WMS XML Capabilities validator:
-              <ulink url="http://www.digitalearth.gov/wmt/xml/validator.html">
-            http://www.digitalearth.gov/wmt/xml/validator.html</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            WMS Cookbook:
-              <ulink url="http://www.intl-interfaces.net/cookbook/WMS/">
-            http://www.intl-interfaces.net/cookbook/WMS/</ulink>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            MapServer OGC Web Services Workshop package: <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
-           http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
-          </para>
-        </listitem> 
-        <listitem>
-          <para>
-            MapServer Styled Layer Descriptor HOWTO: <ulink url="http://mapserver.gis.umn.edu/doc/sld-howto.html">
-           http://mapserver.gis.umn.edu/doc/sld-howto.html</ulink>.
-          </para>
-        </listitem>          
-      </itemizedlist>
     </sect2>
   </sect1>
   <!-- Section1: Integration or developing  an application-->
@@ -498,11 +484,18 @@
         </para>
         <para>
           Using a web browser, access your server's online resource URL to which you
-          add the parameter "REQUEST=GetCapabilities" to the end, e.g.
+          add the parameters "SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetCapabilities" to the end, e.g.
         </para>
         <programlisting>
-   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;REQUEST=GetCapabilities
+   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetCapabilities
         </programlisting>
+        <para>
+          here is a working GetCapabilities request: 
+        </para> 
+        <para>
+          <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=getcapabilities">
+          http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=getcapabilities</ulink>
+        </para>
         <para>
           This should return a document of MIME type application/vnd.ogc.wms_xml, so 
           your browser is likely going to prompt you to save the file.  Save it and 
@@ -532,13 +525,19 @@
         <sect4 id="min_ms">
           <title>Option A: Use Only Parameters Required by MapServer</title>
           <para>
-          Simply adding <filename>"VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=yourlayername1,yourlayername2"</filename> to your server's URL should 
-          generate a map with the default map size and all the layers with STATUS ON or
-          DEFAULT displayed, e.g.
+          Simply adding <filename>"SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=yourlayername1,yourlayername2"</filename> to your server's URL should 
+          generate a map with the default map size and the layers that you specified in your request e.g.
         </para>
           <programlisting>
-   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=parks,province
+   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=parks,province
         </programlisting>
+        <para>
+          here is a working GetMap request: 
+        </para> 
+        <para>
+          <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=getmap&amp;LAYERS=park">
+          http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=getmap&amp;LAYERS=park</ulink>
+        </para>        
           <para>
           (Note that this works with MapServer's WMS interface even though it is an
           incomplete GetMap request according to the WMS spec.  It lacks several 
@@ -607,9 +606,16 @@
           </itemizedlist>
           <para>An valid example would therefore be:</para>
           <programlisting>
-   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=prov_bound&amp;STYLES=&amp;SRS=EPSG:4326&amp;BBOX=
+   http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=prov_bound&amp;STYLES=&amp;SRS=EPSG:4326&amp;BBOX=
    -173.537,35.8775,-11.9603,83.8009&amp;WIDTH=400&amp;HEIGHT=300&amp;FORMAT=image/png          
           </programlisting>
+          <para>
+            here is a working valid request:
+          </para>
+          <para>
+            <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=getmap&amp;layers=park,popplace&amp;STYLES=&amp;SRS=EPSG:4326&amp;BBOX=-173.537,35.8775,-11.9603,83.8009&amp;WIDTH=400&amp;HEIGHT=300&amp;FORMAT=image/png">
+            http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=getmap&amp;layers=park,popplace&amp;STYLES=&amp;SRS=EPSG:4326&amp;BBOX=-173.537,35.8775,-11.9603,83.8009&amp;WIDTH=400&amp;HEIGHT=300&amp;FORMAT=image/png</ulink>
+          </para>
         </sect4>
       </sect3>
       <sect3 id="val_client">
@@ -635,7 +641,7 @@
           </listitem>
           <listitem>
             <para>
-              <ulink url="http://www.vividsolutions.com/jump/main.htm">JUMP</ulink> is a desktop GIS package 
+              <ulink url="http://www.jump-project.org/project.php?PID=JUMP&amp;SID=OVER">JUMP</ulink> is a desktop GIS package 
               which includes WMS client support.
             </para>
           </listitem>
@@ -1415,6 +1421,77 @@
           </itemizedlist>
         </sect4>
       </sect3>
+    </sect2>
+    <sect2 id="sample-mapfile">
+      <title>Sample WMS Server Mapfile</title>
+      <para>The following is a very basic WMS Server mapfile</para>
+      <programlisting>
+NAME WMS-test
+STATUS ON
+SIZE 400 300
+SYMBOLSET ../etc/symbols.sym
+EXTENT -2200000 -712631 3072800 3840000
+UNITS METERS
+SHAPEPATH "../data"
+IMAGECOLOR 255 255 255
+FONTSET ../etc/fonts.txt
+
+WEB
+  IMAGEPATH "/ms4w/tmp/ms_tmp/"
+  IMAGEURL "/ms_tmp/"
+  METADATA
+    "wms_title"     "WMS Demo Server"  ##required
+    "wms_onlineresource" "http://yourpath/cgi-bin/mapserver_44.exe?"   ##required
+    "wms_srs"       "EPSG:42304 EPSG:42101 EPSG:4269 EPSG:4326"  ##recommended
+  END
+END
+
+PROJECTION
+  "init=epsg:42304"   ##required
+END
+
+#
+# Start of layer definitions
+#
+
+LAYER
+  NAME park
+  METADATA
+    "wms_title"    "Parks"   ##required
+  END
+  TYPE POLYGON
+  STATUS OFF
+  DATA park
+  PROJECTION
+    "init=epsg:42304"   ##recommended
+  END
+  CLASS
+    NAME "Parks"
+    COLOR 200 255 0
+    OUTLINECOLOR 120 120 120
+  END 
+END # Layer
+
+LAYER
+  NAME popplace
+  METADATA
+    "wms_title"    "Cities"  ##required
+  END
+  TYPE POINT
+  STATUS ON
+  DATA popplace
+  PROJECTION
+    "init=epsg:42304"   ##recommended
+  END
+  CLASS
+    SYMBOL 2
+    SIZE 8
+    COLOR 0 0 0
+  END 
+END # Layer
+
+END # Map File      
+      </programlisting>
     </sect2>
   </sect1>
   <sect1 id="FAQ">
