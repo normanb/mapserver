@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>HOWTO for Rasters in MapServer</title>
+		<title>HOWTO for Rasters in MapServer 4.0</title>
 		<author>
 			<firstname>Frank</firstname>
 			<surname>Warmerdam</surname>
@@ -16,7 +16,7 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-06-27</date>
+		<date>2003-09-25</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
@@ -63,7 +63,7 @@ END
 </para>
 
 <para>
-Though not shown rasters can have PROJECTION, METADATA, MINSCALE, 
+Though not shown rasters can have PROJECTION, METADATA, PROCESSING, MINSCALE, 
 and MAXSCALE information.  It cannot have labels, queries, CONNECTION, 
 CONNECTIONTYPE, or FEATURE information.  
 </para>
@@ -315,11 +315,9 @@ ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip</ulink>.
 <sect1 id="warping">  <title>Raster Warping</title>
 
 <para>
-A new feature in MapServer 3.5 is the ability to resample rasters on the
-fly into new projections.  Previous versions would only allow for up or
-down sampling without any rotation or warping.  However, raster warping is
-currently only supported for images accessed through GDAL, not for the other
-builtin formats.
+MapServer is able to resample GDAL rasters on the
+fly into new projections.  Non-GDAL rasters may only be up or down
+sampled without any rotation or warping.
 </para>
 
 <para>
@@ -347,32 +345,141 @@ is fine) projection definitions.
 <sect1 id="rgb_color_cube">  <title>24bit RGB Rendering</title>
 
 <para>
-A new feature in MapServer 3.5 is the on the fly conversion of 24bit RGB
-raster images to 8bit colormapped format.  This is only supported for images
-read through the GDAL gateway.
+Traditionally MapServer has been used to produce 8 bit pseudo-colored
+map displays generated from 8bit greyscale or pseudocolored raster data. 
+However, if the raster file to be rendered is actually 24bit (a red, 
+green and blue band) then additional considerations come into play.   
+Currently rendering of 24bit imagery is only supported via the GDAL 
+renderer.  The built-in PNG, JPEG and other drivers do not support 24bit
+input images. 
 </para>
 
 <para>
-This is accomplished by converting on the fly to the nearest color in a
-color cube.  The default color cube is 5x7x5 (five levels of red, seven
-levels of green and five levels of blue).  This substantially degrades 
-color quality and consumes 175 colors in the output maps color table.
+If the output is still 8bit pseudo-colored (the IMAGEMODE is PC256 in the
+associated OUTPUT format declaration) then the full 24bit RGB colors for
+input pixels will be converted to a color in the colormap of the output 
+image.  By default a <emphasis>color cube</emphasis> is used.  That is a
+fixed set of 175 colors providing 5 levels of red, 7 levels of green and
+5 levels of blue is used, plus an additional 32 greyscale color entries. 
+Colors in the input raster are mapped to the closest color in this color
+cube on the fly.  This substantial degrades color quality, especially for
+smoothly changing images.   It also fills up the colors table, limited to
+256 colors, quite quickly.
 </para>
 
 <para>
-The RGB conversion feature will be utilized any time a GDAL file is used
-that has three bands, with no classification information provided in the
-mapfile and if the first band in the file does not have a colormap. 
+A variation on this approach is to dither the image during rendering. 
+Dithering selects a color for a pixel in a manner that "diffuses error"
+over pixels.  In an area all one color in the source image, a variety of output
+pixel colors would be selected such that the average of the pixels would more
+closely approximate the desired color.  Dithering also takes advantage of all
+currently allocated colors, not just those in the color cube.  Dithering 
+requires GDAL 1.1.9 or later, and is enabled by providing the 
+PROCESSING "DITHER=YES" option in the mapfile.   Dithering is more CPU
+intensive than using a simple color cube, and should be avoided if possible
+in performance sensitive situations.
 </para>
 
 <para>
-Because of the relatively poor quality, and increased IO and CPU requirements
-of on the fly conversion to a color cube, users are still encouraged to 
-preprocess images to eight bit using optimal color map generation and 
-dithering.  This is discussed further in the Preprocessing Rasters section.
+The other new possibility for handling 24bit input imagery in MapServer 4.0
+or later, is to produce 24bit output images.  The default "IMAGETYPE png24"
+or "IMAGETYPE jpeg" declaration may be used to produce a 24bit PNG output 
+file, instead of the
+more common 8bit pseudo-colored PNG file.  The OUTPUTFORMAT declaration
+provides for detailed control of the output format.  The IMAGEMODE RGB and
+IMAGEMODE RGBA options produce 24bit and 32bit (24bit plus 8bit 
+alpha/transparency) for supported formats.
 </para>
 
 </sect1>
+
+<!-- ====================================================================== -->
+
+<sect1 id="processing">  <title>Special Processing Directives</title>
+</sect1>
+
+<para>
+In MapServer 4, the new PROCESSING keyword was added to the LAYER object.
+It is primariliy used to pass specialized raster processing options to the
+GDAL based raster renderer.  The following processing options are supported
+in MapServer 4.
+</para>
+
+<variablelist>
+    <varlistentry>
+      <term>DITHER=YES</term>
+      <listitem>
+	<para>This turns on error diffusion mode, used to convert 24bit images
+to 8bit with error diffusion to get better color results.</para>
+	<para>Example:
+	    <screen>
+PROCESSING "DITHER=YES"
+	    </screen>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>BANDS=red_or_grey[,green,blue[,alpha]]</term>
+      <listitem>
+	<para>This directive allows a specific band or bands to be selected from a raster file.  If one band is selected, it is treated as greyscale.  If 3 are selected, they are treated as red, green and blue.  If 4 are selected they are treated as red, green, blue and alpha (opacity).</para>
+	<para>Example:
+	    <screen>
+PROCESSING "BANDS=4,2,1"
+	    </screen>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>SCALE[_n]=AUTO or min,max</term>
+      <listitem>
+	<para>This directive instructs the GDAL reader to pre-scale the 
+incoming raster data.  It is primarily used to scale 16bit or floating point 
+data to the range 0-255, but can also be used to constrast stretch 8bit data.  
+If an explicit min/max are provided then the input data is stretch (or 
+squished) such that the minimum value maps to zero, and the maximum to 255. 
+If AUTO is used instead, a min/max is automatically computed.  To control the
+scaling of individual input bands, use the SCALE_1, SCALE_2 and SCALE_3 
+keywords (for red, green and blue) instead of SCALE which applies to all bands.
+</para>
+
+	<para>Example:
+	    <screen>
+PROCESSING "SCALE=AUTO"
+  or
+PROCESSING "SCALE_1=409,1203"
+PROCESSING "SCALE_2=203,296"
+PROCESSING "SCALE_3=339,1004"
+	    </screen>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>COLOR_MATCH_THRESHOLD=n</term>
+      <listitem>
+	<para>Alter the precision with which colors need to match an entry in 
+the color table to use it when producing 8bit colormapped output (IMAGEMODE 
+PC256).  Normally colors from a raster colormap (or greyscale values) need
+to match exactly.  This relaxes the requirement to being within the 
+specified color distance.   So a COLOR_MATCH_THRESHOLD of 3 would mean that an
+existing color entry within 3 (sum of difference in red, green and blue) would
+be used instead of creating a new colormap entry.  Especially with greyscale
+raster layers, which would normally use all 256 color entries if available, 
+this can be a good way to avoid "stealing" your whole colormap for a raster
+layer.  Normally values in the range 2-6 will give good results. 
+</para>
+	<para>Example:
+	    <screen>
+PROCESSING "COLOR_MATCH_THRESHOLD=3"
+	    </screen>
+	</para>
+      </listitem>
+    </varlistentry>
+
+</variablelist>
+
 
 <!-- ====================================================================== -->
 
