@@ -156,6 +156,8 @@
           <ulink url='http://www.lysator.liu.se/projects/about_psgml.html'>psgmls</ulink>.
           <ulink url='http://nedit.org/'>Nedit</ulink> is a basic text editor with sgml/xml 
           syntax highlighting that runs on UNIX systems.
+	  I have also heard good things about the <ulink url="http://www.xmlspy.com">XML Spy</ulink>;
+	  a free 30-day evaluation version is available from the homepage.
        <itemizedlist> 
         <listitem><para>A list of <ulink url='http://www.linuxdoc.org/LDP/LDP-Author-Guide/editing.html'>
         SGML editing,
@@ -204,7 +206,8 @@
   <sect2 id='topic'>
     <title>Choosing a Topic</title>
     <para>
-      You may choose any topic for which documentation is needed or choose a topic from the <ulink url='current_projects.html'>current projects list</ulink>.  The idea is to focus on HOWTOs, so
+      You may choose any topic for which documentation is needed or choose a topic from the 
+      <ulink url='http://mapserver.gis.umn.edu/mdp/current_projects.html'>current projects list</ulink>.  The idea is to focus on HOWTOs, so
       choose a clearly-defined topic that is not too narrow and not to broad.  
       Also make sure your topic is undocumented.
       When you have chosen a topic, let the documentation coordinator 
