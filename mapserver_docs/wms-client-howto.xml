@@ -1,152 +1,151 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
-<!-- $Id$ -->
 <article>
-	<articleinfo>
-		<title>Mapserver WMS Client HOWTO</title>
-		<author>
-			<firstname>Jeff</firstname>
-			<surname>McKenna</surname>
-			<affiliation>
-				<orgname>DM Solutions Group Inc.</orgname>
-				<address>
-					<email>mckenna@dmsolutions.ca</email>
-				</address>
-			</affiliation>
-		</author>
-		<date>2001-12-13</date>
-		<abstract>
-			<!-- a short description of the contents of the doc -->
-			<para>
-                 This document describes the procedures for using MapServer's WMS connection type to include layers from 				  remote WMS servers in MapServer v3.5 applications.
+  <articleinfo>
+    <title>Mapserver WMS Client HOWTO</title>
+    <author>
+      <firstname>Jeff</firstname>
+      <surname>McKenna</surname>
+      <affiliation>
+        <orgname>DM Solutions Group Inc.</orgname>
+        <address>
+          <email>mckenna@dmsolutions.ca</email>
+        </address>
+      </affiliation>
+    </author>
+    <date>2001-12-12</date>
+    <abstract>
+      <!-- a short description of the contents of the doc -->
+      <para>
+                 This document describes the procedures for using MapServer's WMS connection type to include layers from          remote WMS servers in MapServer v3.5 applications.
                </para>
-			<para>Last Updated: 12/13/2001</para>
-		</abstract>
-	</articleinfo>
-	<sect1 id="intro">
-		<title>Introduction</title>
-		<para>
-           	A WMS (or Web Map Server) allows for use of data from several different servers, and enables for the creation of a 				network of Map Servers from which clients can build customized maps.The following document contains 					information about using MapServer's WMS connection type to include layers from remote WMS servers in 				MapServer apps.		
-		</para>
-		<para>
+      <para>Last Updated: 12/12/2001</para>
+    </abstract>
+  </articleinfo>
+  <sect1 id="intro">
+    <title>Introduction</title>
+    <para>
+            A WMS (or Web Map Server) allows for use of data from several different servers, and enables for the creation of a        network of Map Servers from which clients can build customized maps.The following document contains           information about using MapServer's WMS connection type to include layers from remote WMS servers in        MapServer apps.   
+    </para>
+    <para>
              This document assumes that you are already familiar with certain aspects of MapServer:
           </para>
-		<itemizedlist>
-			<listitem>
-				<para>
-                    	MapServer application development and setting up .map files. 
+    <itemizedlist>
+      <listitem>
+        <para>
+                      MapServer application development and setting up .map files. 
                 </para>
-			</listitem>
-			<listitem>
-				<para>
-					Familiarity with the WMS spec would be an asset. A link to the WMS specification document is included in 					the <emphasis>"WMS-Related Information"</emphasis> section below.
-				</para>
-			</listitem>
-		</itemizedlist>
-		<sect2 id="links">
-			<title>Links to WMS-Related Information</title>
-			<itemizedlist>
-				<listitem>
-					<para>
-						The WMS Server HOWTO at <ulink url="http://mapserver.gis.umn.edu/doc/wms-server-howto.html">
-						http://mapserver.gis.umn.edu/doc/wms-server-howto.html</ulink>.
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						WMS 1.1.0 specification at <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
-						http://www.opengis.org/techno/specs/01-047r2.pdf</ulink>.
-					</para>
-				</listitem>
-			</itemizedlist>
-		</sect2>
-	</sect1>
-	<sect1 id="compilation">
-		<title>Compilation / Installation</title>
-		<para>
-			The WMS connection type is enabled by the --with-wmsclient configure switch.
-			It requires PROJ4 and W3C's libwww (libwww v5.3.2 or newer is required because there was 
-			a bug that caused an infinite loop in older versions), and GDAL is optional (see below).
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					For PROJ4 and GDAL installation, see the MapServer Compilation HOWTO
-					(<ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">
-					unix</ulink> / <ulink url="http://mapserver.gis.umn.edu/doc/win32_compile-howto.html">
-					win32</ulink>)
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					For W3C's libwww, download v5.3.2 (or newer) from CVS or in a tarball and 
-       				compile/install manually.  See <ulink url="http://www.w3.org/Library/">
-					http://www.w3.org/Library/</ulink> for the lib's source code and install docs.
-				</para>
-			</listitem>
-		</itemizedlist>
-		<para>
-			You might want to also include GDAL support if you want your application to
-			be able to reproject map slides received from remote servers.  This is 
-			because raster resampling works only together with the GDAL library in 
-			MapServer.  If GDAL is not included in your MapServer build then your 
-			application can only serve maps in the subset of the projections supported
-			by all the remote servers (this should be sufficient for most applications).
-			If you compile with GDAL then make sure that your GDAL includes GIF and/or
-			PNG support, depending on which image format you request from remote servers.
-		</para>
-		<para>
-			Once the required libraries are installed, then configure MapServer using
-			the --with-wmsclient switch (plus all the other switches you used to use) 
-			and recompile.
-		</para>
-		<para>
-			This will give you a new set of executables (and possibly php_mapscript.so
-			if you requested it).  See the <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">
-			MapServer Compilation HOWTO</ulink> for installation details.
-		</para>
-		<sect2 id="check_exe">
-			<title>Check your MapServer executable</title>
-			<para>
-				To check that your mapserv executable includes WMS support, use the "-v" command-line switch and look for 					"SUPPORTS=WMS_CLIENT".
-			</para>
-			<example>
-				<title>On Unix:</title>
-				<programlisting>
+      </listitem>
+      <listitem>
+        <para>
+          Familiarity with the WMS spec would be an asset. A link to the WMS specification document is included in          the <emphasis>"WMS-Related Information"</emphasis> section below.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <sect2 id="links">
+      <title>Links to WMS-Related Information</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            The WMS Server HOWTO at <ulink url="http://mapserver.gis.umn.edu/doc/wms-server-howto.html">
+            http://mapserver.gis.umn.edu/doc/wms-server-howto.html</ulink>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            WMS 1.1.0 specification at <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
+            http://www.opengis.org/techno/specs/01-047r2.pdf</ulink>.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="compilation">
+    <title>Compilation / Installation</title>
+    <para>
+      The WMS connection type is enabled by the --with-wmsclient configure switch.
+      It requires PROJ4 and W3C's libwww (libwww v5.3.2 or newer is required because there was 
+      a bug that caused an infinite loop in older versions), and GDAL is optional (see below).
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          For PROJ4 and GDAL installation, see the MapServer Compilation HOWTO
+          (<ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">
+          unix</ulink> / <ulink url="http://mapserver.gis.umn.edu/doc/win32_compile-howto.html">
+          win32</ulink>)
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          For W3C's libwww, download v5.3.2 (or newer) from CVS or in a tarball and 
+              compile/install manually.  See <ulink url="http://www.w3.org/Library/">
+          http://www.w3.org/Library/</ulink> for the lib's source code and install docs.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      You might want to also include GDAL support if you want your application to
+      be able to reproject map slides received from remote servers.  This is 
+      because raster resampling works only together with the GDAL library in 
+      MapServer.  If GDAL is not included in your MapServer build then your 
+      application can only serve maps in the subset of the projections supported
+      by all the remote servers (this should be sufficient for most applications).
+      If you compile with GDAL then make sure that your GDAL includes GIF and/or
+      PNG support, depending on which image format you request from remote servers.
+    </para>
+    <para>
+      Once the required libraries are installed, then configure MapServer using
+      the --with-wmsclient switch (plus all the other switches you used to use) 
+      and recompile.
+    </para>
+    <para>
+      This will give you a new set of executables (and possibly php_mapscript.so
+      if you requested it).  See the <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">
+      MapServer Compilation HOWTO</ulink> for installation details.
+    </para>
+    <sect2 id="check_exe">
+      <title>Check your MapServer executable</title>
+      <para>
+        To check that your mapserv executable includes WMS support, use the "-v" command-line switch and look for           "SUPPORTS=WMS_CLIENT".
+      </para>
+      <example>
+        <title>On Unix:</title>
+        <programlisting>
    $ ./mapserv -v
    MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
    SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_CLIENT INPUT=EPPL7 INPUT=JPEG INPUT=OGR 
-   INPUT=GDAL INPUT=SHAPEFILE				
-				</programlisting>
-			</example>
-			<example>
-				<title>On Windows:</title>
-				<programlisting>
+   INPUT=GDAL INPUT=SHAPEFILE       
+        </programlisting>
+      </example>
+      <example>
+        <title>On Windows:</title>
+        <programlisting>
    C:\apache\cgi-bin> mapserv -v
    MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
    SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_CLIENT INPUT=EPPL7 INPUT=JPEG INPUT=OGR
    INPUT=GDAL INPUT=SHAPEFILE
-				</programlisting>
-			</example>
-		</sect2>
-	</sect1>
-	<sect1 id="mapfile">
-		<title>MapFile configuration - CONNECTIONTYPE WMS</title>
-		<important>
-			<para>
-	             A PROJECTION must be set in the mapfile for the MAP unless you are sure that all your WMS 
-	             layers support only a single projection which is the same as the PROJECTION of the map.  
-	             The MAP PROJECTION can be set using "init=epsg:xxxx" codes or using regular PROJ4 parameters.  
-	             Failure to set a MAP PROJECTION may result in blank maps coming from remote WMS servers (because 
-	             of inconsistent BBOX+SRS combination being used in the WMS cnonection URL).
-			</para>
-		</important>
-		<para>
-			WMS layers are accessed via the WMS connectyion type.  Here is an example 
-			of a layer using this connection type:
-		</para>
-		<programlisting>
+        </programlisting>
+      </example>
+    </sect2>
+  </sect1>
+  <sect1 id="mapfile">
+    <title>MapFile configuration - CONNECTIONTYPE WMS</title>
+    <important>
+      <para>
+               A PROJECTION must be set in the mapfile for the MAP unless you are sure that all your WMS 
+               layers support only a single projection which is the same as the PROJECTION of the map.  
+               The MAP PROJECTION can be set using "init=epsg:xxxx" codes or using regular PROJ4 parameters.  
+               Failure to set a MAP PROJECTION may result in blank maps coming from remote WMS servers (because 
+               of inconsistent BBOX+SRS combination being used in the WMS cnonection URL).
+      </para>
+    </important>
+    <para>
+      WMS layers are accessed via the WMS connectyion type.  Here is an example 
+      of a layer using this connection type:
+    </para>
+    <programlisting>
     LAYER
      NAME bathymetry
      METADATA
@@ -162,97 +161,97 @@
       "init=epsg:42304"
      END
     END
-		</programlisting>
-		<para>
-			The following items are required for the WMS connection type:
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<emphasis>"wms_srs" metadata: </emphasis>
-      				a space-delimited list of EPSG projection codes supported by the 
-      				remote server.  You normally get this from the server's capabilities 
-      				output.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>CONNECTIONTYPE WMS: </emphasis>of course!
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>CONNECTION parameter:</emphasis>
-      				This is the remote server's online resource URL to which you append 
-      				some of the getMap/getFeatureInfo request parameters.  At this point 
-      				MapServer sets only the following request parameters:
-				</para>
-				<programlisting>
+    </programlisting>
+    <para>
+      The following items are required for the WMS connection type:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis>"wms_srs" metadata: </emphasis>
+              a space-delimited list of EPSG projection codes supported by the 
+              remote server.  You normally get this from the server's capabilities 
+              output.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>CONNECTIONTYPE WMS: </emphasis>of course!
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>CONNECTION parameter:</emphasis>
+              This is the remote server's online resource URL to which you append 
+              some of the getMap/getFeatureInfo request parameters.  At this point 
+              MapServer sets only the following request parameters:
+        </para>
+        <programlisting>
     REQUEST
     SRS
     BBOX
-				</programlisting>
-				<para>
-					The connection string should contain all other required params, 
-      				including:
-				</para>
-				<programlisting>
+        </programlisting>
+        <para>
+          The connection string should contain all other required params, 
+              including:
+        </para>
+        <programlisting>
     VERSION
     LAYERS
     FORMAT
     TRANSPARENT
-				</programlisting>
-			</listitem>
-		</itemizedlist>
-		<para>
-			The following layer parameters are optional:
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<emphasis>PROJECTION object:</emphasis>
-      				it is optional at this point.  MapServer will create one internally
-      				if needed.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>MINSCALE, MAXSCALE:</emphasis>
-      				If the remote server's capabilities contains a ScaleHint value for
-      				this layer then you might want to set the MINSCALE and MAXSCALE in
-      				the LAYER object in the mapfile.  This will allow MapServer to request
-      				the layer only at scales where it makes sense.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>"wms_latlonboundingbox" metadata:</emphasis>
-   					The bounding box of this layer in geographic coordinates in the
-   					format "lon_min lat_min lon_max lat_max".  If it is set then 
-   					MapServer will request the layer only when the map view overlaps 
-   					that bounding box.  You normally get this from the server's 
-   					capabilities output.
-				</para>
-				<para>
-					e.g.
-				</para>
-				<programlisting>
+        </programlisting>
+      </listitem>
+    </itemizedlist>
+    <para>
+      The following layer parameters are optional:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis>PROJECTION object:</emphasis>
+              it is optional at this point.  MapServer will create one internally
+              if needed.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>MINSCALE, MAXSCALE:</emphasis>
+              If the remote server's capabilities contains a ScaleHint value for
+              this layer then you might want to set the MINSCALE and MAXSCALE in
+              the LAYER object in the mapfile.  This will allow MapServer to request
+              the layer only at scales where it makes sense.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>"wms_latlonboundingbox" metadata:</emphasis>
+            The bounding box of this layer in geographic coordinates in the
+            format "lon_min lat_min lon_max lat_max".  If it is set then 
+            MapServer will request the layer only when the map view overlaps 
+            that bounding box.  You normally get this from the server's 
+            capabilities output.
+        </para>
+        <para>
+          e.g.
+        </para>
+        <programlisting>
     METADATA
       "wms_latlonboundingbox" "-124 48 -123 49"
     END
-					</programlisting>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>"wms_connectiontimeout" metadata:</emphasis>
-					The maximum time to load a remote WMS layer, set in seconds (default
-					is 30 seconds).  This metadata can be added at the layer level so that it affects only
-					that layer, or it can be added at the map level (in the web object) so that 
-					it affects all of the layers.  Note that 
-					<emphasis>wms_connectiontimeout</emphasis> at the layer level has
-					priority over the map level.
-				</para>
-				<programlisting>
+          </programlisting>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>"wms_connectiontimeout" metadata:</emphasis>
+          The maximum time to load a remote WMS layer, set in seconds (default
+          is 30 seconds).  This metadata can be added at the layer level so that it affects only
+          that layer, or it can be added at the map level (in the web object) so that 
+          it affects all of the layers.  Note that 
+          <emphasis>wms_connectiontimeout</emphasis> at the layer level has
+          priority over the map level.
+        </para>
+        <programlisting>
      ...
     CONNECTIONTYPE WMS
        METADATA
@@ -263,94 +262,94 @@
          "wms_latlonboundingbox" "-59.7807 47.5557 -52.7934 51.6261"
          "wms_connectiontimeout" "60"
          ...
-       END	
+       END  
        ...
-				</programlisting>
-			</listitem>
-		</itemizedlist>
-		<para>
-			In addition to the above layer parameters, you have to set the IMAGEPATH 
-			value in the WEB object of your mapfile to point to a valid and writable 
-			directory.  MapServer will use this directory to store temporary files
-			downloaded from the remote servers.  The temporary files are automatically
-			deleted by MapServer so you won't notice them... but a valid IMAGEPATH is 
-			still required.
-		</para>
-	</sect1>
-	<sect1 id="limitations">
-		<title>Limitations/TODO</title>
-		<orderedlist>
-			<listitem>
-				<para>
-					MapServer WMS connections always request exceptions "INIMAGE", but it 
-  					may be nice to support XML exceptions at some point and return the 
-  					message via the MapServer error reporting mechanisms.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					PNG format with transparent=true does not work well with all servers.
-  					For instance some servers use the alpha channel for transparency 
-                                        (RGBA images) but this is not well supported by MapServer at the moment.  
-                                        So you may be forced to request GIF format maps in those cases.  
-                                        Transparent PNGs produced by the 
-  					MapServer WMS work well though since they are paletted images.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<filename>getFeatureInfo</filename> is not fully supported yet since the output of getFeatureInfo is
-  					left to the discretion of the remote server.  A method layer.getWMSFeatureInfoURL()
-                                        has been added to MapScript for applications that want to access featureInfo
-                                        results and handle them directly.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					MapServer does not attempt to fetch the layer's capabilities.  Doing so
-    					at every map draw would be extremely inefficient.  And caching that
-  					information does not belong in the core of MapServer.  
-  					This is better done at the application level, in a script, and
-  					only the necessary information is passed to the MapServer core via
-  					the CONNECTION string and metadata.
-  					(We will soon release the MapBrowser PHP application which demonstrates the use 
-                                        of PHP to fetch and parse remote WMS server capabilities).
-				</para>
-			</listitem>
-		</orderedlist>
-	</sect1>
-	<!-- Section1: Document Info -->
-	<sect1 id="docinfo">
-		<title>About This Document</title>
-		<sect2 id="copyright">
-			<title>Copyright Information</title>
-			<para>
+        </programlisting>
+      </listitem>
+    </itemizedlist>
+    <para>
+      In addition to the above layer parameters, you have to set the IMAGEPATH 
+      value in the WEB object of your mapfile to point to a valid and writable 
+      directory.  MapServer will use this directory to store temporary files
+      downloaded from the remote servers.  The temporary files are automatically
+      deleted by MapServer so you won't notice them... but a valid IMAGEPATH is 
+      still required.
+    </para>
+  </sect1>
+  <sect1 id="limitations">
+    <title>Limitations/TODO</title>
+    <orderedlist>
+      <listitem>
+        <para>
+          MapServer WMS connections always request exceptions "INIMAGE", but it 
+            may be nice to support XML exceptions at some point and return the 
+            message via the MapServer error reporting mechanisms.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          PNG format with transparent=true does not work well with all servers.
+            For instance some servers use the alpha channel for transparency but this
+            is not supported by MapServer's GD.  So you may be forced to request
+            GIF format maps in those cases.  Transparent PNGs produced by the 
+            MapServer WMS work well though (since they're generated by GD!).
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <filename>getFeatureInfo</filename> is not supported yet since the output of getFeatureInfo is
+            left to the discretion of the remote server.  At least for the servers 
+            that can return GML we can do something meaningful, but for the ones that
+            support only MIME output then we can't do anything but make the query
+            output available to the application.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          MapServer does not attempt to fetch the layer's capabilities.  Doing so
+              at every map draw would be extremely inefficient.  And caching that
+            information does not belong in the core of MapServer.  
+            This is better done at the application level, in a script, and
+            only the necessary information is passed to the MapServer core via
+            the CONNECTION string and metadata.
+            (We'll be building a library to fetch remote WMS server capabilities
+            with an API to parse/extract information from them).
+        </para>
+      </listitem>
+    </orderedlist>
+  </sect1>
+  <!-- Section1: Document Info -->
+  <sect1 id="docinfo">
+    <title>About This Document</title>
+    <sect2 id="copyright">
+      <title>Copyright Information</title>
+      <para>
                 Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
             </para>
-			<para>
+      <para>
                 This documentation is covered by the same Open Source license as the
                 MapServer software itself.  See MapServer's 
                 <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
                 Credits</ulink> page for the complete text.
             </para>
-		</sect2>
-		<sect2 id="disclaimer">
-			<title>Disclaimer</title>
-			<para>
-     				No liability for the contents of this document can be accepted.
-    				Use the concepts, examples and other content at your own risk.
-    				As this is a new edition of this document, there may be errors
-    				and inaccuracies that may be damaging to your system.
-    				Although this is highly unlikely, the author(s) do not take any 
-    				responsibility for that:  proceed with caution.
-                 	</para>
-		</sect2>
-		<!-- Section2: feedback -->
-		<sect2 id="feedback">
-			<title>Feedback</title>
-			<para>
-    				Send any comments or suggestions to the author.
-   			</para>
-		</sect2>
-	</sect1>
+    </sect2>
+    <sect2 id="disclaimer">
+      <title>Disclaimer</title>
+      <para>
+            No liability for the contents of this document can be accepted.
+            Use the concepts, examples and other content at your own risk.
+            As this is a new edition of this document, there may be errors
+            and inaccuracies that may be damaging to your system.
+            Although this is highly unlikely, the author(s) do not take any 
+            responsibility for that:  proceed with caution.
+                  </para>
+    </sect2>
+    <!-- Section2: feedback -->
+    <sect2 id="feedback">
+      <title>Feedback</title>
+      <para>
+            Send any comments or suggestions to the author.
+        </para>
+    </sect2>
+  </sect1>
 </article>
