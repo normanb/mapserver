@@ -225,12 +225,9 @@
 				</listitem>
 			</itemizedlist>
 		</para>
-		<note>
-			<title>Note</title>
-			<para>
-	                     The SHAPEPATH parameter is ignored when accessing OGR data sources.
-	               	</para>
-		</note>
+		<para>
+		     <emphasis>NOTE:</emphasis> SHAPEPATH parameter is ignored when accessing OGR data sources.
+	     </para>
 		<para>
                 &lt;layer_index&gt; is:
                      </para>
@@ -279,7 +276,7 @@
 			</example>
 			<example>
 				<title>
-                    2. TIGER/Line file
+                    TIGER/Line file
                </title>
 				<programlisting>
 	LAYER
@@ -325,7 +322,7 @@
 				</listitem>
 			</itemizedlist>
 			<sect3 id="example">
-				<title>Examples</title>
+				<title>Examples of OGR in use:</title>
 				<example>
 					<title>
                          To get the list of layers in a file:
