@@ -101,7 +101,8 @@
     file that is sent to the browser. Since the template file will be used to 
     create an html file, it is usually stored with a .html extension. See the
     <ulink url="template-reference.html">Template 
-    Reference</ulink> for complete documentation.
+    Reference</ulink> for complete documentation. We have added a revision history section to the 
+    Template Reference document. Please take a look and add it to your document. 
   </para>
   </sect2>
 
