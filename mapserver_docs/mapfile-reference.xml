@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Jean-Francois Doyon (Natural Resources Canada) -->
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
@@ -42,7 +43,8 @@
 				</listitem>
 				<listitem>
 					<para>File paths may be given as absolute paths, or as paths relative to the location of the mapfile.  In addition, data files
-                may be specified relative to the <link linkend="shapepath">SHAPEPATH</link></para>
+                may be specified relative to the <link linkend="shapepath">SHAPEPATH</link>
+					</para>
 				</listitem>
 				<listitem>
 					<para>The mapfile has a hierarchical structure, with the Map object being the "root". All other objects fall under this one.</para>
@@ -57,7 +59,7 @@
 		</sect2>
 		<sect2 id="map">
 			<title>Map Object</title>
-                        <para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
+			<para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
 			<variablelist>
 				<varlistentry>
 					<term>EXTENT [minx] [miny] [maxx] [maxy]</term>
@@ -548,7 +550,8 @@ END
 				<varlistentry>
 					<term>TEMPLATE [file|url]</term>
 					<listitem>
-						<para>Used as a global alternative to <link linkend="class">CLASS</link>&nbsp;<link linkend="template">TEMPLATE</link></para>
+						<para>Used as a global alternative to <link linkend="class">CLASS</link>&nbsp;<link linkend="template">TEMPLATE</link>
+						</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -1250,25 +1253,25 @@ SYMBOL
   NAME 'dashed1'
   TYPE ELLIPSE
   POINTS 1 1 END
-  FILLED
+  FILLED true
   STYLE 10 5 5 10 END
 END
 </programlisting>
-			<para>This creates a dashed line with 10 pixels on, 5 off, 5 on, 10 off ...</para>
+				<para>This creates a dashed line with 10 pixels on, 5 off, 5 on, 10 off ...</para>
 			</example>
 			<example>
 				<title>TrueType font marker symbol</title>
-					<programlisting>
+				<programlisting>
 SYMBOL
   NAME "natcap"
   TYPE TRUETYPE
   FONT geo
-  FILLED
-  ANTIALIAS
+  FILLED true
+  ANTIALIAS true
   CHARACTER "&#38;#114;"
 END
 					</programlisting>
-					<para>This symbol is a star, used to represent the national capital, hence the name.  The font name in defined in the <link linkend="fontset">FONTSET</link> file.  The code number "114" varies, you can use MS Windows' character map to figure it out, or guestimate.</para>
+				<para>This symbol is a star, used to represent the national capital, hence the name.  The font name in defined in the <link linkend="fontset">FONTSET</link> file.  The code number "114" varies, you can use MS Windows' character map to figure it out, or guestimate.</para>
 			</example>
 			<example>
 				<title>Vector triangle marker symbol</title>
@@ -1309,7 +1312,7 @@ END
 SYMBOL
   NAME "circle"
   TYPE ellipse
-  FILLED
+  FILLED true
   POINTS
     1 1
   END
