@@ -2,7 +2,7 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
   <articleinfo>
-    <title>MapServer WFS Server HOWTO - Version 4.2</title>
+    <title>MapServer WFS Server HOWTO - Version 4.4</title>
     <author>
       <firstname>Jean-Fran&ccedil;ois</firstname>
       <surname>Doyon</surname>
@@ -25,7 +25,7 @@
     </author>
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  2004-09-08</para>
+      <para>Last Updated:  2004-11-01</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -36,10 +36,10 @@
       <para>Here are some WFS related links. Since these are highly detailed technical specifications, there is no need to read through them in their entirety to get a MapServer WFS up and running.  It is still recommended however to read them over and get familiar with the basics of each of them, in order to understand how it all works:</para>
       <itemizedlist>
         <listitem>
-          <para>The <ulink url="http://www.opengis.org/techno/specs/02-058.pdf">OpenGIS Web Feature Service Implementation Specification</ulink>.</para>
+          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7176">OpenGIS Web Feature Service Implementation Specification</ulink>.</para>
         </listitem>
         <listitem>
-          <para>The <ulink url="http://www.opengis.net/gml/02-069/GML2-12.html">Geography Markup Language Implementation Specification</ulink>.</para>
+          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7174">Geography Markup Language Implementation Specification</ulink>.</para>
         </listitem>
       </itemizedlist>
       <para>Working knowledge of MapServer is of course also required.</para>
@@ -122,6 +122,18 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term>wfs_namespace_prefix</term>
+          <listitem>
+            <para>User defined namespace to be used in the response of a WFS GetFeature request.</para>
+          </listitem>
+        </varlistentry>         
+        <varlistentry>
+          <term>wfs_namespace_uri</term>
+          <listitem>
+            <para>User defined namespace URI to be used in the response of a WFS GetFeature request.</para>
+          </listitem>
+        </varlistentry>        
+        <varlistentry>
           <term>ows_schemas_location</term>
           <listitem>
             <para>(Note the name ows_schemas_location and not wfs_... this is because all OGC Web Services (OWS) use the same metadata) Root of the web tree where the family of OGC WFS XMLSchema files are located.  This must be a valid URL where the actual .xsd files are located if you want your WFS output to validate in a validating XML parser. The default if this is not set is to use ".." as the schema files location, which should correspond to the root of your web server if you installed mapserv in the cgi-bin directory. See http://ogc.dmsolutions.ca for an example of a valid schema tree.</para>
@@ -196,4 +208,63 @@
       </listitem>
     </itemizedlist>
   </sect1>
+    <!-- Section1: Document Info -->
+    <sect1 id="docinfo">
+        <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The document revision history starts with UMN MapServer 4.3 although the
+  document is older. The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.5</revnumber>
+                        <date>Date: 2004-11-01</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added uri_namespace metadata
+                                   </revremark>
+                    </revision>
+                    <revision>
+                        <revnumber>Number: 1.4</revnumber>
+                        <date>Date: 2004-09-08</date>
+                        <authorinitials>Author: Daniel Morissette</authorinitials>
+                        <revremark>Removed todos and limitations that have been fixed already</revremark>
+                    </revision>
+                </revhistory>
+            </para>
+        </sect2>
+        <sect2 id="copyright">
+            <title>Copyright Information</title>
+            <para>
+    Copyright (c) 2001, 2002, 2003, 2004, Jean-Fran&ccedil;ois Doyon, Daniel Morissette.
+   </para>
+            <para>
+    This documentation is covered by the same Free Software license as the MapServer software.
+    See MapServer's
+    <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+    Credits</ulink> page for the complete text.
+   </para>
+        </sect2>
+        <sect2 id="disclaimer">
+            <title>Disclaimer</title>
+            <para>
+    No liability for the contents of this document can be accepted.
+    Use the concepts, examples and other content at your own risk.
+    As this is a new edition of this document, there may be errors
+    and inaccuracies that may be damaging to your system.
+    Although this is highly unlikely, the author(s) do not take any 
+    responsibility for that:  proceed with caution.
+   </para>
+        </sect2>
+        <!-- Section2: feedback -->
+        <sect2 id="feedback">
+            <title>Feedback</title>
+            <para>
+    Send any comments or suggestions to the author(s).
+   </para>
+        </sect2>
+    </sect1>  
 </article>
