@@ -34,7 +34,7 @@ The following constants are available in MapScript:<br>
       <b>logical control/boolean values</b>
     </td>
     <td>
-      MS_VERSION - character (3.6.1)
+      MS_VERSION - character (4.0.0)
     </td>
   </tr>
   <tr>
@@ -50,6 +50,17 @@ The following constants are available in MapScript:<br>
     <td>
       MS_FALSE/MS_OFF/MS_NO - integer (0)
     </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_NOOVERRIDE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+	</td>
   </tr>
   <tr>
     <td align="right">
@@ -181,6 +192,13 @@ The following constants are available in MapScript:<br>
       MS_LAYER_CIRCLE - integer
     </td>
   </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_LAYER_GRATICULE - integer
+    </td>
+  </tr>
   <tr>  
     <td>
     </td>
@@ -275,13 +293,6 @@ The following constants are available in MapScript:<br>
       MS_AUTO - integer
     </td>
   </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      MS_XY - integer (arrangement matters for auto placement, don't change it)
-    </td>
-  </tr>
   <tr>  
     <td>
     </td>
@@ -361,6 +372,39 @@ The following constants are available in MapScript:<br>
   </tr>  
   <tr>
     <td align="right">
+      <b>measured shape types</b>
+    </td>
+    <td>
+      MS_SHP_POINTM - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHP_ARCM - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHP_POLYGONM - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHP_MULTIPOINTM - integer
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
       <b>shapefile types</b>
     </td>
     <td>
@@ -394,7 +438,40 @@ The following constants are available in MapScript:<br>
   </tr>  
   <tr>
     <td align="right">
-      <b>query/join types/modes</b>
+      <b>dbf field types</b>
+    </td>
+    <td>
+      FTString - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      FTInteger - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      FTDouble - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      FTInvalid - integer
+    </td>
+  </tr>
+  <tr>  
+    <td>
+    </td>
+  </tr>  
+  <tr>
+    <td align="right">
+      <b>query types</b>
     </td>
     <td>
       MS_SINGLE - integer (0)
@@ -424,13 +501,6 @@ The following constants are available in MapScript:<br>
     </td>
     <td>
       MS_FILE_SYMBOL - integer
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      MS_FILE_DEFAULT - integer (MS_FILE_MAP)
     </td>
   </tr>
   <tr>
@@ -523,6 +593,133 @@ The following constants are available in MapScript:<br>
   <tr>
     <td>
     </td>
+    <td>
+      MS_WFS - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_GRATICULE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MYGIS - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>db connection type</b>
+    </td>
+    <td>
+      MS_DB_XBASE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_DB_MYSQL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_DB_ORACLE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_DB_POSTGRES - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>join type</b>
+    </td>
+    <td>
+      MS_JOIN_ONE_TO_ONE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_JOIN_ONE_TO_MANY - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+	</td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>line join type (for rendering)</b>
+    </td>
+    <td>
+      MS_CJC_NONE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_BEVEL - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_BUTT - integer
+    </td>
+  <tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_MITER - integer
+    </td>
+  <tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_ROUND - integer
+    </td>
+  <tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_SQUARE - integer
+    </td>
+  <tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CJC_TRIANGLE - integer
+    </td>
+  <tr>
+  <tr>
+    <td>
+    </td>
   </tr>
   <tr>
     <td align="right">
@@ -566,52 +763,89 @@ The following constants are available in MapScript:<br>
   </tr>
   <tr>
     <td align="right">
-      <b>line joins & caps</b>
+      <b>image modes</b>
     </td>
     <td>
-      MS_CJC_NONE - integer
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      MS_CJC_BEVEL - integer
+      MS_IMAGEMODE_PC256 - integer
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      MS_CJC_BUTT - integer
+      MS_IMAGEMODE_RGB - integer
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      MS_CJC_MITER - integer
+      MS_IMAGEMODE_RGBA - integer
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      MS_CJC_ROUND - integer
+      MS_IMAGEMODE_INT16 - integer
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      MS_CJC_SQUARE - integer
+      MS_IMAGEMODE_FLOAT32 - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>symbol types</b>
+    </td>
+    <td>
+      MS_SYMBOL_SIMPLE - integer
     </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
-      MS_CJC_TRIANGLE - integer
+      MS_SYMBOL_VECTOR - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SYMBOL_ELLIPSE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MMS_SYMBOL_PIXMAP - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SYMBOL_TRUETYPE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SYMBOL_CARTOLINE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
     </td>
   </tr>
   <tr>
@@ -634,6 +868,283 @@ The following constants are available in MapScript:<br>
     </td>
     <td>
       MS_DONE - integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>limiters</b>
+    </td>
+    <td>
+      MS_MAXSYMBOLS - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MAXVECTORPOINTS - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MAXSTYLELENGTH - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_IMAGECACHESIZE - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <a name="error_codes"></a>
+      <b><a href="#error">error codes</a></b>
+    </td>
+    <td>
+      MS_NOERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_IOERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MEMERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_TYPEERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SYMERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_REGEXERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_TTFERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_DBFERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_GDERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_IDENTERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_EOFERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_PROJERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MISCERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_CGIERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_WEBERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_IMGERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_HASHERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_JOINERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_NOTFOUND - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SHPERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_PARSEERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_SDEERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_OGRERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_QUERYERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_WMSERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_WMSCONNERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_ORACLESPATIALERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_WFSERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_WFSCONNERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_MAPCONTEXTERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_HTTPERR - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MS_NUMERRORCODES - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      MESSAGELENGTH - long
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      ROUTINELENGTH - long
     </td>
   </tr>
   <tr>
@@ -683,13 +1194,6 @@ These classes allow the programmer to:<br>
       - perform attribute queries
     </td>
   </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      - read/write dbf files (for limited use only, please use XBase or DBI/XBase)
-    </td>
-  </tr>
 </table>
 <br>
 The main MapScript classes are given in the table below.<br>
@@ -713,6 +1217,27 @@ Each class is described in detail later in this document.<br>
   <tr>
     <td align="right">
       <b>colorObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>errorObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>fontSetObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>graticuleObj</b>
     </td>
     <td>
     </td>
@@ -806,6 +1331,20 @@ Each class is described in detail later in this document.<br>
   </tr>
   <tr>
     <td align="right">
+      <b>msTiledSHPLayerInfo</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>outputFormatObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
       <b>pointObj</b>
     </td>
     <td>
@@ -888,6 +1427,27 @@ Each class is described in detail later in this document.<br>
   <tr>
     <td align="right">
       <b>styleObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>symbolObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>symbolSetObj</b>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <b>vectorObj</b>
     </td>
     <td>
     </td>
@@ -1168,10 +1728,36 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::colorObj
+      new mapscript::colorObj()
+    </td>
+    <td>
+      $label->{backgroundcolor}
+    </td>
+    <td>
+      $label->{backgroundshadowcolor}
+    </td>
+    <td>
+      $label->{color}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $label->{shadowcolor}
+    </td>
+    <td>
+      $label->{offsite}
     </td>
     <td align="left">
       $legend->{imagecolor}
+    </td>
+    <td>
+      $legend->{outlinecolor}
+    </td>
+  </tr>
+  <tr>
+    <td>
     </td>
     <td>
       $map->{imagecolor}
@@ -1182,12 +1768,34 @@ Each class is described in detail later in this document.<br>
     <td>
       $referencemap->{outlinecolor}
     </td>
+    <td>
+      $scalebar->{backgroundcolor}
+    </td>
   </tr>
   <tr>
     <td>
     </td>
     <td>
+      $scalebar->{color}
+    </td>
+    <td>
       $scalebar->{imagecolor}
+    </td>
+    <td>
+      $scalebar->{outlinecolor}
+    </td>
+    <td>
+      $style->{backgroundcolor}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      $style->{color}
+    </td>
+    <td>
+      $style->{outlinecolor}
     </td>
   </tr>
 </table>
@@ -1257,6 +1865,85 @@ Each class is described in detail later in this document.<br>
   </tr>
 </table>
 <br>
+<a name="errorobj"></a><br>
+<b><u><font size="5">errorObj:</font></u></b><br>
+<br>
+<table border="1">
+  <tr>
+    <td>
+      <b>Constructors:</b><br>
+    </td>
+    <td align="left">
+      new mapscript::errorObj()
+	</td>
+    <td align="left">
+      errorObj->next()
+	</td>
+    <td align="left">
+      mapscript::msGetErrorObj()
+	</td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>code - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>message - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>routine - character - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      next()
+    </td>
+    <td>
+    </td>
+    <td>
+      errorObj
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
 <a name="fontsetobj"></a><br>
 <b><u><font size="5">fontSetObj:</font></u></b><br>
 <br>
@@ -1266,7 +1953,10 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::fontSetObj
+      new mapscript::fontSetObj()
+	</td>
+    <td align="left">
+      $map->{fontset}
 	</td>
   </tr>
 </table>
@@ -1828,7 +2518,7 @@ Each class is described in detail later in this document.<br>
       new mapscript::labelCacheobj()
     </td>
     <td align="left">
-      $map->labelcache
+      $map->{labelcache}
     </td>
   </tr>
 </table>
@@ -1926,6 +2616,9 @@ Each class is described in detail later in this document.<br>
 	</td>
     <td align="left">
       $class->{label}
+    </td>
+    <td>
+      $labelcachemember->{label}
     </td>
     <td>
       $legend->{label}
@@ -2181,8 +2874,18 @@ Each class is described in detail later in this document.<br>
       new mapscript::layerObj(mapObj)
     </td>
     <td>
+      $class->{layer}
+    </td>
+    <td>
+      $layer->{sameconnection}
+    </td>
+    <td>
       $map->{layers}
     </td>
+  </tr>
+  <tr>
+    <td>
+	</td>
     <td>
       $map->getLayer(0)
     </td>
@@ -2963,7 +3666,20 @@ Each class is described in detail later in this document.<br>
       new mapscript::legendObj()
     </td>
     <td align="left">
+      $graticule->{pboundinglines}
+    </td>
+    <td align="left">
       $map->{legend}
+    </td>
+    <td align="left">
+      $shape->{line}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td align="left">
+      $shape->get(0)
     </td>
   </tr>
 </table>
@@ -3243,6 +3959,25 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       new mapscript::mapObj(mapfile name)
+    </td>
+    <td>
+      $layer->{map}
+    </td>
+    <td>
+      $legend->{map}
+    </td>
+    <td>
+      $map->{clone}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+	  $referencemap->{map}
+    </td>
+    <td>
+	  $web->{map}
     </td>
   </tr>
   <tr>
@@ -4234,7 +4969,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::msTiledSHPLayerInfo
+      new mapscript::msTiledSHPLayerInfo()
 	</td>
   </tr>
 </table>
@@ -4299,7 +5034,16 @@ Each class is described in detail later in this document.<br>
       <b>Constructors:</b><br>
     </td>
     <td align="left">
-      new mapscript::outputFormatObj
+      new mapscript::outputFormatObj(character driver)
+	</td>
+    <td align="left">
+      $image->{format}
+	</td>
+    <td align="left">
+      $map->{outputformat}
+	</td>
+    <td align="left">
+      $map->{outputformatlist}
 	</td>
   </tr>
 </table>
@@ -4460,13 +5204,23 @@ Each class is described in detail later in this document.<br>
       new mapscript::pointObj()
     </td>
     <td>
+      $graticule->{pboundingpoints}
+    </td>
+    <td>
       $labelcachemember->{point}
     </td>
     <td>
       $line->{point}
     </td>
+  </tr>
+  <tr>
+    <td>
+	</td>
     <td>
       $line->get(0)
+    </td>
+    <td>
+      $symbol->{points}
     </td>
   </tr>
 </table>
@@ -4600,6 +5354,9 @@ Each class is described in detail later in this document.<br>
     <td align="left">
       new mapscript::projectionObj(string)
     </td>
+    <td align="left">
+      $map->{querymap}
+    </td>
   </tr>
 </table>
 <br>
@@ -4670,7 +5427,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
 	<TD ALIGN="left">
-	   new mapscript::queryMapobj()
+	   new mapscript::queryMapObj()
 	</td>
     <td align="left">
       $map->{querymap}
@@ -4762,17 +5519,20 @@ Each class is described in detail later in this document.<br>
       new mapscript::rectObj()
     </td>
     <td>
+      $graticule->{extent}
+    </td>
+    <td>
       $map->{extent}
     </td>
     <td>
       $referencemap->{extent}
     </td>
-    <td>
-      $resultcache->{bounds}
-    </td>
   </tr>
   <tr>
     <td>
+    </td>
+    <td>
+      $resultcache->{bounds}
     </td>
     <td>
       $shapefile->{bounds}
@@ -4783,6 +5543,10 @@ Each class is described in detail later in this document.<br>
     <td>
       $shape->{bounds}
     </td>
+  </tr>
+  <tr>
+    <td>
+	</td>
     <td>
       $web->{extent}
     </td>
@@ -4897,7 +5661,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::referenceObj()
+      new mapscript::referenceMapObj()
     </td>
     <td align="left">
       $map->{reference}
@@ -5042,7 +5806,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::resultCacheMemberobj()
+      new mapscript::resultCacheMemberObj()
     </td>
     <td align="left">
       $layer->getResult(0)
@@ -5332,7 +6096,13 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::shapefileObj(filename,type)
+      new mapscript::shapefileObj(character filename,integer type)
+    </td>
+    <td align="left">
+      $mstiledshplayerinfo->{shpfile}
+    </td>
+    <td align="left">
+      $mstiledshplayerinfo->{tileshpfile}
     </td>
   </tr>
   <tr>
@@ -5532,7 +6302,7 @@ Each class is described in detail later in this document.<br>
       <b>Constructor:</b><br>
     </td>
     <td align="left">
-      new mapscript::shapeObj(type)
+      new mapscript::shapeObj(integer type)
     </td>
     <td>
       $labelcachemember->{poly}
@@ -5783,6 +6553,9 @@ Each class is described in detail later in this document.<br>
     <td align="left">
       new mapscript::styleObj()
     </td>
+    <td align="left">
+      $class->{styles}
+    </td>
   </tr>
 </table>
 <br>
@@ -5918,6 +6691,15 @@ Each class is described in detail later in this document.<br>
     <td align="left">
       new mapscript::symbolObj()
 	</td>
+    <td align="left">
+      $symbolset->{symbol}
+	</td>
+    <td align="left">
+      $symbolset->getSymbol(0)
+	</td>
+    <td align="left">
+      $symbolset->getSymbolByName("mysymbol")
+	</td>
   </tr>
 </table>
 <br>
@@ -5934,7 +6716,133 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>member here - return here - rw.</li>
+      <li>character - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>filled - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>font - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>gap - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>imagepath - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>linecap - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>linejoin - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>linejoinmaxsize - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>name - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numpoints - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>points - pointObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>position - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>sizex - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>sizey - double - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>style - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>stylelength - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transparent - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>transparentcolor - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>type - integer - rw.</li>
     </td>
   </tr>
 </table>
@@ -5982,6 +6890,9 @@ Each class is described in detail later in this document.<br>
     </td>
     <td align="left">
       new mapscript::symbolSetObj()
+	</td>
+    <td align="left">
+      $map->{symbolset}
 	</td>
   </tr>
 </table>
@@ -6040,7 +6951,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      getSymbol
+      getSymbol(integer index)
     </td>
     <td>
     </td>
@@ -6054,7 +6965,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      getSymbolByName
+      getSymbolByName(character name)
     </td>
     <td>
     </td>
@@ -6409,7 +7320,16 @@ Current error handling supports returned codes (where applicable).
     <td>
     </td>
     <td>
-      Please see the <a href="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PerlMapScriptDebugging">wiki</a>.
+      Please see the <a href="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?PerlMapScriptDebugging" target="wiki">wiki</a>.
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      Please see the <a href="#error_codes">error codes</a>.
     </td>
     <td>
     </td>
