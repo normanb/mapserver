@@ -39,14 +39,14 @@
       <para>Although in-depth understanding of WFS and GML is neither necessary nor required in order to implement a MapServer application that reads remote WFS data, it is recommended to at least get aquainted with the concepts and basic functionality of both.  Here are the official references (including a newly added OGC workshop with MapServer):</para>
       <itemizedlist>
         <listitem>
-          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7176">OpenGIS Web Feature Service Implementation Specification</ulink>.</para>
+          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7176">OGC Web Feature Service Implementation Specification</ulink>.</para>
         </listitem>
         <listitem>
           <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7174">Geography Markup Language Implementation Specification</ulink>.</para>
         </listitem>
         <listitem>
           <para>
-            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+            MapServer OGC Web Services Workshop package at <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
            http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
           </para>
         </listitem>         

@@ -30,7 +30,7 @@
     <sect1 id="intro">
         <title>Introduction</title>
         <para>
-        The term 'map context' comes from the Open GIS Constortium's (OGC) <ulink url="http://www.opengis.org/docs/03-036r2.pdf">Web Map Context            Specification v1.0.0</ulink>, which coincides with the OGC <ulink url="http://www.opengis.org/docs/01-068r3.pdf">Web Map Server
+        The term 'map context' comes from the Open Geospatial Constortium's (OGC) <ulink url="http://www.opengeospatial.org/docs/03-036r2.pdf">Web Map Context            Specification v1.0.0</ulink>, which coincides with the OGC <ulink url="http://www.opengeospatial.org/docs/01-068r3.pdf">Web Map Server
         Interfaces Implementation Specification (WMS) v1.1.1</ulink>.  A map context is a XML document that describes the appearance of layers from one or more WMS         servers, and can be transferred     between clients while maintaining startup views, the state of the view (and its layers), and storing additional layer information.
             </para>
         <para>
@@ -80,15 +80,15 @@
                 <listitem>
                     <para>
             WMS 1.1.1 specification:
-              <ulink url="http://www.opengis.org/docs/01-068r3.pdf">
-            http://www.opengis.org/techno/specs/01-068r3.pdf</ulink>
+              <ulink url="http://www.opengeospatial.org/docs/01-068r3.pdf">
+            http://www.opengeospatial.org/docs/01-068r3.pdf</ulink>
                     </para>
                 </listitem>
                 <listitem>
                     <para>
             Map Context 1.0.0 specification:
-              <ulink url="http://www.opengis.org/docs/03-036r2.pdf">
-            http://www.opengis.org/techno/specs/03-036r2.pdf</ulink>
+              <ulink url="http://www.opengeospatial.org/docs/03-036r2.pdf">
+            http://www.opengeospatial.org/docs/03-036r2.pdf</ulink>
                     </para>
                 </listitem>
                 <listitem>
@@ -121,7 +121,7 @@
                 </listitem>
         <listitem>
           <para>
-            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+            MapServer OGC Web Services Workshop package: <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
            http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
           </para>
         </listitem>                 

@@ -33,20 +33,20 @@
   </articleinfo>
   <sect1 id="intro">
     <title>Introduction</title>
-    <para>A WFS ( Web Feature Service ) publishes feature-level geospatial data to the web.  This means that instead of returning an image, as MapServer has traditionally done, the client now obtains fine-grained information about specific geospatial features of the underlying data, at both the geometry AND attribute levels.  As with other OpenGIS specifications, this interface uses XML over HTTP as it's delivery mechanism, and, more precisely, GML (Geography Markup Language), which is a subset of XML.</para>
+    <para>A WFS ( Web Feature Service ) publishes feature-level geospatial data to the web.  This means that instead of returning an image, as MapServer has traditionally done, the client now obtains fine-grained information about specific geospatial features of the underlying data, at both the geometry AND attribute levels.  As with other OGC specifications, this interface uses XML over HTTP as it's delivery mechanism, and, more precisely, GML (Geography Markup Language), which is a subset of XML.</para>
     <sect2 id="related">
       <title>WFS-Related information</title>
       <para>Here are some WFS related links (including a newly added OGC services workshop with MapServer). Since these are highly detailed technical specifications, there is no need to read through them in their entirety to get a MapServer WFS up and running.  It is still recommended however to read them over and get familiar with the basics of each of them, in order to understand how it all works:</para>
       <itemizedlist>
         <listitem>
-          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7176">OpenGIS Web Feature Service Implementation Specification</ulink>.</para>
+          <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7176">OGC Web Feature Service Implementation Specification</ulink>.</para>
         </listitem>
         <listitem>
           <para>The <ulink url="https://portal.opengeospatial.org/files/?artifact_id=7174">Geography Markup Language Implementation Specification</ulink>.</para>
         </listitem>
         <listitem>
           <para>
-            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+            MapServer OGC Web Services Workshop package at <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
            http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
           </para>
         </listitem>          

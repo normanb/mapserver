@@ -33,8 +33,8 @@
     <para>
             A WMS (or Web Map Server) allows for use of data from several different servers, and enables for the creation of a
         network of Map Servers from which clients can build customized maps.  
-      The following documentation is based on the <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
-                Open GIS Consortium's (OGC) Web Map Server Interfaces Implementation Specification v1.1.1</ulink>. 
+      The following documentation is based on the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                Open Geospatial Consortium's (OGC) Web Map Server Interfaces Implementation Specification v1.1.1</ulink>. 
     </para>
     <para>
       MapServer v3.5 or more recent is required to implement WMS features.  At the time this document was written, Mapserver
@@ -143,22 +143,22 @@
         <listitem>
           <para>
             WMS 1.0.0 specification:
-              <ulink url="http://www.opengis.org/docs/00-028.pdf">
-            http://www.opengis.org/docs/00-028.pdf</ulink>
+              <ulink url="http://www.opengeospatial.org/docs/00-028.pdf">
+            http://www.opengeospatial.org/docs/00-028.pdf</ulink>
           </para>
         </listitem>
         <listitem>
           <para>
             WMS 1.1.0 specification:
-              <ulink url="http://www.opengis.org/docs/01-047r2.pdf">
-            http://www.opengis.org/docs/01-047r2.pdf</ulink>
+              <ulink url="http://www.opengeospatial.org/docs/01-047r2.pdf">
+            http://www.opengeospatial.org/docs/01-047r2.pdf</ulink>
           </para>
         </listitem>
         <listitem>
           <para>
             WMS 1.1.1 specification:
-              <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
-            http://www.opengis.org/docs/01-068r2.pdf</ulink>
+              <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+            http://www.opengeospatial.org/docs/01-068r2.pdf</ulink>
           </para>
         </listitem>
         <listitem>
@@ -191,7 +191,7 @@
         </listitem>
         <listitem>
           <para>
-            MapServer OGC Web Services Workshop package <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
+            MapServer OGC Web Services Workshop package: <ulink url="http://devgeo.cciw.ca/ms_ogc_workshop/index.html">
            http://devgeo.cciw.ca/ms_ogc_workshop/index.html</ulink>.
           </para>
         </listitem>         
@@ -402,7 +402,7 @@
    ...
           </programlisting>
           <para>
-          In addition to EPSG:xxxx projections, a WMS server can advertize projections in the AUTO:xxxx namespace.  AUTO projections 42001 to 42005 are internally supported by MapServer.  However, AUTO projections are useful only with smart WMS clients, since the client needs to define the projection parameters in the WMS requests to the server.  For more information see Annex E of the <ulink url="http://www.opengis.org/docs/01-068r2.pdf">WMS 1.1.1 specification</ulink> and section 6.5.5.2 of the same document.  See also the <link linkend="FAQ">FAQ</link> on AUTO projections at the end of this document. 
+          In addition to EPSG:xxxx projections, a WMS server can advertize projections in the AUTO:xxxx namespace.  AUTO projections 42001 to 42005 are internally supported by MapServer.  However, AUTO projections are useful only with smart WMS clients, since the client needs to define the projection parameters in the WMS requests to the server.  For more information see Annex E of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">WMS 1.1.1 specification</ulink> and section 6.5.5.2 of the same document.  See also the <link linkend="FAQ">FAQ</link> on AUTO projections at the end of this document. 
             </para>
         </listitem>
         <listitem>
@@ -445,7 +445,7 @@
               recommended that you provide the wms_onlineresource metadata.
           </para>
           <para>
-            See section 6.2.2 of the <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
+            See section 6.2.2 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
             WMS 1.1.1 specification</ulink> for the whole story about
               the online resource URL.  Basically, what you need is a complete HTTP URL
               including the <filename>http://</filename> prefix, hostname, script name, potentially a "map="
@@ -650,7 +650,7 @@
         to point that "map=..." is not considered a vendor-specific parameter in this
         case since it is part of the Online Resource URL which is defined as an 
         opaque string terminated by "?" or "&amp;" 
-        (See <ulink url="http://www.opengis.org/docs/01-068r2.pdf">
+        (See <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
         WMS 1.1.1 section 6.2.2</ulink>).
       </para>
       <para>
