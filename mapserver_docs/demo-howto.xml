@@ -24,7 +24,7 @@
       Application. It assumes that the MapServer CGI program (e.g. mapserv or
       mapserv.exe) has been installed on the web server's cgi-bin directory.</para>
 
-    <para>Last Updated:  05-11-2001</para>
+    <para>Last Updated:  07-17-2001</para>
   </abstract>
 
 </articleinfo>
@@ -43,6 +43,12 @@
   When specifying paths or subdirectories, WINDOWS uses the
   backslash (\) while UNIX uses the forward slash (/). When writing a path as URL,
   always use the forward slash.</para>
+
+  <note><title>MapServer 3.5 Demo</title><para>Steve Lime put together a new
+  MapServer Demo for use with version 3.5.  It can be downloaded from <ulink
+  url='http://maps.dnr.state.mn.us/mapserver_demos/itasca.tar.gz'>
+  http://maps.dnr.state.mn.us/mapserver_demos/itasca.tar.gz</ulink></para>
+  </note>
 </sect1>
 
 
