@@ -542,7 +542,7 @@
                                 </para>
             <programlisting>
     http://localhost/mapserver.cgi?MODE=map&amp;MAP=/path/to/mapfile.map&amp;CONTEXT=
-                http:://URL/path/to/contextfile.xml&amp;LAYERS=layers_name1 layer_name2     
+                http://URL/path/to/contextfile.xml&amp;LAYERS=layers_name1 layer_name2     
                         </programlisting>
                         <para>
                             Due to security concerns loading a file from a URL is disabled by default. To enable this functionality, the user needs to set a CONFIG                                 parameter called CGI_CONTEXT_URL in the default map file that will allow this functionality.  Here is an example of a map file with the CONFIG                          parameter:
