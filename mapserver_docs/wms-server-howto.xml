@@ -4,7 +4,7 @@
 <!-- $Id$ -->
 <article>
 	<articleinfo>
-		<title>Mapserver WMS Server HOWTO</title>
+		<title>Mapserver WMS Server HOWTO - Version 4.0</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
@@ -15,23 +15,27 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2002-07-15</date>
+		<date>2003-07-29</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
-                 This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through          the use of MapServer v3.5 (and later).  
+                 This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
+          the use of MapServer v3.5 (and later).  
       </para>
-			<para>Last Updated: 07/15/2002</para>
+			<para>Last Updated: 07/29/2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
-            A WMS (or Web Map Server) allows for use of data from several different servers, and enables for the creation of a        network of Map Servers from which clients can build customized maps.  
-      The following documentation is based on the <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">                Open GIS Consortium's (OGC) Web Map Server Interfaces Implementation Specification v1.1.0</ulink>. 
+            A WMS (or Web Map Server) allows for use of data from several different servers, and enables for the creation of a
+        network of Map Servers from which clients can build customized maps.  
+      The following documentation is based on the <ulink url="http://www.opengis.org/techno/specs/01-047r2.pdf">
+                Open GIS Consortium's (OGC) Web Map Server Interfaces Implementation Specification v1.1.0</ulink>. 
     </para>
 		<para>
-      MapServer v3.5 is required to implement WMS features.  At the time this document was written, Mapserver         supports the following WMS versions: 1.0.0, 1.0.7, and 1.1.0 (a.k.a. 1.0.8).
+      MapServer v3.5 or more recent is required to implement WMS features.  At the time this document was written, Mapserver
+         supports the following WMS versions: 1.0.0, 1.0.7, and 1.1.0 (a.k.a. 1.0.8).
     </para>
 		<para>
              This document assumes that you are already familiar with certain aspects of MapServer:
@@ -44,7 +48,8 @@
 			</listitem>
 			<listitem>
 				<para>
-          Familiarity with the WMS spec would be an asset. A link to the WMS specification document is included in          the <link linkend="links">"WMS-Related Information"</link> section below.
+          Familiarity with the WMS spec would be an asset. A link to the WMS specification document is included in
+          the <link linkend="links">"WMS-Related Information"</link> section below.
         </para>
 			</listitem>
 		</itemizedlist>
@@ -90,7 +95,8 @@
 						<listitem>
 							<para>
                   Text/html output using MapServer query templates specified in the CLASS template parameter.
-                  The MIME type returned by the Class templates defaults to text/html and can be controlled using the                     metadata  <link linkend="mime_type">"wms_feature_info_mime_type"</link>.
+                  The MIME type returned by the Class templates defaults to text/html and can be controlled using the
+                  metadata  <link linkend="mime_type">"wms_feature_info_mime_type"</link>.
               </para>
 						</listitem>
 						<listitem>
@@ -329,6 +335,15 @@
       "init=epsg:4269"
    END    
           </programlisting>
+            <para>
+             (Note that "epsg" has to be in lowercase when used in the PROJ4 'init' directive.) 
+            </para>
+          <para>
+            If the MAP PROJECTION block is provided in the format "init=epsg:xxxx" then
+            MapServer will also use this information to generate a &lt;BoundingBox&gt; tag for
+            the top-level layer in the WMS capabilities document.  Note that the BoundingBox is an optional
+            element of WMS capabilities, but it is good practice to allow MapServer to include it when possible.
+          </para>
 					<para>
             The above is sufficient for MapServer to recognize the EPSG code and
               include it in SRS tags in the capabilities output (wms_srs metadata is not
@@ -387,6 +402,12 @@
 					<para>
             Layer PROJECTION and wms_srs metadata are defined exactly the same way as
               the map's PROJECTION and wms_srs metadata.
+          </para>
+          <para>
+            For vector layers, if a PROJECTION block is provided in the format "init=epsg:xxxx" then
+            MapServer will also use this information to generate a &lt;BoundingBox&gt; tag for
+            this layer in the WMS capabilities document.  Note that the BoundingBox is an optional
+            element of WMS capabilities, but it is good practice to allow MapServer to include it when possible.
           </para>
 				</listitem>
 				<listitem id="wms_onlineresource">
@@ -505,7 +526,8 @@
 			<title>More About the Online Resource URL</title>
 			<para>
         As mentioned in the section <link linkend="wms_onlineresource">
-        "Setup a Mapfile / wms_onlineresource metadata"</link> above, the following Online Resource URL is          perfectly valid for a MapServer WMS according to section 6.2.1 or the WMS 1.1.0 specification:
+        "Setup a Mapfile / wms_onlineresource metadata"</link> above, the following Online Resource URL is
+          perfectly valid for a MapServer WMS according to section 6.2.1 or the WMS 1.1.0 specification:
       </para>
 			<programlisting>
    http://my.host.com/cgi-bin/mapserv?map=mywms.map&amp;
@@ -547,7 +569,8 @@
             MAP environment accordingly.
           </para>
 					<para>
-            For Windows and Apache users the steps are as follows <emphasis>(this requires Apache               1.3 or newer)</emphasis>:
+            For Windows and Apache users the steps are as follows <emphasis>(this requires Apache
+               1.3 or newer)</emphasis>:
           </para>
 					<itemizedlist>
 						<listitem>
