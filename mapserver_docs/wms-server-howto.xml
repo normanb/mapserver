@@ -665,6 +665,22 @@
 						</listitem>
 					</itemizedlist>
 				</sect4>
+				<sect4 id="encoding">
+					<title>wms_encoding</title>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>WMS TAG Name:</emphasis> Encoding
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>Description:</emphasis> Optional XML capabilities encoding type.  The default is 
+								ISO-8859-1.
+							</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>				
 				<sect4 id="fees">
 					<title>wms_fees</title>
 					<itemizedlist>
