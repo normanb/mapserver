@@ -169,14 +169,14 @@
 				mapserv program do include WMS support (it is included by default when you 
 				compile together with the PROJ library), so the first step is to check that
 				your mapserv executable includes WMS support.  One way to verify this is to
-				use the "-v" command-line switch and look for "SUPPORTS=WMS".
+				use the "-v" command-line switch and look for "SUPPORTS=WMS_SERVER".
 			</para>
 			<example>
 				<title>On Unix:</title>
 				<programlisting>
    $ ./mapserv -v
    MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
-   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS INPUT=EPPL7 INPUT=JPEG INPUT=OGR 
+   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER INPUT=EPPL7 INPUT=JPEG INPUT=OGR 
    INPUT=GDAL INPUT=SHAPEFILE				
 				</programlisting>
 			</example>
@@ -185,7 +185,7 @@
 				<programlisting>
    C:\apache\cgi-bin> mapserv -v
    MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
-   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS INPUT=EPPL7 INPUT=JPEG INPUT=OGR
+   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER INPUT=EPPL7 INPUT=JPEG INPUT=OGR
    INPUT=GDAL INPUT=SHAPEFILE
 				</programlisting>
 			</example>

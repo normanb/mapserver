@@ -121,6 +121,30 @@
 			if you requested it).  See the <ulink url="http://mapserver.gis.umn.edu/doc/unix-install-howto.html">
 			MapServer Compilation HOWTO</ulink> for installation details.
 		</para>
+		<sect2 id="check_exe">
+			<title>Check your MapServer executable</title>
+			<para>
+				To check that your mapserv executable includes WMS support, use the "-v" command-line switch and look for 					"SUPPORTS=WMS_CLIENT".
+			</para>
+			<example>
+				<title>On Unix:</title>
+				<programlisting>
+   $ ./mapserv -v
+   MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
+   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_CLIENT INPUT=EPPL7 INPUT=JPEG INPUT=OGR 
+   INPUT=GDAL INPUT=SHAPEFILE				
+				</programlisting>
+			</example>
+			<example>
+				<title>On Windows:</title>
+				<programlisting>
+   C:\apache\cgi-bin> mapserv -v
+   MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
+   SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_CLIENT INPUT=EPPL7 INPUT=JPEG INPUT=OGR
+   INPUT=GDAL INPUT=SHAPEFILE
+				</programlisting>
+			</example>
+		</sect2>		
 	</sect1>
 	<sect1 id="mapfile">
 		<title>MapFile configuration - CONNECTIONTYPE WMS</title>
