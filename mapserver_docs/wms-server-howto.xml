@@ -544,8 +544,7 @@
       <para>
         But anyway, even if it's valid, the above URL is still ugly.  And you might 
         want to use a nicer URL for your WMS Online Resource URL.  Here are some 
-        suggestions, some of them will work only on Unix, but at least #2 will
-        work for Windows/Apache users as well.
+        suggestions:
       </para>
       <orderedlist>
         <listitem>
@@ -588,6 +587,25 @@
               </programlisting>
             </listitem>
           </itemizedlist>
+        </listitem>
+        <listitem>
+          <para>
+            On IIS servers (Windows), you can use the following ASP script:
+          </para>
+          <programlisting>
+  &lt;%
+    Server.ScriptTimeout = 360
+    strRequest = Request.ServerVariables("QUERY_STRING")
+    strURL = "http://myserver/cgi-bin/mapserv.exe?map=C:\Inetpub\wwwroot\WMS\mymap.map&amp;" &amp; strRequest
+    Dim objHTTP
+    Set objHTTP = Server.CreateObject("MSXML2.ServerXMLHTTP")
+    objHTTP.open "GET", strURL, false
+    objHTTP.send ""
+    Response.ContentType = objHTTP.getResponseHeader("content-type")
+    Response.BinaryWrite objHTTP.responseBody
+    Set objHTTP = Nothing
+  %&gt;
+          </programlisting>
         </listitem>
       </orderedlist>
     </sect2>
