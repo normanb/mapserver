@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Jean-Francois Doyon (Natural Resources Canada) -->
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
 	<articleinfo>
-		<title>MapFile Reference - MapServer 3.5</title>
+		<title>MapFile Reference - MapServer 3.6</title>
 		<author>
 			<firstname>Jean-Fran&ccedil;ois</firstname>
 			<surname>Doyon</surname>
@@ -19,9 +18,9 @@
 		</author>
 		<abstract>
 			<para>
-    			This document is a reference to the MapFile syntax for MapServer version 3.5.
+    			This document is a reference to the MapFile syntax for MapServer version 3.6.
    			</para>
-			<para>Last Updated:  06-13-2001</para>
+			<para>Last Updated:  06-13-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -86,19 +85,19 @@
 				<varlistentry>
 					<term>IMAGEQUALITY [int]</term>
 					<listitem>
-						<para>Compression quality for JPEG output.</para>
+						<para>Compression quality for JPEG output.  This keyword is now deprecated in favour of using FORMATOPTION "QUALITY=n" in the OUTPUTFORMAT declaration.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>IMAGETYPE [gif|png|jpeg|wbmp]</term>
+					<term>IMAGETYPE [gif|png|jpeg|wbmp|gtiff|swf|userdefined]</term>
 					<listitem>
-						<para>Output image type.  This is dependent on how the MapServer executable was compiled and the GD used.</para>
+						<para>Output format to generate.  See details in the OUTPUTFORMAT section for available formats.  The name here must match the 'NAME' of a user defined or internally generated OUTPUTFORMAT section.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>INTERLACE [on|off]</term>
 					<listitem>
-						<para>Should output images be interlaced?  Default is [on].</para>
+						<para>Should output images be interlaced?  Default is [on].  This keyword is now depcrecated in favour of using the FORMATOPTION "INTERLACE=ON" line in the OUTPUTFORMAT declaration.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -188,7 +187,7 @@
 				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
-						<para>Should the background color for the maps be transparent. Default is off.</para>
+						<para>Should the background color for the maps be transparent.  This flag is now deprecated in favour of declaring transparency within OUTPUTFORMAT declarations.  Default is off.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -752,7 +751,7 @@ END
 				<varlistentry>
 					<term>INTERLACE [on|off]</term>
 					<listitem>
-						<para>Should the output image be interlaced?  Default is [on].</para>
+						<para>Should the output image be interlaced?  Default is [on].  This keyword is now depcrecated in favour of using the FORMATOPTION "INTERLACE=ON" line in the OUTPUTFORMAT declaration.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -800,7 +799,7 @@ END
 				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
-						<para>Should the background color for the legend be transparent. Default is off.</para>
+						<para>Should the background color for the legend be transparent.  This flag is now deprecated in favour of declaring transparency within OUTPUTFORMAT declarations. Default is off.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
@@ -957,7 +956,7 @@ END
 				<varlistentry>
 					<term>INTERLACE [true|false]</term>
 					<listitem>
-						<para>Should output images be interlaced?  Default is [on].</para>
+						<para>Should output images be interlaced?  Default is [on]. This keyword is now depcrecated in favour of using the FORMATOPTION "INTERLACE=ON" line in the OUTPUTFORMAT declaration.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -1012,7 +1011,7 @@ END
 				<varlistentry>
 					<term>TRANSPARENT [on|off]</term>
 					<listitem>
-						<para>Should the background color for the scalebar be transparent. Default is off.</para>
+						<para>Should the background color for the scalebar be transparent. This flag is now deprecated in favour of declaring transparency within OUTPUTFORMAT declarations. Default is off.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -1135,7 +1134,137 @@ END
 			</programlisting>
 			<para>See the <ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink> user guides for complete descriptions of supported projections and coordinate systems. </para>
 		</sect2>
-	</sect1>
+<!-- =================== OUTPUTFORMAT ===================================== -->
+
+	<sect2 id="projection">
+		<title>OutputFormat Object</title>
+		<para>This section discusses out output formats are defined and selected.</para>
+		<para>A map file may have zero, one or more OUTPUTFORMAT object declarations, defining available output formats supported including formats like PNG, GIF, JPEG, GeoTIFF and Flash (SWF).</para>
+		<para>If OUTPUTFORMAT sections declarations are found in the map file, the following implicit declarations will be made.  Only those for which support is compiled in will actually be available.  The GeoTIFF depends on building with GDAL support, and the Flash (SWF) depends on compiling with support for the MING library.</para>
+
+		<para><screen>
+OUTPUTFORMAT
+  NAME gif
+  DRIVER "GD/GIF"
+  MIMETYPE "image/gif"
+  IMAGEMODE PC256
+  EXTENSION "gif"
+END
+OUTPUTFORMAT
+  NAME png
+  DRIVER "GD/PNG"
+  MIMETYPE "image/png"
+  IMAGEMODE PC256
+  EXTENSION "png"
+END
+OUTPUTFORMAT
+  NAME jpeg
+  DRIVER "GD/JPEG"
+  MIMETYPE "image/jpeg"
+  IMAGEMODE RGB
+  EXTENSION "jpg"
+END
+OUTPUTFORMAT
+  NAME wbmp
+  DRIVER "GD/WBMP"
+  MIMETYPE "image/wbmp"
+  IMAGEMODE PC256
+  EXTENSION "wbmp"
+END
+OUTPUTFORMAT
+  NAME swf
+  DRIVER "SWF"
+  MIMETYPE "application/x-shockwave-flash"
+  EXTENSION "swf"
+END
+OUTPUTFORMAT
+  NAME GTiff
+  DRIVER "GDAL/GTiff"
+  MIMETYPE "image/tiff"
+  IMAGEMODE RGB
+  EXTENSION "tif"
+END
+
+		</screen></para>
+
+		<variablelist>
+			<varlistentry>
+				<term>NAME [name]</term>
+				<listitem>
+					<para>The name to use use in the IMAGETYPE keyword of the map file to select this output format.(optional)</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>DRIVER [name]</term>
+				<listitem>
+					<para>The name of the driver to use to generate this output format.  Some driver names include the definition of the format if the driver supports multiple formats.  For GD the possible driver names are "GD/Gif", "GD/PNG", "GD/WBMP" and "GD/JPEG".  For flash the driver is just called "SWF".  For output through GDAL the GDAL shortname for the format is appeneded, such as "GDAL/GTiff".  Note that PNG, JPEG and GIF output can be generated with either GDAL or GD (GD is generally more efficient).(manditory)</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>IMAGEMODE [PC256/RGB/RGBA]</term>
+				<listitem>
+					<para>Selects the imaging mode in which the output is generated.  Does matter for non-raster formats like Flash.   Not all formats support all combinations.  For instance GD/GIF supports only PC256. (optional)</para>
+					<itemizedlist>
+						<listitem>
+							<para>PC256: Produced a pseudocolored result with up to 256 colors in the palette (traditional MapServer mode)</para>
+						</listitem>
+						<listitem>
+							<para>RGB: Render in 24bit Red/Green/Blue mode.  Supports all colors but does not support transparency.</para>
+						</listitem>
+						<listitem>
+							<para>RGBA: Render in 32bit Red/Green/Blue/Alpha mode.  Supports all colors, and alpha based transparency.</para>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>MIMETYPE [type]</term>
+				<listitem>
+					<para>Provide the mime type to be used when returning results over the web. (optional)</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>EXTENSION [type]</term>
+				<listitem>
+					<para>Provide the extension to use when creating files of this type. (optional)</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>TRANSPARENT [ON/OFF]</term>
+				<listitem>
+					<para>Indicates whether transparency should be enabled for this format.  Note that transparency does not work for IMAGEMODE RGB output.  Not all formats support transparency.(optional)</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>FORMATOPTION [option]</term>
+				<listitem>
+					<para>Provides a driver or format specific option.  Zero or more FORMATOPTION statement may be present within a OUTPUTFORMAT declaration. (optional)</para>
+					<itemizedlist>
+						<listitem>
+							<para>GD/JPEG: The "QUALITY=n" option may be used to set the quality of jpeg produced (value from 0-100). </para>
+						</listitem>
+						<listitem>
+							<para>GD/PNG: The "INTERLACE=[ON/OFF]" option may be used to turn interlacing on or off. </para>
+						</listitem>
+						<listitem>
+							<para>GD/GIF: The "INTERLACE=[ON/OFF]" option may be used to turn interlacing on or off. </para>
+						</listitem>
+						<listitem>
+							<para>GDAL/GTiff: Supports the TILED=YES, BLOCKXSIZE=n, BLOCKYSIZE=n, INTERLEAVE=[PIXEL/BAND] and COMPRESS=[NONE,PACKBITS,JPEG,LZW,DEFLATE] format specific options.</para>
+						</listitem>
+						<listitem>
+							<para>GDAL/*: All FORMATOPTIONs are passed onto the GDAL create function.  Options supported by GDAL are described in the detailed documentation for each GDAL format. </para>
+						</listitem>
+
+					</itemizedlist>				</listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+</sect1>
+
+<!-- ===================================================================== -->
+
+
 	<sect1 id="symbology">
 		<title>Symbology Reference</title>
 		<para>This section explains how to work with and define symbology in MapServer.</para>
