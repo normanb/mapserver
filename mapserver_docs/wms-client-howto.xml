@@ -124,6 +124,15 @@
 	</sect1>
 	<sect1 id="mapfile">
 		<title>MapFile configuration - CONNECTIONTYPE WMS</title>
+		<important>
+			<para>
+	             A PROJECTION must be set in the mapfile for the MAP unless you are sure that all your WMS 
+	             layers support only a single projection which is the same as the PROJECTION of the map.  
+	             The MAP PROJECTION can be set using "init=epsg:xxxx" codes or using regular PROJ4 parameters.  
+	             Failure to set a MAP PROJECTION may result in blank maps coming from remote WMS servers (because 
+	             of inconsistent BBOX+SRS combination being used in the WMS cnonection URL).
+			</para>
+		</important>
 		<para>
 			WMS layers are accessed via the WMS connectyion type.  Here is an example 
 			of a layer using this connection type:
