@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-          "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <!-- $Id$ -->
 <article>
 	<articleinfo>
@@ -22,13 +22,14 @@
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
+			<para>Last Updated: 05/17/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
 		<title>Introduction</title>
 		<para>
              Starting with version 3.5, MapServer included the ability to access 
-             vector datasets in their native format using the OGR library.  
+             vector data sets in their native format using the OGR library.  
              The following document describes the process for implementing OGR support within MapServer applications.
           </para>
 		<para>
@@ -81,38 +82,38 @@
 				<itemizedlist>
 					<listitem>
 						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>.
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
                         </para>
 					</listitem>
 					<listitem>
 						<para>
 							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_mitab.html">MapInfo TAB and  
-					   MIF/MID files</ulink>.
+					   MIF/MID files</ulink>,
 				    </para>
 					</listitem>
 					<listitem>
 						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>.
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>,
 				    </para>
 					</listitem>
 					<listitem>
 						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>.
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
 				    </para>
 					</listitem>
 					<listitem>
 						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>.
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>,
 				    </para>
 					</listitem>
 					<listitem>
 						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format).
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format),
 				    </para>
 					</listitem>
 					<listitem>
 						<para>
-							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets).
+							<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
 				    </para>
 					</listitem>
 					<listitem>
@@ -205,7 +206,7 @@
 	END
               </programlisting>
 		<para>
-                 -where the "ogr_connection_string" is:  &lt;dataset_filename&gt;[,&lt;layer_index&gt;]
+                 -where the "ogr_connection_string" is:  &lt;dataset_filename&gt;[,&lt;layer_index&gt;].
           </para>
 		<para>
                 &lt;dataset_filename&gt;  is:
@@ -214,7 +215,7 @@
 			<itemizedlist>
 				<listitem>
 					<para>
-	                     the filename of the dataset (including the extension).
+	                     the filename of the data set (including the extension);
 	                </para>
 				</listitem>
 				<listitem>
@@ -222,13 +223,14 @@
 	                     this is the location of the file relative to the location of the .map file.
 	               </para>
 				</listitem>
-				<listitem>
-					<para>
-	                     note that the SHAPEPATH parameter is ignored when accessing OGR data sources.
-	               </para>
-				</listitem>
 			</itemizedlist>
 		</para>
+		<note>
+			<title>Note</title>
+			<para>
+	                     The SHAPEPATH parameter is ignored when accessing OGR data sources.
+	               	</para>
+		</note>
 		<para>
                 &lt;layer_index&gt; is:
                      </para>
@@ -236,32 +238,32 @@
 			<itemizedlist>
 				<listitem>
 					<para>
-	                     (optional)
+	                     optional,
 	                </para>
 				</listitem>
 				<listitem>
 					<para>
-	                     the OGR layer index number.
+	                     the OGR layer index number,
 	                </para>
 				</listitem>
 				<listitem>
 					<para>
-	                    the default is 0, the first layer. 
-	                </para>
-				</listitem>
-				<listitem>
-					<para>
-	                    the OGRINFO program can be used to find out the layer indicies in a dataset.
+	                     0 by default (the first layer). 
 	                </para>
 				</listitem>
 			</itemizedlist>
 		</para>
+		<para>
+	                    The OGRINFO program can be used to find out the layer indices in a data set.
+	        </para>
+
 		<!-- Section2: Examples of Layer Definitions Using OGR -->
 		<sect2 id="examples">
 			<title>Examples of Layer Definitions Using OGR</title>
-			<para>
-				1. MapInfo TAB file
-			</para>
+			<example>
+			<title>
+				MapInfo TAB file
+			</title>
 			<programlisting>
 	LAYER
 	   NAME "Builtup_Areas_tab"
@@ -275,9 +277,11 @@
 	...
 	END
                </programlisting>
-			<para>
+			</example>
+			<example>
+			<title>
                     2. TIGER/Line file
-               </para>
+               </title>
 			<programlisting>
 	LAYER
 	   NAME "Roads_tig"
@@ -291,8 +295,9 @@
 	...
 	END
                </programlisting>
+			</example>
 		</sect2>
-		<!-- Section2: Examples of Layer Definitions Using OGR -->
+		<!-- Section2: How to Use OGRINFO -->
 		<sect2 id="ogrinfo">
 			<title>How to Use "OGRINFO"</title>
 			<para>
@@ -321,10 +326,11 @@
 			</listitem>
 			</itemizedlist>
 			<sect3 id="example">
-			     <title>Example</title>
-                     <para>
-                         1. To get the list of layers in a file:
-			         </para>
+			     <title>Examples</title>
+                     <example>
+                     <title>
+                         To get the list of layers in a file:
+			         </title>
 			     <programlisting>
     $ ogrinfo  popplace.tab
 
@@ -336,9 +342,11 @@
 			    <para>
 			        <literallayout>   which shows that there is one point layer in the popplace.tab file.</literallayout>
 			    </para>
-                   <para>
-                        2.  To get a dump of a specific layer, including field names, projection, etc:
-                   </para>
+		</example>
+		<example>
+               	<title>
+                        To get a dump of a specific layer, including field names, projection, etc:
+                   </title>
                    <programlisting>
     $ ogrinfo popplace.tab popplace
 
@@ -373,6 +381,7 @@
     ...
     ...
                 </programlisting>
+		</example>
 			</sect3>
 		</sect2>
 		<sect2 id="queries">
@@ -420,14 +429,6 @@
     				Although this is highly unlikely, the author(s) do not take any 
     				responsibility for that:  proceed with caution.
                  	</para>
-		</sect2>
-		<sect2 id="acknowledgmements">
-			<title>Acknowledgments</title>
-			<para>
-    				This document was heavily influenced by the <ulink url="http://www.linuxdoc.org/authors/template/">
-    				LDP HOWTO-template for Big HOWTOs</ulink> 
-    				by Stein Gjoen, Gregory Leblanc, and Greg Ferguson.  
-   			</para>
 		</sect2>
 		<!-- Section2: feedback -->
 		<sect2 id="feedback">
