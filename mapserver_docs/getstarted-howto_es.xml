@@ -12,6 +12,9 @@
 			<affiliation>
 				<orgname>Universidad de Minnesota</orgname>
                         <orgdiv>Departamento de Recursos Forestales</orgdiv>
+				<address>
+					<email>jsmedsmo@gis.umn.edu</email>
+				</address>
 			</affiliation>
 		</author>
 		<author>
@@ -20,6 +23,9 @@
 			<affiliation>
 				<orgname>Agriculture and Agri-Food Canada</orgname>
                         <orgdiv>Research Branch</orgdiv>
+				<address>
+					<email>schutp@em.agr.ca</email>
+				</address>
 			</affiliation>
 		</author>
 		<author>
@@ -27,49 +33,54 @@
 			<surname>Kishor</surname>
 			<affiliation>
 				<orgname>GeoAnalytics, Inc.</orgname>
+				<address>
+					<email>pkishor@geoanalytics.com</email>
+				</address>
 			</affiliation>
 		</author>
 		
-		 <othercredit>
-                      <contrib>Translation</contrib>
-                      <firstname>René</firstname>
-                      <surname>Viáncos</surname>
-                      <affiliation>
-                              <orgname>Metropolitan Technological University</orgname>
-                              <orgdiv>Cartography Department</orgdiv>
-                      </affiliation>
-                 </othercredit>
-
+		<othercredit>
+     		<contrib>Traducción al Español</contrib>
+     		<firstname>René</firstname>
+     		<surname>Viáncos</surname>
+     		<affiliation>
+        		<orgname>Universidad Tecnológica Metropolitana</orgname>
+         			<orgdiv>Departamenteo de Cartofrafía</orgdiv>
+        			<address>
+            			<email>rviancos@utem.cl</email>
+        			</address>
+     		</affiliation>
+  		</othercredit>
 
 
 		<date>2002-02-15</date>
 		<abstract>
 			<para>
                  Este documemto describe los componentes de una aplicación con MapServer
-		 y como hacerla trabajar.  Tambien se dan sugerencias para que puedas 
+		 y como hacerla trabajar.  También se dan sugerencias para que puedas 
 		 correr tu primera aplicación.
                </para>
-			<para>Ultima Actualización: 15/02/2002</para>
+			<para>Ultima Actualización: 25/11/2002</para>
 		</abstract>
 	</articleinfo>
-<sect1 id="intro"><title>Partes de una Aplicación con MapServer</title>
+<sect1 id="intro"><title>Componentes de una Aplicación con MapServer</title>
 
     <para>MapServer generalmente se ejecuta como una aplicación CGI en tu Servidor http.  
-	  Esto será asi a menos que estes contruyendo una aplicación más avanzada 
-          con MapScript, el cual accede directamentamente al API de Mapserver. 
+	  Esto será así a menos que estes construyendo una aplicación más avanzada 
+          con MapScript, el cual accede directamentamente a la API de MapServer. 
     </para> 
 
-    <para>Las aplicaciones CGI con Mapservewr utilizan los siguientes recursos:</para>
+    <para>Las aplicaciones CGI con MapServer utilizan los siguientes recursos:</para>
 <orderedlist>
-  <listitem><para> un servidor http como Apache o Internet Information Server,</para></listitem>
+  <listitem><para>Un servidor http como Apache o Internet Information Server,</para></listitem>
   <listitem><para>El Programa MapServer,</para></listitem>
-  <listitem><para>un archivo de inicialización que lance la primera vista de una aplicación con Mapserver (opcional),</para></listitem>
-  <listitem><para>un Mapfile .map que controle lo que MapServer hace con los datos,</para></listitem>
-  <listitem><para>un archivo plantilla que controle la interface de usuario de la aplicación con MapServer en la ventana del explorador de internet,
+  <listitem><para>Un archivo de inicialización que lance la primera vista de una aplicación con MapServer (opcional),</para></listitem>
+  <listitem><para>Un Mapfile que controle lo que MapServer hará con los datos,</para></listitem>
+  <listitem><para>Un archivo plantilla que controle la interfaz de usuario de la aplicación con MapServer en la ventana del explorador de internet,
     </para></listitem>
-  <listitem><para>un set de datos SIG.</para></listitem> 
+  <listitem><para>Un set de datos SIG.</para></listitem> 
 </orderedlist>
-<para>MapServer normalmente se instala en el directorio cgi-bin directory del servidor http, y sus archivos y los sets de datos estan almacenados en el directorio de documentos del servidor http.</para>
+<para>MapServer normalmente se instala en el directorio cgi-bin del servidor http, y sus archivos y los sets de datos estan almacenados en el directorio de documentos del servidor http.</para>
    <para>La lógica de una plicación con MapServer se puede apreciar en el siguiente diagrama de flujo.</para>
    <para>
           <imageobject>
@@ -78,7 +89,7 @@
   </para>
 
   <sect2 id="init"><title>El Archivo de Inicialización</title>
-  <para>Este archivo puede ser parte de un Archivo plantilla html, pero por simplicidad, este también puede estar en otro archivo. El Archivo de Inicialización utiliza un formulario para enviar una consulta inicial al servidor http, que retorna un resultado desde MapServer. MapServer es dinámico, comienza y se ejecuta cada vez que recibe una consulta, por lo tanto, el archivo de inicialización sólo se requiere para pasar una serie de parámetros (ocultos) hacia la aplicación. El archivo de Inicialización es un archivo html regular, por ello, su extension es .htm or .html.  Alternativamente, un hypervínculo hacia la aplicación con mapserver puede ser construido.  Este pasaría los parámetros básicos requeridos por la aplicación con el CGI de Mapserver.</para>
+  <para>Este archivo puede ser parte de un Archivo plantilla html, pero por simplicidad, este también puede ser otro archivo. El Archivo de Inicialización utiliza un formulario para enviar una consulta inicial al servidor http, que retorna un resultado desde MapServer. MapServer es dinámico, comienza y se ejecuta cada vez que recibe una consulta, por lo tanto, el archivo de inicialización sólo se requiere para pasar una serie de parámetros iniciales (ocultos) hacia la aplicación. El archivo de Inicialización es un archivo html regular, por ello, su extension es .htm or .html.  Alternativamente, un hypervínculo hacia la aplicación con mapserver puede ser construido.  Este pasaría los parámetros básicos requeridos por la aplicación con el CGI de Mapserver.</para>
   </sect2>
   <sect2 id="mapfile"><title>El Mapfile</title>
 
@@ -86,21 +97,21 @@
   </sect2>
   <sect2 id="template"><title>El Archivo Plantilla</title>
 
-  <para>El Archivo Plantilla controla como saldran los mapas y las leyendes desde MapServer hacia la página html; este opera como cualquier otro archivo HTML excepto porque contiene celdas que pueden ser modificadas por el CGI de MapServer. El archivo Plantilla permite al autor colocar el mapa y la leyenda en una página, y determina la manera en que el usuario interactúa con la aplicación con Mapserver (v.gr. navegar, consultar, hacer zoom, etc.).
+  <para>El Archivo Plantilla controla como saldrán los mapas y las leyendes desde MapServer hacia la página html; este opera como cualquier otro archivo HTML excepto porque contiene celdas que pueden ser modificadas por el CGI de MapServer. El archivo Plantilla permite al autor colocar el mapa y la leyenda en una página, y determina la manera en que el usuario interactúa con Mapserver (v.gr. navegar, consultar, hacer zoom, etc.).
 
-    Mapserver usa el archivo plantilla y reemplaza las palabras clave, con información de su estado actual o del estado del set de datos SIG, para generar el archivo html final que será enciado al explorador de internet. debido a que el Archivo plantilla será usado para crear un archivo html, este debe ser guardado con la extensión .html. Vea la <ulink url="template-reference.html">Referencia de las Plantillas</ulink> para una documentación completa.
+    Mapserver usa el archivo plantilla y reemplaza las palabras clave de las celdas, con información de su estado actual o del estado del set de datos SIG, para generar el archivo html final que será enciado al explorador de internet. debido a que el Archivo plantilla será usado para crear un archivo html, este debe ser guardado con la extensión .html. Vea la <ulink url="template-reference.html">Referencia de las Plantillas</ulink> para una documentación completa.
   </para>
   </sect2>
 
   <sect2 id="dataset"><title>El set de datos SIG</title>
-    <para>Mapserver usa el formato vectorial shape de ESRI por defecto.
-      Los datos Raster pueden estar en diferentes formatos, dependiendo de como haya sido compilado MapServer.  Por defecto, MapServer soporta archivos geoTiff y Tiff con archivos de georeferenciación (archivos world).  Vea el<ulink url="raster-howto.html">Raster COMO</ulink>para más detalles.  Otros formatos de datos pueden ser usados, pero esto es un poco más complicado. Los Archivos de datos deberías ser colocados en un directorio que este referido en el <ulink url="mapfile-reference.html">Mapfile</ulink>. Los Archivos Shape pueden ser optimizados para su uso con mapserver empleando las utilidades shptree y sortshp <ulink url="http://mapserver.gis.umn.edu/utils.html"></ulink></para>
+    <para>Mapserver usa por defecto el formato vectorial shape de ESRI.
+      Los datos Raster pueden estar en diferentes formatos, dependiendo de como haya sido compilado MapServer.  Por defecto, MapServer soporta archivos geoTiff y Tiff con archivos de georeferenciación (archivos world).  Vea el<ulink url="raster-howto.html">Raster COMO</ulink>para más detalles.  Otros formatos de datos pueden ser usados, pero esto es un poco más complicado. Los Archivos de datos deberían ser colocados en un directorio que esté referido en el <ulink url="mapfile-reference.html">Mapfile</ulink>. Los Archivos Shape pueden ser optimizados para su uso con mapserver empleando las utilidades shptree y sortshp <ulink url="http://mapserver.gis.umn.edu/utils.html"></ulink></para>
   </sect2>
 </sect1>
 
 <sect1 id="next"><title>Primeros Pasos</title>
   <sect2 id="install"><title>Instalación</title>
-  <para>Lo primero que debes hacer es instalar MapServer. Si tu no posees los permisos adecuados, tu administrador de sistema puede ayudarte con esto. Para sistemas Windows, Binarios precompilados estan disponibles a travez de la página<ulink url="http://mapserver.gis.umn.edu/win32binaries.html">Windows Binary Download</ulink>. Están disponibles Instrucciones completas para la compilación e instalación para varios sistemas operativos:
+  <para>Lo primero que debes hacer es instalar MapServer. Si tu no posees los permisos adecuados, tu administrador de sistemas puede ayudarte con esto. Para sistemas Windows, están disponibles Binarios precompilados a travez de la página<ulink url="http://mapserver.gis.umn.edu/win32binaries.html">Bajadas de Binarios para Windows</ulink>. Existen Instrucciones completas para la compilación e instalación para varios sistemas operativos:
     <itemizedlist>
 	<listitem><para><ulink url="win32_compile-howto.html">Windows</ulink></para></listitem>
 	<listitem><para><ulink url="unix-install-howto.html">UNIX</ulink></para></listitem>
@@ -111,10 +122,10 @@
 
   <sect2 id="install"><title>Pruebas</title>
   <para>
-Despues de que hayas bajado e instalado mapserver, estaras listo para crear tu primera aplicación con MapServer. Se recomienda configurar<ulink url="http://mapserver.gis.umn.edu/demo_readme.html">La Aplicación de Demostración</ulink> para comprobar tu instalación. El Mapfile y el Archivo Plantilla son archivos de texto ASCII simples que pueden ser modificados con tu editor de texto favorito (como el wordpad de Windows). El Archivo de initialización es un archivo html real que puede ser modificado con tu editor html preferido.</para>
+Despues de que hayas bajado e instalado MapServer, estaras listo para crear tu primera aplicación. Se recomienda configurar<ulink url="http://mapserver.gis.umn.edu/demo_readme.html">La Aplicación de Demostración</ulink> para comprobar tu instalación. El Mapfile y el Archivo Plantilla son archivos de texto ASCII simple que pueden ser modificados con tu editor de texto favorito (como el wordpad de Windows). El Archivo de inicialización es un archivo html real que puede ser modificado con tu editor html preferido.</para>
   </sect2>
 
   <sect2 id="install"><title>La primera Aplicación</title>
-      Para conseguir rapidez, podrias construir tu primera aplicación con el <ulink url="http://mapserver.gis.umn.edu/doc.html">Tutorial de MapServer</ulink> (en camino). Este tutorial te ayudará a configurar una applicación y a familiarizarte con los Mapfiles y los archivos plantillas.</sect2>
+      Para conseguir eficacia, puedes construir tu primera aplicación con el <ulink url="http://mapserver.gis.umn.edu/doc.html">Tutorial de MapServer</ulink> (en camino). Este tutorial te ayudará a configurar una applicación y a familiarizarte con los Mapfiles y los archivos plantillas.</sect2>
 </sect1>
 </article>
