@@ -22,7 +22,7 @@
           This document describes the procedures for implementing W3C compliant Scalable Vector Graphics (SVG) through
           the use of MapServer v4.5 (and later).  
       </para>
-      <para>Last Updated: 2005-03-04</para>
+      <para>Last Updated: 2005-03-20</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -89,7 +89,7 @@
     <title>Feature Types and SVG Support Status</title>
     <sect2 id="annotation">
       <title>Annotation Layers</title>
-      <para>Annotation layers are not supported.</para>
+      <para>Annotation layers are supported (see <link linkend="text">Text Features</link> for details).</para>
     </sect2>    
     <sect2 id="circle">
       <title>Circle Layers</title>
@@ -146,7 +146,7 @@
         </listitem> 
         <listitem>
           <para>
-            Labels attached with the symbols are supported (see text section for details).
+            Labels attached with the symbols are supported (see <link linkend="text">Text Features</link> for details).
           </para>
         </listitem>         
       </itemizedlist>       
@@ -259,6 +259,7 @@
         MIMETYPE "image/svg+xml"
         DRIVER svg
         FORMATOPTION  "COMPRESSED_OUTPUT=TRUE"
+        FORMATOPTION  "FULL_RESOLUTION=TRUE"        
       END
       ...
       WEB
@@ -273,8 +274,11 @@
     </programlisting>
     <note>
       <para>
-        If the FORMATOPTION "COMPRESSED_OUTPUT=TRUE" is set Mapserver will produce  a compressed svg file (svgz).  
-        By default this option is FALSE.
+        If <emphasis>FORMATOPTION "COMPRESSED_OUTPUT=TRUE"</emphasis> is set MapServer will produce  a compressed SVG file (svgz).  
+        By default this option is FALSE. Note that to be able to create compressed output, MapServer must be built with the compile flag USE_ZLIB.
+      </para>
+      <para>
+        If <emphasis>FORMATOPTION "FULL_RESOLUTION=TRUE"</emphasis> is set MapServer will not eliminate duplicate points and colinear lines when outputting SVG. By default this option is set to FALSE.
       </para>
     </note>
     </listitem>
@@ -577,11 +581,17 @@
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.3</revnumber>
+                        <date>Date: 2005-03-20</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>corrected annotation section and added USE_ZLIB note</revremark>
+                    </revision> 
+                    <revision>
                         <revnumber>Number: 1.0</revnumber>
                         <date>Date: 2005-03-04</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
                         <revremark>created initial version</revremark>
-                    </revision>                 
+                    </revision>                      
                 </revhistory>
             </para>
         </sect2>    
