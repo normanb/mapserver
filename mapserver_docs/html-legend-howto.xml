@@ -1,0 +1,613 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+          "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<!-- $Id$ -->
+<article>
+	<articleinfo>
+		<!-- insert title here, include the word HOWTO -->
+		<title>MapServer HTML Legend HOWTO</title>
+		<author>
+			<firstname/>
+			<surname/>
+			<affiliation>
+				<orgname>DM Solutions Group Inc.</orgname>
+				<address/>
+			</affiliation>
+		</author>
+		<date>2002-02-23</date>
+		<abstract>
+			<!-- a short description of the contents of the doc -->
+			<para>
+                 This document describes the procedures for implementing an HTML legend in MapServer applications.
+               </para>
+			<para>Last Updated: 02/23/2002</para>
+		</abstract>
+	</articleinfo>
+	<sect1 id="intro">
+		<title>Introduction</title>
+		<para>
+             The HTML legend is an alternative to the traditional GIF legend in MapServer.  The following document 
+             describes the process for implementing an HTML legend in MapServer v3.5.1 CGI applications (a recent development version 		   of MapServer is required because HTML legend functionality is not part of the 3.5 release).
+          </para>
+		<para>
+             This document assumes that you are already familiar with certain aspects of MapServer:
+          </para>
+		<itemizedlist>
+			<listitem>
+				<para>
+                        Setting up MapServer mapfiles and templates.
+                    </para>
+			</listitem>
+		</itemizedlist>
+	</sect1>
+	<sect1 id="implement">
+		<title>HOWTO Implement</title>
+		<para>
+			The HTML legend is enabled by a new TEMPLATE parameter in the Legend Object of the mapfile.
+			If TEMPLATE is set in the Legend Object, then the HTML legend template file is read and used to
+			generate an HTML legend which will be inserted at the location of the [legend] tag in the main
+			HTML template.  Similar to other MapServer templates, the HTML legend template filename MUST end with an
+			".html" extension.
+		</para>
+		<example>
+			<title>Sample Legend Object with the new TEMPLATE parameter:</title>
+			<programlisting>
+  ...
+  # LEGEND object
+  LEGEND
+    STATUS ON
+    KEYSIZE 18 12
+    # LABEL object
+    LABEL
+      TYPE BITMAP
+      SIZE MEDIUM
+      COLOR 0 0 89
+    END
+    TEMPLATE "legend.html"
+  END
+  ...					
+			</programlisting>
+		</example>
+		<para>
+		    If TEMPLATE is not set, then the [legend] tag produces a regular image in a GIF/PNG image (the traditional behaviour).	
+		</para>
+		<note>
+			<para>
+				<emphasis>The traditional [legend] tag returns the URL of an image, so it is usually used inside an &lt;IMG SRC=[legend]&gt;  			tag in the HTML. The new HTML [legend] tag returns a block of HTML, so when converting an existing application template 			from using a traditional image legend to the new HTML legend, you have to remove the IMG tag in the main application 				template.  Also note that if legend mode is specified in the URL, then MapServer will return a gif containing  the whole legend if 			no template is specified.</emphasis>
+			</para>
+		</note>
+		<example>
+			<title>[legend] tag in the main HTML template (with TEMPLATE set)</title>
+			<programlisting>
+   ...
+   &lt;FONT SIZE=+1&gt;&lt;B&gt;Legend&lt;/B&gt;&lt;/FONT&gt;&lt;BR&gt;&lt;HR&gt;&lt;[legend]&lt;HR&gt;
+   ...	
+			</programlisting>
+		</example>
+		<example>
+			<title>[legend] tag in the main HTML template (with TEMPLATE not set)</title>
+			<programlisting>
+   ...
+   &lt;FONT SIZE=+1&gt;&lt;B&gt;Legend&lt;/B&gt;&lt;/FONT&gt;&lt;BR&gt;&lt;HR&gt;&lt;IMG SRC="[legend]"&gt;&lt;HR&gt;
+   ...
+			</programlisting>
+		</example>
+		<sect2 id="template-file">
+			<title>The HTML Legend TEMPLATE File</title>
+			<para>
+                   The HTML legend template file contains 0 or 1 of each of the following tags that define blocks of HTML 
+       			to use in building the legend: 
+			</para>
+			<programlisting>
+    [leg_group_html] ... [/leg_group_html]
+    [leg_layer_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_layer_html]
+    [leg_class_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_class_html]
+               </programlisting>
+			<note>
+				<para>
+					<emphasis>Any text or HTML tags outside the [leg_*_html] tag pairs in the legend template file are ignored by the 					template parser.</emphasis>
+				</para>
+			</note>
+			<para>
+				The following example shows what an HTML legend TEMPLATE file could look like:
+			</para>
+			<example>
+				<title>An HTML legend TEMPLATE file</title>
+				<programlisting>
+   [leg_group_html]
+   &lt;tr&gt;
+	   &lt;td colspan=3 bgcolor=#cccccc&gt;&lt;b&gt;[leg_group_name]&lt;/b&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+   [/leg_group_html]
+
+   [leg_layer_html order_metadata=legend_order opt_flag=5]
+   &lt;tr&gt;
+       &lt;td&gt;
+           &lt;input type=checkbox name="map_[leg_layer_name]_status" value=1 [if name=layer_status oper=eq value=2]CHECKED[/if]    		 &gt;
+	    &lt;/td&gt;
+       &lt;td colspan=2&gt;
+           &lt;a href="[metadata name=href]"&gt;[metadata name=layer_title]&lt;/a&gt;
+       &lt;/td&gt;
+   &lt;/tr &gt;
+   [/leg_layer_html]
+
+   [leg_class_html]
+   &lt;tr&gt;
+       &lt;td width=15&gt; &lt;/td&gt;
+       &lt;td&gt;
+           &lt;img src="[leg_icon width=20 height=10]" width=20 height=10&gt;
+       &lt;/td&gt;
+       &lt;td&gt;
+           [leg_class_name]
+       &lt;/td&gt;
+   &lt;/tr&gt;
+   [/leg_class_html]				
+				</programlisting>
+			</example>
+			<sect3 id="tags">
+				<title>Supported Tags for the TEMPLATE</title>
+				<sect4 id="group">
+					<title>GROUP block</title>
+					<para>
+						<emphasis>TAG:</emphasis> [leg_group_html]...[/leg_group_html]
+						</para>
+					<para>
+						     HTML block to use for layer group headers if layers should be grouped in the legend. If not set then layers are 							not grouped in the legend. 
+						</para>
+					<para>
+							When the [leg_group_html] tag is used, then layers that don't belong to any group (i.e. LAYER GROUP not set 							in the mapfile) and their classes will not show up at all in the legend. The group list is decided by the 								order_metadata parameter, which is explained later.
+						</para>
+					<para>
+							Supported tags in the [leg_group_html] block: 
+						</para>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_group_name] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns the group's name. 
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> In the group context, the [leg_icon] tag returns the URL of a 										legend icon for the first class in the first layer that's part of this group. 
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns specified metadata value from web's metadata. 
+								</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="layer">
+					<title>LAYER block</title>
+					<para>
+						<emphasis>TAG:</emphasis> [leg_layer_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_layer_html]
+						</para>
+					<para>
+							HTML block to use for layer header. If not set then no layer headers are displayed (could allow a legend with only 							classes in it).
+						</para>
+					<para>
+							Optional parameters for the [leg_layer_html] tag:
+						</para>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>PARAMETER:</emphasis> order_metadata=&lt;field_to_order_by&gt;
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis>
+								<itemizedlist>
+									<listitem>
+										<para>
+											    specifies that the value of the layer metadata 
+											    <filename>&lt;field_to_order_by&gt;</filename> controls the order and visibility of 
+											    the layers in the legend.
+											</para>
+									</listitem>
+									<listitem>
+										<para>
+												Layers with <filename>&lt;field_to_order_by&gt; &gt;= 0</filename> are sorted in order of this  												value, with multiple layers with same value being accepted, in which case the map layer order 												applies between those layers.
+											</para>
+									</listitem>
+									<listitem>
+										<para>
+												Layers with <filename>&lt;field_to_order_by&gt; &lt; 0</filename> are always hidden in the 													legend.
+											</para>
+									</listitem>
+								</itemizedlist>
+							</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>PARAMETER:</emphasis> opt_flag=&lt;bit_mask&gt;
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Control the layer display process. Add the values 											below to acquire the desired options:
+								</para>
+							<itemizedlist>
+								<listitem>
+									<para>
+											1: If set, show layer even if out of scale (default: hide layers out of scale).
+										</para>
+								</listitem>
+								<listitem>
+									<para>
+											2: If set, show layer even if status is OFF (default: hide layers with STATUS OFF).
+										</para>
+								</listitem>
+								<listitem>
+									<para>
+											4: If set, show layer even if type is QUERY (default: hide layers of TYPE QUERY)
+										</para>
+								</listitem>
+								<listitem>
+									<para>
+											8: If set, show layer even if type is ANNOTATION (default: hide layers of TYPE ANNOTATION)
+										</para>
+								</listitem>
+							</itemizedlist>
+							<para>
+									e.g. opt_flag=12 means show all layer types, including QUERY and ANNOTATION layers (4 + 8)
+								</para>
+						</listitem>
+					</itemizedlist>
+					<para>
+							Supported tags in the [leg_layer_html]...[/leg_layer_html] block: 
+						</para>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_layer_name]
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns the current LAYER NAME value.
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> In the layer context, the [leg_icon] tag returns the URL of a 										legend icon for the first class in this layer. 
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns specified metadata value from this layer's metadata and 									web's metadata. 
+								</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="class">
+					<title>CLASS block</title>
+					<para>
+						<emphasis>TAG:</emphasis> [leg_class_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_class_html]
+						</para>
+					<para>
+							HTML block to use for classes. If not set then no classes are displayed (could allow a legend with only layer 								headers in it).
+						</para>
+					<note>
+						<para>
+							<emphasis>Classes with NULL (i.e. empty) NAMEs are not displayed.</emphasis>
+						</para>
+					</note>
+					<para>
+							Optional parameters for this tag:
+						</para>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>PARAMETER:</emphasis> opt_flag=&lt;bit_mask&gt; 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> same meaning as in [leg_layer_html] tag 
+								</para>
+						</listitem>
+					</itemizedlist>
+					<para>
+							Supported tags in this specific block:
+						</para>
+					<itemizedlist>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_class_name]
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns the CLASS NAME value. 
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_class_title] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns the CLASS TITLE value.
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> In the layer context, the [leg_icon] tag returns the URL of a 										legend icon for the first class in this layer. 
+								</para>
+						</listitem>
+						<listitem>
+							<para>
+								<emphasis>TAG:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
+								</para>
+							<para>
+								<emphasis>DESCRIPTION:</emphasis> Returns specified metadata value from the metadata of the layer 									to which this class belongs and web's metadata. 
+								</para>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+				<sect4 id="if">
+					<title>CONDITIONAL text</title>
+					<para>
+						[if] tags can be used in any of the [leg_*_html] tags above to place conditional text. The syntax is: 
+					</para>
+					<programlisting>
+   [if name=&lt;field_to_check&gt; oper=&lt;eq|neq&gt; value=&lt;to_compare_with_field&gt;] ... [/if]					
+					</programlisting>
+					<note>
+						<para>
+							<emphasis>Nested IF's are supported. Parameter "<filename>oper</filename>" can be 
+							"<filename>eq</filename>" for equal or "<filename>neq</filename>" for not equal. The default 									value is equal.</emphasis>
+						</para>
+					</note>
+					<example>
+						<title>[if] tag can be used to maintain the state of a layer checkbox</title>
+						<programlisting>
+   [leg_layer_html order_metadata=legend_order opt_flag=5]
+   &lt;tr&gt;
+       &lt;td&gt;
+           &lt;input type=checkbox name="map_[leg_layer_name]_status" value=1 [if name=layer_status oper=eq value=2]CHECKED[/if]  		 &gt;
+       &lt;/td&gt;
+       &lt;td colspan=2&gt;
+           &lt;a href="[metadata name=href]"&gt;[metadata name=layer_title]&lt;/a&gt;
+       &lt;/td&gt;
+   &lt;/tr &gt;
+   [/leg_layer_html]			
+						</programlisting>
+					</example>
+					<para>
+					   The possible values that can be tested in an [if] tag depend on the context in which the [if] tag is used. At the 						   moment, the number of values that can be tested is limited, but new values may be added as needed.  The possible 					   values that can be tested are as follows:
+					</para>
+					<itemizedlist>
+						<listitem>
+							<para>
+							   In a [leg_group_html] Context:
+							</para>
+							<itemizedlist>
+								<listitem>
+									<para>
+										[if name=any_web_metadata value=...] ... [/if] 
+									</para>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+						<listitem>
+							<para>
+							   In a [leg_layer_html] Context: 
+							</para>
+							<itemizedlist>
+								<listitem>
+									<para>
+										[if name=layer_status value=...] ... [/if]
+									</para>
+									<para>
+										(value is the layer's status in integer format: 0=OFF, 1=ON, 2=DEFAULT) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_type value=...] ... [/if] 
+									</para>
+									<para>
+										(value is the layer's type in integer format: 0=POINT, 1=LINE, 2=POLYGON, 3=RASTER, 4											=ANNOTATION, 5=QUERY, 6=CIRCLE) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_name value=...] ... [/if] 
+									</para>
+									<para>
+										(value is the layer's name in string format) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_group value=...] ... [/if] 
+									</para>
+									<para>
+										(value is the layer's group name in string format) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=any_web_metadata value=...] ... [/if] 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=any_layer_metadata value=...] ... [/if] 
+									</para>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+						<listitem>
+							<para>
+								In a [leg_class_html] Context: 
+							</para>
+							<itemizedlist>
+								<listitem>
+									<para>
+										[if name=layer_status value=...] ... [/if]
+									</para>
+									<para>
+										(value is the status of the layer in which the class is located) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_type value=...] ... [/if] 
+									</para>
+									<para>
+										(value is the layer's type in integer format: 0=POINT, 1=LINE, 2=POLYGON, 3=RASTER, 4											=ANNOTATION, 5=QUERY, 6=CIRCLE) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_name value=...] ... [/if] 
+									</para>
+									<para>
+										(value is the layer's name in string format) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_group value=...] ... [/if] 
+									</para>
+									<para>
+										(value is the layer's group name in string format) 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=any_web_metadata value=...] ... [/if] 
+									</para>
+								</listitem>
+								<listitem>
+									<para>
+										[if name=any_layer_metadata value=...] ... [/if] 
+									</para>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+					</itemizedlist>
+				</sect4>
+			</sect3>
+		</sect2>
+	</sect1>
+	<sect1 id="live">
+		<title>Sample Sites Using the HTML Legend</title>
+		<orderedlist>
+			<listitem>
+				<para>
+					<ulink url="http://www2.dmsolutions.ca/msapps/itasca_legend/demo_init.html">
+				    http://www2.dmsolutions.ca/msapps/itasca_legend/demo_init.html</ulink>
+				</para>
+				<para>
+					This demo is based on the MapServer Itasca demo and contains several variations
+					of HTML Legends, some of which are listed below:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							"HTML Legend 1" - displays classes only, similar to the traditional legends:
+						</para>
+						<programlisting>
+   [leg_class_html opt_flag=15]
+      &lt;img src=[leg_icon]&gt; [leg_class_name]&lt;br&gt;
+   [/leg_class_html]
+						</programlisting>
+					</listitem>
+					<listitem>
+						<para>
+							"HTML Legend 2" - displays layer titles with HREF links and classes:
+						</para>
+						<programlisting>
+   [leg_layer_html order_metadata=WMS_ORDER visibility_flag=15]
+      &lt;a href="[leg_layer_name]"&gt;[metadata name=WMS_TITLE]&lt;/a&gt;&lt;BR&gt;
+   [/leg_layer_html]
+ 
+   [leg_class_html visibility_flag=15]
+      &lt;img src=[leg_icon]&gt; [leg_class_name]&lt;br&gt;
+   [/leg_class_html]						
+						</programlisting>
+					</listitem>
+					<listitem>
+						<para>
+							"HTML Legend 3" - displays layers by group, with checkboxes to turn layers on/off:
+						</para>
+						<programlisting>
+   [leg_group_html]
+      &lt;tr&gt;&lt;td colspan=2&gt;&lt;b&gt;[leg_group_name]&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+   [/leg_group_html]
+ 
+   [leg_layer_html order_metadata=WMS_ORDER opt_flag=15]
+      &lt;tr&gt;
+           &lt;td&gt;&lt;input type=checkbox name=layer value=[leg_layer_name] [if name=layer_status value=1]CHECKED[/if]&gt;
+              [if name=layer_type value=4]&lt;img src=[leg_icon width=22 height=18]&gt;[/if]
+              [if name=layer_type oper=neq value=4]&lt;img src=[leg_icon]&gt;[/if]
+           &lt;/td&gt;
+           &lt;td&gt;
+              &lt;a href="[leg_layer_name]"&gt;[metadata name=WMS_TITLE]&lt;/a&gt;
+           &lt;/td&gt;
+      &lt;/tr&gt;
+   [/leg_layer_html]						
+						</programlisting>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<ulink url="http://www2.dmsolutions.ca/msapps/html_test/gmap_excal/demo_init.html">
+				    http://www2.dmsolutions.ca/msapps/html_test/gmap_excal/demo_init.html</ulink>
+				</para>
+				<para>
+				This demo is based on the DM Solutions' GMAP application, and displays an HTML Legend in use.
+			</para>
+			</listitem>
+		</orderedlist>
+	</sect1>
+	<!-- Section1: Document Info -->
+	<sect1 id="docinfo">
+		<title>About This Document</title>
+		<sect2 id="copyright">
+			<title>Copyright Information</title>
+			<para>
+                Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
+            </para>
+			<para>
+                This documentation is covered by the same Open Source license as the
+                MapServer software itself.  See MapServer's 
+                <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+                Credits</ulink> page for the complete text.
+            </para>
+		</sect2>
+		<sect2 id="disclaimer">
+			<title>Disclaimer</title>
+			<para>
+     				No liability for the contents of this document can be accepted.
+    				Use the concepts, examples and other content at your own risk.
+    				As this is a new edition of this document, there may be errors
+    				and inaccuracies that may be damaging to your system.
+    				Although this is highly unlikely, the author(s) do not take any 
+    				responsibility for that:  proceed with caution.
+                 	</para>
+		</sect2>
+		<!-- Section2: feedback -->
+		<sect2 id="feedback">
+			<title>Feedback</title>
+			<para>
+    				This is a new document for a new project; input is appreciated.  Send any
+    				comments or suggestions to the MapServer Documentation Coordinator at
+    				<email>mdp@lists.gis.umn.edu</email>.
+   			</para>
+		</sect2>
+	</sect1>
+</article>
