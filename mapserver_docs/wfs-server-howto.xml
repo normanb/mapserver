@@ -28,7 +28,7 @@
     </author>
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  2004-11-29</para>
+      <para>Last Updated:  2005-01-09</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>       
@@ -267,6 +267,20 @@
           </listitem>
         </itemizedlist>
       </sect3>
+    </sect2>
+    <sect2 id="get-post">
+      <title>Support for GET and POST Requests</title>
+      <para>
+        Starting from version 4.2 MapServer supports XML-encoded POST requests and GET requests. The default in
+        MapServer is POST.
+      </para>
+    </sect2>
+    <sect2 id="filter-encoding">
+      <title>Support for Filter Encoding</title>
+      <para>
+        Starting from version 4.2 MapServer supports Filter Encoding (FE) in WFS GetFeature requests.  For more
+        information on the server side of Filter Encoding see the <ulink url="http://mapserver.gis.umn.edu/doc/filter-encoding-howto.html#server">Filter Encoding HOWTO</ulink>.
+      </para>
     </sect2>
 </sect1>
 <sect1 id="reference">
@@ -553,6 +567,13 @@
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.10</revnumber>
+                        <date>Date: 2005-01-09</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added several sections, added wfs_metadataurl* 
+                                   </revremark>
+                    </revision>                 
                     <revision>
                         <revnumber>Number: 1.9</revnumber>
                         <date>Date: 2004-11-29</date>

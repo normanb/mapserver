@@ -122,7 +122,8 @@
               </listitem>             
               <listitem>
                 <para><emphasis>wfs_filter</emphasis> (optional): This can be included to include a filter encoding parameter in the getFeature
-                  request.  The content of the wfs_filter is a valid filter encoding element.
+                  request (see the <ulink url="http://mapserver.gis.umn.edu/doc/filter-encoding-howto.html">Filter Encoding HOWTO</ulink> for more 
+                  information on filtering).  The content of the wfs_filter is a valid filter encoding element.
                 </para>
                   <screen>
         ...
