@@ -17,14 +17,14 @@
         <abstract>
             <para>
                 This document is a reference for the MapServer 
-                version 3.5 HTML template.
+                version 3.6 HTML template.
             </para>   
             <para>
                 It is based on the previous versions written by Steve Lime
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  12-28-2001
+                Last Updated:  12-18-2002
             </para>
         </abstract>
     </articleinfo>
@@ -175,7 +175,7 @@
                 </term>
                 <listitem>
                     <para> 
-                        Web object meta data access.
+                        Web object meta data access (e.g [web_projection]).
                     </para>
                     <para>
                         Also available as escaped version.
@@ -215,8 +215,18 @@
                 <listitem>
                     <para> 
                         Path (relative to document root) of new 
-                        legend image.
+                        legend image rendered by the MapServer.
                     </para>
+					<para>
+					    Since version 3.5.1 a new HTML Legend template
+						is provided by MapServer. If a template is defined 
+						in the 
+						<ulink url="mapfile-reference.html">map file</ulink>
+						the [legend] string is replaced by the processed 
+						legend as. See the specific
+						<ulink url="html-legend-howto.html#template-file"
+						>HTML Legend HOWTO</ulink> for details.
+					</para>
                 </listitem>
             </varlistentry>
   
@@ -352,6 +362,16 @@
             </varlistentry>
   
             <varlistentry>
+                <term>[dx], [dy]</term>
+                <listitem>
+                    <para> 
+                        The differences of minimum / maximum X or Y 
+						coordinate of new map extent.
+                    </para>
+                </listitem>
+            </varlistentry>
+  
+            <varlistentry>
                 <term>[rawext], [rawext_esc]</term>
                 <listitem>
                     <para> 
@@ -474,7 +494,8 @@
                 </term>
                 <listitem>
                     <para> 
-                        Layer meta data access.
+                        Layer meta data access (e.g. [streets_build], the
+						underscore is essential).
                     </para>
                 </listitem>
             </varlistentry>
@@ -528,7 +549,7 @@
         <variablelist>
   
             <varlistentry>
-                <term>[shpext]</term>
+                <term>[shpext], [shpext_esc]</term>
                 <listitem>
                     <para> 
                         Extent of current shape plus a 5 percent
@@ -591,7 +612,7 @@
             </varlistentry>
   
             <varlistentry>
-                <term>[DBASE item name]</term>
+                <term>[<replaceable>DBASE item name</replaceable>]</term>
                 <listitem>
                     <para> 
                         Item name from the attribute table of a queried
