@@ -24,7 +24,7 @@
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  2004-11-11
+                Last Updated:  2004-11-30
             </para>
       		<para><link linkend='rhistory'>Revision History</link></para>
         </abstract>
@@ -947,6 +947,89 @@
         </sect2>
     </sect1>
 
+<sect1 id="example">
+     <title>Example</title>
+     <para>
+         A small example to give an idea how to work with templates. 
+         Note that it covers 
+         MapServer specific templates (e.g. the <literal>[map]</literal>,
+         <literal>[mapext]</literal>) and 
+         user defined templates (e.g. <literal>[htmlroot]</literal> or 
+         <literal>[program]</literal>) used to store application settings.
+     </para>
+     <para>
+       <programlisting>
+<![CDATA[
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+  <head>
+    <title>MapServer Template Sample</title>
+  </head>
+
+  <body>
+    MapServer Template Sample<br>
+
+    <!-- The central form the application is based on. -->
+    <form method="GET" action="[program]">
+
+    <!-- CGI MapServer applications are server stateless in principle, 
+         all information must be "stored" in the client. This includes 
+         some basic settings as below.                                
+         The example is based on the pan and zoom test suite:
+         http://maps.dnr.state.mn.us/mapserver_demos/tests36/           -->
+      <input type="hidden" name="map" value="[map]">
+      <input type="hidden" name="imgext" value="[mapext]">
+      <input type="hidden" name="imgxy" value="149.5 199.5">    
+      <input type="hidden" name="program" value="[program]">
+      <input type="hidden" name="htmlroot" value="[htmlroot]">
+      <input type="hidden" name="map_web_imagepath" value="[map_web_imagepath]">
+      <input type="hidden" name="map_web_imageurl" value="[map_web_imageurl]">
+
+      <!-- A table for minimal page formatting. -->
+      <table border=0 cellpadding=5>
+      <tr>
+        <!-- First column: Map and scale bar -->
+        <td align=center>
+          <!-- The map -->
+          <input type="image" name="img" src="[img]" 
+                 style="border:0;width:300;height:400">
+          <br>
+          <!-- The scale bar-->
+          <img src="[scalebar]" alt="Scale Bar">
+        </td>
+
+        <!-- Second column: Zoom direction, Legend and Reference -->
+        <td valign=top>
+          <!-- Zoom direction -->
+          <b>Map Controls</b><br>
+          Set your zoom option:<br>
+          <select name="zoom" size="1">
+            <option value="2" [zoom_2_select]> Zoom in 2 times
+            <option value="1"  [zoom_1_select]> Recenter Map
+            <option value="-2" [zoom_-2_select]> Zoom out 2 times
+          </select>
+          <br>
+      
+          <!-- Legend -->
+          <b>Legend</b><br>
+          <img src="[legend]" alt="Legend"><br><br><br><br>
+               
+          <!-- Reference map -->
+         <input type="image" name="ref" src="[ref]" 
+                style="border:0;width:150;height:150">
+        </td>
+      </tr>
+      </table>
+ 
+    </form>
+
+  </body>
+</html>
+]]>
+       </programlisting>
+     </para>
+</sect1>
 <!-- Section1: Document Info -->
 <sect1 id='docinfo'> 
   <title>About This Document</title>
@@ -960,6 +1043,12 @@
   <para>
     <revhistory>
       <revision>
+        <revnumber>Number: 1.12</revnumber>
+        <date>Date: 2004-11-30</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Added section with template example.
+		</revremark>
+      </revision>
         <revnumber>Number: 1.11</revnumber>
         <date>Date: 2004-11-11</date>
         <authorinitials>Author: Daniel Morissette</authorinitials>
