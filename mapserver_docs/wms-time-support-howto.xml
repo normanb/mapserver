@@ -21,113 +21,111 @@
       <para>
                  This document describes the procedures for enabling WMS time support in MapServer v4.4 (and later).  
       </para>
-      <para>Last Updated: 2004-10-31</para>
+      <para>Last Updated: 2004-11-01</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
     </abstract>
   </articleinfo>  
-    <sect1 id="time">
-      <title>WMS Time Support</title>
-      <sect2 id="intro">
-        <title>Introduction</title>
-            <para>A WMS server can provide support to temporal requests. This is done by providing a TIME parameter in the request with a time value.
-            MapServer 4.4 and above provides support to interpret the Time parameter and transform the values into appropriate requests.
-            </para>
-      </sect2>
-      <sect2 id="patterns">
-        <title>Time Patterns</title>
-        <para>
-            WMS specifies that the basic format used for Time requests is based on the ISO 8601:1988(E) "extended" format.  
-            MapServer supports a limited set of patterns that are defined in the ISO 8601 specifications as well as few other 
-            patterns that are useful but not compliant to ISO 8601.  Here is a list of patterns currently supported:        
+  <sect1 id="intro">
+    <title>Introduction</title>
+        <para>A WMS server can provide support to temporal requests. This is done by providing a TIME parameter with a time value in the request.
+        MapServer 4.4 and above provide support to interpret the TIME parameter and transform the resulting values into appropriate requests.
         </para>
-        <table>
-        <title>Time Pattern Examples</title>
-          <tgroup cols="2" align="left" colsep="0" rowsep="0">
-            <tbody>
-            <row>
-                <entry><emphasis>Time Patterns</emphasis></entry>
-                <entry><emphasis>Examples</emphasis></entry>
-            </row>
-            <row>
-                <entry>YYYYMMDD</entry>
-                <entry>20041012</entry>
-            </row>
-            <row>
-                <entry>YYYY-MM-DDTHH:MM:SSZ</entry>
-                <entry>2004-10-12T13:55:20Z</entry>
-            </row>    
-            <row>
-                <entry>YYYY-MM-DDTHH:MM:SS</entry>
-                <entry>2004-10-12T13:55:20</entry>
-            </row>
-            <row>
-                <entry>YYYY-MM-DD HH:MM:SS</entry>
-                <entry>2004-10-12 13:55:20</entry>
-            </row> 
-            <row>
-                <entry>YYYY-MM-DDTHH:MM</entry>
-                <entry>2004-10-12T13:55</entry>
-            </row>
-            <row>
-                <entry>YYYY-MM-DD HH:MM</entry>
-                <entry>2004-10-12 13:55</entry>
-            </row>  
-            <row>
-                <entry>YYYY-MM-DDTHH</entry>
-                <entry>2004-10-12T13</entry>
-            </row>
-            <row>
-                <entry>YYYY-MM-DD HH</entry>
-                <entry>2004-10-12 13</entry>
-            </row>
-            <row>
-                <entry>YYYY-MM-DD</entry>
-                <entry>2004-10-12</entry>
-            </row>
-            <row>
-                <entry>YYYY-MM</entry>
-                <entry>2004-10</entry>
-            </row> 
-            <row>
-                <entry>YYYY</entry>
-                <entry>2004</entry>
-            </row>
-            <row>
-                <entry>THH:MM:SSZ</entry>
-                <entry>T13:55:20Z</entry>
-            </row>   
-            <row>
-                <entry>THH:MM:SS</entry>
-                <entry>T13:55:20</entry>
-            </row>             
-            </tbody>
-          </tgroup>
-        </table>
-      </sect2>
-      <sect2 id="time-metadata">
-        <title>Setting up a WMS layer with time support</title>
-        <para>To have a valid WMS layer with time support, the user has to define the following metadata at the layer level:
-        </para>
-        <itemizedlist>
-            <listitem>
-                <para><emphasis>wms_timeextent</emphasis>: (Mandatory) this is used in the capabilities to return the valid 
-                time values for the layer. The value defined here should be a valid time range.</para>
-            </listitem>
-            <listitem>
-                <para><emphasis>wms_default</emphasis>: (Optional)  this value is used if it is defined and the Time value is missing in the request.</para>
-            </listitem>   
-            <listitem>
-                <para><emphasis>wms_ timeitem</emphasis>: (Mandatory)  this is the name of the field in the DB that contains the time values.</para>
-            </listitem>             
-        </itemizedlist>
-      </sect2>
-      <sect2 id="getcapabilities">
-        <title>GetCapabilities Output</title>
-            <para>If your layer is setup properly, requesting the capabilities on the server will output a dimension element. 
-            Here is an example of a getcapabilities dcocument:</para>
-            <programlisting>
+  </sect1>
+  <sect1 id="patterns">
+    <title>Time Patterns</title>
+    <para>
+        WMS specifies that the basic format used for TIME requests is based on the ISO 8601:1988(E) "extended" format.  
+        MapServer supports a limited set of patterns that are defined in the ISO 8601 specifications, as well as few other 
+        patterns that are useful but not compliant to ISO 8601.  Here is a list of patterns currently supported:        
+   </para>
+    <table>
+    <title>Time Pattern Examples</title>
+      <tgroup cols="2" align="left" colsep="0" rowsep="0">
+        <tbody>
+        <row>
+            <entry><emphasis>Time Patterns</emphasis></entry>
+            <entry><emphasis>Examples</emphasis></entry>
+        </row>
+        <row>
+            <entry>YYYYMMDD</entry>
+            <entry>20041012</entry>
+        </row>
+        <row>
+            <entry>YYYY-MM-DDTHH:MM:SSZ</entry>
+            <entry>2004-10-12T13:55:20Z</entry>
+        </row>    
+        <row>
+            <entry>YYYY-MM-DDTHH:MM:SS</entry>
+            <entry>2004-10-12T13:55:20</entry>
+        </row>
+        <row>
+            <entry>YYYY-MM-DD HH:MM:SS</entry>
+            <entry>2004-10-12 13:55:20</entry>
+        </row> 
+        <row>
+            <entry>YYYY-MM-DDTHH:MM</entry>
+            <entry>2004-10-12T13:55</entry>
+        </row>
+        <row>
+            <entry>YYYY-MM-DD HH:MM</entry>
+            <entry>2004-10-12 13:55</entry>
+        </row>  
+        <row>
+            <entry>YYYY-MM-DDTHH</entry>
+            <entry>2004-10-12T13</entry>
+        </row>
+        <row>
+            <entry>YYYY-MM-DD HH</entry>
+            <entry>2004-10-12 13</entry>
+        </row>
+        <row>
+            <entry>YYYY-MM-DD</entry>
+            <entry>2004-10-12</entry>
+        </row>
+        <row>
+            <entry>YYYY-MM</entry>
+            <entry>2004-10</entry>
+        </row> 
+        <row>
+            <entry>YYYY</entry>
+            <entry>2004</entry>
+        </row>
+        <row>
+            <entry>THH:MM:SSZ</entry>
+            <entry>T13:55:20Z</entry>
+        </row>   
+        <row>
+            <entry>THH:MM:SS</entry>
+            <entry>T13:55:20</entry>
+        </row>             
+        </tbody>
+      </tgroup>
+    </table>
+  </sect1>
+  <sect1 id="time-metadata">
+    <title>Setting Up a WMS Layer with Time Support</title>
+    <para>To have a valid WMS layer with time support, the user has to define the following metadata at the layer level:
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para><emphasis>wms_timeextent</emphasis>: (Mandatory) this is used in the capabilities document to return the valid 
+            time values for the layer. The value defined here should be a valid time range.</para>
+        </listitem>
+        <listitem>
+            <para><emphasis>wms_default</emphasis>: (Optional)  this value is used if it is defined and the TIME value is missing in the request.</para>
+        </listitem>   
+        <listitem>
+            <para><emphasis>wms_ timeitem</emphasis>: (Mandatory)  this is the name of the field in the DB that contains the time values.</para>
+        </listitem>             
+    </itemizedlist>
+  </sect1>
+  <sect1 id="getcapabilities">
+    <title>GetCapabilities Output</title>
+        <para>If your layer is set up properly, requesting the capabilities on the server outputs a Dimension element. 
+        Here is an example of a GetCapabilities document:</para>
+        <programlisting>
     &lt;Layer queryable="0" opaque="0" cascaded="0"&gt;
         &lt;Name>time&lt;/Name&gt;
         &lt;Title>time&lt;/Title&gt;
@@ -138,106 +136,104 @@
         &lt;Dimension name="time" units="ISO8601"/&gt;
         &lt;Extent name="time" default="2004-01-01 14:10:00" nearestValue="0">2004-01-01/2004-02-01&lt;/Extent&gt;
     &lt;/Layer&gt;            
+        </programlisting>
+  </sect1>
+  <sect1 id="supported-time">
+    <title>Supported Time Requests</title>
+        <para>When sending a request with the TIME parameter, different types of time values can be specified. 
+        The following are supported by MapServer:</para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis>single value</emphasis>: for example: ...&amp;TIME=2004-10-12&amp;...</para>
+            </listitem>
+            <listitem>
+                <para><emphasis>multiple values</emphasis>: for example: ...&amp;TIME=2004-10-12, 2004-10-13, 2004-10-14&amp;...</para>
+            </listitem>  
+            <listitem>
+                <para><emphasis>single range value</emphasis>: for example: ...&amp;TIME=2004-10-12/2004-10-13&amp;...</para>
+            </listitem>  
+            <listitem>
+                <para><emphasis>multiple range values</emphasis>:  for example: ...&amp;TIME=2004-10-12/2004-10-13, 2004-10-15/2004-10-16&amp;...</para>
+            </listitem>                 
+         </itemizedlist>
+  </sect1>
+  <sect1 id="interpret">
+    <title>Interpreting Time Values</title>
+    <para>
+        When MapServer receives a request with a TIME parameter, it transforms the time requests into valid expressions that 
+        are assigned to the filter parameter on layers that are time-aware.  Here are some examples fn how different types of 
+        requests are treated (wms_timeitem is defined here as being "time_field"):        
+    </para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis>single value (2004-10-12)</emphasis>  : (`[time_field]` eq `2004-10-12`)</para>
+            </listitem>
+            <listitem>
+                <para><emphasis>multiple values (2004-10-12, 2004-10-13)</emphasis> : (`[time_field]` eq `2004-10-12` OR `[time_field]` eq `2004-10-13`)</para>
+            </listitem>  
+            <listitem>
+                <para><emphasis>single range : 2004-10-12/2004-10-13</emphasis> : ((`[time_field]` ge `2004-10-12`) AND (`[time_field]` le `2004-10-13`))</para>
+            </listitem>  
+            <listitem>
+                <para><emphasis>multiple ranges (2004-10-12/2004-10-13, 2004-10-15/2004-10-16)</emphasis> : ((`[time_field]` ge `2004-10-12` AND `[ time_field]` le `2004-10-13`) OR (`[time_field]` ge `2004-10-15` AND `[ time_field]` le `2004-10-16`)) </para>
+            </listitem>                 
+        </itemizedlist>   
+    <para>
+        As shown in the above examples, all fields and values are written inside back tics (`). This is the general way
+        of specifying time expressions inside MapServer.        
+    </para>
+    <para>
+        <emphasis>Exceptions to this rule</emphasis>:
+    </para>
+    <orderedlist numeration="lowerroman">
+      <listitem>
+         <para>When dealing with layers that are not Shapefiles nor through OGR, the expression built has slightly different syntax. For example, the expression set in the filter for the first example above would be ([time_field] eq '2004-10-12'). 
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            For PostGIS layers, the time expression built uses the date_trunc function available in PostgreSQL. For example, if the user passes a time value of '2004-10-12', 
+            the expression set in the filter is date_trunc('day', time_field) eq '2004-10-12'.  The use of the date_trunc function allows requests to use the concept of time 
+            resolution. In the example above, for a request of '2004-10-12', MapServer determines that the resolution is "day" by parsing the time string and the result   
+            gives all records matching the date 2004-10-12 regardless of the values set for Hours/Minutes/Seconds in the database. For more information on the date_trunc function, please refer 
+            to PostgreSQL documentation (<ulink url="http://www.postgresql.org/docs/7.4/static/functions-datetime.html">http://www.postgresql.org/docs/7.4/static/functions-datetime.html</ulink>).        
+         </para>
+      </listitem>
+    </orderedlist>
+  </sect1>
+  <sect1 id="limiting-formats">
+    <title>Limiting the Time Formats to Use</title>
+        <para>
+            The user has the ability to define the time format(s) to be used when a request is sent, in metadata at the Web level. 
+            For example, the user can define the following two formats:
+            <programlisting>
+"wms_timeformat" "YYYY-MM-DDTHH, YYYY-MM-DDTHH:MM"  
             </programlisting>
-      </sect2>
-      <sect2 id="supported-time">
-        <title>Supported Time Requests</title>
-            <para>When sending a request with the TIME parameter, different types of time values can be specified. 
-            The following are supported by MapServer:</para>
-            <itemizedlist>
-                <listitem>
-                    <para><emphasis>single value</emphasis>: for example: &amp;TIME=2004-10-12&amp;...</para>
-                </listitem>
-                <listitem>
-                    <para><emphasis>multiple values</emphasis>: for example: &amp;TIME=2004-10-12, 2004-10-13, 2004-10-14&amp;...</para>
-                </listitem>  
-                <listitem>
-                    <para><emphasis>range value</emphasis>: for example: &amp;TIME=2004-10-12/2004-10-13&amp;...</para>
-                </listitem>  
-                <listitem>
-                    <para><emphasis>multiple range values</emphasis>:  for example: &amp;TIME=2004-10-12/2004-10-13, 2004-10-15/2004-10-16&amp;...</para>
-                </listitem>                 
-            </itemizedlist>
-      </sect2>
-      <sect2 id="interpret">
-        <title>Interpreting Time Values</title>
-        <para>
-            When Mapserver receives a request with a TIME parameter, it transforms the time requests into valid expressions that 
-            are assigned to the filter parameter on layers that are time aware.  Here are some examples on how different types of 
-            requests are treated (wms_timeitem is defined here as being "time_field"):        
-        </para>
-            <itemizedlist>
-                <listitem>
-                    <para><emphasis>single value (2004-10-12)</emphasis>  : (`[time_field]` eq `2004-10-12`)</para>
-                </listitem>
-                <listitem>
-                    <para><emphasis>multiple values (2004-10-12, 2004-10-13)</emphasis> : (`[time_field]` eq `2004-10-12` OR `[time_field]` eq `2004-10-13`)</para>
-                </listitem>  
-                <listitem>
-                    <para><emphasis>range : 2004-10-12/2004-10-13</emphasis> : ((`[time_field]` ge `2004-10-12`) AND (`[time_field]` le `2004-10-13`))</para>
-                </listitem>  
-                <listitem>
-                    <para><emphasis>multiple ranges (2004-10-12/2004-10-13, 2004-10-15/2004-10-16)</emphasis> : ((`[time_field]` ge `2004-10-12` AND `[ time_field]` le `2004-10-13`) OR (`[time_field]` ge `2004-10-15` AND `[ time_field]` le `2004-10-16`)) </para>
-                </listitem>                 
-            </itemizedlist>   
-        <para>
-            As shown in the above examples, all fields and values are written inside back tics (`). This is the general way
-            of specifying time expressions inside MapServer.        
         </para>
         <para>
-            <emphasis>Exceptions to this rule</emphasis>:
+            Another example is for a WMS layer that is based on time data that contains precise time values taken every minute (e.g., 2004-10-12T13:55,  2004-10-12T13:56, 2004-10-12 T13:57, ...). 
+            Normally, a valid request on such a layer would require the time value to be as complete as the data underneath. By defining a set of patterns to use, 
+            MapServer introduces the notion of resolution to be used when doing a query. Using the example above, a request TIME= 2004-10-12T13:55 would be valid and a request TIME= 2004-10-12T13 
+            would also be valid and would return all elements taken for that hour.            
         </para>
-        <orderedlist numeration="lowerroman">
-          <listitem>
-             <para>When we are dealing with layers that are not Shapefiles or through OGR, the expression built does not 
-                   include the back tics. For example, the expression set in the filter for the first example above would be (time_field = '2004-10-12'). 
-             </para>
-          </listitem>
-          <listitem>
-             <para>
-                For PostGIS layers, the time expression built uses the date_trunc function available in PostgreSQL. For example, if the user passes a time value of '2004-10-12', 
-                the expression set in the filter is date_trunc('day', time_field) = '2004-10-12'.  The use of the date_trunc function allows requests to use the concept of time 
-                resolution. In the example above, for a request of '2004-10-12' MapServer will determine that the resolution is "day" by parsing the time string and the result will  
-                give all records matching the date 2004-10-12 regardless of the values of set for Hours/Minutes/Seconds in the database. For more information on the date_trunc function, please refer 
-                to PostgreSQL documentation (<ulink url="http://www.postgresql.org/docs/7.4/static/functions-datetime.html">http://www.postgresql.org/docs/7.4/static/functions-datetime.html</ulink>).        
-             </para>
-          </listitem>
-        </orderedlist>
-      </sect2>
-      <sect2 id="limiting-formats">
-        <title>Limiting the Time Formats to Use</title>
-            <para>
-                The user has the ability to define the time format(s) to be used when a request is sent, in metadata at the web level. 
-                For example, the user can define the following two formats:
-                <programlisting>
-    "wms_timeformat" "YYYY-MM-DDTHH, YYYY-MM-DDTHH:MM"  
-                </programlisting>
-            </para>
-            <para>
-                Another example is for a wms layer that is based on a time data that contains precise time values taken every minute (2004-10-12T13:55,  2004-10-12T13:56, 2004-10-12 T13:57, ...). 
-                Normally a valid request on such a layer would require the time value to be as complete as the data underneath. By defining a set of patterns to use, 
-                MapServer introduces the notion of resolution to be used when doing a query. Using the example above, a request TIME= 2004-10-12T13:55 would be valid and a TIME= 2004-10-12T13 
-                would also be valid and would return all elements taken for that hour.            
-            </para>
-            <note><para>This functionality is only available on layers based on Shapefiles and OGR.</para></note>
-      </sect2>
-      <sect2 id="future">
-        <title>Future Additions</title>
-            <itemizedlist>
-                <listitem>
-                    <para>Support for a special time value: "current"</para>
-                </listitem>
-            </itemizedlist>
-      </sect2>
-      <sect2 id="limitations">
-        <title>Limitations and Known Bugs</title>
-            <itemizedlist>
-                <listitem>
-                    <para>Pattern "YYYYMMDD" does not work on windows (Bug 970)</para>
-                </listitem>
-            </itemizedlist>
-      </sect2>      
-    </sect1>  
+        <note><para>This functionality is only available on layers based on Shapefiles and OGR.</para></note>
+  </sect1>
+  <sect1 id="future">
+    <title>Future Additions</title>
+        <itemizedlist>
+            <listitem>
+                <para>Support for a special time value: "current".</para>
+            </listitem>
+        </itemizedlist>
+  </sect1>
+  <sect1 id="limitations">
+    <title>Limitations and Known Bugs</title>
+        <itemizedlist>
+            <listitem>
+                <para>Pattern "YYYYMMDD" does not work on Windows. (Bug 970)</para>
+            </listitem>
+        </itemizedlist>
+  </sect1>      
   <!-- Section1: Document Info -->
   <sect1 id="docinfo">
     <title>About This Document</title>
@@ -249,6 +245,12 @@ The numbering is in parallel with the revision control
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.4</revnumber>
+                        <date>Date: 2004-11-01</date>
+                        <authorinitials>Author: Darren Redfern</authorinitials>
+                        <revremark>edited for language and consistency</revremark>
+                    </revision>                                
                     <revision>
                         <revnumber>Number: 1.3</revnumber>
                         <date>Date: 2004-10-31</date>
