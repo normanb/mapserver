@@ -15,13 +15,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-08-16</date>
+		<date>2001-10-19</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through 				  the use of MapServer v3.5.  
                </para>
-			<para>Last Updated: 08/16/2001</para>
+			<para>Last Updated: 10/19/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">

@@ -16,14 +16,14 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-10-03</date>
+		<date>2001-10-19</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
 			  module.
                </para>
-			<para>Last Updated: 10/03/2001</para>
+			<para>Last Updated: 10/19/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
