@@ -24,7 +24,7 @@
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  2004-11-09
+                Last Updated:  2004-11-11
             </para>
       		<para><link linkend='rhistory'>Revision History</link></para>
         </abstract>
@@ -501,19 +501,6 @@
         <sect2 id="layer">
         <title>Layer</title>
         <variablelist>
-            <varlistentry>
-                <term><literal>[get_layers]</literal></term>
-                <listitem>
-                    <para> 
-                        All active layers formated for inclusion in a
-                        URL. (i.e.  layer=layer1&amp;layer=layer2 and
-                        so on...). Used for a "GET" request.
-                    </para>
-					<para>
-						This template is obsolete, use <literal>[layers_esc]</literal> instead.	
-                    </para>
-                </listitem>
-            </varlistentry>
   
             <varlistentry>
                 <term><literal>[layers] | [layers_esc]</literal></term>
@@ -972,6 +959,13 @@
   system.
   <para>
     <revhistory>
+      <revision>
+        <revnumber>Number: 1.11</revnumber>
+        <date>Date: 2004-11-11</date>
+        <authorinitials>Author: Daniel Morissette</authorinitials>
+		<revremark>Removed obsolete [get_layers] tag.
+		</revremark>
+      </revision>
       <revision>
         <revnumber>Number: 1.10</revnumber>
         <date>Date: 2004-11-09</date>
