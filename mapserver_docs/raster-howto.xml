@@ -22,7 +22,7 @@
       <para>
                  This document describes the procedures for using raster data within MapServer applications.
                </para>
-      <para>Last Updated: 2004/10/31</para>
+      <para>Last Updated: $Date$</para>
             <para><link linkend='rhistory'>Revision History</link></para>
     </abstract>
   </articleinfo>
@@ -65,7 +65,7 @@ END
 
 <para>
 Though not shown rasters can have PROJECTION, METADATA, PROCESSING, MINSCALE, 
-and MAXSCALE information.  It cannot have labels, queries, CONNECTION, 
+and MAXSCALE information.  It cannot have labels, CONNECTION, 
 CONNECTIONTYPE, or FEATURE information.  
 </para>
 </sect1>
@@ -76,12 +76,15 @@ CONNECTIONTYPE, or FEATURE information.
 
 <para>
 Rasters can be classified in a manner similar to vectors, with a few
-exceptions.  The CLASSITEM is always the pixel value, which is indicated
-by the special string "[pixel]" (must be lower case, it was "[value]" in
-versions before 3.5).  The following demonstrates a raster layer with
-a simple classification scheme applied to it. 
+exceptions.  
 </para>
 
+<para>There is no need to specify a CLASSITEM.  The raw pixel value itself
+("[pixel]") and, for paletted images, the red, green and blue color 
+associated with that pixel value ("[red]", "[green]" and "[blue]") are
+available for use in classifications.  When used in an evaluated expression
+the pixel, red, green and blue keywords must be in lower case.
+</para>
 
 <programlisting>
 LAYER
@@ -90,38 +93,116 @@ LAYER
   TYPE RASTER
   STATUS ON
   CLASSITEM "[pixel]"
+  # class using simple string comparison, equivelent to ([pixel] = 0)
   CLASS
-    EXPRESSION ([pixel] &lt; 64)
+    EXPRESSION "0"
     COLOR 0 0 0
   END
+  # class using an EXPRESSION using only [pixel]. 
   CLASS
     EXPRESSION ([pixel] &gt;= 64 AND [pixel] &lt; 128)
     COLOR 255 0 0 
   END
+  # class using the red/green/blue values from the palette
   CLASS
-    EXPRESSION ([pixel] &gt;= 128 AND [pixel] &lt; 196)
+    NAME "near white"
+    EXPRESSION ([red] > 200 AND [green] > 200 AND [blue] > 200)
     COLOR 0 255 0 
   END
+  # Class using a regular expression to capture only pixel values ending in 1
   CLASS
-    EXPRESSION ([pixel] &gt;= 196 AND [pixel] &lt; 256)
+    EXPRESSION /*1/
     COLOR 0 0 255
   END
 END
 </programlisting>
 
 <para>
-Some format drivers (ie. GDAL)
-cast the pixel values to the range 0 to 255 <emphasis>before</emphasis>
-applying the classification scheme to them, making it hard to use this
-classification mechanism to classify floating point, or other data not well
-expressed as unsigned byte data (0-255).  This is a bug and should be corrected
-at some point in the future.  
+As usual, CLASS definitions are evaluated in order from first to last, and
+the first to match is used.  If a CLASS has a NAME attribute it may appear
+in a LEGEND.  Only the COLOR, EXPRESSION and NAME parameters within a 
+CLASS definition are utilized for raster classifications.  The other styling 
+or control information is ignored.
 </para>
 
 <para>
-Note that only the COLOR, EXPRESSION and NAME parameters are utilized for
-raster classifications.  The other rendering information is ignored. 
+Raster classifications always take place on only one raster
+band.  It defaults to the first band in the referenced file, but this can
+be altered with the BANDS PROCESSING directive.  In particular this means
+that including even a single CLASS declaration in a raster layer will result
+in the raster layer being rendered using the one band classification rules 
+instead of other rules that might have applied (such as 3 band RGB rendering).
 </para>
+
+<sect3><title>Classifying Non-8bit Rasters</title>
+
+<para>
+As of MapServer 4.4 support has been added for classifying non-8bit raster
+inputs.  That is input rasters with values outside the range 0-255.  Mostly
+this works transparently but there are a few caveats and options to provide
+explicit control.
+</para>
+
+<para>
+Classifying raster data in MapServer is accomplished by pre-classifying all
+expected input values and using that table of classification results to lookup
+each pixel as it is rendered.  This is done because evaluating a pixel
+value against a series of CLASS definitions is relatively expensive to do 
+for the hundreds of thousands of pixels in a typical rendered image.
+</para>
+
+<para>
+For simple 8bit inputs, only 256 input values need to be pre-classified.  But
+for non-8bit inputs more values need to be classified.  For 16bit integer
+inputs all 65536 possible input values are pre-classified.  For floating 
+point and other input data types, up to 65536 values are pre-classified based
+on the maximum expected range of input values. 
+</para>
+
+<para>
+The PROCESSING directive can be used to override the range of values to be
+pre-classified, or the number of values (aka Buckets) in that range to 
+classify.  The SCALE=min,max PROCESSING directive controls the range.  The
+SCALE_BUCKETS PROCESSING directive controls the number of buckets.   In some
+cases rendering can be accelerated considerable by selecting a restricted range
+of input values and a reduced number of scaling values (buckets). 
+</para>
+
+<para>
+The following example classifies a floating raster, but only 4 values over
+the range -10 to 10 are classified.  In particular, the values classified
+would be -7.5, -2.5, 2.5, and 7.5 (the middle of each "quarter" of the range). 
+So those four value are classified, and one of the classification results is
+selected based on which value is closest to the pixel value being classified.
+</para>
+
+<programlisting>
+LAYER
+  NAME grid1
+  TYPE raster
+  STATUS default
+  DATA data/float.tif
+  PROCESSING "SCALE=-10,10"
+  PROCESSING "SCALE_BUCKETS=4"
+  CLASS 
+    NAME "red"
+    EXPRESSION ([pixel] &lt; -3)
+    COLOR 255 0 0 
+  END
+  CLASS 
+    NAME "green"
+    EXPRESSION ([pixel] >= -3 and [pixel] &lt; 3)
+    COLOR 0 255 0
+  END
+  CLASS 
+    NAME "blue"
+    EXPRESSION ([pixel] >= 3)
+    COLOR 0 0 255
+  END
+END
+</programlisting>
+
+</sect3>
 
 </sect1>
 
@@ -138,30 +219,37 @@ GDAL raster library.
 
 <para>
 More information on GDAL can be found at <ulink 
-url="http://www.remotesensing.org/gdal/">http://www.remotesensing.org/gdal
-</ulink>, including the <ulink url="http://www.remotesensing.org/gdal/formats_list.html">supported formats list</ulink>.  Some of the advanced MapServer
+url="http://www.gdal.org/">http://www.gdal.org</ulink>, including the 
+<ulink url="http://www.gdal.org/formats_list.html">supported formats 
+list</ulink>.  Some of the advanced MapServer
 raster features, such as resampling, RGB color cube generation and automatic
 projection capture only work with raster formats used through GDAL.  GDAL 
 is normally built and installed separately from MapServer, and then enabled
 during the build of MapServer using the <emphasis>--with-gdal</emphasis>
-configuration switch.  GDAL formats not listed below include 
-CEOs, DOQ, ECW, ESRI Labelled BIL, Arc/Info Binary Grid, OGDI and Erdas Imagine
-(.hfa).
+configuration switch.  
 </para>
 
 <para>
 To find out what is built into a particular MapServer executable, use the
 -v flags to discover what build options are enabled.  To find out what 
-gdal formats are build, the gdal-config command may be used.  For example:
+gdal formats are available, the "gdalinfo --formats" command may be used.  For 
+example:
 </para>
 
 <programlisting>
-warmerda@gdal[103]% ./mapserv -v
-MapServer version 3.5 (pre-alpha) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
-SUPPORTS=PROJ SUPPORTS=TTF INPUT=EPPL7 INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE
-warmerda@gdal[104]% gdal-config --formats
-gxf gtiff hfa aigrid aaigrid ceos ceos2 iso8211 sdts raw dted mem jdem 
-envisat elas ogdi gif jpeg png fits grass
+warmerda@gdal2200[124]% mapserv -v
+MapServer version 4.4.0-beta2 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
+SUPPORTS=PROJ SUPPORTS=FREETYPE SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT 
+SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=FASTCGI 
+INPUT=EPPL7 INPUT=POSTGIS INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE DEBUG=MSDEBUG
+warmerda@gdal2200[18]% gdalinfo --formats
+Supported Formats:
+  GRASS (ro): GRASS Database Rasters (5.7+)
+  GTiff (rw+): GeoTIFF
+  NITF (rw+): National Imagery Transmission Format
+  HFA (rw+): Erdas Imagine Images (.img)
+  SAR_CEOS (ro): CEOS SAR Image
+  ...
 </programlisting>
 
 <para>
@@ -175,10 +263,8 @@ The following formats are potential builtins.
       builtin support for reading TIFF or GeoTIFF files.  The builtin 
       TIFF support has some limitations with regard to the organization of
       files that can be read (no tiled, 16bit, RGB, or odd color models). 
-      This driver supports 
-      <ulink url="#world_files">world files</ulink>, 
-      or simple builtin GeoTIFF coordinates
-      for georeferencing.  The AUTO projection declaration is not support.
+      This driver supports <ulink url="#world_files">world files</ulink>, 
+      or simple builtin GeoTIFF coordinates for georeferencing.
     </para>
     <para>
       Full featured TIFF/GeoTIFF support is available through GDAL.  Note
@@ -197,7 +283,7 @@ The following formats are potential builtins.
     </para>
     <para>
       If GD is not configured with GIF support, it may still be available in
-      GDAL, which does not support georeferencing via world files.  
+      GDAL.  
     </para>
   </listitem>
   <listitem>
@@ -209,7 +295,7 @@ The following formats are potential builtins.
     </para>
     <para>
       If GD is not configured with PNG support, it may still be available in
-      GDAL, which also supports georeferencing via world files. 
+      GDAL. 
     </para>
   </listitem>
   <listitem>
@@ -234,7 +320,20 @@ The following formats are potential builtins.
       as greyscale.  Georeferencing is read from the file. 
     </para>
   </listitem>
+  <listitem>
+    <para><emphasis>SDE Raster</emphasis>: 
+      If configured with <emphasis>INPUT=SDE</emphasis>.  MapServer support
+      for SDE raster data is new for 4.4 and still experimental.  See the
+      SDE HOWTO for details on how to define an SDE Raster layer.
+    </para>
+  </listitem>
 </itemizedlist>
+
+<para>
+If MapServer is built with GDAL it is generally better to access all possible
+formats through GDAL rather than via the built-in drivers.   The built-in
+drivers are less featureful, and not as well maintained.
+</para>
 
 </sect1>
 
@@ -300,13 +399,9 @@ NOTES:
 </programlisting>
 
 <para>
-The gdaltindex program can be built as part of GDAL (it isn't part of the
-default build), or a prebuilt copy for Windows can be downloaded from
-<ulink url="ftp//gdal.velocet.ca/pub/outgoing/gdaltindex.zip">
-ftp//gdal.velocet.ca/pub/outgoing/gdaltindex.zip</ulink>.  You will also need
-supporting libraries <ulink 
-url="ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip">
-ftp//ftp.remotesensing.org/gdal/gdal-1142-ntbin.zip</ulink>.
+The gdaltindex program is built as part of GDAL.  Prebuilt binaries for GDAL
+including the gdaltindex program can be downloaded as part of the 
+<ulink url="http://fwtools.maptools.org/">FWTools</ulink> distribution.
 </para>
 
 </sect1>
@@ -484,6 +579,163 @@ PROCESSING "COLOR_MATCH_THRESHOLD=3"
 
 <!-- ====================================================================== -->
 
+<sect1 id="query">  <title>Raster Query</title>
+
+<para>
+A new feature of MapServer 4.4 is the ability to perform queries on rasters
+in a manner similar to queries against vector layers.  Raster queries on
+raster layers return one point feature for each pixel matching the query.
+The point features will have attributes indicating the value of different
+bands at that pixel, the final rendering color and the class name.  The
+resulting feature can be directly access in MapScript, or processed through
+templates much like normal vector query results.  Only raster layers with
+a query TEMPLATE associated can be queried, even for the query methods that
+don't actually use the query template (much like vector data). 
+</para>
+
+<para>
+Raster query supports QueryByPoint, QueryByRect, and QueryByShape.  
+QueryByPoint supports single and multiple result queries.  Other query 
+operations such as QueryByIndex, QueryByIndexAdd, QueryByAttributes and
+QueryByFeature are not supported for raster layers.  Raster layers do not
+support saving queries to disk, nor query maps.
+</para>
+
+<para>
+Raster queries return 
+point features with some or all of the following attributes.
+</para>
+
+<variablelist>
+  <varlistentry>
+    <term>x</term>
+    <listitem>
+      <para>georeferenced X location of pixel.</para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>y</term>
+    <listitem>
+      <para>georeferenced Y location of pixel.</para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>value_list</term>
+    <listitem>
+      <para>a comma separated list of the values of all selected bands at 
+            the target pixel. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>value_<emphasis>n</emphasis></term>
+    <listitem>
+      <para>the value for the n'th band in the selected list at this pixel (zero based).  There is one value_<emphasis>n</emphasis> entry for each selected band.</para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>class</term>
+    <listitem>
+      <para>Name of the class this pixel is a member of (classified layers only).</para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>red</term>
+    <listitem>
+      <para>red component of the display color for this pixel.</para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>green</term>
+    <listitem>
+      <para>green component of the display color for this pixel.</para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>blue</term>
+    <listitem>
+      <para>blue component of the display color for this pixel.</para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<para>
+The red, green and blue attribute are intended to be the final color the pixel
+would be rendered with, but in some subtle cases it can be wrong (ie. 
+classified floating point results).  The selected bands are normally the 
+band that would be used to render the layer.  For a pure query-only layer 
+BANDS PROCESSING directive can be used to select more bands than could normally
+be used in a render operation.  For instance for a 7 band landsat scene a
+PROCESSING "BANDS=1,2,3,4,5,6,7" directive could be used to get query results
+for all seven bands in results to a query operation.
+</para>
+
+<para> 
+Care should be taken to avoid providing a large query area (selecting alot of pixels) as each selected pixel requires over 100 bytes of memory for temporary caching. The RASTER_QUERY_MAX_RESULT PROCESSING item can be used to restrict the maximum number of query results that will be returned. The default is one million which would take on the order of 100MB of RAM.
+</para>
+
+<para>
+Query results can be returned as HTML via the normal substitution into 
+query template HTML. Query results are also accessable via WMS GetFeatureInfo
+calls, and from MapScript.  The following example shows executing a feature
+query from Python MapScript and fetching back the results. 
+</para>
+
+<programlisting>
+  map = mapscript.Map('rquery.map')
+  layer = map.getLayer(0)
+
+  pnt = mapscript.Point()
+  pnt.x = 440780
+  pnt.y = 3751260
+    
+  layer.queryByPoint( map, pnt, mapscript.MS_MULTIPLE, 180.0 )
+
+  layer.open()
+  for i in range(1000):
+    result = layer.getResult( i )
+    if result is None:
+      break
+        
+    print '(%d,%d)' % (result.shapeindex, result.tileindex)
+        
+    s = layer.getShape( result.shapeindex, result.tileindex )
+    for i in range(layer.numitems):
+      print '%s: %s' % (layer.getItem(i), s.getValue(i))
+            
+layer.close()
+</programlisting>
+
+<para>
+This is a simple example query TEMPLATE file. The raster pixel attributes
+will be substituted in before the query result is returned to the user
+as HTML.
+</para>
+
+<programlisting>
+Pixel:&lt;br>
+  values=[value_list]&lt;br>
+  value_0=[value_0]&lt;br>
+  value_1=[value_1]&lt;br>
+  value_2=[value_2]&lt;br>
+  RGB = [red],[green],[blue]&lt;p>
+  Class = [class]&lt;br>
+</programlisting>
+
+<para>
+Internally raster query results are essentially treated as a set of 
+temporary features cached in RAM.  Issuing a new query operation clears
+the existing query cache on the layer.  The transitory in-memory 
+representation of raster query results is also responsible for the inability
+to save raster query results since saved query results normally only contain
+the feature ids, not the entire features.    Some addition information is
+available in the 
+<ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?RasterQuery">RasterQuery</ulink> Wiki topic.
+</para>
+
+</sect1>
+
+<!-- ====================================================================== -->
+
 <sect1 id="preprocessing">  <title>Preprocessing Rasters</title>
 
 
@@ -633,14 +885,20 @@ for world files.
   <para>
      <revhistory>
       <revision>
+        <revnumber>: 1.14</revnumber>
+        <date>Date: 2004/11/16</date>
+        <authorinitials>Author: Frank Warmerdam</authorinitials>
+        <revremark>Added raster query, various other 4.4 updates.</revremark>
+      </revision>     
+      <revision>
         <revnumber>: 1.12</revnumber>
-        <date>$Date: 2004/10/31</date>
+        <date>Date: 2004/10/31</date>
         <authorinitials>Author: Jeff McKenna</authorinitials>
         <revremark>Fixed anchor for indexing section.</revremark>
       </revision>     
       <revision>
         <revnumber>: 1</revnumber>
-        <date>$Date$</date>
+        <date>Date: 2004/02/02</date>
         <authorinitials>Author: Frank Warmerdam</authorinitials>
         <revremark>I added the Revision History section to this document.</revremark>
       </revision>
