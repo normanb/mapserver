@@ -20,7 +20,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 3.7.
    			</para>
-			<para>Last Updated:  09-05-2002</para>
+			<para>Last Updated:  12-06-2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -382,6 +382,13 @@
 						<para>For Oracle, use "shape FROM table" or "shape FROM (SELECT statement)" or even more complex Oracle compliant queries! Note that there are important performance impacts when using spatial subqueries however. Try using MapServer's <link linkend="filter">FILTER</link> whenever possible instead. You can also see the SQL submitted by forcing an error, for instance by submitting a DATA parameter you know won't work, using for example a bad column name.</para>
 					</listitem>
 				</varlistentry>
+				<varlistentry>
+					<term>DUMP [true|false]</term>
+					<listitem>
+						<para>Switch to allow mapserver to return data in GML format. Usefull when used with WMS GetFeatureInfo operations. "false" by default</para>
+					</listitem>
+				</varlistentry>
+
 				<varlistentry>
 					<term>FEATURE</term>
 					<listitem>
