@@ -156,9 +156,10 @@
      TYPE RASTER
      STATUS ON
      CONNECTIONTYPE WMS
-     CONNECTION "http://www2.dmsolutions.ca:8099/cgi-bin/mswms_gmap?VERSION=1.1.0&amp;LAYERS=bathymetry&amp;FORMAT=image/png"
+     CONNECTION 
+      "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?VERSION=1.1.0&amp;LAYERS=bathymetry&amp;FORMAT=image/png"
      PROJECTION
-       "init=epsg:42304"
+      "init=epsg:42304"
      END
     END
 		</programlisting>
