@@ -26,8 +26,8 @@
 	</author>
     <abstract>
       <para>        This document is a reference for the mapserv CGI
-        version 3.6.        </para>
-      <para>Last Updated:  12-18-2002</para>
+        version 4.0.        </para>
+      <para>Last Updated:  2003-08-19</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -38,6 +38,7 @@
       &quot;POST&quot; methods and can be used in an interactive manner
       or as an image engine.   </para>
 	</sect1>
+
     <!-- NOTES on syntax -->
     <sect1 id="notes">
       <title>Notes</title>
@@ -64,6 +65,36 @@
       </itemizedlist>
     </sect1>
 	
+    <sect1 id="changes">
+      <title>Changes</title>
+      <itemizedlist>
+        <listitem>
+          <para>New way to perform attribute queries: No longer do you 
+		  	set a layer filter, but rather you pass a query string 
+			(and optionally an query item) to the query function. 
+			To do this 2 new CGI parameters were added to MapServer: 
+			<link linkend="qstring">QSTRING</link> and 
+			<link linkend="qitem">QITEM</link>.</para>
+        </listitem>
+		<listitem>
+			<para>
+				SAVEMAP is switched off: The SAVEMAP functionality is 
+				considered insecure, since the saved files are 
+				accessible by everyone.
+			</para>
+        </listitem>
+		<listitem>
+			<para>
+				TEMPLATE is removed, since the can use the 
+				<literal>map_web_template</literal> 
+				<link linkend="mapfileURL">syntax</link>.
+  				Simplifies security maintenance by only having to 
+				deal with this option in a single place.
+			</para>
+		</listitem>
+	  </itemizedlist>
+	</sect1>
+
     <!-- Format -->
     <sect1 id="format">
       <title>Format</title>
@@ -73,7 +104,7 @@
         <title>CGI Variables</title>
       	<variablelist>
         	<varlistentry>
-          	<term>BUFFER [distance]</term>
+          	<term><literal>BUFFER [distance] </literal></term>
           	<listitem>
             <para>A distance, in the same coordinate system as the map
               file, used in conjunction with MAPXY to create an new map
@@ -82,23 +113,27 @@
         </varlistentry>
             
         <varlistentry>
-            <term>ID [id-string]</term>
+            <term><literal>ID [id-string] </literal></term>
 	           <listitem>
                     <para> 
 						By default MapServer generates a uniq session
 						id based on system time and process id.
 						This parameter overwrites the default.
 	                </para>
+					<!-- SAVEMAP is considered insecure as implemented and 
+					switched off for version 4.0. Hence this example is not
+					appropriate.
 					<para>
 						As an example this parameter can be used to 
 						handle personalized map files in conjunction 
 						with the SAVEMAP feature.
 					</para>
+					-->
                 </listitem>
             </varlistentry>
 	        
         <varlistentry>
-          <term>IMG</term>
+          <term><literal>IMG </literal></term>
           <listitem>
             <para> The name associated with the inline map image used to
               record user clicks. What actually is passed are two
@@ -108,7 +143,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>IMGBOX [x1] [y1] [x2] [y2]</term>
+          <term><literal>IMGBOX [x1] [y1] [x2] [y2] </literal></term>
           <listitem>
             <para> Coordinates (in pixels) of a box drag in the image.
               Most often used in conjunction with Java based front ends
@@ -116,14 +151,16 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>IMGEXT [minx] [miny] [maxx] [maxy]</term>
+          <term><literal>IMGEXT [minx] [miny] [maxx] [maxy]
+		  </literal></term>
           <listitem>
             <para> The spatial extent of the existing inline image, that
               is, the image the users can see in their browser.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
-            <term>IMGSHAPE [x1 y1 x2 y2 x3 y3 ...]</term>
+            <term><literal>IMGSHAPE [x1 y1 x2 y2 x3 y3 ...]
+			</literal></term>
 	        <listitem>
                 <para> 
                     Shape given in image coordinates.
@@ -137,32 +174,32 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-          <term>IMGSIZE [cols] [rows]</term>
+          <term><literal>IMGSIZE [cols] [rows] </literal></term>
           <listitem>
             <para> The size (in pixels) of the exiting inline image.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>IMGXY [x] [y]</term>
+          <term><literal>IMGXY [x] [y] </literal></term>
           <listitem>
             <para> Coordinates (in pixels) of a single mouse click. Used
               most often in conjunction with Java based front ends to
               the MapServer.</para>
           </listitem>
         </varlistentry>
-<!-- Comment by Steve Lime: Not used in version 3.5
+<!--
         <varlistentry>
-            <term>ITEM [name]</term>
+            <term><literal>ITEM [name] </literal></term>
 	        <listitem>
                 <para>
-                    The name of an attribute in a layer attribute table. 
-                    Used for item/value lookups.
+                    Search item (name of an attribute in a layer attribute 
+					table). Used for item/value lookups.
 	            </para>
             </listitem>
         </varlistentry>
 -->
         <varlistentry>
-          <term>LAYER [name]</term>
+          <term><literal>LAYER [name] </literal></term>
           <listitem>
             <para> The name of a layer as it appears in the <ulink
                 url="mapfile-reference.html">map file</ulink>. Sending
@@ -170,22 +207,22 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>LAYERS [name name ...]</term>
+          <term><literal>LAYERS [name name ...] </literal></term>
           <listitem>
             <para> The names of the layers to be turned on. Layer names
               must be seperated by spaces.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MAP [filename]</term>
+          <term><literal>MAP [filename] </literal></term>
           <listitem>
             <para> Path, relative to the CGI directory, of the <ulink
                 url="mapfile-reference.html">map file</ulink> to be used.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MAPEXT [minx] [miny] [maxx] [maxy]</term>
-          <term>MAPEXT (shape)</term>
+          <term><literal>MAPEXT [minx] [miny] [maxx] [maxy]</literal></term>
+          <term><literal>MAPEXT (shape) </literal></term>
           <listitem>
             <para> The spatial extent of the map to be created.    </para>
             <para>
@@ -196,7 +233,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MAPSIZE [cols] [rows]</term>
+          <term><literal>MAPSIZE [cols] [rows] </literal></term>
           <listitem>
             <para> The size (in pixels) of the image to be created.
               Useful for allowing users to change the resolution of the
@@ -204,7 +241,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MAPSHAPE [x1 y1 x2 y2 x3 y3 ...]</term>
+          <term><literal>MAPSHAPE [x1 y1 x2 y2 x3 y3 ...] </literal></term>
           <listitem>
             <para> 
                 Shape in map coordinates.
@@ -216,8 +253,8 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MAPXY [x] [y]</term>
-          <term>MAPXY (shape)</term>
+          <term><literal>MAPXY [x] [y]</literal></term>
+          <term><literal>MAPXY (shape) </literal></term>
           <listitem>
             <para> 
 				A point, in the same coordinate system as the
@@ -232,22 +269,24 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MINX | MINY | MAXX | MAXY [number]</term>
+          <term><literal>MINX | MINY | MAXX | MAXY [number]
+		  </literal></term>
           <listitem>
-            <para> Minimum x coordinate of the spatial extent for a new
+            <para> Minimum/Maximum x/y coordinate of the spatial 
+				extent for a new
               map/query. This set of parameters are the pieces of MAPEXT.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MODE [value]</term>
+          <term><literal>MODE [value] </literal></term>
           <listitem>
             <para> Mode of operation. The following options are
-              supported: (note that all of the query modes also support
+              supported (note that all of the query modes also support
               map-only modes, e.g. ITEMQUERYMAP, which for brevity are
               not all listed):</para>
             <variablelist>
               <varlistentry>
-                <term>BROWSE</term>
+                <term><literal>BROWSE </literal></term>
                 <listitem>
                   <para> 
 				  	Fully interactive interface where maps (and
@@ -257,35 +296,113 @@
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>QUERY</term>
+                <term><literal>QUERY </literal></term>
                 <listitem>
                   <para> A spatial search (finds closest) is triggered
                     by a click in a map.</para>
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>NQUERY</term>
+                <term><literal>NQUERY </literal></term>
                 <listitem>
                   <para> A spatial search (finds all) is triggered by a
                     click in a map or by user-define selection box.</para>
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>ITEMQUERY</term>
+                <term><literal>ITEMQUERY </literal></term>
                 <listitem>
                   <para> A text search of attribute data is triggered
-                    using a layer FILTER.  Returns 1st match.</para>
+                    using a layer QSTRING.  Returns 1st match.</para>
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>ITEMNQUERY</term>
+                <term><literal>ITEMNQUERY </literal></term>
                 <listitem>
                   <para> A text search of attribute data is triggered
-                    using a layer FILTER. Returns all matches.</para>
+                    using a QSTRING. Returns all matches.</para>
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>INDEXQUERY</term>
+                <term><literal>FEATUREQUERY </literal></term>
+                <listitem>
+                  <para> A spatial search that uses one feature from
+                    SLAYER to query  other layers.</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>FEATURENQUERY </literal></term>
+                <listitem>
+                  <para> A spatial search that uses multiple features
+                    from SLAYER to query other layers.</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>ITEMFEATUREQUERY </literal></term>
+                <listitem>
+                  <para> A text search of attribute data is triggered
+                    using a QSTRING.  Returns first match. Layer to
+                    be searched is defined using slayer parameter. The
+                    results of this search are applied to other
+                    searchable layers (which can be limited using the
+                    QLAYER parameter).</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>ITEMFEATURENQUERY </literal></term>
+                <listitem>
+                  <para> A text search of attribute data is triggered
+                    using a QSTRING. Returns all matches. Layer to
+                    be searched is defined using slayer parameter. The
+                    results of this search are applied to other
+                    searchable layers (which can belimited using the
+                    QLAYER parameter).</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>MAP </literal></term>
+                <listitem>
+                  <para> The created map is returned. Used within an
+                    &lt;img ... &gt; tag.     </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>REFERENCE </literal></term>
+                <listitem>
+                  <para> The created reference map is returned. Used
+                    within an &lt;img ... &gt; tag.    </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>SCALEBAR </literal></term>
+                <listitem>
+                  <para> The created scalebar is returned. Used within
+                    an &lt;img ... &gt; tag.     </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>LEGEND </literal></term>
+                <listitem>
+                  <para> The created legend is returned. Used within an
+                    &lt;img ... &gt; tag.    </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>ZOOMIN </literal></term>
+                <listitem>
+                  <para> Switch to mode BROWSE with ZOOMDIR=1
+                   </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>ZOOMOUT </literal></term>
+                <listitem>
+                  <para> Switch to mode BROWSE with ZOOMDIR=-1
+                   </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><literal>INDEXQUERY </literal></term>
                 <listitem>
                   <para> Looks up a feature based on the values of
                     SHAPEINDEX and TILEINDEX parameters. SHAPEINDEX is
@@ -294,90 +411,17 @@
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>FEATUREQUERY</term>
+                <term><literal> COORDINATE  </literal></term>
                 <listitem>
-                  <para> A spatial search that uses one feature from
-                    SLAYER to query  other layers.</para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>FEATURENQUERY</term>
-                <listitem>
-                  <para> A spatial search that uses multiple features
-                    from SLAYER to query other layers.</para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>ITEMFEATUREQUERY</term>
-                <listitem>
-                  <para> A text search of attribute data is triggered
-                    using a layer FILTER.  Returns first match. Layer to
-                    be searched is defined using slayer parameter. The
-                    results of this search are applied to other
-                    searchable layers (which can be limited using the
-                    QLAYER parameter).</para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>ITEMFEATURENQUERY</term>
-                <listitem>
-                  <para> A text search of attribute data is triggered
-                    using a layer FILTER. Returns all matches. Layer to
-                    be searched is defined using slayer parameter. The
-                    results of this search are applied to other
-                    searchable layers (which can belimited using the
-                    QLAYER parameter).</para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>MAP</term>
-                <listitem>
-                  <para> The created map is returned. Used within an
-                    &lt;img ... &gt; tag.     </para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>REFERENCE</term>
-                <listitem>
-                  <para> The created reference map is returned. Used
-                    within an &lt;img ... &gt; tag.    </para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>SCALEBAR</term>
-                <listitem>
-                  <para> The created scalebar is returned. Used within
-                    an &lt;img ... &gt; tag.     </para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>LEGEND</term>
-                <listitem>
-                  <para> The created legend is returned. Used within an
-                    &lt;img ... &gt; tag.    </para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term>ZOOMIN</term>
-                <listitem>
-                  <para> Switch to mode BROWSE with ZOOMDIR=1
+                  <para>To be clarified. 
                    </para>
                 </listitem>
               </varlistentry>
-              <varlistentry>
-                <term>ZOOMOUT</term>
-                <listitem>
-                  <para> Switch to mode BROWSE with ZOOMDIR=-1
-                   </para>
-                </listitem>
-              </varlistentry>
-			    COORDINATE
-				PROCESSING
             </variablelist>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>QLAYER [name]</term>
+          <term><literal>QLAYER [name] </literal></term>
           <listitem>
             <para> Query layer. The name of the layer to be queried as
               it appears in  the <ulink url="mapfile-reference.html">map
@@ -385,8 +429,29 @@
               searched in turn.</para>
           </listitem>
         </varlistentry>
+
+        <varlistentry id="qitem">
+            <term><literal>QITEM [name] </literal> (optional)</term>
+	        <listitem>
+                <para>
+                    The name of an attribute in a layer attribute table to
+					query on. The parameter is optional and used in conjunction
+					with the QSTRING for attribute queries.
+	            </para>
+            </listitem>
+        </varlistentry>
+
+	    <varlistentry id="qstring">
+            <term><literal>QSTRING [expression] </literal></term>
+            <listitem>
+                <para> 
+					Attribute queries: Query string passed to the query 
+					function. 
+	            </para>
+            </listitem>
+        </varlistentry>
         <varlistentry>
-          <term>QUERYFILE [filename]</term>
+          <term><literal>QUERYFILE [filename]</literal></term>
           <listitem>
             <para> Used with BROWSE or NQUERY mode. This option
               identifies a query file to load before any regular
@@ -400,7 +465,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>REF</term>
+          <term><literal>REF </literal></term>
           <listitem>
             <para> The name associated with the inline reference map
               image used to  record user clicks. What actually is passed
@@ -411,7 +476,7 @@
           </listitem>
         </varlistentry>
 	    <varlistentry>
-            <term>REFXY [x] [y]</term>
+            <term><literal>REFXY [x] [y] </literal></term>
             <listitem>
                 <para> 
                     Coordinates (in pixels) of a single mouse click
@@ -421,8 +486,11 @@
 	            </para>
             </listitem>
         </varlistentry>
+<!-- SAVEMAP is considered insecure as implemented: need to save someplace 
+     non accessible by everyone in the universe. The feature is switched off
+	 in the default UMN MapServer 4.0.
 	    <varlistentry>
-            <term>SAVEMAP</term>
+            <term><literal>SAVEMAP</literal></term>
             <listitem>
                <para> 
 				Save the map settings to a new map file into 
@@ -436,8 +504,9 @@
 	                </para>
                 </listitem>
             </varlistentry>
+-->
         <varlistentry>
-          <term>SAVEQUERY</term>
+          <term><literal>SAVEQUERY </literal></term>
           <listitem>
             <para> When used with any of the query modes this tells the
               MapServer to save the query results to a temporary file
@@ -446,7 +515,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>SCALE [number]</term>
+          <term><literal>SCALE [number] </literal></term>
           <listitem>
             <para> Scale to create a new map at. Used with mapxy. Scale
               is given as the denominator of the actual scale fraction,
@@ -454,7 +523,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>SEARCHMAP</term>
+          <term><literal>SEARCHMAP </literal></term>
           <listitem>
             <para> It is possible to do pan/zoom interfaces using
               querymaps. In these cases you will likey want information
@@ -465,7 +534,7 @@
           </listitem>
         </varlistentry>
 	    <varlistentry>
-            <term>SHAPEINDEX [index]</term>
+            <term><literal>SHAPEINDEX [index] </literal></term>
 	        <listitem>
                 <para> 
                     Used for index queries 
@@ -475,7 +544,7 @@
         </varlistentry>
 	
         <varlistentry>
-          <term>SLAYER [name]</term>
+          <term><literal>SLAYER [name] </literal></term>
           <listitem>
             <para> Select layer. The name of the layer to be used for
               any of the feature (i.e. staged) query modes. The select
@@ -484,7 +553,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>TEMPLATE [filename]</term>
+          <term><literal>TEMPLATE [filename]</literal></term>
           <listitem>
             <para> Name of the main template file to use for formatting
               the results. Overrides anything set (in the WEB section)
@@ -492,7 +561,7 @@
           </listitem>
         </varlistentry>
 	        <varlistentry>
-                <term>TILEINDEX [index]</term>
+                <term><literal>TILEINDEX [index] </literal></term>
 	            <listitem>
                     <para> 
 						Used for index queries (in conjunction with INDEXQUERY),
@@ -501,19 +570,19 @@
                 </listitem>
             </varlistentry>
 	
-<!-- Comment by Steve Lime: Not used in version 3.5
+<!--
 	        <varlistentry>
-                <term>VALUE [expression]</term>
+                <term><literal>VALUE [expression] </literal></term>
                 <listitem>
                     <para> 
-                        Value (regular expression) to match 
+                        Search expression to match 
 	                    against in item/value lookups.
 	                </para>
                 </listitem>
             </varlistentry>
--->	
+-->		
         <varlistentry>
-          <term>ZOOM [number]</term>
+          <term><literal>ZOOM [number] </literal></term>
           <listitem>
             <para> Zoom scaling to apply to the creation of the new map.
               Values greater than 0 resulting in zooming in, 0 is a pan,
@@ -527,13 +596,13 @@
         </varlistentry>
 
         <varlistentry>
-          <term>ZOOMDIR [1 | 0 | -1]</term>
+          <term><literal>ZOOMDIR [1 | 0 | -1] </literal></term>
           <listitem>
             <para> Direction to zoom. See above.    </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>ZOOMSIZE [number]</term>
+          <term><literal>ZOOMSIZE [number] </literal></term>
           <listitem>
             <para> Absolute magnitude of a zoom. Used with ZOOMDIR.</para>
             <para> ZOOMDIR is limited to MAXZOOM compiled into the 
@@ -559,7 +628,8 @@
 	  </para>
 	  <variablelist>
         <varlistentry>
-          <term>INPUT_TYPE (auto_rect | auto_point)</term>
+          <term><literal>INPUT_TYPE (auto_rect | auto_point)
+		  </literal></term>
           <listitem>
             <para>The INPUT_TYPE parameter is needed to identify if the 
 			coordinates handed over to the mapserver have to be interpreted
@@ -567,7 +637,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>INPUT_COORD [minx,miny;maxx,maxy]</term>
+          <term><literal>INPUT_COORD [minx,miny;maxx,maxy]</literal></term>
           <listitem>
             <para>The ROSA-Applet always fills the pair of coordinates.
 			In case of a point (input_type=auto_point) min and max 
@@ -579,7 +649,7 @@
     </sect2>
 
 	<!-- mapfile changes -->
-    <sect2 id="mapfile">
+    <sect2 id="mapfileURL">
       <title>Changing <ulink url="mapfile-reference.html">map
         file</ulink> parameters via a form or a URL</title>
       <para>Begining with version 3.3 it is now possible to change
@@ -625,7 +695,7 @@
 		<title>Experimental</title>
 		<variablelist>
         	<varlistentry>
-            	<term>EGIS {none}</term>
+            	<term><literal>EGIS {none}</literal></term>
             	<listitem>
                 	<para>
                     	OV - eGIS - additional token "none" is defined to 
