@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>MapServer HTML Legend HOWTO - Version 4.1</title>
+		<title>MapServer HTML Legend HOWTO - Version 4.3</title>
 		<author>
 			<firstname/>
 			<surname/>
@@ -20,7 +20,7 @@
 			<para>
                  This document describes the procedures for implementing an HTML legend in MapServer applications.
                </para>
-			<para>Last Updated: 04/02/2004</para>
+			<para>Last Updated: 07/07/2004</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -417,6 +417,14 @@
 										the group in integer format: 0=OFF, 1=ON, 2=DEFAULT) 
 									</para>
 								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_visible value=...] ... [/if]
+									</para>
+									<para>
+										(value is the visibility of the first layer in the group: 0=NOT VISIBLE, 1=VISIBLE) 
+									</para>
+								</listitem>									
 							</itemizedlist>
 						</listitem>
 						<listitem>
@@ -467,6 +475,14 @@
 										[if name=any_layer_metadata value=...] ... [/if] 
 									</para>
 								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_visible value=...] ... [/if]
+									</para>
+									<para>
+										(value is the visibility of the layer: 0=NOT VISIBLE, 1=VISIBLE) 
+									</para>
+								</listitem>									
 							</itemizedlist>
 						</listitem>
 						<listitem>
@@ -517,6 +533,14 @@
 										[if name=any_layer_metadata value=...] ... [/if] 
 									</para>
 								</listitem>
+								<listitem>
+									<para>
+										[if name=layer_visible value=...] ... [/if]
+									</para>
+									<para>
+										(value is the visibility of the layer: 0=NOT VISIBLE, 1=VISIBLE) 
+									</para>
+								</listitem>									
 							</itemizedlist>
 						</listitem>
 					</itemizedlist>
