@@ -340,11 +340,11 @@ me the error massage(s) and what you think the fix should be.
 
 <listitem>
 <para>
-<errorcode>Mapraster.c(19) : fatal error C1083: Cannot open include file: 
+<screen>Mapraster.c(19) : fatal error C1083: Cannot open include file: 
 'tiffio.h': No such file or directory
 NMAKE : fatal error U1077: 'cl' : return code '0x2'
 Stop.
-</errorcode>
+</screen>
 If you are following the example above, you've forgotten to comment out the TIFF library options. If you are 
 compiling MapServer with the TIFF library, you may have specified an incorrect path. Go back to the make file and 
 check the paths and options for TIFF.</para>
@@ -352,49 +352,49 @@ check the paths and options for TIFF.</para>
 
 <listitem>
 <para>
-<errorcode>Mapogr.cpp(129) : fatal error C1083: Cannot open include file: 'ogr_spatialref.h': 
+<screen>Mapogr.cpp(129) : fatal error C1083: Cannot open include file: 'ogr_spatialref.h': 
 No such file or directory
 NMAKE : fatal error U1077: 'cl' : return code '0x2'
-Stop.</errorcode>
+Stop.</screen>
 If you are following the example above, you have forgotten to comment out the OGR/GDAL library options in the make 
 file. Comment it out and try again. If you are compiling OGR/GDAL support, you may have specified an incorrect path.</para>
 </listitem>
 
 <listitem>
 <para>
-<errorcode>        Copy \gdal.pdb .
+<screen>        Copy \gdal.pdb .
 The system cannot find the file specified.
 NMAKE : fatal error U1077: 'copy' : return code '0x1'
 Stop.
-</errorcode>
+</screen>
 If you are following the example above, you have forgotten to comment out the line "copy \gdal.pdb ." Go back and fix it.</para>
 </listitem>
 
 <listitem>
 <para>
-<errorcode>LIB : fatal error LNK1181: cannot open input file "..\php-4.0.6\regex\regcomp.obj"
+<screen>LIB : fatal error LNK1181: cannot open input file "..\php-4.0.6\regex\regcomp.obj"
 NMAKE : fatal error U1077: 'lib' : return code '0x49d'
 Stop.
-</errorcode>
+</screen>
 If you are following the example above, you have forgotten to comment out the PHP_REGEX lines. Go back and do it. If you are 
 compiling MapServer with PHP support make sure you have the paths set correctly for the PHP</para>
 </listitem>
 
 <listitem>
 <para>
-<errorcode>regex.
+<screen>regex.
 NMAKE : fatal error U1073: don't know how to make '../gd-1.8.4/gd.lib'
 Stop.
-</errorcode>
+</screen>
 Make sure you have compiled GD-1.8.4 beforehand. If that's not the problem, check your paths.</para>
 </listitem>
 
 <listitem>
 <para>
-<errorcode>NMAKE : fatal error U1073: don't know how to make
+<screen>NMAKE : fatal error U1073: don't know how to make
 '../libpng-1.0.8/libpng.lib'
 Stop.
-</errorcode>
+</screen>
 Libpng is required by GD and should have been compiled with it. So, the most likely problem here is the path...
 Oops, I see it already.  Change <filename>"../libpng-1.0.8</filename>" to <filename>"../lpng1011</filename> or
 whatever your PNG path is.</para>
@@ -402,9 +402,9 @@ whatever your PNG path is.</para>
 
 <listitem>
 <para>
-<errorcode>NMAKE : fatal error U1073: don't know how to make '../proj/src/proj.lib'
+<screen>NMAKE : fatal error U1073: don't know how to make '../proj/src/proj.lib'
 Stop.
-</errorcode>
+</screen>
 Check your Proj.4 path.</para>
 </listitem>
 </itemizedlist>
