@@ -106,6 +106,21 @@
         </para>
       </answer>
     </qandaentry>
+
+<!-- Set Line Width -->
+   <qandaentry>
+    <question>
+     <para>
+      How do I set line width in my maps?
+     </para>
+    </question>
+    <answer>
+     <para> 
+      You must set the symbol for the LAYER to be 'circle' and then 
+      you can set the symbol SIZE to be the width you want.
+     </para>
+    </answer>
+  </qandaentry>
     
 <!-- symbols file in 3.4 -->
     <qandaentry>
@@ -142,9 +157,6 @@
         </orderedlist>
       </answer>
     </qandaentry>
-
-
-
 
     
 <!-- Finding Fonts -->
@@ -227,6 +239,7 @@
         </para>
       </answer>
     </qandaentry>
+
 <!-- compiling on windows with SDE support -->
     <qandaentry>
       <question>
