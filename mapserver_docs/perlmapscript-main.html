@@ -1571,7 +1571,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>styles - styleObj - rw.</li>
+      <li>styles - styleObj - rw - First mapfile define style or last mapscript defined style.</li>
     </td>
   </tr>
   <tr>
@@ -6539,6 +6539,8 @@ Each class is described in detail later in this document.<br>
     <td>
       void
     </td>
+	<td>
+	  NOTE: Do this BEFORE $rect = $shape->{bounds} to calculate bounds first.
   </tr>
 </table>
 <br>
