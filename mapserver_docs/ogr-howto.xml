@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-07-06</date>
+		<date>2001-08-09</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 07/06/2001</para>
+			<para>Last Updated: 08/09/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -195,9 +195,39 @@
 		<para>
                 The only change that is needed to integrate OGR support with a MapServer
                 application is with the .map file.  The LAYER's DATA parameter is replaced by
-                two parameters (CONNECTIONTYPE OGR, and CONNECTION):
-             </para>
-		<programlisting>
+                two parameters (CONNECTIONTYPE OGR, and CONNECTION).
+       	</para>
+		<para>
+			The syntax for this differs depending on the type of data being used. In OGR, a data source can be either a set of 				files that share a common basename (e.g. .shp/.shx/.dbf for ArcView Shapefiles, or
+		     .tab/.map/.dat/.ind/.id for MapInfo TAB files) or a whole directory of
+			files (e.g. TIGER).
+		</para>
+		<para>
+			Let's call the former "File-based data sources" and the later
+			"Directory-based data sources".  When accessing a file-based data source
+			you <emphasis>specify the filename</emphasis> of one of the files in the set (e.g. roads.shp
+			or roads.tab) and when accessing a directory-based data source you
+			<emphasis>specify the directory name</emphasis> and OGR reads all the files in the directory
+			as a single data source with potentially several layers (e.g. TIGER
+			files).  
+		</para>
+		<para>
+			Some OGR drivers (e.g. SHP, TAB) can have dual behaviors, that is if
+			they're pointed to a single file then they behave as a file-based data
+			source and if they're pointed to a directory then they will behave as a
+			directory-based data source and then every file in the directory becomes
+			a new layer in the data source.
+		</para>
+		<para>
+			See the OGR documentation for more info on the specific file format you're using: 
+			<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html">								http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html</ulink>.
+		</para>
+		<sect2 id="binary">
+			<title>Using File-Based Data Sources (e.g. SHP, TAB, DGN)</title>
+			<para>
+				The .map file LAYER definition for file-based sources is as follows:
+			</para>
+			<programlisting>
 	LAYER
 	   ...
 	   CONNECTIONTYPE OGR
@@ -205,54 +235,120 @@
 	   ...
 	END
               </programlisting>
-		<para>
+			<para>
                  -where the "ogr_connection_string" is:  &lt;dataset_filename&gt;[,&lt;layer_index&gt;].
           </para>
-		<para>
+			<para>
                 &lt;dataset_filename&gt;  is:
           </para>
-		<para>
-			<itemizedlist>
-				<listitem>
-					<para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
 	                     the filename of the data set (including the extension);
-	                </para>
-				</listitem>
-				<listitem>
-					<para>
+	                	</para>
+					</listitem>
+					<listitem>
+						<para>
 	                     this is the location of the file relative to the location of the .map file.
 	               </para>
-				</listitem>
-			</itemizedlist>
-		</para>
-		<para>
-			<emphasis>NOTE:</emphasis> SHAPEPATH parameter is ignored when accessing OGR data sources.
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				<emphasis>NOTE:</emphasis> SHAPEPATH parameter is ignored when accessing OGR data sources.
 	     </para>
-		<para>
+			<para>
                 &lt;layer_index&gt; is:
                      </para>
-		<para>
-			<itemizedlist>
-				<listitem>
-					<para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
 	                     optional,
 	                </para>
-				</listitem>
-				<listitem>
-					<para>
+					</listitem>
+					<listitem>
+						<para>
 	                     the OGR layer index number,
 	                </para>
-				</listitem>
-				<listitem>
-					<para>
+					</listitem>
+					<listitem>
+						<para>
 	                     0 by default (the first layer). 
 	                </para>
-				</listitem>
-			</itemizedlist>
-		</para>
-		<para>
-	                    The OGRINFO program can be used to find out the layer indices in a data set.
-	        </para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+	            The <link linkend="ogrinfo">OGRINFO</link> program can be used to find out the list of layers and
+			  their indices in a data source.  <emphasis>Note</emphasis> that the OGRINFO layer index
+  			  numbers begin at '1', while Mapserver OGR index numbers begin at 
+  			  '0' - therefore &lt;layer_index&gt; is actually <parameter>ogrinfo_layer_num - 1</parameter>.	     
+			</para>
+		</sect2>
+		<sect2 id="ascii">
+			<title>Using Directory-Based Data Sources (e.g. TIGER/Line files)</title>
+			<important>
+				<para>
+					<emphasis>TIGER/Line files are ASCII based files, and therefore are not well suited for viewing on the web.  					Be aware that there is a significant loss of efficiency in OGR/Mapserver when displaying this type of data 						(ie. it will be a lot slower!).</emphasis>
+				</para>
+			</important>
+			<para>
+				The .map file LAYER definition for directory-based sources is as follows:
+			</para>
+			<programlisting>
+	LAYER
+	   ...
+	   CONNECTIONTYPE OGR
+	   CONNECTION "ogr_connection_string"
+	   ...
+	END
+              </programlisting>
+			<para>
+                 -where the "ogr_connection_string" is:  &lt;dataset_directory&gt;,&lt;layer_index&gt;.
+          </para>
+			<para>
+                &lt;dataset_directory&gt;  is:
+          </para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+	                     the name of the directory where the data resides,
+	                	</para>
+					</listitem>
+					<listitem>
+						<para>
+	                     relative to the location of the .map file.
+	               </para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+                &lt;layer_index&gt; is:
+          </para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+	                     optional,
+	                </para>
+					</listitem>
+					<listitem>
+						<para>
+	                     the OGR layer index number (which can be obtained through the use of <link linkend="ogrinfo">OGRINFO						</link>). <emphasis>Note</emphasis> that the OGRINFO layer index numbers begin at '1', while 						Mapserver OGR index numbers begin at '0' - therefore &lt;layer_index&gt; is actually 
+					<parameter>ogrinfo_layer_num - 1</parameter>.
+	                </para>
+					</listitem>
+					<listitem>
+						<para>
+	                     0 by default (the first layer). 
+	                </para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
 		<!-- Section2: Examples of Layer Definitions Using OGR -->
 		<sect2 id="examples">
 			<title>Examples of Layer Definitions Using OGR</title>
@@ -283,7 +379,7 @@
 	   NAME "Roads_tig"
 	   TYPE LINE
 	   CONNECTIONTYPE OGR
-	   CONNECTION "data/tgr_roads.rt1"
+	   CONNECTION "data/tgr_roads, 5"
 	   STATUS ON
 	   CLASS
 	     ...
@@ -317,7 +413,8 @@
 				</listitem>
 				<listitem>
 					<para>
-			     datasource_name is the filename including extension (eg. roads.tab)
+			     datasource_name is the filename including extension (eg. roads.tab); for TIGER/Line files, datasource_name
+				is the directory containing the TIGER files (eg. ogrinfo TGR25001)
 			  </para>
 				</listitem>
 			</itemizedlist>
@@ -377,6 +474,69 @@
     ...
     ...
                 </programlisting>
+				</example>
+				<example>
+					<title>To get a list of layers in a TIGER/Line Directory:</title>
+					<programlisting>
+    $ ogrinfo TGR25001
+	
+    Had to open data source read-only.
+    INFO: Open of `TGR25001'
+    using driver `TIGER' successful.
+    1: CompleteChain (Line String)
+    2: AltName (None)
+    3: FeatureIds (None)
+    4: ZipCodes (None)
+    5: Landmarks (Point)
+    6: AreaLandmarks (None)
+    7: KeyFeatures (None)
+    8: Polygon (None)
+    9: EntityNames (Point)
+    10: IDHistory (None)
+    11: PolyChainLink (None)
+    12: PIP (Point)
+    13: TLIDRange (None)
+    14: ZipPlus4 (None)				
+					</programlisting>
+					<para>
+						<literallayout>   The above example shows that there are 14 layers in the TGR25001 directory.								</literallayout>
+					</para>
+				</example>
+				<example>
+					<title>To get a dump of a specific TIGER layer, including field names, projection, extent, etc:</title>
+					<programlisting>
+    $ ogrinfo TGR25001 Landmarks
+
+    Had to open data source read-only.
+    INFO: Open of `TGR25001'
+    using driver `TIGER' successful.
+	
+    Layer name: Landmarks
+    Geometry: Point
+    Feature Count: 777
+    Extent: (-70.674324, 41.519817) - (-69.969211, 42.046868)
+    Layer SRS WKT: GEOGCS["NAD83",DATUM["North_American_Datum_1983",
+    SPHEROID["GRS 1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]]
+    MODULE: String (8.0)
+    FILE: String (5.0)
+    STATE: Integer (2.0)
+    COUNTY: Integer (3.0)
+    LAND: Integer (10.0)
+    SOURCE: String (1.0)
+    CFCC: String (3.0)
+    LANAME: String (30.0)
+    OGRFeature(Landmarks):1
+	  MODULE (String) = TGR25001
+	  FILE (String) = (null)
+	  STATE (Integer) = 25
+	  COUNTY (Integer) = 1
+	  LAND (Integer) = 1
+	  SOURCE (String) = J
+	  CFCC (String) = H31
+	  LANAME (String) = Northeast Pond
+    ...
+    ...
+					</programlisting>
 				</example>
 			</sect3>
 		</sect2>
@@ -631,6 +791,17 @@
 			<listitem>
 				<para>
 					<ulink url="http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html"> 				                http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html</ulink>
+				</para>
+			</listitem>
+		</itemizedlist>
+		<para>
+			The following site uses OGR to display TIGER 2000 files:
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<ulink url="http://www2.dmsolutions.on.ca/msapps/tig_demo/demo_init.html">
+					http://www2.dmsolutions.on.ca/msapps/tig_demo/demo_init.html</ulink>
 				</para>
 			</listitem>
 		</itemizedlist>
