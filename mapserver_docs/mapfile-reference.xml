@@ -1134,7 +1134,7 @@ END
 			<itemizedlist>
 				<listitem>
 					<para>Symbol definitions can be included within the main MapFile or, more commonly, in a separate 
-file.  Symbol definitions in a separate file are designated using the <link linkend="symbolset">SYMBOLSET</link> keyword, as part of the Map Object. This recommended setup is ideal for re-using symbol definitions across multiple MapServer applications.</para>
+file.  Symbol definitions in a separate file are designated using the <link linkend="symbolset">SYMBOLSET</link> keyword, as part of the <link linkend="map">Map Object</link>. This recommended setup is ideal for re-using symbol definitions across multiple MapServer applications.</para>
 				</listitem>
 				<listitem>
 					<para>There are 3 main types of symbols in MapServer: Markers, Shadesets, and Lines.</para>
