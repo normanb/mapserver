@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-08-01</date>
+		<date>2001-11-06</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
          This document describes the procedures for obtaining, compiling and installing the PHP/Mapscript Module for Mapserver.
       </para>
-			<para>Last Updated: 08/01/2001</para>
+			<para>Last Updated: 11/06/2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -161,12 +161,12 @@
 						<itemizedlist>
 							<listitem>
 								<para>
-								  <ulink url="http://www.php.net/manual/en/install.iis.php">Php.net's</ulink> 
+									<ulink url="http://www.php.net/manual/en/install.iis.php">Php.net's</ulink> 
 								  howto for installing PHP for PWS/IIS 3, PWS 4 or newer, and IIS 4 or newer. 
 								</para>
 							</listitem>
 							<listitem>
-							     <para>
+								<para>
 								  A <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_iis4.html">
 								  step by step configuration guide</ulink> for PHP under IIS4.0.
 								</para>
