@@ -494,7 +494,7 @@
 			</sect3>
 			<sect3 id="Class_members">
 				<title>Members:</title>
-				<para>
+				<programlisting>
     string name
     int    type
     int    color
@@ -512,7 +512,7 @@
     int    overlayminsize
     int    overlaymaxsize
     labelObj label
-	               </para>
+	               </programlisting>
 			</sect3>
 			<sect3 id="Class_methods">
 				<title>Methods:</title>
