@@ -244,8 +244,8 @@
 			<listitem>
 				<para>
 					<emphasis>"wms_connectiontimeout" metadata:</emphasis>
-					The maximum time to load a remote WMS layer, set in milliseconds (default
-					is 30000 - 30 seconds).  This metadata can be added at the layer level so that it affects only
+					The maximum time to load a remote WMS layer, set in seconds (default
+					is 30 seconds).  This metadata can be added at the layer level so that it affects only
 					that layer, or it can be added at the map level (in the web object) so that 
 					it affects all of the layers.  Note that 
 					<emphasis>wms_connectiontimeout</emphasis> at the layer level has
@@ -260,7 +260,7 @@
          "wms_title" "NF Water (Lakes) (a)"
          "wms_boundingbox" "EPSG:32182 42708.6 5.27438e+06 5270155.72117e+06"
          "wms_latlonboundingbox" "-59.7807 47.5557 -52.7934 51.6261"
-         "wms_connectiontimeout" "60000"
+         "wms_connectiontimeout" "60"
          ...
        END	
        ...
