@@ -187,7 +187,13 @@
 
    <para>For access to the MDP CVS, contact the documentation coordinator at 
         <email>mdp@lists.gis.umn.edu</email>.</para>
-  
+
+   <para>Please note that the mapserver_docs CVS will contain several branches, corresponding to
+   MapServer releases.  For example, rel-3-5-0 is the 3.5 release of MapServer.  The main branch
+   will always contain documentation corresponding to the development version of the software.
+   When documents are updated, the updates may be checked into several branches of the CVS.
+   </para>
+
   </sect2>
 </sect1>
 
@@ -323,7 +329,7 @@
   <programlisting>
   <![CDATA[
   <othercredit>
-     <contrib>Translation:</contrib>
+     <contrib>Translation</contrib>
      <firstname>Jamie</firstname>
      <surname>Smedsmo</surname>
      <affiliation>
