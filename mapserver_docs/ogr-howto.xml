@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2001-08-09</date>
+		<date>2002-03-04</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 08/09/2001</para>
+			<para>Last Updated: 03/04/2002</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -118,9 +118,14 @@
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>.
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>,
 				    </para>
 				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">Microstation DGN files</ulink>.
+				    </para>
+				</listitem>				
 			</itemizedlist>
 			<para>
 				<emphasis>Note1: Some of the above formats (e.g. OGDI) have external dependencies
@@ -372,6 +377,28 @@
 			</example>
 			<example>
 				<title>
+				Microstation DGN file
+			</title>
+				<para>
+					The entire DGN file is represented in OGR as one layer (see 
+					<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">						                    http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html</ulink> for more info):
+				</para>
+				<programlisting>
+	LAYER
+	   NAME "Water_dgn"
+	   TYPE POLYGON
+	   CONNECTIONTYPE OGR
+	   CONNECTION "data/wat.dgn, 0"
+	   STATUS ON
+	   CLASS
+	     ...
+	   END
+	...
+	END
+               </programlisting>
+			</example>			
+			<example>
+				<title>
                     TIGER/Line file
                </title>
 				<programlisting>
@@ -557,7 +584,7 @@
 	<sect1 id="styleitem">
 		<title>STYLEITEM "AUTO" - Rendering Layers Using Style Information from the OGR File</title>
 		<para>
-			<emphasis>NOTE: This feature is only supported with MapInfo TAB files at the moment,
+			<emphasis>NOTE: This feature is only supported with MapInfo TAB and Microstation DGN files at the moment,
 		  but eventually other formats that carry colors and styles at the shape-level may also be supported through
 		  OGR.</emphasis>
 		</para>
@@ -835,7 +862,7 @@
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2001, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2002, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
