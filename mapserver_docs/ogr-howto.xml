@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>HOWTO for OGR Use in MapServer - Version 4.0</title>
+		<title>HOWTO for OGR Use in MapServer - Version 4.1</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
@@ -16,13 +16,13 @@
 				</address>
 			</affiliation>
 		</author>
-		<date>2003-07-14</date>
+		<date>2003-10-17</date>
 		<abstract>
 			<!-- a short description of the contents of the doc -->
 			<para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-			<para>Last Updated: 07/14/2003</para>
+			<para>Last Updated: 2003-10-17</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -75,70 +75,70 @@
 		<sect2 id="supported">
 			<title>What Data Formats are Supported?</title>
 			<para>
-                See <ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html">http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html</ulink> for 
+                See <ulink url="http://ogr.maptools.org/ogr_formats.html">http://ogr.maptools.org/ogr_formats.html</ulink> for 
                 the latest list of supported formats.
                 At the date this document was written, the following formats were supported:
                </para>
 			<itemizedlist>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_avc.html">ArcInfo Coverages</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_avc.html">ArcInfo Coverages</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_shapefile.html">ESRI Shapefiles</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_shapefile.html">ESRI Shapefiles</ulink>,
                         </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_fme.html">FMEObjects Gateway</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_fme.html">FMEObjects Gateway</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_s57.html">IHO S-57 datasets</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_s57.html">IHO S-57 datasets</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_mitab.html">MapInfo TAB and  
+						<ulink url="http://ogr.maptools.org/drv_mitab.html">MapInfo TAB and  
 					   MIF/MID files</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">Microstation DGN files</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_dgn.html">Microstation DGN files</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ogdi.html">OGDI Vectors</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_ogdi.html">OGDI Vectors</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_oci.html">Oracle Spatial</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_oci.html">Oracle Spatial</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_pg.html">PostgreSQL</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_pg.html">PostgreSQL</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
+						<ulink url="http://ogr.maptools.org/drv_sdts.html">SDTS TVP</ulink> (Topological 					   Vector Profile and Point Profile datasets),
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_tiger.html">TIGER/Line file sets</ulink>,
+						<ulink url="http://ogr.maptools.org/drv_tiger.html">TIGER/Line file sets</ulink>,
 				    </para>
 				</listitem>
 				<listitem>
 					<para>
-						<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format).
+						<ulink url="http://ogr.maptools.org/drv_ntf.html">UK.NTF</ulink> (National 						   Transfer Format).
 				    </para>
 				</listitem>
 			</itemizedlist>
@@ -162,8 +162,8 @@
 			<title>How to Get More Information on the OGR Project</title>
 			<para>
                       More information on the OGR Simple Features Project can be found at 
-                      <ulink url="http://gdal.velocet.ca/projects/opengis/">
-                      http://gdal.velocet.ca/projects/opengis/</ulink>.
+                      <ulink url="http://ogr.maptools.org/">
+                      http://ogr.maptools.org/</ulink>.
                </para>
 			<para>
 		            The main developer of the OGR library is Frank Warmerdam.
@@ -188,7 +188,7 @@
 				<listitem>
 					<para>
 						Follow the instructions on the OGR page to compile/install OGR (actually GDAL since OGR is part of the GDAL library):
-                        <ulink url="http://gdal.velocet.ca/projects/opengis/">http://gdal.velocet.ca/projects/opengis/</ulink>.
+                        <ulink url="http://ogr.maptools.org/">http://ogr.maptools.org/</ulink>.
                     </para>
 				</listitem>
 				<listitem>
@@ -239,7 +239,7 @@
 		</para>
 		<para>
 			See the OGR documentation for more info on the specific file format you're using: 
-			<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html">								http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_formats.html</ulink>.
+			<ulink url="http://ogr.maptools.org/ogr_formats.html">								http://ogr.maptools.org/ogr_formats.html</ulink>.
 		</para>
 		<sect2 id="binary">
 			<title>Using OGR Data Sources in the Map File</title>
@@ -265,8 +265,8 @@
 				<itemizedlist>
 					<listitem>
 						<para>For <emphasis>file based</emphasis> datasources this is the name of the file, including the extension, using
-                  an absolute path, or a relative path. Relative paths are interpreted relative to the .map file.
-                  The SHAPEPATH is ignored for OGR datasources.</para>
+                  an absolute path, or a relative path. Relative paths are interpreted relative to the SHAPEPATH first, if not found then we try again relative to the .map file location.
+                  (Note: before version 4.1 the SHAPEPATH used ignored for OGR datasources).</para>
 					</listitem>
 					<listitem>
 						<para>For <emphasis>directory based</emphasis> datasources, such as TIGER/Line, or Arc/Info Binary Coverages this
@@ -341,7 +341,7 @@
 			</title>
 				<para>
 					The entire DGN file is represented in OGR as one layer (see 
-					<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html">						                    http://gdal.velocet.ca/projects/opengis/ogrhtml/drv_dgn.html</ulink> for more info):
+					<ulink url="http://ogr.maptools.org/drv_dgn.html">						                    http://ogr.maptools.org/drv_dgn.html</ulink> for more info):
 				</para>
 				<programlisting>
 	LAYER
@@ -583,7 +583,7 @@ and having the TILEINDEX keyword.
 			<para>
 Tileindex files can be prepared in an external GIS, or using the OGR utility
 ogrtindex.  Details can be found on the OGR Utilities Page at
-<ulink url="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html">http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html</ulink>.
+<ulink url="http://ogr.maptools.org/ogr_utilities.html">http://ogr.maptools.org/ogr_utilities.html</ulink>.
 </para>
 			<para>
 The following is a simple example a point layer using a tile index.
@@ -952,7 +952,7 @@ attributes).
 					<answer>
 						<para>
                        Basically, OGR does not stand for anything.  For a detailed explanation of how OGR was named, see Frank
-                       Warmerdam's OGR site at <ulink url="http://gdal.velocet.ca/projects/opengis"> 					                  http://gdal.velocet.ca/projects/opengis</ulink> in the section 'OGR and OpenGIS'.
+                       Warmerdam's OGR site at <ulink url="http://ogr.maptools.org/"> 					                  http://ogr.maptools.org/</ulink> in the section 'OGR and OpenGIS'.
                     </para>
 					</answer>
 				</qandaentry>
