@@ -5,14 +5,14 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>Mapserver PHP/MapScript Class Reference - Version 4.2</title>
+    <title>MapServer PHP/MapScript Class Reference - Version 4.4</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
       <affiliation>
         <orgname>DM Solutions Group Inc.</orgname>
         <address>
-          <email>mckenna@dmsolutions.ca</email>
+          <email>jmckenna@dmsolutions.ca</email>
         </address>
       </affiliation>
     </author>
@@ -23,8 +23,11 @@
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
         module, and is the online version of the PHP/Mapscript README file from the Mapserver source code.  
                </para>
-      <para>README version: 1.130</para>
-      <para>Last Updated: 2004-04-19</para>
+      <para>README version: 1.151</para>
+      <para>Last Updated: 2004-11-28</para>
+      <para>
+          <link linkend="rhistory">Revision History</link>
+      </para>       
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -152,11 +155,17 @@
         MS_IMGERR, MS_HASHERR, MS_JOINERR, MS_NOTFOUND, MS_SHPERR, 
         MS_PARSEERR, MS_SDEERR, MS_OGRERR, MS_QUERYERR, MS_WMSERR, 
         MS_WMSCONNERR, MS_ORACLESPATIALERR, MS_WFSERR, MS_WFSCONNERR, 
-        MS_MAPCONTEXTERR, MS_HTTPERR
+        MS_MAPCONTEXTERR, MS_HTTPERR, MS_WCSERR
 
     Symbol types:
         MS_SYMBOL_SIMPLE,  MS_SYMBOL_VECTOR, MS_SYMBOL_ELLIPSE,
         MS_SYMBOL_PIXMAP, MS_SYMBOL_TRUETYPE, MS_SYMBOL_CARTOLINE
+        
+    Image Mode types (outputFormatObj):
+
+        MS_IMAGEMODE_PC256, MS_IMAGEMODE_RGB, MS_IMAGEMODE_RGBA, 
+        MS_IMAGEMODE_INT16, MS_IMAGEMODE_FLOAT32, MS_IMAGEMODE_BYTE, 
+        MS_IMAGEMODE_NULL        
       </programlisting>
     </sect2>
     <sect2 id="Functions">
@@ -184,7 +193,7 @@
    Class Objects can be returned by the LayerObj class, or can be created
    using:
 
-   classObj ms_newClassObj(layerObj layer, classObj class)
+   classObj ms_newClassObj(layerObj layer [, classObj class])
 
   The second argument class is optional. If given, the new class
   created will be a copy of this class.
@@ -210,10 +219,10 @@
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.
 
-   int setexpression(string expression)
+   int setExpression(string expression)
         Set the expression string for the class object.
    
-   char getexpression(string expression)
+   string getExpression()
         Returns the expression string for the class object.
             
    int settext(string text)
@@ -403,13 +412,16 @@ Instances of ImageObj are always created by the map class methods.
    void free()
         Destroys resources used by an image object.
 
-   int saveImage(string filename)
+   int saveImage(string filename, MapObj oMap)
         Writes image object to specifed filename.
         Passing an empty filename sends output to stdout.  In this case,
         the PHP header() function should be used to set the documents's
         content-type prior to calling saveImage().
         The output format is the one that is currently selected in the 
         map file.
+        The second argument oMap is not manadatory. It is usful when 
+        saving to formats like GTIFF that needs georeference informations
+        contained in the map file.        
         The function returns -1 on error.  On success, it returns either 0
         if writing to an external file, or the number of bytes written if 
         output is sent to stdout.
@@ -492,6 +504,7 @@ is only used to give the possiblity to free the label cache
    int    mindistance
    int    partials
    int    force 
+   string encoding   
         </programlisting>
         </sect4>
         <sect4 id="Lab_methods">
@@ -510,11 +523,11 @@ is only used to give the possiblity to free the label cache
    Layer Objects can be returned by the MapObj class, or can be created
    using:
 
-   layerObj ms_newLayerObj(MapObj map, layerObj layer)
+   layerObj ms_newLayerObj(MapObj map [, layerObj layer])
 
-   A second argument (which is not manadatory) can be given to the  ms_newLayerObj
-   to be able to create a new layer based on an existing layer. If a layer is 
-   given as argument, all members of a this layer will be copied in the new
+   A second optional argument can be given to ms_newLayerObj() to create
+   the new layer as a copy of an existing layer. If a layer is given as 
+   argument then all members of a this layer will be copied in the new
    layer created.
                </programlisting>
         </sect4>
@@ -533,6 +546,7 @@ is only used to give the possiblity to free the label cache
    int    dump
    double tolerance
    int    toleranceunits
+   int    sizeunits   
    double symbolscale
    double minscale
    double maxscale
@@ -558,6 +572,8 @@ is only used to give the possiblity to free the label cache
    string styleitem
    gridObj grid //only available on a layer defined as grid (MS_GRATICULE)
    int num_processing
+   string requires
+   string labelrequires   
       </programlisting>
         </sect4>
         <sect4 id="Lay_methods">
@@ -638,7 +654,10 @@ is only used to give the possiblity to free the label cache
    int setFilter(string expression)
         Set layer filter expression.
 
-   char getProjection()
+   string getFilter()
+        Returns the expression for this layer.
+
+   string getProjection()
         Returns a string represenation of the projection. If no 
         projection is set, MS_FALSE is returned.
 
@@ -670,6 +689,15 @@ is only used to give the possiblity to free the label cache
         Tileindex is used only for tiled shapefiles (you get it from the
         resultCacheMemberObj returned by getResult() for instance).
         Simply pass tileindex = -1 for other data sources.
+        
+   rectObj getExtent()
+        Returns the layer's data extents. 
+        If the layer's EXTENT member is set then this value is used, 
+        otherwise this call opens/closes the layer to read the 
+        extents. This is quick on shapefiles, but can be
+        an expensive operation on some file formats or data sources.
+        This function is safe to use on both opened or closed layers: it
+        is not necessary to call open()/close() before/after calling it.        
 
    int addFeature(shapeObj shape)
         Add a new feature in a layer.  Returns -1 on error.
@@ -684,8 +712,8 @@ is only used to give the possiblity to free the label cache
    int removeMetaData(string name)
         Remove a metadata entry for the layer.  Returns MS_SUCCESS/MS_FAILURE.
 
-   int getWMSFeatureInfoURL(int clickX, int clickY, int featureCount, 
-                            string infoFormat)
+   string getWMSFeatureInfoURL(int clickX, int clickY, int featureCount, 
+                               string infoFormat)
         Return a WMS GetFeatureInfo URL (works only for WMS layers)
         clickX, clickY is the location of to query in pixel coordinates
         with (0,0) at the top left of the image.
@@ -696,7 +724,7 @@ is only used to give the possiblity to free the label cache
         Returns "" and outputs a warning if layer is not a WMS layer 
         or if it is not queriable.
         
-   char ** getItems()
+   aString getItems()
         return a list of items. Must call open function first.
 
    boolean setProcessing(string)
@@ -734,22 +762,26 @@ is only used to give the possiblity to free the label cache
         the layer.
         See SLD How to for more information on the SLD support.
 
-  char generateSLD()
+  string generateSLD()
         Returns an SLD XML string based on all the classes found in the layers.
 
- int moveclassup(int index)
+  int moveclassup(int index)
        The class specified by the class index will be moved up into
        the array of layers. Returns MS_SUCCESS or MS_FAILURE.
        ex layer->moveclassup(1) will have the effect of moving class 1
           up to postion 0, and the class at position 0 will be moved
           to position 1.
 
- int moveclassdown(int index)
+  int moveclassdown(int index)
        The class specified by the class index will be moved down into
        the array of layers. Returns MS_SUCCESS or MS_FAILURE.
        ex layer->moveclassdown(0) will have the effect of moving class 0
           up to postion 1, and the class at position 1 will be moved
           to position 0.
+          
+  boolean isVisible()
+       Returns MS_TRUE/MS_FALSE depending on whether the layer is 
+       currently visible in the map (i.e. turned on, in scale, etc.).           
         </programlisting>
         </sect4>
       </sect3>
@@ -813,6 +845,11 @@ LineObj ms_newLineObj()
         Add a point to the end of line.
         Note : the 3rd parameter m is used for measured shape files only. 
         It is not mandatory.
+        
+   int addXYZ(double x, double y, double z [, double m])
+        Add a point to the end of line.
+        Note : the 4th parameter m is used for measured shape files only. 
+        It is not mandatory.        
 
    PointObj point(int i)
         Returns a reference to point number i.  Reference is valid only
@@ -848,14 +885,11 @@ LineObj ms_newLineObj()
    string       name
    int          status
    int          debug
-   int          width
-   int          height
+   int          width           (see setSize())
+   int          height          (see setSize())
    int          maxsize
-   int          transparent
-   int          interlace
-   int          imagetype  (read-only, use selectOutputformat())
-   int          imagequality
-   double       resolution   (pixels per inch, defaults to 72)
+   outputformatObj outputformat
+   double       resolution      (pixels per inch, defaults to 72)
    rectObj      extent; 
    double       cellsize
    int          units (map units type)
@@ -872,9 +906,12 @@ LineObj ms_newLineObj()
    legendObj    legend                  
    string       symbolsetfilename (read-only, set by setSymbolSet())
    string       fontsetfilename (read-only, set by setFontSet())
-   outputformatObj outputformat (read only)   
-   labelcacheObj labelcache (no memebers. Used only to be able to free the
+   labelcacheObj labelcache (no members. Used only to be able to free the
                              the label cache (ex : map->labelcache->free())
+   int          transparent   (deprecated, use outputFormatObj)
+   int          interlace     (deprecated, use outputFormatObj)
+   int          imagetype     (deprecated, use outputFormatObj)
+   int          imagequality  (deprecated, use outputFormatObj)                             
         </programlisting>
         </sect4>
         <sect4 id="Methods">
@@ -940,8 +977,22 @@ LineObj ms_newLineObj()
    colorObj getcolorbyindex(int iCloIndex)
   Returns a colorObj corresponding to the color index in the palette
 
-   void setextent(double minx, double miny, double maxx, double maxy)
+   void setExtent(double minx, double miny, double maxx, double maxy)
   Set the map extents using the georef extents passed in argument.
+
+   int setRotation(double rotation_angle)
+        Set map rotation angle. The map view rectangle (specified in 
+        EXTENTS) will be rotated by the indicated angle in the counter-
+        clockwise direction. Note that this implies the rendered map 
+        will be rotated by the angle in the clockwise direction.
+        Returns MS_SUCCESS or MS_FAILURE.
+
+   int setSize(int width, int height)
+        Set the map width and height. This method updates the internal
+        geotransform and other data structures required for map rotation
+        so it should be used instead of setting the width and height members
+        directly.
+        Returns MS_SUCCESS or MS_FAILURE.  
 
    void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, 
                   int nImageHeight, rectObj oGeorefExt)
@@ -1063,7 +1114,7 @@ LineObj ms_newLineObj()
         Use absolute path. If a relative path is used, then it will be 
         relative to the mapfile location.
 
-   char getProjection()
+   string getProjection()
         Returns a string represenation of the projection. If no 
         projection is set, MS_FALSE is returned.
 
@@ -1117,7 +1168,7 @@ LineObj ms_newLineObj()
         array with all the layer's index. 
         Return TRUE on success or else FALSE.
 
-   char *processtemplate(array params, boolean generateimages)
+   string processtemplate(array params, boolean generateimages)
         Process the template file specified in the web object and return 
         the resut in a buffer. 
         The processing consists of opening the template file and replace
@@ -1136,14 +1187,14 @@ LineObj ms_newLineObj()
               $tmparray["my_tag"] = "value_of_my_tag";
               $map->processtemplate($tmparray, MS_FASLE);
          
-   char *processquerytemplate(array params, boolean generateimages)     
+   string processquerytemplate(array params, boolean generateimages)         
        Process query template files and return the resut in a buffer.
        Second argument generateimages is not manadatory. If not given
         It will be set to TRUE.
 
        See also : processtemplate function.
    
-   char *processlegendtemplate(array params)     
+   string processlegendtemplate(array params)     
        Process legend template files and return the resut in a buffer.
 
      See also : processtemplate function.
@@ -1174,11 +1225,15 @@ LineObj ms_newLineObj()
         Only WMS layers are saved in the WMS Map Context XML file.
         Returns MS_SUCCESS/MS_FAILURE.
 
-   int loadMapContext(string filename)
+   int loadMapContext(string filename [, boolean unique_layer_name])
         Available only if WMS support is enabled.
         Load a WMS Map Context XML file into the current mapObj.
         If the map already contains some layers then the layers defined
         in the WMS Map context document are added to the current map.
+        The 2nd argument unique_layer_name is optional and if set to 
+        MS_TRUE layers created will have a unique name (unique prefix
+        added to the name). If set to MS_FALSE the layer name will be the 
+        the same name as in the context. The default value is MS_FALSE.        
         Returns MS_SUCCESS/MS_FAILURE.
 
 
@@ -1188,12 +1243,14 @@ LineObj ms_newLineObj()
         See SLD How to for more information on the SLD support.
 
   int applySLDURL(string sldurl)
-        Apply the SLD document pointed by the URL to the map file. The matching between the
-        sld document and the map file will be done using the layer's name.
+        Apply the SLD document pointed by the URL to the map file. The 
+        matching between the sld document and the map file will be done 
+        using the layer's name.
         See SLD How to for more information on the SLD support.
 
-  char generateSLD()
-        Returns an SLD XML string based on all the classes found in all the layers.
+  string generateSLD()
+        Returns an SLD XML string based on all the classes found in all 
+        the layers.
           </programlisting>
         </sect4>
       </sect3>
@@ -1205,32 +1262,38 @@ LineObj ms_newLineObj()
   Instance of outputformatObj is always embedded inside the mapObj.
   It is uses a read only.
 
-  No constructor available       
+  No constructor available (coming soon, see bug 979)       
         </programlisting>
         </sect4>
         <sect4 id="format_members">
           <title>Members:</title>
           <programlisting>
-   string    name;
-   string    mimetype;
-   string    driver;
-   string    extension;
-   int       renderer;
-   int       imagemode     
+   string    name
+   string    mimetype
+   string    driver
+   string    extension
+   int       renderer
+   int       imagemode     // MS_IMAGEMODE_* value.   
    int       transparent      
         </programlisting>
         </sect4>
         <sect4 id="format_methods">
           <title>Methods:</title>
           <programlisting>
-   void setformatoption(string property_name, new_value)
+   void setOption(string property_name, string new_value)
         Add or Modify the format option list. return true on success.
 
-    Example : $oMap->outputformat->setformatoption("OUTPUT_TYPE", "RASTER");
+        Example: $oMap->outputformat->setOption("OUTPUT_TYPE", "RASTER");
      
-   string  getformatoption(string property_name)
+   string  getOption(string property_name)
         Returns the associated value for the format option property passed
         as argument. Returns an empty string if property not found.   
+        
+   void setFormatOption(string property_name, string new_value)
+        Deprecated. See setOption().
+
+   string  getFormatOption(string property_name)
+        Deprecated. See getOption().        
         </programlisting>
         </sect4>
       </sect3>
@@ -1247,6 +1310,7 @@ PointObj ms_newPointObj()
           <programlisting>
    double x
    double y
+   double z (used for 3d shape files. set to 0 for other types)   
    double m  (used only for measured shape files. set to 0 for other types.)
         </programlisting>
         </sect4>
@@ -1258,6 +1322,12 @@ PointObj ms_newPointObj()
         Note : the 3rd parameter m is used for measured shape files only.
         It is not mandatory.
         Returns 0 on success, -1 on error.
+        
+   int setXYZ(double x, double y , double z, [, double m])
+        Set X,Y,Z coordinate values.
+        Note : the 4th parameter m is used for measured shape files only.
+        It is not mandatory.
+        Returns 0 on success, -1 on error.        
 
    int draw(mapObj map, layerObj layer, imageObj img, 
             int class_index, string text)
@@ -1290,7 +1360,7 @@ PointObj ms_newPointObj()
         <sect4 id="proj_constructor">
           <title>Constructor:</title>
           <programlisting>
-  ProjectionObjObj ms_newprojectionobj(string projectionstring)
+    ProjectionObjObj ms_newProjectionObj(string projectionstring)
         </programlisting>
           <para>
    Creates a projection object based on the projection string passed
@@ -1320,7 +1390,8 @@ PointObj ms_newPointObj()
    RectObj are sometimes embedded inside other objects.  New ones can
    also be created with:
 
-   RectObj ms_newRectObj()  
+   RectObj ms_newRectObj() (Note: the members (minx, miny,maxx,maxy) are 
+                                  initialized to -1);  
         </programlisting>
         </sect4>
         <sect4 id="rect_members">
@@ -1574,7 +1645,7 @@ PointObj ms_newPointObj()
           <programlisting>
    Instances of styleObj are always embedded inside the classObj.
 
-   styleObj ms_newStyleObj(classObj class, styleobj style)
+   styleObj ms_newStyleObj(classObj class [, styleObj style])
 
    The second argument 'style' is optional. If given, the new style
    created will be a copy of the style passed as argument.      
@@ -1611,14 +1682,14 @@ PointObj ms_newPointObj()
         <sect4 id="symb_contructor">
           <title>Contructor:</title>
           <programlisting>
-  symboldid = ms_newsymbolobj(mapObj map, string symbbolname);
+        symboldid = ms_newSymbolObj(mapObj map, string symbolname);
         
-  Creates a new symbol with default values in the symbolist. 
-  Returns the Id of the new symbol. If a symbol with the same
-  name exists, It's id will be returned.
+        Creates a new symbol with default values in the symbolist. 
+        Returns the Id of the new symbol. If a symbol with the same
+        name exists, It's id will be returned.
 
-  To ge a symbol object, you need to use a function on the mapobject :
-        $oSymbol = $map->getsymbolobjectbyid($nId);
+  To get a symbol object, you need to use a method on the map object:
+        $oSymbol = $map->getSymbolObjectById($nId);
            </programlisting>
         </sect4>
         <sect4 id="symb_members">
@@ -1709,6 +1780,7 @@ PointObj ms_newPointObj()
     double minscale
     double maxscale
    rectObj extent   (read-only)
+   string queryformat   
         </programlisting>
         </sect4>
         <sect4 id="web_methods">
@@ -1726,6 +1798,25 @@ PointObj ms_newPointObj()
   <!-- Section1: Document Info -->
   <sect1 id="docinfo">
     <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The document revision history starts with UMN MapServer 4.4 although the
+  document is older. The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.20</revnumber>
+                        <date>Date: 2004-11-28</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Updated body to latest readme version
+                                   </revremark>
+                    </revision>                
+                </revhistory>
+            </para>
+        </sect2>      
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
@@ -1753,7 +1844,9 @@ PointObj ms_newPointObj()
     <sect2 id="feedback">
       <title>Feedback</title>
       <para>
-            Send any comments or suggestions to the author.
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
         </para>
     </sect2>
   </sect1>
