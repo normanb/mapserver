@@ -24,7 +24,7 @@
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  2004-12-13
+                Last Updated:  2004-12-25
             </para>
 
       		<para><link linkend='rhistory'>Revision History</link></para>
@@ -236,6 +236,14 @@
                         just the image name if IMAGE_URL is not set in
                         the mapfile.
                     </para>
+		    <para>
+		    	In a map interface template, <literal>[img]</literal> 
+			is substituted with the path to the map image. 
+			In a query results template, it is substituted
+			with the path to the querymap image (if a 
+			QUERYMAP object is defined in the 
+			<ulink url="mapfile-reference.html">map file</ulink>).
+		    </para>
                 </listitem>
             </varlistentry>
   
@@ -1049,6 +1057,14 @@
 
   <para>
     <revhistory>
+
+      <revision>
+        <revnumber>Number: 1.15</revnumber>
+        <date>Date: 2004-12-25</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Extended [img] documentation suggested by Ken Boss.
+		</revremark>
+      </revision>
 
       <revision>
         <revnumber>Number: 1.13</revnumber>
