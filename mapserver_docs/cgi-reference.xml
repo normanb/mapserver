@@ -720,9 +720,17 @@
   </para>  
   The document revision history starts with UMN MapServer 4.2 altough the
   document is older. The numbering is in parallel with the revision control
-  system.
+  system. Missing numbers indicate minor maintenance revision updates.
   <para>
     <revhistory>
+      <revision>
+        <revnumber>Number: 1.10</revnumber>
+        <date>Date: 2004-10-14</date>
+        <authorinitials>Author: Daniel Morissette</authorinitials>
+		<revremark>Added LAYERS=all as a new option to the LAYERS
+			parameter.
+		</revremark>
+      </revision>
       <revision>
         <revnumber>Number: 1.9</revnumber>
         <date>Date: 2004-06-04</date>
