@@ -142,7 +142,7 @@
   <sect2 id="install"><title>Testing</title>
   <para>After you have downloaded and installed MapServer, 
     you are ready to create your first MapServer application. It is recommended 
-    that you set up the <ulink url="http://mapserver.gis.umn.edu/demo_readme.html">
+    that you set up the <ulink url="http://maps.dnr.state.mn.us/mapserver_demos/workshop.zip">
     MapServer Demo Application</ulink> to check your installation. The Mapfile 
     and Template file are simple ASCII text files that can be edited in your favorite 
     text editor (such as wordpad on Windows). The initialization file is a real html 
@@ -151,8 +151,8 @@
 
   <sect2 id="install"><title>First Application</title>
      To get up-to-speed quickly, you may want to build your first application
-     with the <ulink url="http://mapserver.gis.umn.edu/doc.html">MapServer tutorial
-     </ulink> (coming soon).  This will walk you through setting up an application
+     with the <ulink url="http://hypnos.cbs.umn.edu/projects/tutorial/">MapServer tutorial
+     </ulink>.  This will walk you through setting up an application
      and familiarize you with mapfiles and template files.
   </sect2>
 
