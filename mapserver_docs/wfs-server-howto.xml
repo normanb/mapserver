@@ -25,7 +25,7 @@
     </author>
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  2004-11-01</para>
+      <para>Last Updated:  2004-11-02</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -124,13 +124,13 @@
         <varlistentry>
           <term>wfs_namespace_prefix</term>
           <listitem>
-            <para>User defined namespace to be used in the response of a WFS GetFeature request.</para>
+            <para>User defined namespace prefix to be used in the response of a WFS GetFeature request. e.g. "wfs_namespace_prefix" "someprefix"</para>
           </listitem>
         </varlistentry>         
         <varlistentry>
           <term>wfs_namespace_uri</term>
           <listitem>
-            <para>User defined namespace URI to be used in the response of a WFS GetFeature request.</para>
+            <para>User defined namespace URI to be used in the response of a WFS GetFeature request. e.g. "wfs_namespace_uri" "http://somehost/someurl"</para>
           </listitem>
         </varlistentry>        
         <varlistentry>
