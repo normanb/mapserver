@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>MapServer HTML Legend HOWTO - Version 4.0</title>
+		<title>MapServer HTML Legend HOWTO - Version 4.1</title>
 		<author>
 			<firstname/>
 			<surname/>
@@ -20,7 +20,7 @@
 			<para>
                  This document describes the procedures for implementing an HTML legend in MapServer applications.
                </para>
-			<para>Last Updated: 07/14/2003</para>
+			<para>Last Updated: 03/09/2004</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -173,11 +173,10 @@
 						</listitem>
 						<listitem>
 							<para>
-								<emphasis>TAG:</emphasis> [leg_group_status] 
+								<emphasis>TAG:</emphasis> [layer_status]
 								</para>
 							<para>
-								<emphasis>DESCRIPTION:</emphasis> Returns the group's status  Only the status of the first
-								layer that belongs to that group is checked. 
+								<emphasis>DESCRIPTION:</emphasis> Returns the status of the first layer in the group.
 								</para>
 						</listitem>
 						<listitem>
@@ -606,7 +605,7 @@
 		<sect2 id="copyright">
 			<title>Copyright Information</title>
 			<para>
-                Copyright (c) 2003, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
             </para>
 			<para>
                 This documentation is covered by the same Open Source license as the
