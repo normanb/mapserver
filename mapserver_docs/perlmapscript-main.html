@@ -1572,6 +1572,13 @@ Each class is described in detail later in this document.<br>
       <b>Members:</b>
     </td>
     <td>
+      <li>format - outputFormatObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       <li>height - integer - rw.</li>
     </td>
   </tr>
@@ -1587,6 +1594,20 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       <li>imageurl - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>renderer - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>size - integer - rw.</li>
     </td>
   </tr>
   <tr>
@@ -1634,7 +1655,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      saveImage(character filenam, type, transparent, interlace, quality)
+      save(character filename)
     </td>
     <td>
     </td>
@@ -3266,7 +3287,28 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>extent - rectObj - rw - map extent array.</li>
+      <li>datapattern - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>debug - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>extent - rectObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>fontset - fontSetObj - rw.</li>
     </td>
   </tr>
   <tr>
@@ -3294,7 +3336,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>imagetype - integer - rw.</li>
+      <li>imagetype - character - rw.</li>
     </td>
   </tr>
   <tr>
@@ -3336,6 +3378,13 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      <li>mappath - character - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       <li>name - character - rw - small identifier for naming etc.</li>
     </td>
   </tr>
@@ -3343,7 +3392,28 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>numlayers - integer - ro - number of layers in the map.</li>
+      <li>numlayers - integer - rw - number of layers in the map.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>numoutputformats - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outputformat - outputFormatObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>outputformatlist - outputFormatObj - rw.</li>
     </td>
   </tr>
   <tr>
@@ -3392,7 +3462,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      <li>shapepath - character - rw - where are the shape files located.</li>
+      <li>shapepath - character - rw - where are the shape files are located.</li>
     </td>
   </tr>
   <tr>
@@ -3406,7 +3476,21 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      <li>symbolset - symbolSetObj - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       <li>transparent - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>templatepattern - character - rw.</li>
     </td>
   </tr>
   <tr>
@@ -3428,27 +3512,6 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       <li>width - integer - rw.</li>
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      <li>map, legend, scalebar, and reference map <b>size</b> use <b>height</b> and <b>width</b></li>
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      <li>legend <b>keysize</b> use <b>keysizex</b> and <b>keysizey</b></li>
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      <li>legend <b>keyspacing</b> use <b>keyspacingx</b> and <b>keyspacingy</b></li>
     </td>
   </tr>
   <tr>
@@ -3479,16 +3542,14 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      addColor(integer red,integer green,integer blue)
+      clone()
     </td>
     <td>
-      Adds a color to the maps palette.
     </td>
     <td>
-      integer
+      mapObj
     </td>
     <td>
-      Color values can range from 0 to 255. Must be called prior to draw() or prepareImage().
     </td>
   </tr>
   <tr>
@@ -3600,7 +3661,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      embedScalebar(image)
+      embedScalebar(imageObj)
     </td>
     <td>
       Embeds a scalebar in a map.
@@ -3610,18 +3671,6 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       Adds scalebar to label cache. Invoke drawLabelCache(imageObj) to render (unless postlabelcache is set).
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      getImageToVar(imageObj,character varname)
-    </td>
-    <td>
-    </td>
-    <td>
-      integer
     </td>
   </tr>
   <tr>
@@ -3708,15 +3757,39 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      getNumSymbols()
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       getSymbolByName(character name)
     </td>
     <td>
       Retrieves the symbol index by name.
     </td>
     <td>
-      integer -1 if symbol is not found
+      integer
     </td>
     <td>
+    </td>
+  </tr>
+  <tr>
+    <td> 
+    </td>
+    <td>
+      loadMapContext(character filename) 
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
     </td>
   </tr>
   <tr>
@@ -3827,7 +3900,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      queryByFeatures(int slayer)
+      queryByFeatures(integer previously queried layer index)
     </td>
     <td>
       Queries a group of layers using another set of results.
@@ -3840,7 +3913,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      queryByPoint(point,int mode,double buffer)
+      queryByPoint(pointObj query point,int mode,double buffer)
     </td>
     <td>
       Queries a group of layers using a point.
@@ -3856,7 +3929,7 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      queryByRect(rectObj)
+      queryByRect(rectObj query rect)
     </td>
     <td>
       Queries a group of layers using a rectangle.
@@ -3871,12 +3944,26 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
-      queryByShape(shapeObj)
+      queryByShape(shapeObj query shape)
     </td>
     <td>
     </td>
     <td>
       integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      removeLayer(integer layer index)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+    <td>
     </td>
   </tr>
   <tr>
@@ -3910,7 +3997,43 @@ Each class is described in detail later in this document.<br>
     <td>
     </td>
     <td>
+      saveMapContext(char filename)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setFontSet(char filename)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
       saveQueryAsGML(char filename)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td> 
+    </td>
+    <td>
+      setImageType(character imagetype) 
     </td>
     <td>
     </td>
@@ -3935,6 +4058,18 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       setMetaData(char name,char value)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      setOutputFormat(outputFormatObj)
     </td>
     <td>
     </td>
@@ -3975,6 +4110,42 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       setWKTProjection(char string)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      zoomRectangle(integer zoomfactor, rectObj zoomrect, integer width, integer height, rectObj mapextent, rectObj maxentent)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      zoomScale(integer zoomfactor, double scale, pointObj zoompoint, integer width, integer height, rectObj mapextent, rectObj maxentent)
+    </td>
+    <td>
+    </td>
+    <td>
+      integer
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      zoomPoint(integer zoomfactor, pointObj zoompoint, integer width, integer height, rectObj mapextent, rectObj maxentent)
     </td>
     <td>
     </td>
@@ -4272,6 +4443,7 @@ Each class is described in detail later in this document.<br>
       void
     </td>
     <td>
+	  value is character, ie. ON, not integer, ie. MS_ON .
     </td>
   </tr>
 </table>
@@ -5698,6 +5870,71 @@ Each class is described in detail later in this document.<br>
     </td>
     <td>
       <li>symbolname - character - rw.</li>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      <b>Methods:</b>
+    </th>
+    <th>
+      Method
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Returns
+    </th>
+    <th>
+      Notes
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      none
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+<br>
+<a name="symbolobj"></a><br>
+<b><u><font size="5">symbolObj:</font></u></b><br>
+<br>
+<table border="1">
+  <tr>
+    <td>
+      <b>Constructors:</b><br>
+    </td>
+    <td align="left">
+      new mapscript::symbolObj()
+	</td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <b>Members:</b>
+    </td>
+    <td>
+      <li>antialias - integer - rw.</li>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <li>member here - return here - rw.</li>
     </td>
   </tr>
 </table>
