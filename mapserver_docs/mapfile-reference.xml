@@ -1644,6 +1644,9 @@ file.  Symbol definitions in a separate file are designated using the <link link
                     <term>GAP [int]</term>
                     <listitem>
                         <para>Given in pixels.  This defines a distance between symbols for TrueType lines.</para>
+                        <para>When drawing the symbol along a line segment, you can specify a negative GAP value to orient
+                              the symbol along the line (instead of oriented North).
+                        </para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -1808,7 +1811,7 @@ END
                         <revnumber>Number: 1.40</revnumber>
                         <date>Date: 2004-10-21</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames
+                        <revremark>Added MINSCALE MAXSCALE for class object, note on inline features, note on symbols with filenames, note about negative GAP values
                                    </revremark>
                     </revision>
                 </revhistory>
