@@ -1,17 +1,22 @@
 <html>
 <head>
   <title>MapServer Test Suite - ItemQuery</title>
+
+  <script language="javascript"> var count=0; </script>
+
 </head>
 
 <body bgcolor="#ffffff">
 
-<font size="+2" face="arial,helvetica"><b>Case 2: Simple ItemNQuery</b></font>
+<font size="+2" face="arial,helvetica"><b>Case 2: Simple ItemNQuery With QueryMap</b></font>
 
 <p>
 
-This is just a simple dump of a few attributes from one or more polygons
-in the test suites counties layer:
+This is just a simple dump of the names of  one or more polygons
+in the test suites counties layer. Punctuation is controlled by using
+JavaScript and a result counter:
 
 <p>
 
-<!-- header stops here, now individual results -->
+<script language="javascript">
+document.write("Selected counties: ");

@@ -1,5 +1,5 @@
 MAP
-  NAME pz
+  NAME 'query'
   EXTENT 74000 4775000 798000 5500000
   SIZE 300 400
   SHAPEPATH "../data"
@@ -8,8 +8,8 @@ MAP
   FONTSET ../fonts/fonts.list
 
   WEB
-    IMAGEPATH "/usr/local/www/docs_arachnid/tmp/"
-    IMAGEURL "/tmp/"
+    IMAGEPATH "set in config.js"
+    IMAGEURL "set in config.js"
     TEMPLATE test.html
     MAXSCALE 8000000
     MINSCALE  100000
@@ -29,6 +29,7 @@ MAP
       COLOR 0 0 0
       SIZE 10
       ANTIALIAS
+      OFFSET 0 -2
     END
   END
 
@@ -61,6 +62,7 @@ MAP
     STATUS DEFAULT
     TYPE POLYGON
     CLASS
+      NAME "Minnesota Counties"
       COLOR 212 212 212
       OUTLINECOLOR 0 0 0
     END
@@ -80,14 +82,12 @@ MAP
       LABEL
         TYPE truetype
         FONT arial-bold
-        SIZE 14
+        SIZE 8
         ANTIALIAS
         COLOR 0 0 0
         OUTLINECOLOR 255 255 255	
 	PARTIALS OFF
       END
-    END
-    QUERY
       TEMPLATE quad.html
     END
   END
@@ -107,14 +107,12 @@ MAP
       LABEL
         TYPE truetype
         FONT arial-bold
-        SIZE 14
+        SIZE 8
         ANTIALIAS
         COLOR 0 0 0
         OUTLINECOLOR 255 255 255	
 	PARTIALS OFF
       END
-    END
-    QUERY
       TEMPLATE quad.html
     END
   END
@@ -127,23 +125,21 @@ MAP
     SYMBOLSCALE 200000
     MAXSCALE 700000
     LABELITEM "tile_name"
+    TEMPLATE quad.html # could go here or in the class definition
     CLASS
       NAME "USGS 1:24,000 Quadrangles"
       COLOR 0 0 255
       LABEL
         TYPE truetype
         FONT arial-bold
-        SIZE 14
+        SIZE 8
         ANTIALIAS
         COLOR 0 0 0
         OUTLINECOLOR 255 255 255
 	ANGLE -60
 	PARTIALS OFF
-      END
-    END
-    QUERY
-      TEMPLATE quad.html
-    END
+      END      
+    END    
   END
 
 END

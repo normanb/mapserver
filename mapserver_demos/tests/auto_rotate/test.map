@@ -1,6 +1,6 @@
 MAP
   FONTSET ../fonts/fonts.list
-  NAME SIMPLE
+  NAME 'AUTO_ROTATE'
   STATUS OFF
   EXTENT 0 0 299 399 # dummy
   SIZE 300 300	
@@ -20,12 +20,10 @@ MAP
 	FONT arial
         COLOR 0 0 0
 	OUTLINECOLOR 220 220 220
-	SIZE 11
-	#SIZE MEDIUM
+	SIZE 11	
 	ANGLE AUTO
 	POSITION UC
-	OFFSET 0 2
-        WRAP ' '
+	OFFSET 0 2        
 	buffer 2
       END	
     END

@@ -1,15 +1,32 @@
-NAME test
-SHAPEPATH ../data
+MAP
+  NAME case1
+  SHAPEPATH ../data
+  SIZE 300 300
+  EXTENT 74000 4775000 798000 5499000
 
-LAYER
-  NAME county
-  DATA county
-  STATUS DEFAULT
-  TYPE POLYGON  	
-  
-  QUERY
-    TEMPLATE case1_template.html
+  WEB
+    IMAGEPATH "set in config.js"
+    IMAGEURL "set in config.js"
   END
-END
+
+  QUERYMAP
+    STATUS ON
+    STYLE HILITE
+    COLOR 255 255 0
+  END
+
+  LAYER
+    NAME county
+    DATA county
+    STATUS DEFAULT
+    TYPE POLYGON
+    FILTERITEM cty_name
+    FILTER "%name%"
+    CLASS
+      COLOR 212 212 212
+      OUTLINECOLOR 0 0 0
+      TEMPLATE case1_template.html
+    END
+  END
 
 END 

@@ -1,6 +1,7 @@
 <html>
 <head>
   <title>MapServer Test Suite</title>
+  <script language="javascript" src="config.js"></script>
 </head>
 
 <body bgcolor="#ffffff">
@@ -22,18 +23,20 @@ source capability of your browser to see how the template is structured.
 <ul>
 <li> <a href="auto_rotate/test.html">Automatic</a> text rotation for line labeling.
 <ul>
-<li> An example labeling <a href="/cgi-bin/mapserv?map=ms_test/auto_rotate/contours/test.map">contours</a>.
+<script language="javascript">
+  document.write("<li> An example labeling <a href=\"" + mapserv + "?map=" + root + "/auto_rotate/contours/test.map&program=" + mapserv + "&htmlroot=" + htmlroot + "&map_web_imagepath=" + imagepath + "&map_web_imageurl=" + imageurl + "\">contours</a>.");
+</script>
 </ul>
 <li> <a href="itemquery/test.html">Item/value</a> queries.
-<li> Simple <a href="/cgi-bin/mapserv?map=ms_test/query/test.map">point queries</a>.
-<ul>
-<li> Simple <a href="/cgi-bin/mapserv?map=ms_test/query/proj/test.map">point queries</a> (w/proj).
-</ul>
-<li> Simple <a href="/cgi-bin/mapserv?map=ms_test/nquery/test.map">point queries</a> (multiple results).
-<li> <a href="/cgi-bin/mapserv?map=ms_test/pan_zoom/test.map">Pan and zoom</a> interface.
+<script language="javascript">
+  document.write("<li> Simple <a href=\"" + mapserv + "?map=" + root + "/query/test.map&program=" + mapserv + "&htmlroot=" + htmlroot + "&map_web_imagepath=" + imagepath + "&map_web_imageurl=" + imageurl +  "\">point queries</a> (mode=query).");
+  document.write("<li> Simple <a href=\"" + mapserv + "?map=" + root + "/nquery/test.map&program=" + mapserv + "&htmlroot=" + htmlroot + "&map_web_imagepath=" + imagepath + "&map_web_imageurl=" + imageurl + "\">point queries</a> (mode=nquery).");
+  document.write("<li> Feature-based <a href=\"" + mapserv + "?map=" + root + "/featurequery/test.map&program=" + mapserv + "&htmlroot=" + htmlroot + "&map_web_imagepath=" + imagepath + "&map_web_imageurl=" + imageurl + "\">query</a> (mode=featurenquery).");
+  document.write("<li> <a href=\"" + mapserv + "?map=" + root + "/pan_zoom/test.map&program=" + mapserv + "&htmlroot=" + htmlroot + "\">Pan and zoom</a> interface.");
+</script>
 <li> <a href="raster_classes/test.html">Raster classes</a>: on-the-fly raster reclassification.
 <li> Text <a href="text_angle_and_size/test.html">angle and size</a> taken from attributes.
-<li> <a href="/cgi-bin/mapserv?map=ms_test/expressions/test.map">Dynamic queries</a>.
+<li> <a href="/cgi-bin/mapserv?map=/usr/local/apache/mapserver_demos/tests/expressions/test.map">Dynamic queries</a>.
 <li> MapScript examples:
 <ul>
 <li> Live <a href="/cgi-bin/mapquakes.pl">earthquake</a> mapping.

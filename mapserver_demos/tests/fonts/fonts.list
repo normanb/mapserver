@@ -1,4 +1,4 @@
-arial			arial.ttf
-arial-bold		arialbd.ttf
-arial-bold-italic	arialbi.ttf
-arial-italic		ariali.ttf
+arial			/usr/local/apache/htdocs/mapserver_demos/tests/fonts/arial.ttf
+arial-bold		/usr/local/apache/htdocs/mapserver_demos/tests/fonts/arialbd.ttf
+arial-bold-italic	/usr/local/apache/htdocs/mapserver_demos/tests/fonts/arialbi.ttf
+arial-italic		/usr/local/apache/htdocs/mapserver_demos/tests/fonts/ariali.ttf

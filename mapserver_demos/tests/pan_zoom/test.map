@@ -23,6 +23,7 @@ MAP
       COLOR 0 0 0
       SIZE 10
       ANTIALIAS
+      OFFSET 0 -2
     END
   END
 
@@ -36,8 +37,8 @@ MAP
     UNITS miles
     LABEL
       COLOR 0 0 0
-      SIZE small
-    END
+      SIZE small      
+    END   
   END
 
   REFERENCE
@@ -46,7 +47,7 @@ MAP
     SIZE 150 150
     EXTENT  125105.727952 4785412.819496 788393.592828 5488749.153129
     COLOR -1 -1 -1
-    OUTLINECOLOR 255 0 0
+    OUTLINECOLOR 255 0 0    
   END
 
   LAYER
@@ -55,6 +56,7 @@ MAP
     STATUS DEFAULT
     TYPE POLYGON
     CLASS
+      NAME "Minnesota Counties"
       COLOR 212 212 212
       OUTLINECOLOR 0 0 0
     END

@@ -4,16 +4,18 @@
     <title>MapServer Test Suite - Pan and Zoom</title>
   </head>
 
-  <body>
+  <body bgcolor="#ffffff">
     <br>
-    <font size=+2 face=arial,helvetica>MapServer <a href="/ms_test">Test Suite</a> - Pan and Zoom</font>
+    <font size=+2 face=arial,helvetica>MapServer <a href="[htmlroot]">Test Suite</a> - Pan and Zoom</font>
     <p>
 
-    <form method="GET" action="/cgi-bin/mapserv">
+    <form method="GET" action="[program]">
 
     <input type="hidden" name="map" value="[map]">
     <input type="hidden" name="imgext" value="[mapext]">
     <input type="hidden" name="imgxy" value="149.5 199.5">    
+    <input type="hidden" name="program" value="[program]">
+    <input type="hidden" name="htmlroot" value="[htmlroot]">
 
     <table border=0 cellpadding=5 width="600">
     <tr>
@@ -28,8 +30,8 @@
     </ul>
 
     <p>
-    <a href="/ms_test/pan_zoom/test.map"><i>map file</i></a><br>
-    <a href="/ms_test/pan_zoom/test.html"><i>template file</i></a>
+    <a href="[htmlroot]/pan_zoom/test.map"><i>map file</i></a><br>
+    <a href="[htmlroot]/pan_zoom/test.html"><i>template file</i></a>
     <br><br>
 
     </td>

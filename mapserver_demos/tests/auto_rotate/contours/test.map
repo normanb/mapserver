@@ -7,7 +7,8 @@ MAP
   FONTSET ../../fonts/fonts.list
 
   WEB
-    IMAGEPATH /usr/local/www/docs_arachnid/tmp/
+    IMAGEPATH "set in config.js"
+    IMAGEURL "set in config.js"
     TEMPLATE test.html
   END
 

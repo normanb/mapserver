@@ -6,21 +6,25 @@
 
   <body bgcolor="#ffffff">
     <br>
-    <font size=+2 face=arial,helvetica>MapServer <a href="/ms_test">Test Suite</a> - Automatic Text Rotation</font>
+    <font size=+2 face=arial,helvetica>MapServer <a href="[htmlroot]">Test Suite</a> - Automatic Text Rotation</font>
     <p>
 
-    <form method="GET" action="/cgi-bin/mapserv">
+    <form method="GET" action="[program]">
 
     <input type="hidden" name="map" value="[map]">
     <input type="hidden" name="imgext" value="[mapext]">
-    <input type="hidden" name="imgxy" value="149.5 199.5">    
+    <input type="hidden" name="imgxy" value="149.5 199.5">
+    <input type="hidden" name="program" value="[program]">
+    <input type="hidden" name="htmlroot" value="[htmlroot]">
+    <input type="hidden" name="map_web_imagepath" value="[map_web_imagepath]">
+    <input type="hidden" name="map_web_imageurl" value="[map_web_imageurl]">
 
     <table border=0 cellpadding=5 width="600">
     <tr>   
     <td align=center>
-      <input type="image" name="img" src="/tmp/[img]" border="0" width="300" height="400">
+      <input type="image" name="img" src="[img]" border="0" width="300" height="400">
       <br>
-      <!-- [scale] --><img src="/tmp/[scalebar]">
+      <img src="[scalebar]">
     </td>
     <td valign=top>
       Automatic labeling of a 1:24,000 DEM. 
@@ -44,8 +48,8 @@
 
       <input type="submit" value="Go!">
 
-      <p><a href="/ms_test/auto_rotate/contours/test.map"><i>map file</i></a><br>
-      <a href="/ms_test/auto_rotate/contours/test.html"><i>template file</i></a><br>
+      <p><a href="[htmlroot]/auto_rotate/contours/test.map"><i>map file</i></a><br>
+      <a href="[htmlroot]/auto_rotate/contours/test.html"><i>template file</i></a><br>
     </td>
     </tr></table>
  

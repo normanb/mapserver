@@ -1,36 +1,40 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
   <head>
-    <title>MapServer Test Suite - Simple Point Query</title>
+    <title>MapServer Test Suite - Simple Point Query (mode=nquery)</title>
   </head>
 
-  <body>
+  <body bgcolor="#ffffff">
     <br>
-    <font size=+2 face=arial,helvetica><b>MapServer <a href="/ms_test/index.html">Test Suite</a> - Simple Point Query</b></font>
+    <font size=+2 face=arial,helvetica><b>MapServer <a href="[htmlroot]">Test Suite</a> - Simple Point Query (mode=nquery)</b></font>
     <p>
 
-    <form method="GET" action="/cgi-bin/mapserv">
+    <form method="GET" action="[program]">
 
     <input type="hidden" name="map" value="[map]">
     <input type="hidden" name="imgext" value="[mapext]">
     <input type="hidden" name="imgxy" value="149.5 199.5">
+    <input type="hidden" name="program" value="[program]">
+    <input type="hidden" name="htmlroot" value="[htmlroot]">
+    <input type="hidden" name="map_web_imagepath" value="[map_web_imagepath]">
+    <input type="hidden" name="map_web_imageurl" value="[map_web_imageurl]">
 
     <table border=0 cellpadding=5 width="600">
     <tr>
     <td colspan="2">A relatively simple interface for browsing the various USGS quadrangle series covering
     the state of Minnesota. It demonstrates:
     <ul>
-    <li> query mode
-    <li> "selected" query maps
-    <li> query maps using selected shape extents
+      <li> nquery mode
+      <li> dynamic legends
+      <li> "hot" reference maps
     </ul>
 
     <p>
-    <a href="/ms_test/nquery/test.map"><i>map file</i></a><br>
-    <a href="/ms_test/nquery/test.html"><i>template file</i></a><br>
-    <a href="/ms_test/nquery/top.html"><i>query header file</i></a>&nbsp;&nbsp;<a href="/ms_test/nquery/top.html"><i>query footer file</i></a><br>
-    <a href="/ms_test/nquery/250k_top.html"><i>layer query header file (250k)</i></a>&nbsp;&nbsp;<a href="/ms_test/nquery/100k_top.html"><i>layer query header file (100k)</i></a>&nbsp;&nbsp;<a href="/ms_test/nquery/24k_top.html"><i>layer query header file (24k)</i></a>
-    <a href="/ms_test/nquery/quad.html"><i>layer query template file</i></a>&nbsp;&nbsp;<a href="/ms_test/nquery/quad_bottom.html"><i>layer query footer file</i></a>
+    <a href="[htmlroot]/nquery/test.map"><i>map file</i></a><br>
+    <a href="[htmlroot]/nquery/test.html"><i>template file</i></a><br>
+    <a href="[htmlroot]/nquery/top.html"><i>query header file</i></a>&nbsp;&nbsp;<a href="[htmlroot]/nquery/top.html"><i>query footer file</i></a><br>
+    <a href="[htmlroot]/nquery/250k_top.html"><i>layer query header file (250k)</i></a>&nbsp;&nbsp;<a href="[htmlroot]/nquery/100k_top.html"><i>layer query header file (100k)</i></a>&nbsp;&nbsp;<a href="[htmlroot]/nquery/24k_top.html"><i>layer query header file (24k)</i></a>
+    <a href="[htmlroot]/nquery/quad.html"><i>layer query template file</i></a>&nbsp;&nbsp;<a href="[htmlroot]/nquery/quad_bottom.html"><i>layer query footer file</i></a>
     <br><br>
 
     </td>
@@ -39,13 +43,13 @@
     <td align=center>
       <input type="image" name="img" src="[img]" border="0" width="300" height="400">
       <br>
-      <!-- [scale] --><img src="[scalebar]">
+      <img src="[scalebar]">
     </td>
     <td valign=top>
       <font size=+1 face=arial,helvetica><b>Map Controls</b></font>
       <p>
       <input type="radio" name="mode" value="browse" checked> browse data<br>
-      <input type="radio" name="mode" value="nquery"> select quad
+      <input type="radio" name="mode" value="nquery"> select quads
       <p>
       Set your zoom option:<br>
       <select name="zoom" size="1">

@@ -1,20 +1,46 @@
-NAME test
-SHAPEPATH ../data
+MAP
+  NAME case2
+  SHAPEPATH ../data
+  SIZE 300 300
+  EXTENT 74000 4775000 798000 5499000
+  UNITS meters
 
-WEB
-  HEADER case2_header.html
-  FOOTER case2_footer.html
-END
-
-LAYER
-  NAME county
-  DATA county
-  STATUS DEFAULT
-  TYPE POLYGON  	
-  
-  QUERY
-    TEMPLATE case2_template.html
+  WEB
+    IMAGEPATH "set in config.js"
+    IMAGEURL "set in config.js"
+    HEADER case2_header.html
+    FOOTER case2_footer.html
   END
-END
+
+  QUERYMAP
+    STATUS ON
+    STYLE HILITE
+    COLOR 255 255 0
+  END
+
+  SCALEBAR
+    STATUS ON
+    INTERVALS 3
+    STYLE 1
+    SIZE 200 4
+    COLOR 212 212 212
+    LABEL
+      SIZE TINY
+      COLOR 0 0 0
+    END
+  END
+
+  LAYER
+    NAME county
+    DATA county
+    STATUS DEFAULT
+    TYPE POLYGON
+    FILTERITEM cty_name
+    CLASS
+      TEMPLATE case2_template.html
+      COLOR 212 212 212
+      OUTLINECOLOR 0 0 0
+    END
+  END
 
 END 

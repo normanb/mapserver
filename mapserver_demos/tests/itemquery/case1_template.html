@@ -5,7 +5,7 @@
 
 <body bgcolor="#ffffff">
 
-<font size="+2" face="arial,helvetica"><b>Case 1: Simple ItemQuery</b></font>
+<font size="+2" face="arial,helvetica"><b>Case 1: Simple ItemQuery With QueryMap</b></font>
 
 <p>
 
@@ -17,6 +17,19 @@ in the test suites counties layer:
 <b>Name:</b> [CTY_NAME]<br>
 <b>ID Number:</b> [COUN]<br>
 <b>Abbreviation Code:</b> [CTY_ABBR]<br>
+
+<p>
+
+and here's the map of the query results (you can zoom to a set of results as well):
+
+<p>
+
+<table cellpadding="5">
+<tr>
+<td><img border="2" src="[img]" height="300" width="300"></td>
+<td><img border="2" src="[mapserv]?map=[map]&name=[name_esc]&mode=itemquerymap&mapext=shapes&qlayer=[qlayer]" height="300" width="300"></td>
+</tr>
+</table>
 
 </body>
 </html>

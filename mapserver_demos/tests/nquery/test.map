@@ -8,8 +8,8 @@ MAP
   FONTSET ../fonts/fonts.list
 
   WEB
-    IMAGEPATH "/usr/local/www/docs_arachnid/tmp/"
-    IMAGEURL "/tmp/"
+    IMAGEPATH "set in config.js"
+    IMAGEURL "set in config.js"
     TEMPLATE test.html
     MAXSCALE 8000000
     MINSCALE  100000
@@ -32,6 +32,7 @@ MAP
       COLOR 0 0 0
       SIZE 10
       ANTIALIAS
+      OFFSET 0 -2
     END
   END
 
@@ -64,6 +65,7 @@ MAP
     STATUS DEFAULT
     TYPE POLYGON
     CLASS
+      NAME "Minnesota Counties"
       COLOR 212 212 212
       OUTLINECOLOR 0 0 0
     END
@@ -72,7 +74,7 @@ MAP
   LAYER
     NAME usgs250k
     DATA usgs250k
-    STATUS default
+    STATUS DEFAULT
     TYPE POLYLINE
     SYMBOLSCALE 2000000
     MINSCALE 1500000
@@ -83,7 +85,7 @@ MAP
       LABEL
         TYPE truetype
         FONT arial-bold
-        SIZE 14
+        SIZE 8
         ANTIALIAS
         COLOR 0 0 0
         OUTLINECOLOR 255 255 255
@@ -95,7 +97,7 @@ MAP
   LAYER
     NAME usgs100k
     DATA usgs100k
-    STATUS default
+    STATUS DEFAULT
     TYPE POLYLINE
     SYMBOLSCALE 1000000
     MAXSCALE 1500000
@@ -107,7 +109,7 @@ MAP
       LABEL
         TYPE truetype
         FONT arial-bold
-        SIZE 14
+        SIZE 8
         ANTIALIAS
         COLOR 0 0 0
         OUTLINECOLOR 255 255 255	
@@ -119,7 +121,7 @@ MAP
   LAYER
     NAME usgs24k
     DATA usgs24k
-    STATUS default
+    STATUS DEFAULT
     TYPE POLYLINE
     SYMBOLSCALE 200000
     MAXSCALE 700000
@@ -130,7 +132,7 @@ MAP
       LABEL
         TYPE truetype
         FONT arial-bold
-        SIZE 14
+        SIZE 8
         ANTIALIAS
         COLOR 0 0 0
         OUTLINECOLOR 255 255 255
@@ -149,12 +151,12 @@ MAP
   LAYER
     NAME usgs250kq
     DATA usgs250k
-    STATUS queryonly
-    TYPE POLYGON
+    STATUS DEFAULT
+    TYPE QUERY
     TOLERANCE 5
     HEADER "250k_top.html"
     FOOTER quad_bottom.html	
-    QUERY
+    CLASS
       TEMPLATE quad.html
     END
   END
@@ -162,12 +164,12 @@ MAP
   LAYER
     NAME usgs100kq
     DATA usgs100k
-    STATUS queryonly
-    TYPE POLYGON
+    STATUS DEFAULT
+    TYPE QUERY
     TOLERANCE 5
     HEADER "100k_top.html"
     FOOTER quad_bottom.html	
-    QUERY
+    CLASS
       TEMPLATE quad.html
     END
   END
@@ -175,12 +177,12 @@ MAP
   LAYER
     NAME usgs24kq
     DATA usgs24k
-    STATUS queryonly
-    TYPE POLYGON    
+    STATUS DEFAULT
+    TYPE QUERY
     TOLERANCE 5
     HEADER "24k_top.html"
     FOOTER quad_bottom.html
-    QUERY
+    CLASS
       TEMPLATE quad.html
     END
   END

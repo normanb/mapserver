@@ -1,117 +1,62 @@
 <html>
 <head>
   <title>MapServer Test Suite - ItemQuery</title>
+  <script language="javascript" src="../config.js"></script>
+  <script language="javascript">
+    var counties = new Array('Aitkin','Anoka','Becker','Beltrami','Benton','Big Stone','Blue Earth','Brown','Carlton','Carver','Cass','Chippewa','Chisago','Clay','Clearwater','Cook','Cottonwood','Crow Wing','Dakota','Dodge','Douglas','Faribault','Fillmore','Freeborn','Goodhue','Grant','Hennepin','Houston','Hubbard','Isanti','Itasca','Jackson','Kanabec','Kandiyohi','Kittson','Koochiching','Lac Qui Parle','Lake','Lake of the Woods','Le Sueur','Lincoln','Lyon','Mahnomen','Marshall','Martin','McLeod','Meeker','Mille Lacs','Morrison','Mower','Murray','Nicollet','Nobles','Norman','Olmsted','Otter Tail','Pennington','Pine','Pipestone','Polk','Pope','Ramsey','Red Lake','Redwood','Renville','Rice','Rock','Roseau','Scott','Sherburne','Sibley','St. Louis','Stearns','Steele','Stevens','Swift','Todd','Traverse','Wabasha','Wadena','Waseca','Washington','Watonwan','Wilkin','Winona','Wright','Yellow Medicine');
+
+    function write_counties() {
+      var i;
+
+      for(i=0; i<counties.length; i++)
+        document.write("<option> " + counties[i] + "\n");
+    }
+
+    function submit_case2() {
+      var i, sep='';
+
+      document.case2.map_county_filter.value = '/'; // start of a regex
+      for(i=0; i<document.case2.name.length; i++) {
+        if(document.case2.name.options[i].selected)
+          document.case2.map_county_filter.value = document.case2.map_county_filter.value + sep + document.case2.name.options[i].text;
+          sep = '|';
+      }
+      document.case2.map_county_filter.value += '/'; // end of a regex
+    }
+  </script>
 </head>
 
 <body bgcolor="#ffffff">
 
-<font size="+2" face="arial,helvetica"><b>MapServer <a href="/ms_test">Test Suite</a> - ItemQuery</b></font>
+
+<script language="javascript">
+  document.write("<font size=\"+2\" face=\"arial,helvetica\"><b>MapServer <a href=\"" + htmlroot + "\">Test Suite</a> - ItemQuery</b></font>");
+</script>
 
 <p>
 
-<font size="+1" face="arial,helvetica"><b>Case 1: Simple ItemQuery</b></font>
+<font size="+1" face="arial,helvetica"><b>Case 1: Simple ItemQuery With QueryMap</b></font>
 
 <p>
-<a href="/ms_test/itemquery/case1.map"><i>map file</i></a><br>
-<a href="/ms_test/itemquery/case1_template.html"><i>query template file</i></a>
+<a href="case1.map"><i>map file</i></a><br>
+<a href="case1_template.html"><i>query template file</i></a>
 <p>
 
-<form method="get" action="/cgi-bin/mapserv">
+<script language="javascript">
+  document.write("<form name=\"case1\" method=\"get\" action=\"" + mapserv + "\">\n\n");
+  document.write("<input type=\"hidden\" name=\"mapserv\" value=\"" + mapserv + "\">\n");
+  document.write("<input type=\"hidden\" name=\"map\" value=\"" + root + "/itemquery/case1.map\">\n");
+  document.write("<input type=\"hidden\" name=\"map_web_imagepath\" value=\"" + imagepath + "\">\n");
+  document.write("<input type=\"hidden\" name=\"map_web_imageurl\" value=\"" + imageurl + "\">\n");
+</script>
 
-<input type="hidden" name="map" value="ms_test/itemquery/case1.map">
 <input type="hidden" name="mode" value="itemquery">
-<input type="hidden" name="item" value="cty_name">
+<input type="hidden" name="qlayer" value="county">
 
 Pick one:
 
-<select name="value" size="1">
-<option>  Aitkin
-<option>  Anoka
-<option>  Becker
-<option>  Beltrami
-<option>  Benton
-<option>  Big Stone
-<option>  Blue Earth
-<option>  Brown
-<option>  Carlton
-<option>  Carver
-<option>  Cass
-<option>  Chippewa
-<option>  Chisago
-<option>  Clay
-<option>  Clearwater
-<option>  Cook
-<option>  Cottonwood
-<option>  Crow.Wing
-<option>  Dakota
-<option>  Dodge
-<option>  Douglas
-<option>  Faribault
-<option>  Fillmore
-<option>  Freeborn
-<option>  Goodhue
-<option>  Grant
-<option>  Hennepin
-<option>  Houston
-<option>  Hubbard
-<option>  Isanti
-<option>  Itasca
-<option>  Jackson
-<option>  Kanabec
-<option>  Kandiyohi
-<option>  Kittson
-<option>  Koochiching
-<option>  Lac Qui Parle
-<option>  Lake
-<option>  Lake of the Woods
-<option>  Le Sueur
-<option>  Lincoln
-<option>  Lyon
-<option>  Mahnomen
-<option>  Marshall
-<option>  Martin
-<option>  McLeod
-<option>  Meeker
-<option>  Mille Lacs
-<option>  Morrison
-<option>  Mower
-<option>  Murray
-<option>  Nicollet
-<option>  Nobles
-<option>  Norman
-<option>  Olmsted
-<option>  Otter Tail
-<option>  Pennington
-<option>  Pine
-<option>  Pipestone
-<option>  Polk
-<option>  Pope
-<option>  Ramsey
-<option>  Red Lake
-<option>  Redwood
-<option>  Renville
-<option>  Rice
-<option>  Rock
-<option>  Roseau
-<option>  Scott
-<option>  Sherburne
-<option>  Sibley
-<option>  St. Louis
-<option>  Stearns
-<option>  Steele
-<option>  Stevens
-<option>  Swift
-<option>  Todd
-<option>  Traverse
-<option>  Wabasha
-<option>  Wadena
-<option>  Waseca
-<option>  Washington
-<option>  Watonwan
-<option>  Wilkin
-<option>  Winona
-<option>  Wright
-<option>  Yellow Medicine
+<select name="name" size="1">
+<script language="javascript">write_counties()</script>
 </select>
 
 <input type="submit" value="Go!">
@@ -120,111 +65,31 @@ Pick one:
 
 <p><hr noshade><p>
 
-<font size="+1" face="arial,helvetica"><b>Case 2: Simple ItemNQuery</b></font>
+<font size="+1" face="arial,helvetica"><b>Case 2: Simple ItemNQuery With QueryMap</b></font>
 
 <p>
-<a href="/ms_test/itemquery/case2.map"><i>map file</i></a><br>
-<a href="/ms_test/itemquery/case2_header.html"><i>query header file</i></a>&nbsp;&nbsp;
-<a href="/ms_test/itemquery/case2_template.html"><i>query template file</i></a>&nbsp;&nbsp;
-<a href="/ms_test/itemquery/case2_footer.html"><i>query footer file</i></a>
+<a href="case2.map"><i>map file</i></a><br>
+<a href="case2_header.html"><i>query header file</i></a>&nbsp;&nbsp;
+<a href="case2_template.html"><i>query template file</i></a>&nbsp;&nbsp;
+<a href="case2_footer.html"><i>query footer file</i></a>
 <p>
 
-<form method="get" action="/cgi-bin/mapserv">
+<script language="javascript">
+  document.write("<form name=\"case2\" method=\"get\" action=\"" + mapserv + "\" onSubmit=\"return submit_case2()\">\n\n");
+  document.write("<input type=\"hidden\" name=\"mapserv\" value=\"" + mapserv + "\">\n");
+  document.write("<input type=\"hidden\" name=\"map\" value=\"" + root + "/itemquery/case2.map\">\n");
+  document.write("<input type=\"hidden\" name=\"map_web_imagepath\" value=\"" + imagepath + "\">\n");
+  document.write("<input type=\"hidden\" name=\"map_web_imageurl\" value=\"" + imageurl + "\">\n");
+</script>
 
-<input type="hidden" name="map" value="ms_test/itemquery/case2.map">
 <input type="hidden" name="mode" value="itemnquery">
-<input type="hidden" name="item" value="cty_name">
+<input type="hidden" name="qlayer" value="county">
+<input type="hidden" name="map_county_filter" value="">
 
 Select one or more: <br>
 
-<select name="value" size="5" MULTIPLE>
-<option>  Aitkin
-<option>  Anoka
-<option>  Becker
-<option>  Beltrami
-<option>  Benton
-<option>  Big Stone
-<option>  Blue Earth
-<option>  Brown
-<option>  Carlton
-<option>  Carver
-<option>  Cass
-<option>  Chippewa
-<option>  Chisago
-<option>  Clay
-<option>  Clearwater
-<option>  Cook
-<option>  Cottonwood
-<option>  Crow Wing
-<option>  Dakota
-<option>  Dodge
-<option>  Douglas
-<option>  Faribault
-<option>  Fillmore
-<option>  Freeborn
-<option>  Goodhue
-<option>  Grant
-<option>  Hennepin
-<option>  Houston
-<option>  Hubbard
-<option>  Isanti
-<option>  Itasca
-<option>  Jackson
-<option>  Kanabec
-<option>  Kandiyohi
-<option>  Kittson
-<option>  Koochiching
-<option>  Lac Qui Parle
-<option>  Lake
-<option>  Lake of the Woods
-<option>  Le Sueur
-<option>  Lincoln
-<option>  Lyon
-<option>  Mahnomen
-<option>  Marshall
-<option>  Martin
-<option>  McLeod
-<option>  Meeker
-<option>  Mille Lacs
-<option>  Morrison
-<option>  Mower
-<option>  Murray
-<option>  Nicollet
-<option>  Nobles
-<option>  Norman
-<option>  Olmsted
-<option>  Otter Tail
-<option>  Pennington
-<option>  Pine
-<option>  Pipestone
-<option>  Polk
-<option>  Pope
-<option>  Ramsey
-<option>  Red Lake
-<option>  Redwood
-<option>  Renville
-<option>  Rice
-<option>  Rock
-<option>  Roseau
-<option>  Scott
-<option>  Sherburne
-<option>  Sibley
-<option>  St. Louis
-<option>  Stearns
-<option>  Steele
-<option>  Stevens
-<option>  Swift
-<option>  Todd
-<option>  Traverse
-<option>  Wabasha
-<option>  Wadena
-<option>  Waseca
-<option>  Washington
-<option>  Watonwan
-<option>  Wilkin
-<option>  Winona
-<option>  Wright
-<option>  Yellow Medicine
+<select name="name" size="5" MULTIPLE>
+<script language="javascript">write_counties()</script>
 </select>
 
 <p>
@@ -235,222 +100,32 @@ Select one or more: <br>
 
 <p><hr noshade><p>
 
-<font size="+1" face="arial,helvetica"><b>Case 3: Simple ItemQuery With QueryMap</b></font>
+<font size="+1" face="arial,helvetica"><b>Case 3: Simple ItemFeatureQuery With QueryMap</b></font>
 
 <p>
-<a href="/ms_test/itemquery/case3.map"><i>map file</i></a><br>
-<a href="/ms_test/itemquery/case3_template.html"><i>query template file</i></a>
+<a href="case3.map"><i>map file</i></a><br>
+<a href="case3_header.html"><i>query header file</i></a>&nbsp;&nbsp;
+<a href="case3_county_template.html"><i>county query template file</i></a>&nbsp;&nbsp;
+<a href="case3_100k_template.html"><i>USGS 100K quadrangle query template file</i></a>&nbsp;&nbsp;
+<a href="case3_footer.html"><i>query footer file</i></a>
 <p>
 
-<form method="get" action="/cgi-bin/mapserv">
+<script language="javascript">
+  document.write("<form name=\"case3\" method=\"get\" action=\"" + mapserv + "\">\n\n");
+  document.write("<input type=\"hidden\" name=\"mapserv\" value=\"" + mapserv + "\">\n");
+  document.write("<input type=\"hidden\" name=\"map\" value=\"" + root + "/itemquery/case3.map\">\n");
+  document.write("<input type=\"hidden\" name=\"map_web_imagepath\" value=\"" + imagepath + "\">\n");
+  document.write("<input type=\"hidden\" name=\"map_web_imageurl\" value=\"" + imageurl + "\">\n");
+</script>
 
-<input type="hidden" name="map" value="ms_test/itemquery/case3.map">
-<input type="hidden" name="mode" value="itemquery">
-<input type="hidden" name="item" value="cty_name">
+<input type="hidden" name="mode" value="itemfeaturequery">
+<input type="hidden" name="slayer" value="county">
+<input type="hidden" name="qlayer" value="usgs100k">
 
-Pick one:
+Pick one: <br>
 
-<select name="value" size="1">
-<option>  Aitkin
-<option>  Anoka
-<option>  Becker
-<option>  Beltrami
-<option>  Benton
-<option value="Big.Stone">  Big Stone
-<option value="Blue.Earth">  Blue Earth
-<option>  Brown
-<option>  Carlton
-<option>  Carver
-<option>  Cass
-<option>  Chippewa
-<option>  Chisago
-<option>  Clay
-<option>  Clearwater
-<option>  Cook
-<option>  Cottonwood
-<option value="Crow.Wing">  Crow Wing
-<option>  Dakota
-<option>  Dodge
-<option>  Douglas
-<option>  Faribault
-<option>  Fillmore
-<option>  Freeborn
-<option>  Goodhue
-<option>  Grant
-<option>  Hennepin
-<option>  Houston
-<option>  Hubbard
-<option>  Isanti
-<option>  Itasca
-<option>  Jackson
-<option>  Kanabec
-<option>  Kandiyohi
-<option>  Kittson
-<option>  Koochiching
-<option value="Lac.Qui.Parle">  Lac Qui Parle
-<option>  Lake
-<option value="Lake.of.the.Woods">  Lake of the Woods
-<option value="Le Sueur">  Le Sueur
-<option>  Lincoln
-<option>  Lyon
-<option>  Mahnomen
-<option>  Marshall
-<option>  Martin
-<option>  McLeod
-<option>  Meeker
-<option value="Mille Lacs">  Mille Lacs
-<option>  Morrison
-<option>  Mower
-<option>  Murray
-<option>  Nicollet
-<option>  Nobles
-<option>  Norman
-<option>  Olmsted
-<option value="Otter.Tail"">  Otter Tail
-<option>  Pennington
-<option>  Pine
-<option>  Pipestone
-<option>  Polk
-<option>  Pope
-<option>  Ramsey
-<option value="Red.Lake">  Red Lake
-<option>  Redwood
-<option>  Renville
-<option>  Rice
-<option>  Rock
-<option>  Roseau
-<option>  Scott
-<option>  Sherburne
-<option>  Sibley
-<option value="St..Louis">  St. Louis
-<option>  Stearns
-<option>  Steele
-<option>  Stevens
-<option>  Swift
-<option>  Todd
-<option>  Traverse
-<option>  Wabasha
-<option>  Wadena
-<option>  Waseca
-<option>  Washington
-<option>  Watonwan
-<option>  Wilkin
-<option>  Winona
-<option>  Wright
-<option value="Yellow.Medicine">  Yellow Medicine
-</select>
-
-<input type="submit" value="Go!">
-
-</form>
-
-<p><hr noshade><p>
-
-<font size="+1" face="arial,helvetica"><b>Case 4: Simple ItemNQuery With QueryMap</b></font>
-
-<p>
-<a href="/ms_test/itemquery/case4.map"><i>map file</i></a><br>
-<a href="/ms_test/itemquery/case4_header.html"><i>query header file</i></a>&nbsp;&nbsp;
-<a href="/ms_test/itemquery/case4_template.html"><i>query template file</i></a>&nbsp;&nbsp;
-<a href="/ms_test/itemquery/case4_footer.html"><i>query footer file</i></a>
-<p>
-
-<form method="get" action="/cgi-bin/mapserv">
-
-<input type="hidden" name="map" value="ms_test/itemquery/case4.map">
-<input type="hidden" name="mode" value="itemnquery">
-<input type="hidden" name="item" value="cty_name">
-
-Select one or more: <br>
-
-<select name="value" size="5" MULTIPLE>
-<option>  Aitkin
-<option>  Anoka
-<option>  Becker
-<option>  Beltrami
-<option>  Benton
-<option>  Big Stone
-<option>  Blue Earth
-<option>  Brown
-<option>  Carlton
-<option>  Carver
-<option>  Cass
-<option>  Chippewa
-<option>  Chisago
-<option>  Clay
-<option>  Clearwater
-<option>  Cook
-<option>  Cottonwood
-<option>  Crow Wing
-<option>  Dakota
-<option>  Dodge
-<option>  Douglas
-<option>  Faribault
-<option>  Fillmore
-<option>  Freeborn
-<option>  Goodhue
-<option>  Grant
-<option>  Hennepin
-<option>  Houston
-<option>  Hubbard
-<option>  Isanti
-<option>  Itasca
-<option>  Jackson
-<option>  Kanabec
-<option>  Kandiyohi
-<option>  Kittson
-<option>  Koochiching
-<option>  Lac Qui Parle
-<option>  Lake
-<option>  Lake of the Woods
-<option>  Le Sueur
-<option>  Lincoln
-<option>  Lyon
-<option>  Mahnomen
-<option>  Marshall
-<option>  Martin
-<option>  McLeod
-<option>  Meeker
-<option>  Mille Lacs
-<option>  Morrison
-<option>  Mower
-<option>  Murray
-<option>  Nicollet
-<option>  Nobles
-<option>  Norman
-<option>  Olmsted
-<option>  Otter Tail
-<option>  Pennington
-<option>  Pine
-<option>  Pipestone
-<option>  Polk
-<option>  Pope
-<option>  Ramsey
-<option>  Red Lake
-<option>  Redwood
-<option>  Renville
-<option>  Rice
-<option>  Rock
-<option>  Roseau
-<option>  Scott
-<option>  Sherburne
-<option>  Sibley
-<option>  St. Louis
-<option>  Stearns
-<option>  Steele
-<option>  Stevens
-<option>  Swift
-<option>  Todd
-<option>  Traverse
-<option>  Wabasha
-<option>  Wadena
-<option>  Waseca
-<option>  Washington
-<option>  Watonwan
-<option>  Wilkin
-<option>  Winona
-<option>  Wright
-<option>  Yellow Medicine
+<select name="name" size="1">
+<script language="javascript">write_counties()</script>
 </select>
 
 <p>

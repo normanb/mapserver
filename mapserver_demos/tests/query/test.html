@@ -1,35 +1,37 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
   <head>
-    <title>MapServer Test Suite - Simple Point Query</title>
+    <title>MapServer Test Suite - Simple Point Query (mode=query)</title>
   </head>
 
-  <body>
+  <body bgcolor="#ffffff">
     <br>
-    <font size=+2 face=arial,helvetica><b>MapServer <a href="/ms_test/index.html">Test Suite</a> - Simple Point Query</b></font>
+    <font size=+2 face=arial,helvetica><b>MapServer <a href="[htmlroot]">Test Suite</a> - Simple Point Query (mode=query)</b></font>
     <p>
 
-    <form method="GET" action="/cgi-bin/mapserv">
+    <form method="GET" action="[program]">
 
     <input type="hidden" name="map" value="[map]">
     <input type="hidden" name="imgext" value="[mapext]">
-    <input type="hidden" name="imgxy" value="149.5 199.5">
-    <input type="hidden" name="mapext" value="shapes">
+    <input type="hidden" name="imgxy" value="149.5 199.5">    
+    <input type="hidden" name="program" value="[program]">
+    <input type="hidden" name="htmlroot" value="[htmlroot]">
+    <input type="hidden" name="map_web_imagepath" value="[map_web_imagepath]">
+    <input type="hidden" name="map_web_imageurl" value="[map_web_imageurl]">
 
     <table border=0 cellpadding=5 width="600">
     <tr>
     <td colspan="2">A relatively simple interface for browsing the various USGS quadrangle series covering
     the state of Minnesota. It demonstrates:
     <ul>
-    <li> query mode
-    <li> "selected" query maps
-    <li> query maps using selected shape extents
+      <li> query mode
+      <li> "selected" query maps    
     </ul>
 
     <p>
-    <a href="/ms_test/query/test.map"><i>map file</i></a><br>
-    <a href="/ms_test/query/test.html"><i>template file</i></a>&nbsp;&nbsp;
-    <a href="/ms_test/query/quad.html"><i>query template file</i></a>
+    <a href="[htmlroot]/query/test.map"><i>map file</i></a><br>
+    <a href="[htmlroot]/query/test.html"><i>template file</i></a>&nbsp;&nbsp;
+    <a href="[htmlroot]/query/quad.html"><i>query template file</i></a>
     <br><br>
 
     </td>
@@ -38,7 +40,7 @@
     <td align=center>
       <input type="image" name="img" src="[img]" border="0" width="300" height="400">
       <br>
-      <!-- [scale] --><img src="[scalebar]">
+      <img src="[scalebar]">
     </td>
     <td valign=top>
       <font size=+1 face=arial,helvetica><b>Map Controls</b></font>
