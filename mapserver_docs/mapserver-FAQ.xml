@@ -118,13 +118,15 @@
      <para> 
       You must set the symbol for the LAYER to be 'circle' and then 
       you can set the symbol SIZE to be the width you want. A 'circle' symbol can be defined as:
-     <para>     
+     <para>
+      <literallayout>     
        SYMBOL
          NAME 'circle'
          TYPE ELLIPSE
          FILLED TRUE
          POINTS 1 1 END
        END
+       </literallayout>
       </para>
      </para>
     </answer>
