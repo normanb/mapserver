@@ -324,7 +324,7 @@ builtin formats.
 
 <para>
 Raster warping kicks in if the projection appears to be different for a 
-raster layer than for the map being generated.  Warping rasters are 
+raster layer than for the map being generated.  Warped raster layers are 
 significantly more expensive to render than normal raster layers with 
 rendering time being perhaps 2-4 times long than a normal layer.  The
 projection and datum shifting transformation is computed only at selected
@@ -336,8 +336,8 @@ the error appears to be less than 0.333 pixels.
 In addition to reprojecting rasters, the raster warping ability can also
 apply rotation to GDAL rasters with rotational coefficients in their
 georeferencing information.   Currently rotational coefficients won't 
-trigger raster warping, but if warping is triggered for a difference in 
-projection, the rotational coefficients will also be accounted for. 
+trigger raster warping unless the map and layer have valid (though matching
+is fine) projection definitions.. 
 </para>
 
 </sect1>
@@ -424,6 +424,17 @@ of the mapfile, or by creating a tiled format file (ie. TIFF with GDAL).
 <para>
 Ensure that the image is kept on disk in the most commonly requested 
 projection to avoid on-the-fly image warping which is fairly expensive. 
+</para>
+</listitem>
+
+<listitem>
+<para>
+If you are getting debug output from MapServer in your web server log file,
+check to see if the message <emphasis>msResampleGDALToMap in effect</emphasis>
+appears.  If so, the raster layer is being resampled.  If you don't think it
+should be resampled carefully review your map file to ensure that the layer
+projection <emphasis>exactly</emphasis> matches the map projection or that 
+the layer has no projection definition.
 </para>
 </listitem>
 
