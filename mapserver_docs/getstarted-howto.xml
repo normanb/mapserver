@@ -151,7 +151,7 @@
 
   <sect2 id="install"><title>First Application</title>
      To get up-to-speed quickly, you may want to build your first application
-     with the <ulink url="http://hypnos.cbs.umn.edu/projects/tutorial/">MapServer tutorial
+     with the <ulink url="http://terrasip.umn.edu/projects/tutorial/">MapServer tutorial
      </ulink>.  This will walk you through setting up an application
      and familiarize you with mapfiles and template files.
   </sect2>
