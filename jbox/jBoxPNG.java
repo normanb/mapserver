@@ -412,7 +412,8 @@ public class jBoxPNG extends Applet implements MouseListener, MouseMotionListene
 		offScreenGraphics.setColor(color);
 
 		if (line) {
-			if ((x1==x2) && (y1==y2)) {	// mouse click
+			// added "&& (x1!=0) && (y1!=0)" below based on Wim Blanken's comments re frames
+			if ((x1==x2) && (y1==y2) && (x1!=0) && (y1!=0)) {	// mouse click
 				if (pl.npoints == 0) {	// don't question first point
 					pl.addPoint((int)x2, (int)y2);
 					tot=0;
