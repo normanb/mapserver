@@ -23,6 +23,7 @@
                  This document describes the procedures for using raster data within MapServer applications.
                </para>
 			<para>Last Updated: $Date$</para>
+            <para><link linkend='rhistory'>Revision History</link></para>
 		</abstract>
 	</articleinfo>
 
@@ -622,5 +623,24 @@ for world files.
     				Send any comments or suggestions to the author.
    			</para>
 		</sect2>
+
+<!-- ********************************************************************** -->
+
+<!-- Revision History -->
+
+  <sect2 id='rhistory'><title>Document Changes</title>
+  <para>
+     <revhistory>
+      <revision>
+        <revnumber>: 1</revnumber>
+        <date>$Date$</date>
+        <authorinitials>Author: Frank Warmerdam</authorinitials>
+        <revremark>I added the Revision History section to this document.</revremark>
+      </revision>
+     </revhistory>
+  </para>
+  </sect2>
+
 	</sect1>
+
 </article>
