@@ -353,7 +353,7 @@
 					<ulink url="http://mapserver.gis.umn.edu/doc/phpmapscript-class-guide.html#MapObj">Map Object functions</ulink>).	An example
 					script is shown below:
 				</para>
-				<programlisting>
+					<programlisting>
 	&lt;?php
 	dl("php_mapscript_40.dll");
 	$oMap = ms_newMapObj("gmap_wms_context.map");
@@ -461,8 +461,14 @@
 			<itemizedlist>
 				<listitem>
 					<para>
-								Possibly add a configure option (--with-context).
-							</para>
+						Possibly add a configure option (--with-context).
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						Implement new metadata to separate all elements from the wms_style_%s_legendurl, because they are space separated and the legendurl format
+						can contain spaces, and the legendurl url can contain commas.
+					</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
