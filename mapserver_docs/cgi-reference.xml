@@ -26,8 +26,9 @@
   </author>
     <abstract>
       <para>        This document is a reference for the mapserv CGI
-        development version 4.x . </para>
-      <para>Last Updated:  2004-04-14</para>
+        development version 4.2 . </para>
+      <para>Last Updated:  2004-06-04</para>
+      <para><link linkend='rhistory'>Revision History</link></para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -67,6 +68,8 @@
   
     <sect1 id="changes">
       <title>Changes</title>
+	  <para>This section lists changes in move from MapServer version 3.x to
+	  version 4.x:</para>
       <itemizedlist>
         <listitem>
           <para>New way to perform attribute queries: No longer do you 
@@ -85,11 +88,14 @@
         </listitem>
     <listitem>
       <para>
-        TEMPLATE is removed, since the can use the 
-        <literal>map_web_template</literal> 
-        <link linkend="mapfileURL">syntax</link>.
-          Simplifies security maintenance by only having to 
-        deal with this option in a single place.
+	    TEMPLATE has been removed, since the
+        <literal>map_web_template</literal>
+        <link linkend="mapfileURL">syntax</link>
+        can be used to alter a template file.
+        Simplifies security maintenance by only having to
+        deal with this option in a single place. Note that the
+        TEMPLATEPATTERN of the mapfile has to be used to enable this
+        feature.
       </para>
     </listitem>
     </itemizedlist>
@@ -552,14 +558,6 @@
               selection feature(s) are available for presentation to the user.</para>
           </listitem>
         </varlistentry>
-        <varlistentry>
-          <term><literal>TEMPLATE [filename]</literal></term>
-          <listitem>
-            <para> Name of the main template file to use for formatting
-              the results. Overrides anything set (in the WEB section)
-              in the map file.</para>
-          </listitem>
-        </varlistentry>
           <varlistentry>
                 <term><literal>TILEINDEX [index] </literal></term>
               <listitem>
@@ -710,4 +708,67 @@
   </sect2>
 -->
   </sect1>
+
+<!-- Section1: Document Info -->
+<sect1 id='docinfo'> 
+  <title>About This Document</title>
+
+  <sect2 id='rhistory'><title>Revision History</title>
+  <para> 
+  </para>  
+  The document revision history starts with UMN MapServer 4.2 altough the
+  document is older. The numbering is in parallel with the revision control
+  system.
+  <para>
+    <revhistory>
+      <revision>
+        <revnumber>Number: 1.9</revnumber>
+        <date>Date: 2004-06-04</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Update to MapServer version 4.2:
+        Document info section added 
+		and TEMPLATE parameter info removed.</revremark>
+      </revision>
+    </revhistory>  
+  </para>  
+  </sect2>
+  <sect2 id='copyright'>
+   <title>Copyright Information</title>
+   
+   <para>
+    Copyright (c) 2001, 2002, 2003, 2004, Frank Koormann, Steve Lime.
+   </para>
+   <para>
+    This documentation is covered by the same Free Software license as the MapServer software.
+    See MapServer's
+    <ulink url='http://mapserver.gis.umn.edu/license.html'>License and 
+    Credits</ulink> page for the complete text.
+   </para>
+  </sect2>
+
+  <sect2 id='disclaimer'>
+   <title>Disclaimer</title>
+
+   <para>
+    No liability for the contents of this document can be accepted.
+    Use the concepts, examples and other content at your own risk.
+    As this is a new edition of this document, there may be errors
+    and inaccuracies that may be damaging to your system.
+    Although this is highly unlikely, the author(s) do not take any 
+    responsibility for that:  proceed with caution.
+   </para>
+
+  </sect2>
+
+<!-- Section2: feedback -->
+
+  <sect2 id='feedback'>
+   <title>Feedback</title>
+   <para>
+    Send any comments or suggestions to the author(s).
+   </para>
+   </sect2>
+
+ </sect1>
+
 </article>
