@@ -380,6 +380,17 @@
         </listitem>
       </itemizedlist>
     </sect4> 
+    <sect4 id="maxfeatures">
+      <title>wfs_maxfeatures</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis>Description:</emphasis> (Optional) The number of elements to be returned by the WFS server.
+            This has priority over the 'wfs_maxfeatures' parameter passed by the user.  If the not set the current behaviour is not changed.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect4>     
     <sect4 id="namespace_prefix">
       <title>wfs_namespace_prefix</title>
       <itemizedlist>
