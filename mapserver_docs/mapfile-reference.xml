@@ -20,7 +20,7 @@
 			<para>
     			This document is a reference to the MapFile syntax for MapServer version 3.5.
    			</para>
-			<para>Last Updated:  11-01-2001</para>
+			<para>Last Updated:  12-12-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -360,20 +360,22 @@
 						<para>Database connection string to retrieve remote data.</para>
 						<para>An SDE connection string consists of a hostname, instance name, database name, username and password separated by commas.</para>
 						<para>A PostGIS connection string is basically a regular PostgreSQL connection string, it takes the form of "user=nobody password=****** dbname=dbname host=localhost port=5432"</para>
+						<para>An Oracle connection string: user/pass[@db]</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>CONNECTIONTYPE [local|sde|ogr|postgis]</term>
+					<term>CONNECTIONTYPE [local|sde|ogr|postgis|oraclespatial]</term>
 					<listitem>
 						<para>Type of connection. Default is local.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>DATA [filename]|[sde parameters][postgis table/column]</term>
+					<term>DATA [filename]|[sde parameters][postgis table/column][oracle table/column]</term>
 					<listitem>
 						<para>Full filename of the spatial data to process. No file extension is necessary for shapefiles. Can be specified relative to the <link linkend="shapepath">SHAPEPATH</link> option from the Map Object.</para>
 						<para>If this is an SDE layer, the parameter should include the name of the layer as well as the geometry column, i.e. "mylayer,shape".</para>
 						<para>If this is a PostGIS layer, the parameter should be in the form of "&lt;columnname&gt; from &lt;tablename&gt;", where "columnname" is the name of the column containing the geometry objects and "tablename" is the name of the table from which the geometry data will be read.</para>
+						<para>For Oracle, use "shape FROM table" or "shape FROM (SELECT statement)" or even more complex Oracle compliant queries! Note that there are important performance impacts when using spatial subqueries however. Try using MapServer's <link linkend="filter">FILTER</link> whenever possible instead. You can also see the SQL submitted by forcing an error, for instance by submitting a DATA parameter you know won't work, using for example a bad column name.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>

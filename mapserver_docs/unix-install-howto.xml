@@ -20,7 +20,7 @@
 			<para>
     			This document describes the procedures for obtaining, compiling and installing MapServer on UNIX-type platforms.
     			</para>   
-    			<para>Last Updated:  08-22-2001</para>
+    			<para>Last Updated:  12-12-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1 id="intro">
@@ -100,6 +100,9 @@
 				<para>
 					<ulink url="http://www.cbmamiga.demon.co.uk/mpatrol/">MPATROL</ulink>: For debugging  (Developers only).</para>
 			</listitem>
+			<listitem>
+				<para>Oracle Spatial Client Librairies:  These librairies are provided with your Oracle product, and used to interface with an Oracle Spatial warehouse.</para>
+			</listitem>
 		</itemizedlist>
 	</sect1>
 	<sect1>
@@ -154,22 +157,31 @@ checking for FT_Init_FreeType in -lfreetype... yes
 		</sect2>
 	</sect1>
 	<sect1>
-		<title>ESRI SDE Support</title>
-		<para>MapServer allows you to use SDE as a data source both for geometry and attributes.  In order to achieve this, you must have the SDE client librairies at your disposition, and have them installed on the machine running MapServer.</para>
-		<para>In order to enable SDE support in MapServer, you have to compile it with 2 options specified:</para>
-		<itemizedlist>
-			<listitem>
-				<para>--with-sde: This option allows you to specifiy where to find the SDE client librairies</para>
-			</listitem>
-			<listitem>
-				<para>--with-sde-version: This option allows you to specify the version of the librairies. You can use values such as "80" or "81".</para>
-			</listitem>
-		</itemizedlist>
-	</sect1>
-	<sect1>
-		<title>PostGIS Support</title>
-		<para><ulink url="http://postgis.refractions.net">PostGIS</ulink> adds support for geographic objects to the <ulink url="http://www.postgresql.org">PostgreSQL</ulink> object-relational database. In effect, PostGIS "spatially enables" the PostgreSQL server, allowing it to be used as a backend spatial database for geographic information systems (GIS), much like ESRI's SDE or Oracle's Spatial extension.</para>
-		<para>As with SDE, MapServer can use PostGIS as a data source.  In order to do so simply use "--with-postgis" when running your configure script.</para>
+		<title>Spatial Warehousing</title>
+		<para>MapServer can use a wide variety of sources of data input.  One of the solutions growing in popularity is to use spatially enabled databases to store data, and to use them directly to draw maps for the web.</para>
+		<para>Here you will find out how to enable mapserver to talk to one of these products.  Please refer to the MapFile reference for more details on how to use these.  This section only details how to compile MapServer for their use.</para>
+			<sect2>
+				<title>ESRI SDE</title>
+				<para>MapServer allows you to use SDE as a data source both for geometry and attributes.  In order to achieve this, you must have the SDE client librairies at your disposition, and have them installed on the machine running MapServer.</para>
+				<para>In order to enable SDE support in MapServer, you have to compile it with 2 options specified:</para>
+				<itemizedlist>
+					<listitem>
+						<para>--with-sde: This option allows you to specifiy where to find the SDE client librairies</para>
+					</listitem>
+					<listitem>
+						<para>--with-sde-version: This option allows you to specify the version of the librairies. You can use values such as "80" or "81".</para>
+					</listitem>
+				</itemizedlist>
+			</sect2>
+			<sect2>
+				<title>PostGIS</title>
+				<para><ulink url="http://postgis.refractions.net">PostGIS</ulink> adds support for geographic objects to the <ulink url="http://www.postgresql.org">PostgreSQL</ulink> object-relational database. In effect, PostGIS "spatially enables" the PostgreSQL server, allowing it to be used as a backend spatial database for geographic information systems (GIS), much like ESRI's SDE or Oracle's Spatial extension.</para>
+				<para>As with SDE, MapServer can use PostGIS as a data source.  In order to do so simply use "--with-postgis" when running your configure script.</para>
+			</sect2>
+			<sect2>
+				<title>Oracle Spatial</title>
+				<para>Oracle's Spatial Warehousing cartrige is also supported by MapServer.  In order to connect to it, you will need to compile MapServer against the Oracle librairies by passing the "--with-oraclespatial" argument to your configure script.</para>
+			</sect2>
 	</sect1>
 	<sect1 id="compiling">
 		<title>Compiling</title>
