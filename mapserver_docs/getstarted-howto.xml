@@ -12,9 +12,6 @@
 			<affiliation>
 				<orgname>University of Minnesota</orgname>
                         <orgdiv>Department of Forest Resources</orgdiv>
-				<address>
-					<email>jsmedsmo@gis.umn.edu</email>
-				</address>
 			</affiliation>
 		</author>
 		<author>
@@ -23,9 +20,6 @@
 			<affiliation>
 				<orgname>Agriculture and Agri-Food Canada</orgname>
                         <orgdiv>Research Branch</orgdiv>
-				<address>
-					<email>schutp@em.agr.ca</email>
-				</address>
 			</affiliation>
 		</author>
 		<author>
@@ -33,9 +27,6 @@
 			<surname>Kishor</surname>
 			<affiliation>
 				<orgname>GeoAnalytics, Inc.</orgname>
-				<address>
-					<email>pkishor@geoanalytics.com</email>
-				</address>
 			</affiliation>
 		</author>
 
