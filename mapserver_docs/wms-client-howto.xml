@@ -4,7 +4,7 @@
 <!-- $Id$ -->
 <article>
   <articleinfo>
-    <title>Mapserver WMS Client HOWTO</title>
+    <title>Mapserver WMS Client HOWTO - Version 3.7/4.0</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
@@ -20,9 +20,9 @@
       <!-- a short description of the contents of the doc -->
       <para>
                  This document describes the procedures for using MapServer's WMS connection type to include layers from          
-                 remote WMS servers in MapServer v3.5 (and later) applications.
+                 remote WMS servers in MapServer applications.
       </para>
-      <para>Last Updated: 2003/03/06</para>
+      <para>Last Updated: 2003/04/23</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -67,8 +67,7 @@
     <title>Compilation / Installation</title>
     <para>
       The WMS connection type is enabled by the --with-wmsclient configure switch.
-      It requires PROJ4 and W3C's libwww (libwww v5.3.2 or newer is required because there was 
-      a bug that caused an infinite loop in older versions), and GDAL is optional (see below).
+      It requires PROJ4, libcurl version 7.10.1 or more recent, and GDAL is optional (see below).
     </para>
     <itemizedlist>
       <listitem>
@@ -81,9 +80,11 @@
       </listitem>
       <listitem>
         <para>
-          For W3C's libwww, download v5.3.2 (or newer) from CVS or in a tarball and 
-              compile/install manually.  See <ulink url="http://www.w3.org/Library/">
-          http://www.w3.org/Library/</ulink> for the lib's source code and install docs.
+          For libcurl, make sure you have version 7.10.1 or more recent installed on your system. 
+          You can find out your libcurl version using 'curl-config --version'. See
+          http://curl.haxx.se/libcurl/c/ (If your system came with an older version 
+          of libcurl preinstalled then you MUST uninstall it prior to installing the 
+          new version)
         </para>
       </listitem>
     </itemizedlist>
@@ -169,7 +170,9 @@ ESRI codes and we do not want to promote their use too much.
     </sect2>
   </sect1>
   <sect1 id="mapfile">
-    <title>MapFile configuration - CONNECTIONTYPE WMS</title>
+   <title>MapFile configuration</title>
+   <sect2 id="mapconfig">
+    <title>Map-level configuration</title>
     <important>
       <para>
                A PROJECTION must be set in the mapfile for the MAP unless you are sure that all your WMS 
@@ -179,30 +182,60 @@ ESRI codes and we do not want to promote their use too much.
                of inconsistent BBOX+SRS combination being used in the WMS cnonection URL).
       </para>
     </important>
+
     <para>
-      WMS layers are accessed via the WMS connectyion type.  Here is an example 
+      You have to set the IMAGEPATH 
+      value in the WEB object of your mapfile to point to a valid and writable 
+      directory.  MapServer will use this directory to store temporary files
+      downloaded from the remote servers.  The temporary files are automatically
+      deleted by MapServer so you won't notice them... but a valid IMAGEPATH is 
+      still required.
+    </para>
+   </sect2>
+   <sect2 id="layerconfig">
+    <title>Layer configuration - CONNECTIONTYPE WMS</title>
+    <para>
+      WMS layers are accessed via the WMS connection type.  Here is an example 
       of a layer using this connection type:
     </para>
     <programlisting>
     LAYER
-     NAME bathymetry
-     METADATA
-       "wms_title" "Elevation/Bathymetry"
-       "wms_srs"   "EPSG:42304 EPSG:4269 EPSG:4326"
-     END
-     TYPE RASTER
-     STATUS ON
-     CONNECTIONTYPE WMS
-     CONNECTION "http://www2.dmsolutions.ca:8099/cgi-bin/mswms_gmap?VERSION=1.1.0&amp;LAYERS=bathymetry&amp;FORMAT=image/png"
-     PROJECTION
-       "init=epsg:42304"
-     END
+      NAME "prov_bound"
+      TYPE RASTER
+      STATUS ON
+      CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?"
+      CONNECTIONTYPE WMS
+      METADATA
+        "wms_srs"             "EPSG:42304 EPSG:42101 EPSG:4269 EPSG:4326 EPSG:42304"
+        "wms_name"            "prov_bound"
+        "wms_server_version"  "1.1.0"
+        "wms_formatlist"      "image/gif,image/png,image/jpeg,image/wbmp"
+        "wms_format"          "image/gif"
+      END
     END
     </programlisting>
     <para>
       The following items are required for the WMS connection type:
     </para>
     <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis>CONNECTIONTYPE WMS: </emphasis>of course!
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>CONNECTION parameter:</emphasis>
+              This is the remote server's online resource URL, just the base URL without any
+              of the WMS parameters.  The server version, image format, layer name, etc. will 
+              be provided via metadata, see below.
+        </para>
+        <para>
+              Note that if the CONNECTION parameter value is not set the the value of the 
+              "wms_onlineresource" metadata will be used. If both CONNECTION and "wms_onlineresource"
+              are set then the "wms_onlineresource" metadata takes precedence.
+        </para>
+      </listitem>
       <listitem>
         <para>
           <emphasis>"wms_srs" metadata: </emphasis>
@@ -213,43 +246,59 @@ ESRI codes and we do not want to promote their use too much.
       </listitem>
       <listitem>
         <para>
-          <emphasis>CONNECTIONTYPE WMS: </emphasis>of course!
+          <emphasis>"wms_name" metadata:</emphasis>
+            The name of the layer on the remote WMS server.  This value is used to set the
+            LAYERS and QUERY_LAYERS WMS URL parameters.
         </para>
-      </listitem>
+       </listitem>
       <listitem>
         <para>
-          <emphasis>CONNECTION parameter:</emphasis>
-              This is the remote server's online resource URL to which you append 
-              some of the getMap/getFeatureInfo request parameters.  At this point 
-              MapServer sets only the following request parameters:
+          <emphasis>"wms_server_version" metadata:</emphasis>
+            The version of the WMS protocol supported by the remote WMS server and that will
+            be used for issuing GetMap requests.
         </para>
-        <programlisting>
-    REQUEST
-    SRS
-    BBOX
-    WIDTH
-    HEIGHT
-        </programlisting>
+       </listitem>
+      <listitem>
         <para>
-          The connection string should contain all other required params, 
-              including:
+          <emphasis>"wms_format" metadata:</emphasis>
+            The image format to use in GetMap requests. 
         </para>
-        <programlisting>
-    VERSION
-    LAYERS
-    FORMAT
-    TRANSPARENT
-        </programlisting>
-      </listitem>
+        <para>
+            Note that if wms_formatlist is provided then
+            wms_format is optional and MapServer will pick the first supported format in
+            wms_formatlist for use in GetMap requests.  If both wms_format and wms_formatlist are
+            provided then wms_format takes precedence.
+        </para>
+       </listitem>
     </itemizedlist>
     <para>
-      The following layer parameters are optional:
+      The following layer parameters and metadata are optional:
     </para>
     <itemizedlist>
+       <listitem>
+        <para>
+          <emphasis>"wms_connectiontimeout" metadata:</emphasis>
+          The maximum time to wait for a remote WMS layer to load, set in seconds (default
+          is 30 seconds).  This metadata can be added at the layer level so that it affects only
+          that layer, or it can be added at the map level (in the web object) so that 
+          it affects all of the layers.  Note that <emphasis>wms_connectiontimeout</emphasis> 
+          at the layer level has priority over the map level.
+        </para>
+        <para>
+          e.g.
+        </para>
+        <programlisting>
+    METADATA
+      ...
+      "wms_connectiontimeout" "60"
+      ...
+    END  
+         </programlisting>
+      </listitem>
       <listitem>
         <para>
           <emphasis>PROJECTION object:</emphasis>
-              it is optional at this point.  MapServer will create one internally
+              It is optional at this point.  MapServer will create one internally
               if needed.
         </para>
       </listitem>
@@ -282,39 +331,79 @@ ESRI codes and we do not want to promote their use too much.
       </listitem>
       <listitem>
         <para>
-          <emphasis>"wms_connectiontimeout" metadata:</emphasis>
-          The maximum time to load a remote WMS layer, set in seconds (default
-          is 30 seconds).  This metadata can be added at the layer level so that it affects only
-          that layer, or it can be added at the map level (in the web object) so that 
-          it affects all of the layers.  Note that 
-          <emphasis>wms_connectiontimeout</emphasis> at the layer level has
-          priority over the map level.
+          <emphasis>"wms_formatlist" metadata:</emphasis>
+            Comma-separated list of image formats supported by the remote WMS server.
+        </para>
+        <para>
+            Note that wms_formatlist is used only if wms_format is not set. If both wms_format
+            and wms_formatlist are provided then wms_format takes precedence.
+        </para>
+       </listitem>
+      <listitem>
+        <para>
+          <emphasis>"wms_style" metadata:</emphasis>
+            Name of style to use for the STYLES parameter in GetMap requests for this layer.
+        </para>
+       </listitem>
+      <listitem>
+        <para>
+          <emphasis>"wms_&lt;stylename&gt;_sld" metadata:</emphasis>
+            URL of a SLD to use in GetMap requests.  Replace &lt;stylename&gt; in the metadta name 
+            with the name of the style to which the SLD applies.
+        </para>
+        <para>
+            e.g.
         </para>
         <programlisting>
-     ...
-    CONNECTIONTYPE WMS
-       METADATA
-         "wms_srs" "EPSG:4269 EPSG:32182"
-         "legend_icon" "Icons/none.gif"
-         "wms_title" "NF Water (Lakes) (a)"
-         "wms_boundingbox" "EPSG:32182 42708.6 5.27438e+06 5270155.72117e+06"
-         "wms_latlonboundingbox" "-59.7807 47.5557 -52.7934 51.6261"
-         "wms_connectiontimeout" "60"
-         ...
-       END  
-       ...
-        </programlisting>
-      </listitem>
+    METADATA
+      ...
+      "wms_style"        "mystyle"
+      "wms_mystyle_sld"  "http://my.host.com/mysld.xml"
+      ...
+    END
+          </programlisting>
+       </listitem>
+      <listitem>
+        <para>
+          <emphasis>"wms_time" metadata:</emphasis>
+            Value to use for the TIME parameter in GetMap requests for this layer.
+            See the WMS specification for details on the valid values of the TIME
+            parameter.
+        </para>
+       </listitem>
     </itemizedlist>
-    <para>
-      In addition to the above layer parameters, you have to set the IMAGEPATH 
-      value in the WEB object of your mapfile to point to a valid and writable 
-      directory.  MapServer will use this directory to store temporary files
-      downloaded from the remote servers.  The temporary files are automatically
-      deleted by MapServer so you won't notice them... but a valid IMAGEPATH is 
-      still required.
-    </para>
+    </sect2>
+    <sect2 id="connection_36">
+      <title>Old CONNECTION parameter format from version 3.5 and 3.6 (deprecated)</title>
+      <para>
+      In MapServer version 3.5 and 3.6, the CONNECTION parameter had to include
+      at a minimum the VERSION, LAYERS, FORMAT and TRANSPARENT WMS parameters.
+      This mode of operation is still supported but is deprecated and you are encouraged
+      to use metadata items for those parameters as documented in the previous section above.
+      </para>
+      <para>
+      Here is an example of a layer definition using this deprecated CONNECTION parameter format:
+      </para>
+    <programlisting>
+    LAYER
+     NAME bathymetry
+     METADATA
+       "wms_title" "Elevation/Bathymetry"
+       "wms_srs"   "EPSG:42304 EPSG:4269 EPSG:4326"
+     END
+     TYPE RASTER
+     STATUS ON
+     CONNECTIONTYPE WMS
+     CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?VERSION=1.1.0&amp;LAYERS=bathymetry&amp;FORMAT=image/png"
+     PROJECTION
+       "init=epsg:42304"
+     END
+    END
+    </programlisting>
+    </sect2>
   </sect1>
+
+
   <sect1 id="limitations">
     <title>Limitations/TODO</title>
     <orderedlist>
@@ -327,17 +416,7 @@ ESRI codes and we do not want to promote their use too much.
       </listitem>
       <listitem>
         <para>
-          PNG format with transparent=true does not work well with all servers.
-            For instance some servers use the alpha channel for transparency 
-                                        (RGBA images) but this is not well supported by MapServer at the moment.  
-                                        So you may be forced to request GIF format maps in those cases.  
-                                        Transparent PNGs produced by the 
-            MapServer WMS work well though since they are paletted images.
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          <filename>getFeatureInfo</filename> is not fully supported yet since the output of getFeatureInfo is
+          <filename>GetFeatureInfo</filename> is not fully supported since the output of getFeatureInfo is
             left to the discretion of the remote server.  A method layer.getWMSFeatureInfoURL()
                                         has been added to MapScript for applications that want to access featureInfo
                                         results and handle them directly.
