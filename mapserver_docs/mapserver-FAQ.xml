@@ -2,8 +2,62 @@
 <!DOCTYPE qandaset PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 
-<qandaset defaultlabel="qanda">
+<qandaset defaultlabel='qanda'>
 <title>MapServer Frequently Asked Questions</title>
+
+<!-- demo in 3.5 -->
+    <qandaentry>
+      <question>
+        <para>
+        How do I add questions and answers to this FAQ?
+        </para>
+      </question>
+      <answer>
+        <para>
+        If you have access to the mapserver_docs CVS, you can add
+        them directly to the mapserver-FAQ.xml document.  Otherwise,
+        just send the question to the mapserver documentation
+        coordinator at <email>mdp@lists.gis.umn.edu</email>.
+        </para>
+      </answer>
+    </qandaentry>
+
+
+<!-- demo in 3.5 -->
+    <qandaentry>
+      <question>
+        <para>
+        How do I get the demo to work in MapServer version 3.5?
+        </para>
+      </question>
+      <answer>
+        <para>
+        There are several changes when moving to version 3.5 of the MapServer
+        that make mapfiles from earlier versions incompatible.  The best thing
+        to do is to download a new demo that Steve Lime put together.  Its is 
+        available from a <ulink 
+        url='http://maps.dnr.state.mn.us/mapserver_demos/itasca.tar.gz'>
+        Minnesota DNR site</ulink>.
+        </para>
+      </answer>
+    </qandaentry>
+
+<!-- query in 3.5 -->
+    <qandaentry>
+      <question>
+        <para>
+        How do I convert a version 3.4 mapfile to version 3.5?
+        </para>
+      </question>
+      <answer>
+        <para>
+         Query related information was moved to the CLASS object in 3.5. So every 
+         CLASS that has a TEMPLATE parameter is queriable.  To convert a 3.4 mapfile 
+         to 3.5, one has to transfer the TEMPLATE parameter from the former QUERY 
+         objects to the corresponding CLASS objects.
+        </para>
+      </answer>
+    </qandaentry>
 
 <!-- Support for GeoTiff -->
     <qandaentry>
@@ -26,7 +80,7 @@
       </answer>
     </qandaentry>
     
-<!-- symbols file in 3.4+ -->
+<!-- symbols file in 3.4 -->
     <qandaentry>
       <question>
         <para>
@@ -36,7 +90,7 @@
       </question>
       <answer>
         <para>
-        The new version uses a unified symbol file format which means you can
+        The version 3.4 uses a unified symbol file format which means you can
         store all symbols in one file. This allows for inline definitions (i.e.
         within a mapfile) of symbols and more straight forward mapscript access.
         Anyway here's what's needed to switch:
@@ -59,9 +113,12 @@
           <listitem><para>Refer to png or gif symbols directly, not via the symbol file.
           </para></listitem>
         </orderedlist>
-
       </answer>
     </qandaentry>
+
+
+
+
     
 <!-- Finding Fonts -->
     <qandaentry>
