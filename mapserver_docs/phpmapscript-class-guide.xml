@@ -5,7 +5,7 @@
 <article>
 	<articleinfo>
 		<!-- insert title here, include the word HOWTO -->
-		<title>Mapserver PHP/MapScript Class Reference</title>
+		<title>Mapserver PHP/MapScript Class Reference - Version 3.7</title>
 		<author>
 			<firstname>Jeff</firstname>
 			<surname>McKenna</surname>
@@ -167,22 +167,22 @@
         as individual tokens.
 			</programlisting>
 		</sect2>
-	<!-- Section2: Classes -->	
-	      <sect2 id="classlist">
-		<title>Classes</title>
-		<sect3 id="ClassObj">
-			<title>ClassObj Class</title>
-			<sect4 id="Class_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+		<!-- Section2: Classes -->
+		<sect2 id="classlist">
+			<title>Classes</title>
+			<sect3 id="ClassObj">
+				<title>ClassObj Class</title>
+				<sect4 id="Class_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    Class Objects can be returned by the LayerObj class, or can be created using:
 
    classObj ms_newClassObj(layerObj layer)
                     </programlisting>
-			</sect4>
-			<sect4 id="Class_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Class_members">
+					<title>Members:</title>
+					<programlisting>
    string name
    string title
    int    type
@@ -193,10 +193,10 @@
    labelObj label
    int    numstyles
 	               </programlisting>
-			</sect4>
-			<sect4 id="Class_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Class_methods">
+					<title>Methods:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.
 
@@ -217,43 +217,43 @@
         Return the style object using an index. index &gt;= 0 &amp;&amp;
         index &lt; class-&gt;numstyles.  
 				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="colorobj">
-			<title>ColorObj Class</title>
-			<sect4 id="col_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="colorobj">
+				<title>ColorObj Class</title>
+				<sect4 id="col_constructor">
+					<title>Constructor:</title>
+					<programlisting>
   Instances of ColorObj are always embedded inside other classes.
  				</programlisting>
-			</sect4>
-			<sect4 id="col_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="col_members">
+					<title>Members:</title>
+					<programlisting>
    int    red
    int    green
    int    blue
 				</programlisting>
-			</sect4>
-			<sect4 id="col_methods">
-				<title>Method:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="col_methods">
+					<title>Method:</title>
+					<programlisting>
    void setRGB(int red, int green, int blue)
         Set red, green, blue values.
 				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="errorobj">
-			<title>ErrorObj Class</title>
-			<para>
+				</sect4>
+			</sect3>
+			<sect3 id="errorobj">
+				<title>ErrorObj Class</title>
+				<para>
    Instances of errorObj are created internally by MapServer as errors
    happen.  Errors are managed as a chained list with the first item being
    the most recent error.  The head of the list can be fetched using 
    ms_GetErrorObj(), and the list can be cleared using ms_ResetErrorList()				
 			</para>
-			<sect4 id="error_functions">
-				<title>Functions:</title>
-				<programlisting>
+				<sect4 id="error_functions">
+					<title>Functions:</title>
+					<programlisting>
    errorObj ms_GetErrorObj()
         Returns a reference to the head of the list of errorObj.
 
@@ -262,26 +262,26 @@
         Note that clearing the list invalidates any errorObj handles obtained 
         via the $error->next() method.				
 				</programlisting>
-			</sect4>
-			<sect4 id="error_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="error_members">
+					<title>Members:</title>
+					<programlisting>
    int      code      /* See error code constants above */
    string   routine
    string   message				
 				</programlisting>
-			</sect4>
-			<sect4 id="error_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="error_methods">
+					<title>Methods:</title>
+					<programlisting>
    errorObj next()
         Returns the next errorObj in the list, or NULL if we reached the end
         of the list.				
 				</programlisting>
-			</sect4>
-			<sect4 id="error_example">
-				<title>Example:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="error_example">
+					<title>Example:</title>
+					<programlisting>
    This example draws a map and reports all errors generated during
    the draw() call, errors can potentially come from multiple layers.
 
@@ -294,13 +294,13 @@
            $error = $error-&gt;next();
        }				
 				</programlisting>
-			</sect4>
-		</sect3>		
-		<sect3 id="gridobj">
-			<title>GridObj</title>
-			<sect4 id="grid_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="gridobj">
+				<title>GridObj</title>
+				<sect4 id="grid_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    The grid is always embedded inside a layer object defined as
    a grid (layer-&gt;connectiontype = MS_GRATICULE)
    (for more docs : <ulink url="http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapServerGrid">http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapServerGrid</ulink>)
@@ -313,10 +313,10 @@
               ms_newgridobj($oLayer);
               $oLayer-&gt;grid->set("labelformat", "DDMMSS");				
 				</programlisting>
-			</sect4>
-			<sect4 id="grid_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="grid_members">
+					<title>Members:</title>
+					<programlisting>
    double    minsubdivide;
    double    maxsubdivide;
    double    minarcs;
@@ -325,35 +325,35 @@
    double    maxinterval;
    string      labelformat;				
 				</programlisting>
-			</sect4>
-			<sect4 id="grid_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="grid_methods">
+					<title>Methods:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value.				
 				</programlisting>
-			</sect4>
-		</sect3>		
-		<sect3 id="ImageObj">
-			<title>ImageObj Class</title>
-			<sect4 id="Img_contructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="ImageObj">
+				<title>ImageObj Class</title>
+				<sect4 id="Img_contructor">
+					<title>Constructor:</title>
+					<programlisting>
 Instances of ImageObj are always created by the map class methods.
 				</programlisting>
-			</sect4>
-			<sect4 id="Img_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Img_members">
+					<title>Members:</title>
+					<programlisting>
    int    width     (read-only)
    int    height    (read-only)
    string imagepath
    string imageurl				
 				</programlisting>
-			</sect4>
-			<sect4 id="Img_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Img_methods">
+					<title>Methods:</title>
+					<programlisting>
    void free()
         Destroys resources used by an image object.
 
@@ -384,36 +384,36 @@ Instances of ImageObj are always created by the map class methods.
         where the image should be copied (dstx,dsty = top-left corner 
         position).     
 				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="labelcache">
-			<title>LabelCacheObj Class</title>
-			<para>
+				</sect4>
+			</sect3>
+			<sect3 id="labelcache">
+				<title>LabelCacheObj Class</title>
+				<para>
 Accessible only through the map object (map->labelcache). This object
 is only used to give the possiblity to free the label cache 
 (map-&gt;labelcache-&gt;free())				
 			</para>
-			<sect4 id="labelcache_method">
-				<title>Methods:</title>
-				<programlisting>
+				<sect4 id="labelcache_method">
+					<title>Methods:</title>
+					<programlisting>
    boolean free()
         Free the label cache. Returns true on success or false if an error
         occurs.
         Ex : (map-&gt;labelcache-&gt;free();				
 				</programlisting>
-			</sect4>
-		</sect3>		
-		<sect3 id="labelobj">
-			<title>LabelObj Class</title>
-			<sect4 id="Lab_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="labelobj">
+				<title>LabelObj Class</title>
+				<sect4 id="Lab_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    LabelObj are always embedded inside other classes.
 				</programlisting>
-			</sect4>
-			<sect4 id="Lab_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Lab_members">
+					<title>Members:</title>
+					<programlisting>
    string font
    int    type
    colorObj    color
@@ -442,20 +442,20 @@ is only used to give the possiblity to free the label cache
    int    partials
    int    force			
 				</programlisting>
-			</sect4>
-			<sect4 id="Lab_methods">
-				<title>Method:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Lab_methods">
+					<title>Method:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.			
 				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="LayerObj">
-			<title>LayerObj Class</title>
-			<sect4 id="constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="LayerObj">
+				<title>LayerObj Class</title>
+				<sect4 id="constructor">
+					<title>Constructor:</title>
+					<programlisting>
    Layer Objects can be returned by the MapObj class, or can be created
    using:
 
@@ -466,10 +466,10 @@ is only used to give the possiblity to free the label cache
    given as argument, all members of a this layer will be copied in the new
    layer created.
                </programlisting>
-			</sect4>
-			<sect4 id="Lay_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Lay_members">
+					<title>Members:</title>
+					<programlisting>
    int    numclasses  (read-only)
    int    index       (read-only)
    int    status      (MS_ON, MS_OFF, MS_DEFAULT or MS_DELETE)
@@ -506,10 +506,10 @@ is only used to give the possiblity to free the label cache
    string styleitem
    gridObj grid //only available on a layer defined as grid (MS_GRATICULE) 
 			</programlisting>
-			</sect4>
-			<sect4 id="Lay_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Lay_methods">
+					<title>Methods:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.
 
@@ -643,19 +643,19 @@ is only used to give the possiblity to free the label cache
    char ** getItems()
         return a list of items. Must call open function first.     
 		     </programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="legend">
-			<title>LegendObj Class</title>
-			<sect4 id="leg_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="legend">
+				<title>LegendObj Class</title>
+				<sect4 id="leg_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    Instances of legendObj are always are always embedded inside the mapObj.
 				</programlisting>
-			</sect4>
-			<sect4 id="leg_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="leg_members">
+					<title>Members:</title>
+					<programlisting>
    int height;
    int width;
    int keysizex;      
@@ -672,32 +672,32 @@ is only used to give the possiblity to free the label cache
    colorObj imagecolor;
    string   template
 				</programlisting>
-			</sect4>
-			<sect4 id="leg_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="leg_methods">
+					<title>Methods:</title>
+					<programlisting>
       int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.
 				</programlisting>
-			</sect4>
-		</sect3>		
-		<sect3 id="LineObj">
-			<title>LineObj Class</title>
-			<sect4 id="line_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="LineObj">
+				<title>LineObj Class</title>
+				<sect4 id="line_constructor">
+					<title>Constructor:</title>
+					<programlisting>
 LineObj ms_newLineObj()			
 				</programlisting>
-			</sect4>
-			<sect4 id="line_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="line_members">
+					<title>Members:</title>
+					<programlisting>
    int    numpoints  (read-only)			
 				</programlisting>
-			</sect4>
-			<sect4 id="line_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="line_methods">
+					<title>Methods:</title>
+					<programlisting>
    int add(pointObj point)
         Add a point to the end of line.
 
@@ -717,13 +717,13 @@ LineObj ms_newLineObj()
    void free()
         Destroys resources used by a line object. 
 				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="MapObj">
-			<title>MapObj Class</title>
-			<sect4 id="Constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="MapObj">
+				<title>MapObj Class</title>
+				<sect4 id="Constructor">
+					<title>Constructor:</title>
+					<programlisting>
    mapObj ms_newMapObj(string map_file_name [, string new_map_path])
         Returns a new object to deal with a MapServer map file.
 
@@ -732,10 +732,10 @@ LineObj ms_newLineObj()
         then this directory will be used as the base path for all the 
         relative paths inside the mapfile.
 				</programlisting>
-			</sect4>
-			<sect4 id="Members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Members">
+					<title>Members:</title>
+					<programlisting>
    int          numlayers  (read-only)
    string       name
    int          status
@@ -767,10 +767,10 @@ LineObj ms_newLineObj()
    labelcacheObj labelcache (no memebers. Used only to be able to free the
                              the label cache (ex : map->labelcache->free())
 				</programlisting>
-			</sect4>
-			<sect4 id="Methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="Methods">
+					<title>Methods:</title>
+					<programlisting>
    mapObj clone()
         Returns a handle to a new mapObj which is a clone of the current
         mapObj.  All parameters in the current mapObj are copied to the
@@ -1062,22 +1062,22 @@ LineObj ms_newLineObj()
         in the WMS Map context document are added to the current map.
         Returns MS_SUCCESS/MS_FAILURE.
 			    </programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="output_format">
-			<title>OutputFormatObj Class</title>
-			<sect4 id="format_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="output_format">
+				<title>OutputFormatObj Class</title>
+				<sect4 id="format_constructor">
+					<title>Constructor:</title>
+					<programlisting>
   Instance of outputformatObj is always embedded inside the mapObj.
   It is uses a read only.
 
   No constructor available				
 				</programlisting>
-			</sect4>
-			<sect4 id="format_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="format_members">
+					<title>Members:</title>
+					<programlisting>
    string    name;
    string    mimetype;
    string    driver;
@@ -1086,10 +1086,10 @@ LineObj ms_newLineObj()
    int       imagemode     
    int       transparent				
 				</programlisting>
-			</sect4>
-			<sect4 id="format_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="format_methods">
+					<title>Methods:</title>
+					<programlisting>
    void setformatoption(string property_name, new_value)
         Add or Modify the format option list. return true on success.
 
@@ -1099,27 +1099,27 @@ LineObj ms_newLineObj()
         Returns the associated value for the format option property passed
         as argument. Returns an empty string if property not found.				
 				</programlisting>
-			</sect4>
-		</sect3>		
-		<sect3 id="pointobj">
-			<title>PointObj Class</title>
-			<sect4 id="pt_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="pointobj">
+				<title>PointObj Class</title>
+				<sect4 id="pt_constructor">
+					<title>Constructor:</title>
+					<programlisting>
 PointObj ms_newPointObj()
 			     </programlisting>
-			</sect4>
-			<sect4 id="pt_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="pt_members">
+					<title>Members:</title>
+					<programlisting>
    double x
    double y
    double m  (used only for measured shape files. set to 0 for other types.)   
 				</programlisting>
-			</sect4>
-			<sect4 id="pt_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="pt_methods">
+					<title>Methods:</title>
+					<programlisting>
    int setXY(double x, double y [, double m])
         Set X,Y coordinate values.
         Note : the 3rd parameter m is used for measured shape files only.
@@ -1150,27 +1150,27 @@ PointObj ms_newPointObj()
   void free()
        Releases all resources used by the object.    
 				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="proj">
-			<title>ProjectionObj Class</title>
-			<sect4 id="proj_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="proj">
+				<title>ProjectionObj Class</title>
+				<sect4 id="proj_constructor">
+					<title>Constructor:</title>
+					<programlisting>
     shapefileObj ms_newprojectionobj(string projectionstring)
 				</programlisting>
-				<para>
+					<para>
 					Creates a projection object based on the projection string passed
    					as argument.
 				</para>
-				<para>
+					<para>
    					Eg : $projInObj = ms_newprojectionobj("proj=latlong") will create a 
         				geographic projection class.
 				</para>
-				<para>
+					<para>
    					Eg of usage : the following example will convert a lat/long point to an LCC projection :  
 				</para>
-				<programlisting>
+					<programlisting>
     $projInObj = ms_newprojectionobj("proj=latlong");
     $projOutObj = ms_newprojectionobj("proj=lcc,ellps=GRS80,
                   lat_0=49,lon_0=-95,lat_1=49,lat_2=77");
@@ -1178,31 +1178,31 @@ PointObj ms_newPointObj()
     $poPoint->setXY(-92.0, 62.0);         
     $poPoint = $poPoint->project($projInObj, $projOutObj);				
 				</programlisting>
-			</sect4>
-		</sect3>		
-		<sect3 id="rectObj">
-			<title>RectObj Class</title>
-			<sect4 id="rect_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="rectObj">
+				<title>RectObj Class</title>
+				<sect4 id="rect_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    RectObj are sometimes embedded inside other objects.  New ones can
    also be created with:
 
    RectObj ms_newRectObj()			
 				</programlisting>
-			</sect4>
-			<sect4 id="rect_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="rect_members">
+					<title>Members:</title>
+					<programlisting>
    double minx
    double miny
    double maxx
    double maxy			
 				</programlisting>
-			</sect4>
-			<sect4 id="rect_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="rect_methods">
+					<title>Methods:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.
 
@@ -1226,19 +1226,19 @@ PointObj ms_newPointObj()
   void free()
         Destroys resources used by a rect object. 			
 				</programlisting>
-			</sect4>
-		</sect3>		
-		<sect3 id="referenceMapObj">
-			<title>ReferenceMapObj Class</title>
-			<sect4 id="ref_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="referenceMapObj">
+				<title>ReferenceMapObj Class</title>
+				<sect4 id="ref_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    Instances of referenceMapObj are always embedded inside the mapObj.			
 				</programlisting>
-			</sect4>
-			<sect4 id="ref_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="ref_members">
+					<title>Members:</title>
+					<programlisting>
    string   image
    int      width
    int      height
@@ -1247,44 +1247,44 @@ PointObj ms_newPointObj()
    ColorObj color
    ColorObj outlinecolor
 				</programlisting>
-			</sect4>
-			<sect4 id="ref_method">
-				<title>Method:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="ref_method">
+					<title>Method:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.			
 				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="result">
-			<title>ResultCacheMemberObj Class</title>
-			<sect4 id="result_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="result">
+				<title>ResultCacheMemberObj Class</title>
+				<sect4 id="result_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    Instances of ResultCacheMemberObj are always obtained through 
    layerObj's getResult() method.
 				</programlisting>
-			</sect4>
-			<sect4 id="result_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="result_members">
+					<title>Members:</title>
+					<programlisting>
    int    shapeindex    (read-only)
    int    tileindex     (read-only)
    int    classindex    (read-only)
  				</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="scale">
-			<title>ScalebarObj Class</title>
-			<sect4 id="scale_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="scale">
+				<title>ScalebarObj Class</title>
+				<sect4 id="scale_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    Instances of scalebarObj are always are always embedded inside the mapObj.
 				</programlisting>
-			</sect4>
-			<sect4 id="scale_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="scale_members">
+					<title>Members:</title>
+					<programlisting>
    int height;
    int width;
    int style;      
@@ -1301,10 +1301,10 @@ PointObj ms_newPointObj()
    labelObj label;
    colorObj imagecolor;
 				</programlisting>
-			</sect4>
-			<sect4 id="scale_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="scale_methods">
+					<title>Methods:</title>
+					<programlisting>
       int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.
         
@@ -1312,13 +1312,13 @@ PointObj ms_newPointObj()
         Sets the imagecolor propery (baclground) of the object.
         Returns false on error.         
 				</programlisting>
-			</sect4>
-		</sect3>				
-		<sect3 id="shapefileObj">
-			<title>ShapefileObj Class</title>
-			<sect4 id="shp_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="shapefileObj">
+				<title>ShapefileObj Class</title>
+				<sect4 id="shp_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    shapefileObj ms_newShapefileObj(string filename, int type)
         Opens a shapefile and returns a new object to deal with it. 
         Filename should be passed with no extension.
@@ -1328,19 +1328,19 @@ PointObj ms_newPointObj()
         Pass type as -1 to open an existing file for read-only access,
 	and type=-2 to open an existing file for update (append).
 			</programlisting>
-			</sect4>
-			<sect4 id="shp_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="shp_members">
+					<title>Members:</title>
+					<programlisting>
    int     numshapes  (read-only)
    int     type       (read-only)
    string  source     (read-only)
    rectObj bounds     (read-only)
 			</programlisting>
-			</sect4>
-			<sect4 id="shp_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="shp_methods">
+					<title>Methods:</title>
+					<programlisting>
    shapeObj getShape(int i)
         Retrieve shape by index.
 
@@ -1363,21 +1363,21 @@ PointObj ms_newPointObj()
         Closes a shape file (and commits all changes in write mode) and 
         releases all resources used by the object.		
 			</programlisting>
-			</sect4>
-		</sect3>				
-		<sect3 id="ShapeObj">
-			<title>ShapeObj Class</title>
-			<sect4 id="shape_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="ShapeObj">
+				<title>ShapeObj Class</title>
+				<sect4 id="shape_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    ShapeObj ms_newShapeObj(int type)
         'type' is one of MS_SHAPE_POINT, MS_SHAPE_LINE, MS_SHAPE_POLYGON or
         MS_SHAPE_NULL			
 				</programlisting>
-			</sect4>
-			<sect4 id="shape_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="shape_members">
+					<title>Members:</title>
+					<programlisting>
    string  text
    int     classindex
    int     type      (read-only)
@@ -1393,10 +1393,10 @@ PointObj ms_newPointObj()
    The key to the values in the array is the attribute name, e.g. 
      $population = $shape->values["Population"];			
 				</programlisting>
-			</sect4>
-			<sect4 id="shape_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="shape_methods">
+					<title>Methods:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.
  
@@ -1433,21 +1433,21 @@ PointObj ms_newPointObj()
    void free()
         Destroys resources used by a shape object.  
 			 	</programlisting>
-			</sect4>
-		</sect3>
-		<sect3 id="style">
-			<title>StyleObj Class</title>
-			<sect4 id="style_contructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="style">
+				<title>StyleObj Class</title>
+				<sect4 id="style_contructor">
+					<title>Constructor:</title>
+					<programlisting>
    Instances of styleObj are always embedded inside the classObj.
 
    styleObj ms_newStyleObj(classObj class)				
 				</programlisting>
-			</sect4>
-			<sect4 id="style_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="style_members">
+					<title>Members:</title>
+					<programlisting>
   int           symbol
   string        symbolname
   int           size
@@ -1459,26 +1459,26 @@ PointObj ms_newPointObj()
   colorObj      backgroundcolor
   colorObj      outlinecolor				
 				</programlisting>
-			</sect4>
-			<sect4 id="style_methods">
-				<title>Methods:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="style_methods">
+					<title>Methods:</title>
+					<programlisting>
    int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.				
 				</programlisting>
-			</sect4>
-		</sect3>				
-		<sect3 id="webobj">
-			<title>WebObj Class</title>
-			<sect4 id="web_constructor">
-				<title>Constructor:</title>
-				<programlisting>
+				</sect4>
+			</sect3>
+			<sect3 id="webobj">
+				<title>WebObj Class</title>
+				<sect4 id="web_constructor">
+					<title>Constructor:</title>
+					<programlisting>
    Instances of webObjare always are always embedded inside the mapObj.			
 				</programlisting>
-			</sect4>
-			<sect4 id="web_members">
-				<title>Members:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="web_members">
+					<title>Members:</title>
+					<programlisting>
    string log;
    string imagepath
    string template		
@@ -1493,15 +1493,15 @@ PointObj ms_newPointObj()
    double maxscale
    rectObj extent   (read-only)			
 				</programlisting>
-			</sect4>
-			<sect4 id="web_methods">
-				<title>Method:</title>
-				<programlisting>
+				</sect4>
+				<sect4 id="web_methods">
+					<title>Method:</title>
+					<programlisting>
       int set(string property_name, new_value)
         Set object property to a new value. Returns -1 on error.		
 				</programlisting>
-			</sect4>
-		</sect3>
+				</sect4>
+			</sect3>
 		</sect2>
 	</sect1>
 	<!-- Section1: FAQ -->
