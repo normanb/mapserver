@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<?xml-stylesheet type="text/xsl" href="C:\Program Files\Altova\XML Spy Suite\docbook\doc\book.xsl"?>
 <article>
 	<articleinfo>
-		<title>MapFile Reference - MapServer 3.7</title>
+		<title>MapFile Reference - MapServer 4.0</title>
 		<author>
 			<firstname>Jean-Fran&ccedil;ois</firstname>
 			<surname>Doyon</surname>
@@ -12,15 +13,15 @@
 				<orgdiv>Canadian Center for Remote Sensing</orgdiv>
 				<orgdiv>GeoAccess Division</orgdiv>
 				<address>
-					<email>jdoyon@nrcan.gc.ca</email>
+					<email>jdoyon@ccrs.nrcan.gc.ca</email>
 				</address>
 			</affiliation>
 		</author>
 		<abstract>
 			<para>
-    			This document is a reference to the MapFile syntax for MapServer version 3.7.
+    			This document is a reference to the MapFile syntax for MapServer version 4.0.
    			</para>
-			<para>Last Updated:  12-19-2002</para>
+			<para>Last Updated:  07-02-2003</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
@@ -718,6 +719,12 @@ PROCESSING "BANDS=3,2,1,4"
 					</listitem>
 				</varlistentry>
 				<varlistentry>
+					<term>STYLE</term>
+					<listitem>
+						<para>Signals the start of a <link linkend="style">STYLE</link> object. A class can contain multiple styles.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
 					<term>SYMBOL [integer|string]</term>
 					<listitem>
 						<para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
@@ -761,6 +768,66 @@ PROCESSING "BANDS=3,2,1,4"
 					<para>OVERLAYSYMBOL</para>
 				</listitem>
 			</itemizedlist>
+		</sect2>
+		<sect2 id="style">
+			<title>Style Object</title>
+			<para>This object holds parameters for symbolization.  Multiple styles may be applied within a class.  This object is new in 4.0 and is intended to seperate logic from looks.  The final intent is to have named styles (Not yet supported) that will be re-usable through the mapfile.  This is the new, preferred way of defining the appearance of an object, notably a class.</para>
+			<variablelist>
+				<varlistentry>
+					<term>ANTIALIAS [true|false]</term>
+					<listitem>
+						<para>Should TrueType fonts be antialiased.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>BACKGROUNDCOLOR [r] [g] [b]</term>
+					<listitem>
+						<para>Color to use for non-transparent symbols.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>COLOR [r] [g] [b]</term>
+					<listitem>
+						<para>Color to use for drawing features.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MAXSIZE [integer]</term>
+					<listitem>
+						<para>Maximum size in pixels to draw a symbol. Default is 50.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MINSIZE [integer]</term>
+					<listitem>
+						<para>Minimum size in pixels to draw a symbol. Default is 0.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>OFFSET [x][y]</term>
+					<listitem>
+						<para>Offset values for shadows, hollow symbols, etc ...</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>OUTLINECOLOR [r] [g] [b]</term>
+					<listitem>
+						<para>Color to use for outlining polygons and certain marker symbols. Line symbols do not support outline colors.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>SIZE [integer]</term>
+					<listitem>
+						<para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. Default is 1.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>SYMBOL [integer|string]</term>
+					<listitem>
+						<para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
 		</sect2>
 		<sect2 id="feature">
 			<title>Feature Object</title>
@@ -953,8 +1020,30 @@ PROCESSING "BANDS=3,2,1,4"
 						<para>Full filename of the base reference image. Must be a GIF image.</para>
 					</listitem>
 				</varlistentry>
-			</variablelist>
-			<variablelist>
+				<varlistentry>
+					<term>MARKER [integer|string]</term>
+					<listitem>
+						<para>Defines a symbol (from the symbol file) to use when the box becomes too small (see MINBOXSIZE and MAXBOXSIZE below). Uses a crosshair by default.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MARKERSIZE [integer]</term>
+					<listitem>
+						<para>Defines the size of the symbol to use instead of a box (see MARKER above).</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MINBOXSIZE [integer]</term>
+					<listitem>
+						<para>If box is smaller than MINBOXSIZE (use box width or height) then use the symbol defined by MARKER and MARKERSIZE.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>MAXBOXSIZE [integer]</term>
+					<listitem>
+						<para>If box is greater than MAXBOXSIZE (use box width or height) then draw nothing (Often the whole map gets covered when zoomed way out and it's perfectly obvious where you are).</para>
+					</listitem>
+				</varlistentry>
 				<varlistentry>
 					<term>OUTLINECOLOR [r] [g] [b]</term>
 					<listitem>
@@ -1178,7 +1267,6 @@ END
 			</programlisting>
 			<para>See the <ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink> user guides for complete descriptions of supported projections and coordinate systems. </para>
 		</sect2>
-		<!-- =================== OUTPUTFORMAT ===================================== -->
 		<sect2 id="outputformat">
 			<title>OutputFormat Object</title>
 			<para>This section discusses how output formats are defined and selected.</para>
@@ -1219,6 +1307,8 @@ OUTPUTFORMAT
   DRIVER "SWF"
   MIMETYPE "application/x-shockwave-flash"
   EXTENSION "swf"
+  IMAGEMODE PC256
+  FORMATOPTION "OUTPUT_MOVIE=SINGLE"
 END
 OUTPUTFORMAT
   NAME GTiff
@@ -1309,8 +1399,27 @@ END
 				</varlistentry>
 			</variablelist>
 		</sect2>
+		<sect2 id="variablesubstitution">
+			<title>Variable Substitution</title>
+			<para>New in MapServer 4.0, variables can be substituted within mapfile parameter values.  At this time, cookie and CGI parameter values are supported.  This allows mapserver mapfiles to be aware of a user's cookies (Good for implementing security), or non-mapserver request parameters (Good for integrating with other systems).</para>
+			<para>Syntax: '%' + variable name + '%'</para>
+			<example>
+				<title>Connecting securely to a Spatial Database</title>
+				<para>You want to map some senstitive data held in a PostGIS database.  The username and password to be used for the database connection are held in 2 cookies previously set by a seperate authentication mechanism, "uid" and "passwd".</para>
+				<programlisting>
+CONNECTION "user=%uid% password=%passwd% dbname=postgis"
+    				</programlisting>
+			</example>
+			<example>
+				<title>Handling temporary files</title>
+				<para>You have a user based discovery application that generates shapefiles and stores them in a user's home directory on the server.  The "username" comes from a cookie, the "filename" comes from a request parameter.</para>
+				<programlisting>
+DATA "/home/%username%/tempshp/%filename%"
+				</programlisting>
+			</example>
+			<para>This feature is only available in the CGI version of MapServer through a mapfile pre-processor.  If you are using MapScript, you will have to code the substitution logic into your application yourself (By writing your own pre-processor).</para>
+		</sect2>
 	</sect1>
-	<!-- ===================================================================== -->
 	<sect1 id="symbology">
 		<title>Symbology Reference</title>
 		<para>This section explains how to work with and define symbology in MapServer.</para>
