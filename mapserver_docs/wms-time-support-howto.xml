@@ -21,7 +21,7 @@
       <para>
                  This document describes the procedures for enabling WMS time support in MapServer v4.4 (and later).  
       </para>
-      <para>Last Updated: 2004-11-02</para>
+      <para>Last Updated: 2004-11-28</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -146,7 +146,7 @@
             time values for the layer. The value defined here should be a valid time range.</para>
         </listitem>
         <listitem>
-            <para><emphasis>wms_default</emphasis>: (Optional)  this value is used if it is defined and the TIME value is missing in the request.</para>
+            <para><emphasis>wms_timedefault</emphasis>: (Optional)  this value is used if it is defined and the TIME value is missing in the request.</para>
         </listitem>   
         <listitem>
             <para><emphasis>wms_ timeitem</emphasis>: (Mandatory)  this is the name of the field in the DB that contains the time values.</para>

@@ -1032,17 +1032,7 @@
               </para>
             </listitem>
           </itemizedlist>
-        </sect4>
-        <sect4 id="time_default">
-          <title>wms_default</title>
-          <itemizedlist>
-            <listitem>
-              <para>
-                <emphasis>Description:</emphasis> (Optional for Time Support) This value is used if it is defined and the Time value is missing in the request.
-                Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.</para>
-            </listitem>
-          </itemizedlist>
-        </sect4>         
+        </sect4>        
         <sect4 id="extent">
           <title>wms_extent</title>
           <itemizedlist>
@@ -1145,6 +1135,16 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="time_default">
+          <title>wms_timedefault</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional for Time Support) This value is used if it is defined and the Time value is missing in the request.
+                Please see the <ulink url="http://mapserver.gis.umn.edu/doc/wms-time-support-howto.html">WMS Time Support howto</ulink> for more information.</para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
         <sect4 id="time_extent">
           <title>wms_timeextent</title>
           <itemizedlist>
