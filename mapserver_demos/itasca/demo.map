@@ -4,13 +4,12 @@
 NAME DEMO
 STATUS ON
 SIZE 600 600
-SHADESET symbols/shade.sym
-MARKERSET symbols/marker.sym
-LINESET symbols/line.sym
 EXTENT 388107.634400379 5203120.88405952 500896.339019834 5310243.30613897
 UNITS METERS
 SHAPEPATH "data"
 IMAGECOLOR 255 255 255
+
+#IMAGETYPE PNG
 
 #
 # Projection definition, consult the PROJ.4 documentation for parameter discussion
@@ -32,9 +31,8 @@ WEB
   FOOTER demo_footer.html
   MINSCALE 1000
   MAXSCALE 1550000
-  IMAGEPATH "/usr/local/apache/htdocs/tmp/"
-  IMAGEURL "/tmp/"
-  # LOG "demo.log"
+  IMAGEPATH "set in demo_init.html"
+  IMAGEURL "set in demo_init.html"  
 END
 
 QUERYMAP
@@ -79,12 +77,22 @@ SCALEBAR
     SIZE tiny    
   END
   STYLE 1
-  SIZE 50 2
+  SIZE 80 2
   COLOR 255 255 255
   UNITS MILES
   INTERVALS 1
   TRANSPARENT TRUE
   STATUS TRUE
+END
+
+#
+# Start of symbol definitions (we're only using a few)
+#
+SYMBOL
+  NAME 'circle'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED
 END
 
 #
@@ -120,7 +128,11 @@ LAYER
     NAME "Cities & Towns"
     EXPRESSION /./
     COLOR 255 225 90
+    TEMPLATE "mcd90py2.html"
   END
+
+  HEADER "mcd90py2_header.html"
+  FOOTER "mcd90py2_footer.html"
 END
 
 LAYER
@@ -129,7 +141,7 @@ LAYER
   DATA twprgpy3
   STATUS ON
   CLASS
-    SYMBOL 1
+    SYMBOL 'circle'
     SIZE 2
     NAME 'Townships'
     COLOR 181 181 145
@@ -144,15 +156,13 @@ LAYER
 
   CLASS
     NAME 'Lakes & Rivers'
+    TEMPLATE "lakespy2.html"
     COLOR 49 117 185  
   END
 
   HEADER "lakespy2_header.html"
   FOOTER "lakespy2_footer.html"
-  QUERY    
-    TEMPLATE "lakespy2.html"    
-  END
-
+  
   TOLERANCE 3
 END # lakes
 
@@ -164,14 +174,12 @@ LAYER
 
   CLASS
     NAME "Streams"
+    TEMPLATE "dlgstln2.html"    
     COLOR 49 117 185
   END
 
   HEADER "dlgstln2_header.html"
   FOOTER "dlgstln2_footer.html"
-  QUERY    
-    TEMPLATE "dlgstln2.html"    
-  END
 
   TOLERANCE 5
 END # streams
@@ -196,7 +204,7 @@ LAYER
   LABELITEM "road_name"
   CLASS
     COLOR 255 255 255
-    SYMBOL 'county_highway_shield'    
+    SYMBOL 'symbols/ctyhwy.gif'    
     LABEL
       MINFEATURESIZE 40
       MINDISTANCE 150
@@ -230,7 +238,7 @@ LAYER
   CLASS
     EXPRESSION "3"
     COLOR 0 0 0 # dummy color
-    SYMBOL 'state_highway_shield'
+    SYMBOL 'symbols/sthwy.gif'
     LABEL
       MINFEATURESIZE 50
       MINDISTANCE 150
@@ -242,7 +250,7 @@ LAYER
   CLASS
     EXPRESSION "2" 
     COLOR 0 0 0 # dummy color
-    SYMBOL 'us_highway_shield'
+    SYMBOL 'symbols/ushwy.gif'
     LABEL
       MINFEATURESIZE 50
       MINDISTANCE 150
@@ -254,7 +262,7 @@ LAYER
   CLASS
     EXPRESSION "1" 
     COLOR 0 0 0 # dummy color
-    SYMBOL 'interstate_shield'
+    SYMBOL 'symbols/interstate.gif'
     LABEL
       MINFEATURESIZE 50
       MINDISTANCE 150

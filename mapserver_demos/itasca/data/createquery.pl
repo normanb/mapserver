@@ -2,7 +2,7 @@
 
 use XBase;
 
-$file = 'dlgstln2';
+$file = 'mcd90py2';
          
 $table = new XBase "$file.dbf" or die XBase->errstr;
 
