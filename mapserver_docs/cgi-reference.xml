@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
+<?xml version='1.0' standalone='no'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
   <articleinfo>
     <title>MapServer CGI Reference</title>
@@ -25,8 +26,8 @@
 	</author>
     <abstract>
       <para>        This document is a reference for the mapserv CGI
-        version 3.5.        </para>
-      <para>Last Updated:  01-31-2002</para>
+        version 3.6.        </para>
+      <para>Last Updated:  12-18-2002</para>
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -81,7 +82,7 @@
         </varlistentry>
             
         <varlistentry>
-            <term>ID</term>
+            <term>ID [id-string]</term>
 	           <listitem>
                     <para> 
 						By default MapServer generates a uniq session
@@ -102,6 +103,8 @@
             <para> The name associated with the inline map image used to
               record user clicks. What actually is passed are two
               variables, img.x and img.y.</para>
+			  <para>For the CGI Applications this is an essential variable,
+			  see the examples for sample usage.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -116,7 +119,7 @@
           <term>IMGEXT [minx] [miny] [maxx] [maxy]</term>
           <listitem>
             <para> The spatial extent of the existing inline image, that
-              is, the image the user can see in their browser.</para>
+              is, the image the users can see in their browser.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -182,8 +185,14 @@
         </varlistentry>
         <varlistentry>
           <term>MAPEXT [minx] [miny] [maxx] [maxy]</term>
+          <term>MAPEXT (shape)</term>
           <listitem>
             <para> The spatial extent of the map to be created.    </para>
+            <para>
+                Can be set to <emphasis>shape</emphasis> as an
+				alternative option. In this case mapextent is set 
+				to the extent of a selected shape. Used with queries.
+            </para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -208,6 +217,7 @@
         </varlistentry>
         <varlistentry>
           <term>MAPXY [x] [y]</term>
+          <term>MAPXY (shape)</term>
           <listitem>
             <para> 
 				A point, in the same coordinate system as the
@@ -222,10 +232,10 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>MINX|MINY|MAXX|MAXY [number]</term>
+          <term>MINX | MINY | MAXX | MAXY [number]</term>
           <listitem>
             <para> Minimum x coordinate of the spatial extent for a new
-              map/query.     </para>
+              map/query. This set of parameters are the pieces of MAPEXT.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -298,7 +308,7 @@
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>FEATUREITEMQUERY</term>
+                <term>ITEMFEATUREQUERY</term>
                 <listitem>
                   <para> A text search of attribute data is triggered
                     using a layer FILTER.  Returns first match. Layer to
@@ -309,7 +319,7 @@
                 </listitem>
               </varlistentry>
               <varlistentry>
-                <term>FEATUREITEMNQUERY</term>
+                <term>ITEMFEATURENQUERY</term>
                 <listitem>
                   <para> A text search of attribute data is triggered
                     using a layer FILTER. Returns all matches. Layer to
@@ -347,6 +357,22 @@
                     &lt;img ... &gt; tag.    </para>
                 </listitem>
               </varlistentry>
+              <varlistentry>
+                <term>ZOOMIN</term>
+                <listitem>
+                  <para> Switch to mode BROWSE with ZOOMDIR=1
+                   </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>ZOOMOUT</term>
+                <listitem>
+                  <para> Switch to mode BROWSE with ZOOMDIR=-1
+                   </para>
+                </listitem>
+              </varlistentry>
+			    COORDINATE
+				PROCESSING
             </variablelist>
           </listitem>
         </varlistentry>
@@ -379,6 +405,9 @@
             <para> The name associated with the inline reference map
               image used to  record user clicks. What actually is passed
               are two variables, ref.x and ref.y.</para>
+			  <para>For the CGI Applications this is an essential variable
+			  when reference maps are used, see the examples for sample usage.
+			  </para>
           </listitem>
         </varlistentry>
 	    <varlistentry>
@@ -431,8 +460,8 @@
               querymaps. In these cases you will likey want information
               about the contents of the new map rather than the previous
               map which is the normal way queries work. When searchmap
-              is specified the new map is created an it&apos;s extent is
-              used to query layers. Useful with NQUERY, mode only.</para>
+              is specified the new map is created and it&apos;s extent is
+              used to query layers. Useful with NQUERY mode only.</para>
           </listitem>
         </varlistentry>
 	    <varlistentry>
@@ -490,11 +519,15 @@
               Values greater than 0 resulting in zooming in, 0 is a pan,
               and values less than zero are for zooming out. A value of
               2 means &quot;zoom in twice&quot;.</para>
+			  <para>ZOOM can be used as a shortcut for the 
+			  combination ZOOMDIR/ZOOMSIZE.</para>
+			  <para>The zoom is limited by the MINZOOM/MAXZOOM settings
+			  compiled into the MapServer (-25/25) by default.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>ZOOMDIR [1|0|-1]</term>
+          <term>ZOOMDIR [1 | 0 | -1]</term>
           <listitem>
             <para> Direction to zoom. See above.    </para>
           </listitem>
@@ -503,9 +536,46 @@
           <term>ZOOMSIZE [number]</term>
           <listitem>
             <para> Absolute magnitude of a zoom. Used with ZOOMDIR.</para>
+            <para> ZOOMDIR is limited to MAXZOOM compiled into the 
+			MapServer (25 by default).</para>
           </listitem>
         </varlistentry>
       </variablelist>
+	  <sect3 id="rosa">
+	  <title>ROSA-Applet specific</title>
+	  <para>
+	  The ROSA Applet parameters were added to the CGI MapServer
+	  in version 3.6. This Java Applet provides a more intuitive user interface
+	  to MapServer. The DM Solutions 
+	  <ulink url="http://www2.dmsolutions.ca/webtools/index.html"
+	  >OWT pages</ulink> provide 
+	  <ulink url="http://www2.dmsolutions.ca/webtools/rosa/"
+				>detailed information on the ROSA Applet</ulink>.
+	  </para>
+	  <para>
+	  The parameters can also be used by other interfaces/tools, if set to the 
+	  right values. Please note that the two parameters have to be handed 
+	  over to te CGI application in the order identified below.
+	  </para>
+	  <variablelist>
+        <varlistentry>
+          <term>INPUT_TYPE (auto_rect | auto_point)</term>
+          <listitem>
+            <para>The INPUT_TYPE parameter is needed to identify if the 
+			coordinates handed over to the mapserver have to be interpreted
+			as rectangular or point data.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>INPUT_COORD [minx,miny;maxx,maxy]</term>
+          <listitem>
+            <para>The ROSA-Applet always fills the pair of coordinates.
+			In case of a point (input_type=auto_point) min and max 
+			coordinate are equal (Mapserver uses the min value).</para>
+          </listitem>
+        </varlistentry>
+	  </variablelist>
+	  </sect3>
     </sect2>
 
 	<!-- mapfile changes -->
@@ -537,8 +607,7 @@
         feature belongs to must exist. Here&apos;s a snippet from a GET
         request that adds a feature to a webuser layer:
         <programlisting><![CDATA[
-      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789
-         +map_webuser_feature_text=My+House!&...
+      ...&map_webuser_feature=new&map_webuser_feature_points=12345.6789+12345.6789+map_webuser_feature_text=My+House!&...
       ]]></programlisting>
         The &quot;map_webuser_feature=new&quot; creates a new feature
         for the webuser layer. All subsequent calls to the feature
