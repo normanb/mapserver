@@ -31,7 +31,7 @@
   <sect1 id="intro">
     <title>Introduction</title>
     <para>
-      SVG (or Scaleable Vector Graphics) is a standardized XML language for describing 2D graphics via vector graphics, 
+      SVG (or Scalable Vector Graphics) is a standardized XML language for describing 2D graphics via vector graphics, 
       text and raster graphics.  As of version 4.5, MapServer can output SVG v1.1 maps.
       The following documentation is based on the <ulink url="http://www.w3.org/TR/SVG/">
       World Wide Web Consortium's (W3C) Scalable Vector Graphics (SVG) 1.1 Specification</ulink>. 
