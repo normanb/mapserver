@@ -37,7 +37,7 @@
                  they work together.  It also gives suggestions for getting your first application
                  running.
                         </para>
-		<para>Last Updated: 01/23/2004</para>
+		<para>Last Updated: 06/16/2004</para>
 
             <para><link linkend='rhistory'>Revision History</link></para>
 
@@ -175,6 +175,13 @@
         <date>Date: 04/29/2004 </date>
         <authorinitials>Author: Kari Guerts</authorinitials>
         <revremark>I changed the URL link for the tutorial and demo.</revremark>
+      </revision>
+
+      <revision>
+        <revnumber>: 3</revnumber>
+        <date>Date: 06/16/2004 </date>
+        <authorinitials>Author: Kari Guerts</authorinitials>
+        <revremark>This is a test for the update script.</revremark>
       </revision>
 
      </revhistory>
