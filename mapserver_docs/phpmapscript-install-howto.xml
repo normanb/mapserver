@@ -156,8 +156,22 @@
 					</listitem>
 					<listitem>
 						<para>
-				        Window users running IIS4.0 can follow this link for <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_iis4.html">step by step 						   configurtion of PHP under IIS4.0</ulink>. 
-					</para>
+				            Window users running PWS/IIS can follow these links:
+				          </para>
+						<itemizedlist>
+							<listitem>
+								<para>
+								  <ulink url="http://www.php.net/manual/en/install.iis.php">Php.net's</ulink> 
+								  howto for installing PHP for PWS/IIS 3, PWS 4 or newer, and IIS 4 or newer. 
+								</para>
+							</listitem>
+							<listitem>
+							     <para>
+								  A <ulink url="http://www2.dmsolutions.ca/mapserver/php_mapscript/php_mapscript_iis4.html">
+								  step by step configuration guide</ulink> for PHP under IIS4.0.
+								</para>
+							</listitem>
+						</itemizedlist>
 					</listitem>
 				</itemizedlist>
 				<note>
