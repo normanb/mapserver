@@ -20,12 +20,12 @@
 			<para>
     This document is a reference to the MapFile syntax for MapServer version 3.5.
     </para>
-			<para>Last Updated:  08-09-2001</para>
+			<para>Last Updated:  10-30-2001</para>
 		</abstract>
 	</articleinfo>
 	<sect1>
 		<title>MapFile Reference</title>
-		<para>Mapfiles are the basic configuration mechanism for the Mapserver.  Anything associated with a particular application
+		<para>MapFiles are the basic configuration mechanism for the Mapserver.  Anything associated with a particular application
           is defined here, although most options can be changed via a web form (CGI Variables).</para>
 		<sect2>
 			<title>Notes</title>
@@ -42,7 +42,7 @@
 				</listitem>
 				<listitem>
 					<para>File paths may be given as absolute paths, or as paths relative to the location of the mapfile.  In addition, data files
-                may be specified relative to the shapepath.</para>
+                may be specified relative to the <link linkend="shapepath">SHAPEPATH</link></para>
 				</listitem>
 				<listitem>
 					<para>The mapfile has a hierarchical structure, with the Map object being the "root". All other objects fall under this one.</para>
@@ -133,7 +133,7 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>RESOLUTION</term>
+					<term>RESOLUTION [int]</term>
 					<listitem>
 						<para>Sets the pixels per inch for output, only affects scale computations and nothing else, default is 72</para>
 					</listitem>
@@ -205,13 +205,13 @@
 			<para>This object is used to define a label, which is in turn usually used to annotate a feature with a piece of text.  Labels can however also be used as symbols through the use of various TrueType fonts.</para>
 			<variablelist>
 				<varlistentry>
-					<term>ANGLE</term>
+					<term>ANGLE [int]</term>
 					<listitem>
 						<para>Angle, given in degrees, to draw the label or AUTO to allow the software to compute the angle, AUTO is valid for LINE layers only.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>ANTIALIAS</term>
+					<term>ANTIALIAS [true|false]</term>
 					<listitem>
 						<para>Should text be antialiased? Note that this requires more available colors and results in slightly larger output images.</para>
 					</listitem>
@@ -580,9 +580,9 @@ END
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>TYPE [point|line|polyline|polygon|annotation|raster|queryonly]</term>
+					<term>TYPE [point|line|polygon|circle|annotation|raster|queryonly]</term>
 					<listitem>
-						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, but a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line. Query only means the layer can be queried but not drawn.</para>
+						<para>Specifies how the data should be drawn. Need not be the same as the shapefile type. For example, a polygon shapefile may be drawn as a point layer, but a point shapefile may not be drawn as a polygon layer. Common sense rules. Annotation means that a label point will be calculated for the features, but the feature itself will not be drawn although a marker symbol can be optionally drawn. this allows for advanced labeling like numbered highway shields. Points are labeled at that point. Polygons are labeled first using a centroid, and if that doesn't fall in the polygon a scanline approach is used to guarantee the label falls within the feature. Lines are labeled at the middle of the longest arc in the visible portion of the line. Query only means the layer can be queried but not drawn. In order to differentiate between POLYGONs and POLYLINEs (which do not exist as a type), simply respectively use or ommit the COLOR keyword when classifying.  If you use it, it's a polygon with a fill color, otherwise it's a polyline with only an OUTLINECOLOR.</para>
 					</listitem>
 				</varlistentry>
 			</variablelist>
@@ -1154,7 +1154,7 @@ file.  Symbol definitions in a separate file are designated using the <link link
 			<title>Syntax</title>
 			<variablelist>
 				<varlistentry>
-					<term>ANTIALIAS</term>
+					<term>ANTIALIAS [true|false]</term>
 					<listitem>
 						<para>Should TrueType fonts be antialiased.</para>
 					</listitem>
@@ -1166,7 +1166,7 @@ file.  Symbol definitions in a separate file are designated using the <link link
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>FILLED</term>
+					<term>FILLED [true|false]</term>
 					<listitem>
 						<para>Sets the symbol to be filled with a user defined color (See the <link linkend="class">CLASS</link> object).  For marker symbols, if <link linkend="outlinecolor">OUTLINECOLOR</link> was specified then the symbol is outlined with it.</para>
 					</listitem>
