@@ -2,9 +2,30 @@
 <!DOCTYPE qandaset PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 
-<qandaset>
+<qandaset defaultlabel="qanda">
 <title>MapServer Frequently Asked Questions</title>
 
+<!-- Support for GeoTiff -->
+    <qandaentry>
+      <question>
+        <para>
+        Does MapServer support GeoTIFF?
+        </para>
+      </question>
+      <answer>
+        <para>
+        MapServer's existing (pre 3.5) TIFF support will
+        read the georeferencing coefficients from the .tif file if available, in which
+        case no .tfw is required.  However, it does not read the coordinate system
+        definition, so you might need to define it using a PROJECTION section in your
+        map file.  If, for some reason, you want a .tfw file anyways and aren't sure
+        how to create it by hand, the listgeo utility distributed with 
+        <ulink url="http://www.remotesensing.org/geotiff/geotiff.html">libgeotiff</ulink>
+        includes the ability to create a .tfw file from a GeoTIFF file. 
+        </para>
+      </answer>
+    </qandaentry>
+    
 <!-- symbols file in 3.4+ -->
     <qandaentry>
       <question>
