@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="C:\Program Files\Altova\XML Spy Suite\docbook\doc\book.xsl"?>
 <article>
     <articleinfo>
-        <title>MapFile Reference - MapServer 4.4</title>
+        <title>MapFile Reference - MapServer 4.6</title>
         <author>
             <firstname>Jean-Fran&ccedil;ois</firstname>
             <surname>Doyon</surname>
@@ -31,7 +31,7 @@
             <para>
                 This document is a reference to the MapFile syntax for MapServer version 4.4.
             </para>
-            <para>Last Updated:  11-28-2004</para>
+            <para>Last Updated:  04-20-2005</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>
@@ -667,7 +667,7 @@ PROCESSING "BANDS=3,2,1,4"
                 <varlistentry id="tolerance">
                     <term>TOLERANCE [double]</term>
                     <listitem>
-                        <para>Sensitivity for point based queries (i.e. via mouse and/or map coordinates). Given in <link linkend="toleranceunits">TOLERANCEUNITS</link> with a default of 3 pixels. To restrict polygon searches so that the point must occur <emphasis>in</emphasis> the polygon set the tolerance to zero.</para>
+                        <para>Sensitivity for point based queries (i.e. via mouse and/or map coordinates). Given in <link linkend="toleranceunits">TOLERANCEUNITS</link>.  If the layer is a POINT or a LINE, the default is 3. For all other layer types, the default is 0. To restrict polygon searches so that the point must occur <emphasis>in</emphasis> the polygon set the tolerance to zero.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry id="toleranceunits">
@@ -1877,6 +1877,13 @@ END
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.52</revnumber>
+                        <date>Date: 2005-04-20</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added TOLERANCE changes.
+                                   </revremark>
+                    </revision>                 
+                    <revision>
                         <revnumber>Number: 1.51</revnumber>
                         <date>Date: 2004-11-28</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -1896,7 +1903,7 @@ END
         <sect2 id="copyright">
             <title>Copyright Information</title>
             <para>
-    Copyright (c) 2004 Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
+    Copyright (c) 2005 Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
    </para>
             <para>
     This documentation is covered by the same Free Software license as the MapServer software.
