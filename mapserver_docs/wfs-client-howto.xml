@@ -2,7 +2,7 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
   <articleinfo>
-    <title>MapServer WFS Client HOWTO - Version 4.4</title>
+    <title>MapServer WFS Client HOWTO - Version 4.6</title>
     <author>
       <firstname>Jean-Fran&ccedil;ois</firstname>
       <surname>Doyon</surname>
@@ -28,7 +28,7 @@
     </author>    
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  2005-01-09</para>
+      <para>Last Updated:  2005-04-22</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>       
@@ -151,10 +151,7 @@
         END
         ...
                   </screen>                
-              </listitem>              
-              <listitem>
-                <para><emphasis>wfs_service</emphasis> (required): must be "WFS"</para>
-              </listitem>              
+              </listitem>                          
               <listitem>
                 <para><emphasis>wfs_typename</emphasis> (required): the &lt;Name&gt; of the layer found in the GetCapabilities (an example GetCapabilities request is:
                    <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getcapabilities">
@@ -187,7 +184,6 @@
           CONNECTIONTYPE WFS
           CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?"
           METADATA
-            "wfs_service"           "WFS"
             "wfs_typename"          "park"
             "wfs_version"           "1.0.0"
             "wfs_request_method"    "GET"
@@ -253,6 +249,13 @@
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.10</revnumber>
+                        <date>Date: 2005-04-22</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Removed old wfs_service metadata references
+                                   </revremark>
+                    </revision>                 
+                    <revision>
                         <revnumber>Number: 1.7</revnumber>
                         <date>Date: 2005-01-09</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -279,7 +282,7 @@
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
-                Copyright (c) 2004, Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
+                Copyright (c) 2005, Jean-Fran&ccedil;ois Doyon, Jeff McKenna.
       </para>
       <para>
                 This documentation is covered by the same Open Source license as the
