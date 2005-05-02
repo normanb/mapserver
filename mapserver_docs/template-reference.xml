@@ -24,7 +24,7 @@
                 <email>steve.lime@dnr.state.mn.us</email>
             </para>   
             <para>
-                Last Updated:  2004-12-25
+                Last Updated:  2005-05-02
             </para>
 
       		<para><link linkend='rhistory'>Revision History</link></para>
@@ -222,6 +222,19 @@
                 </listitem>
             </varlistentry>
             
+            <varlistentry>
+                <term>
+                    <literal>[errmsg], [errmsg_esc]</literal>
+                </term>
+                <listitem>
+                    <para> Current error stack output. Various error messages 
+                            are delimited by semi-colons.
+                    </para>
+                    <para>
+                        Also available as escaped version.
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
          </sect2>
 
@@ -501,6 +514,23 @@
                         Minimum / maximum longitude or latitude value of 
                         mapextent.
                         Available only when projection enabled.
+                    </para>
+                </listitem>
+            </varlistentry>
+            
+            <varlistentry>
+                <term><literal>[refext], [refext_esc]</literal></term>
+                <listitem>
+                    <para> 
+                        Reference map extent (separated by spaces).
+                    </para>
+                    <para>
+                        Also available as escaped version.
+                    </para>
+                    <para>
+                        This template has been added with version 4.6 on behalf
+                        of an enhancement request. See the thread in the 
+                        <ulink url="http://mapserver.gis.umn.edu/bugs/show_bug.cgi?id=1102">MapServer Bugtracker (id 1102)</ulink> for potential use cases.
                     </para>
                 </listitem>
             </varlistentry>
@@ -1059,6 +1089,14 @@
     <revhistory>
 
       <revision>
+        <revnumber>Number: 1.16</revnumber>
+        <date>Date: 2005-05-02</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Added [refext], [refext_esc], [errmsg] and [errmsg_esc] 
+                   templates.
+		</revremark>
+      </revision>
+      <revision>
         <revnumber>Number: 1.15</revnumber>
         <date>Date: 2004-12-25</date>
         <authorinitials>Author: Frank Koormann</authorinitials>
@@ -1092,6 +1130,13 @@
         <date>Date: 2004-11-09</date>
         <authorinitials>Author: Frank Koormann</authorinitials>
 		<revremark>Added note about CGI parameter substitution.
+		</revremark>
+      </revision>
+      <revision>
+        <revnumber>Number: 1.9</revnumber>
+        <date>Date: 2004-10-15</date>
+        <authorinitials>Author: Frank Koormann</authorinitials>
+		<revremark>Added [shpclass] and [shpxy] templates.
 		</revremark>
       </revision>
       <revision>
