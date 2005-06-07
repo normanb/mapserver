@@ -29,9 +29,9 @@
         </author>
         <abstract>
             <para>
-                This document is a reference to the MapFile syntax for MapServer version 4.4.
+                This document is a reference to the MapFile syntax for MapServer version 4.6.
             </para>
-            <para>Last Updated:  04-20-2005</para>
+            <para>Last Updated:  06-07-2005</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>
@@ -73,183 +73,322 @@
                 </listitem>
             </itemizedlist>
         </sect2>
-        <sect2 id="map">
-            <title>Map Object</title>
-            <para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
+        <sect2 id="class">
+            <title>Class Object</title>
+            <para>Defines thematic classes for a given layer and each layer must have at least one class. In cases with more than one class, membership is determined using attribute values and expressions. Starts with the keyword <emphasis>CLASS</emphasis> and terminates with the keyword <emphasis>END</emphasis>.
+            </para>
             <variablelist>
-                <varlistentry id="config">
-                    <term>CONFIG [key] [value]</term>
+                <varlistentry>
+                    <term>BACKGROUNDCOLOR [r] [g] [b]</term>
                     <listitem>
-                        <para>This can be used to define the location of your EPSG files for the PROJ.4 library.  Setting the [key] to PROJ_LIB and the [value] to the location of your EPSG files will force PROJ.4 to use this value.   Using CONFIG allows you to avoid setting environment variables to point to your PROJ_LIB directory. An example follows:</para>
-                        <screen>
-       CONFIG PROJ_LIB /tmp/proj/               
-                    </screen>
-                        <para>
-Any other value will be passed on to CPLSetConfigOption().  This provides
-customized control of some GDAL and OGR driver behaviours.   Details on
-such options would be found in specific GDAL driver documentation.                  
-                    </para>
+                        <para>Color to use for non-transparent symbols.</para>
                     </listitem>
                 </varlistentry>
-                <varlistentry id="datapattern">
-                    <term>DATAPATTERN [regular expression]</term>
+                <varlistentry>
+                    <term>COLOR [r] [g] [b]</term>
                     <listitem>
-                        <para>This defines a regular expression to be applied to requests to change <link linkend="data">DATA</link> parameters via URL requests (i.e. map_layername_data=...). If a pattern doesn't exist then web users can't monkey with support files via URLs. This allows you to isolate one application from another if you desire, with the default operation being very conservative. See also <link linkend="templatepattern">TEMPLATEPATTERN</link>.</para>
+                        <para>Color to use for drawing features.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
                     <term>DEBUG [on|off]</term>
                     <listitem>
-                        <para>Enables debugging of the map object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServer logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
+                        <para>Enables debugging of the class object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServe r logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>EXTENT [minx] [miny] [maxx] [maxy]</term>
+                    <term>EXPRESSION [string]</term>
                     <listitem>
-                        <para>The spatial extent of the map to be created.  Most often you will want to specify this, although mapserver will
-                  extrapolate one if none is specified.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="fontset">
-                    <term>FONTSET [filename]</term>
-                    <listitem>
-                        <para>Full filename of fontset file to use.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="imagecolor">
-                    <term>IMAGECOLOR [r] [g] [b]</term>
-                    <listitem>
-                        <para>Color to initialize the map with (i.e. background color). When transparency is enabled (<link linkend="transparent">TRANSPARENT</link> ON) for the typical case of 8-bit pseudocolored map generation, this color will be marked as transparent in the output file palette.  Any other map components drawn in this color will also be transparenct, so for map generation with transparency it is best to use an otherwise unused color as the background color.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>IMAGEQUALITY [int]</term>
-                    <listitem>
-                        <para>Compression quality for JPEG output.  This keyword is now deprecated in favour of using FORMATOPTION "QUALITY=n" in the <link linkend="outputformat">OUTPUTFORMAT</link> declaration.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>IMAGETYPE [gif|png|jpeg|wbmp|gtiff|swf|userdefined]</term>
-                    <listitem>
-                        <para>Output format to generate.  See details in the <link linkend="outputformat">OUTPUTFORMAT</link> section for available formats.  The name here must match the 'NAME' of a user defined or internally generated <link linkend="outputformat">OUTPUTFORMAT</link> section.</para>
+                        <para>Four types of expressions are now supported to define class membership. String comparisons, regular expressions, simple logical expressions, and string functions. If no expression is given, then all features are said to belong to this class.</para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>String comparisons are case sensitive and are the fastest to evaluate. No special delimiters are necessary although string must be quoted if they contain special characters. (As a matter of good habit, it is recommended you quote all strings).</para>
+                            </listitem>
+                            <listitem>
+                                <para>Regular expressions function just like previous versions of MapServer. However, you must now delimit a regular expression using /regex/. No quotes should be used.</para>
+                            </listitem>
+                            <listitem>
+                                <para>Logical expressions allow you to build fairly complex tests based on one or more attributes and therefore are only available with shapefiles. Logical expressions are delimited by parentheses "(expression)".  Attribute names are delimited by square brackets "[ATTRIBUTE]". These names are case sensitive and must match the items in the shapefile. For example: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... The following logical operators are supported : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq,ne. As you might expect this level of complexity is slower to process.</para>
+                            </listitem>
+                            <listitem>
+                                <para>One string function exists: length().  This obviously computes the length of a string.  An example follows:</para>
+                                <screen>
+        EXPRESSION (length('[NAME_E]') &lt; 8)                      
+                                </screen>
+                            </listitem>
+                        </itemizedlist>
+                        <para>String comparisons and regular expressions work from the classitem defined at the layer level. You may mix expression types within the different classes of a layer.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>INTERLACE [on|off]</term>
+                    <term>JOIN</term>
                     <listitem>
-                        <para>Should output images be interlaced?  Default is [on].  This keyword is now depcrecated in favour of using the FORMATOPTION "INTERLACE=ON" line in the <link linkend="outputformat">OUTPUTFORMAT</link> declaration.</para>
+                        <para>Signals the start of a <link linkend="join">JOIN</link> object.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>LAYER</term>
+                    <term>LABEL</term>
                     <listitem>
-                        <para>Signals the start of a <link linkend="layer">LAYER</link>object.</para>
+                        <para>Signals the start of a <link linkend="label">LABEL</link> object.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>LEGEND</term>
+                    <term>MAXSCALE [double]</term>
                     <listitem>
-                        <para>Signals the start of a <link linkend="legend">LEGEND</link>object.</para>
+                        <para>Maximum scale at which this CLASS is drawn.</para>
+                    </listitem>
+                </varlistentry>                
+                <varlistentry>
+                    <term>MAXSIZE [integer]</term>
+                    <listitem>
+                        <para>Maximum size in pixels to draw a symbol. Default is 50.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>NAME [name]</term>
+                    <term>MINSCALE [double]</term>
                     <listitem>
-                        <para>Prefix attached to map, scalebar and legend GIF filenames created using this MapFile.  It should be kept short.</para>
+                        <para>Minimum scale at which this CLASS is drawn.</para>
+                    </listitem>
+                </varlistentry>                
+                <varlistentry>
+                    <term>MINSIZE [integer]</term>
+                    <listitem>
+                        <para>Minimum size in pixels to draw a symbol. Default is 0.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>PROJECTION</term>
+                    <term>NAME [string]</term>
                     <listitem>
-                        <para>Signals the start of a <link linkend="projection">PROJECTION</link> object.</para>
+                        <para>Name to use in legends for this class. If not set class won't show up in legend.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="outlinecolor">
+                    <term>OUTLINECOLOR [r] [g] [b]</term>
+                    <listitem>
+                        <para>Color to use for outlining polygons and certain marker symbols. Line symbols do not support outline colors.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="size">
+                    <term>SIZE [integer]</term>
+                    <listitem>
+                        <para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. For vector (and ellipse) symbol types the
+                              default size is based on the range of Y values in the POINTS defining the
+                              symbol. For pixmaps, the default is the vertical size of the image. Default size
+                              is 1 for TTF symbols.
+                        </para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>QUERYMAP</term>
+                    <term>STYLE</term>
                     <listitem>
-                        <para>Signals the start of a <link linkend="querymap">QUERYMAP</link> object.</para>
+                        <para>Signals the start of a <link linkend="style">STYLE</link> object. A class can contain multiple styles.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>REFERENCE</term>
+                    <term>SYMBOL [integer|string|filename]</term>
                     <listitem>
-                        <para>Signals the start of a <link linkend="referencemap">REFERENCE MAP</link> object.</para>
+                        <para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol 
+                        in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names 
+                        using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which 
+                        results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
+                        <para>
+                            You can also specify a gif or png filename.  The path is relative to the location of the mapfile.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="template">
+                    <term>TEMPLATE [filename]</term>
+                    <listitem>
+                        <para>Template file or URL to use in presenting query results to the user.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>RESOLUTION [int]</term>
+                    <term>TEXT [string]</term>
                     <listitem>
-                        <para>Sets the pixels per inch for output, only affects scale computations and nothing else, default is 72</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>SCALE [double]</term>
-                    <listitem>
-                        <para>Computed scale of the map. Set most often by the application.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>SCALEBAR</term>
-                    <listitem>
-                        <para>Signals the start of a <link linkend="scalebar">SCALEBAR</link> object.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="shapepath">
-                    <term>SHAPEPATH [filename]</term>
-                    <listitem>
-                        <para>Path to the directory holding the shapefiles or tiles.  There can be further subdirectories under SHAPEPATH.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>SIZE [x][y]</term>
-                    <listitem>
-                        <para>Size in pixels of the output image (i.e. the map).</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>STATUS [on|off]</term>
-                    <listitem>
-                        <para>Is the map active? Sometimes you may wish to turn this off to use only the reference map or scale bar.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="symbolset">
-                    <term>SYMBOLSET [filename]</term>
-                    <listitem>
-                        <para>Full filename of the symbolset to use.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>SYMBOL</term>
-                    <listitem>
-                        <para>Signals the start of a <link linkend="symbology">SYMBOL</link> object.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="templatepattern">
-                    <term>TEMPLATEPATTERN [regular expression]</term>
-                    <listitem>
-                        <para>This defines a regular expression to be applied to requests to change <link linkend="template">TEMPLATE</link> parameters via URL requests (i.e. map_layername_template=...). If a pattern doesn't exist then web users can't monkey with support files via URLs. This allows you to isolate one application from another if you desire, with the default operation being very conservative. See also <link linkend="datapattern">DATAPATTERN</link>.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>TRANSPARENT [on|off]</term>
-                    <listitem>
-                        <para>Should the background color for the maps be transparent.  This flag is now deprecated in favour of declaring transparency within <link linkend="outputformat">OUTPUTFORMAT</link> declarations.  Default is off.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>UNITS [feet|inches|kilometers|meters|miles|dd]</term>
-                    <listitem>
-                        <para>Units of the map coordinates.  Used for scalebar and scale computations.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>WEB</term>
-                    <listitem>
-                        <para>Signals the start of a <link linkend="web">WEB</link> object.</para>
+                        <para>Static text to label features in this class with. This overrides values obtained from the <emphasis>LABELTIEM</emphasis>. The string may be given as an expression delimited using the ()'s. This allows you to concatenate multiple attributes into a single label. For example: ([FIRSTNAME],[LASTNAME]).</para>
                     </listitem>
                 </varlistentry>
             </variablelist>
-        </sect2>
+            <para>You can also "stack" 2 symbols to achieve interesting effects.  You define the second symbol, which effectively sits "on top" of the symbol normally defined above.</para>
+            <para>The following parameters allow you to define the symbol, and they are equivalent to their non-overlay counterparts:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>OVERLAYBACKGROUNDCOLOR</para>
+                </listitem>
+                <listitem>
+                    <para>OVERLAYCOLOR</para>
+                </listitem>
+                <listitem>
+                    <para>OVERLAYOUTLINECOLOR</para>
+                </listitem>
+                <listitem>
+                    <para>OVERLAYSIZE</para>
+                </listitem>
+                <listitem>
+                    <para>OVERLAYMINSIZE</para>
+                </listitem>
+                <listitem>
+                    <para>OVERLAYMAXSIZE</para>
+                </listitem>
+                <listitem>
+                    <para>OVERLAYSYMBOL</para>
+                </listitem>
+            </itemizedlist>
+        </sect2> 
+        <sect2 id="feature">
+            <title>Feature Object</title>
+            <para>Defines inline features. You can use inline features when it's not possible (or too much trouble) to create a shapefile. Inline features can also be built via urls or forms. Starts with the keyword <emphasis>FEATURE</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
+            <variablelist>
+                <varlistentry>
+                    <term>POINTS</term>
+                    <listitem>
+                        <para>A set of xy pairs terminated with an END, for example:</para>
+                        <programlisting>POINTS 1 1 50 50 1 50 1 1 END</programlisting>
+                        <para>Note that with POLYGON/POLYLINE layers POINTS must start and end with the same point (i.e. close the feature).</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>TEXT [string]</term>
+                    <listitem>
+                        <para>String to use for labeling this feature.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+            <note>
+               <para>
+                   Inline features should be defined as their own layers in the mapfile.
+                   If another CONNECTIONTYPE is specified in the same layer, MapServer will always use
+                   the inline features to draw the layer and ignore the other CONNECTIONTYPEs. 
+               </para>
+            </note>
+        </sect2> 
+        <sect2 id="grid">
+            <title>Grid Object</title>
+            <para>The GRID object defines a map graticule as a LAYER.  Starts with the keyword <emphasis>GRID</emphasis> and terminates with the keyword <emphasis>END</emphasis>.  </para>
+            <variablelist>
+                <varlistentry>
+                    <term>LABELFORMAT [DDMM|DDMMSS]</term>
+                    <listitem>
+                        <para>Format of the label.  "DDMM" for degrees minutes, and "DDMMSS" for degrees, minutes, seconds.  The default is decimal 
+                        display of whatever SRS you're rendering the GRID with. </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MINARCS [double]</term>
+                    <listitem>
+                        <para>The minimum number of arcs to draw. </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MAXARCS [double]</term>
+                    <listitem>
+                        <para>The maximum number of arcs to draw. </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MININTERVAL [double]</term>
+                    <listitem>
+                        <para>The minimum number of intervals to try to use. </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MAXINTERVAL [double]</term>
+                    <listitem>
+                        <para>The maximum number of intervals to try to use. </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MINSUBDIVIDE [double]</term>
+                    <listitem>
+                        <para>The minimum number of segments to use when rendering an arc. </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MAXSUBDIVIDE [double]</term>
+                    <listitem>
+                        <para>The maximum number of segments to use when rendering an arc. </para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+            <para>
+               The following is an example of a GRID object in use:
+             </para>
+            <screen>
+   LAYER
+     NAME "grid"
+     METADATA
+       "DESCRIPTION" "Grid"
+     END
+     TYPE LINE
+     STATUS ON
+     CLASS
+       NAME "Graticule"
+       COLOR 0 0 0
+       LABEL
+         COLOR  255 0 0
+         FONT fritqat
+         TYPE truetype
+         SIZE 8
+         POSITION AUTO          
+         PARTIALS FALSE
+         BUFFER 5
+         OUTLINECOLOR 255 255 255           
+       END 
+    END
+    PROJECTION
+        "init=epsg:4326"
+    END
+    GRID
+      LABELFORMAT DDMM
+      MAXARCS 10
+      MAXINTERVAL 10
+      MAXSUBDIVIDE 2
+    END
+  END # Layer
+             </screen>
+        </sect2>        
+        <sect2 id="join">
+            <title>Join Object</title>
+            <para>Defines how a specific join is handled. Starts with the keyword <emphasis>JOIN</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Joins are defined within a query object.</para>
+            <variablelist>
+                <varlistentry>
+                    <term>FROM [item]</term>
+                    <listitem>
+                        <para>Join item in the shapefile.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>NAME [string]</term>
+                    <listitem>
+                        <para>Unique name for this join. Required.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>TABLE [file]</term>
+                    <listitem>
+                        <para>Name of XBase file (DBF, must be a full path) to join TO.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>TEMPLATE [filename]</term>
+                    <listitem>
+                        <para>Template to use with one-to-many joins. The template is processed once for each record and can only contain substitutions for items in the joined table.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>TO [item]</term>
+                    <listitem>
+                        <para>Join item in the table to be joined.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>TYPE [multiple|single]</term>
+                    <listitem>
+                        <para>The type of join. Default is single (i.e. one-to-one).</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </sect2>        
         <sect2 id="label">
             <title>Label Object</title>
             <para>This object is used to define a label, which is in turn usually used to annotate a feature with a piece of text.  Labels can however also be used as symbols through the use of various TrueType fonts.</para>
@@ -401,7 +540,7 @@ such options would be found in specific GDAL driver documentation.
                     </listitem>
                 </varlistentry>
             </variablelist>
-        </sect2>
+        </sect2>   
         <sect2 id="layer">
             <title>Layer Object</title>
             <para>The most used object in a MapFile, this one describes layers used to make up a map.  Layers are drawn in their order of appearance in the MapFile (first layer is at the bottom, last in on top).</para>
@@ -698,259 +837,7 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
             </variablelist>
-        </sect2>
-        <sect2 id="class">
-            <title>Class Object</title>
-            <para>Defines thematic classes for a given layer and each layer must have at least one class. In cases with more than one class, membership is determined using attribute values and expressions. Starts with the keyword <emphasis>CLASS</emphasis> and terminates with the keyword <emphasis>END</emphasis>.
-            </para>
-            <variablelist>
-                <varlistentry>
-                    <term>BACKGROUNDCOLOR [r] [g] [b]</term>
-                    <listitem>
-                        <para>Color to use for non-transparent symbols.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>COLOR [r] [g] [b]</term>
-                    <listitem>
-                        <para>Color to use for drawing features.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>DEBUG [on|off]</term>
-                    <listitem>
-                        <para>Enables debugging of the class object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServe r logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>EXPRESSION [string]</term>
-                    <listitem>
-                        <para>Four types of expressions are now supported to define class membership. String comparisons, regular expressions, simple logical expressions, and string functions. If no expression is given, then all features are said to belong to this class.</para>
-                        <itemizedlist>
-                            <listitem>
-                                <para>String comparisons are case sensitive and are the fastest to evaluate. No special delimiters are necessary although string must be quoted if they contain special characters. (As a matter of good habit, it is recommended you quote all strings).</para>
-                            </listitem>
-                            <listitem>
-                                <para>Regular expressions function just like previous versions of MapServer. However, you must now delimit a regular expression using /regex/. No quotes should be used.</para>
-                            </listitem>
-                            <listitem>
-                                <para>Logical expressions allow you to build fairly complex tests based on one or more attributes and therefore are only available with shapefiles. Logical expressions are delimited by parentheses "(expression)".  Attribute names are delimited by square brackets "[ATTRIBUTE]". These names are case sensitive and must match the items in the shapefile. For example: EXPRESSION ([POPULATION] > 50000 AND '[LANGUAGE]' eq 'FRENCH') ... The following logical operators are supported : =,>,&lt;,&lt;=,>=,=,or,and,lt,gt,ge,le,eq,ne. As you might expect this level of complexity is slower to process.</para>
-                            </listitem>
-                            <listitem>
-                                <para>One string function exists: length().  This obviously computes the length of a string.  An example follows:</para>
-                                <screen>
-        EXPRESSION (length('[NAME_E]') &lt; 8)                      
-                                </screen>
-                            </listitem>
-                        </itemizedlist>
-                        <para>String comparisons and regular expressions work from the classitem defined at the layer level. You may mix expression types within the different classes of a layer.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>JOIN</term>
-                    <listitem>
-                        <para>Signals the start of a <link linkend="join">JOIN</link> object.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>LABEL</term>
-                    <listitem>
-                        <para>Signals the start of a <link linkend="label">LABEL</link> object.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MAXSCALE [double]</term>
-                    <listitem>
-                        <para>Maximum scale at which this CLASS is drawn.</para>
-                    </listitem>
-                </varlistentry>                
-                <varlistentry>
-                    <term>MAXSIZE [integer]</term>
-                    <listitem>
-                        <para>Maximum size in pixels to draw a symbol. Default is 50.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MINSCALE [double]</term>
-                    <listitem>
-                        <para>Minimum scale at which this CLASS is drawn.</para>
-                    </listitem>
-                </varlistentry>                
-                <varlistentry>
-                    <term>MINSIZE [integer]</term>
-                    <listitem>
-                        <para>Minimum size in pixels to draw a symbol. Default is 0.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>NAME [string]</term>
-                    <listitem>
-                        <para>Name to use in legends for this class. If not set class won't show up in legend.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="outlinecolor">
-                    <term>OUTLINECOLOR [r] [g] [b]</term>
-                    <listitem>
-                        <para>Color to use for outlining polygons and certain marker symbols. Line symbols do not support outline colors.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="size">
-                    <term>SIZE [integer]</term>
-                    <listitem>
-                        <para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. For vector (and ellipse) symbol types the
-                              default size is based on the range of Y values in the POINTS defining the
-                              symbol. For pixmaps, the default is the vertical size of the image. Default size
-                              is 1 for TTF symbols.
-                        </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>STYLE</term>
-                    <listitem>
-                        <para>Signals the start of a <link linkend="style">STYLE</link> object. A class can contain multiple styles.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>SYMBOL [integer|string|filename]</term>
-                    <listitem>
-                        <para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol 
-                        in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names 
-                        using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which 
-                        results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
-                        <para>
-                            You can also specify a gif or png filename.  The path is relative to the location of the mapfile.
-                        </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="template">
-                    <term>TEMPLATE [filename]</term>
-                    <listitem>
-                        <para>Template file or URL to use in presenting query results to the user.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>TEXT [string]</term>
-                    <listitem>
-                        <para>Static text to label features in this class with. This overrides values obtained from the <emphasis>LABELTIEM</emphasis>. The string may be given as an expression delimited using the ()'s. This allows you to concatenate multiple attributes into a single label. For example: ([FIRSTNAME],[LASTNAME]).</para>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
-            <para>You can also "stack" 2 symbols to achieve interesting effects.  You define the second symbol, which effectively sits "on top" of the symbol normally defined above.</para>
-            <para>The following parameters allow you to define the symbol, and they are equivalent to their non-overlay counterparts:</para>
-            <itemizedlist>
-                <listitem>
-                    <para>OVERLAYBACKGROUNDCOLOR</para>
-                </listitem>
-                <listitem>
-                    <para>OVERLAYCOLOR</para>
-                </listitem>
-                <listitem>
-                    <para>OVERLAYOUTLINECOLOR</para>
-                </listitem>
-                <listitem>
-                    <para>OVERLAYSIZE</para>
-                </listitem>
-                <listitem>
-                    <para>OVERLAYMINSIZE</para>
-                </listitem>
-                <listitem>
-                    <para>OVERLAYMAXSIZE</para>
-                </listitem>
-                <listitem>
-                    <para>OVERLAYSYMBOL</para>
-                </listitem>
-            </itemizedlist>
-        </sect2>
-        <sect2 id="style">
-            <title>Style Object</title>
-            <para>This object holds parameters for symbolization.  Multiple styles may be applied within a class.  This object is new in 4.0 and is intended to seperate logic from looks.  The final intent is to have named styles (Not yet supported) that will be re-usable through the mapfile.  This is the new, preferred way of defining the appearance of an object, notably a class.</para>
-            <variablelist>
-                <varlistentry>
-                    <term>ANTIALIAS [true|false]</term>
-                    <listitem>
-                        <para>Should TrueType fonts and Cartoline symbols be antialiased.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>BACKGROUNDCOLOR [r] [g] [b]</term>
-                    <listitem>
-                        <para>Color to use for non-transparent symbols.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>COLOR [r] [g] [b]</term>
-                    <listitem>
-                        <para>Color to use for drawing features.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MAXSIZE [integer]</term>
-                    <listitem>
-                        <para>Maximum size in pixels to draw a symbol. Default is 50.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MINSIZE [integer]</term>
-                    <listitem>
-                        <para>Minimum size in pixels to draw a symbol. Default is 0.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>OFFSET [x][y]</term>
-                    <listitem>
-                        <para>Offset values for shadows, hollow symbols, etc ...</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>OUTLINECOLOR [r] [g] [b]</term>
-                    <listitem>
-                        <para>Color to use for outlining polygons and certain marker symbols. Line symbols do not support outline colors.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>SIZE [integer]</term>
-                    <listitem>
-                        <para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. Default is 1.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>SYMBOL [integer|string|filename]</term>
-                    <listitem>
-                        <para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
-                        <para>
-                            You can also specify a gif or png filename.  The path is relative to the location of the mapfile.
-                        </para>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
-        </sect2>
-        <sect2 id="feature">
-            <title>Feature Object</title>
-            <para>Defines inline features. You can use inline features when it's not possible (or too much trouble) to create a shapefile. Inline features can also be built via urls or forms. Starts with the keyword <emphasis>FEATURE</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
-            <variablelist>
-                <varlistentry>
-                    <term>POINTS</term>
-                    <listitem>
-                        <para>A set of xy pairs terminated with an END, for example:</para>
-                        <programlisting>POINTS 1 1 50 50 1 50 1 1 END</programlisting>
-                        <para>Note that with POLYGON/POLYLINE layers POINTS must start and end with the same point (i.e. close the feature).</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>TEXT [string]</term>
-                    <listitem>
-                        <para>String to use for labeling this feature.</para>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
-            <note>
-               <para>
-                   Inline features should be defined as their own layers in the mapfile.
-                   If another CONNECTIONTYPE is specified in the same layer, MapServer will always use
-                   the inline features to draw the layer and ignore the other CONNECTIONTYPEs. 
-               </para>
-            </note>
-        </sect2>
+        </sect2>  
         <sect2 id="legend">
             <title>Legend Object</title>
             <para>Defines how a legend is to be built. Legend components are built automatically from class objects from individual layers.  Starts with the keyword <emphasis>LEGEND</emphasis> and terminates with the keyword <emphasis>END</emphasis>. The size of the legend image is <emphasis>NOT</emphasis> known prior to creation so be careful not to hard-code width and height in the &lt;IMG> tag in the template file.</para>
@@ -1016,7 +903,336 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
             </variablelist>
+        </sect2>        
+        <sect2 id="map">
+            <title>Map Object</title>
+            <para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
+            <variablelist>
+                <varlistentry id="config">
+                    <term>CONFIG [key] [value]</term>
+                    <listitem>
+                        <para>This can be used to define the location of your EPSG files for the PROJ.4 library.  Setting the [key] to PROJ_LIB and the [value] to the location of your EPSG files will force PROJ.4 to use this value.   Using CONFIG allows you to avoid setting environment variables to point to your PROJ_LIB directory. An example follows:</para>
+                        <screen>
+       CONFIG PROJ_LIB /tmp/proj/               
+                    </screen>
+                        <para>
+Any other value will be passed on to CPLSetConfigOption().  This provides
+customized control of some GDAL and OGR driver behaviours.   Details on
+such options would be found in specific GDAL driver documentation.                  
+                    </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="datapattern">
+                    <term>DATAPATTERN [regular expression]</term>
+                    <listitem>
+                        <para>This defines a regular expression to be applied to requests to change <link linkend="data">DATA</link> parameters via URL requests (i.e. map_layername_data=...). If a pattern doesn't exist then web users can't monkey with support files via URLs. This allows you to isolate one application from another if you desire, with the default operation being very conservative. See also <link linkend="templatepattern">TEMPLATEPATTERN</link>.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>DEBUG [on|off]</term>
+                    <listitem>
+                        <para>Enables debugging of the map object.  Verbose output is generated and sent to the standard error output (STDERR) or the MapServer logfile if one is set using the LOG parameter in the <link linkend="web">WEB</link> object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>EXTENT [minx] [miny] [maxx] [maxy]</term>
+                    <listitem>
+                        <para>The spatial extent of the map to be created.  Most often you will want to specify this, although mapserver will
+                  extrapolate one if none is specified.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="fontset">
+                    <term>FONTSET [filename]</term>
+                    <listitem>
+                        <para>Full filename of fontset file to use.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="imagecolor">
+                    <term>IMAGECOLOR [r] [g] [b]</term>
+                    <listitem>
+                        <para>Color to initialize the map with (i.e. background color). When transparency is enabled (<link linkend="transparent">TRANSPARENT</link> ON) for the typical case of 8-bit pseudocolored map generation, this color will be marked as transparent in the output file palette.  Any other map components drawn in this color will also be transparenct, so for map generation with transparency it is best to use an otherwise unused color as the background color.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>IMAGEQUALITY [int]</term>
+                    <listitem>
+                        <para>Compression quality for JPEG output.  This keyword is now deprecated in favour of using FORMATOPTION "QUALITY=n" in the <link linkend="outputformat">OUTPUTFORMAT</link> declaration.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>IMAGETYPE [gif|png|jpeg|wbmp|gtiff|swf|userdefined]</term>
+                    <listitem>
+                        <para>Output format to generate.  See details in the <link linkend="outputformat">OUTPUTFORMAT</link> section for available formats.  The name here must match the 'NAME' of a user defined or internally generated <link linkend="outputformat">OUTPUTFORMAT</link> section.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>INTERLACE [on|off]</term>
+                    <listitem>
+                        <para>Should output images be interlaced?  Default is [on].  This keyword is now depcrecated in favour of using the FORMATOPTION "INTERLACE=ON" line in the <link linkend="outputformat">OUTPUTFORMAT</link> declaration.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>LAYER</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="layer">LAYER</link>object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>LEGEND</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="legend">LEGEND</link>object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>NAME [name]</term>
+                    <listitem>
+                        <para>Prefix attached to map, scalebar and legend GIF filenames created using this MapFile.  It should be kept short.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>PROJECTION</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="projection">PROJECTION</link> object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>QUERYMAP</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="querymap">QUERYMAP</link> object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>REFERENCE</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="referencemap">REFERENCE MAP</link> object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>RESOLUTION [int]</term>
+                    <listitem>
+                        <para>Sets the pixels per inch for output, only affects scale computations and nothing else, default is 72</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>SCALE [double]</term>
+                    <listitem>
+                        <para>Computed scale of the map. Set most often by the application.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>SCALEBAR</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="scalebar">SCALEBAR</link> object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="shapepath">
+                    <term>SHAPEPATH [filename]</term>
+                    <listitem>
+                        <para>Path to the directory holding the shapefiles or tiles.  There can be further subdirectories under SHAPEPATH.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>SIZE [x][y]</term>
+                    <listitem>
+                        <para>Size in pixels of the output image (i.e. the map).</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>STATUS [on|off]</term>
+                    <listitem>
+                        <para>Is the map active? Sometimes you may wish to turn this off to use only the reference map or scale bar.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="symbolset">
+                    <term>SYMBOLSET [filename]</term>
+                    <listitem>
+                        <para>Full filename of the symbolset to use.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>SYMBOL</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="symbology">SYMBOL</link> object.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="templatepattern">
+                    <term>TEMPLATEPATTERN [regular expression]</term>
+                    <listitem>
+                        <para>This defines a regular expression to be applied to requests to change <link linkend="template">TEMPLATE</link> parameters via URL requests (i.e. map_layername_template=...). If a pattern doesn't exist then web users can't monkey with support files via URLs. This allows you to isolate one application from another if you desire, with the default operation being very conservative. See also <link linkend="datapattern">DATAPATTERN</link>.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>TRANSPARENT [on|off]</term>
+                    <listitem>
+                        <para>Should the background color for the maps be transparent.  This flag is now deprecated in favour of declaring transparency within <link linkend="outputformat">OUTPUTFORMAT</link> declarations.  Default is off.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>UNITS [feet|inches|kilometers|meters|miles|dd]</term>
+                    <listitem>
+                        <para>Units of the map coordinates.  Used for scalebar and scale computations.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>WEB</term>
+                    <listitem>
+                        <para>Signals the start of a <link linkend="web">WEB</link> object.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
         </sect2>
+        <sect2 id="outputformat">
+            <title>OutputFormat Object</title>
+            <para>This section discusses how output formats are defined and selected.</para>
+            <para>A map file may have zero, one or more OUTPUTFORMAT object declarations, defining available output formats supported including formats like PNG, GIF, JPEG, GeoTIFF and Flash (SWF).</para>
+            <para>If OUTPUTFORMAT sections declarations are not found in the map file, the following implicit declarations will be made.  Only those for which support is compiled in will actually be available.  The GeoTIFF depends on building with GDAL support, and the Flash (SWF) depends on compiling with support for the MING library.</para>
+            <para>
+                <screen>
+OUTPUTFORMAT
+  NAME gif
+  DRIVER "GD/GIF"
+  MIMETYPE "image/gif"
+  IMAGEMODE PC256
+  EXTENSION "gif"
+END
+OUTPUTFORMAT
+  NAME png
+  DRIVER "GD/PNG"
+  MIMETYPE "image/png"
+  IMAGEMODE PC256
+  EXTENSION "png"
+END
+OUTPUTFORMAT
+  NAME jpeg
+  DRIVER "GD/JPEG"
+  MIMETYPE "image/jpeg"
+  IMAGEMODE RGB
+  EXTENSION "jpg"
+END
+OUTPUTFORMAT
+  NAME wbmp
+  DRIVER "GD/WBMP"
+  MIMETYPE "image/wbmp"
+  IMAGEMODE PC256
+  EXTENSION "wbmp"
+END
+OUTPUTFORMAT
+  NAME swf
+  DRIVER "SWF"
+  MIMETYPE "application/x-shockwave-flash"
+  EXTENSION "swf"
+  IMAGEMODE PC256
+  FORMATOPTION "OUTPUT_MOVIE=SINGLE"
+END
+OUTPUTFORMAT
+  NAME GTiff
+  DRIVER "GDAL/GTiff"
+  MIMETYPE "image/tiff"
+  IMAGEMODE RGB
+  EXTENSION "tif"
+END
+
+        </screen>
+            </para>
+            <variablelist>
+                <varlistentry>
+                    <term>NAME [name]</term>
+                    <listitem>
+                        <para>The name to use use in the IMAGETYPE keyword of the map file to select this output format.(optional)</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>DRIVER [name]</term>
+                    <listitem>
+                        <para>The name of the driver to use to generate this output format.  Some driver names include the definition of the format if the driver supports multiple formats.  For GD the possible driver names are "GD/Gif", "GD/PNG", "GD/WBMP" and "GD/JPEG".  For flash the driver is just called "SWF".  For output through GDAL the GDAL shortname for the format is appeneded, such as "GDAL/GTiff".  Note that PNG, JPEG and GIF output can be generated with either GDAL or GD (GD is generally more efficient).(manditory)</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>IMAGEMODE [PC256/RGB/RGBA/INT16/FLOAT32]</term>
+                    <listitem>
+                        <para>Selects the imaging mode in which the output is generated.  Does matter for non-raster formats like Flash.   Not all formats support all combinations.  For instance GD/GIF supports only PC256. (optional)</para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>PC256: Produced a pseudocolored result with up to 256 colors in the palette (traditional MapServer mode)</para>
+                            </listitem>
+                            <listitem>
+                                <para>RGB: Render in 24bit Red/Green/Blue mode.  Supports all colors but does not support transparency.</para>
+                            </listitem>
+                            <listitem>
+                                <para>RGBA: Render in 32bit Red/Green/Blue/Alpha mode.  Supports all colors, and alpha based transparency.</para>
+                            </listitem>
+                            <listitem>
+                                <para>INT16: Render one band of data in 16 bit integer depth.  Only works for RASTER layers (through GDAL) and WMS layers currently.</para>
+                            </listitem>
+                            <listitem>
+                                <para>FLOAT32: Render one band of data in 32bit floating point depth.  Only works for RASTER layers (through GDAL) and WMS layers currently.</para>
+                            </listitem>
+                        </itemizedlist>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MIMETYPE [type]</term>
+                    <listitem>
+                        <para>Provide the mime type to be used when returning results over the web. (optional)</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>EXTENSION [type]</term>
+                    <listitem>
+                        <para>Provide the extension to use when creating files of this type. (optional)</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry id="transparent">
+                    <term>TRANSPARENT [ON/OFF]</term>
+                    <listitem>
+                        <para>Indicates whether transparency should be enabled for this format.  Note that transparency does not work for IMAGEMODE RGB output.  Not all formats support transparency (optional). When transparency is enabled for the typical case of 8-bit pseudocolored map generation, the <link linkend="imagecolor">IMAGECOLOR</link> color will be marked as transparent in the output file palette.  Any other map components drawn in this color will also be transparent, so for map generation with transparency it is best to use an otherwise unused color as the background color.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>FORMATOPTION [option]</term>
+                    <listitem>
+                        <para>Provides a driver or format specific option.  Zero or more FORMATOPTION statement may be present within a OUTPUTFORMAT declaration. (optional)</para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>GD/JPEG: The "QUALITY=n" option may be used to set the quality of jpeg produced (value from 0-100). </para>
+                            </listitem>
+                            <listitem>
+                                <para>GD/PNG: The "INTERLACE=[ON/OFF]" option may be used to turn interlacing on or off. </para>
+                            </listitem>
+                            <listitem>
+                                <para>GD/GIF: The "INTERLACE=[ON/OFF]" option may be used to turn interlacing on or off. </para>
+                            </listitem>
+                            <listitem>
+                                <para>GDAL/GTiff: Supports the TILED=YES, BLOCKXSIZE=n, BLOCKYSIZE=n, INTERLEAVE=[PIXEL/BAND] and COMPRESS=[NONE,PACKBITS,JPEG,LZW,DEFLATE] format specific options.</para>
+                            </listitem>
+                            <listitem>
+                                <para>GDAL/*: All FORMATOPTIONs are passed onto the GDAL create function.  Options supported by GDAL are described in the detailed documentation for each GDAL format. </para>
+                            </listitem>
+                        </itemizedlist>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </sect2>        
+        <sect2 id="projection">
+            <title>Projection Object</title>
+            <para>To set up projections you must define two projection objects: one for the output image (In the <link linkend="map">MAP</link> object) and one for each layer (In the <link linkend="layer">LAYER</link> objects) to be projected. Projection objects simply consist of a series of PROJ.4 keywords. Here is an example defining UTM zone 15, NAD83:</para>
+            <programlisting>
+PROJECTION
+  "proj=utm"
+  "ellps=GRS80"
+  "zone=15"
+  "north"
+  "no_defs"
+END
+            </programlisting>
+            <para>Geographic coordinates are defined as:</para>
+            <programlisting>
+PROJECTION
+  "proj=latlong"
+END
+            </programlisting>
+            <para>See the <ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink> user guides for complete descriptions of supported projections and coordinate systems. </para>
+        </sect2>        
         <sect2 id="querymap">
             <title>QueryMap Object</title>
             <para>Defines a mechanism to map the results of a query. Starts with the keyword <emphasis>QUERYMAP</emphasis> and terminates with the keyword <emphasis>END</emphasis>.</para>
@@ -1057,49 +1273,7 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
             </variablelist>
-        </sect2>
-        <sect2 id="join">
-            <title>Join Object</title>
-            <para>Defines how a specific join is handled. Starts with the keyword <emphasis>JOIN</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Joins are defined within a query object.</para>
-            <variablelist>
-                <varlistentry>
-                    <term>FROM [item]</term>
-                    <listitem>
-                        <para>Join item in the shapefile.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>NAME [string]</term>
-                    <listitem>
-                        <para>Unique name for this join. Required.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>TABLE [file]</term>
-                    <listitem>
-                        <para>Name of XBase file (DBF, must be a full path) to join TO.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>TEMPLATE [filename]</term>
-                    <listitem>
-                        <para>Template to use with one-to-many joins. The template is processed once for each record and can only contain substitutions for items in the joined table.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>TO [item]</term>
-                    <listitem>
-                        <para>Join item in the table to be joined.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>TYPE [multiple|single]</term>
-                    <listitem>
-                        <para>The type of join. Default is single (i.e. one-to-one).</para>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
-        </sect2>
+        </sect2>  
         <sect2 id="referencemap">
             <title>Reference Map Object</title>
             <para>Defines how reference maps are to be created. Starts with the keyword <emphasis>REFERENCE</emphasis> and terminates with the keyword <emphasis>END</emphasis>. Three types of reference maps are supported. The most common would be one showing the extent of a map in an interactive interface. It is also possible to request reference maps as part of a query. Point queries will generate an image with a marker (see below) placed at the query point. Region based queries will depict the extent of the area of interest. Finally, feature based queries will display the selection feature(s) used.</para>
@@ -1256,6 +1430,105 @@ PROCESSING "BANDS=3,2,1,4"
                     </listitem>
                 </varlistentry>
             </variablelist>
+        </sect2>        
+        <sect2 id="style">
+            <title>Style Object</title>
+            <para>This object holds parameters for symbolization.  Multiple styles may be applied within a class.  This object is new in 4.0 and is intended to seperate logic from looks.  The final intent is to have named styles (Not yet supported) that will be re-usable through the mapfile.  This is the new, preferred way of defining the appearance of an object, notably a class.</para>
+            <variablelist>
+                <varlistentry>
+                    <term>ANGLE [double]</term>
+                    <listitem>
+                        <para>Angle, given in degrees, to draw the line work.  Default is 0.  For symbols of Type HATCH, this is the angle of the hatched lines.  For its use with hatched lines, see Example10 in the <link linkend="examples">SYMBOL examples</link>.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>ANGLEITEM [attribute]</term>
+                    <listitem>
+                        <para>Item name in attribute table to use for angle lookups.</para>
+                    </listitem>
+                </varlistentry>                
+                <varlistentry>
+                    <term>ANTIALIAS [true|false]</term>
+                    <listitem>
+                        <para>Should TrueType fonts and Cartoline symbols be antialiased.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>BACKGROUNDCOLOR [r] [g] [b]</term>
+                    <listitem>
+                        <para>Color to use for non-transparent symbols.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>COLOR [r] [g] [b]</term>
+                    <listitem>
+                        <para>Color to use for drawing features.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MAXSIZE [integer]</term>
+                    <listitem>
+                        <para>Maximum size in pixels to draw a symbol. Default is 50.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MAXWIDTH [integer]</term>
+                    <listitem>
+                        <para>Maximum width in pixels to draw the line work.</para>
+                    </listitem>
+                </varlistentry>                
+                <varlistentry>
+                    <term>MINSIZE [integer]</term>
+                    <listitem>
+                        <para>Minimum size in pixels to draw a symbol. Default is 0.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>MINWIDTH [integer]</term>
+                    <listitem>
+                        <para>Minimum width in pixels to draw the line work.</para>
+                    </listitem>
+                </varlistentry>                  
+                <varlistentry>
+                    <term>OFFSET [x][y]</term>
+                    <listitem>
+                        <para>Offset values for shadows, hollow symbols, etc ...</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>OUTLINECOLOR [r] [g] [b]</term>
+                    <listitem>
+                        <para>Color to use for outlining polygons and certain marker symbols. Line symbols do not support outline colors.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>SIZE [integer]</term>
+                    <listitem>
+                        <para>Height, in pixels, of the symbol/pattern to be used. Only useful with scalable symbols. Default is 1.  For symbols of Type HATCH, the SIZE is the distance between hatched lines. For its use with hatched lines, see Example10 in the <link linkend="examples">SYMBOL examples</link></para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>SIZEITEM [attribute]</term>
+                    <listitem>
+                        <para>Item name in attribute table to use for size lookups.</para>
+                    </listitem>
+                </varlistentry>                
+                <varlistentry>
+                    <term>SYMBOL [integer|string|filename]</term>
+                    <listitem>
+                        <para>The symbol name or number to use for all features if attribute tables are not used.  The number is the index of the symbol in the symbol file, starting at 1, the 5th symbol in the file is therefore symbol number 5.  You can also give your symbols names using the <emphasis>NAME</emphasis> keyword in the symbol definition file, and use those to refer to them.  Default is 0, which results in a single pixel, single width line, or solid polygon fill, depending on layer type.</para>
+                        <para>
+                            You can also specify a gif or png filename.  The path is relative to the location of the mapfile.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>WIDTH [integer]</term>
+                    <listitem>
+                        <para>Width refers to the thickness of line work drawn, in pixels.  Default is 1.  For symbols of Type HATCH, the WIDTH is how thick the hatched lines are. For its use with hatched lines, see Example10 in the <link linkend="examples">SYMBOL examples</link>.</para>
+                    </listitem>
+                </varlistentry>                
+            </variablelist>
         </sect2>
         <sect2 id="web">
             <title>Web Object</title>
@@ -1357,264 +1630,27 @@ END
                 </varlistentry>
             </variablelist>
         </sect2>
-        <sect2 id="projection">
-            <title>Projection Object</title>
-            <para>To set up projections you must define two projection objects: one for the output image (In the <link linkend="map">MAP</link> object) and one for each layer (In the <link linkend="layer">LAYER</link> objects) to be projected. Projection objects simply consist of a series of PROJ.4 keywords. Here is an example defining UTM zone 15, NAD83:</para>
-            <programlisting>
-PROJECTION
-  "proj=utm"
-  "ellps=GRS80"
-  "zone=15"
-  "north"
-  "no_defs"
-END
-            </programlisting>
-            <para>Geographic coordinates are defined as:</para>
-            <programlisting>
-PROJECTION
-  "proj=latlong"
-END
-            </programlisting>
-            <para>See the <ulink url="http://www.remotesensing.org/proj/">PROJ.4</ulink> user guides for complete descriptions of supported projections and coordinate systems. </para>
-        </sect2>
-        <sect2 id="outputformat">
-            <title>OutputFormat Object</title>
-            <para>This section discusses how output formats are defined and selected.</para>
-            <para>A map file may have zero, one or more OUTPUTFORMAT object declarations, defining available output formats supported including formats like PNG, GIF, JPEG, GeoTIFF and Flash (SWF).</para>
-            <para>If OUTPUTFORMAT sections declarations are not found in the map file, the following implicit declarations will be made.  Only those for which support is compiled in will actually be available.  The GeoTIFF depends on building with GDAL support, and the Flash (SWF) depends on compiling with support for the MING library.</para>
-            <para>
-                <screen>
-OUTPUTFORMAT
-  NAME gif
-  DRIVER "GD/GIF"
-  MIMETYPE "image/gif"
-  IMAGEMODE PC256
-  EXTENSION "gif"
-END
-OUTPUTFORMAT
-  NAME png
-  DRIVER "GD/PNG"
-  MIMETYPE "image/png"
-  IMAGEMODE PC256
-  EXTENSION "png"
-END
-OUTPUTFORMAT
-  NAME jpeg
-  DRIVER "GD/JPEG"
-  MIMETYPE "image/jpeg"
-  IMAGEMODE RGB
-  EXTENSION "jpg"
-END
-OUTPUTFORMAT
-  NAME wbmp
-  DRIVER "GD/WBMP"
-  MIMETYPE "image/wbmp"
-  IMAGEMODE PC256
-  EXTENSION "wbmp"
-END
-OUTPUTFORMAT
-  NAME swf
-  DRIVER "SWF"
-  MIMETYPE "application/x-shockwave-flash"
-  EXTENSION "swf"
-  IMAGEMODE PC256
-  FORMATOPTION "OUTPUT_MOVIE=SINGLE"
-END
-OUTPUTFORMAT
-  NAME GTiff
-  DRIVER "GDAL/GTiff"
-  MIMETYPE "image/tiff"
-  IMAGEMODE RGB
-  EXTENSION "tif"
-END
-
-        </screen>
-            </para>
-            <variablelist>
-                <varlistentry>
-                    <term>NAME [name]</term>
-                    <listitem>
-                        <para>The name to use use in the IMAGETYPE keyword of the map file to select this output format.(optional)</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>DRIVER [name]</term>
-                    <listitem>
-                        <para>The name of the driver to use to generate this output format.  Some driver names include the definition of the format if the driver supports multiple formats.  For GD the possible driver names are "GD/Gif", "GD/PNG", "GD/WBMP" and "GD/JPEG".  For flash the driver is just called "SWF".  For output through GDAL the GDAL shortname for the format is appeneded, such as "GDAL/GTiff".  Note that PNG, JPEG and GIF output can be generated with either GDAL or GD (GD is generally more efficient).(manditory)</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>IMAGEMODE [PC256/RGB/RGBA/INT16/FLOAT32]</term>
-                    <listitem>
-                        <para>Selects the imaging mode in which the output is generated.  Does matter for non-raster formats like Flash.   Not all formats support all combinations.  For instance GD/GIF supports only PC256. (optional)</para>
-                        <itemizedlist>
-                            <listitem>
-                                <para>PC256: Produced a pseudocolored result with up to 256 colors in the palette (traditional MapServer mode)</para>
-                            </listitem>
-                            <listitem>
-                                <para>RGB: Render in 24bit Red/Green/Blue mode.  Supports all colors but does not support transparency.</para>
-                            </listitem>
-                            <listitem>
-                                <para>RGBA: Render in 32bit Red/Green/Blue/Alpha mode.  Supports all colors, and alpha based transparency.</para>
-                            </listitem>
-                            <listitem>
-                                <para>INT16: Render one band of data in 16 bit integer depth.  Only works for RASTER layers (through GDAL) and WMS layers currently.</para>
-                            </listitem>
-                            <listitem>
-                                <para>FLOAT32: Render one band of data in 32bit floating point depth.  Only works for RASTER layers (through GDAL) and WMS layers currently.</para>
-                            </listitem>
-                        </itemizedlist>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MIMETYPE [type]</term>
-                    <listitem>
-                        <para>Provide the mime type to be used when returning results over the web. (optional)</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>EXTENSION [type]</term>
-                    <listitem>
-                        <para>Provide the extension to use when creating files of this type. (optional)</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry id="transparent">
-                    <term>TRANSPARENT [ON/OFF]</term>
-                    <listitem>
-                        <para>Indicates whether transparency should be enabled for this format.  Note that transparency does not work for IMAGEMODE RGB output.  Not all formats support transparency (optional). When transparency is enabled for the typical case of 8-bit pseudocolored map generation, the <link linkend="imagecolor">IMAGECOLOR</link> color will be marked as transparent in the output file palette.  Any other map components drawn in this color will also be transparent, so for map generation with transparency it is best to use an otherwise unused color as the background color.</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>FORMATOPTION [option]</term>
-                    <listitem>
-                        <para>Provides a driver or format specific option.  Zero or more FORMATOPTION statement may be present within a OUTPUTFORMAT declaration. (optional)</para>
-                        <itemizedlist>
-                            <listitem>
-                                <para>GD/JPEG: The "QUALITY=n" option may be used to set the quality of jpeg produced (value from 0-100). </para>
-                            </listitem>
-                            <listitem>
-                                <para>GD/PNG: The "INTERLACE=[ON/OFF]" option may be used to turn interlacing on or off. </para>
-                            </listitem>
-                            <listitem>
-                                <para>GD/GIF: The "INTERLACE=[ON/OFF]" option may be used to turn interlacing on or off. </para>
-                            </listitem>
-                            <listitem>
-                                <para>GDAL/GTiff: Supports the TILED=YES, BLOCKXSIZE=n, BLOCKYSIZE=n, INTERLEAVE=[PIXEL/BAND] and COMPRESS=[NONE,PACKBITS,JPEG,LZW,DEFLATE] format specific options.</para>
-                            </listitem>
-                            <listitem>
-                                <para>GDAL/*: All FORMATOPTIONs are passed onto the GDAL create function.  Options supported by GDAL are described in the detailed documentation for each GDAL format. </para>
-                            </listitem>
-                        </itemizedlist>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
-        </sect2>
-        <sect2 id="grid">
-            <title>Grid Object</title>
-            <para>The GRID object defines a map graticule as a LAYER.  Starts with the keyword <emphasis>GRID</emphasis> and terminates with the keyword <emphasis>END</emphasis>.  </para>
-            <variablelist>
-                <varlistentry>
-                    <term>LABELFORMAT [DDMM|DDMMSS]</term>
-                    <listitem>
-                        <para>Format of the label.  "DDMM" for degrees minutes, and "DDMMSS" for degrees, minutes, seconds.  The default is decimal 
-                        display of whatever SRS you're rendering the GRID with. </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MINARCS [double]</term>
-                    <listitem>
-                        <para>The minimum number of arcs to draw. </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MAXARCS [double]</term>
-                    <listitem>
-                        <para>The maximum number of arcs to draw. </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MININTERVAL [double]</term>
-                    <listitem>
-                        <para>The minimum number of intervals to try to use. </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MAXINTERVAL [double]</term>
-                    <listitem>
-                        <para>The maximum number of intervals to try to use. </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MINSUBDIVIDE [double]</term>
-                    <listitem>
-                        <para>The minimum number of segments to use when rendering an arc. </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>MAXSUBDIVIDE [double]</term>
-                    <listitem>
-                        <para>The maximum number of segments to use when rendering an arc. </para>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
-            <para>
-               The following is an example of a GRID object in use:
-             </para>
-            <screen>
-   LAYER
-     NAME "grid"
-     METADATA
-       "DESCRIPTION" "Grid"
-     END
-     TYPE LINE
-     STATUS ON
-     CLASS
-       NAME "Graticule"
-       COLOR 0 0 0
-       LABEL
-         COLOR  255 0 0
-         FONT fritqat
-         TYPE truetype
-         SIZE 8
-         POSITION AUTO          
-         PARTIALS FALSE
-         BUFFER 5
-         OUTLINECOLOR 255 255 255           
-       END 
-    END
-    PROJECTION
-        "init=epsg:4326"
-    END
-    GRID
-      LABELFORMAT DDMM
-      MAXARCS 10
-      MAXINTERVAL 10
-      MAXSUBDIVIDE 2
-    END
-  END # Layer
-             </screen>
-        </sect2>
-        <sect2 id="variablesubstitution">
-            <title>Variable Substitution</title>
-            <para>New in MapServer 4.0, variables can be substituted within mapfile parameter values.  At this time, cookie and CGI parameter values are supported.  This allows mapserver mapfiles to be aware of a user's cookies (Good for implementing security), or non-mapserver request parameters (Good for integrating with other systems).</para>
-            <para>Syntax: '%' + variable name + '%'</para>
-            <example>
-                <title>Connecting securely to a Spatial Database</title>
-                <para>You want to map some senstitive data held in a PostGIS database.  The username and password to be used for the database connection are held in 2 cookies previously set by a seperate authentication mechanism, "uid" and "passwd".</para>
-                <programlisting>
+    </sect1>
+    <sect1 id="variablesubstitution">
+       <title>Variable Substitution</title>
+       <para>New in MapServer 4.0, variables can be substituted within mapfile parameter values.  At this time, cookie and CGI parameter values are supported.  This allows mapserver mapfiles to be aware of a user's cookies (Good for implementing security), or non-mapserver request parameters (Good for integrating with other systems).</para>
+       <para>Syntax: '%' + variable name + '%'</para>
+       <example>
+              <title>Connecting securely to a Spatial Database</title>
+              <para>You want to map some senstitive data held in a PostGIS database.  The username and password to be used for the database connection are held in 2 cookies previously set by a seperate authentication mechanism, "uid" and "passwd".</para>
+              <programlisting>
 CONNECTION "user=%uid% password=%passwd% dbname=postgis"
                     </programlisting>
-            </example>
-            <example>
-                <title>Handling temporary files</title>
-                <para>You have a user based discovery application that generates shapefiles and stores them in a user's home directory on the server.  The "username" comes from a cookie, the "filename" comes from a request parameter.</para>
-                <programlisting>
+       </example>
+       <example>
+              <title>Handling temporary files</title>
+              <para>You have a user based discovery application that generates shapefiles and stores them in a user's home directory on the server.  The "username" comes from a cookie, the "filename" comes from a request parameter.</para>
+              <programlisting>
 DATA "/home/%username%/tempshp/%filename%"
-                </programlisting>
-            </example>
-            <para>This feature is only available in the CGI version of MapServer through a mapfile pre-processor.  If you are using MapScript, you will have to code the substitution logic into your application yourself (By writing your own pre-processor).</para>
-        </sect2>
-    </sect1>
+              </programlisting>
+       </example>
+       <para>This feature is only available in the CGI version of MapServer through a mapfile pre-processor.  If you are using MapScript, you will have to code the substitution logic into your application yourself (By writing your own pre-processor).</para>
+    </sect1>    
     <sect1 id="symbology">
         <title>Symbology Reference</title>
         <para>This section explains how to work with and define symbology in MapServer.</para>
@@ -1731,7 +1767,7 @@ file.  Symbol definitions in a separate file are designated using the <link link
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>TYPE [vector|ellipse|pixmap|truetype|simple|cartoline]</term>
+                    <term>TYPE [vector|ellipse|pixmap|truetype|simple|cartoline|hatch]</term>
                     <listitem>
                         <para>
                             <itemizedlist>
@@ -1747,6 +1783,9 @@ file.  Symbol definitions in a separate file are designated using the <link link
                                 <listitem>
                                     <para>truetype: TrueType font to use as defined in the <link linkend="fontset">FONTSET</link>.</para>
                                 </listitem>
+                                <listitem>
+                                    <para>hatch: produces hatched lines throughout the shape.</para>
+                                </listitem>                                
                             </itemizedlist>
                         </para>
                     </listitem>
@@ -1861,7 +1900,41 @@ END
                     For layers with a scaled symbol (SYMBOLSCALE, MINSIZE, MAXSIZE, ...) the STYLE will be resized to maintain 
                     symbol ratios.                
                 </para>
-            </example>            
+            </example> 
+            <example>
+              <title>Using the Symbol Type HATCH (new in 4.6)</title>
+              <para>As of MapServer 4.6, you can now use the symbol type HATCH to produce hatched lines.  The following will display hatched lines at a 45 degree angle, 10 pixels apart, and 3 pixels wide.</para>
+              <orderedlist>
+                <listitem>
+                  <para>Symbol definition:</para>
+                  <programlisting>
+SYMBOL
+  NAME 'hatch-test'
+  TYPE HATCH
+END                   
+                  </programlisting>
+                </listitem>
+                <listitem>
+                  <para>Layer definition:</para>
+                  <programlisting>
+  LAYER
+    ...
+    CLASS
+      ...
+      STYLE
+        SYMBOL 'hatch-test'
+        COLOR 255 0 0      
+        ANGLE 45
+        SIZE 10
+        WIDTH 3
+      END
+    END
+  END                   
+                  </programlisting>                  
+                </listitem>                
+              </orderedlist>
+              <para>Other parameters available for HATCH are: ANGLEITEM, SIZEITEM, MINWIDTH, and MAXWIDTH.</para>
+            </example>
         </sect2>
     </sect1>
     <!-- Section1: Document Info -->
@@ -1876,6 +1949,13 @@ END
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.53</revnumber>
+                        <date>Date: 2005-06-07</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added HATCH symbol type params.
+                                   </revremark>
+                    </revision>                 
                     <revision>
                         <revnumber>Number: 1.52</revnumber>
                         <date>Date: 2005-04-20</date>
