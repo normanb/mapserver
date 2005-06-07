@@ -5,7 +5,7 @@
 <article>
     <articleinfo>
         <!-- insert title here, include the word HOWTO -->
-        <title>MapServer HTML Legend HOWTO - Version 4.4</title>
+        <title>MapServer HTML Legend HOWTO - Version 4.6</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
@@ -22,7 +22,7 @@
             <para>
                  This document describes the procedures for implementing an HTML legend in MapServer applications.
                </para>
-            <para>Last Updated: 11-28-2004</para>
+            <para>Last Updated: 06-07-2005</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>             
@@ -47,7 +47,14 @@
         </itemizedlist>
     </sect1>
     <sect1 id="implement">
-        <title>HOWTO Implement</title>
+        <title>Implementation</title>
+        <para>Key components for generating HTML legends are 1) a template parameter in the legend object, 2) a CGI [legend] tag
+              in the HTML file, and 3) an HTML legend template file.  So that means that if the HTML page has the CGI [legend]
+              parameter set, and the mapfile has a LEGEND object with its TEMPLATE set to a valid HTML legend file then an HTML legend
+              will be returned.  The following sections discuss these components:
+        </para>
+      <sect2 id='mapfile'>
+        <title>Legend Object of Mapfile</title>
         <para>
             The HTML legend is enabled by a new TEMPLATE parameter in the Legend Object of the mapfile.
             If TEMPLATE is set in the Legend Object, then the HTML legend template file is read and used to
@@ -69,7 +76,7 @@
       SIZE MEDIUM
       COLOR 0 0 89
     END
-    TEMPLATE "legend.html"
+    TEMPLATE "legend.html"  ### HTML template file
   END
   ...                   
             </programlisting>
@@ -77,16 +84,25 @@
         <para>
             If TEMPLATE is not set, then the [legend] tag produces a regular image in a GIF/PNG image (the traditional behaviour).  
         </para>
-        <note>
+      </sect2>
+      <sect2 id='cgi'>
+            <title>CGI [legend] tag</title>
             <para>
-                <emphasis>The traditional [legend] tag returns the URL of an image, so it is usually used inside an &lt;IMG SRC=[legend]&gt;            tag in the HTML. The new HTML [legend] tag returns a block of HTML, so when converting an existing application template             from using a traditional image legend to the new HTML legend, you have to remove the IMG tag in the main application                template.  Also note that if legend mode is specified in the URL, then MapServer will return a gif containing  the whole legend if          no template is specified.</emphasis>
+                The traditional CGI [legend] tag returns the URL of an image, so it is usually used inside an &lt;IMG SRC=[legend]&gt; 
+                tag in the HTML file. The new HTML [legend] tag returns a block of HTML, so when converting an existing application template             
+                from using a traditional image legend to the new HTML legend, you have to remove the IMG tag in the main application                
+                template.  Also note that if legend mode is specified in the URL, then MapServer will return a gif containing  the whole legend if          
+                no template is specified.
             </para>
-        </note>
+          <para>
+            See the <ulink url="http://mapserver.gis.umn.edu/doc/cgi-reference.html">
+            CGI Reference doc</ulink> for more information on CGI parameters.
+          </para>            
         <example>
             <title>[legend] tag in the main HTML template (with TEMPLATE set)</title>
             <programlisting>
    ...
-   &lt;FONT SIZE=+1&gt;&lt;B&gt;Legend&lt;/B&gt;&lt;/FONT&gt;&lt;BR&gt;&lt;HR&gt;&lt;[legend]&lt;HR&gt;
+   &lt;FONT SIZE=+1&gt;&lt;B&gt;Legend&lt;/B&gt;&lt;/FONT&gt;&lt;BR&gt;&lt;HR&gt;[legend]&lt;HR&gt;
    ...  
             </programlisting>
         </example>
@@ -98,10 +114,11 @@
    ...
             </programlisting>
         </example>
-        <sect2 id="template-file">
-            <title>The HTML Legend TEMPLATE File</title>
+      </sect2>
+      <sect2 id="template-file">
+            <title>HTML Legend Template File</title>
             <para>
-                   The HTML legend template file contains 0 or 1 of each of the following tags that define blocks of HTML 
+                   The HTML legend template file is a separate file that contains 0 or 1 of each of the following tags that define blocks of HTML 
                 to use in building the legend: 
             </para>
             <programlisting>
@@ -151,9 +168,8 @@
    [/leg_class_html]                
                 </programlisting>
             </example>
-            <sect3 id="tags">
-                <title>Supported Tags for the TEMPLATE</title>
-                <sect4 id="header">
+            <para>Supported Tags for the TEMPLATE file:</para>
+                <sect3 id="header">
                     <title>HEADER block</title>
                     <para>
                         <emphasis>TAG:</emphasis> [leg_header_html]...[/leg_header_html]
@@ -161,8 +177,8 @@
                     <para>
                         HTML block to use as the header of the legend.
                     </para>
-                </sect4>
-                <sect4 id="footer">
+                </sect3>
+                <sect3 id="footer">
                     <title>FOOTER block</title>
                     <para>
                         <emphasis>TAG:</emphasis> [leg_footer_html]...[/leg_footer_html]
@@ -186,11 +202,11 @@
     [/leg_footer_html]    
                       </programlisting>
                     </example>                    
-                </sect4>                
-                <sect4 id="group">
+                </sect3>                
+                <sect3 id="group">
                     <title>GROUP block</title>
                     <para>
-                        <emphasis>TAG:</emphasis> [leg_group_html]...[/leg_group_html]
+                        <emphasis>TAG:</emphasis> [leg_group_html &lt;OPTIONAL PARAMS&gt;]...[/leg_group_html]
                         </para>
                     <para>
                              HTML block to use for layer group headers if layers should be grouped in the legend. If not set then layers are                            not grouped in the legend. 
@@ -234,9 +250,42 @@
                                 <emphasis>DESCRIPTION:</emphasis> Returns specified metadata value from web's metadata. 
                                 </para>
                         </listitem>
+                        <listitem>
+                            <para>
+                                <emphasis>PARAMETER:</emphasis> opt_flag=&lt;bit_mask&gt;
+                                </para>
+                            <para>
+                                <emphasis>DESCRIPTION:</emphasis> Control the group's display, by adding the following values (default is 15).  The opt_flag is applied on all layers in the group. If at least one layer matches the flag, the group will show up in the legend.
+                                </para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para>
+                                            1: If set, show group even if all layers in group are out of scale (default: hide groups out of scale).
+                                        </para>
+                                </listitem>
+                                <listitem>
+                                    <para>
+                                            2: If set, show group even if all layers in group have status OFF (default: hide groups with STATUS OFF).
+                                        </para>
+                                </listitem>
+                                <listitem>
+                                    <para>
+                                            4: If set, show group even if all layers in group are of type QUERY (default: hide group of TYPE QUERY)
+                                        </para>
+                                </listitem>
+                                <listitem>
+                                    <para>
+                                            8: If set, show group even if all layers in group are of type ANNOTATION (default: hide groups of TYPE ANNOTATION) 
+                                        </para>
+                                </listitem>
+                            </itemizedlist>
+                            <para>
+                                    e.g. opt_flag=12 means show all layer types, including QUERY and ANNOTATION layers (4 + 8)
+                                </para>
+                        </listitem>                        
                     </itemizedlist>
-                </sect4>
-                <sect4 id="layer">
+                </sect3>
+                <sect3 id="layer">
                     <title>LAYER block</title>
                     <para>
                         <emphasis>TAG:</emphasis> [leg_layer_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_layer_html]
@@ -245,9 +294,33 @@
                             HTML block to use for layer header. If not set then no layer headers are displayed (could allow a legend with only                          classes in it).
                         </para>
                     <para>
-                            Optional parameters for the [leg_layer_html] tag:
+                            Supported tags in the [leg_layer_html]...[/leg_layer_html] block: 
                         </para>
                     <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>TAG:</emphasis> [leg_layer_name]
+                                </para>
+                            <para>
+                                <emphasis>DESCRIPTION:</emphasis> Returns the current LAYER NAME value.
+                                </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <emphasis>TAG:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
+                                </para>
+                            <para>
+                                <emphasis>DESCRIPTION:</emphasis> In the layer context, the [leg_icon] tag returns the URL of a                                         legend icon for the first class in this layer. 
+                                </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <emphasis>TAG:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
+                                </para>
+                            <para>
+                                <emphasis>DESCRIPTION:</emphasis> Returns specified metadata value from this layer's metadata and                                   web's metadata. 
+                                </para>
+                        </listitem>
                         <listitem>
                             <para>
                                 <emphasis>PARAMETER:</emphasis> order_metadata=&lt;field_to_order_by&gt;
@@ -307,39 +380,10 @@
                             <para>
                                     e.g. opt_flag=12 means show all layer types, including QUERY and ANNOTATION layers (4 + 8)
                                 </para>
-                        </listitem>
+                        </listitem>                        
                     </itemizedlist>
-                    <para>
-                            Supported tags in the [leg_layer_html]...[/leg_layer_html] block: 
-                        </para>
-                    <itemizedlist>
-                        <listitem>
-                            <para>
-                                <emphasis>TAG:</emphasis> [leg_layer_name]
-                                </para>
-                            <para>
-                                <emphasis>DESCRIPTION:</emphasis> Returns the current LAYER NAME value.
-                                </para>
-                        </listitem>
-                        <listitem>
-                            <para>
-                                <emphasis>TAG:</emphasis> [leg_icon width=&lt;optional_width&gt; height=&lt;optional_height&gt;] 
-                                </para>
-                            <para>
-                                <emphasis>DESCRIPTION:</emphasis> In the layer context, the [leg_icon] tag returns the URL of a                                         legend icon for the first class in this layer. 
-                                </para>
-                        </listitem>
-                        <listitem>
-                            <para>
-                                <emphasis>TAG:</emphasis> [metadata name=&lt;metadata_field_to_display&gt;] 
-                                </para>
-                            <para>
-                                <emphasis>DESCRIPTION:</emphasis> Returns specified metadata value from this layer's metadata and                                   web's metadata. 
-                                </para>
-                        </listitem>
-                    </itemizedlist>
-                </sect4>
-                <sect4 id="class">
+                </sect3>
+                <sect3 id="class">
                     <title>CLASS block</title>
                     <para>
                         <emphasis>TAG:</emphasis> [leg_class_html &lt;OPTIONAL PARAMS&gt;] ... [/leg_class_html]
@@ -352,19 +396,6 @@
                             <emphasis>Classes with NULL (i.e. empty) NAMEs are not displayed.</emphasis>
                         </para>
                     </note>
-                    <para>
-                            Optional parameters for this tag:
-                        </para>
-                    <itemizedlist>
-                        <listitem>
-                            <para>
-                                <emphasis>PARAMETER:</emphasis> opt_flag=&lt;bit_mask&gt; 
-                                </para>
-                            <para>
-                                <emphasis>DESCRIPTION:</emphasis> same meaning as in [leg_layer_html] tag 
-                                </para>
-                        </listitem>
-                    </itemizedlist>
                     <para>
                             Supported tags in this specific block:
                         </para>
@@ -401,9 +432,17 @@
                                 <emphasis>DESCRIPTION:</emphasis> Returns specified metadata value from the metadata of the layer                                   to which this class belongs and web's metadata. 
                                 </para>
                         </listitem>
+                        <listitem>
+                            <para>
+                                <emphasis>PARAMETER:</emphasis> opt_flag=&lt;bit_mask&gt; 
+                                </para>
+                            <para>
+                                <emphasis>DESCRIPTION:</emphasis> same meaning as in [leg_layer_html] tag 
+                                </para>
+                        </listitem>                        
                     </itemizedlist>
-                </sect4>
-                <sect4 id="if">
+                </sect3>
+                <sect3 id="if">
                     <title>CONDITIONAL text</title>
                     <para>
                         [if] tags can be used in any of the [leg_*_html] tags above to place conditional text. The syntax is: 
@@ -583,7 +622,6 @@
                             </itemizedlist>
                         </listitem>
                     </itemizedlist>
-                </sect4>
             </sect3>
         </sect2>
     </sect1>
@@ -665,6 +703,13 @@
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.14</revnumber>
+                        <date>Date: 2005-06-07</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added opt_flag to group block, and minor reformatting.
+                                   </revremark>
+                    </revision>                  
+                    <revision>
                         <revnumber>Number: 1.13</revnumber>
                         <date>Date: 2004-11-28</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -677,7 +722,7 @@
         <sect2 id="copyright">
             <title>Copyright Information</title>
             <para>
-                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2005, Jeff McKenna, DM Solutions Group Inc.
             </para>
             <para>
                 This documentation is covered by the same Open Source license as the
