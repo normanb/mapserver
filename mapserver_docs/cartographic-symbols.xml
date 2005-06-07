@@ -4,7 +4,7 @@
 <!-- $Id$ -->
 <article>
   <articleinfo>
-    <title>Construction of Cartographic Symbols - Version 4.4</title>
+    <title>Construction of Cartographic Symbols - Version 4.6</title>
     <author>
       <firstname>Peter</firstname>
       <surname>Freimuth</surname>
@@ -29,7 +29,7 @@
     <abstract>
       <!-- a short description of the contents of the doc -->
       <para>
-    This Document refers to the syntax of MAP and symbolfiles for MapServer 4.4. 
+    This Document refers to the syntax of MAP and symbolfiles for MapServer 4.6. 
     It is based upon the results of a project carried out at the University of 
     Hannover, Institute of Landscape and Nature Conservation. It was initiated by 
     Mr. Dipl. Ing. Roland Hachmann. Parts have been taken from a study carried through 

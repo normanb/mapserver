@@ -1784,6 +1784,9 @@ file.  Symbol definitions in a separate file are designated using the <link link
                                     <para>truetype: TrueType font to use as defined in the <link linkend="fontset">FONTSET</link>.</para>
                                 </listitem>
                                 <listitem>
+                                    <para>cartoline: allows for different designs of line ends (mitered, rounded, beveled).  More information can be found in the <ulink url="http://mapserver.gis.umn.edu/doc/cartographic-symbols.html">Cartographic Symbols</ulink> doc.</para>
+                                </listitem>                                 
+                                <listitem>
                                     <para>hatch: produces hatched lines throughout the shape.</para>
                                 </listitem>                                
                             </itemizedlist>
