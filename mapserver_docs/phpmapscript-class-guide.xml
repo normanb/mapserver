@@ -5,7 +5,7 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>MapServer PHP/MapScript Class Reference - Version 4.4</title>
+    <title>MapServer PHP/MapScript Class Reference - Version 4.6</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
@@ -23,8 +23,8 @@
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
         module, and is the online version of the PHP/Mapscript README file from the Mapserver source code.  
                </para>
-      <para>README version: 1.151</para>
-      <para>Last Updated: 2004-11-28</para>
+      <para>README version: 1.158</para>
+      <para>Last Updated: 2005-06-08</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>       
@@ -49,7 +49,8 @@
       <itemizedlist>
         <listitem>
           <para>
-              The main resource for help is the PHP/MapScript web                         page at: <ulink url="http://www.maptools.org/php_mapscript/">                       http://www.maptools.org/php_mapscript/</ulink>.
+              The main resource for help is the PHP/MapScript web page at: <ulink url="http://www.maptools.org/php_mapscript/">                       
+              http://www.maptools.org/php_mapscript/</ulink>.
           </para>
         </listitem>
         <listitem>
@@ -120,6 +121,10 @@
 
     Layer/Legend/Scalebar/Class Status:
         MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED, MS_DELETE
+
+    Layer alpha transparency : allows alpha transparent pixmaps 
+    to be used with RGB map images
+        MS_GD_ALPHA
 
     Font types:
         MS_TRUETYPE, MS_BITMAP
@@ -260,9 +265,9 @@
        Delete the style specified by the style index. If there are any
        style that follow the deleted style, their index will decrease by 1.
 
-       NOTE : if you are using the numstyles parameter while using the deletestyle
-              function on the class object you need to refetch a new class
-              object. Example :
+       NOTE : if you are using the numstyles parameter while using the
+              deletestyle function on the class object you need to refetch
+              a new class object. Example :
               
                  //class has 2 styles
                 $class = $oLayer->getclass(0);
@@ -569,6 +574,7 @@ is only used to give the possiblity to free the label cache
    int    connectiontype
    string filteritem
    string template
+   int    transparency   
    string styleitem
    gridObj grid //only available on a layer defined as grid (MS_GRATICULE)
    int num_processing
@@ -766,18 +772,24 @@ is only used to give the possiblity to free the label cache
         Returns an SLD XML string based on all the classes found in the layers.
 
   int moveclassup(int index)
-       The class specified by the class index will be moved up into
-       the array of layers. Returns MS_SUCCESS or MS_FAILURE.
-       ex layer->moveclassup(1) will have the effect of moving class 1
-          up to postion 0, and the class at position 0 will be moved
-          to position 1.
+        The class specified by the class index will be moved up into
+        the array of layers. Returns MS_SUCCESS or MS_FAILURE.
+        ex layer->moveclassup(1) will have the effect of moving class 1
+           up to postion 0, and the class at position 0 will be moved
+           to position 1.
 
   int moveclassdown(int index)
-       The class specified by the class index will be moved down into
-       the array of layers. Returns MS_SUCCESS or MS_FAILURE.
-       ex layer->moveclassdown(0) will have the effect of moving class 0
-          up to postion 1, and the class at position 1 will be moved
-          to position 0.
+        The class specified by the class index will be moved down into
+        the array of layers. Returns MS_SUCCESS or MS_FAILURE.
+        ex layer->moveclassdown(0) will have the effect of moving class 0
+           up to postion 1, and the class at position 1 will be moved
+           to position 0.
+
+  classObj removeClass(int index)
+        Removes the class indicated and returns a copy, or NULL in the case
+        of a failure.  Note that subsequent classes will be renumbered by
+        this operation. The numclasses field contains the number of classes
+        available.
           
   boolean isVisible()
        Returns MS_TRUE/MS_FALSE depending on whether the layer is 
@@ -1280,6 +1292,9 @@ LineObj ms_newLineObj()
         <sect4 id="format_methods">
           <title>Methods:</title>
           <programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value.          
+          
    void setOption(string property_name, string new_value)
         Add or Modify the format option list. return true on success.
 
@@ -1375,7 +1390,8 @@ PointObj ms_newPointObj()
         </para>
           <programlisting>
         $projInObj = ms_newprojectionobj("proj=latlong");
-        $projOutObj = ms_newprojectionobj("proj=lcc,ellps=GRS80,lat_0=49,lon_0=-95,lat_1=49,lat_2=77");
+        $projOutObj = ms_newprojectionobj("proj=lcc,ellps=GRS80,lat_0=49,".
+                                          "lon_0=-95,lat_1=49,lat_2=77");
         $poPoint = ms_newpointobj();
         $poPoint->setXY(-92.0, 62.0);         
         $poPoint->project($projInObj, $projOutObj);
@@ -1585,7 +1601,7 @@ PointObj ms_newPointObj()
    int     classindex
    int     type      (read-only)
    int     numlines  (read-only)
-   int     index     (read-only)
+   int     index
    int     tileindex (read-only)
    rectObj bounds    (read-only)
    int     numvalues (read-only)
@@ -1634,7 +1650,10 @@ PointObj ms_newPointObj()
        of this point with the m value set.
 
    void free()
-        Destroys resources used by a shape object.  
+        Destroys resources used by a shape object. 
+        
+   string getvalue(layerObj layer, string filedname)
+        Returns the value for a given field name.        
         </programlisting>
         </sect4>
       </sect3>
@@ -1808,6 +1827,13 @@ PointObj ms_newPointObj()
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.21</revnumber>
+                        <date>Date: 2005-06-08</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Updated body to latest readme version
+                                   </revremark>
+                    </revision>                
+                    <revision>
                         <revnumber>Number: 1.20</revnumber>
                         <date>Date: 2004-11-28</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
@@ -1820,7 +1846,7 @@ PointObj ms_newPointObj()
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
-                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2005, Jeff McKenna, DM Solutions Group Inc.
             </para>
       <para>
                 This documentation is covered by the same Open Source license as the
