@@ -3,7 +3,7 @@
           "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
   <articleinfo>
-    <title>             MapServer Styled Layer Descriptor (SLD) HOWTO - Version 4.4</title>
+    <title>             MapServer Styled Layer Descriptor (SLD) HOWTO - Version 4.6</title>
     <author>
       <firstname>       Yewondwossen </firstname>
       <surname>         Assefa</surname>
@@ -26,10 +26,10 @@
     </author>
     <abstract>
       <para>
-                        This document describes the procedures for taking advantage of the Styled Layer Descriptor (SLD) support in WMS GetMap requests that has been added to MapServer 4.2.                     
+                        This document describes the procedures for taking advantage of the Styled Layer Descriptor (SLD) support in WMS GetMap requests for MapServer 4.6.                     
       </para>  
       <para>            
-                        Last Updated: 2005-01-09
+                        Last Updated: 2005-06-08
       </para>
       <para>
           <link linkend="rhistory">Revision History</link>
@@ -88,10 +88,7 @@
      </sect2>
   </sect1>  
   <sect1 id="server">
-    <title>             Server Side Support</title>
-    <para>
-                        This section describes how to use FE on both the server and client sides.
-    </para>                    
+    <title>             Server Side Support</title>                    
     <sect2 id="general">
       <title>           General Information</title>
       <para>
@@ -490,6 +487,20 @@ line with multiple filters: <ulink url="http://www2.dmsolutions.ca/msapps/world_
 line with one filter and an else filter: <ulink url="http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_one_filter_and_else.xml">sld</ulink> / 
 <ulink url="http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&amp;VeRsIoN=1.1.1&amp;Request=GetMap&amp;LAYERS=WorldGen_Outline&amp;SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_one_filter_and_else.xml">full request</ulink>
               </para>
+            </listitem>
+            <listitem>
+              <para>
+spatial filter using BBOX: <ulink url="http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_simple_spatial3.xml">sld</ulink> / 
+<ulink url="http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&amp;VeRsIoN=1.1.1&amp;Request=GetMap&amp;LAYERS=WorldGen_Outline&amp;SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_simple_spatial3.xml">full request</ulink>
+              </para> 
+              <itemizedlist>
+                <listitem>
+                  <para>
+                  The above example enables spatial filtering using the BBOX parameter as a Filter for a selected area (Africa).  Note that an ElseFilter will not 
+                  work with a spatial filter.
+                  </para>
+                </listitem>
+              </itemizedlist>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -1128,6 +1139,12 @@ line layer with text using 2 symbolizers:
 </para>
             <para>
             <revhistory>
+              <revision>
+                <revnumber>     1.7</revnumber>
+                <date>          2005-06-08</date>
+                <authorinitials>Author: Jeff McKenna</authorinitials>
+                <revremark>     added spatial filter example</revremark>
+              </revision>            
               <revision>
                 <revnumber>     1.00</revnumber>
                 <date>          2005-01-09</date>
