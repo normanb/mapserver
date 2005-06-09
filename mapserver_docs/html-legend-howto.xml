@@ -22,7 +22,7 @@
             <para>
                  This document describes the procedures for implementing an HTML legend in MapServer applications.
                </para>
-            <para>Last Updated: 06-08-2005</para>
+            <para>Last Updated: 06-09-2005</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>             
@@ -568,20 +568,19 @@
                     </example>
                     <para>
                        The possible values that can be tested in an [if] tag depend on the context in which the [if] tag is used. At the 
-                       moment, the number of values that can be tested is limited, but new values may be added as needed.  The possible                        
-                       values that can be tested are as follows:
+                       moment, the number of values that can be tested is limited, but new values may be added as needed.  
+                    </para>
+                    <para>
+                       Note that the order of the items in the following [if] contexts are listed by their order of precedence. 
+                       The rule is always that special keywords have top priority (e.g. layer_status, etc.), followed by layer-level metadata, and ending with
+                       map-level metadata. The possible values that can be tested are as follows:
                     </para>
                     <itemizedlist>
                         <listitem>
                             <para>
-                               In a [leg_group_html] Context:
+                               In a <emphasis role='bold'>[leg_group_html]</emphasis> Context:
                             </para>
                             <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        [if name=any_web_metadata value=...] ... [/if] 
-                                    </para>
-                                </listitem>
                                 <listitem>
                                     <para>
                                         [if name=layer_status value=...] ... [/if]
@@ -590,7 +589,7 @@
                                         (value is the layer status of the first layer that belongs to
                                         the group in integer format: 0=OFF, 1=ON, 2=DEFAULT) 
                                     </para>
-                                </listitem>
+                                </listitem> 
                                 <listitem>
                                     <para>
                                         [if name=layer_visible value=...] ... [/if]
@@ -598,12 +597,30 @@
                                     <para>
                                         (value is the visibility of the first layer in the group: 0=NOT VISIBLE, 1=VISIBLE) 
                                     </para>
+                                </listitem> 
+                                <listitem>
+                                    <para>
+                                        [if name=group_name value=...] ... [/if]
+                                    </para>
                                 </listitem>                                 
+                                <listitem>
+                                    <para>
+                                        [if name=any_layer_metadata value=...] ... [/if]
+                                    </para>
+                                    <para>
+                                        (Uses metadata value from the first layer in the mapfile that belongs to that group)
+                                    </para>
+                                </listitem>                                 
+                                <listitem>
+                                    <para>
+                                        [if name=any_web_metadata value=...] ... [/if] 
+                                    </para>
+                                </listitem>                                
                             </itemizedlist>
                         </listitem>
                         <listitem>
                             <para>
-                               In a [leg_layer_html] Context: 
+                               In a <emphasis role='bold'>[leg_layer_html]</emphasis> Context: 
                             </para>
                             <itemizedlist>
                                 <listitem>
@@ -641,27 +658,27 @@
                                 </listitem>
                                 <listitem>
                                     <para>
-                                        [if name=any_web_metadata value=...] ... [/if] 
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        [if name=any_layer_metadata value=...] ... [/if] 
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
                                         [if name=layer_visible value=...] ... [/if]
                                     </para>
                                     <para>
                                         (value is the visibility of the layer: 0=NOT VISIBLE, 1=VISIBLE) 
                                     </para>
                                 </listitem>                                 
+                                <listitem>
+                                    <para>
+                                        [if name=any_layer_metadata value=...] ... [/if] 
+                                    </para>
+                                </listitem> 
+                                <listitem>
+                                    <para>
+                                        [if name=any_web_metadata value=...] ... [/if] 
+                                    </para>
+                                </listitem>                                
                             </itemizedlist>
                         </listitem>
                         <listitem>
                             <para>
-                                In a [leg_class_html] Context: 
+                                In a <emphasis role='bold'>[leg_class_html]</emphasis> Context: 
                             </para>
                             <itemizedlist>
                                 <listitem>
@@ -699,22 +716,27 @@
                                 </listitem>
                                 <listitem>
                                     <para>
-                                        [if name=any_web_metadata value=...] ... [/if] 
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        [if name=any_layer_metadata value=...] ... [/if] 
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
                                         [if name=layer_visible value=...] ... [/if]
                                     </para>
                                     <para>
                                         (value is the visibility of the layer: 0=NOT VISIBLE, 1=VISIBLE) 
                                     </para>
+                                </listitem> 
+                                <listitem>
+                                    <para>
+                                        [if name=class_name value=...] ... [/if]
+                                    </para>
                                 </listitem>                                 
+                                <listitem>
+                                    <para>
+                                        [if name=any_layer_metadata value=...] ... [/if] 
+                                    </para>
+                                </listitem>  
+                                <listitem>
+                                    <para>
+                                        [if name=any_web_metadata value=...] ... [/if] 
+                                    </para>
+                                </listitem>                                
                             </itemizedlist>
                         </listitem>
                     </itemizedlist>
@@ -798,6 +820,13 @@
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.16</revnumber>
+                        <date>Date: 2005-06-09</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added layer_metadata to group for [if] block, reordered [if] blocks for each context, added group_name and class_name to [if] block
+                                   </revremark>
+                    </revision>                
                     <revision>
                         <revnumber>Number: 1.14</revnumber>
                         <date>Date: 2005-06-07</date>
