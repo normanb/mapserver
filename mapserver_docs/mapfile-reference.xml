@@ -31,7 +31,7 @@
             <para>
                 This document is a reference to the MapFile syntax for MapServer version 4.6.
             </para>
-            <para>Last Updated:  06-08-2005</para>
+            <para>Last Updated:  06-09-2005</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>
@@ -927,6 +927,36 @@ PROCESSING "BANDS=3,2,1,4"
             <title>Map Object</title>
             <para>Defines the master object of the MapFile, that is the object that holds all other objects (i.e. the "root").  It defines application/map wide parameters.</para>
             <variablelist>
+                <varlistentry>
+                    <term>ANGLE [double]</term>
+                    <listitem>
+                        <para>Angle, given in degrees, to rotate the map.  Default is 0.  The rendered map will rotate in a clockwise direction.  The following are important notes:</para>
+                        <itemizedlist>
+                          <listitem>
+                            <para>
+                              Requires a PROJECTION object specified at the MAP level and for each LAYER object (even if all layers are in the same projection).
+                            </para>
+                          </listitem>
+                          <listitem>
+                            <para>
+                              Requires MapScript (SWIG, PHPMapscript).  Does not work with CGI mode.
+                            </para>
+                          </listitem> 
+                          <listitem>
+                            <para>
+                              If using the LABEL object's ANGLE or the LAYER object's LABELANGLEITEM parameters as well, these parameters are relative to the map's orientation (i.e. they are computed after the MAP object's ANGLE).  For example,
+                              if you have specified an ANGLE for the map of 45, and then have a layer LABELANGLEITEM value of 45, the resulting label will not appear rotated (because the resulting map is rotated 
+                              clockwise 45 degrees and the label is rotated counter-clockwise 45 degrees).
+                            </para>
+                          </listitem>                           
+                          <listitem>
+                            <para>
+                              More information can be found on the MapRotation <ulink url='http://mapserver.gis.umn.edu/cgi-bin/wiki.pl?MapRotation'>Wiki Page</ulink>.
+                            </para>
+                          </listitem>                          
+                        </itemizedlist>
+                    </listitem>
+                </varlistentry>            
                 <varlistentry id="config">
                     <term>CONFIG [key] [value]</term>
                     <listitem>
@@ -1975,7 +2005,7 @@ END
                         <revnumber>Number: 1.53</revnumber>
                         <date>Date: 2005-06-07</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added HATCH symbol type params, modified circle TYPE explanation.
+                        <revremark>Added HATCH symbol type params, modified circle TYPE explanation, added map ANGLE param.
                                    </revremark>
                     </revision>                 
                     <revision>
