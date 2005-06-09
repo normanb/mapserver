@@ -1456,7 +1456,9 @@ END
                 <varlistentry>
                     <term>STATUS [on|off|embed]</term>
                     <listitem>
-                        <para>Is the scalebar image to be created, and if so should it be embedded into the image? Default is off. <emphasis>(Please note that embedding scalebars require that you define a markerset. In essence the scalebar becomes a custom marker that is handled just like any other annotation.)</emphasis>
+                        <para>Is the scalebar image to be created, and if so should it be embedded into the image? Default is off. <emphasis>(Please note 
+                        that embedding scalebars require that you define a markerset. In essence the scalebar becomes a custom marker that is handled just 
+                        like any other annotation.)</emphasis>
                         </para>
                     </listitem>
                 </varlistentry>
@@ -1469,7 +1471,9 @@ END
                 <varlistentry>
                     <term>TRANSPARENT [on|off]</term>
                     <listitem>
-                        <para>Should the background color for the scalebar be transparent. This flag is now deprecated in favour of declaring transparency within <link linkend="outputformat">OUTPUTFORMAT</link> declarations. Default is off.</para>
+                        <para>Should the IMAGECOLOR for the scalebar be transparent. Note that if any other scalebar parameters (COLOR, BACKGROUNDCOLOR, OUTLINECOLOR) 
+                        have the same RGB values as the IMAGECOLOR they will also become transparent. This flag is now deprecated in favour of declaring transparency within 
+                        <link linkend="outputformat">OUTPUTFORMAT</link> declarations. Default is off.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -2005,7 +2009,7 @@ END
                         <revnumber>Number: 1.53</revnumber>
                         <date>Date: 2005-06-07</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added HATCH symbol type params, modified circle TYPE explanation, added map ANGLE param.
+                        <revremark>Added HATCH symbol type params, modified circle TYPE explanation, added map ANGLE param, modified scalebar TRANSPARENT description.
                                    </revremark>
                     </revision>                 
                     <revision>
