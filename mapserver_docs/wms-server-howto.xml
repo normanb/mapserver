@@ -302,7 +302,7 @@
         </listitem>
         <listitem>
           <para>
-            Layer Metadata
+            Layer METADATA
           </para>
           <itemizedlist>
             <listitem>
@@ -317,6 +317,23 @@
             </listitem>
           </itemizedlist>
         </listitem>
+        <listitem>
+          <para>
+            Layer STATUS
+          </para>
+          <itemizedlist>
+            <listitem>
+              <para>
+                Layers set to STATUS DEFAULT will always be sent to the client.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                Layers set to STATUS ON or STATUS OFF can be requested by the client.
+              </para>
+            </listitem>            
+          </itemizedlist>
+        </listitem>        
       </itemizedlist>
       <para>
         Let's go through each of these paramters in more detail:

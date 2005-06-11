@@ -766,6 +766,18 @@ PROCESSING "BANDS=3,2,1,4"
                     <term>STATUS [on|off|default]</term>
                     <listitem>
                         <para>Sets the current status of the layer. Often modified by MapServer itself.  Default turns the layer on permanently.</para>
+                        <para>Some notes regarding the STATUS values:</para>
+                        <itemizedlist>
+                          <listitem>
+                            <para>In CGI mode, layers with STATUS DEFAULT cannot be turned off using normal mechanisms.  It is recommended to set layers to STATUS DEFAULT while debugging a 
+                            problem, but set them back to ON/OFF in normal use.
+                            </para>
+                          </listitem>
+                          <listitem>
+                            <para>For WMS, layers in the server mapfile with STATUS DEFAULT are always sent to the client.
+                            </para>
+                          </listitem>                          
+                        </itemizedlist>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
