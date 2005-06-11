@@ -2,7 +2,7 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
   <articleinfo>
-    <title>MapServer WFS Server HOWTO - Version 4.4</title>
+    <title>MapServer WFS Server HOWTO - Version 4.6</title>
     <author>
       <firstname>Jean-Fran&ccedil;ois</firstname>
       <surname>Doyon</surname>
@@ -28,7 +28,7 @@
     </author>
     <abstract>
       <para>This document explains how to configure MapServer to serve data through the OGC WFS interface.</para>
-      <para>Last Updated:  2005-01-10</para>
+      <para>Last Updated:  2005-06-10</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>       
@@ -226,6 +226,8 @@
           or metadata items.  If you notice any warning in your XML output then you have
           to fix all of them before you can register your server with a WFS client, 
           otherwise things are likely not going to work.
+        </para>
+        <para><emphasis>Note</emphasis> that the SERVICE parameter is required for all WFS requests
         </para>
       </sect3>
       <sect3 id="val_getmap">
@@ -615,6 +617,13 @@
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.16</revnumber>
+                        <date>Date: 2005-06-10</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>added note on service parameter
+                                   </revremark>
+                    </revision>                 
                     <revision>
                         <revnumber>Number: 1.10</revnumber>
                         <date>Date: 2005-01-10</date>
