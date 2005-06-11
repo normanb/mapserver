@@ -835,6 +835,106 @@
             </listitem>
           </itemizedlist>
         </sect4>
+        <sect4 id="attribution-logo-format">
+          <title>wms_attribution_logourl_format</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The MIME type of the logo image. (e.g. "image/png").
+                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.11 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
+        <sect4 id="attribution-logo-height">
+          <title>wms_attribution_logourl_height</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Height of the logo image in pixels.
+                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.11 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>  
+        <sect4 id="attribution-logo-href">
+          <title>wms_attribution_logourl_href</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) URL of the logo image.
+                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.11 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>        
+        <sect4 id="attribution-logo-width">
+          <title>wms_attribution_logourl_width</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Width of the logo image in pixels.
+                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.11 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
+        <sect4 id="attribution-onlineres">
+          <title>wms_attribution_onlineresource</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) The data provider's URL.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.11 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>   
+        <sect4 id="attribution-title">
+          <title>wms_attribution_title</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <emphasis>Description:</emphasis> (Optional) Human-readable string naming the data provider.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                refer to section 7.1.4.5.11 of the <ulink url="http://www.opengeospatial.org/docs/01-068r2.pdf">
+                WMS 1.1.1 spec</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect4>         
         <sect4 id="contactelectronicmailaddress">
           <title>wms_contactelectronicmailaddress</title>
           <itemizedlist>
@@ -1645,10 +1745,10 @@ END # Map File
             <para>
                 <revhistory>
                     <revision>
-                        <revnumber>Number: 1.50</revnumber>
+                        <revnumber>Number: 1.51</revnumber>
                         <date>Date: 2005-06-10</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added service parameter requirement for getcapabilities</revremark>
+                        <revremark>Added service parameter requirement for getcapabilities, added attribution metadata</revremark>
                     </revision>                 
                     <revision>
                         <revnumber>Number: 1.48</revnumber>
