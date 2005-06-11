@@ -841,7 +841,7 @@
             <listitem>
               <para>
                 <emphasis>Description:</emphasis> (Optional) The MIME type of the logo image. (e.g. "image/png").
-                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+                Note that the other <varname>wms_attribution_logourl_*</varname> metadata must also be specified.
               </para>
             </listitem>
             <listitem>
@@ -858,7 +858,7 @@
             <listitem>
               <para>
                 <emphasis>Description:</emphasis> (Optional) Height of the logo image in pixels.
-                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+                Note that the other <varname>wms_attribution_logourl_*</varname> metadata must also be specified.
               </para>
             </listitem>
             <listitem>
@@ -875,7 +875,7 @@
             <listitem>
               <para>
                 <emphasis>Description:</emphasis> (Optional) URL of the logo image.
-                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+                Note that the other <varname>wms_attribution_logourl_*</varname> metadata must also be specified.
               </para>
             </listitem>
             <listitem>
@@ -892,7 +892,7 @@
             <listitem>
               <para>
                 <emphasis>Description:</emphasis> (Optional) Width of the logo image in pixels.
-                Note that all <varname>wms_attribution_logourl_*</varname> metadata must be specified.
+                Note that the other <varname>wms_attribution_logourl_*</varname> metadata must also be specified.
               </para>
             </listitem>
             <listitem>
