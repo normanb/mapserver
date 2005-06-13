@@ -21,7 +21,7 @@
             <para>
                  This document describes the procedures for the creation of a map context document with MapServer.  
       </para>
-            <para>Last Updated: 2004-12-08</para>
+            <para>Last Updated: 2005-06-13</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>            
@@ -34,7 +34,7 @@
         Interfaces Implementation Specification (WMS) v1.1.1</ulink>.  A map context is a XML document that describes the appearance of layers from one or more WMS         servers, and can be transferred     between clients while maintaining startup views, the state of the view (and its layers), and storing additional layer information.
             </para>
         <para>
-            Support for OGC Web Map Context hsa been added to MapServer in version 3.7/4.0.  This allows client applications to load and save a map configuration
+            Support for OGC Web Map Context has been added to MapServer in version 3.7/4.0.  This allows client applications to load and save a map configuration
         in a standard XML format.
          </para>
         <para>
@@ -161,6 +161,14 @@
                 </note>
                 <sect4 id="web">
                     <title>Web Object Metadata</title>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <emphasis>ows_schemas_location</emphasis> : (Optional) Location of XML schema document. Default is http://schemas.opengeospatial.net. 
+                                See http://ogc.dmsolutions.ca for an example of a valid schema tree.
+                            </para>
+                        </listitem>
+                    </itemizedlist>                    
                     <itemizedlist>
                         <listitem>
                             <para>
@@ -616,6 +624,13 @@
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.12</revnumber>
+                        <date>Date: 2004-06-13</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added ows_schemas_location metadata.
+                                   </revremark>
+                    </revision>                
                     <revision>
                         <revnumber>Number: 1.10</revnumber>
                         <date>Date: 2004-12-10</date>
