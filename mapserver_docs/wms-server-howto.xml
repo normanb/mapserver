@@ -195,6 +195,12 @@
             </listitem>            
           </itemizedlist>
         </listitem>
+        <listitem>
+          <para>
+            <emphasis>GetLegendGraphic:</emphasis> returns a legend image (icon) for the requested layer, with label(s).  More information on this 
+            request can be found in the <link linkend='getlegendgraphic'>GetLegendGraphic section</link> later in this doc.
+          </para>
+        </listitem>        
       </orderedlist>
       <para>
         With respect to MapServer specifically, it is the "mapserv" CGI program that
@@ -785,6 +791,124 @@
           </programlisting>
         </listitem>
       </orderedlist>
+    </sect2>
+    <sect2 id="getlegendgraphic">
+      <title>GetLegendGraphic Request</title>
+      <para>
+        This request returns a legend image (icon) for the specified layer.  The request will draw an icon and a label for all classes 
+        defined on the layer.  
+      </para>
+      <sect3 id='getlegend-requirements'>
+        <title>Requirements</title>
+        <para>
+          The following are required in the WMS server mapfile to enable this request:
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              A LEGEND object.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              A CLASS object for each layer.
+            </para>
+          </listitem>  
+          <listitem>
+            <para>
+              A NAME in the CLASS object.
+            </para>
+          </listitem> 
+          <listitem>
+            <para>
+              The STATUS of each LAYER must be set to ON.
+            </para>
+          </listitem>          
+        </itemizedlist>
+      </sect3>
+      <sect3 id='getlegend-params'>
+      <title>Parameters</title>
+      <para>
+        The following are valid parameters for this request:
+      </para>        
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>LAYER</emphasis> - (Required) Name of the WMS layer to return the legend image of.  Note that this is the
+              &lt;Name&gt; parameter of the Layer in the GetCapabilities.
+            </para>
+          </listitem>
+        </itemizedlist>
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>FORMAT</emphasis> - (Required) Format of the legend image (e.g. "image/png").
+            </para>
+          </listitem>
+        </itemizedlist> 
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>WIDTH</emphasis> - (Optional) Width of the legend image.  Note that the Width parameter 
+              is only used when the Rule parameter is also used in the request.
+            </para>
+          </listitem>
+        </itemizedlist>  
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>HEIGHT</emphasis> - (Optional) Height of the legend image.  Note that the Height parameter 
+              is only used when the Rule parameter is also used in the request.
+            </para>
+          </listitem>
+        </itemizedlist> 
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>SLD</emphasis> - (Optional) The URL to the SLD.  Applies the SLD on the layer and the legend is drawn 
+              after the SLD is applied (using the classes specfied by the SLD). Note here that you need to put a &lt;Name&gt;class1&lt;/Name&gt; 
+              inside the Rule element so that a class name is created from the SLD and therefore a correct legend image.
+            </para>
+          </listitem>
+        </itemizedlist>  
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>SLD_BODY</emphasis> - (Optional) The body (code) of the SLD, instead of specifying a URL (as in the 'SLD' parameter).
+            </para>
+          </listitem>
+        </itemizedlist>  
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>SCALE</emphasis> - (Optional) Specify a scale so that only layers that fall into that scale will have a legend.
+            </para>
+          </listitem>
+        </itemizedlist>  
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role='bold'>RULE</emphasis> - (Optional) Specify the name of the CLASS to generate the legend image for (as opposed to generating
+              an icon and label for ALL classes for the layer).
+            </para>
+          </listitem>
+        </itemizedlist> 
+        <para>
+          Note that all rules that are used to draw the legend in normal CGI mode apply here.  See the
+          <ulink url='http://mapserver.gis.umn.edu/doc/cgi-reference.html'>CGI Reference doc</ulink> if necessary.
+        </para>
+        <para>
+          The CLASS object's KEYIMAGE parameter can also be used to specify a legend image for a CLASS.  See the
+          <ulink url='http://mapserver.gis.umn.edu/doc/mapfile-reference.html#class'>MapFile Reference doc</ulink> if necessary.
+        </para>
+        </sect3>
+        <sect3 id='getlegend-example'>
+          <title>Example Request</title>
+            <para>An example request might look like:</para> 
+            <programlisting>
+http://127.0.0.1/cgi-bin/mapserv.exe?SERVICE=WMS&amp;VERSION=1.1.1&amp;layer=park&amp;REQUEST=getlegendgraphic&amp;FORMAT=image/png            
+            </programlisting>
+        </sect3>
     </sect2>
   </sect1>   
   <sect1 id="reference">
@@ -1783,7 +1907,7 @@ END # Map File
                         <revnumber>Number: 1.54</revnumber>
                         <date>Date: 2005-06-13</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>Added note on GetFeatureInfo format for GML, and ows_schemas_location</revremark>
+                        <revremark>Added note on GetFeatureInfo format for GML, ows_schemas_location, and getlegendgraphic</revremark>
                     </revision>                 
                     <revision>
                         <revnumber>Number: 1.51</revnumber>
