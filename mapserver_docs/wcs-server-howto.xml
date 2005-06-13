@@ -2,7 +2,7 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://mapserver.gis.umn.edu/mdp/docbkx412/docbookx.dtd">
 <article>
   <articleinfo>
-    <title>Mapserver WCS Server HOWTO - Version 4.4</title>
+    <title>Mapserver WCS Server HOWTO - Version 4.6</title>
     <author>
       <firstname>Steve</firstname>
       <surname>Lime</surname>
@@ -15,7 +15,7 @@
     <date>2005-01-18</date>    
     <abstract>
       <!-- a short description of the contents of the doc -->
-      <para>This document describes the procedures for setting up an OGC compliant Web Coverage Server (WCS) through the use of MapServer version 4.4.  
+      <para>This document describes the procedures for setting up an OGC compliant Web Coverage Server (WCS) through the use of MapServer version 4.6.  
       </para>
       <para>Last Updated: 2005-06-13</para>
       <para>
