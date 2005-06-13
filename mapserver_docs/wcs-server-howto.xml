@@ -12,12 +12,15 @@
         </address>
       </affiliation>
     </author>
-    <date>2005-01-18</date>
+    <date>2005-01-18</date>    
     <abstract>
       <!-- a short description of the contents of the doc -->
       <para>This document describes the procedures for setting up an OGC compliant Web Coverage Server (WCS) through the use of MapServer version 4.4.  
       </para>
-      <para>Last Updated: 2005-01-18</para>
+      <para>Last Updated: 2005-06-13</para>
+      <para>
+          <link linkend="rhistory">Revision History</link>
+      </para>       
     </abstract>
   </articleinfo>
   <sect1 id="intro">
@@ -71,6 +74,15 @@
       <title>WEB object METADATA parameters</title>
       <para>WCS support tries to leverage existing WMS or OWS metadata definitions. The rationale being that many values will be the same regardless of the type of service. The module will look for the following metadata prefixes (in order): wcs_, ows_ and finally wms_ unless otherwise noted.</para>
       <variablelist>
+        <varlistentry>
+          <term>ows_schemas_location</term>
+          <listitem>
+            <para>
+               (Optional) Location of XML schema document. Default is http://schemas.opengeospatial.net. 
+               See http://ogc.dmsolutions.ca for an example of a valid schema tree.
+            </para>
+          </listitem>
+        </varlistentry>      
         <varlistentry>
           <term>metadatalink</term>
           <listitem>
@@ -453,4 +465,58 @@
       </listitem>       
     </itemizedlist>
   </sect1>
+    <!-- Section1: Document Info -->
+    <sect1 id="docinfo">
+        <title>About This Document</title>
+        <sect2 id="rhistory">
+            <title>Revision History</title>
+            <para>  
+  The numbering is in parallel with the revision control
+  system. Missing numbers indicate minor maintenance revision updates.
+</para>
+            <para>
+                <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.3</revnumber>
+                        <date>Date: 2005-06-13</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>added ows_schemas_location metadata
+                                   </revremark>
+                    </revision>                 
+                </revhistory>
+            </para>
+        </sect2>
+        <sect2 id="copyright">
+            <title>Copyright Information</title>
+            <para>
+    Copyright (c) 2005, Steve Lime
+   </para>
+            <para>
+    This documentation is covered by the same Free Software license as the MapServer software.
+    See MapServer's
+    <ulink url="http://mapserver.gis.umn.edu/license.html">License and 
+    Credits</ulink> page for the complete text.
+   </para>
+        </sect2>
+        <sect2 id="disclaimer">
+            <title>Disclaimer</title>
+            <para>
+    No liability for the contents of this document can be accepted.
+    Use the concepts, examples and other content at your own risk.
+    As this is a new edition of this document, there may be errors
+    and inaccuracies that may be damaging to your system.
+    Although this is highly unlikely, the author(s) do not take any 
+    responsibility for that:  proceed with caution.
+   </para>
+        </sect2>
+        <!-- Section2: feedback -->
+        <sect2 id="feedback">
+            <title>Feedback</title>
+        <para>
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
+        </para>
+        </sect2>
+    </sect1>   
 </article>
