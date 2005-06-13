@@ -82,11 +82,25 @@
                See http://ogc.dmsolutions.ca for an example of a valid schema tree.
             </para>
           </listitem>
-        </varlistentry>      
+        </varlistentry> 
         <varlistentry>
-          <term>metadatalink</term>
+          <term>wcs_metadatalink_href</term>
           <listitem>
-            <para/>
+          <para>
+                (Optional) The URL to the server's metadata.
+                 The metadata <emphasis>wcs_metadatalink_type</emphasis> must also be specified.
+          </para>          
+          </listitem>
+        </varlistentry>        
+        <varlistentry>
+          <term>wcs_metadatalink_type</term>
+          <listitem>
+          <para>
+                (Optional) The standard to which the metadata complies.
+                 Currently three types are valid: "TC211" which refers to [ISO 19115], "FGDC" which
+                 refers to [FGDC CSDGM], and "other".
+                 The metadata <emphasis>wcs_metadatalink_href</emphasis> must also be specified.
+          </para>          
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -104,13 +118,17 @@
         <varlistentry>
           <term>name</term>
           <listitem>
-            <para/>
+            <para>
+              A name the service provider assigns to the service.
+            </para>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>label</term>
           <listitem>
-            <para/>
+            <para>
+              (Required) A human-readable name for this server.
+            </para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -288,11 +306,25 @@
       <para>WCS support tries to leverage existing WMS or OWS metadata definitions. The rationale being that many values will be the same regardless of the type of service. The module will look for the following metadata prefixes (in order): wcs_, ows_ and finally wms_ unless otherwise noted.</para>
       <variablelist>
         <varlistentry>
-          <term>metadatalink</term>
+          <term>wcs_metadatalink_href</term>
           <listitem>
-            <para/>
+          <para>
+                (Optional) The URL to the layer's metadata.
+                 The metadata <emphasis>wcs_metadatalink_type</emphasis> must also be specified.
+          </para>          
           </listitem>
         </varlistentry>        
+        <varlistentry>
+          <term>wcs_metadatalink_type</term>
+          <listitem>
+          <para>
+                (Optional) The standard to which the metadata complies.
+                 Currently three types are valid: "TC211" which refers to [ISO 19115], "FGDC" which
+                 refers to [FGDC CSDGM], and "other".
+                 The metadata <emphasis>wcs_metadatalink_href</emphasis> must also be specified.
+          </para>          
+          </listitem>
+        </varlistentry>       
         <varlistentry>
           <term>description</term>
           <listitem>
@@ -308,7 +340,9 @@
         <varlistentry>
           <term>label</term>
           <listitem>
-            <para/>
+            <para>
+              (Required) A human-readable name for this layer.
+            </para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -480,7 +514,7 @@
                         <revnumber>Number: 1.3</revnumber>
                         <date>Date: 2005-06-13</date>
                         <authorinitials>Author: Jeff McKenna</authorinitials>
-                        <revremark>added ows_schemas_location metadata
+                        <revremark>added ows_schemas_location metadata, and metadatalink metadata.
                                    </revremark>
                     </revision>                 
                 </revhistory>
