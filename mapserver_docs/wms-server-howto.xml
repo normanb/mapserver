@@ -22,7 +22,7 @@
                  This document describes the procedures for setting up an OGC compliant Web Map Server (WMS) through
           the use of MapServer v3.5 (and later).  
       </para>
-      <para>Last Updated: 2005-06-10</para>
+      <para>Last Updated: 2005-06-13</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>      
@@ -1056,6 +1056,11 @@
                         If not specified, MapServer by default has text/plain and GML implemented.
                     </para>
                   </listitem>
+                  <listitem>
+                    <para>
+                        Note that for GML to be returned the layer in the wms-server mapfile must be set to DUMP TRUE.
+                    </para>
+                  </listitem>                  
                 </itemizedlist>
               </para>
             </listitem>
@@ -1761,6 +1766,12 @@ END # Map File
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.54</revnumber>
+                        <date>Date: 2005-06-13</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Added note on GetFeatureInfo format for GML</revremark>
+                    </revision>                 
                     <revision>
                         <revnumber>Number: 1.51</revnumber>
                         <date>Date: 2005-06-10</date>
