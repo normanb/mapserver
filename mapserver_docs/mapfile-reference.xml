@@ -31,7 +31,7 @@
             <para>
                 This document is a reference to the MapFile syntax for MapServer version 4.6.
             </para>
-            <para>Last Updated:  06-10-2005</para>
+            <para>Last Updated:  06-13-2005</para>
             <para>
                 <link linkend="rhistory">Revision History</link>
             </para>
@@ -126,6 +126,13 @@
                         <para>Signals the start of a <link linkend="join">JOIN</link> object.</para>
                     </listitem>
                 </varlistentry>
+                <varlistentry>
+                    <term>KEYIMAGE [filename]</term>
+                    <listitem>
+                        <para>Full filename of the legend image for the CLASS. This image is used when building a legend (or requesting a
+                        legend icon via MapScript or the CGI application).</para>
+                    </listitem>
+                </varlistentry>                
                 <varlistentry>
                     <term>LABEL</term>
                     <listitem>
