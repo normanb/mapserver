@@ -5,7 +5,7 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>HOWTO for Rasters in MapServer 4.4</title>
+    <title>HOWTO for Rasters in MapServer 4.6</title>
     <author>
       <firstname>Frank</firstname>
       <surname>Warmerdam</surname>
@@ -884,6 +884,12 @@ for world files.
   <sect2 id='rhistory'><title>Document Changes</title>
   <para>
      <revhistory>
+      <revision>
+        <revnumber>: 1.15</revnumber>
+        <date>Date: 2005/07/13</date>
+        <authorinitials>Author: Frank Warmerdam</authorinitials>
+        <revremark>Updated to reflect 4.6, no substantial changes.</revremark>
+      </revision>     
       <revision>
         <revnumber>: 1.14</revnumber>
         <date>Date: 2004/11/16</date>
