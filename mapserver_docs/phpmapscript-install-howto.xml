@@ -60,7 +60,7 @@
             <para>
                 PHP MapScript was originally developed for PHP-3.0.14 but after MapServer
                 3.5 support for PHP3 has been dropped and as of the last update of this
-                document, PHP 4.1.2 or more recent was required.
+                document, PHP 4.3.11 or more recent was required.
             </para>
             <para>
                 The best combinations of Mapscript and PHP versions are:
@@ -166,7 +166,7 @@
                         <itemizedlist>
                             <listitem>
                                 <para>
-                                    <ulink url="http://www.php.net/manual/en/install.iis.php">Php.net's</ulink> 
+                                    <ulink url="http://www.php.net/manual/en/install.iis.php">php.net's</ulink> 
                                   howto for installing PHP for PWS/IIS 3, PWS 4 or newer, and IIS 4 or newer. 
                                 </para>
                             </listitem>
