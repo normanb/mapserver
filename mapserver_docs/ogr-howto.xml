@@ -5,14 +5,14 @@
 <article>
   <articleinfo>
     <!-- insert title here, include the word HOWTO -->
-    <title>HOWTO for OGR Use in MapServer - Version 4.4</title>
+    <title>HOWTO for OGR Use in MapServer - Version 4.6</title>
     <author>
       <firstname>Jeff</firstname>
       <surname>McKenna</surname>
       <affiliation>
         <orgname>DM Solutions Group Inc.</orgname>
         <address>
-          <email>mckenna@dmsolutions.ca</email>
+          <email>jmckenna@dmsolutions.ca</email>
         </address>
       </affiliation>
     </author>
@@ -22,7 +22,7 @@
       <para>
                  This document describes the procedures for using OGR vector data sources within MapServer applications.
                </para>
-      <para>Last Updated: 2004-10-21</para>
+      <para>Last Updated: 2005-07-15</para>
       <para>
            <link linkend="rhistory">Revision History</link>
       </para>      
@@ -78,72 +78,102 @@
     <sect2 id="supported">
       <title>What Data Formats are Supported?</title>
       <para>
-                See <ulink url="http://ogr.maptools.org/ogr_formats.html">http://ogr.maptools.org/ogr_formats.html</ulink> for 
+                See <ulink url="http://gdal.maptools.org/ogr/ogr_formats.html">http://gdal.maptools.org/ogr/ogr_formats.html</ulink> for 
                 the latest list of supported formats.
                 At the date this document was written, the following formats were supported:
                </para>
       <itemizedlist>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_avc.html">ArcInfo Coverages</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_avc.html">ArcInfo Coverages</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_shapefile.html">ESRI Shapefiles</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_csv.html">Comma Separated Value (.csv)</ulink>,
+            </para>
+        </listitem> 
+        <listitem>
+          <para>
+            <ulink url="http://gdal.maptools.org/ogr/drv_dods.html">DODS/OPeNDAP</ulink>,
+            </para>
+        </listitem>         
+        <listitem>
+          <para>
+            <ulink url="http://gdal.maptools.org/ogr/drv_shapefile.html">ESRI Shapefiles</ulink>,
                         </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_fme.html">FMEObjects Gateway</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_fme.html">FMEObjects Gateway</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_s57.html">IHO S-57 datasets</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_gml.html">GML</ulink>,
+            </para>
+        </listitem>        
+        <listitem>
+          <para>
+            <ulink url="http://gdal.maptools.org/ogr/drv_s57.html">IHO S-57 (ENC)</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_mitab.html">MapInfo TAB and  
+            <ulink url="http://gdal.maptools.org/ogr/drv_mitab.html">MapInfo TAB and  
              MIF/MID files</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_dgn.html">Microstation DGN files</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_dgn.html">Microstation DGN files</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_ogdi.html">OGDI Vectors</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_mysql.html">MySQL</ulink>,
+            </para>
+        </listitem>        
+        <listitem>
+          <para>
+            <ulink url="http://gdal.maptools.org/ogr/drv_ogdi.html">OGDI Vectors</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_oci.html">Oracle Spatial</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_odbc.html">ODBC</ulink>,
+            </para>
+        </listitem>        
+        <listitem>
+          <para>
+            <ulink url="http://gdal.maptools.org/ogr/drv_oci.html">Oracle Spatial</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_pg.html">PostgreSQL</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_pg.html">PostgreSQL</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_sdts.html">SDTS TVP</ulink> (Topological             Vector Profile and Point Profile datasets),
+            <ulink url="http://gdal.maptools.org/ogr/drv_sdts.html">SDTS</ulink>,
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_tiger.html">TIGER/Line file sets</ulink>,
+            <ulink url="http://gdal.maptools.org/ogr/drv_sdts.html">SQLite</ulink>,
+            </para>
+        </listitem>        
+        <listitem>
+          <para>
+            <ulink url="http://gdal.maptools.org/ogr/drv_ntf.html">UK.NTF</ulink> (National Transfer Format).
             </para>
         </listitem>
         <listitem>
           <para>
-            <ulink url="http://ogr.maptools.org/drv_ntf.html">UK.NTF</ulink> (National               Transfer Format).
+            <ulink url="http://gdal.maptools.org/ogr/drv_tiger.html">US Census TIGER/Line</ulink>,
             </para>
-        </listitem>
+        </listitem>        
       </itemizedlist>
       <para>
         <emphasis>Note1: Some of the above formats (e.g. OGDI) have external dependencies
@@ -1109,6 +1139,13 @@ of connection pooling in MapServer.</para>
             <para>
                 <revhistory>
                     <revision>
+                        <revnumber>Number: 1.34</revnumber>
+                        <date>Date: 2005-07-15</date>
+                        <authorinitials>Author: Frank Warmerdam</authorinitials>
+                        <revremark>cleanup for ms4.6
+                        </revremark>
+                    </revision>                
+                    <revision>
                         <revnumber>Number: 1.32</revnumber>
                         <date>Date: 2004-09-22</date>
                         <authorinitials>Author: Frank Warmerdam</authorinitials>
@@ -1121,7 +1158,7 @@ of connection pooling in MapServer.</para>
     <sect2 id="copyright">
       <title>Copyright Information</title>
       <para>
-                Copyright (c) 2004, Jeff McKenna, DM Solutions Group Inc.
+                Copyright (c) 2005, Jeff McKenna, DM Solutions Group Inc.
             </para>
       <para>
                 This documentation is covered by the same Open Source license as the
@@ -1141,13 +1178,14 @@ of connection pooling in MapServer.</para>
             responsibility for that:  proceed with caution.
                   </para>
     </sect2>
-    <!-- Section2: feedback -->
-    <sect2 id="feedback">
-      <title>Feedback</title>
+        <!-- Section2: feedback -->
+        <sect2 id="feedback">
+            <title>Feedback</title>
       <para>
-            Send any
-            comments or suggestions to the author.
+            Input is appreciated.  Send any
+            comments or suggestions to the MapServer Documentation Coordinator at
+            <email>mdp@lists.gis.umn.edu</email>.
         </para>
-    </sect2>
+        </sect2>
   </sect1>
 </article>
