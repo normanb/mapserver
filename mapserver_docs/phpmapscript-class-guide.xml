@@ -23,8 +23,8 @@
                  This document describes all of the classes, properties and methods associated with the PHP/Mapscript
         module, and is the online version of the PHP/Mapscript README file from the Mapserver source code.  
                </para>
-      <para>README version: 1.158</para>
-      <para>Last Updated: 2005-06-08</para>
+      <para>README version: 1.159</para>
+      <para>Last Updated: 2005-08-24</para>
       <para>
           <link linkend="rhistory">Revision History</link>
       </para>       
@@ -1398,6 +1398,31 @@ PointObj ms_newPointObj()
         </programlisting>
         </sect4>
       </sect3>
+      <sect3 id="querymap">
+        <title>QuerymapObj Class</title>
+        <sect4 id="querymap_constructor">
+          <title>Constructor:</title>
+          <programlisting>
+   Instances of querymapObj are always are always embedded inside the mapObj.
+        </programlisting>
+        </sect4>
+        <sect4 id="querymap_members">
+          <title>Members:</title>
+          <programlisting>
+    int width
+    int height
+    int style   (MS_NORMAL, MS_HILITE, MS_SELECTED)
+    colorObj color   
+        </programlisting>
+        </sect4>
+        <sect4 id="querymap_methods">
+          <title>Methods:</title>
+          <programlisting>
+   int set(string property_name, new_value)
+        Set object property to a new value. Returns -1 on error.    
+        </programlisting>
+        </sect4>
+      </sect3>    
       <sect3 id="rectObj">
         <title>RectObj Class</title>
         <sect4 id="rect_constructor">
@@ -1826,6 +1851,13 @@ PointObj ms_newPointObj()
 </para>
             <para>
                 <revhistory>
+                    <revision>
+                        <revnumber>Number: 1.22</revnumber>
+                        <date>Date: 2005-08-24</date>
+                        <authorinitials>Author: Jeff McKenna</authorinitials>
+                        <revremark>Updated body to latest readme version
+                                   </revremark>
+                    </revision>                  
                     <revision>
                         <revnumber>Number: 1.21</revnumber>
                         <date>Date: 2005-06-08</date>
