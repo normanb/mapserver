@@ -357,6 +357,182 @@ The following are examples of valid requests using the PointSymbolizer:
 .. _`sld 9c`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol_external.xml
 .. _`full request 9c`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPOI&BBOX=-84.7978536015,41.440374,-75.737539764,45.97524&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol_external.xml
 
+**Table 10. TextSymbolizer**
+
+======================== ========= ==========================================================================================================================
+Features                 Supported Notes
+======================== ========= ==========================================================================================================================
+Geometry                 No   
+Label                    Yes  
+Font(font-family)        Yes       Font names used are those available in MapServer font file. If no fonts are available there, default bitmap fonts are used
+Font-style (Italic, ...) Yes  
+Font-weight              Yes  
+Font-size                Yes       If true-type fonts are not used, default bitmap sizes are given
+LabelPlacement           Yes       Only PointPlacement is supported
+Halo                     No        Only solid color is available
+Fill                     No        Only solid color is available
+======================== ========= ==========================================================================================================================
+
+Notes on the TextSymbolizer:
+
+- Font names: when converting Font parameters to MapServer, the following rule
+  is applied to get the font name: FontFamily-FontStyle-FontWeight.
+  For example, if there is an SLD with a Font Family of arial, a Font Style of
+  italic, and a Font weight equal to bold, the resulting MapServer font name 
+  is arial-italic-bold.  Font Style and Weight are not mandatory and, if not 
+  available, they are not used in building the font name.  When a Font Style or 
+  a Font Weight is set to normal in an SLD, it is also ignored in building 
+  the name. For example, if there is an SLD with a Font Family of arial, a Font 
+  Style of normal and a Font weight equals to bold, the resulting MapServer font 
+  name is arial-bold.
+
+- A TextSymbolizer can be used in MapServer either on an Annotation layer or on a 
+  Point, Line, or Polygon layer - in addition to other symbolizers used for these 
+  layers.
+
+- PointPacement: a point placement includes AnchorPoint (which is translated to 
+  Position in MapServer) Displacement (which is translated to Offset) and Angle 
+  (which is translated to Angle). 
+
+The following are examples of valid requests using the TextSymbolizer:
+
+- annotation layer : test for label, font, point placement, color, angle: `sld 10a`_ / `full request 10a`_
+
+.. _`sld 10a`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_annotation.xml
+.. _`full request 10a`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPlaces&BBOX=-81.366241839,42.39269586,-77.8780568047,44.13861927&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_annotation.xml
+
+- annotation layer with text and symbols using 2 symbolizers: `sld 10b`_ / `full request 10b`_
+
+.. _`sld 10b`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_with_symbols.xml
+.. _`full request 10b`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPlaces&BBOX=-81.366241839,42.39269586,-77.8780568047,44.13861927&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_with_symbols.xml
+
+
+- line layer with text using 2 symbolizers: `sld 10c`_ / `full request 10c`_
+
+.. _`sld 10c`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_line.xml
+.. _`full request 10c`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldRoads&BBOX=-81.366241839,42.39269586,-77.8780568047,44.13861927&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_line.xml
+
+**Table 11. RasterSymbolizer**
+
+=================== ========= =====
+Features            Supported Notes
+=================== ========= =====
+Geometry            No   
+Opacity             Yes  
+ChannelSelection    No   
+OverlapBehaviour    No   
+ColorMap            Yes  
+ContrastEnhancement No   
+ShadedRelief        No   
+ImageOutline        No  
+=================== ========= =====
+
+The current support in MapServer includes only ColorMap parameter support. It 
+can be used to classify 8-bit rasters. Inside the ColorMap parameters, the 
+color and quantity parameters are extracted and used to do the classification. 
+
+**Table 12. ColorMap**
+
+======== ========= =====
+Features Supported Notes
+======== ========= =====
+Color    Yes  
+Opacity  No   
+Quantity Yes  
+Label    No 
+======== ========= =====
+
+The following is an example of ColorMap usage.
+
+If we have following ColorMap in an SLD:
+
+::
+
+    <ColorMap>
+      <ColorMapEntry color="#00ff00" quantity="22"/> 
+      <ColorMapEntry color="#00bf3f" quantity="30"/> 
+      <ColorMapEntry color="#007f7f" quantity="37"/> 
+      <ColorMapEntry color="#003fbf" quantity="45"/> 
+      <ColorMapEntry color="#0000ff" quantity="52"/>
+      <ColorMapEntry color="#000000" quantity="60"/>
+    </ColorMap>
+          
+  the be six classes that are created are:
+
+- class 1 : [pixel] >= 22 AND [pixel] < 30 with color 00ff00
+  
+- class 2: [pixel] >= 30 AND [pixel] < 37 with color 00bf3f
+  
+- class 3 : [pixel] >= 37 AND [pixel] < 45 with color 007f7f
+  
+- class 4: [pixel] >= 45 AND [pixel] < 52 with color 003fbf
+  
+- class 5: [pixel] >= 52 AND [pixel] < 60 with color 0000ff
+  
+- class 6: [pixel] = 60 with color 000000 
+
+  Note that the ColorMapEntry quantity parameters should be in increasing order.
+
+Examples using 8 bits and 16 bits rasters can be seen at:
+
+- http://www2.dmsolutions.ca/cgi-bin/mswms_landsat?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=landsat&BBOX=302100,5029281,530271,5166822&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_raster.xml
+
+- http://www2.dmsolutions.ca/cgi-bin/mswms_landsat2?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=golden_CO&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_raster_16bits.xml
+
+Client Side Support
+===================
+
+Client side support of the SLD consists of two parts:
+
+- The first part is using MapServer as a WMS client to send a GetMap request 
+  with an SLD. This is done using two metadata that can be placed at a layer 
+  level in a MapServer mapfile. These two metadata are:
+
+  - ``wms_sld_url``, which takes a valid URL as a value and appends SLD=xxx to the 
+    GetMap request.
+
+  - ``wms_sld_body``, which takes a valid SLD string and appends SLD_BODY=xxx to 
+    the GetMap request. If the value of wms_sld_body is set to AUTO, MapServer 
+    generates an SLD based on the classes found in the layer and send this SLD 
+    as the value of the SLD_BODY parameter in the GetMap request. 
+
+- The other major item is the generation of an SLD document from MapServer 
+  classes. These functions are currently available through MapServer/MapScript 
+  interface. Here are the functions available:
+  
+  - on a map object: ``generatesld``
+
+  - on a layer object: ``generatesld``
+
+  Additional MapScript functions have been added or will be added to complement these functions:
+
+  - on a map object: ``applysld``
+ 
+  - on a layer object: ``applysld`` 
+
+*Note*: When generating an SLD from MapServer classes, if there is a pixmap symbol 
+you need to have this symbol available through a URL so it can be converted as an 
+ExternalGraphic symbol in the SLD. To do this, you need to define the URL through 
+a web object level metadata called WMS_SLD_SYMBOL_URL in your map file. The SLD 
+generated uses this URL and concatenates the name of the pixmap symbol file to get 
+the value that is generated as the ExternaGraphic URL. 
+
+Other Items Implemented
+=======================
+
+- Support of filled polygons with Mark and ExternalGraphic symbols.
+
+- MapScript functions to parse and apply SLD.
+
+- SLD_BODY request support on client and server side. 
+
+Issues Found During Implementation
+==================================
+
+- Limitation of the FilterEncoding to comparison and logical filters. The 
+  spatial filters were not made available since it required major changes in 
+  MapServer WMS support. 
+
 About This Document
 ===================
 
