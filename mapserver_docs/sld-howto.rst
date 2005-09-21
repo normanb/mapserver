@@ -457,21 +457,18 @@ If we have following ColorMap in an SLD:
       <ColorMapEntry color="#000000" quantity="60"/>
     </ColorMap>
           
-  the be six classes that are created are:
+The six classes that are created are:
 
-- class 1 : [pixel] >= 22 AND [pixel] < 30 with color 00ff00
-  
-- class 2: [pixel] >= 30 AND [pixel] < 37 with color 00bf3f
-  
-- class 3 : [pixel] >= 37 AND [pixel] < 45 with color 007f7f
-  
-- class 4: [pixel] >= 45 AND [pixel] < 52 with color 003fbf
-  
-- class 5: [pixel] >= 52 AND [pixel] < 60 with color 0000ff
-  
-- class 6: [pixel] = 60 with color 000000 
+::
 
-  Note that the ColorMapEntry quantity parameters should be in increasing order.
+    class 1: [pixel] >= 22 AND [pixel] < 30 with color 00ff00
+    class 2: [pixel] >= 30 AND [pixel] < 37 with color 00bf3f 
+    class 3: [pixel] >= 37 AND [pixel] < 45 with color 007f7f
+    class 4: [pixel] >= 45 AND [pixel] < 52 with color 003fbf
+    class 5: [pixel] >= 52 AND [pixel] < 60 with color 0000ff
+    class 6: [pixel] = 60 with color 000000 
+
+Note that the ColorMapEntry quantity parameters should be in increasing order.
 
 Examples using 8 bits and 16 bits rasters can be seen at:
 
