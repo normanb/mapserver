@@ -374,7 +374,7 @@ Here are some test URLs for the different supported filters:
 ::
 
   http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
-  TYPENAME=popplace&Filter=<Filter><AND><NOT><PropertyIsEqualTo> <PropertyName>POP_RANGE</PropertyName>
+  TYPENAME=popplace&Filter=<Filter><AND><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName>
   <Literal>2</Literal></PropertyIsEqualTo></NOT><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName>
   <Literal>3</Literal></PropertyIsEqualTo></NOT></AND></Filter> 
 
@@ -413,7 +413,7 @@ Here are some test URLs for the different supported filters:
 .. _`PropertyIsLike`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsLike%20wildcard='*'%20singleChar='.'%20escape='!'><PropertyName>NAME</PropertyName><Literal>Syd*</Literal></PropertyIsLike></Filter>
 .. _`Logical operator OR`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><OR><PropertyIsEqualTo><PropertyName>NAME</PropertyName><Literal>Sydney</Literal></PropertyIsEqualTo><PropertyIsEqualTo><PropertyName>NAME</PropertyName><Literal>Digby</Literal></PropertyIsEqualTo></OR></Filter>
 .. _`Logical operator AND`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><AND><PropertyIsLike%20wildcard='*'%20singleChar='.'%20escape='!'><PropertyName>NAME</PropertyName><Literal>Syd*</Literal></PropertyIsLike><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>4</Literal></PropertyIsEqualTo></AND></Filter>
-.. _`Logical operator NOT`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><AND><NOT><PropertyIsEqualTo> <PropertyName>POP_RANGE</PropertyName><Literal>2</Literal></PropertyIsEqualTo></NOT><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>3</Literal></PropertyIsEqualTo></NOT></AND></Filter> 
+.. _`Logical operator NOT`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><AND><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>2</Literal></PropertyIsEqualTo></NOT><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>3</Literal></PropertyIsEqualTo></NOT></AND></Filter> 
 .. _`Spatial operator BBOX`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><BBOX><PropertyName>Name>NAME</PropertyName><Box%20srsName='EPSG:42304'><coordinates>2518000,150000%202918000,450000</coordinates></Box></BBOX></Filter>
 .. _`Spatial operator Dwithin`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><DWithin><PropertyName>Geometry</PropertyName><gml:Point><gml:coordinates>2587598.000000,404010.531250</gml:coordinates></gml:Point><Distance%20units='m'>1000</Distance></DWithin></Filter>
 .. _`Spatial operator Intersects`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><Intersect><PropertyName>Geometry</PropertyName><gml:Polygon><gml:outerBoundaryIs><gml:LinearRing><gml:coordinates>2488789,289552%202588789,289552%202588789,389552%202488789,389552%202488789,289552</gml:coordinates></gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></Intersect></Filter>
@@ -425,9 +425,9 @@ Here are some test URLs for the different supported filters:
 
 **Table 2. WFS OGC test suite (over the HTTP Get and Post method)**
 
-======== ========================================================= ========== ===========
-#        Description                                               # of Tests # of Failed Tests
-======== ========================================================= ========== ===========
+======== ========================================================= ========== =================
+Test #   Description                                               # of Tests # of Failed Tests
+======== ========================================================= ========== =================
 1        Basic WFS tests over the HTTP Get and Post method         402        281
 1.1      GetCapabilities                                           16         0
 1.2      DescribeFeatureType                                       18         0
@@ -454,11 +454,11 @@ Here are some test URLs for the different supported filters:
 1.3.6.1  GetFeature BBOX filter                                    36         12
 1.3.6.2  GetFeature with other filter types                        216        216
 2        Transactional WFS test                                    69         69
-======== ========================================================= ========== ===========
+======== ========================================================= ========== =================
 
 The OGC Cite WFS test suite can be found on the `OGC Cite portal`_.
 
-:: _`OGC Cite portal`: http://cite.occamlab.com/test_engine/wfs_1_0_0/wfs_1_0_0.html
+.. _`OGC Cite portal`: http://cite.occamlab.com/test_engine/wfs_1_0_0/wfs_1_0_0.html
 
 Following are some MapServer specific notes on this test suite:
 
