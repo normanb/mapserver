@@ -1,0 +1,29 @@
+#
+# MapServer Sample
+#   Title: Hello World
+#   Author: Steve Lime
+#
+MAP
+  NAME 'hello_world'
+  EXTENT 0 0 500 500
+  SIZE 300 300
+  
+  IMAGECOLOR 225 225 225
+
+  LAYER
+    NAME 'hello_world'
+    TYPE ANNOTATION
+    FEATURE
+      POINTS 250 250 END
+      TEXT 'Hello World!'
+    END
+    STATUS DEFAULT
+    CLASS
+      LABEL
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+        SIZE MEDIUM
+      END
+    END
+  END
+END

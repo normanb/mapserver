@@ -1,0 +1,48 @@
+body {
+  background:#FFFFFF none repeat scroll 0%;
+  color:#000000;
+  font-family:"Lucida Grande",Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+  font-size:80%;
+  margin:0px;
+}
+
+#samples_filter {
+  padding:5px;
+  background-color:#EEEEEE;  
+}
+
+#samples_window {
+  padding:5px;
+  background-color:#FFFFFF;
+}
+
+#samples_window img {
+  padding:5px;
+  border:0px;
+}
+
+.sample_title {
+  font-size:100%;
+  font-weight:bold;
+}
+
+#samples_list {
+  border-right: thin dotted #222222;
+}
+
+#samples_list a {
+  width:100%;
+  display:block;
+  color:#000;
+  padding:5px;
+  text-decoration:none;
+  border-bottom: thin dotted #222222;
+}
+
+#samples_list a:hover {
+  background-color:#EEEECC;
+}
+
+form {
+  padding:5px;
+}

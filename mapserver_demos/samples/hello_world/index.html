@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Hello World</title>
+    <link rel="STYLESHEET" href="../samples.css" type="text/css">
+    <script language="javascript" src="../samples_config.js"></script>
+  </head>
+  <body>
+    <div id="samples_window">
+
+    <p>Files: <a href="sample.map">sample.map</a></p>
+
+    <p>Notes:</p> 
+
+    <p>Output:<br>
+<script language="javascript">
+  var url = samples_mapserver + "?map=" + samples_location + "hello_world/sample.map&mode=map";
+  document.write("<a target=new href=\"" + url + "\"><img alt=\"open in new window\" src=\"" + url + "\"></a>"); 
+</script>
+    </p>
+
+    </div>
+  </body>
+</html>
