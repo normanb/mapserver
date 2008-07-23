@@ -2,7 +2,7 @@
 //
 // location on this system for the samples
 //
-var samples_location = '/Users/sdlime/samples/';
+var samples_location = '/Users/sdlime/mapserver_demos/samples/';
 
 //
 // url for MapServer on this system

@@ -1,0 +1,105 @@
+#
+# MapServer Sample
+#   Title: Relative Positioning
+#   Author: Steve Lime
+#
+MAP
+  NAME 'relative_positioning'
+  EXTENT 0 0 500 500
+  SIZE 300 300
+  
+  IMAGECOLOR 225 225 225
+
+  SYMBOL
+    NAME 'circle'
+    TYPE ELLIPSE
+    POINTS 1 1 END
+    FILLED TRUE
+  END
+
+  LAYER
+    NAME 'border'
+    TYPE LINE
+    TRANSFORM FALSE
+    UNITS PERCENTAGES
+    FEATURE 
+      POINTS 0 0 0 1 1 1 1 0 0 0 END
+    END
+    STATUS DEFAULT
+    CLASS
+      STYLE
+        COLOR 0 0 0
+      END
+    END
+  END
+
+  LAYER
+    NAME 'point1'
+    TYPE POINT
+    TRANSFORM FALSE
+    FEATURE
+      POINTS 50 50 END
+      TEXT 'ul:(50,50):px'
+    END
+    STATUS DEFAULT
+    CLASS
+      STYLE
+        SYMBOL 'circle'
+        COLOR 212 255 255
+        SIZE 13
+      END
+      LABEL
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+        SIZE TINY
+      END
+    END
+  END
+
+  LAYER
+    NAME 'point2'
+    TYPE POINT
+    TRANSFORM LR
+    FEATURE
+      POINTS -50 -50 END
+      TEXT 'lr:(-50,-50):px'
+    END
+    STATUS DEFAULT
+    CLASS
+      STYLE
+        SYMBOL 'circle'
+        COLOR 212 255 255
+        SIZE 13
+      END
+      LABEL
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+        SIZE TINY
+      END
+    END
+  END
+
+  LAYER
+    NAME 'point3'
+    TYPE POINT
+    TRANSFORM LL
+    UNITS PERCENTAGES
+    FEATURE
+      POINTS .25 -.4 END
+      TEXT 'll:(.25,-.4):%'
+    END
+    STATUS DEFAULT
+    CLASS
+      STYLE
+        SYMBOL 'circle'
+        COLOR 212 255 255
+        SIZE 13
+      END
+      LABEL
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+        SIZE TINY
+      END
+    END
+  END
+END

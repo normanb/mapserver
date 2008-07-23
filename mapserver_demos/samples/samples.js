@@ -5,9 +5,7 @@ var samples = [
                 description: 'Places the text \'Hello World!\" in an image.',
                 keywords: ['inline features', 'annotation']},
                {title: 'Relative Positioning',
-                url: samples_mapserver,
-                args: { map: samples_location + 'relative_positioning/sample.map',
-	                mode: 'map' },
+                url: 'relative_positioning/index.html',
                 description: 'Positioning of features relative to places in an image (e.g. lower left corner).',
                 keywords: ['inline features', 'relative position']}
 ];
