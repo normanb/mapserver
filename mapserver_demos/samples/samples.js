@@ -3,15 +3,15 @@ var samples = [
                {title: 'Hello World',
                 url: 'hello_world/index.html',
                 description: 'Places the text \'Hello World!\" in an image.',
-                keywords: ['inline features', 'annotation']},
+                keywords: ['inline feature', 'annotation layer', 'labeling']},
                {title: 'Relative Positioning',
                 url: 'relative_positioning/index.html',
                 description: 'Positioning of features relative to places in an image (e.g. lower left corner).',
-                keywords: ['inline features', 'relative position']},
+                keywords: ['inline feature', 'relative position', 'labeling']},
 	       {title: 'Simple Lines',
                 url: 'simple_lines/index.html',
                 description: 'Drawing of simple linear features.',
-                keywords: ['inline features', 'line layers']},
+                keywords: ['inline feature', 'line layer']},
 ];
 
 function launchSample(i) {
