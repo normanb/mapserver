@@ -7,7 +7,11 @@ var samples = [
                {title: 'Relative Positioning',
                 url: 'relative_positioning/index.html',
                 description: 'Positioning of features relative to places in an image (e.g. lower left corner).',
-                keywords: ['inline features', 'relative position']}
+                keywords: ['inline features', 'relative position']},
+	       {title: 'Simple Lines',
+                url: 'simple_lines/index.html',
+                description: 'Drawing of simple linear features.',
+                keywords: ['inline features', 'line layers']},
 ];
 
 function launchSample(i) {

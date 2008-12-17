@@ -1,0 +1,54 @@
+#
+# MapServer Sample
+#   Title: Simple Lines
+#   Author: Steve Lime
+#
+MAP
+  NAME 'simple_lines'
+  EXTENT 1 1 300 300
+  SIZE 300 300
+  
+  IMAGECOLOR 225 225 225
+
+  LAYER
+    NAME 'line1'
+    TYPE LINE
+    FEATURE
+      POINTS 10 10 320 150 10 290 END
+    END
+    STATUS DEFAULT
+    CLASS
+      STYLE 
+        COLOR '#FF0000' 
+      END
+    END
+  END
+
+  LAYER
+    NAME 'line2'
+    TYPE LINE
+    FEATURE
+      POINTS 50 50 275 225 END
+    END
+    STATUS DEFAULT
+    CLASS
+      STYLE
+        COLOR '#00FF00'
+      END
+    END
+  END
+
+  LAYER
+    NAME 'line3'
+    TYPE LINE
+    FEATURE
+      POINTS 0 250 500 250 END
+    END
+    STATUS DEFAULT
+    CLASS
+      STYLE
+        COLOR '#0000FF'
+      END
+    END
+  END
+END
