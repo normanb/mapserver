@@ -43,6 +43,36 @@ body {
   background-color:#EEEECC;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  -x-system-font:none;
+  background-color:transparent;
+  color:#000000;
+  font-family:'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+  font-size:100%;
+  font-size-adjust:none;
+  font-stretch:normal;
+  font-style:normal;
+  font-variant:normal;
+  font-weight:normal;
+  line-height:normal;
+  margin:0;
+  padding-top:0.5em;
+}
+
+h1 {
+  border-bottom: 1px solid #FCB100;
+  margin-bottom:0.5em;
+  font-size:120%;
+}
+
+.content_label {
+  font-weight:bold;
+}
+
+.content {
+  padding:0.5em;
+}
+
 form {
   padding:5px;
 }

@@ -7,14 +7,18 @@
   <body>
     <div id="samples_window">
 
-    <p>Files: <a href="sample.map">sample.map</a></p>
+      <h1>Relative Positioning</h1>
 
-    <p>Notes: Relative positioning allows you to draw features (most often defined inline) relative to something other than the
-    upper left-hand corner of the image. For example, you might want to always place a copyright statement in the lower left-hand
-    corner of a map regardless of image size. A layer's TRANSFORM property is used to define relative positioning (default is UL).
-    Feature coordinates can be given in pixels, the default, or in percentages (doubles between 0 and 1).</p> 
+      <div class="content"><span class="content_label">Files:</span> <a class="file" href="sample.map">sample.map</a></div>
 
-    <p>Output:<br>
+      <div class="content"><span class="content_label">Notes:</span> 
+        Relative positioning allows you to draw features (most often defined inline) relative to something other than the
+        upper left-hand corner of the image. For example, you might want to always place a copyright statement in the lower left-hand
+        corner of a map regardless of image size. A layer's TRANSFORM property is used to define relative positioning (default is UL).
+        Feature coordinates can be given in pixels, the default, or in percentages (doubles between 0 and 1).
+      </div> 
+
+      <div class="content"><span class="content_label">Output:</span><br>
 <script language="javascript">
   var url = samples_mapserver + "?map=" + samples_location + "relative_positioning/sample.map&mode=map";
   document.write("<a target=new href=\"" + url + "\"><img alt=\"open in new window\" src=\"" + url + "\"></a>"); 
@@ -27,7 +31,7 @@
   url = samples_mapserver + "?map=" + samples_location + "relative_positioning/sample.map&mode=map&mapsize=400+250";
   document.write("<a target=new href=\"" + url + "\"><img alt=\"open in new window\" src=\"" + url + "\"></a>"); 
 </script>
-    </p>
+      </div>
 
     </div>
   </body>
