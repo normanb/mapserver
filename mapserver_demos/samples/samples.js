@@ -12,6 +12,10 @@ var samples = [
                 url: 'simple_lines/index.html',
                 description: 'Drawing of simple linear features.',
                 keywords: ['inline feature', 'line layer']},
+	       {title: 'Label Attribute Binding',
+                url: 'label_attribute_binding/index.html',
+                description: 'Changing the properties (e.g. size or angle) of a label based on feature attributes.',
+                keywords: ['attribute binding', 'labeling']},
 ];
 
 function launchSample(i) {

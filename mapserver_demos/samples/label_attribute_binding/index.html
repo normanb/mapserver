@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Label Attribute Binding</title>
+    <link rel="STYLESHEET" href="../samples.css" type="text/css">
+    <script language="javascript" src="../samples_config.js"></script>
+  </head>
+  <body>
+    <div id="samples_window">
+
+      <h1>Label Attribute Binding</h1>
+
+      <div class="content">
+        <span class="content_label">Files:</span> <a class="file" href="sample.map">sample.map</a>
+      </div>
+
+      <div class="content">
+        <span class="content_label">Notes:</span> 
+      </div> 
+
+      <div class="content"><span class="content_label">Output:</span><br/>
+<script language="javascript">
+  var url = samples_mapserver + "?map=" + samples_location + "label_attribute_binding/sample.map&mode=map";
+  document.write("<a target=new href=\"" + url + "\"><img title=\"open image in new window\" alt=\"open image in new window\" src=\"" + url + "\"></a>"); 
+</script>
+      </div>
+
+    </div>
+  </body>
+</html>

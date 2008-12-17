@@ -1,0 +1,47 @@
+#
+# MapServer Sample
+#   Title: Label Attribute Binding
+#   Author: Steve Lime
+#
+MAP
+  NAME 'label_attribute_binding'
+  SIZE 400 400
+  EXTENT 0 0 449 49
+  FONTSET '../fonts/fonts.list'
+
+  IMAGECOLOR 181 181 181
+
+  SYMBOL
+    NAME 'circle'
+    TYPE ELLIPSE
+    POINTS 1 1 END
+    FILLED TRUE
+  END
+
+  LAYER
+    NAME 'labels'
+    TYPE ANNOTATION
+    DATA 'text'
+    TRANSFORM FALSE
+    STATUS DEFAULT
+    CLASS
+      COLOR 255 0 0
+      SYMBOL 'circle'
+      SIZE 15
+      LABEL
+        SIZE [size]
+        TYPE TRUETYPE
+        COLOR 0 0 0
+        SHADOWCOLOR 255 255 230
+        SHADOWSIZE 0 2
+        FONT 'VeraBd'
+        ANTIALIAS TRUE
+        ANGLE [angle]
+        POSITION CC
+        BUFFER 10
+      END
+    END
+    LABELITEM 'string'
+  END
+
+END
