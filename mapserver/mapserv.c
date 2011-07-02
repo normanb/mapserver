@@ -26,6 +26,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  ****************************************************************************/
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifdef USE_FASTCGI
 #define NO_FCGI_DEFINES
@@ -39,7 +42,8 @@
 #include <signal.h>
 #endif
 
-MS_CVSID("$Id$")
+
+MS_CVSID("$Id: mapserv.c 11452 2011-04-04 13:25:43Z aboudreault $")
 
 mapservObj* mapserv;
 
@@ -1180,6 +1184,19 @@ int main(int argc, char *argv[]) {
   while( FCGI_Accept() >= 0 ) {
 #endif /* def USE_FASTCGI */
 
+#ifdef USE_COUCHDB
+  while (1) {
+
+    int bytes_read;
+    size_t nbytes = 100;
+    char *request_string;
+
+    request_string = (char *) malloc (nbytes + 1);
+    bytes_read = getline (&request_string, &nbytes, stdin);
+    setenv("REQUEST_METHOD", "GET", 1);
+    setenv("QUERY_STRING", request_string, 1);
+    free(request_string);
+#endif
     /* -------------------------------------------------------------------- */
     /*      Process a request.                                              */
     /* -------------------------------------------------------------------- */
@@ -1188,7 +1205,7 @@ int main(int argc, char *argv[]) {
 
     mapserv->request->NumParams = loadParams(mapserv->request, NULL, NULL, 0, NULL);
     if( mapserv->request->NumParams == -1 ) {
-#ifdef USE_FASTCGI
+#if defined(USE_FASTCGI) || defined(USE_COUCHDB)
       /* FCGI_ --- return to top of loop */
       msResetErrorList();
       continue;
@@ -1204,7 +1221,7 @@ int main(int argc, char *argv[]) {
     if( mapserv->map->debug >= MS_DEBUGLEVEL_TUNING) 
       msGettimeofday(&requeststarttime, NULL);
 
-#ifdef USE_FASTCGI
+#if defined(USE_FASTCGI) || defined(USE_COUCHDB)
     if( mapserv->map->debug ) {
       static int nRequestCounter = 1;
 
@@ -1288,6 +1305,14 @@ int main(int argc, char *argv[]) {
       }
 
       msFreeMapServObj(mapserv);      
+
+#ifdef USE_COUCHDB
+      msIO_printf("CouchDB_Done\n");
+      // force flush
+      fflush(stdout);
+      continue;
+#endif
+
 #ifdef USE_FASTCGI
       /* FCGI_ --- return to top of loop */
       continue;
@@ -1822,7 +1847,7 @@ int main(int argc, char *argv[]) {
 
     msFreeMapServObj(mapserv);
 
-#ifdef USE_FASTCGI
+#if defined(USE_FASTCGI) || defined(USE_COUCHDB)
     msResetErrorList();
   }
 #endif
