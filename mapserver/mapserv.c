@@ -1307,7 +1307,7 @@ int main(int argc, char *argv[]) {
       msFreeMapServObj(mapserv);      
 
 #ifdef USE_COUCHDB
-      msIO_printf("CouchDB_Done\n");
+      msIO_printf("\nCouchDB_Done\n");
       // force flush
       fflush(stdout);
       continue;
