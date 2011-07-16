@@ -1648,7 +1648,7 @@ struct layerVTable {
   void (*LayerFreeItemInfo)(layerObj *layer);
   int (*LayerOpen)(layerObj *layer);
   int (*LayerIsOpen)(layerObj *layer);
-  int (*LayerWhichShapes)(layerObj *layer, rectObj rect);
+  int (*LayerWhichShapes)(layerObj *layer, rectObj rect, int isQuery);
   int (*LayerNextShape)(layerObj *layer, shapeObj *shape);
   int (*LayerGetShape)(layerObj *layer, shapeObj *shape, resultObj *record);
   int (*LayerClose)(layerObj *layer);
@@ -1661,6 +1661,8 @@ struct layerVTable {
   int (*LayerCreateItems)(layerObj *layer, int nt);
   int (*LayerGetNumFeatures)(layerObj *layer);
   int (*LayerGetAutoProjection)(layerObj *layer, projectionObj *projection);
+  char* (*LayerEscapeSQLParam)(layerObj *layer, const char* pszString);
+  char* (*LayerEscapePropertyName)(layerObj *layer, const char* pszString);
 };
 #endif /*SWIG*/
 
@@ -2062,7 +2064,7 @@ MS_DLL_EXPORT int msLayerOpen(layerObj *layer); /* in maplayer.c */
 MS_DLL_EXPORT int msClusterLayerOpen(layerObj *layer); /* in mapcluster.c */
 MS_DLL_EXPORT int msLayerIsOpen(layerObj *layer);
 MS_DLL_EXPORT void msLayerClose(layerObj *layer);
-MS_DLL_EXPORT int msLayerWhichShapes(layerObj *layer, rectObj rect);
+MS_DLL_EXPORT int msLayerWhichShapes(layerObj *layer, rectObj rect, int isQuery);
 MS_DLL_EXPORT int msLayerGetItemIndex(layerObj *layer, char *item);
 MS_DLL_EXPORT int msLayerWhichItems(layerObj *layer, int get_all, char *metadata); 
 MS_DLL_EXPORT int msLayerNextShape(layerObj *layer, shapeObj *shape);
@@ -2106,6 +2108,9 @@ MS_DLL_EXPORT int msLayerGetNumFeatures(layerObj *layer);
 MS_DLL_EXPORT int msLayerSupportsPaging(layerObj *layer);
 
 MS_DLL_EXPORT int msLayerGetMaxFeaturesToDraw(layerObj *layer, outputFormatObj *format);
+
+MS_DLL_EXPORT char *msLayerEscapeSQLParam(layerObj *layer, const char* pszString);
+MS_DLL_EXPORT char *msLayerEscapePropertyName(layerObj *layer, const char* pszString);
 
 /* These are special because SWF is using these */
 int msOGRLayerNextShape(layerObj *layer, shapeObj *shape);
@@ -2378,7 +2383,7 @@ MS_DLL_EXPORT int msOGRWriteFromQuery( mapObj *map, outputFormatObj *format,
 /* ==================================================================== */
 /*      Public prototype for mapogr.cpp functions.                      */
 /* ==================================================================== */
-int MS_DLL_EXPORT msOGRLayerWhichShapes(layerObj *layer, rectObj rect);
+int MS_DLL_EXPORT msOGRLayerWhichShapes(layerObj *layer, rectObj rect, int isQuery);
 int MS_DLL_EXPORT msOGRLayerOpen(layerObj *layer, const char *pszOverrideConnection); /* in mapogr.cpp */
 int MS_DLL_EXPORT msOGRLayerClose(layerObj *layer);
 

@@ -130,14 +130,14 @@ int msLayerSupportsCommonFilters(layerObj *layer)
 ** Note that for shapefiles we apply any maxfeatures constraint at this point. That may be the only
 ** connection type where this is feasible.
 */
-int msLayerWhichShapes(layerObj *layer, rectObj rect)
+int msLayerWhichShapes(layerObj *layer, rectObj rect, int isQuery)
 {
   if ( ! layer->vtable) {
       int rv =  msInitializeVirtualTable(layer);
       if (rv != MS_SUCCESS)
           return rv;
   }
-  return layer->vtable->LayerWhichShapes(layer, rect);
+  return layer->vtable->LayerWhichShapes(layer, rect, isQuery);
 }
 
 /*
@@ -511,6 +511,12 @@ int msLayerWhichItems(layerObj *layer, int get_all, char *metadata)
       nt += msCountChars(layer->class[i]->expression.string, '[');
 
     nt += layer->class[i]->label.numbindings;
+    for(j=0; j<layer->class[i]->label.numstyles; j++) {
+      if(layer->class[i]->label.styles[j]->rangeitem) nt++;
+      nt += layer->class[i]->label.styles[j]->numbindings;
+      if(layer->class[i]->label.styles[j]->_geomtransform.type == MS_GEOMTRANSFORM_EXPRESSION)
+        nt += msCountChars(layer->class[i]->label.styles[j]->_geomtransform.string, '[');
+    }
 
     if(layer->class[i]->text.type == MS_EXPRESSION || (layer->class[i]->text.string && strchr(layer->class[i]->text.string,'[') != NULL && strchr(layer->class[i]->text.string,']') != NULL))
       nt += msCountChars(layer->class[i]->text.string, '[');
@@ -553,8 +559,15 @@ int msLayerWhichItems(layerObj *layer, int get_all, char *metadata)
         if(layer->class[i]->styles[j]->rangeitem) layer->class[i]->styles[j]->rangeitemindex = string2list(layer->items, &(layer->numitems), layer->class[i]->styles[j]->rangeitem);
         for(k=0; k<MS_STYLE_BINDING_LENGTH; k++)
           if(layer->class[i]->styles[j]->bindings[k].item) layer->class[i]->styles[j]->bindings[k].index = string2list(layer->items, &(layer->numitems), layer->class[i]->styles[j]->bindings[k].item);
-	if(layer->class[i]->styles[j]->_geomtransform.type == MS_GEOMTRANSFORM_EXPRESSION) 
+        if(layer->class[i]->styles[j]->_geomtransform.type == MS_GEOMTRANSFORM_EXPRESSION) 
           msTokenizeExpression(&(layer->class[i]->styles[j]->_geomtransform), layer->items, &(layer->numitems));
+      }
+      for(j=0; j<layer->class[i]->label.numstyles; j++) {
+        if(layer->class[i]->label.styles[j]->rangeitem) layer->class[i]->label.styles[j]->rangeitemindex = string2list(layer->items, &(layer->numitems), layer->class[i]->label.styles[j]->rangeitem);
+        for(k=0; k<MS_STYLE_BINDING_LENGTH; k++)
+          if(layer->class[i]->label.styles[j]->bindings[k].item) layer->class[i]->label.styles[j]->bindings[k].index = string2list(layer->items, &(layer->numitems), layer->class[i]->label.styles[j]->bindings[k].item);
+        if(layer->class[i]->label.styles[j]->_geomtransform.type == MS_GEOMTRANSFORM_EXPRESSION) 
+          msTokenizeExpression(&(layer->class[i]->label.styles[j]->_geomtransform), layer->items, &(layer->numitems));
       }
 
       /* class text and label bindings */
@@ -1124,7 +1137,7 @@ int LayerDefaultIsOpen(layerObj *layer)
   return MS_FALSE;
 }
 
-int LayerDefaultWhichShapes(layerObj *layer, rectObj rect)
+int LayerDefaultWhichShapes(layerObj *layer, rectObj rect, int isQuery)
 {
   return MS_SUCCESS;
 }
@@ -1224,6 +1237,85 @@ int LayerDefaultSupportsCommonFilters(layerObj *layer)
   return MS_FALSE;
 }
 
+/************************************************************************/
+/*                          LayerDefaultEscapeSQLParam                  */
+/*                                                                      */
+/*      Default function used to escape strings and avoid sql           */
+/*      injection. Specific drivers should redefine if an escaping      */
+/*      function is available in the driver.                            */
+/************************************************************************/
+char *LayerDefaultEscapeSQLParam(layerObj *layer, const char* pszString)
+{
+     char *pszEscapedStr=NULL;
+     if (pszString)
+     {
+         int nSrcLen;
+         char c;
+         int i=0, j=0;
+         nSrcLen = (int)strlen(pszString);
+         pszEscapedStr = (char*) msSmallMalloc( 2 * nSrcLen + 1);
+         for(i = 0, j = 0; i < nSrcLen; i++)
+         {
+             c = pszString[i];
+             if (c == '\'')
+             {
+                 pszEscapedStr[j++] = '\'';
+                 pszEscapedStr[j++] = '\'';
+             }
+             else if (c == '\\')
+             {
+                 pszEscapedStr[j++] = '\\';
+                 pszEscapedStr[j++] = '\\';
+             }
+             else
+               pszEscapedStr[j++] = c;
+         }
+         pszEscapedStr[j] = 0;
+     }  
+     return pszEscapedStr;
+}
+
+/************************************************************************/
+/*                          LayerDefaultEscapePropertyName              */
+/*                                                                      */
+/*      Return the property name in a properly escaped and quoted form. */
+/************************************************************************/
+char *LayerDefaultEscapePropertyName(layerObj *layer, const char* pszString)
+{
+     char* pszEscapedStr=NULL;
+     int i, j = 0;   
+
+     if (layer && pszString && strlen(pszString) > 0)
+     {
+         int nLength = strlen(pszString);
+
+         pszEscapedStr = (char*) msSmallMalloc( 1 + 2 * nLength + 1 + 1);
+         pszEscapedStr[j++] = '"';
+
+         for (i=0; i<nLength; i++)
+         {
+             char c = pszString[i];
+             if (c == '"')
+             {
+                 pszEscapedStr[j++] = '"';
+                 pszEscapedStr[j++] ='"';
+             }
+             else if (c == '\\')
+             {
+                 pszEscapedStr[j++] = '\\';
+                 pszEscapedStr[j++] = '\\';
+             }
+             else
+               pszEscapedStr[j++] = c;
+         }
+         pszEscapedStr[j++] = '"';
+         pszEscapedStr[j++] = 0;
+        
+     }
+     return pszEscapedStr;
+}
+
+
 /*
  * msConnectLayer
  *
@@ -1283,6 +1375,10 @@ static int populateVirtualTable(layerVTableObj *vtable)
   vtable->LayerGetNumFeatures = LayerDefaultGetNumFeatures;
   
   vtable->LayerGetAutoProjection = LayerDefaultAutoProjection;
+
+  vtable->LayerEscapeSQLParam = LayerDefaultEscapeSQLParam;
+
+  vtable->LayerEscapePropertyName = LayerDefaultEscapePropertyName;
 
   return MS_SUCCESS;
 }
@@ -1455,6 +1551,32 @@ int msINLINELayerGetNumFeatures(layerObj *layer)
     return i;
 }
 
+
+
+/*
+Returns an escaped string
+*/
+char  *msLayerEscapeSQLParam(layerObj *layer, const char*pszString) 
+{
+    if ( ! layer->vtable) {
+        int rv =  msInitializeVirtualTable(layer);
+        if (rv != MS_SUCCESS)
+            return "";
+    }
+    return layer->vtable->LayerEscapeSQLParam(layer, pszString);
+}
+
+char  *msLayerEscapePropertyName(layerObj *layer, const char*pszString) 
+{
+    if ( ! layer->vtable) {
+        int rv =  msInitializeVirtualTable(layer);
+        if (rv != MS_SUCCESS)
+            return "";
+    }
+    return layer->vtable->LayerEscapePropertyName(layer, pszString);
+}
+
+
 int
 msINLINELayerInitializeVirtualTable(layerObj *layer)
 {
@@ -1486,6 +1608,8 @@ msINLINELayerInitializeVirtualTable(layerObj *layer)
     /* layer->vtable->LayerCreateItems, use default */
     layer->vtable->LayerGetNumFeatures = msINLINELayerGetNumFeatures;
 
+    /*layer->vtable->LayerEscapeSQLParam, use default*/
+    /*layer->vtable->LayerEscapePropertyName, use default*/
     return MS_SUCCESS;
 }
 

@@ -1,3 +1,8 @@
+**2011-07-13 - MapServer 6.0.1, 5.6.7 and 4.10.7 are released with security fixes**
+
+MapServer 6.0.1, 5.6.7 and 4.10.7 have been released, containing important security fixes.  See `the release announcement <http://lists.osgeo.org/pipermail/mapserver-users/2011-July/069430.html>`__
+for more details and head to :ref:`download` to obtain a copy.
+
 **2011-05-12 - MapServer 6.0.0 is released**
 
 MapServer 6.0.0 has been released. See :ref:`the release announcement <announce-6-0>`
