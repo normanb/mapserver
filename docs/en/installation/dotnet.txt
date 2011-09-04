@@ -1,3 +1,6 @@
+.. index::
+   triple: MapScript; .NET; Compilation
+
 .. _dotnet_compile:
 
 *****************************************************************************

@@ -448,17 +448,7 @@ The following mapfile snippets enable antialiased county borders:
 Which OGC Specifications does MapServer support?
 -------------------------------------------------------------------------------
 
-* Web Map Service (OGC:WMS) 1.0.0, 1.0.7, 1.1.0 and 1.1.1
-* Web Feature Service (OGC:WFS) 1.0.0, 1.1.0
-* Web Coverage Service (OGC:WCS) 1.0.0, 1.1.0
-* Geography Markup Language (OGC:GML) 2.1.2, 3.1.0 Level 0 Profile
-* Web Map Context Documents (OGC:WMC) 1.0.0, 1.1.0
-* Styled Layer Descriptor (OGC:SLD) 1.0.0
-* Filter Encoding Specification (OGC:FES) 1.0.0
-* Sensor Observation Service (OGC:SOS) 1.0.0
-* Observations and Measurements (OGC:OM) 1.0.0
-* SWE Common (OGC:SWE) 1.0.1
-* OWS Common (OGC:OWS) 1.0.0, 1.1.0
+See: :ref:`OGCSUPPORT`
 
 Why does my requested WMS layer not align correctly?
 -------------------------------------------------------------------------------
@@ -688,6 +678,25 @@ and to set which file is being used as the input (note: make sure you don’t
 confuse the order of these two).
 
 Hit enter, bombs away, and enjoy your new data in meters!
+
+
+How can I help improve the documentation on this site?
+-------------------------------------------------------------------------------
+
+New documentation material and corrections to existing documentation
+are definitely very welcome. These contributions are handled through
+the same issue tracker used to track software bugs and enhancements.
+
+Follow the directions for submitting bugs at:
+http://www.mapserver.org/development/bugs.html.
+When creating a ticket, in the Component field, select `MapServer
+Documentation`. If our ticket pertains to a specific web page, please
+include the URL to that page.
+
+If you have tips or examples that don't really fit the definition of
+documentation, a good place to put them is the MapServer wiki at:
+http://trac.osgeo.org/mapserver/wiki
+
 
 What's with MapServer's logo?
 -------------------------------------------------------------------------------

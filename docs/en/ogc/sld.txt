@@ -1,3 +1,6 @@
+.. index:: 
+   single: SLD
+
 .. _sld:
 
 *****************************************************************************
@@ -165,6 +168,9 @@ GetStyles              Yes       Uses MapScript to get the SLD
     if the RULE keyword is absent from the request, an image containing the 
     entire legend for the specified layer will be returned. This image consists 
     of the layer name and a symbolization graphic and label for each class.  
+
+.. index:: 
+   pair: SLD; Element support
 
 Specific SLD Elements Supported
 -------------------------------
@@ -643,6 +649,9 @@ to create an SLD for a specific layer in a mapfile:
 
     // get the parcel layer
     $oLayer = $oMap->getLayerByName("parcel");
+
+    // force visibilty of the layer
+    $oLayer->set('status', MS_ON);
 
     // generate the sld for that layer
     $SLD = $oLayer->generateSLD();

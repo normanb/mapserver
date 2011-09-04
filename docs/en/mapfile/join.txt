@@ -1,11 +1,14 @@
+.. index:: JOIN
+
 .. _join:
 
 *****************************************************************************
  JOIN
 *****************************************************************************
 
-.. index:: Join
-
+.. index::
+   pair: JOIN; LAYER
+    
 Description
 ===========
 
@@ -14,59 +17,78 @@ that JOINs are *ONLY* available once a query has been processed. You cannot
 use joins to affect the look of a map. The primary purpose is to enable lookup
 tables for coded data (e.g. 1 => Forest) but there are other possible uses.
 
+.. index::
+   pair: JOIN; Supported formats
+    
 Supported Formats
 =================
  
 - DBF/XBase files
 - CSV (comma delimited text file)
-- PostgreSQL and PostGIS tables
-- MySQL tables
+- PostgreSQL tables
 
 Mapfile Parameters:
 ===================
 
+.. index::
+   pair: JOIN; CONNECTION
+    
 CONNECTION [string]
     Parameters required for the join table's database connection (not required
-    for DBF or CSV joins). The following is an example connection for :ref:`PostgreSQL
-    <input_postgis>`:
+    for DBF or CSV joins). The following is an example connection for
+    :ref:`PostgreSQL <input_postgis>`:
 
     .. code-block:: mapfile
 
       CONNECTION "host=127.0.0.1 port=5432 user=postgres password=postgres dbname=somename"
-      CONNECTIONTYPE OGR
+      CONNECTIONTYPE POSTGRESQL
     
-    The following is an example connection for MySQL:
+.. index::
+   pair: JOIN; CONNECTIONTYPE
     
-    .. code-block:: mapfile
-      
-      CONNECTION "MYSQL:mydbname,user=root,password=mysql,port=3306"
-      CONNECTIONTYPE OGR
-
-CONNECTIONTYPE [string]
-    Type of connection (not required for DBF or CSV joins). For PostgreSQL and
-    MySQL connections use 'OGR'.
+CONNECTIONTYPE [csv|postgresql]
+    Type of connection (not required for DBF joins). For PostgreSQL
+    use `postgresql`, for CSV use `csv`.
+    
+.. index::
+   pair: JOIN; FOOTER
     
 FOOTER [filename]
     Template to use *after* a layer's set of results have been sent. In other
     words, this header HTML will be displayed after the contents of the 
     `TEMPLATE` HTML.
 
+.. index::
+   pair: JOIN; FROM
+    
 FROM [item]
     Join item in the dataset.  This is case sensitive.
+    
+.. index::
+   pair: JOIN; HEADER
     
 HEADER [filename]
     Template to use *before* a layer's set of results have been sent. In other
     words, this header HTML will be displayed before the contents of the 
     `TEMPLATE` HTML.
 
+.. index::
+   pair: JOIN; NAME
+    
 NAME [string]
     Unique name for this join. Required.  
 
+.. index::
+   pair: JOIN; TABLE
+    
 TABLE [filename|tablename]
     For file-based joins this is the name of XBase or comma delimited file
-    (relative to the location of the mapfile) to join TO. For PostgreSQL and
-    MySQL support this is the name of the PostgreSQL/MySQL table to join TO.
+    (relative to the location of the mapfile) to join TO. For PostgreSQL
+    support this is the name of the PostgreSQL table to join TO.
 
+.. index::
+   pair: JOIN; TEMPLATE
+    
 TEMPLATE [filename]
     Template to use with one-to-many joins. The template is processed once 
     for each record and can only contain substitutions for items in the joined
@@ -74,9 +96,15 @@ TEMPLATE [filename]
     [joinname_columnname], where joinname is the NAME specified for the JOIN
     object.
 
+.. index::
+   pair: JOIN; TO
+    
 TO [item]
     Join item in the table to be joined. This is case sensitive.
 
+.. index::
+   pair: JOIN; TYPE
+    
 TYPE [ONE-TO-ONE|ONE-TO-MANY]
     The type of join. Default is one-to-one.
 
@@ -149,7 +177,10 @@ Template
 
 ::
 
-  <tr bgcolor="#EFEFEF"><td align="left">[NAME]</td><td align="left">[test_VAL]</td></tr> 
+  <tr bgcolor="#EFEFEF">
+    <td align="left">[NAME]</td>
+    <td align="left">[test_VAL]</td>
+  </tr> 
 
 
 Example 2: Join from SHP file to PostgreSQL table
@@ -192,8 +223,10 @@ Ogrinfo
 
 ::
 
-  >ogrinfo -ro PG:"host=127.0.0.1 port=5432 user=postgres password=postgre dbname=join" lookup -summary
-  INFO: Open of `PG:host=127.0.0.1 port=5432 user=postgres password=postgres dbname=join'
+  >ogrinfo -ro PG:"host=127.0.0.1 port=5432 user=postgres password=postgre
+               dbname=join" lookup -summary
+  INFO: Open of `PG:host=127.0.0.1 port=5432 user=postgres password=postgres
+        dbname=join'
   using driver `PostgreSQL' successful.
 
   Layer name: lookup
@@ -209,13 +242,11 @@ Template
 
 ::
 
-  <tr bgcolor="#EFEFEF"><td align="left">[NAME]</td><td align="left">[test_val]</td></tr>
+  <tr bgcolor="#EFEFEF">
+    <td align="left">[NAME]</td>
+    <td align="left">[test_val]</td>
+  </tr>
 
-.. note::
-
-    When testing with MapServer 4.10.0 on Windows this postgresql join caused a
-    mapserv.exe crash. However when testing this with a MapServer build > 4.10.0
-    the crash did not occur.
 
 Example 3: Join from SHP file to CSV file
 =========================================
@@ -269,6 +300,14 @@ CSV File Structure
   11,2
   12,1
 
+.. note::
+   The CSV driver currently doesn't read column names from the first
+   row. It just uses indexes (1, 2, ... n) to reference the
+   columns. It's ok to leave column names as the first row since they
+   likely won't match anything but they aren't used. Typically you'd
+   see something like "TO '1'" in the JOIN block. Then in the template
+   you'd use [name_1], [name_2], etc...
+
 Ogrinfo
 -------
 
@@ -291,68 +330,7 @@ Template
 
 ::
 
-  <tr bgcolor="#EFEFEF"><td align="left">[NAME]</td><td align="left">[test_VAL]</td></tr>
-  
-Example 4: Join from SHP file to MySQL table
-============================================
-
-Mapfile Layer
--------------
-
-.. code-block:: mapfile
-
-      LAYER
-        NAME "prov_bound"
-        TYPE POLYGON
-        STATUS DEFAULT
-        DATA "prov.shp"
-        CLASS
-          NAME "Province"
-          STYLE
-            OUTLINECOLOR 120 120 120
-            COLOR 255 255 0
-          END
-        END
-        TOLERANCE 20
-        TEMPLATE "../htdocs/cgi-query-templates/prov.html"
-        HEADER "../htdocs/cgi-query-templates/prov-header.html"
-        FOOTER "../htdocs/cgi-query-templates/footer.html"  
-        JOIN
-          NAME "test"
-          CONNECTION "MYSQL:test,user=root,password=mysql,port=3306"
-          CONNECTIONTYPE ogr
-          TABLE "lookup"
-          FROM "ID"
-          TO "ident"
-          TYPE ONE-TO-ONE
-        END
-      END # layer
-
-Ogrinfo
--------
-
-::
-
-  >ogrinfo MYSQL:test,user=root,password=mysql,port=3306 lookup -summary
-      INFO: Open of `MYSQL:test,user=root,password=mysql,port=3306'
-      using driver `MySQL' successful.
-
-     Layer name: lookup
-     Geometry: None
-     Feature Count: 48
-     Layer SRS WKT:
-     (unknown)
-     FID Column = ident
-     val: Integer (0.0)
-
-Template
---------
-
-::
-
-  <tr bgcolor="#EFEFEF"><td align="left">[NAME]</td><td align="left">[test_val]</td></tr>
-
-.. note::
-
-    When testing with MapServer 5.6.5 and MySQL 5.1.49 on Windows this MySQL join caused a
-    mapserv.exe crash.
+  <tr bgcolor="#EFEFEF">
+    <td align="left">[NAME]</td>
+    <td align="left">[test_VAL]</td>
+  </tr>

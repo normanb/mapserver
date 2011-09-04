@@ -1,26 +1,36 @@
+.. index::
+   single: LABEL
+
 .. _label:
 
 *****************************************************************************
  LABEL
 *****************************************************************************
 
-.. index:: LABEL
+.. index::
+   pair: LABEL; ALIGN
 
 ALIGN [left|center|right]
-    Since version 5.4 . Specifies text alignment for multiline labels (see WRAP_)
-    Note that the alignment algorithm is far from precise, so don't expect
-    fabulous results (especially for *right* alignment) if you're not using
-    a fixed width font.
+    Since version 5.4 . Specifies text alignment for multiline labels
+    (see WRAP_) Note that the alignment algorithm is far from precise,
+    so don't expect fabulous results (especially for *right*
+    alignment) if you're not using a fixed width font.
+
+.. index::
+   pair: LABEL; ANGLE
 
 ANGLE [double|auto|follow|attribute]
     - Angle, given in degrees, to draw the label.  
-    - AUTO allows MapServer to compute the angle. Valid for LINE layers only. 
-    - FOLLOW was introduced in version 4.10 and tells MapServer to compute a
-      curved label for appropriate linear features (see :ref:`RFC11` for specifics).
-    - [*Attribute*] was introduced in version 5.0, to specify the item name in
-      the attribute table to use for angle values.  The hard brackets [] are
-      required.  For example, if your shapefile's DBF has a field named "MYANGLE"
-      that holds angle values for each record, your LABEL object might contain:
+    - AUTO allows MapServer to compute the angle. Valid for LINE
+      layers only.
+    - FOLLOW was introduced in version 4.10 and tells MapServer to
+      compute a curved label for appropriate linear features (see
+      :ref:`RFC11` for specifics).
+    - [*Attribute*] was introduced in version 5.0, to specify the item
+      name in the attribute table to use for angle values.  The hard
+      brackets [] are required.  For example, if your shapefile's DBF
+      has a field named "MYANGLE" that holds angle values for each
+      record, your LABEL object might contain:
 
       .. code-block:: mapfile
 
@@ -38,7 +48,7 @@ ANGLE [double|auto|follow|attribute]
       The associated RFC document for this feature is :ref:`RFC19`.
 
 .. index::
-    pair: LABEL; ANTIALIAS
+   pair: LABEL; ANTIALIAS
 
 ANTIALIAS [true|false]
     Should text be antialiased? Note that this requires more available
@@ -63,17 +73,24 @@ BACKGROUNDSHADOWSIZE [x][y]
 
     .. deprecated:: 6.0  Use STYLE object and `GEOMTRANSFORM labelpoly`.
 
+.. index::
+   pair: LABEL; BUFFER
+
 BUFFER [integer]
     Padding, in pixels, around labels. Useful for maintaining spacing around 
     text to enhance readability. Available only for cached labels. 
     Default is 0.
 
+.. index::
+   pair: LABEL; COLOR
+
 COLOR [r] [g] [b] | [attribute]
     - Color to draw text with.
-    - [*Attribute*] was introduced in version 5.0, to specify the item name in
-      the attribute table to use for color values.  The hard brackets [] are
-      required.  For example, if your shapefile's DBF has a field named "MYCOLOR"
-      that holds color values for each record, your LABEL object might contain:
+    - [*Attribute*] was introduced in version 5.0, to specify the item
+      name in the attribute table to use for color values.  The hard
+      brackets [] are required.  For example, if your shapefile's DBF
+      has a field named "MYCOLOR" that holds color values for each
+      record, your LABEL object might contain:
 
       .. code-block:: mapfile
 
@@ -89,18 +106,29 @@ COLOR [r] [g] [b] | [attribute]
 
       The associated RFC document for this feature is :ref:`RFC19`.
 
+.. index::
+   pair: LABEL; ENCODING
+
 ENCODING [string]
     Supported encoding format to be used for labels. If the format is not 
     supported, the label will not be drawn. Requires the iconv library 
     (present on most systems). The library is always detected if present on 
     the system, but if not the label will not be drawn.
 
-    Required for displaying international characters in MapServer. More 
-    information can be found in the :ref:`Label Encoding document <labelencoding>`.
+    Required for displaying international characters in
+    MapServer. More information can be found in the :ref:`Label
+    Encoding document <labelencoding>`.
+
+.. index::
+   pair: LABEL; FONT
 
 FONT [name|attribute]
     - Font alias (as defined in the FONTSET) to use for labeling.
-    - [*Attribute*] was introduced in version 5.6 to specfify the font alias.
+    - [*Attribute*] was introduced in version 5.6 to specfify the font
+      alias.
+
+.. index::
+   pair: LABEL; FORCE
 
 .. _FORCE:
 
@@ -108,13 +136,15 @@ FORCE [true|false]
     Forces labels for a particular class on, regardless of collisions. 
     Available only for cached labels. Default is false.
 
-.. _MAXLENGTH:
+.. index::
+   pair: LABEL; MAXLENGTH
 
+.. _MAXLENGTH:
 
 MAXLENGTH [integer]
     Introduced in mapserver 5.4, this keyword interacts with the WRAP_
     keyword so that line breaks only occur after the defined number of
-    characters
+    characters.	    
 
     .. csv-table:: Interaction with WRAP_ keyword
 
@@ -124,47 +154,80 @@ MAXLENGTH [integer]
 
     The associated RFC document for this feature is :ref:`RFC40`.
 
+.. index::
+   pair: LABEL; MAXOVERLAPANGLE
+
 MAXOVERLAPANGLE [double]
-    Angle threshold to use in filtering out ANGLE FOLLOW labels in which characters overlap (floating point value in degrees). This filtering will be enabled by default starting with MapServer 6.0. The default MAXOVERLAPANGLE value will be 22.5 degrees, which also matches the default in GeoServer. Users will be free to tune the value up or down depending on the type of data they are dealing with and their tolerance to bad overlap in labels.
-    As per RFC 60, if MAXOVERLAPANGLE is set to 0, then we fall back on pre-6.0 behavior which was to use maxoverlapangle = 0.4*MS_PI (40% of 180 degrees = 72degree).
+    Angle threshold to use in filtering out ANGLE FOLLOW labels in
+    which characters overlap (floating point value in degrees). This
+    filtering will be enabled by default starting with MapServer
+    6.0. The default MAXOVERLAPANGLE value will be 22.5 degrees, which
+    also matches the default in GeoServer. Users will be free to tune
+    the value up or down depending on the type of data they are
+    dealing with and their tolerance to bad overlap in labels.
+    As per RFC 60, if MAXOVERLAPANGLE is set to 0, then we fall back
+    on pre-6.0 behavior which was to use maxoverlapangle = 0.4*MS_PI
+    (40% of 180 degrees = 72degree).
 
     The associated RFC document for this feature is :ref:`RFC60`.
                    
+.. index::
+   pair: LABEL; MAXSIZE
+
 MAXSIZE [double]
     Maximum font size to use when scaling text (pixels). Default is 256.
     Starting from version 5.4, the value can also be a fractional value 
-    (and not only integer).     
+    (and not only integer).
+    See :ref:`LAYER` :ref:`SYMBOLSCALEDENOM <symbolscaledenom>`.   
+
+.. index::
+   pair: LABEL; MINDISTANCE
 
 MINDISTANCE [integer]
     Minimum distance between duplicate labels. Given in pixels.
 
+.. index::
+   pair: LABEL; MINFEATURESIZE
+
 MINFEATURESIZE [integer|auto]
-    Minimum size a feature must be to be labeled. Given in pixels. For line 
-    data the overall length of the displayed line is used, for polygons 
-    features the smallest dimension of the bounding box is used. "Auto" 
-    keyword tells MapServer to only label features that are larger than 
-    their corresponding label. Available for cached labels only.
+    Minimum size a feature must be to be labeled. Given in pixels. For
+    line data the overall length of the displayed line is used, for
+    polygons features the smallest dimension of the bounding box is
+    used. "Auto" keyword tells MapServer to only label features that
+    are larger than their corresponding label. Available for cached
+    labels only.
+
+.. index::
+   pair: LABEL; MINSIZE
 
 MINSIZE [double]
     Minimum font size to use when scaling text (pixels). Default is 4.
     Starting from version 5.4, the value can also be a fractional value 
     (and not only integer).     
+    See :ref:`LAYER` :ref:`SYMBOLSCALEDENOM <symbolscaledenom>`.   
+
+.. index::
+   pair: LABEL; OFFSET
 
 OFFSET [x][y]
     Offset values for labels, relative to the lower left hand corner of the 
     label and the label point. Given in pixels. In the case of rotated text 
     specify the values as if all labels are horizontal and any rotation will 
     be compensated for.
+    See :ref:`LAYER` :ref:`SYMBOLSCALEDENOM <symbolscaledenom>`.
+
+.. index::
+   pair: LABEL; OUTLINECOLOR
 
 .. _OUTLINECOLOR:
 
 OUTLINECOLOR [r] [g] [b] | [attribute]
     - Color to draw a one pixel outline around the characters in the text.
-    - [*attribute*] was introduced in version 5.0, to specify the item name in
-      the attribute table to use for color values.  The hard brackets [] are
-      required.  For example, if your shapefile's DBF has a field named 
-      "MYOUTCOLOR" that holds color values for each record, your LABEL object
-      might contain:
+    - [*attribute*] was introduced in version 5.0, to specify the item
+      name in the attribute table to use for color values.  The hard
+      brackets [] are required.  For example, if your shapefile's DBF
+      has a field named "MYOUTCOLOR" that holds color values for each
+      record, your LABEL object might contain:
 
       .. code-block:: mapfile
 
@@ -180,52 +243,78 @@ OUTLINECOLOR [r] [g] [b] | [attribute]
 
       The associated RFC document for this feature is :ref:`RFC19`.
 
+.. index::
+   pair: LABEL; OUTLINEWIDTH
+
 OUTLINEWIDTH [integer]
     Width of the outline if OUTLINECOLOR_ has been set. Defaults to 1. 
     Currently only the AGG renderer supports values greater than 1, and
     renders these as a 'halo' effect: recommended values are 3 or 5.
 
+.. index::
+   pair: LABEL; PARTIALS
+
 PARTIALS [true|false]
     Can text run off the edge of the map? Default is true.
 
+.. index::
+   pair: LABEL; POSITION
+
 POSITION [ul|uc|ur|cl|cc|cr|ll|lc|lr|auto]
-    Position of the label relative to the labeling point (layers only). First 
-    letter is "Y" position, second letter is "X" position. "Auto" tells 
-    MapServer to calculate a label position that will not interfere with other 
-    labels. With points, MapServer selects from the 8 outer 
-    positions (i.e. excluding cc). With polygons, MapServer selects from
-    cc (added in MapServer 5.4), uc, lc, cl and cr as possible positions.  
-    With lines, it only uses lc or uc, until it finds a position that doesn't 
-    collide with labels that have already been drawn. If all positions cause 
-    a conflict, then the label is not drawn (Unless the label's FORCE_ a 
-    parameter is set to "true"). "Auto" placement is only available with cached labels.
+    Position of the label relative to the labeling point (layers
+    only). First letter is "Y" position, second letter is "X"
+    position. "Auto" tells MapServer to calculate a label position
+    that will not interfere with other labels. With points, MapServer
+    selects from the 8 outer positions (i.e. excluding cc). With
+    polygons, MapServer selects from cc (added in MapServer 5.4), uc,
+    lc, cl and cr as possible positions.  With lines, it only uses lc
+    or uc, until it finds a position that doesn't collide with labels
+    that have already been drawn. If all positions cause a conflict,
+    then the label is not drawn (Unless the label's FORCE_ a parameter
+    is set to "true"). "Auto" placement is only available with cached
+    labels.
+
+.. index::
+   pair: LABEL; PRIORITY
 
 PRIORITY [integer]|[item_name]|[attribute]
-     The priority parameter (added in v5.0) takes an integer value between 1 
-     (lowest) and 10 (highest). The default value is 1. It is also possible
-     to bind the priority to an attribute (item_name) using square brackets 
-     around the [item_name]. e.g. "PRIORITY [someattribute]"
+     The priority parameter (added in v5.0) takes an integer value
+     between 1 (lowest) and 10 (highest). The default value is 1. It
+     is also possible to bind the priority to an attribute (item_name)
+     using square brackets around the [item_name]. e.g. "PRIORITY
+     [someattribute]"
 
-     Labels are stored in the label cache and rendered in order of priority, 
-     with the highest priority levels rendered first.
-     Specifying an out of range PRIORITY value inside a map file will result in
-     a parsing error. An out of range value set via MapScript or coming from a 
-     shape attribute will be clamped to the min/max values at rendering time.
-     There is no expected impact on performance for using label priorities.
+     Labels are stored in the label cache and rendered in order of
+     priority, with the highest priority levels rendered first.
+     Specifying an out of range PRIORITY value inside a map file will
+     result in a parsing error. An out of range value set via
+     MapScript or coming from a shape attribute will be clamped to the
+     min/max values at rendering time.  There is no expected impact on
+     performance for using label priorities.
 
      [*Attribute*] was introduced in version 5.6.
 
+.. index::
+   pair: LABEL; REPEATDISTANCE
+
 REPEATDISTANCE [integer] 
-    - Introduced in version 5.6. The label will be repeated on every line of
-      a multiline shape and will be repeated multiple times along a given
-      line at an interval of REPEATDISTANCE pixels.
+    - Introduced in version 5.6. The label will be repeated on every
+      line of a multiline shape and will be repeated multiple times
+      along a given line at an interval of REPEATDISTANCE pixels.
 
       The associated RFC document for this feature is :ref:`RFC57`.
 
+.. index::
+   pair: LABEL; SHADOWCOLOR
+
 SHADOWCOLOR [r] [g] [b]
-    Color of drop shadow. An label with the same text will be rendered in this
-    color before the main label is drawn, resulting in a shadow effect on the the
-    label characters. The offset of the renderered shadow is set with SHADOWSIZE.
+    Color of drop shadow. An label with the same text will be rendered
+    in this color before the main label is drawn, resulting in a
+    shadow effect on the the label characters. The offset of the
+    renderered shadow is set with SHADOWSIZE.
+
+.. index::
+   pair: LABEL; SHADOWSIZE
 
 SHADOWSIZE [x][y]|[attribute][attribute]|[x][attribute]|[attribute][y]
      Shadow offset in pixels, see SHADOWCOLOR.
@@ -240,15 +329,27 @@ SHADOWSIZE [x][y]|[attribute][attribute]|[x][attribute]|[attribute][y]
         SHADOWSIZE [shadowsize] [shadowsize]
 
 
+.. index::
+   pair: LABEL; SIZE
+
 SIZE [double]|[tiny|small|medium|large|giant]|[attribute]
-    - Text size. Use "integer" to give the size in pixels of your TrueType font 
-      based label, or any of the other 5 listed keywords to bitmap fonts.
-    - Starting from version 5.4, the value can also be a fractional value (and not
-      only integer).       
-    - [*Attribute*] was introduced in version 5.0, to specify the item name in
-      the attribute table to use for size values.  The hard brackets [] are
-      required.  For example, if your shapefile's DBF has a field named "MYSIZE"
-      that holds size values for each record, your LABEL object might contain:
+    - Text size. Use a number to give the size in pixels of your
+      TrueType font based label, or any of the other 5 listed keywords
+      for bitmap fonts.
+
+      When scaling is in effect (:ref:`SYMBOLSCALEDENOM
+      <symbolscaledenom>` is specified for the :ref:`LAYER`), `SIZE`
+      gives the size of the font to be used at the map scale
+      1:`SYMBOLSCALEDENOM`.
+
+    - Starting from version 5.4, the value can also be a fractional
+      value (and not only integer).
+
+    - [*Attribute*] was introduced in version 5.0, to specify the item
+      name in the attribute table to use for size values.  The hard
+      brackets [] are required.  For example, if your shapefile's DBF
+      has a field named "MYSIZE" that holds size values for each
+      record, your LABEL object might contain:
 
       .. code-block:: mapfile
 
@@ -263,6 +364,9 @@ SIZE [double]|[tiny|small|medium|large|giant]|[attribute]
         END 
 
       The associated RFC document for this feature is :ref:`RFC19`.
+
+.. index::
+   pair: LABEL; STYLE
 
 :ref:`STYLE`
     The start of a `STYLE` object.
@@ -285,16 +389,25 @@ SIZE [double]|[tiny|small|medium|large|giant]|[attribute]
     .. versionadded:: 6.0
 
 
+.. index::
+   pair: LABEL; TYPE
+
 TYPE [bitmap|truetype]
-    Type of font to use. Generally bitmap fonts are faster to draw then 
-    TrueType fonts. However, TrueType fonts are scalable and available in a 
-    variety of faces. Be sure to set the FONT parameter if you select TrueType.
+    Type of font to use. Generally bitmap fonts are faster to draw
+    then TrueType fonts. However, TrueType fonts are scalable and
+    available in a variety of faces. Be sure to set the FONT parameter
+    if you select TrueType.
     
-    Note that bitmap fonts are only supported with the AGG and GD renderers.
+    .. note::
+         Bitmap fonts are only supported with the AGG and GD
+         renderers.
+
+.. index::
+   pair: LABEL; WRAP
 
 .. _WRAP:
 
 WRAP [character]
-    Character that represents an end-of-line condition in label text, thus 
-    resulting in a multi-line label. Interacts with MAXLENGTH_ for conditional
-    line wrapping after a given number of characters
+    Character that represents an end-of-line condition in label text,
+    thus resulting in a multi-line label. Interacts with MAXLENGTH_
+    for conditional line wrapping after a given number of characters

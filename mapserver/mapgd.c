@@ -344,14 +344,14 @@ int renderLineGD(imageObj *img, shapeObj *p, strokeStyleObj *stroke)
   }
 
   if(stroke->width > 1) {
-     int brush_fc; 
-     brush = gdImageCreate(stroke->width, stroke->width);
+     int brush_fc;
+     brush = gdImageCreate(ceil(stroke->width), ceil(stroke->width));
      gdImageColorAllocate(brush, gdImageRed(ip,0), gdImageGreen(ip, 0), gdImageBlue(ip, 0));
      gdImageColorTransparent(brush,0);
      brush_fc = gdImageColorAllocate(brush, gdImageRed(ip,stroke->color->pen),
            gdImageGreen(ip,stroke->color->pen), gdImageBlue(ip,stroke->color->pen));
-     gdImageFilledEllipse(brush,MS_NINT(stroke->width/2),MS_NINT(stroke->width/2),
-           stroke->width,stroke->width, brush_fc);
+     gdImageFilledEllipse(brush,ceil(stroke->width/2),ceil(stroke->width/2),
+           ceil(stroke->width),ceil(stroke->width), brush_fc);
      gdImageSetBrush(ip, brush);
      if(stroke->patternlength > 0) {
        c = gdStyledBrushed;
@@ -389,6 +389,7 @@ int renderGlyphsGD(imageObj *img, double x, double y, labelStyleObj *style, char
    gdImagePtr ip;
    char *error=NULL;
    int bbox[8];
+   int c,oc;
    x = MS_NINT(x);
    y = MS_NINT(y);
    if(!(ip = MS_IMAGE_GET_GDIMAGEPTR(img))) return MS_FAILURE;
@@ -396,25 +397,35 @@ int renderGlyphsGD(imageObj *img, double x, double y, labelStyleObj *style, char
 
    SETPEN(ip, style->color);
    SETPEN(ip, style->outlinecolor);
+
+   if(style->antialias) {
+      c = style->color->pen;
+      if(style->outlinewidth > 0)
+         oc = style->outlinecolor->pen;
+   } else {
+      c = -style->color->pen;
+      if(style->outlinewidth > 0)
+         oc = -style->outlinecolor->pen;
+   }
    
    if(style->outlinewidth > 0) { /* handle the outline color */
-      error = gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x, y-1, text);
+      error = gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x, y-1, text);
       if(error) {
          msSetError(MS_TTFERR, error, "msDrawTextGD()");
          return(MS_FAILURE);
       }
 
-      gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x, y+1, text);
-      gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x+1, y, text);
-      gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x-1, y, text);
-      gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x-1, y-1, text);      
-      gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x-1, y+1, text);
-      gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x+1, y-1, text);
-      gdImageStringFT(ip, bbox, style->outlinecolor->pen, style->font, style->size, style->rotation, x+1, y+1, text);
+      gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x, y+1, text);
+      gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x+1, y, text);
+      gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x-1, y, text);
+      gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x-1, y-1, text);      
+      gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x-1, y+1, text);
+      gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x+1, y-1, text);
+      gdImageStringFT(ip, bbox, oc, style->font, style->size, style->rotation, x+1, y+1, text);
    }
    
    if(style->color)
-      gdImageStringFT(ip, bbox, style->color->pen, style->font, style->size, style->rotation, x, y, text);
+      gdImageStringFT(ip, bbox, c, style->font, style->size, style->rotation, x, y, text);
    return MS_SUCCESS;
 }
 
@@ -630,32 +641,43 @@ int renderVectorSymbolGD(imageObj *img, double x, double y, symbolObj *symbol, s
 int renderTruetypeSymbolGD(imageObj *img, double x, double y, symbolObj *symbol, symbolStyleObj *s) {
    int bbox[8];
    char *error;
+   int c,oc;
    gdImagePtr ip;
    if(!(ip = MS_IMAGE_GET_GDIMAGEPTR(img))) return MS_FAILURE;
    SETPEN(ip, s->color);
    SETPEN(ip, s->outlinecolor);
-   gdImageStringFT(NULL, bbox, s->color->pen, symbol->full_font_path, s->scale, s->rotation, 0,0, symbol->character);
+   
+   if(s->style->antialias) {
+      c = s->color->pen;
+      if(s->outlinecolor)
+         oc = s->outlinecolor->pen;
+   } else {
+      c = -s->color->pen;
+      if(s->outlinecolor)
+         oc = -s->outlinecolor->pen;
+   }
+   gdImageStringFT(NULL, bbox, c, symbol->full_font_path, s->scale, s->rotation, 0,0, symbol->character);
    
    x -=  (bbox[2] - bbox[0])/2 + bbox[0];
    y +=  (bbox[1] - bbox[5])/2 - bbox[1];
 
    if( s->outlinecolor ) {
-      error = gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x, y-1, symbol->character);
+      error = gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x, y-1, symbol->character);
       if(error) {
          msSetError(MS_TTFERR, error, "msDrawMarkerSymbolGD()");
          return MS_FAILURE;
       }
 
-      gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x, y+1, symbol->character);
-      gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x+1, y, symbol->character);
-      gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x-1, y, symbol->character);
-      gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x+1, y+1, symbol->character);
-      gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x+1, y-1, symbol->character);
-      gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x-1, y+1, symbol->character);
-      gdImageStringFT(ip, bbox, s->outlinecolor->pen, symbol->full_font_path, s->scale, s->rotation, x-1, y-1, symbol->character);
+      gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x, y+1, symbol->character);
+      gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x+1, y, symbol->character);
+      gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x-1, y, symbol->character);
+      gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x+1, y+1, symbol->character);
+      gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x+1, y-1, symbol->character);
+      gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x-1, y+1, symbol->character);
+      gdImageStringFT(ip, bbox, oc, symbol->full_font_path, s->scale, s->rotation, x-1, y-1, symbol->character);
    }
    if(s->color)
-	   gdImageStringFT(ip, bbox, s->color->pen, symbol->full_font_path, s->scale, s->rotation, x, y, symbol->character);
+	   gdImageStringFT(ip, bbox, c, symbol->full_font_path, s->scale, s->rotation, x, y, symbol->character);
   return MS_SUCCESS;
 }
 

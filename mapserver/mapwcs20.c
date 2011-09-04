@@ -1693,7 +1693,7 @@ static void msWCSCommon20_CreateDomainSet(layerObj* layer, wcs20coverageMetadata
 
             psOrigin = xmlNewChild(psGrid, psGmlNs, BAD_CAST "origin", NULL);
             {
-                snprintf(point, sizeof(point), "%f %f", cm->extent.minx, cm->extent.miny);
+                snprintf(point, sizeof(point), "%f %f", cm->extent.minx, cm->extent.maxy);
                 psOrigin = xmlNewChild(psOrigin, psGmlNs, BAD_CAST "Point", NULL);
                 snprintf(id, sizeof(id), "grid_origin_%s", layer->name);
                 xmlNewNsProp(psOrigin, psGmlNs, BAD_CAST "id", BAD_CAST id);
@@ -1702,7 +1702,7 @@ static void msWCSCommon20_CreateDomainSet(layerObj* layer, wcs20coverageMetadata
                 psPos = xmlNewChild(psOrigin, psGmlNs, BAD_CAST "pos", BAD_CAST point);
             }
             snprintf(resx, sizeof(resx), "%f 0", cm->xresolution);
-            snprintf(resy, sizeof(resy), "0 %f", cm->yresolution);
+            snprintf(resy, sizeof(resy), "0 %f", -fabs(cm->yresolution));
             psOffsetX = xmlNewChild(psGrid, psGmlNs, BAD_CAST "offsetVector", BAD_CAST resx);
             xmlNewProp(psOffsetX, BAD_CAST "srsName", BAD_CAST cm->srs_uri);
             psOffsetY = xmlNewChild(psGrid, psGmlNs, BAD_CAST "offsetVector", BAD_CAST resy);
@@ -2788,12 +2788,11 @@ static int msWCSGetCapabilities20_CreateProfiles(
         MS_WCS_20_PROFILE_CORE,     NULL,
         MS_WCS_20_PROFILE_KVP,      NULL,
         MS_WCS_20_PROFILE_POST,     NULL,
-        MS_WCS_20_PROFILE_EPSG,     NULL,
+        MS_WCS_20_PROFILE_CRS,     NULL,
         MS_WCS_20_PROFILE_IMAGECRS, NULL,
         MS_WCS_20_PROFILE_GEOTIFF,  "image/tiff",
         MS_WCS_20_PROFILE_GML_GEOTIFF, NULL,
         MS_WCS_20_PROFILE_SCALING, NULL,
-        MS_WCS_20_PROFILE_INTERPOLATION, NULL,
         MS_WCS_20_PROFILE_RANGESUBSET, NULL,
         NULL, NULL /* guardian */
     };
@@ -2875,7 +2874,6 @@ int msWCSGetCapabilities20(mapObj *map, cgiRequestObj *req,
     xmlDocPtr psDoc = NULL;       /* document pointer */
     xmlNodePtr psRootNode,
             psOperationsNode,
-            psServiceMetadataNode,
             psNode;
     const char *updatesequence = NULL;
     xmlNsPtr psOwsNs = NULL,
@@ -3013,8 +3011,7 @@ int msWCSGetCapabilities20(mapObj *map, cgiRequestObj *req,
     /*      Service metadata.                                               */
     /* -------------------------------------------------------------------- */
     /* it is mandatory, but unused for now */
-    psServiceMetadataNode = xmlAddChild(psRootNode, xmlNewNode(psWcsNs, BAD_CAST "ServiceMetadata"));
-    xmlNewProp(psServiceMetadataNode, BAD_CAST "version", BAD_CAST "1.0.0");
+    xmlAddChild(psRootNode, xmlNewNode(psWcsNs, BAD_CAST "ServiceMetadata"));
 
     /* -------------------------------------------------------------------- */
     /*      Contents section.                                               */

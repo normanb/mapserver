@@ -1,3 +1,6 @@
+.. index::
+   pair: MapScript; API
+
 .. _swig:
 
 *****************************************************************************
@@ -93,6 +96,9 @@ There's no point in duplicating the MapServer Mapfile Reference, which
 remains the primary reference for mapscript class attributes.
 
 
+.. index::
+   pair: MapScript; Functions
+
 =============================================================================
  MapScript Functions
 =============================================================================
@@ -144,9 +150,15 @@ msIO_stripStdoutBufferContentHeaders(): void
   Strip all Content-* headers off the stdout buffer if it has ones.
 
 
+.. index::
+   pair: MapScript; Classes
+
 =============================================================================
  MapScript Classes
 =============================================================================
+
+.. index::
+   pair: MapScript; classObj
 
 -----------------------------------------------------------------------------
  classObj
@@ -198,14 +210,14 @@ label : labelObj_ immutable
 layer : layerObj_ immutable
     Reference to the parent layer
 
-maxscale : float
-    The maximum scale at which class is drawn
+maxscaledenom : float
+    The minimum scale at which class is drawn
    
 metadata : hashTableObj_ immutable
     class metadata hash table.
 
-minscale : float
-    The minimum scale at which class is drawn
+minscaledenom : float
+    The maximum scale at which class is drawn
 
 name : string
     Unique within a layer
@@ -309,6 +321,9 @@ setText( string text ) : int
           setText() method that required a layerObj be passed as the first 
           argument. That argument was completely bogus and has been removed.    
 
+.. index::
+   pair: MapScript; colorObj
+
 -----------------------------------------------------------------------------
  colorObj
 -----------------------------------------------------------------------------
@@ -355,6 +370,9 @@ toHex() : string
     color components.
 
 
+.. index::
+   pair: MapScript; errorObj
+
 -----------------------------------------------------------------------------
  errorObj
 -----------------------------------------------------------------------------
@@ -382,6 +400,9 @@ next : errorObj
     Returns the next error in the stack or NULL if the end has been reached.
 
 
+.. index::
+   pair: MapScript; fontsetObj
+
 -----------------------------------------------------------------------------
  fontSetObj
 -----------------------------------------------------------------------------
@@ -405,6 +426,9 @@ fontSetObj Methods
 
 None
 
+
+.. index::
+   pair: MapScript; hashTableObj
 
 -----------------------------------------------------------------------------
  hashTableObj
@@ -442,6 +466,9 @@ set( string key, string value ) : int
     Sets a hash item.  Returns MS_SUCCESS or MS_FAILURE.
 
 
+.. index::
+   pair: MapScript; imageObj
+
 -----------------------------------------------------------------------------
  imageObj
 -----------------------------------------------------------------------------
@@ -470,9 +497,10 @@ renderer : int
 size : int immutable
     To access this attribute use the getSize method.
    
-.. note:: the getSize method is inefficient as it does a call to getBytes and then computes
-   the size of the byte array. The bytearray is then immediately discarded. In most
-   cases it is more efficient to call getBytes directly.
+.. note:: the getSize method is inefficient as it does a call to
+   getBytes and then computes the size of the byte array. The
+   bytearray is then immediately discarded. In most cases it is more
+   efficient to call getBytes directly.
 
 width : int immutable
     Image width in pixels.
@@ -497,9 +525,10 @@ getBytes() : binary data
 getSize() : int
     Resturns the size of the binary buffer representing the image buffer.
    
-.. note:: the getSize method is inefficient as it does a call to getBytes and then computes
-   the size of the byte array. The byte array is then immediately discarded. In most
-   cases it is more efficient to call getBytes directly.
+.. note:: the getSize method is inefficient as it does a call to
+   getBytes and then computes the size of the byte array. The byte
+   array is then immediately discarded. In most cases it is more
+   efficient to call getBytes directly.
 
 save( string filename [, mapObj_ parent_map=NULL ] ) : int
     Save image to *filename*.  The optional *parent_map* parameter must be
@@ -509,8 +538,9 @@ write( [ FILE file=NULL ] ) : int
     Write image data to an open file descriptor or, by default, to *stdout*.
     Returns MS_SUCCESS or MS_FAILURE.
     
-.. note:: This method is current enabled for Python and C# only. C# supports writing onto a
-   Stream object. User-contributed typemaps are needed for Perl, Ruby, and Java.
+.. note:: This method is current enabled for Python and C# only. C#
+   supports writing onto a Stream object. User-contributed typemaps
+   are needed for Perl, Ruby, and Java.
 
 .. note:: The free() method of imageObj has been deprecated.  In MapServer
    revisions 4+ all instances of imageObj will be properly disposed of by
@@ -518,6 +548,9 @@ write( [ FILE file=NULL ] ) : int
    for garabage collection, then the instance can simply be deleted or
    undef'd.
 
+
+.. index::
+   pair: MapScript; intarray
 
 -----------------------------------------------------------------------------
  intarray
@@ -540,6 +573,9 @@ new intarray( int numitems ) : intarray
     Returns a new instance of the specified length.
 
     
+.. index::
+   pair: MapScript; labelCacheMemberObj
+
 -----------------------------------------------------------------------------
  labelCacheMemberObj
 -----------------------------------------------------------------------------
@@ -604,6 +640,9 @@ None.
    text, position, and status.
 
 
+.. index::
+   pair: MapScript; labelCacheObj
+
 -----------------------------------------------------------------------------
  labelCacheObj
 -----------------------------------------------------------------------------
@@ -641,6 +680,9 @@ labelCacheObj Methods
 freeCache( ) : void
     Free the labelcache.
 
+
+.. index::
+   pair: MapScript; labelObj
 
 -----------------------------------------------------------------------------
  labelObj
@@ -764,7 +806,23 @@ wrap : string
 labelObj Methods
 ----------------
 
-None
+getBinding( int binding ) : string
+    Get the attribute binding for a specified label property. Returns
+    NULL if there is no binding for this property.
+
+removeBinding( int binding ) : int
+    Remove the attribute binding for a specfiled style property.  
+
+setBinding ( int binding, string item ) : int
+    Set the attribute binding for a specified label property.
+
+updateFromString ( string snippet ) : int
+    Update a label from a string snippet. Returns
+    MS_SUCCESS/MS_FAILURE.
+
+
+.. index::
+   pair: MapScript; layerObj
 
 -----------------------------------------------------------------------------
  layerObj
@@ -853,11 +911,11 @@ labelcache : int
 labelitem : string
     Attribute defining feature label text.
 
-labelmaxscale : float
-    Maximum scale at which layer will be labeled.
-
-labelminscale : float
+labelmaxscaledenom : float
     Minimum scale at which layer will be labeled.
+
+labelminscaledenom : float
+    Maximum scale at which layer will be labeled.
 
 labelrequires : string
     Logical expression.
@@ -872,14 +930,14 @@ maxfeatures : int
     Maximum number of layer features that will be drawn.  For shapefile data
     this means the first N features where N = maxfeatures.
     
-maxscale : float
-    Maximum scale at which layer will be drawn.
+maxscaledenom : float
+    Minimum scale at which layer will be drawn.
 
 metadata : hashTableObj_ immutable
     Layer metadata.
     
-minscale : float
-    Minimum scale at which layer will be drawn.
+minscaledenom : float
+    Maximum scale at which layer will be drawn.
 
 name : string
     Unique identifier for layer.
@@ -899,6 +957,12 @@ numprocessing : int immutable
 offsite : colorObj_
     transparent pixel value for raster layers.
     
+opacity : int
+    Layer opacity percentage in range [0, 100].  The special value of 
+    MS_GD_ALPHA (1000) indicates that the alpha transparency of pixmap
+    symbols should be honored, and should be used only for layers that use
+    RGBA pixmap symbols. 
+    
 postlabelcache : int
     MS_TRUE or MS_FALSE.  Default is MS_FALSE.
    
@@ -906,7 +970,8 @@ requires : string
     Logical expression.
     
 sizeunits : int
-    Units of class size values. MS_INCHES, MS_FEET, MS_MILES, MS_NAUTICALMILES, MS_METERS, MS_KILOMETERS, MS_DD or MS_PIXELS
+    Units of class size values. MS_INCHES, MS_FEET, MS_MILES,
+    MS_NAUTICALMILES, MS_METERS, MS_KILOMETERS, MS_DD or MS_PIXELS
 
 status : int
     MS_ON, MS_OFF, or MS_DEFAULT.
@@ -914,7 +979,7 @@ status : int
 styleitem : string
     Attribute defining styles.
 
-symbolscale : float
+symbolscaledenom : float
     Scale at which symbols are default size.
 
 template : string
@@ -931,19 +996,14 @@ tolerance : float
     Search buffer for point and line queries.
 
 toleranceunits : int
-    MS_INCHES, MS_FEET, MS_MILES, MS_NAUTICALMILES, MS_METERS, MS_KILOMETERS, MS_DD or MS_PIXELS
+    MS_INCHES, MS_FEET, MS_MILES, MS_NAUTICALMILES, MS_METERS,
+    MS_KILOMETERS, MS_DD or MS_PIXELS
 
 transform : int
     Whether or not layer data is to be transformed to image units.  
     MS_TRUE or MS_FALSE.  Default is MS_TRUE.  Case of MS_FALSE is for
     data that are in image coordinates such as annotation points.
    
-transparency : int
-    Layer opacity percentage in range [0, 100].  The special value of 
-    MS_GD_ALPHA (1000) indicates that the alpha transparency of pixmap
-    symbols should be honored, and should be used only for layers that use
-    RGBA pixmap symbols. 
-    
 type : int
     See MS_LAYER_TYPE in mapserver.h.
     
@@ -1014,7 +1074,8 @@ executeWFSGetFeature( layer ) : string
     string on error.
 
 generateSLD() : void
-    Returns an SLD XML string based on all the classes found in the layers.
+    Returns an SLD XML string based on all the classes found in the layer
+    (the layer must have `STATUS` `on`).
 
 getClass( int i ) : classObj_
     Fetch the requested class object.  Returns NULL if the class index is
@@ -1081,6 +1142,9 @@ getResults() : resultCacheObj_
     Returns a reference to layer's result cache.  Should be NULL prior to
     any query, or after a failed query or query with no results.
 
+getResultsBounds() : rectObj_
+    Returns the bounds of the features in the result cache.
+
 getShape( shapeObj_ shape, int tileindex, int shapeindex ) : int
     Get a shape from layer data.
 
@@ -1104,8 +1168,8 @@ insertClass( classObj_ class [, int index=-1 ] ) : int
     Returns the index at which the class was inserted.
 
 isVisible( ) : int
-    Returns MS_TRUE or MS_FALSE after considering the layer status, minscale,
-    and maxscale within the context of the parent map.
+    Returns MS_TRUE or MS_FALSE after considering the layer status, minscaledenom,
+    and maxscaledenom within the context of the parent map.
 
 moveClassDown( int class ) : int 
     The class specified by the class index will be moved up into
@@ -1260,6 +1324,9 @@ resultsGetShape(int shapeindex [, int tileindex = -1]) : shapeObj
     Simply omit or pass tileindex = -1 for other data sources.
     Added in MapServer 5.6.0 due to the one-pass query implementation.
 
+.. index::
+   pair: MapScript; legendObj
+
 -----------------------------------------------------------------------------
  legendObj
 -----------------------------------------------------------------------------
@@ -1331,6 +1398,9 @@ legendObj Methods
 None
 
 
+.. index::
+   pair: MapScript; lineObj
+
 -----------------------------------------------------------------------------
  lineObj
 -----------------------------------------------------------------------------
@@ -1364,6 +1434,9 @@ project(projectionObj_ proj_in, projectionObj_ proj_out) : int
 
 set(int index, pointObj_ point) : int
     Set the point at *index* to *point*.  Returns MS_SUCCESS or MS_FAILURE.
+
+.. index::
+   pair: MapScript; mapObj
 
 -----------------------------------------------------------------------------
  mapObj
@@ -1487,7 +1560,7 @@ reference : referenceMapObj_ immutable
 resolution : float
     Nominal DPI resolution.  Default is 72.
     
-scale : float
+scaledenom : float
     The nominal map scale.  A value of 25000 means 1:25000 scale.
 
 scalebar : scalebarObj_ immutable
@@ -1578,7 +1651,7 @@ freeQuery( [ int qlayer=-1 ] ) : void
     Clear layer query result caches.  Default is -1, or *all* layers.
     
 generateSLD( ) : string
-    Return SLD XML as a string for map layers.
+    Return SLD XML as a string for map layers that have `STATUS` `on`.
     
 getConfigOption( string key ) : string
     Fetches the value of the requested configuration key if set.  Returns
@@ -1839,6 +1912,9 @@ zoomScale( float scale, pointObj_ imgpoint, int width, int height, rectObj_ exte
     Like the previous methods, but zooms to the point at a specified scale.
 
 
+.. index::
+   pair: MapScript; markerCacheMemberObj
+
 -----------------------------------------------------------------------------
  markerCacheMemberObj
 -----------------------------------------------------------------------------
@@ -1867,6 +1943,9 @@ markerCacheMemberObj Methods
 
 None.
 
+
+.. index::
+   pair: MapScript; outputFormatObj
 
 -----------------------------------------------------------------------------
  outputFormatObj
@@ -1946,6 +2025,9 @@ validate() : int
     internally.  May produce debug output if issues encountered.  
     
 
+.. index::
+   pair: MapScript; OWSRequest
+
 -----------------------------------------------------------------------------
  OWSRequest
 -----------------------------------------------------------------------------
@@ -2001,6 +2083,16 @@ setParameter( string name, string value ) : void
 
 .. note:: MapServer's OWSRequest supports only single valued parameters.
 
+addParameter( string name, string value ) : void
+    Add a request parameter, even if the parameter key was previousely set.
+    This is useful when multiple parameters with the same key are required.
+    For example
+
+::
+    
+    request.addParameter('SIZE', 'x(100)')
+    request.addParameter('SIZE', 'y(100)')
+
 getName( int index ) : string
     Return the name of the parameter at *index* in the request's array
     of parameter names.
@@ -2023,6 +2115,9 @@ loadParamsFromURL( string url ) : int
     like a QUERY_STRING.  Note that REQUEST_METHOD=GET and no post data is  
     assumed in this case.  This method was added in MapServer 6.0.
 
+
+.. index::
+   pair: MapScript; pointObj
 
 -----------------------------------------------------------------------------
  pointObj
@@ -2110,6 +2205,9 @@ toString() : string
 toShape() : shapeObj_
     Convience method to quickly turn a point into a shapeObj.
 
+.. index::
+   pair: MapScript; projectionObj
+
 ------------------------------------------------------------------------------
  projectionObj
 ------------------------------------------------------------------------------
@@ -2140,6 +2238,9 @@ new projectionObj( string proj4 ) : projectionObj
 
 getUnits() : int
     Returns the units of a projection object. Returns -1 on error.
+
+.. index::
+   pair: MapScript; rectObj
 
 ------------------------------------------------------------------------------
  rectObj
@@ -2203,6 +2304,9 @@ toString() : string
         { 'minx': 0 , 'miny': 0 , 'maxx': 1 , 'maxy': 1 }
 
 
+.. index::
+   pair: MapScript; referenceMapObj
+
 -----------------------------------------------------------------------------
  referenceMapObj
 -----------------------------------------------------------------------------
@@ -2263,6 +2367,9 @@ referenceMapObj Methods
 None
 
 
+.. index::
+   pair: MapScript; resultCacheMemberObj
+
 -----------------------------------------------------------------------------
  resultCacheMemberObj
 -----------------------------------------------------------------------------
@@ -2283,6 +2390,9 @@ shapeindex : int immutable
 tileindex : int immutable
     Meaningful for tiled layers only, index of the shapefile data tile.
     
+
+.. index::
+   pair: MapScript; resultCacheObj
 
 -----------------------------------------------------------------------------
  resultCacheObj
@@ -2306,6 +2416,9 @@ resultCacheObj Methods
 getResult( int i ) : resultCacheObj_
     Returns the result at index *i*, like layerObj::getResult, or NULL if
     index is outside the range of results.
+
+.. index::
+   pair: MapScript; scalebarObj
 
 -----------------------------------------------------------------------------
  scalebarObj
@@ -2375,6 +2488,9 @@ scalebarObj Methods
 None
 
 
+.. index::
+   pair: MapScript; shapefileObj
+
 -----------------------------------------------------------------------------
  shapefileObj
 -----------------------------------------------------------------------------
@@ -2410,6 +2526,9 @@ getShape( int i ) : shapeObj_
 
 *TODO*
 
+
+.. index::
+   pair: MapScript; shapeObj
 
 -----------------------------------------------------------------------------
  shapeObj
@@ -2510,8 +2629,9 @@ draw( mapObj_ map, layerObj_ layer, imageObj_ img ) : int
     Draws the individual shape using layer.  Returns MS_SUCCESS or MS_FAILURE.
 
 equals( shapeObj shape2 ) : int
-    Returns MS_TRUE if the shape and shape2 are equal (geometry only). Returns -1
-    on error and MS_FALSE otherwise. Requires GEOS support.
+    Returns MS_TRUE if the shape and shape2 are equal (geometry
+    only). Returns -1 on error and MS_FALSE otherwise. Requires GEOS
+    support.
 
 fromWKT( char \*wkt ) : shapeObj
     Returns a new shapeObj based on a well-known text representation of a 
@@ -2563,9 +2683,17 @@ setBounds : void
 setValue( int i, string value ) : int
     Set the shape value at index *i* to *value*.
 
+simplify( double tolerance ): shapeObj
+    Given a tolerance, returns a simplified shape object or NULL on
+    error. Requires GEOS support (>=3.0).
+
 symDifference( shapeObj shape ) : shapeObj
     Returns the computed symmetric difference of the supplied and existing
     shape. Requires GEOS support. Returns NULL/undef on failure.
+
+topologySimplifyPreservingSimplify( double tolerance ): shapeObj
+    Given a tolerance, returns a simplified shape object or NULL on
+    error. Requires GEOS support (>=3.0).
 
 touches( shapeObj shape2 ) : int
     Returns MS_TRUE if the shape and shape2 touch. Returns -1 on error and
@@ -2582,6 +2710,9 @@ Union( shapeObj shape ) : shapeObj
 within( shapeObj shape2 ) : int
     Returns MS_TRUE if the shape is entirely within shape2. Returns -1
     on error and MS_FALSE otherwise. Requires GEOS support.
+
+.. index::
+   pair: MapScript; styleObj
 
 -----------------------------------------------------------------------------
  styleObj
@@ -2636,33 +2767,37 @@ color : colorObj_
     Foreground or fill pen color.
 
 mincolor : colorObj_
-    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor, minvalue, maxcolor,
-    maxvalue define the range for mapping a continuous feature value to a continuous
-    range of colors when rendering the feature on the map.
+    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor,
+    minvalue, maxcolor, maxvalue define the range for mapping a
+    continuous feature value to a continuous range of colors when
+    rendering the feature on the map.
 
 minsize : int
     Minimum pen or symbol width for scaling styles.
 
 minvalue : double
-    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor, minvalue, maxcolor,
-    maxvalue define the range for mapping a continuous feature value to a continuous
-    range of colors when rendering the feature on the map.
+    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor,
+    minvalue, maxcolor, maxvalue define the range for mapping a
+    continuous feature value to a continuous range of colors when
+    rendering the feature on the map.
 
 minwidth : int
     Minimum width of the symbol.    
 
 maxcolor : colorObj_
-    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor, minvalue, maxcolor,
-    maxvalue define the range for mapping a continuous feature value to a continuous
-    range of colors when rendering the feature on the map.
+    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor,
+    minvalue, maxcolor, maxvalue define the range for mapping a
+    continuous feature value to a continuous range of colors when
+    rendering the feature on the map.
 
 maxsize : int
     Maximum pen or symbol width for scaling.
     
 maxvalue : double
-    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor, minvalue, maxcolor,
-    maxvalue define the range for mapping a continuous feature value to a continuous
-    range of colors when rendering the feature on the map.
+    Attribute for Color Range Mapping (:ref:`rfc6`). mincolor,
+    minvalue, maxcolor, maxvalue define the range for mapping a
+    continuous feature value to a continuous range of colors when
+    rendering the feature on the map.
     
 maxwidth : int
     Maximum width of the symbol.
@@ -2677,13 +2812,15 @@ outlinecolor : colorObj_
     Outline pen color.
 
 rangeitem : string
-    Attribute/field that stores the values for the Color Range Mapping (:ref:`rfc6`).
+    Attribute/field that stores the values for the Color Range Mapping
+    (:ref:`rfc6`).
 
 size : int
     Pixel width of the style's pen or symbol.
 
 sizeitem : string
-    Attribute/field that stores the size to be used in rendering. Value is given in pixels.    
+    Attribute/field that stores the size to be used in
+    rendering. Value is given in pixels.
 
 symbol : int
     The index within the map symbolset of the style's symbol.
@@ -2705,9 +2842,31 @@ new styleObj( [ classObj_ parent_class ] ) : styleObj
 clone : styleObj
     Returns an independent copy of the style with no parent class.
 
+getBinding( int binding ) : string
+    Get the attribute binding for a specified label property. Returns
+    NULL if there is no binding for this property.
+
+removeBinding( int binding ) : int
+    Remove the attribute binding for a specfiled style property.  
+
+setBinding ( int binding, string item ) : int
+    Set the attribute binding for a specified label property.
+
+updateFromString ( string snippet ) : int
+    Update a label from a string snippet. Returns
+    MS_SUCCESS/MS_FAILURE.
+
 setSymbolByName(mapObj_ map, string symbolname) : int
     Setting the symbol of the styleObj given the reference of the
     map object and the symbol name. 
+
+updateFromString ( string snippet ) : int
+    Update a style from a string snippet. Returns
+    MS_SUCCESS/MS_FAILURE.
+
+
+.. index::
+   pair: MapScript; symbolObj
 
 -----------------------------------------------------------------------------
  symbolObj
@@ -2810,6 +2969,9 @@ setStyle( int index, int value ) : int
     Set the style at *index* to *value*.  Returns MS_SUCCESS or MS_FAILURE.
 
 
+.. index::
+   pair: MapScript; symbolSetObj
+
 -----------------------------------------------------------------------------
  symbolSetObj
 -----------------------------------------------------------------------------
@@ -2858,6 +3020,9 @@ removeSymbol( int index ) : symbolObj_
 save( string filename ) : int
     Save symbol set to a file.  Returns MS_SUCCESS or MS_FAILURE.
 
+.. index::
+   pair: MapScript; webObj
+
 ------------------------------------------------------------------------------
  webObj
 ------------------------------------------------------------------------------
@@ -2896,8 +3061,8 @@ log : string
 map : mapObj immutable
     Reference to parent mapObj.
 
-maxscale : float
-    Maximum map scale.
+maxscaledenom : float
+    Minimum map scale.
 
 maxtemplate : string
     **TODO**
@@ -2905,8 +3070,8 @@ maxtemplate : string
 metadata : hashTableObj_ immutable
     metadata hash table.
 
-minscale : float
-    Minimum map scale.
+minscaledenom : float
+    Maximum map scale.
 
 mintemplate : string
     **TODO**

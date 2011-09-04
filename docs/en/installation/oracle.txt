@@ -1,3 +1,6 @@
+.. index:: 
+    pair: Oracle; Installation
+
 .. _oci_install:
 
 *****************************************************************************
@@ -10,10 +13,6 @@
 .. contents:: Table of Contents
     :depth: 2
     :backlinks: top
-
-
-.. index:: 
-    pair: Oracle; install
 
 
 Preface

@@ -267,7 +267,8 @@ Begining with version 3.3 it is possible to change virtually any map file
 value from a form or a URL. The syntax for this is fairly straight forward,
 and depends on what version of MapServer you are using. One potentially very 
 powerful use of this ability to change mapfile parameters through a URL 
-involves changing class expressions on-the-fly.  Try it out.
+involves changing class expressions on-the-fly.  `VALIDATION` can be used to
+control run-time substition (see :ref:`RUNSUB`).  Try it out.
 
 
 Using MapServer version >= 5
@@ -346,6 +347,26 @@ The "map_webuser_feature=new" creates a new feature for the webuser layer.
 All subsequent calls to the feature object for that layer will modify the new 
 feature. You can repeat the process to create additional features. This is 
 really intended for very small (point, rectangle) amounts of data.
+
+Specifying the location of mapfiles using an Apache variables
+=============================================================
+
+Apache variables can be used to specify the location of map files
+(instead of exposing full mapfile paths to the outside world).
+
+1. Set the variable (in this example `MY_MAPFILE`) in Apache's
+   httpd.conf:
+
+   ::
+
+          SetEnv MY_MAPFILE "/opt/mapserver/map1/mymapfile.map"
+
+2. Refer to the variable in the mapserver CGI URL:
+
+   ::
+
+          http://localhost/cgi-bin/mapserv?map=MY_MAPFILE&mode=...
+
 
 
 ROSA-Applet Controls

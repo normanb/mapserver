@@ -1,3 +1,6 @@
+.. index:: 
+   pair: WxS Services; Mapscript wrappers
+
 .. _mapscript_ows:
 
 *****************************************************************************

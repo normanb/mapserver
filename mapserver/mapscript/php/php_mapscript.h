@@ -68,16 +68,9 @@ extern zend_module_entry mapscript_module_entry;
 	zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "")
 #endif
 
-#ifndef Z_ADDREF_P
-#define Z_ADDREF_P(pz)                (pz)->refcount++
-#endif
-
-#ifndef Z_DELREF_P
-#define Z_DELREF_P(pz)                (pz)->refcount--
-#endif
-
-#ifndef Z_SET_REFCOUNT_P
-#define Z_SET_REFCOUNT_P(pz, rc)      (pz)->refcount = rc
+/* it looks like that macro is not always defined: ticket #3926 */
+#ifndef TRUE
+#define TRUE 1
 #endif
 
 /* Taken from the CAIRO php extension */
@@ -221,6 +214,8 @@ typedef struct _php_style_object {
     zval *color;
     zval *outlinecolor;
     zval *backgroundcolor;
+    zval *mincolor;
+    zval *maxcolor;
     styleObj *style;
 } php_style_object;
 
@@ -443,8 +438,7 @@ extern zend_object_value mapscript_object_new_ex(zend_object *zobj, zend_class_e
                                                  void (*zend_objects_free_object),
                                                  zend_object_handlers *object_handlers TSRMLS_DC);
 extern void mapscript_fetch_object(zend_class_entry *ce, zval* zval_parent, php_layer_object* layer, 
-                                   void *internal_object, zval **php_object_storage, 
-                                   zval ***return_value_ptr TSRMLS_DC);
+                                   void *internal_object, zval **php_object_storage TSRMLS_DC);
 extern void mapscript_create_color(colorObj *color, parent_object parent, zval *return_value TSRMLS_DC);
 extern void mapscript_create_rect(rectObj *rect, parent_object php_parent, zval *return_value TSRMLS_DC);
 extern void mapscript_create_hashtable(hashTableObj *hashtable, parent_object parent, zval *return_value TSRMLS_DC);
@@ -769,6 +763,7 @@ int cgirequestObj_loadParams(cgiRequestObj *self,
                              ms_uint32 raw_post_data_length,
                              void* thread_context);
 void cgirequestObj_setParameter(cgiRequestObj *self, char *name, char *value);
+void cgirequestObj_addParameter(cgiRequestObj *self, char *name, char *value);
 char *cgirequestObj_getName(cgiRequestObj *self, int index);
 char *cgirequestObj_getValue(cgiRequestObj *self, int index);
 char *cgirequestObj_getValueByName(cgiRequestObj *self, const char *name);

@@ -15,6 +15,42 @@ For a complete change history, please see the Subversion log comments.
 Current Version (SVN trunk, 6.1-dev, future 6.2): 
 -------------------------------------------------
 
+- WCS 2.0: Adjusted offset vector and origin (#4006)
+
+- Added addParameter() method to MapScript (#3973)
+
+- Changed msDrawVectorLayer() not to cache shapes if attribute binding is present after	the first style	(#3976)
+
+- Fix mapscript to build when TRUE macro is not defined (#3926)
+
+- Fix mapscript php build issues with MSVC (#4004)
+
+- PHP MapScript is missing many styleObj properties (#3901)
+
+- PHP/Mapscript: Segmentation fault when getting complex object using PHP 5.2  (#3930)
+
+- PHP/Mapscript: Fixed webObj->metadata returns a webObj (#3971)
+
+- WCS 1.1: Added check for imageCRS in msOWSCommonBoundingBox() (#3966)
+
+- Fixed contains operator in logical expresions (#3974)
+
+- WCS 1.0: WCS Exceptions raise mapscript exceptions (#3972)
+
+- WMS: LAYERS parameter is optional when sld is given (#1166)
+
+- Add runtime substitution for "filename" output format option (#3571) and
+  allow setting defaults in either metadata or validation (preferred) blocks
+  for both layer and output format.
+
+- Add non antialiased text rendering for GD (#3896)
+
+- Fixed OGC filter using expressions (#3481)
+
+- Fix incorrect rendering of GD lines between 1 and 2 pixels wide (#3962)
+
+- Add gamma correction to AGG polygon rendering (#3165)
+
 - Initialize the scalebar image color to transparent by default (#3957)
 
 IMPORTANT SECURITY FIX:
@@ -88,6 +124,8 @@ IMPORTANT SECURITY FIX:
   (#3919).
 
 - Fix GetMapserverUnitUsingProj() for proj=latlong (#3883)
+
+- Add support for OGR output of 2.5D geometries (#3906)
 
 
 Version 6.0.0 (2011-05-11)

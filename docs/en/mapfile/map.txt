@@ -1,9 +1,19 @@
+.. index::
+   single: MAP
+
 .. _map:
 
 *****************************************************************************
  MAP
 *****************************************************************************
 
+.. note::
+   The map object is started with the word `MAP`, and ended with the
+   word `END`.
+
+.. index::
+   pair: MAP; ANGLE
+    
 ANGLE [double]
    Angle, given in degrees, to rotate the map. Default is 0. The
    rendered map will rotate in a clockwise direction. The following
@@ -31,7 +41,7 @@ ANGLE [double]
 .. _`Wiki Page`: http://trac.osgeo.org/mapserver/wiki/MapRotation 
 
 .. index::
-    pair: CONFIG; MAP
+   pair: MAP; CONFIG
     
 CONFIG [key] [value]
     This can be used to specify several values at run-time, for both
@@ -41,16 +51,25 @@ CONFIG [key] [value]
     (`GDAL`_/`OGR`_). The following options are available specifically
     for MapServer:
 
+    .. index::
+       triple: MAP; CONFIG; CGI_CONTEXT_URL
+    
     CGI_CONTEXT_URL [value]
        This `CONFIG` parameter can be used to enable loading a map
        context from a URL. See the :ref:`Map Context
        HowTo<map_context>` for more info.
 
+    .. index::
+       triple: MAP; CONFIG; MS_ENCRYPTION_KEY
+    
     MS_ENCRYPTION_KEY [filename]
        This `CONFIG` parameter can be used to specify an encryption
        key that is used with MapServer's :ref:`msencypt
        utility<msencrypt>`.
  
+    .. index::
+       triple: MAP; CONFIG; MS_ERRORFILE
+    
     MS_ERRORFILE [filename]
        This `CONFIG` parameter can be used to write MapServer errors
        to a file (as of MapServer 5.0). With MapServer 5.x, a full
@@ -63,10 +82,16 @@ CONFIG [key] [value]
        make the path relative to.  For more on this see the `DEBUG`
        parameter below.
 
+    .. index::
+       triple: MAP; CONFIG; MS_NONSQUARE
+    
     MS_NONSQUARE [yes|no]
        This `CONFIG` parameter can be used to allow non-square WMS
        requests.
 
+    .. index::
+       triple: MAP; CONFIG; ON_MISSING_DATA
+    
     ON_MISSING_DATA [FAIL|LOG|IGNORE]
        This `CONFIG` parameter can be used to tell MapServer how to
        handle missing data in tile indexes (as of MapServer 5.3-dev,
@@ -101,6 +126,9 @@ CONFIG [key] [value]
 
              CONFIG "ON_MISSING_DATA" "IGNORE" 
    
+    .. index::
+       triple: MAP; CONFIG; PROJ_LIB
+    
     PROJ_LIB [path]
         This `CONFIG` parameter can be used to define the location of
         your EPSG files for the :term:`Proj.4` library. Setting the
@@ -121,6 +149,9 @@ CONFIG [key] [value]
 
              CONFIG "PROJ_LIB" "C:/somedir/proj/nad/"
 
+.. index::
+   pair: MAP; DATAPATTERN
+    
 .. _DATAPATTERN:
 
 DATAPATTERN [regular expression]
@@ -132,6 +163,9 @@ DATAPATTERN [regular expression]
     default operation being very conservative. See also
     TEMPLATEPATTERN_.
 
+.. index::
+   pair: MAP; DEBUG
+    
 DEBUG [off|on|0|1|2|3|4|5]
     Enables debugging of all of the layers in the current map. 
 
@@ -202,7 +236,7 @@ DEBUG [off|on|0|1|2|3|4|5]
     option).
 
 .. index::
-    pair: DEFRESOLUTION; MAP
+    pair: MAP; DEFRESOLUTIONx
     
 DEFRESOLUTION [int] 
     Sets the reference resolution (pixels per inch) used for
@@ -215,6 +249,9 @@ DEFRESOLUTION [int]
 
     .. versionadded:: 5.6
 
+.. index::
+   pair: MAP; EXTENT
+    
 EXTENT [minx] [miny] [maxx] [maxy]
     The spatial extent of the map to be created. In most cases you
     will need to specify this, although MapServer can sometimes
@@ -224,14 +261,17 @@ EXTENT [minx] [miny] [maxx] [maxy]
     Filename of fontset file to use. Can be a path relative to the
     mapfile, or a full path.
 
+.. index::
+   pair: MAP; IMAGECOLOR
+    
 IMAGECOLOR [r] [g] [b]
     Color to initialize the map with (i.e. background color). When
-    transparency is enabled (*TRANSPARENT ON*) for the typical case of
-    8-bit pseudocolored map generation, this color will be marked as
-    transparent in the output file palette. Any other map components
-    drawn in this color will also be transparent, so for map
-    generation with transparency it is best to use an otherwise unused
-    color as the background color.
+    transparency is enabled (*TRANSPARENT ON* in :ref:`OUTPUTFORMAT`)
+    for the typical case of 8-bit pseudocolored map generation, this
+    color will be marked as transparent in the output file
+    palette. Any other map components drawn in this color will also be
+    transparent, so for map generation with transparency it is best to
+    use an otherwise unused color as the background color.
 
 IMAGEQUALITY [int]
     *Deprecated* Use **FORMATOPTION "QUALITY=n"** in the
@@ -240,6 +280,9 @@ IMAGEQUALITY [int]
     
     .. deprecated:: 4.6
 
+.. index::
+   pair: MAP; IMAGETYPE
+    
 .. _imagetype:
 
 IMAGETYPE [gif|png|jpeg|wbmp|gtiff|swf|userdefined]
@@ -255,33 +298,54 @@ INTERLACE [on|off]
     
     .. deprecated:: 4.6
 
+.. index::
+   pair: MAP; LAYER
+    
 :ref:`LAYER`
     Signals the start of a :ref:`LAYER` object.
 
+.. index::
+   pair: MAP; LEGEND
+    
 :ref:`LEGEND`
     Signals the start of a :ref:`LEGEND` object.
 
+.. index::
+   pair: MAP; MAXSIZE
+    
 MAXSIZE [integer]
     Sets the maximum size of the map image. This will override the
     default value. For example, setting this to 2048 means that you
     can have up to 2048 pixels in both dimensions (i.e. max of
     2048x2048).  Default is 2048.
 
+.. index::
+   pair: MAP; NAME
+    
 NAME [name]
     Prefix attached to map, scalebar and legend GIF filenames created
     using this mapfile. It should be kept short.
 
+.. index::
+   pair: MAP; PROJECTION
+    
 :ref:`PROJECTION`
     Signals the start of a :ref:`PROJECTION` object.
 
+.. index::
+   pair: MAP; QUERYMAP
+    
 :ref:`QUERYMAP`
     Signals the start of a :ref:`QUERYMAP` object.
 
+.. index::
+   pair: MAP; REFERENCE
+    
 :ref:`REFERENCE`
     Signals the start of a :ref:`REFERENCE` MAP object.
 
 .. index::
-    pair: RESOLUTION; MAP
+   pair: MAP; RESOLUTION
     
 .. _resolution-parameter:
 
@@ -289,7 +353,7 @@ RESOLUTION [int] Sets the pixels per inch for output, only affects
     scale computations.  Default is 72.
 
 .. index::
-    pair: SCALEDENOM; MAP
+   pair: MAP; SCALEDENOM
     
 SCALEDENOM [double]
     Computed scale of the map. Set most often by the application.
@@ -311,29 +375,51 @@ SCALE [double] - deprecated
     
     .. deprecated:: 5.0
 
+.. index::
+   pair: MAP; SCALEBAR
+    
 SCALEBAR
     Signals the start of a :ref:`SCALEBAR` object.
 
+.. index::
+   pair: MAP; SHAPEPATH
+    
 SHAPEPATH [filename]
     Path to the directory holding the shapefiles or tiles. There can
     be further subdirectories under `SHAPEPATH`.
 
+.. index::
+   pair: MAP; SIZE
+    
 SIZE [x][y]
     Size in pixels of the output image (i.e. the map).
 
+.. index::
+   pair: MAP; STATUS
+    
 STATUS [on|off]
     Is the map active? Sometimes you may wish to turn this off to use
     only the reference map or scale bar.
 
+.. index::
+   pair: MAP; SYMBOLSET
+    
 .. _SYMBOLSET:
 
 SYMBOLSET [filename]
     Filename of the symbolset to use. Can be a path relative to the
     mapfile, or a full path.
 
+    .. note::
+       The `SYMBOLSET` file must start with the word `SYMBOLSET` and
+       end with the word `END`.
+
 :ref:`SYMBOL`
     Signals the start of a :ref:`SYMBOL` object.
 
+.. index::
+   pair: MAP; TEMPLATEPATTERN
+    
 .. _TEMPLATEPATTERN:
 
 TEMPLATEPATTERN [regular expression]
@@ -346,14 +432,21 @@ TEMPLATEPATTERN [regular expression]
     DATAPATTERN_.
 
 TRANSPARENT [on|off]
-    Use *FORMATOPTION "TRANSPARENT=ON"* in the :ref:`OUTPUTFORMAT`
-    declaration to specify if the output images should be transparent.
-    
+
     .. deprecated:: 4.6
 
+    Use *TRANSPARENT ON* in the :ref:`OUTPUTFORMAT`
+    declaration to specify if the output images should be transparent.
+    
+.. index::
+   pair: MAP; UNITS
+    
 UNITS [feet|inches|kilometers|meters|miles|nauticalmiles|dd]
     Units of the map coordinates. Used for scalebar and scale
     computations.  `Nauticalmiles` was added in MapServer 5.6.
+
+.. index::
+   pair: MAP; WEB
 
 :ref:`WEB`
     Signals the start of a :ref:`WEB` object.
