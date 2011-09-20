@@ -355,6 +355,7 @@ int msIO_printf( const char *format, ... )
     if( context == NULL )
         return -1;
 
+
     return_val = msIO_contextWrite( context, 
                                     largerBuf?largerBuf:workBuf, 
                                     return_val );
@@ -536,7 +537,16 @@ static int msIO_stdioRead( void *cbData, void *data, int byteCount )
 static int msIO_stdioWrite( void *cbData, void *data, int byteCount )
 
 {
-    return fwrite( data, 1, byteCount, (FILE *) cbData );
+#ifdef USE_COUCHDB	
+    // write the packet header
+     unsigned char hdrOut[4];
+     hdrOut[0] = (byteCount >> 24) & 0xFF;
+     hdrOut[1] = (byteCount >> 16) & 0xFF;
+     hdrOut[2] = (byteCount >> 8) & 0xFF;
+     hdrOut[3] = byteCount & 0xFF;
+     fwrite (hdrOut, 1, 4, (FILE *) cbData );
+#endif
+     return fwrite( data, 1, byteCount, (FILE *) cbData );
 }
 
 /************************************************************************/

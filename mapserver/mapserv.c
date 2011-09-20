@@ -1185,14 +1185,31 @@ int main(int argc, char *argv[]) {
 #endif /* def USE_FASTCGI */
 
 #ifdef USE_COUCHDB
-  while (1) {
+  char *request_string;
+  msIOContext *context;
+  int li, idx;
+  unsigned char hdrIn[4];
 
-    int bytes_read;
-    size_t nbytes = 100;
-    char *request_string;
+  context = msIO_getHandler( stdin );
+  if( context == NULL )
+  {
+      writeError();
+  }
 
-    request_string = (char *) malloc (nbytes + 1);
-    bytes_read = getline (&request_string, &nbytes, stdin);
+  while (!feof((*context).cbData)) {
+    // read the length header, size is 4 bytes
+    if (msIO_contextRead(context, hdrIn, 4) != 4)
+      continue;
+
+    li = 0;
+    
+    for (idx = 0; idx < 4; idx++)
+    {
+        li = (li << 8) | hdrIn[idx];
+    }
+
+    request_string = (char *) malloc(li);
+    msIO_contextRead(context, request_string, li);
     setenv("REQUEST_METHOD", "GET", 1);
     setenv("QUERY_STRING", request_string, 1);
     free(request_string);
@@ -1202,7 +1219,6 @@ int main(int argc, char *argv[]) {
     /* -------------------------------------------------------------------- */
     mapserv = msAllocMapServObj();
     mapserv->sendheaders = sendheaders; /* override the default if necessary (via command line -nh switch) */
-
     mapserv->request->NumParams = loadParams(mapserv->request, NULL, NULL, 0, NULL);
     if( mapserv->request->NumParams == -1 ) {
 #if defined(USE_FASTCGI) || defined(USE_COUCHDB)
@@ -1307,8 +1323,8 @@ int main(int argc, char *argv[]) {
       msFreeMapServObj(mapserv);      
 
 #ifdef USE_COUCHDB
-      msIO_printf("\nCouchDB_Done\n");
       // force flush
+      msIO_printf("CouchDB_Done");
       fflush(stdout);
       continue;
 #endif
