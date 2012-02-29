@@ -1208,10 +1208,11 @@ int main(int argc, char *argv[]) {
         li = (li << 8) | hdrIn[idx];
     }
 
-    request_string = (char *) malloc(li);
+    request_string = (char *) calloc(li + 1, sizeof(char));
     msIO_contextRead(context, request_string, li);
     setenv("REQUEST_METHOD", "GET", 1);
     setenv("QUERY_STRING", request_string, 1);
+ 
     free(request_string);
 #endif
     /* -------------------------------------------------------------------- */
@@ -1879,3 +1880,4 @@ int main(int argc, char *argv[]) {
 
   exit(0); /* end MapServer */
 } 
+
